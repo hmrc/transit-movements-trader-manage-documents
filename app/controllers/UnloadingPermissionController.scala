@@ -16,24 +16,19 @@
 
 package controllers
 
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
-import org.scalatest.OptionValues
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import javax.inject.Inject
+import play.api.mvc.Action
+import play.api.mvc.AnyContent
+import play.api.mvc.ControllerComponents
+import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
-class UnloadingRemarksControllerSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with OptionValues {
 
-  "post" - {
+class UnloadingPermissionController @Inject()(
+                                            cc: ControllerComponents
+                                          ) extends BackendController(cc) {
 
-    "must return Not Implemented" in {
-
-      val request = FakeRequest(POST, routes.UnloadingRemarksController.post().url)
-
-      val result = route(app, request).value
-
-      status(result) mustEqual NOT_IMPLEMENTED
-    }
+  def post(): Action[AnyContent] = Action {
+    implicit request =>
+      NotImplemented
   }
 }
