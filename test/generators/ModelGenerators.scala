@@ -64,4 +64,14 @@ trait ModelGenerators {
 
       Gen.oneOf(arbitrary[BulkPackage], arbitrary[UnpackedPackage], arbitrary[RegularPackage])
     }
+
+  implicit lazy val arbitraryProducedDocument: Arbitrary[ProducedDocument] =
+    Arbitrary {
+
+      for {
+        documentType <- stringWithMaxLength(4)
+        reference    <- Gen.option(stringWithMaxLength(35))
+        complement   <- Gen.option(stringWithMaxLength(26))
+      } yield ProducedDocument(documentType, reference, complement)
+    }
 }
