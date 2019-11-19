@@ -17,6 +17,7 @@
 package generators
 
 import models._
+import net.ceedubs.ficus.readers.ArbitraryTypeReader
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen, Shrink}
 
@@ -73,5 +74,26 @@ trait ModelGenerators {
         reference    <- Gen.option(stringWithMaxLength(35))
         complement   <- Gen.option(stringWithMaxLength(26))
       } yield ProducedDocument(documentType, reference, complement)
+    }
+
+  implicit lazy val arbitrarySpecialMentionEc: Arbitrary[SpecialMentionEc] =
+    Arbitrary {
+
+      stringWithMaxLength(5).map(SpecialMentionEc(_))
+    }
+
+  implicit lazy val arbitrarySpecialMentionNonEc: Arbitrary[SpecialMentionNonEc] =
+    Arbitrary  {
+
+      for {
+        additionalInfo <- stringWithMaxLength(5)
+        exportCountry  <- stringWithMaxLength(2)
+      } yield SpecialMentionNonEc(additionalInfo, exportCountry)
+    }
+
+  implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
+    Arbitrary {
+
+      Gen.oneOf(arbitrary[SpecialMentionEc], arbitrary[SpecialMentionNonEc])
     }
 }
