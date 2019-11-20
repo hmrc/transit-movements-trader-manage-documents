@@ -96,4 +96,35 @@ trait ModelGenerators {
 
       Gen.oneOf(arbitrary[SpecialMentionEc], arbitrary[SpecialMentionNonEc])
     }
+
+  implicit lazy val arbitraryTraderAtDestinationWithEori: Arbitrary[TraderAtDestinationWithEori] =
+    Arbitrary {
+
+      for {
+        eori            <- stringWithMaxLength(17)
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        countryCode     <- Gen.option(stringWithMaxLength(2))
+      } yield TraderAtDestinationWithEori(eori, name, streetAndNumber, postCode, city, countryCode)
+    }
+
+  implicit lazy val arbitraryTraderAtDestinationWithoutEori: Arbitrary[TraderAtDestinationWithoutEori] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        countryCode     <- stringWithMaxLength(2)
+      } yield TraderAtDestinationWithoutEori(name, streetAndNumber, postCode, city, countryCode)
+    }
+
+  implicit lazy val arbitraryTraderAtDestination: Arbitrary[TraderAtDestination] =
+    Arbitrary {
+
+      Gen.oneOf(arbitrary[TraderAtDestinationWithEori], arbitrary[TraderAtDestinationWithoutEori])
+    }
 }
