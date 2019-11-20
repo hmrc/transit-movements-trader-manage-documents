@@ -127,4 +127,44 @@ trait ModelGenerators {
 
       Gen.oneOf(arbitrary[TraderAtDestinationWithEori], arbitrary[TraderAtDestinationWithoutEori])
     }
+
+  implicit lazy val arbitraryConsignee: Arbitrary[Consignee] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield Consignee(name, streetAndNumber, postCode, city, country, eori)
+    }
+
+  implicit lazy val arbitraryConsignor: Arbitrary[Consignor] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield Consignor(name, streetAndNumber, postCode, city, country, eori)
+    }
+
+  implicit lazy val arbitraryPrincipal: Arbitrary[Principal] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        eori            <- Gen.option(stringWithMaxLength(17))
+        tin             <- Gen.option(stringWithMaxLength(17))
+      } yield Principal(name, streetAndNumber, postCode, city, country, eori, tin)
+    }
 }
