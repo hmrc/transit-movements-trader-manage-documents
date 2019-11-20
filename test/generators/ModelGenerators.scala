@@ -167,4 +167,10 @@ trait ModelGenerators {
         tin             <- Gen.option(stringWithMaxLength(17))
       } yield Principal(name, streetAndNumber, postCode, city, country, eori, tin)
     }
+
+  implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
+    Arbitrary {
+
+      Gen.oneOf(DeclarationType.values)
+    }
 }
