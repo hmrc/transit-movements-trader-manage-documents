@@ -17,7 +17,6 @@
 package generators
 
 import models._
-import net.ceedubs.ficus.readers.ArbitraryTypeReader
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen, Shrink}
 
@@ -30,6 +29,18 @@ trait ModelGenerators {
       length <- Gen.choose(1, maxLength)
       chars  <- Gen.listOfN(length, Gen.alphaNumChar)
     } yield chars.mkString
+
+  def listWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[Seq[T]] =
+    for {
+      size  <- Gen.choose(0, maxSize)
+      items <- Gen.listOfN(size, gen)
+    } yield items
+
+  def nonEmptyListWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[Seq[T]] =
+    for {
+      size  <- Gen.choose(1, maxSize)
+      items <- Gen.listOfN(size, gen)
+    } yield items
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {
@@ -172,5 +183,28 @@ trait ModelGenerators {
     Arbitrary {
 
       Gen.oneOf(DeclarationType.values)
+    }
+
+  implicit lazy val arbitraryGoodsItem: Arbitrary[GoodsItem] =
+    Arbitrary {
+
+      for {
+        itemNumber           <- Gen.choose(1, 99999)
+        commodityCode        <- Gen.option(stringWithMaxLength(22))
+        declarationType      <- Gen.option(arbitrary[DeclarationType])
+        description          <- stringWithMaxLength(280)
+        grossMass            <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        netMass              <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        countryOfDispatch    <- stringWithMaxLength(2)
+        countryOfDestination <- stringWithMaxLength(2)
+        producedDocuments    <- listWithMaxSize(99, arbitrary[ProducedDocument])
+        specialMentions      <- listWithMaxSize(99, arbitrary[SpecialMention])
+        consignor            <- Gen.option(arbitrary[Consignor])
+        consignee            <- Gen.option(arbitrary[Consignee])
+        containers           <- listWithMaxSize(99, stringWithMaxLength(17))
+        packages             <- listWithMaxSize(99, arbitrary[Package])
+      } yield
+        GoodsItem(itemNumber, commodityCode, declarationType, description, grossMass, netMass, countryOfDispatch,
+          countryOfDestination, producedDocuments, specialMentions, consignor, consignee, containers, packages)
     }
 }
