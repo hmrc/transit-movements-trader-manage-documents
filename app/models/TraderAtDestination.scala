@@ -37,7 +37,7 @@ object TraderAtDestination {
       TraderAtDestinationWithoutEori.reads
   }
 
-  implicit lazy val writes: Writes[TraderAtDestination] = Writes{
+  implicit lazy val writes: Writes[TraderAtDestination] = Writes {
     case t: TraderAtDestinationWithEori    => Json.toJson(t)(TraderAtDestinationWithEori.writes)
     case t: TraderAtDestinationWithoutEori => Json.toJson(t)(TraderAtDestinationWithoutEori.writes)
   }

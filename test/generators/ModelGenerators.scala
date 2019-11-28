@@ -16,6 +16,8 @@
 
 package generators
 
+import java.time.{Instant, LocalDate, ZoneOffset}
+
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen, Shrink}
@@ -41,6 +43,17 @@ trait ModelGenerators {
       size  <- Gen.choose(1, maxSize)
       items <- Gen.listOfN(size, gen)
     } yield items
+
+  def datesBetween(min: LocalDate, max: LocalDate): Gen[LocalDate] = {
+
+    def toMillis(date: LocalDate): Long =
+      date.atStartOfDay.atZone(ZoneOffset.UTC).toInstant.toEpochMilli
+
+    Gen.choose(toMillis(min), toMillis(max)).map {
+      millis =>
+        Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
+    }
+  }
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {
@@ -197,14 +210,47 @@ trait ModelGenerators {
         netMass              <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         countryOfDispatch    <- stringWithMaxLength(2)
         countryOfDestination <- stringWithMaxLength(2)
-        producedDocuments    <- listWithMaxSize(99, arbitrary[ProducedDocument])
-        specialMentions      <- listWithMaxSize(99, arbitrary[SpecialMention])
+        producedDocuments    <- listWithMaxSize(9, arbitrary[ProducedDocument])
+        specialMentions      <- listWithMaxSize(9, arbitrary[SpecialMention])
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
-        containers           <- listWithMaxSize(99, stringWithMaxLength(17))
-        packages             <- listWithMaxSize(99, arbitrary[Package])
+        containers           <- listWithMaxSize(9, stringWithMaxLength(17))
+        packages             <- listWithMaxSize(9, arbitrary[Package])
       } yield
         GoodsItem(itemNumber, commodityCode, declarationType, description, grossMass, netMass, countryOfDispatch,
           countryOfDestination, producedDocuments, specialMentions, consignor, consignee, containers, packages)
+    }
+
+  implicit lazy val arbitraryPermissionToContinueUnloading: Arbitrary[PermissionToContinueUnloading] =
+    Arbitrary {
+
+      for {
+        mrn                <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        continue           <- Gen.choose(1, 9)
+        presentationOffice <- stringWithMaxLength(8)
+        trader             <- arbitrary[TraderAtDestination]
+      } yield PermissionToContinueUnloading(mrn, continue, presentationOffice, trader)
+    }
+
+  implicit lazy val arbitraryPermissionToStartUnloading: Arbitrary[PermissionToStartUnloading] =
+    Arbitrary {
+
+      for {
+        mrn                 <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        declarationType     <- arbitrary[DeclarationType]
+        transportId         <- Gen.option(stringWithMaxLength(27))
+        transportCountry    <- Gen.option(stringWithMaxLength(2))
+        acceptanceDate      <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+        numberOfItems       <- Gen.choose(1, 99999)
+        numberOfPackages    <- Gen.choose(1, 9999999)
+        grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        principal           <- arbitrary[Principal]
+        traderAtDestination <- arbitrary[TraderAtDestination]
+        presentationOffice  <- stringWithMaxLength(8)
+        seals               <- listWithMaxSize(9, stringWithMaxLength(20))
+        goodsItems          <- listWithMaxSize(9, arbitrary[GoodsItem])
+      } yield
+        PermissionToStartUnloading(mrn, declarationType, transportId, transportCountry, acceptanceDate,
+          numberOfItems, numberOfPackages, grossMass, principal, traderAtDestination, presentationOffice, seals, goodsItems)
     }
 }
