@@ -17,16 +17,17 @@
 package controllers
 
 import javax.inject.Inject
-import play.api.mvc.{Action, AnyContent, ControllerComponents}
+import play.api.mvc.Action
+import play.api.mvc.AnyContent
+import play.api.mvc.ControllerComponents
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
 class UnloadingRemarksController @Inject()(
-                                            cc: ControllerComponents
-                                          ) extends BackendController(cc) {
+  cc: ControllerComponents
+) extends BackendController(cc) {
 
   def post(): Action[AnyContent] = Action {
     implicit request =>
-
       NotImplemented
   }
 }
