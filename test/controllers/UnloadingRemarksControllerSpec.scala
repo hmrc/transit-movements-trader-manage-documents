@@ -16,7 +16,9 @@
 
 package controllers
 
-import org.scalatest.{FreeSpec, MustMatchers, OptionValues}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
+import org.scalatest.OptionValues
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
