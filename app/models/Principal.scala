@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.{Json, OWrites, Reads}
 
 final case class Principal(
                             name: String,
@@ -33,6 +33,6 @@ object Principal {
   implicit lazy val reads: Reads[Principal] =
     Json.reads[Principal]
 
-  implicit lazy val writes: Writes[Principal] =
+  implicit lazy val writes: OWrites[Principal] =
     Json.writes[Principal]
 }

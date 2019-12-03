@@ -37,9 +37,9 @@ object SpecialMention {
       SpecialMentionNonEc.reads
   }
 
-  implicit lazy val writes: Writes[SpecialMention] = Writes {
-    case ec: SpecialMentionEc     => Json.toJson(ec)(SpecialMentionEc.writes)
-    case non: SpecialMentionNonEc => Json.toJson(non)(SpecialMentionNonEc.writes)
+  implicit lazy val writes: OWrites[SpecialMention] = OWrites {
+    case ec: SpecialMentionEc     => Json.toJsObject(ec)(SpecialMentionEc.writes)
+    case non: SpecialMentionNonEc => Json.toJsObject(non)(SpecialMentionNonEc.writes)
   }
 }
 
@@ -62,7 +62,7 @@ object SpecialMentionEc {
       .map(SpecialMentionEc(_)))
   }
 
-  implicit lazy val writes: Writes[SpecialMentionEc] = {
+  implicit lazy val writes: OWrites[SpecialMentionEc] = {
 
     import play.api.libs.functional.syntax._
 
@@ -99,7 +99,7 @@ object SpecialMentionNonEc {
     )
   }
 
-  implicit lazy val writes: Writes[SpecialMentionNonEc] = {
+  implicit lazy val writes: OWrites[SpecialMentionNonEc] = {
 
     import play.api.libs.functional.syntax._
 

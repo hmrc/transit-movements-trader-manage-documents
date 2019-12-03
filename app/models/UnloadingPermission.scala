@@ -39,9 +39,9 @@ object UnloadingPermission {
       PermissionToContinueUnloading.reads
   }
 
-  implicit lazy val writes: Writes[UnloadingPermission] = Writes {
-    case up: PermissionToContinueUnloading => Json.toJson(up)(PermissionToContinueUnloading.writes)
-    case up: PermissionToStartUnloading    => Json.toJson(up)(PermissionToStartUnloading.writes)
+  implicit lazy val writes: OWrites[UnloadingPermission] = OWrites {
+    case up: PermissionToContinueUnloading => Json.toJsObject(up)(PermissionToContinueUnloading.writes)
+    case up: PermissionToStartUnloading    => Json.toJsObject(up)(PermissionToStartUnloading.writes)
   }
 }
 

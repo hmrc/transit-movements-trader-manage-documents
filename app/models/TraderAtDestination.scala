@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.{Json, OWrites, Reads}
 
 sealed trait TraderAtDestination
 
@@ -37,9 +37,9 @@ object TraderAtDestination {
       TraderAtDestinationWithoutEori.reads
   }
 
-  implicit lazy val writes: Writes[TraderAtDestination] = Writes {
-    case t: TraderAtDestinationWithEori    => Json.toJson(t)(TraderAtDestinationWithEori.writes)
-    case t: TraderAtDestinationWithoutEori => Json.toJson(t)(TraderAtDestinationWithoutEori.writes)
+  implicit lazy val writes: OWrites[TraderAtDestination] = OWrites {
+    case t: TraderAtDestinationWithEori    => Json.toJsObject(t)(TraderAtDestinationWithEori.writes)
+    case t: TraderAtDestinationWithoutEori => Json.toJsObject(t)(TraderAtDestinationWithoutEori.writes)
   }
 }
 
@@ -57,7 +57,7 @@ object TraderAtDestinationWithEori {
   implicit lazy val reads: Reads[TraderAtDestinationWithEori] =
     Json.reads[TraderAtDestinationWithEori]
 
-  implicit lazy val writes: Writes[TraderAtDestinationWithEori] =
+  implicit lazy val writes: OWrites[TraderAtDestinationWithEori] =
     Json.writes[TraderAtDestinationWithEori]
 }
 
@@ -74,6 +74,6 @@ object TraderAtDestinationWithoutEori {
   implicit lazy val reads: Reads[TraderAtDestinationWithoutEori] =
     Json.reads[TraderAtDestinationWithoutEori]
 
-  implicit lazy val writes: Writes[TraderAtDestinationWithoutEori] =
+  implicit lazy val writes: OWrites[TraderAtDestinationWithoutEori] =
     Json.writes[TraderAtDestinationWithoutEori]
 }

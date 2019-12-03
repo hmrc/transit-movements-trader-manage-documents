@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.{Json, OWrites, Reads}
 
 final case class Consignor(
                             name: String,
@@ -32,6 +32,6 @@ object Consignor {
   implicit lazy val reads: Reads[Consignor] =
     Json.reads[Consignor]
 
-  implicit lazy val writes: Writes[Consignor] =
+  implicit lazy val writes: OWrites[Consignor] =
     Json.writes[Consignor]
 }

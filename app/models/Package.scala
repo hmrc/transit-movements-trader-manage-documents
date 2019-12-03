@@ -38,10 +38,10 @@ object Package {
       RegularPackage.reads
   }
 
-  implicit lazy val writes: Writes[Package] = Writes {
-    case b: BulkPackage     => Json.toJson(b)(BulkPackage.writes)
-    case u: UnpackedPackage => Json.toJson(u)(UnpackedPackage.writes)
-    case r: RegularPackage  => Json.toJson(r)(RegularPackage.writes)
+  implicit lazy val writes: OWrites[Package] = OWrites {
+    case b: BulkPackage     => Json.toJsObject(b)(BulkPackage.writes)
+    case u: UnpackedPackage => Json.toJsObject(u)(UnpackedPackage.writes)
+    case r: RegularPackage  => Json.toJsObject(r)(RegularPackage.writes)
   }
 }
 

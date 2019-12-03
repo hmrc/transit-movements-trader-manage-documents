@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.{Json, OWrites, Reads}
 
 final case class ProducedDocument(
                                    documentType: String,
@@ -29,6 +29,6 @@ object ProducedDocument {
   implicit lazy val reads: Reads[ProducedDocument] =
     Json.reads[ProducedDocument]
 
-  implicit lazy val writes: Writes[ProducedDocument] =
+  implicit lazy val writes: OWrites[ProducedDocument] =
     Json.writes[ProducedDocument]
 }

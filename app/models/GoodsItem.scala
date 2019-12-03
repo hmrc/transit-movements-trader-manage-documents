@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.{Json, OWrites, Reads}
 
 final case class GoodsItem(
                             itemNumber: Int,
@@ -39,6 +39,6 @@ object GoodsItem {
   implicit lazy val reads: Reads[GoodsItem] =
     Json.reads[GoodsItem]
 
-  implicit lazy val writes: Writes[GoodsItem] =
+  implicit lazy val writes: OWrites[GoodsItem] =
     Json.writes[GoodsItem]
 }
