@@ -23,13 +23,13 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
-class UnloadingRemarksControllerSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with OptionValues {
+class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with OptionValues {
 
   "post" - {
 
     "must return Not Implemented" in {
 
-      val request = FakeRequest(POST, routes.UnloadingRemarksController.post().url)
+      val request = FakeRequest(POST, routes.UnloadingPermissionController.post().url)
 
       val result = route(app, request).value
 
