@@ -26,9 +26,7 @@ import play.api.test.Helpers._
 class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with OptionValues {
 
   "post" - {
-
     "must return Not Implemented" in {
-
       val request = FakeRequest(POST, routes.UnloadingPermissionController.post().url)
 
       val result = route(app, request).value

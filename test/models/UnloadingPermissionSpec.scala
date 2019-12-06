@@ -25,12 +25,9 @@ import play.api.libs.json.{JsSuccess, Json}
 class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
   "Unloading Permission" - {
-
     "must deserialise to Permission to Start Unloading" in {
-
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
-
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
             "declarationType"         -> Json.toJson(permission.declarationType),
@@ -52,10 +49,8 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
     }
 
     "must deserialise to Permission to Continue Unloading" in {
-
       forAll(arbitrary[PermissionToContinueUnloading]) {
         permission =>
-
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
             "continueUnloading"       -> permission.continueUnloading,
@@ -67,22 +62,22 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
       }
     }
 
-    "must serialise from Permission to Start Unloading" in  {
-
+    "must serialise from Permission to Start Unloading" in {
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
-
-          val transportIdentityJson =
-            permission.transportIdentity.map {
+          val transportIdentityJson = permission.transportIdentity
+            .map {
               id =>
                 Json.obj("transportIdentity" -> id)
-            }.getOrElse(Json.obj())
+            }
+            .getOrElse(Json.obj())
 
-          val transportCountryJson =
-            permission.transportCountry.map {
+          val transportCountryJson = permission.transportCountry
+            .map {
               country =>
                 Json.obj("transportCountry" -> country)
-            }.getOrElse(Json.obj())
+            }
+            .getOrElse(Json.obj())
 
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
@@ -103,10 +98,8 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
     }
 
     "must serialise from Permission to Continue Unloading" in {
-
       forAll(arbitrary[PermissionToContinueUnloading]) {
         permission =>
-
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
             "continueUnloading"       -> permission.continueUnloading,
