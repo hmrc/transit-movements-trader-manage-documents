@@ -22,10 +22,7 @@ import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
-
-class UnloadingPermissionController @Inject()(
-                                            cc: ControllerComponents
-                                          ) extends BackendController(cc) {
+class UnloadingPermissionController @Inject()(cc: ControllerComponents) extends BackendController(cc) {
 
   def post(): Action[AnyContent] = Action {
     implicit request =>

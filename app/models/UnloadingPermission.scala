@@ -25,18 +25,14 @@ sealed trait UnloadingPermission
 object UnloadingPermission {
 
   implicit lazy val reads: Reads[UnloadingPermission] = {
-
     implicit class ReadsWithContravariantOr[A](a: Reads[A]) {
 
-      def or[B >: A](b: Reads[B]): Reads[B] =
-        a.map[B](identity).orElse(b)
+      def or[B >: A](b: Reads[B]): Reads[B] = a.map[B](identity).orElse(b)
     }
 
-    implicit def convertToSupertype[A, B >: A](a: Reads[A]): Reads[B] =
-      a.map(identity)
+    implicit def convertToSupertype[A, B >: A](a: Reads[A]): Reads[B] = a.map(identity)
 
-    PermissionToStartUnloading.reads or
-      PermissionToContinueUnloading.reads
+    PermissionToStartUnloading.reads or PermissionToContinueUnloading.reads
   }
 
   implicit lazy val writes: OWrites[UnloadingPermission] = OWrites {
@@ -45,43 +41,37 @@ object UnloadingPermission {
   }
 }
 
-final case class PermissionToStartUnloading(
-                                             movementReferenceNumber: String,
-                                             declarationType: DeclarationType,
-                                             transportIdentity: Option[String],
-                                             transportCountry: Option[String],
-                                             acceptanceDate: LocalDate,
-                                             numberOfItems: Int,
-                                             numberOfPackages: Int,
-                                             grossMass: BigDecimal,
-                                             principal: Principal,
-                                             traderAtDestination: TraderAtDestination,
-                                             presentationOffice: String,
-                                             seals: Seq[String],
-                                             goodsItems: Seq[GoodsItem]
-                                           ) extends UnloadingPermission
+final case class PermissionToStartUnloading(movementReferenceNumber: String,
+                                            declarationType: DeclarationType,
+                                            transportIdentity: Option[String],
+                                            transportCountry: Option[String],
+                                            acceptanceDate: LocalDate,
+                                            numberOfItems: Int,
+                                            numberOfPackages: Int,
+                                            grossMass: BigDecimal,
+                                            principal: Principal,
+                                            traderAtDestination: TraderAtDestination,
+                                            presentationOffice: String,
+                                            seals: Seq[String],
+                                            goodsItems: Seq[GoodsItem])
+    extends UnloadingPermission
 
 object PermissionToStartUnloading {
 
-  implicit lazy val reads: Reads[PermissionToStartUnloading] =
-    Json.reads[PermissionToStartUnloading]
+  implicit lazy val reads: Reads[PermissionToStartUnloading] = Json.reads[PermissionToStartUnloading]
 
-  implicit lazy val writes: OWrites[PermissionToStartUnloading] =
-    Json.writes[PermissionToStartUnloading]
+  implicit lazy val writes: OWrites[PermissionToStartUnloading] = Json.writes[PermissionToStartUnloading]
 }
 
-final case class PermissionToContinueUnloading(
-                                                movementReferenceNumber: String,
-                                                continueUnloading: Int,
-                                                presentationOffice: String,
-                                                traderAtDestination: TraderAtDestination
-                                              ) extends UnloadingPermission
+final case class PermissionToContinueUnloading(movementReferenceNumber: String,
+                                               continueUnloading: Int,
+                                               presentationOffice: String,
+                                               traderAtDestination: TraderAtDestination)
+    extends UnloadingPermission
 
 object PermissionToContinueUnloading {
 
-  implicit lazy val reads: Reads[PermissionToContinueUnloading] =
-    Json.reads[PermissionToContinueUnloading]
+  implicit lazy val reads: Reads[PermissionToContinueUnloading] = Json.reads[PermissionToContinueUnloading]
 
-  implicit lazy val writes: OWrites[PermissionToContinueUnloading] =
-    Json.writes[PermissionToContinueUnloading]
+  implicit lazy val writes: OWrites[PermissionToContinueUnloading] = Json.writes[PermissionToContinueUnloading]
 }
