@@ -21,18 +21,14 @@ sealed trait DeclarationType
 object DeclarationType extends Enumerable.Implicits {
 
   case object TMinus extends WithName("T-") with DeclarationType
-
   case object T1 extends WithName("T1") with DeclarationType
-
   case object T2 extends WithName("T2") with DeclarationType
-
   case object T2F extends WithName("T2F") with DeclarationType
-
   case object T2SM extends WithName("T2SM") with DeclarationType
-
   case object TIR extends WithName("TIR") with DeclarationType
 
   val values: Set[DeclarationType] = Set(TMinus, T1, T2, T2F, T2SM, TIR)
 
-  implicit val enumerable: Enumerable[DeclarationType] = Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+  implicit val enumerable: Enumerable[DeclarationType] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

@@ -23,14 +23,18 @@ sealed trait TraderAtDestination
 object TraderAtDestination {
 
   implicit lazy val reads: Reads[TraderAtDestination] = {
+
     implicit class ReadsWithContravariantOr[A](a: Reads[A]) {
 
-      def or[B >: A](b: Reads[B]): Reads[B] = a.map[B](identity).orElse(b)
+      def or[B >: A](b: Reads[B]): Reads[B] =
+        a.map[B](identity).orElse(b)
     }
 
-    implicit def convertToSupertype[A, B >: A](a: Reads[A]): Reads[B] = a.map(identity)
+    implicit def convertToSupertype[A, B >: A](a: Reads[A]): Reads[B] =
+      a.map(identity)
 
-    TraderAtDestinationWithEori.reads or TraderAtDestinationWithoutEori.reads
+    TraderAtDestinationWithEori.reads or
+      TraderAtDestinationWithoutEori.reads
   }
 
   implicit lazy val writes: OWrites[TraderAtDestination] = OWrites {
@@ -39,27 +43,37 @@ object TraderAtDestination {
   }
 }
 
-final case class TraderAtDestinationWithEori(eori: String,
-                                             name: Option[String],
-                                             streetAndNumber: Option[String],
-                                             postCode: Option[String],
-                                             city: Option[String],
-                                             countryCode: Option[String])
-    extends TraderAtDestination
+final case class TraderAtDestinationWithEori(
+                                              eori: String,
+                                              name: Option[String],
+                                              streetAndNumber: Option[String],
+                                              postCode: Option[String],
+                                              city: Option[String],
+                                              countryCode: Option[String]
+                                            ) extends TraderAtDestination
 
 object TraderAtDestinationWithEori {
 
-  implicit lazy val reads: Reads[TraderAtDestinationWithEori] = Json.reads[TraderAtDestinationWithEori]
+  implicit lazy val reads: Reads[TraderAtDestinationWithEori] =
+    Json.reads[TraderAtDestinationWithEori]
 
-  implicit lazy val writes: OWrites[TraderAtDestinationWithEori] = Json.writes[TraderAtDestinationWithEori]
+  implicit lazy val writes: OWrites[TraderAtDestinationWithEori] =
+    Json.writes[TraderAtDestinationWithEori]
 }
 
-final case class TraderAtDestinationWithoutEori(name: String, streetAndNumber: String, postCode: String, city: String, countryCode: String)
-    extends TraderAtDestination
+final case class TraderAtDestinationWithoutEori (
+                                                  name: String,
+                                                  streetAndNumber: String,
+                                                  postCode: String,
+                                                  city: String,
+                                                  countryCode: String
+                                                ) extends TraderAtDestination
 
 object TraderAtDestinationWithoutEori {
 
-  implicit lazy val reads: Reads[TraderAtDestinationWithoutEori] = Json.reads[TraderAtDestinationWithoutEori]
+  implicit lazy val reads: Reads[TraderAtDestinationWithoutEori] =
+    Json.reads[TraderAtDestinationWithoutEori]
 
-  implicit lazy val writes: OWrites[TraderAtDestinationWithoutEori] = Json.writes[TraderAtDestinationWithoutEori]
+  implicit lazy val writes: OWrites[TraderAtDestinationWithoutEori] =
+    Json.writes[TraderAtDestinationWithoutEori]
 }

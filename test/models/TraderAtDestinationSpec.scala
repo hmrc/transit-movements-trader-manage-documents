@@ -25,16 +25,22 @@ import play.api.libs.json.{JsSuccess, Json}
 class TraderAtDestinationSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
   "Trader at Destination" - {
+
     "must deserialise to a Trader at Destination with an EORI" - {
+
       "when all address fields are present" in {
+
         forAll(arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String]) {
-          (eori, name, streetAndNumber, postCode, city, countryCode) =>
-            val json = Json.obj("eori" -> eori,
-                                "name"            -> name,
-                                "streetAndNumber" -> streetAndNumber,
-                                "postCode"        -> postCode,
-                                "city"            -> city,
-                                "countryCode"     -> countryCode)
+          (eori, name, streetAndNumber, postCode, city, countryCode)  =>
+
+            val json = Json.obj(
+              "eori"            -> eori,
+              "name"            -> name,
+              "streetAndNumber" -> streetAndNumber,
+              "postCode"        -> postCode,
+              "city"            -> city,
+              "countryCode"     -> countryCode
+            )
 
             val expectedResult = TraderAtDestinationWithEori(eori, Some(name), Some(streetAndNumber), Some(postCode), Some(city), Some(countryCode))
 
@@ -43,8 +49,10 @@ class TraderAtDestinationSpec extends FreeSpec with MustMatchers with ScalaCheck
       }
 
       "when only the EORI is present" in {
+
         forAll(arbitrary[String]) {
           eori =>
+
             val json = Json.obj("eori" -> eori)
 
             val expectedResult = TraderAtDestinationWithEori(eori, None, None, None, None, None)
@@ -55,9 +63,17 @@ class TraderAtDestinationSpec extends FreeSpec with MustMatchers with ScalaCheck
     }
 
     "must deserialise to a Trader without EORI" in {
+
       forAll(arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String]) {
         (name, streetAndNumber, postCode, city, countryCode) =>
-          val json = Json.obj("name" -> name, "streetAndNumber" -> streetAndNumber, "postCode" -> postCode, "city" -> city, "countryCode" -> countryCode)
+
+          val json = Json.obj(
+            "name"            -> name,
+            "streetAndNumber" -> streetAndNumber,
+            "postCode"        -> postCode,
+            "city"            -> city,
+            "countryCode"     -> countryCode
+          )
 
           val expectedResult = TraderAtDestinationWithoutEori(name, streetAndNumber, postCode, city, countryCode)
 
@@ -66,19 +82,35 @@ class TraderAtDestinationSpec extends FreeSpec with MustMatchers with ScalaCheck
     }
 
     "must serialise from a Trader with EORI" in {
+
       forAll(arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String]) {
         (eori, name, streetAndNumber, postCode, city, countryCode) =>
-          val json =
-            Json.obj("eori" -> eori, "name" -> name, "streetAndNumber" -> streetAndNumber, "postCode" -> postCode, "city" -> city, "countryCode" -> countryCode)
+
+          val json = Json.obj(
+            "eori"            -> eori,
+            "name"            -> name,
+            "streetAndNumber" -> streetAndNumber,
+            "postCode"        -> postCode,
+            "city"            -> city,
+            "countryCode"     -> countryCode
+          )
 
           Json.toJson(TraderAtDestinationWithEori(eori, Some(name), Some(streetAndNumber), Some(postCode), Some(city), Some(countryCode)): TraderAtDestination) mustEqual json
       }
     }
 
     "must serialise from a Trader without EORI" in {
+
       forAll(arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String], arbitrary[String]) {
         (name, streetAndNumber, postCode, city, countryCode) =>
-          val json = Json.obj("name" -> name, "streetAndNumber" -> streetAndNumber, "postCode" -> postCode, "city" -> city, "countryCode" -> countryCode)
+
+          val json = Json.obj(
+            "name"            -> name,
+            "streetAndNumber" -> streetAndNumber,
+            "postCode"        -> postCode,
+            "city"            -> city,
+            "countryCode"     -> countryCode
+          )
 
           Json.toJson(TraderAtDestinationWithoutEori(name, streetAndNumber, postCode, city, countryCode): TraderAtDestination) mustEqual json
       }
