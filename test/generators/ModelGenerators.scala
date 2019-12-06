@@ -107,7 +107,7 @@ trait ModelGenerators {
     }
 
   implicit lazy val arbitrarySpecialMentionNonEc: Arbitrary[SpecialMentionNonEc] =
-    Arbitrary {
+    Arbitrary  {
 
       for {
         additionalInfo <- stringWithMaxLength(5)
@@ -217,22 +217,8 @@ trait ModelGenerators {
         containers           <- listWithMaxSize(9, stringWithMaxLength(17))
         packages             <- listWithMaxSize(9, arbitrary[Package])
       } yield
-        GoodsItem(
-          itemNumber,
-          commodityCode,
-          declarationType,
-          description,
-          grossMass,
-          netMass,
-          countryOfDispatch,
-          countryOfDestination,
-          producedDocuments,
-          specialMentions,
-          consignor,
-          consignee,
-          containers,
-          packages
-        )
+        GoodsItem(itemNumber, commodityCode, declarationType, description, grossMass, netMass, countryOfDispatch,
+          countryOfDestination, producedDocuments, specialMentions, consignor, consignee, containers, packages)
     }
 
   implicit lazy val arbitraryPermissionToContinueUnloading: Arbitrary[PermissionToContinueUnloading] =
@@ -264,20 +250,7 @@ trait ModelGenerators {
         seals               <- listWithMaxSize(9, stringWithMaxLength(20))
         goodsItems          <- listWithMaxSize(9, arbitrary[GoodsItem])
       } yield
-        PermissionToStartUnloading(
-          mrn,
-          declarationType,
-          transportId,
-          transportCountry,
-          acceptanceDate,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          principal,
-          traderAtDestination,
-          presentationOffice,
-          seals,
-          goodsItems
-        )
+        PermissionToStartUnloading(mrn, declarationType, transportId, transportCountry, acceptanceDate,
+          numberOfItems, numberOfPackages, grossMass, principal, traderAtDestination, presentationOffice, seals, goodsItems)
     }
 }

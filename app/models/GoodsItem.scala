@@ -18,24 +18,27 @@ package models
 
 import play.api.libs.json.{Json, OWrites, Reads}
 
-final case class GoodsItem(itemNumber: Int,
-                           commodityCode: Option[String],
-                           declarationType: Option[DeclarationType],
-                           description: String,
-                           grossMass: Option[BigDecimal],
-                           netMass: Option[BigDecimal],
-                           countryOfDispatch: String,
-                           countryOfDestination: String,
-                           producedDocuments: Seq[ProducedDocument],
-                           specialMentions: Seq[SpecialMention],
-                           consignor: Option[Consignor],
-                           consignee: Option[Consignee],
-                           containers: Seq[String],
-                           packages: Seq[Package])
-
+final case class GoodsItem(
+                            itemNumber: Int,
+                            commodityCode: Option[String],
+                            declarationType: Option[DeclarationType],
+                            description: String,
+                            grossMass: Option[BigDecimal],
+                            netMass: Option[BigDecimal],
+                            countryOfDispatch: String,
+                            countryOfDestination: String,
+                            producedDocuments: Seq[ProducedDocument],
+                            specialMentions: Seq[SpecialMention],
+                            consignor: Option[Consignor],
+                            consignee: Option[Consignee],
+                            containers: Seq[String],
+                            packages: Seq[Package]
+                          )
 object GoodsItem {
 
-  implicit lazy val reads: Reads[GoodsItem] = Json.reads[GoodsItem]
+  implicit lazy val reads: Reads[GoodsItem] =
+    Json.reads[GoodsItem]
 
-  implicit lazy val writes: OWrites[GoodsItem] = Json.writes[GoodsItem]
+  implicit lazy val writes: OWrites[GoodsItem] =
+    Json.writes[GoodsItem]
 }

@@ -26,7 +26,7 @@ class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
 
   "Bulk Package" - {
 
-    "must deserialise when the kind of package indicates a Bulk package" - {
+    "must deserialise when the kind of package indicates a Bulk package" -  {
 
       "and marks and numbers are present" in {
 
@@ -37,6 +37,7 @@ class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
 
         forAll(gen) {
           case (kindOfPackage, marksAndNumbers) =>
+
             val json = Json.obj(
               "kindOfPackage"   -> kindOfPackage,
               "marksAndNumbers" -> marksAndNumbers
@@ -52,6 +53,7 @@ class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
 
         forAll(Gen.oneOf(BulkPackage.validCodes)) {
           kindOfPackage =>
+
             val json = Json.obj("kindOfPackage" -> kindOfPackage)
 
             val expectedPackage = BulkPackage(kindOfPackage, None)
@@ -65,6 +67,7 @@ class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
 
       forAll(stringWithMaxLength(3)) {
         kindOfPackage =>
+
           whenever(!BulkPackage.validCodes.contains(kindOfPackage)) {
 
             val json = Json.obj("kindOfPackage" -> kindOfPackage)

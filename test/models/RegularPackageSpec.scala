@@ -36,6 +36,7 @@ class RegularPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
       forAll(gen) {
         case (kindOfPackage, numberOfPackages, marksAndNumbers) =>
+
           whenever(!BulkPackage.validCodes.contains(kindOfPackage) && !UnpackedPackage.validCodes.contains(kindOfPackage)) {
 
             val json = Json.obj(
@@ -61,6 +62,7 @@ class RegularPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
       forAll(gen) {
         case (kindOfPackage, numberOfPackages, marksAndNumbers) =>
+
           val json = Json.obj(
             "kindOfPackage"    -> kindOfPackage,
             "numberOfPackages" -> numberOfPackages,
