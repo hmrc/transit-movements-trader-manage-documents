@@ -16,13 +16,15 @@
 
 package models
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OWrites
+import play.api.libs.json.Reads
 
 final case class ProducedDocument(
-                                   documentType: String,
-                                   reference: Option[String],
-                                   complementOfInformation: Option[String]
-                                 )
+  documentType: String,
+  reference: Option[String],
+  complementOfInformation: Option[String]
+)
 
 object ProducedDocument {
 

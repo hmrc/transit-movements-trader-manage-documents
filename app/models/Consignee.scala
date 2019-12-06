@@ -16,16 +16,18 @@
 
 package models
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OWrites
+import play.api.libs.json.Reads
 
 final case class Consignee(
-                            name: String,
-                            streetAndNumber: String,
-                            postCode: String,
-                            city: String,
-                            countryCode: String,
-                            eori: Option[String]
-                          )
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String,
+  eori: Option[String]
+)
 
 object Consignee {
 

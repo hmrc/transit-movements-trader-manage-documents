@@ -16,11 +16,15 @@
 
 package generators
 
-import java.time.{Instant, LocalDate, ZoneOffset}
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 
 import models._
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen, Shrink}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
+import org.scalacheck.Shrink
 
 trait ModelGenerators {
 
@@ -100,25 +104,35 @@ trait ModelGenerators {
       } yield ProducedDocument(documentType, reference, complement)
     }
 
+  protected val countrySpecificCodes      = Seq("DG0", "DG1")
+  protected val countrySpecificCodeGen    = Gen.oneOf(countrySpecificCodes)
+  protected val nonCountrySpecificCodeGen = stringWithMaxLength(5).suchThat(!countrySpecificCodes.contains(_))
+
   implicit lazy val arbitrarySpecialMentionEc: Arbitrary[SpecialMentionEc] =
     Arbitrary {
 
-      stringWithMaxLength(5).map(SpecialMentionEc(_))
+      countrySpecificCodeGen.map(SpecialMentionEc(_))
     }
 
   implicit lazy val arbitrarySpecialMentionNonEc: Arbitrary[SpecialMentionNonEc] =
-    Arbitrary  {
+    Arbitrary {
 
       for {
-        additionalInfo <- stringWithMaxLength(5)
+        additionalInfo <- countrySpecificCodeGen
         exportCountry  <- stringWithMaxLength(2)
       } yield SpecialMentionNonEc(additionalInfo, exportCountry)
+    }
+
+  implicit lazy val arbitrarySpecialMentionNoCountry: Arbitrary[SpecialMentionNoCountry] =
+    Arbitrary {
+
+      nonCountrySpecificCodeGen.map(SpecialMentionNoCountry(_))
     }
 
   implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
     Arbitrary {
 
-      Gen.oneOf(arbitrary[SpecialMentionEc], arbitrary[SpecialMentionNonEc])
+      Gen.oneOf(arbitrary[SpecialMentionEc], arbitrary[SpecialMentionNonEc], arbitrary[SpecialMentionNoCountry])
     }
 
   implicit lazy val arbitraryTraderAtDestinationWithEori: Arbitrary[TraderAtDestinationWithEori] =
@@ -217,8 +231,22 @@ trait ModelGenerators {
         containers           <- listWithMaxSize(9, stringWithMaxLength(17))
         packages             <- listWithMaxSize(9, arbitrary[Package])
       } yield
-        GoodsItem(itemNumber, commodityCode, declarationType, description, grossMass, netMass, countryOfDispatch,
-          countryOfDestination, producedDocuments, specialMentions, consignor, consignee, containers, packages)
+        GoodsItem(
+          itemNumber,
+          commodityCode,
+          declarationType,
+          description,
+          grossMass,
+          netMass,
+          countryOfDispatch,
+          countryOfDestination,
+          producedDocuments,
+          specialMentions,
+          consignor,
+          consignee,
+          containers,
+          packages
+        )
     }
 
   implicit lazy val arbitraryPermissionToContinueUnloading: Arbitrary[PermissionToContinueUnloading] =
@@ -250,7 +278,20 @@ trait ModelGenerators {
         seals               <- listWithMaxSize(9, stringWithMaxLength(20))
         goodsItems          <- listWithMaxSize(9, arbitrary[GoodsItem])
       } yield
-        PermissionToStartUnloading(mrn, declarationType, transportId, transportCountry, acceptanceDate,
-          numberOfItems, numberOfPackages, grossMass, principal, traderAtDestination, presentationOffice, seals, goodsItems)
+        PermissionToStartUnloading(
+          mrn,
+          declarationType,
+          transportId,
+          transportCountry,
+          acceptanceDate,
+          numberOfItems,
+          numberOfPackages,
+          grossMass,
+          principal,
+          traderAtDestination,
+          presentationOffice,
+          seals,
+          goodsItems
+        )
     }
 }

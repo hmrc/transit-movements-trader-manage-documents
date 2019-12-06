@@ -22,6 +22,8 @@ trait SpecialMention
 
 object SpecialMention {
 
+  val countrySpecificCodes = Seq("DG0", "DG1")
+
   implicit lazy val reads: Reads[SpecialMention] = {
 
     implicit class ReadsWithContravariantOr[A](a: Reads[A]) {
@@ -34,12 +36,14 @@ object SpecialMention {
       a.map(identity)
 
     SpecialMentionEc.reads or
-      SpecialMentionNonEc.reads
+      SpecialMentionNonEc.reads or
+      SpecialMentionNoCountry.reads
   }
 
   implicit lazy val writes: OWrites[SpecialMention] = OWrites {
-    case ec: SpecialMentionEc     => Json.toJsObject(ec)(SpecialMentionEc.writes)
-    case non: SpecialMentionNonEc => Json.toJsObject(non)(SpecialMentionNonEc.writes)
+    case sm: SpecialMentionEc        => Json.toJsObject(sm)(SpecialMentionEc.writes)
+    case sm: SpecialMentionNonEc     => Json.toJsObject(sm)(SpecialMentionNonEc.writes)
+    case sm: SpecialMentionNoCountry => Json.toJsObject(sm)(SpecialMentionNoCountry.writes)
   }
 }
 
@@ -51,15 +55,31 @@ object SpecialMentionEc {
 
     import play.api.libs.functional.syntax._
 
-    (__ \ "exportFromEc").read[Boolean].flatMap[Boolean] {
-      fromEc =>
-        if (fromEc) {
-          Reads(_ => JsSuccess(fromEc))
-        } else {
-          Reads(_ => JsError("exportFromEc must be true"))
-        }
-    }.andKeep((__ \ "additionalInformationCoded").read[String]
-      .map(SpecialMentionEc(_)))
+    (__ \ "exportFromEc")
+      .read[Boolean]
+      .flatMap[Boolean] {
+        fromEc =>
+          if (fromEc) {
+            Reads(_ => JsSuccess(fromEc))
+          } else {
+            Reads(_ => JsError("exportFromEc must be true"))
+          }
+      }
+      .andKeep(
+        (__ \ "additionalInformationCoded")
+          .read[String]
+          .flatMap[String] {
+            code =>
+              if (SpecialMention.countrySpecificCodes.contains(code)) {
+                Reads(_ => JsSuccess(code))
+              } else {
+                Reads(_ => JsError(s"additionalInformationCoded must be in ${SpecialMention.countrySpecificCodes}"))
+              }
+          }
+      )
+      .andKeep((__ \ "additionalInformationCoded")
+        .read[String]
+        .map(SpecialMentionEc(_)))
   }
 
   implicit lazy val writes: OWrites[SpecialMentionEc] = {
@@ -68,15 +88,15 @@ object SpecialMentionEc {
 
     (
       (__ \ "exportFromEc").write[Boolean] and
-      (__ \ "additionalInformationCoded").write[String]
+        (__ \ "additionalInformationCoded").write[String]
     )(s => (true, s.additionalInformationCoded))
   }
 }
 
 final case class SpecialMentionNonEc(
-                                      additionalInformationCoded: String,
-                                      exportFromCountry: String
-                                    ) extends SpecialMention
+  additionalInformationCoded: String,
+  exportFromCountry: String
+) extends SpecialMention
 
 object SpecialMentionNonEc {
 
@@ -84,19 +104,34 @@ object SpecialMentionNonEc {
 
     import play.api.libs.functional.syntax._
 
-    (__ \ "exportFromEc").read[Boolean].flatMap[Boolean] {
-      fromEc =>
-        if (fromEc) {
-          Reads(_ => JsError("exportFromEc must be false"))
-        } else {
-          Reads(_ => JsSuccess(fromEc))
-        }
-    }.andKeep(
-      (
-        (__ \ "additionalInformationCoded").read[String] and
-        (__ \ "exportFromCountry").read[String]
-      )(SpecialMentionNonEc(_, _))
-    )
+    (__ \ "exportFromEc")
+      .read[Boolean]
+      .flatMap[Boolean] {
+        fromEc =>
+          if (fromEc) {
+            Reads(_ => JsError("exportFromEc must be false"))
+          } else {
+            Reads(_ => JsSuccess(fromEc))
+          }
+      }
+      .andKeep(
+        (__ \ "additionalInformationCoded")
+          .read[String]
+          .flatMap[String] {
+            code =>
+              if (SpecialMention.countrySpecificCodes.contains(code)) {
+                Reads(_ => JsSuccess(code))
+              } else {
+                Reads(_ => JsError(s"additionalInformationCoded must be in ${SpecialMention.countrySpecificCodes}"))
+              }
+          }
+      )
+      .andKeep(
+        (
+          (__ \ "additionalInformationCoded").read[String] and
+            (__ \ "exportFromCountry").read[String]
+        )(SpecialMentionNonEc(_, _))
+      )
   }
 
   implicit lazy val writes: OWrites[SpecialMentionNonEc] = {
@@ -105,8 +140,34 @@ object SpecialMentionNonEc {
 
     (
       (__ \ "exportFromEc").write[Boolean] and
-      (__ \ "additionalInformationCoded").write[String] and
-      (__ \ "exportFromCountry").write[String]
+        (__ \ "additionalInformationCoded").write[String] and
+        (__ \ "exportFromCountry").write[String]
     )(s => (false, s.additionalInformationCoded, s.exportFromCountry))
   }
+}
+
+final case class SpecialMentionNoCountry(additionalInformationCoded: String) extends SpecialMention
+
+object SpecialMentionNoCountry {
+
+  implicit lazy val reads: Reads[SpecialMentionNoCountry] = {
+
+    import play.api.libs.functional.syntax._
+
+    (__ \ "additionalInformationCoded")
+      .read[String]
+      .flatMap[String] {
+        code =>
+          if (SpecialMention.countrySpecificCodes.contains(code)) {
+            Reads(_ => JsError(s"additionalInformationCoded must not be in ${SpecialMention.countrySpecificCodes}"))
+          } else {
+            Reads(_ => JsSuccess(code))
+          }
+      }
+      .andKeep((__ \ "additionalInformationCoded")
+        .read[String]
+        .map(SpecialMentionNoCountry(_)))
+  }
+
+  implicit lazy val writes: OWrites[SpecialMentionNoCountry] = Json.writes[SpecialMentionNoCountry]
 }

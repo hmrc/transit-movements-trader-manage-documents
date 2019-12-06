@@ -18,9 +18,12 @@ package models
 
 import generators.ModelGenerators
 import org.scalacheck.Gen
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.libs.json.JsError
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 
 class RegularPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
@@ -36,7 +39,6 @@ class RegularPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
       forAll(gen) {
         case (kindOfPackage, numberOfPackages, marksAndNumbers) =>
-
           whenever(!BulkPackage.validCodes.contains(kindOfPackage) && !UnpackedPackage.validCodes.contains(kindOfPackage)) {
 
             val json = Json.obj(
@@ -62,7 +64,6 @@ class RegularPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
       forAll(gen) {
         case (kindOfPackage, numberOfPackages, marksAndNumbers) =>
-
           val json = Json.obj(
             "kindOfPackage"    -> kindOfPackage,
             "numberOfPackages" -> numberOfPackages,

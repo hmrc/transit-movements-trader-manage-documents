@@ -18,9 +18,11 @@ package models
 
 import generators.ModelGenerators
 import org.scalacheck.Gen
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsSuccess, Json}
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 
 class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
@@ -30,7 +32,6 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
 
       forAll(Gen.oneOf(BulkPackage.validCodes)) {
         kindOfPackage =>
-
           val json = Json.obj("kindOfPackage" -> kindOfPackage)
 
           val expectedPackage = BulkPackage(kindOfPackage, None)
@@ -42,16 +43,15 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
     "must deserialise to an Unpacked Package" in {
 
       val gen = for {
-        kindOfPackage   <- Gen.oneOf(UnpackedPackage.validCodes)
-        numberOfPieces  <- Gen.choose(1, 99999)
+        kindOfPackage  <- Gen.oneOf(UnpackedPackage.validCodes)
+        numberOfPieces <- Gen.choose(1, 99999)
       } yield (kindOfPackage, numberOfPieces)
 
       forAll(gen) {
         case (kindOfPackage, numberOfPieces) =>
-
           val json = Json.obj(
-            "kindOfPackage"   -> kindOfPackage,
-            "numberOfPieces"  -> numberOfPieces
+            "kindOfPackage"  -> kindOfPackage,
+            "numberOfPieces" -> numberOfPieces
           )
 
           val expectedPackage = UnpackedPackage(kindOfPackage, numberOfPieces, None)
@@ -70,7 +70,6 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
 
       forAll(gen) {
         case (kindOfPackage, numberOfPackages, marksAndNumbers) =>
-
           whenever(!BulkPackage.validCodes.contains(kindOfPackage) && !UnpackedPackage.validCodes.contains(kindOfPackage)) {
 
             val json = Json.obj(
@@ -90,7 +89,6 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
 
       forAll(Gen.oneOf(BulkPackage.validCodes), stringWithMaxLength(42)) {
         (kindOfPackage, marksAndNumbers) =>
-
           val json = Json.obj(
             "kindOfPackage"   -> kindOfPackage,
             "marksAndNumbers" -> marksAndNumbers
@@ -104,7 +102,6 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
 
       forAll(Gen.oneOf(UnpackedPackage.validCodes), stringWithMaxLength(42), Gen.choose(1, 99999)) {
         (kindOfPackage, marksAndNumbers, numberOfPieces) =>
-
           val json = Json.obj(
             "kindOfPackage"   -> kindOfPackage,
             "marksAndNumbers" -> marksAndNumbers,
@@ -119,7 +116,6 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
 
       forAll(Gen.oneOf(UnpackedPackage.validCodes), stringWithMaxLength(42), Gen.choose(1, 99999)) {
         (kindOfPackage, marksAndNumbers, numberOfPackages) =>
-
           val json = Json.obj(
             "kindOfPackage"    -> kindOfPackage,
             "marksAndNumbers"  -> marksAndNumbers,

@@ -46,20 +46,20 @@ object UnloadingPermission {
 }
 
 final case class PermissionToStartUnloading(
-                                             movementReferenceNumber: String,
-                                             declarationType: DeclarationType,
-                                             transportIdentity: Option[String],
-                                             transportCountry: Option[String],
-                                             acceptanceDate: LocalDate,
-                                             numberOfItems: Int,
-                                             numberOfPackages: Int,
-                                             grossMass: BigDecimal,
-                                             principal: Principal,
-                                             traderAtDestination: TraderAtDestination,
-                                             presentationOffice: String,
-                                             seals: Seq[String],
-                                             goodsItems: Seq[GoodsItem]
-                                           ) extends UnloadingPermission
+  movementReferenceNumber: String,
+  declarationType: DeclarationType,
+  transportIdentity: Option[String],
+  transportCountry: Option[String],
+  acceptanceDate: LocalDate,
+  numberOfItems: Int,
+  numberOfPackages: Int,
+  grossMass: BigDecimal,
+  principal: Principal,
+  traderAtDestination: TraderAtDestination,
+  presentationOffice: String,
+  seals: Seq[String],
+  goodsItems: Seq[GoodsItem]
+) extends UnloadingPermission
 
 object PermissionToStartUnloading {
 
@@ -71,11 +71,11 @@ object PermissionToStartUnloading {
 }
 
 final case class PermissionToContinueUnloading(
-                                                movementReferenceNumber: String,
-                                                continueUnloading: Int,
-                                                presentationOffice: String,
-                                                traderAtDestination: TraderAtDestination
-                                              ) extends UnloadingPermission
+  movementReferenceNumber: String,
+  continueUnloading: Int,
+  presentationOffice: String,
+  traderAtDestination: TraderAtDestination
+) extends UnloadingPermission
 
 object PermissionToContinueUnloading {
 

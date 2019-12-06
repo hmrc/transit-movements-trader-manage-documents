@@ -18,15 +18,18 @@ package models
 
 import generators.ModelGenerators
 import org.scalacheck.Gen
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.libs.json.JsError
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 
 class UnpackedPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
   "Unpacked package" - {
 
-    "must deserialise when the kind of package indicates an Unpacked package" -  {
+    "must deserialise when the kind of package indicates an Unpacked package" - {
 
       "and marks and numbers are present" in {
 
@@ -38,7 +41,6 @@ class UnpackedPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProp
 
         forAll(gen) {
           case (kindOfPackage, numberOfPieces, marksAndNumbers) =>
-
             val json = Json.obj(
               "kindOfPackage"   -> kindOfPackage,
               "numberOfPieces"  -> numberOfPieces,
@@ -54,16 +56,15 @@ class UnpackedPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProp
       "and marks and numbers are not present" in {
 
         val gen = for {
-          kindOfPackage   <- Gen.oneOf(UnpackedPackage.validCodes)
-          numberOfPieces  <- Gen.choose(1, 99999)
+          kindOfPackage  <- Gen.oneOf(UnpackedPackage.validCodes)
+          numberOfPieces <- Gen.choose(1, 99999)
         } yield (kindOfPackage, numberOfPieces)
 
         forAll(gen) {
           case (kindOfPackage, numberOfPieces) =>
-
             val json = Json.obj(
-              "kindOfPackage"   -> kindOfPackage,
-              "numberOfPieces"  -> numberOfPieces
+              "kindOfPackage"  -> kindOfPackage,
+              "numberOfPieces" -> numberOfPieces
             )
 
             val expectedPackage = UnpackedPackage(kindOfPackage, numberOfPieces, None)
@@ -76,19 +77,17 @@ class UnpackedPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProp
     "must fail to deserialise when the kind of package indicates this is not an Unpacked package" in {
 
       val gen = for {
-        kindOfPackage   <- stringWithMaxLength(3)
-        numberOfPieces  <- Gen.choose(1, 99999)
+        kindOfPackage  <- stringWithMaxLength(3)
+        numberOfPieces <- Gen.choose(1, 99999)
       } yield (kindOfPackage, numberOfPieces)
-
 
       forAll(gen) {
         case (kindOfPackage, numberOfPieces) =>
-
           whenever(!UnpackedPackage.validCodes.contains(kindOfPackage)) {
 
             val json = Json.obj(
-              "kindOfPackage"   -> kindOfPackage,
-              "numberOfPieces"  -> numberOfPieces
+              "kindOfPackage"  -> kindOfPackage,
+              "numberOfPieces" -> numberOfPieces
             )
 
             json.validate[UnpackedPackage] mustEqual JsError(

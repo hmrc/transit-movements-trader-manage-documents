@@ -17,19 +17,22 @@
 package models
 
 import generators.ModelGenerators
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalacheck.Gen
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.libs.json.JsError
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 
 class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
   "SpecialMentionEc" - {
 
-    "must deserialise when `export from EC` is true" in {
+    "must deserialise when `export from EC` is true and code is country specific" in {
 
-      forAll(stringWithMaxLength(5)) {
+      forAll(countrySpecificCodeGen) {
         additionalInformation =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> true
@@ -43,9 +46,8 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
     "must fail to deserialise when `export from EC` is false" in {
 
-      forAll(stringWithMaxLength(5)) {
+      forAll(countrySpecificCodeGen) {
         additionalInformation =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> false
@@ -55,11 +57,23 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
       }
     }
 
-    "must serialise" in  {
+    "must fail to deserialise when the code is not country-specific" in {
 
-      forAll(stringWithMaxLength(5)) {
+      forAll(nonCountrySpecificCodeGen) {
         additionalInformation =>
+          val json = Json.obj(
+            "additionalInformationCoded" -> additionalInformation,
+            "exportFromEc"               -> true
+          )
 
+          json.validate[SpecialMentionEc] mustBe a[JsError]
+      }
+    }
+
+    "must serialise" in {
+
+      forAll(countrySpecificCodeGen) {
+        additionalInformation =>
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> true
@@ -72,11 +86,10 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
   "SpecialMentionOutsideEc" - {
 
-    "must deserialise when `export from EC` is false" in {
+    "must deserialise when `export from EC` is false and code is country specific" in {
 
-      forAll(stringWithMaxLength(5), stringWithMaxLength(2)) {
+      forAll(countrySpecificCodeGen, stringWithMaxLength(2)) {
         case (additionalInformation, country) =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> false,
@@ -91,9 +104,8 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
     "must fail to deserialise when 'export from EC` is true" in {
 
-      forAll(stringWithMaxLength(5), stringWithMaxLength(2)) {
+      forAll(countrySpecificCodeGen, stringWithMaxLength(2)) {
         case (additionalInformation, country) =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> true,
@@ -104,11 +116,24 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
       }
     }
 
-    "must serialise" in  {
+    "must fail to deserialise when code is not country specific" in {
 
-      forAll(stringWithMaxLength(5), stringWithMaxLength(2)) {
+      forAll(nonCountrySpecificCodeGen, stringWithMaxLength(2)) {
+        case (additionalInformation, country) =>
+          val json = Json.obj(
+            "additionalInformationCoded" -> additionalInformation,
+            "exportFromEc"               -> false,
+            "exportFromCountry"          -> country
+          )
+
+          json.validate[SpecialMentionEc] mustBe a[JsError]
+      }
+    }
+
+    "must serialise" in {
+
+      forAll(countrySpecificCodeGen, stringWithMaxLength(2)) {
         (additionalInformation, country) =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> false,
@@ -120,13 +145,53 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
     }
   }
 
+  "Special Mention No Country" - {
+
+    "must deserialise when the code is not country specific" in {
+
+      forAll(nonCountrySpecificCodeGen) {
+        additionalInformation =>
+          val json = Json.obj(
+            "additionalInformationCoded" -> additionalInformation
+          )
+
+          val expectedMention = SpecialMentionNoCountry(additionalInformation)
+
+          json.validate[SpecialMentionNoCountry] mustEqual JsSuccess(expectedMention)
+      }
+    }
+
+    "must fail to deserialise when the code is country specific" in {
+
+      forAll(countrySpecificCodeGen) {
+        additionalInformation =>
+          val json = Json.obj(
+            "additionalInformationCoded" -> additionalInformation
+          )
+
+          json.validate[SpecialMentionNoCountry] mustBe a[JsError]
+      }
+    }
+
+    "must serialise" in {
+
+      forAll(nonCountrySpecificCodeGen) {
+        additionalInformation =>
+          val json = Json.obj(
+            "additionalInformationCoded" -> additionalInformation
+          )
+
+          Json.toJson(SpecialMentionNoCountry(additionalInformation))(SpecialMentionNoCountry.writes) mustEqual json
+      }
+    }
+  }
+
   "Special Mention" - {
 
     "must deserialise to a Special Mention EC" in {
 
-      forAll(stringWithMaxLength(5)) {
+      forAll(countrySpecificCodeGen) {
         additionalInformation =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> true
@@ -140,9 +205,8 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
     "must deserialise to a Special Mention Non-EC" in {
 
-      forAll(stringWithMaxLength(5), stringWithMaxLength(2)) {
+      forAll(countrySpecificCodeGen, stringWithMaxLength(2)) {
         case (additionalInformation, country) =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> false,
@@ -155,11 +219,24 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
       }
     }
 
-    "must serialise from a Special Mention EC" in  {
+    "must deserialise to a Special Mention No Country" in {
 
-      forAll(stringWithMaxLength(5)) {
+      forAll(nonCountrySpecificCodeGen) {
         additionalInformation =>
+          val json = Json.obj(
+            "additionalInformationCoded" -> additionalInformation
+          )
 
+          val expectedMention = SpecialMentionNoCountry(additionalInformation)
+
+          json.validate[SpecialMention] mustEqual JsSuccess(expectedMention)
+      }
+    }
+
+    "must serialise from a Special Mention EC" in {
+
+      forAll(countrySpecificCodeGen) {
+        additionalInformation =>
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> true
@@ -169,11 +246,10 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
       }
     }
 
-    "must serialise from a Special Mention Non-EC" in  {
+    "must serialise from a Special Mention Non-EC" in {
 
-      forAll(stringWithMaxLength(5), stringWithMaxLength(2)) {
+      forAll(countrySpecificCodeGen, stringWithMaxLength(2)) {
         (additionalInformation, country) =>
-
           val json = Json.obj(
             "additionalInformationCoded" -> additionalInformation,
             "exportFromEc"               -> false,
@@ -181,6 +257,18 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
           )
 
           Json.toJson(SpecialMentionNonEc(additionalInformation, country): SpecialMention) mustEqual json
+      }
+    }
+
+    "must serialise from a Special Mention No Country" in {
+
+      forAll(nonCountrySpecificCodeGen) {
+        additionalInformation =>
+          val json = Json.obj(
+            "additionalInformationCoded" -> additionalInformation
+          )
+
+          Json.toJson(SpecialMentionNoCountry(additionalInformation): SpecialMention) mustEqual json
       }
     }
   }

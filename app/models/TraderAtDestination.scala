@@ -16,7 +16,9 @@
 
 package models
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OWrites
+import play.api.libs.json.Reads
 
 sealed trait TraderAtDestination
 
@@ -44,13 +46,13 @@ object TraderAtDestination {
 }
 
 final case class TraderAtDestinationWithEori(
-                                              eori: String,
-                                              name: Option[String],
-                                              streetAndNumber: Option[String],
-                                              postCode: Option[String],
-                                              city: Option[String],
-                                              countryCode: Option[String]
-                                            ) extends TraderAtDestination
+  eori: String,
+  name: Option[String],
+  streetAndNumber: Option[String],
+  postCode: Option[String],
+  city: Option[String],
+  countryCode: Option[String]
+) extends TraderAtDestination
 
 object TraderAtDestinationWithEori {
 
@@ -61,13 +63,13 @@ object TraderAtDestinationWithEori {
     Json.writes[TraderAtDestinationWithEori]
 }
 
-final case class TraderAtDestinationWithoutEori (
-                                                  name: String,
-                                                  streetAndNumber: String,
-                                                  postCode: String,
-                                                  city: String,
-                                                  countryCode: String
-                                                ) extends TraderAtDestination
+final case class TraderAtDestinationWithoutEori(
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String
+) extends TraderAtDestination
 
 object TraderAtDestinationWithoutEori {
 
