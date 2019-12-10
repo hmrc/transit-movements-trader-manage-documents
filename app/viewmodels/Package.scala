@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.reference.KindOfPackage
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+sealed trait Package
 
-object ProducedDocument {
+final case class BulkPackage(
+  kindOfPackage: KindOfPackage,
+  marksAndNumbers: Option[String]
+) extends Package
 
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-}
+final case class UnpackedPackage(
+  kindOfPackage: KindOfPackage,
+  numberOfPieces: Int,
+  marksAndNumbers: Option[String]
+) extends Package
+
+final case class RegularPackage(
+  kindOfPackage: KindOfPackage,
+  numberOfPackages: Int,
+  marksAndNumbers: String
+) extends Package

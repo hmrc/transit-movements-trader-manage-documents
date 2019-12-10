@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-package models
+package services
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+case class ReferenceDataNotFound(path: String, value: String) {
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
-
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+  def errorMessage: String = s"$path error: value $value was not found in reference data"
 }

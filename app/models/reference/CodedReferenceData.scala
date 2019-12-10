@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-package models
+package models.reference
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+trait CodedReferenceData {
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
-
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+  val code: String
 }

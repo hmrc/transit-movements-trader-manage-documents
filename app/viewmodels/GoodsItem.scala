@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.DeclarationType
+import models.reference.Country
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
+final case class GoodsItem(
+  itemNumber: Int,
+  commodityCode: Option[String],
+  declarationType: Option[DeclarationType],
+  description: String,
+  grossMass: Option[BigDecimal],
+  netMass: Option[BigDecimal],
+  countryOfDispatch: Country,
+  countryOfDestination: Country,
+  producedDocuments: Seq[ProducedDocument],
+  specialMentions: Seq[SpecialMention],
+  consignor: Option[Consignor],
+  consignee: Option[Consignee],
+  containers: Seq[String],
+  packages: Seq[Package]
 )
-
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-}

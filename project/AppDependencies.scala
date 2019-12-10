@@ -7,7 +7,8 @@ object AppDependencies {
 
   val compile = Seq(
 
-    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.2.0"
+    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.2.0",
+    "org.typelevel"           %% "cats-core"                % "1.6.1"
   )
 
   val test = Seq(
@@ -17,6 +18,8 @@ object AppDependencies {
     "org.pegdown"             %  "pegdown"                  % "1.6.0",
     "org.scalatestplus.play"  %% "scalatestplus-play"       % "3.1.2",
     "org.scalacheck"          %% "scalacheck"               % "1.14.1",
-    "com.github.tomakehurst"  % "wiremock-standalone"       % "2.17.0"
+    "org.mockito"             %  "mockito-all"              % "1.10.19",
+    "com.github.tomakehurst"  % "wiremock-standalone"       % "2.17.0",
+    "com.ironcorelabs"        %% "cats-scalatest"           % "2.4.0"
   ).map(_ % "test")
 }

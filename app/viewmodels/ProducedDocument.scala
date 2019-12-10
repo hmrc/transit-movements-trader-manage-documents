@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.reference.DocumentType
 
 final case class ProducedDocument(
-  documentType: String,
+  documentType: DocumentType,
   reference: Option[String],
   complementOfInformation: Option[String]
 )
-
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-}
