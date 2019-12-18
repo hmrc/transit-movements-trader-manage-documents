@@ -17,8 +17,7 @@
 package models
 
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
-import play.api.libs.json.Reads
+import play.api.libs.json.OFormat
 
 final case class Principal(
   name: String,
@@ -32,9 +31,5 @@ final case class Principal(
 
 object Principal {
 
-  implicit lazy val reads: Reads[Principal] =
-    Json.reads[Principal]
-
-  implicit lazy val writes: OWrites[Principal] =
-    Json.writes[Principal]
+  implicit lazy val format: OFormat[Principal] = Json.format[Principal]
 }

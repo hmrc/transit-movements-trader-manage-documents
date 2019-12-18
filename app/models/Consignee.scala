@@ -17,8 +17,7 @@
 package models
 
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
-import play.api.libs.json.Reads
+import play.api.libs.json.OFormat
 
 final case class Consignee(
   name: String,
@@ -31,9 +30,5 @@ final case class Consignee(
 
 object Consignee {
 
-  implicit lazy val reads: Reads[Consignee] =
-    Json.reads[Consignee]
-
-  implicit lazy val writes: OWrites[Consignee] =
-    Json.writes[Consignee]
+  implicit lazy val format: OFormat[Consignee] = Json.format[Consignee]
 }

@@ -16,13 +16,13 @@
 
 package models.reference
 
-import play.api.libs.json.Format
+import play.api.libs.json.OFormat
 import play.api.libs.json.Json
 
 final case class DocumentType(code: String, description: String, transportDocument: Boolean)
 
 object DocumentType {
 
-  implicit lazy val format: Format[DocumentType] =
+  implicit lazy val format: OFormat[DocumentType] =
     Json.format[DocumentType]
 }

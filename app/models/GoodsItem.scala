@@ -17,8 +17,7 @@
 package models
 
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
-import play.api.libs.json.Reads
+import play.api.libs.json.OFormat
 
 final case class GoodsItem(
   itemNumber: Int,
@@ -39,9 +38,5 @@ final case class GoodsItem(
 
 object GoodsItem {
 
-  implicit lazy val reads: Reads[GoodsItem] =
-    Json.reads[GoodsItem]
-
-  implicit lazy val writes: OWrites[GoodsItem] =
-    Json.writes[GoodsItem]
+  implicit lazy val format: OFormat[GoodsItem] = Json.format[GoodsItem]
 }

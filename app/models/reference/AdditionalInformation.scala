@@ -16,13 +16,13 @@
 
 package models.reference
 
-import play.api.libs.json.Format
 import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
 case class AdditionalInformation(code: String, description: String)
 
 object AdditionalInformation {
 
-  implicit lazy val format: Format[AdditionalInformation] =
+  implicit lazy val format: OFormat[AdditionalInformation] =
     Json.format[AdditionalInformation]
 }

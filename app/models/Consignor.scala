@@ -17,8 +17,7 @@
 package models
 
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
-import play.api.libs.json.Reads
+import play.api.libs.json.OFormat
 
 final case class Consignor(
   name: String,
@@ -31,9 +30,5 @@ final case class Consignor(
 
 object Consignor {
 
-  implicit lazy val reads: Reads[Consignor] =
-    Json.reads[Consignor]
-
-  implicit lazy val writes: OWrites[Consignor] =
-    Json.writes[Consignor]
+  implicit lazy val format: OFormat[Consignor] = Json.format[Consignor]
 }

@@ -35,13 +35,13 @@ object UnloadingPermission {
     implicit def convertToSupertype[A, B >: A](a: Reads[A]): Reads[B] =
       a.map(identity)
 
-    PermissionToStartUnloading.reads or
-      PermissionToContinueUnloading.reads
+    PermissionToStartUnloading.format or
+      PermissionToContinueUnloading.format
   }
 
   implicit lazy val writes: OWrites[UnloadingPermission] = OWrites {
-    case up: PermissionToContinueUnloading => Json.toJsObject(up)(PermissionToContinueUnloading.writes)
-    case up: PermissionToStartUnloading    => Json.toJsObject(up)(PermissionToStartUnloading.writes)
+    case up: PermissionToContinueUnloading => Json.toJsObject(up)(PermissionToContinueUnloading.format)
+    case up: PermissionToStartUnloading    => Json.toJsObject(up)(PermissionToStartUnloading.format)
   }
 }
 
@@ -63,11 +63,8 @@ final case class PermissionToStartUnloading(
 
 object PermissionToStartUnloading {
 
-  implicit lazy val reads: Reads[PermissionToStartUnloading] =
-    Json.reads[PermissionToStartUnloading]
-
-  implicit lazy val writes: OWrites[PermissionToStartUnloading] =
-    Json.writes[PermissionToStartUnloading]
+  implicit lazy val format: OFormat[PermissionToStartUnloading] =
+    Json.format[PermissionToStartUnloading]
 }
 
 final case class PermissionToContinueUnloading(
@@ -79,9 +76,6 @@ final case class PermissionToContinueUnloading(
 
 object PermissionToContinueUnloading {
 
-  implicit lazy val reads: Reads[PermissionToContinueUnloading] =
-    Json.reads[PermissionToContinueUnloading]
-
-  implicit lazy val writes: OWrites[PermissionToContinueUnloading] =
-    Json.writes[PermissionToContinueUnloading]
+  implicit lazy val format: OFormat[PermissionToContinueUnloading] =
+    Json.format[PermissionToContinueUnloading]
 }
