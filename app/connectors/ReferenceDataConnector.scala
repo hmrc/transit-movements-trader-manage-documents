@@ -16,13 +16,12 @@
 
 package connectors
 
+import config.ReferenceDataConfig
 import javax.inject.Inject
-import models.Service
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
-import play.api.Configuration
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
@@ -30,28 +29,19 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
 class ReferenceDataConnector @Inject()(
-  config: Configuration,
+  config: ReferenceDataConfig,
   httpClient: HttpClient
 ) {
 
-  private val service = config.get[Service]("microservice.services.transit-movements-trader-reference-data")
-
-  private val baseUrl = s"$service/transit-movements-trader-reference-data"
-
-  private val countriesUrl             = s"$baseUrl/countries-full-list"
-  private val kindsOfPackageUrl        = s"$baseUrl/kinds-of-package"
-  private val documentTypesUrl         = s"$baseUrl/document-types"
-  private val additionalInformationUrl = s"$baseUrl/additional-information"
-
   def countries()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Seq[Country]] =
-    httpClient.GET[Seq[Country]](countriesUrl)
+    httpClient.GET[Seq[Country]](config.countriesUrl)
 
   def kindsOfPackage()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Seq[KindOfPackage]] =
-    httpClient.GET[Seq[KindOfPackage]](kindsOfPackageUrl)
+    httpClient.GET[Seq[KindOfPackage]](config.kindsOfPackageUrl)
 
   def documentTypes()(implicit ex: ExecutionContext, hc: HeaderCarrier): Future[Seq[DocumentType]] =
-    httpClient.GET[Seq[DocumentType]](documentTypesUrl)
+    httpClient.GET[Seq[DocumentType]](config.documentTypesUrl)
 
   def additionalInformation()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Seq[AdditionalInformation]] =
-    httpClient.GET[Seq[AdditionalInformation]](additionalInformationUrl)
+    httpClient.GET[Seq[AdditionalInformation]](config.additionalInformationUrl)
 }
