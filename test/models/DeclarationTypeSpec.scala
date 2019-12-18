@@ -18,13 +18,17 @@ package models
 
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsString, JsSuccess, Json}
+import play.api.libs.json.JsError
+import play.api.libs.json.JsString
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 
 class DeclarationTypeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
-  "Declaration Type" -  {
+  "Declaration Type" - {
 
     "must deserialise from `T-`" in {
 

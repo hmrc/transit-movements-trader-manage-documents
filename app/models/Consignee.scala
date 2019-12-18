@@ -16,22 +16,19 @@
 
 package models
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
 final case class Consignee(
-                            name: String,
-                            streetAndNumber: String,
-                            postCode: String,
-                            city: String,
-                            countryCode: String,
-                            eori: Option[String]
-                          )
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String,
+  eori: Option[String]
+)
 
 object Consignee {
 
-  implicit lazy val reads: Reads[Consignee] =
-    Json.reads[Consignee]
-
-  implicit lazy val writes: OWrites[Consignee] =
-    Json.writes[Consignee]
+  implicit lazy val format: OFormat[Consignee] = Json.format[Consignee]
 }

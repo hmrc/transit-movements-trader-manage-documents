@@ -16,19 +16,18 @@
 
 package models
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
+import play.api.libs.json.OWrites
+import play.api.libs.json.Reads
 
 final case class ProducedDocument(
-                                   documentType: String,
-                                   reference: Option[String],
-                                   complementOfInformation: Option[String]
-                                 )
+  documentType: String,
+  reference: Option[String],
+  complementOfInformation: Option[String]
+)
 
 object ProducedDocument {
 
-  implicit lazy val reads: Reads[ProducedDocument] =
-    Json.reads[ProducedDocument]
-
-  implicit lazy val writes: OWrites[ProducedDocument] =
-    Json.writes[ProducedDocument]
+  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
 }

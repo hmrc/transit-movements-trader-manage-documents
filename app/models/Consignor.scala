@@ -16,22 +16,19 @@
 
 package models
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
 final case class Consignor(
-                            name: String,
-                            streetAndNumber: String,
-                            postCode: String,
-                            city: String,
-                            countryCode: String,
-                            eori: Option[String]
-                          )
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String,
+  eori: Option[String]
+)
 
 object Consignor {
 
-  implicit lazy val reads: Reads[Consignor] =
-    Json.reads[Consignor]
-
-  implicit lazy val writes: OWrites[Consignor] =
-    Json.writes[Consignor]
+  implicit lazy val format: OFormat[Consignor] = Json.format[Consignor]
 }

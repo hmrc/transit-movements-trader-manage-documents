@@ -46,9 +46,9 @@ object Package {
 }
 
 final case class BulkPackage(
-                              kindOfPackage: String,
-                              marksAndNumbers: Option[String]
-                            ) extends Package
+  kindOfPackage: String,
+  marksAndNumbers: Option[String]
+) extends Package
 
 object BulkPackage {
 
@@ -58,19 +58,22 @@ object BulkPackage {
 
     import play.api.libs.functional.syntax._
 
-    (__ \ "kindOfPackage").read[String].flatMap[String] {
-      kind =>
-        if (validCodes.contains(kind)) {
-          Reads(_ => JsSuccess(kind))
-        } else {
-          Reads(_ => JsError("kindOfPackage must indicate BULK"))
-        }
-    }.andKeep(
-      (
-        (__ \ "kindOfPackage").read[String] and
-        (__ \ "marksAndNumbers").readNullable[String]
-      )(BulkPackage(_, _))
-    )
+    (__ \ "kindOfPackage")
+      .read[String]
+      .flatMap[String] {
+        kind =>
+          if (validCodes.contains(kind)) {
+            Reads(_ => JsSuccess(kind))
+          } else {
+            Reads(_ => JsError("kindOfPackage must indicate BULK"))
+          }
+      }
+      .andKeep(
+        (
+          (__ \ "kindOfPackage").read[String] and
+            (__ \ "marksAndNumbers").readNullable[String]
+        )(BulkPackage(_, _))
+      )
   }
 
   implicit lazy val writes: OWrites[BulkPackage] =
@@ -78,10 +81,10 @@ object BulkPackage {
 }
 
 final case class UnpackedPackage(
-                                  kindOfPackage: String,
-                                  numberOfPieces: Int,
-                                  marksAndNumbers: Option[String]
-                                ) extends Package
+  kindOfPackage: String,
+  numberOfPieces: Int,
+  marksAndNumbers: Option[String]
+) extends Package
 
 object UnpackedPackage {
 
@@ -91,20 +94,23 @@ object UnpackedPackage {
 
     import play.api.libs.functional.syntax._
 
-    (__ \ "kindOfPackage").read[String].flatMap[String] {
-      kind =>
-        if (validCodes.contains(kind)) {
-          Reads(_ => JsSuccess(kind))
-        } else {
-          Reads(_ => JsError("kindOfPackage must indicate UNPACKED"))
-        }
-    }.andKeep(
-      (
-        (__ \ "kindOfPackage").read[String] and
-        (__ \ "numberOfPieces").read[Int] and
-        (__ \ "marksAndNumbers").readNullable[String]
-      )(UnpackedPackage(_, _, _))
-    )
+    (__ \ "kindOfPackage")
+      .read[String]
+      .flatMap[String] {
+        kind =>
+          if (validCodes.contains(kind)) {
+            Reads(_ => JsSuccess(kind))
+          } else {
+            Reads(_ => JsError("kindOfPackage must indicate UNPACKED"))
+          }
+      }
+      .andKeep(
+        (
+          (__ \ "kindOfPackage").read[String] and
+            (__ \ "numberOfPieces").read[Int] and
+            (__ \ "marksAndNumbers").readNullable[String]
+        )(UnpackedPackage(_, _, _))
+      )
   }
 
   implicit lazy val writes: OWrites[UnpackedPackage] =
@@ -112,10 +118,10 @@ object UnpackedPackage {
 }
 
 final case class RegularPackage(
-                                 kindOfPackage: String,
-                                 numberOfPackages: Int,
-                                 marksAndNumbers: String
-                               ) extends Package
+  kindOfPackage: String,
+  numberOfPackages: Int,
+  marksAndNumbers: String
+) extends Package
 
 object RegularPackage {
 
@@ -123,20 +129,23 @@ object RegularPackage {
 
     import play.api.libs.functional.syntax._
 
-    (__ \ "kindOfPackage").read[String].flatMap[String] {
-      kind =>
-        if (BulkPackage.validCodes.contains(kind) || UnpackedPackage.validCodes.contains(kind)) {
-          Reads(_ => JsError("kindOfPackage must not indicate BULK or UNPACKED"))
-        } else {
-          Reads(_ => JsSuccess(kind))
-        }
-    }.andKeep(
-      (
-        (__ \ "kindOfPackage").read[String] and
-        (__ \ "numberOfPackages").read[Int] and
-        (__ \ "marksAndNumbers").read[String]
-      )(RegularPackage(_, _, _))
-    )
+    (__ \ "kindOfPackage")
+      .read[String]
+      .flatMap[String] {
+        kind =>
+          if (BulkPackage.validCodes.contains(kind) || UnpackedPackage.validCodes.contains(kind)) {
+            Reads(_ => JsError("kindOfPackage must not indicate BULK or UNPACKED"))
+          } else {
+            Reads(_ => JsSuccess(kind))
+          }
+      }
+      .andKeep(
+        (
+          (__ \ "kindOfPackage").read[String] and
+            (__ \ "numberOfPackages").read[Int] and
+            (__ \ "marksAndNumbers").read[String]
+        )(RegularPackage(_, _, _))
+      )
   }
 
   implicit lazy val writes: OWrites[RegularPackage] =

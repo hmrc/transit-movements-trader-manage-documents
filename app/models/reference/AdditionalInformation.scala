@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package controllers
+package models.reference
 
-import javax.inject.Inject
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.ControllerComponents
-import uk.gov.hmrc.play.bootstrap.controller.BackendController
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-class UnloadingPermissionController @Inject()(
-  cc: ControllerComponents
-) extends BackendController(cc) {
+case class AdditionalInformation(code: String, description: String)
 
-  def post(): Action[AnyContent] = Action {
-    implicit request =>
-      NotImplemented
-  }
+object AdditionalInformation {
+
+  implicit lazy val format: OFormat[AdditionalInformation] =
+    Json.format[AdditionalInformation]
 }

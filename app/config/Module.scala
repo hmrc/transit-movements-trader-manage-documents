@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package controllers
+package config
 
-import javax.inject.Inject
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.ControllerComponents
-import uk.gov.hmrc.play.bootstrap.controller.BackendController
+import com.google.inject.AbstractModule
 
-class UnloadingPermissionController @Inject()(
-  cc: ControllerComponents
-) extends BackendController(cc) {
+class Module extends AbstractModule {
 
-  def post(): Action[AnyContent] = Action {
-    implicit request =>
-      NotImplemented
-  }
+  override def configure(): Unit =
+    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
 }

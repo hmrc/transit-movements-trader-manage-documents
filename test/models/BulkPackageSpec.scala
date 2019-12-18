@@ -18,15 +18,18 @@ package models
 
 import generators.ModelGenerators
 import org.scalacheck.Gen
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.libs.json.JsError
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 
 class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
   "Bulk Package" - {
 
-    "must deserialise when the kind of package indicates a Bulk package" -  {
+    "must deserialise when the kind of package indicates a Bulk package" - {
 
       "and marks and numbers are present" in {
 
@@ -37,7 +40,6 @@ class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
 
         forAll(gen) {
           case (kindOfPackage, marksAndNumbers) =>
-
             val json = Json.obj(
               "kindOfPackage"   -> kindOfPackage,
               "marksAndNumbers" -> marksAndNumbers
@@ -53,7 +55,6 @@ class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
 
         forAll(Gen.oneOf(BulkPackage.validCodes)) {
           kindOfPackage =>
-
             val json = Json.obj("kindOfPackage" -> kindOfPackage)
 
             val expectedPackage = BulkPackage(kindOfPackage, None)
@@ -67,7 +68,6 @@ class BulkPackageSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
 
       forAll(stringWithMaxLength(3)) {
         kindOfPackage =>
-
           whenever(!BulkPackage.validCodes.contains(kindOfPackage)) {
 
             val json = Json.obj("kindOfPackage" -> kindOfPackage)

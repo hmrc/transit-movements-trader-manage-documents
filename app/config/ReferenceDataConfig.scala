@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package controllers
+package config
 
 import javax.inject.Inject
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.ControllerComponents
-import uk.gov.hmrc.play.bootstrap.controller.BackendController
+import models.Service
+import play.api.Configuration
 
-class UnloadingPermissionController @Inject()(
-  cc: ControllerComponents
-) extends BackendController(cc) {
+class ReferenceDataConfig @Inject()(config: Configuration) {
 
-  def post(): Action[AnyContent] = Action {
-    implicit request =>
-      NotImplemented
-  }
+  private val service = config.get[Service]("microservice.services.transit-movements-trader-reference-data")
+
+  private val baseUrl = s"$service/transit-movements-trader-reference-data"
+
+  val countriesUrl: String             = s"$baseUrl/countries-full-list"
+  val kindsOfPackageUrl: String        = s"$baseUrl/kinds-of-package"
+  val documentTypesUrl: String         = s"$baseUrl/document-types"
+  val additionalInformationUrl: String = s"$baseUrl/additional-information"
 }

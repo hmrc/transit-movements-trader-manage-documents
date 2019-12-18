@@ -16,23 +16,20 @@
 
 package models
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
 final case class Principal(
-                            name: String,
-                            streetAndNumber: String,
-                            postCode: String,
-                            city: String,
-                            countryCode: String,
-                            eori: Option[String],
-                            tir: Option[String]
-                          )
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String,
+  eori: Option[String],
+  tir: Option[String]
+)
 
 object Principal {
 
-  implicit lazy val reads: Reads[Principal] =
-    Json.reads[Principal]
-
-  implicit lazy val writes: OWrites[Principal] =
-    Json.writes[Principal]
+  implicit lazy val format: OFormat[Principal] = Json.format[Principal]
 }

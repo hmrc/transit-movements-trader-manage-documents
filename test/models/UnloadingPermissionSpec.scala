@@ -18,9 +18,11 @@ package models
 
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsSuccess, Json}
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 
 class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
 
@@ -30,7 +32,6 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
 
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
-
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
             "declarationType"         -> Json.toJson(permission.declarationType),
@@ -55,7 +56,6 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
 
       forAll(arbitrary[PermissionToContinueUnloading]) {
         permission =>
-
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
             "continueUnloading"       -> permission.continueUnloading,
@@ -67,22 +67,25 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
       }
     }
 
-    "must serialise from Permission to Start Unloading" in  {
+    "must serialise from Permission to Start Unloading" in {
 
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
-
           val transportIdentityJson =
-            permission.transportIdentity.map {
-              id =>
-                Json.obj("transportIdentity" -> id)
-            }.getOrElse(Json.obj())
+            permission.transportIdentity
+              .map {
+                id =>
+                  Json.obj("transportIdentity" -> id)
+              }
+              .getOrElse(Json.obj())
 
           val transportCountryJson =
-            permission.transportCountry.map {
-              country =>
-                Json.obj("transportCountry" -> country)
-            }.getOrElse(Json.obj())
+            permission.transportCountry
+              .map {
+                country =>
+                  Json.obj("transportCountry" -> country)
+              }
+              .getOrElse(Json.obj())
 
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
@@ -106,7 +109,6 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
 
       forAll(arbitrary[PermissionToContinueUnloading]) {
         permission =>
-
           val json = Json.obj(
             "movementReferenceNumber" -> permission.movementReferenceNumber,
             "continueUnloading"       -> permission.continueUnloading,
