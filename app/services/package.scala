@@ -18,5 +18,5 @@ import cats.data.ValidatedNec
 
 package object services {
 
-  type ValidationResult[A] = ValidatedNec[ReferenceDataNotFound, A]
+  type ValidationResult[A] = ValidatedNec[ValidationError, A]
 }
