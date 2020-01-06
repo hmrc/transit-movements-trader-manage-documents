@@ -26,16 +26,20 @@ trait ValidationError {
 
 case class JsonError(typeOfData: String, errors: Seq[(JsPath, Seq[JsonValidationError])]) extends ValidationError {
 
-  //TODO: Write out the errors too
-  override def errorMessage: String = s"There was an error reading JSON when trying to retrieve $typeOfData data\n"
+  private val errorsToPrint = errors.map {
+    error =>
+      s"Error(s) at path `${error._1}`: " + error._2.map(_.message).mkString(", ")
+  }
+
+  override def errorMessage: String = s"There was an error reading the JSON when trying to retrieve $typeOfData data\n" + errorsToPrint.mkString("\n")
 }
 
 case class ReferenceDataRetrievalError(typeOfData: String, errorCode: Int, errorBody: String) extends ValidationError {
 
-  override def errorMessage: String = s"Call to retrieve $typeOfData data failed with error code $errorCode.\n$errorBody"
+  override def errorMessage: String = s"Call to retrieve `$typeOfData` data failed with error code $errorCode.\n$errorBody"
 }
 
 case class ReferenceDataNotFound(path: String, value: String) extends ValidationError {
 
-  def errorMessage: String = s"$path error: value $value was not found in reference data"
+  def errorMessage: String = s"Error at path `$path`: value `$value` was not found in reference data"
 }
