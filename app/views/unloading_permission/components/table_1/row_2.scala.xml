@@ -1,0 +1,54 @@
+@(permission: viewmodels.PermissionToStartUnloading)
+
+<fo:table-row height="16mm">
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+
+  <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+    <fo:block font-weight="bold" font-size="12pt" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+      A @* TODO: Does this depend on whether it's the first page? *@
+    </fo:block>
+  </fo:table-cell>
+
+  @consignor(permission)
+
+  <fo:table-cell>
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column/>
+
+        <fo:table-body>
+
+          @declaration_type(permission.declarationType)
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>
+                <fo:table width="100%" table-layout="fixed">
+                  <fo:table-column column-width="16mm"/>
+                  <fo:table-column column-width="16mm"/>
+
+                  <fo:table-body>
+                    <fo:table-row height="9mm">
+
+                      @forms()
+
+                      @loading_lists()
+                    </fo:table-row>
+                  </fo:table-body>
+                </fo:table>
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
+    <fo:block>
+      @* TODO: This is where the barcode goes *@
+    </fo:block>
+  </fo:table-cell>
+</fo:table-row>
