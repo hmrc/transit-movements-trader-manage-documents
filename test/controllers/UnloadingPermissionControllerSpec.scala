@@ -87,6 +87,7 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
       )
     )
   )
+
   "post" - {
 
     "must return OK when the conversion service can convert the payload to a viewmodel" in {

@@ -15,6 +15,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(publishingSettings: _*)
   .settings(resolvers += Resolver.jcenterRepo)
   .settings(inConfig(Test)(testSettings): _*)
+  .settings(PlayKeys.playDefaultPort := 9484)
 
 lazy val testSettings: Seq[Def.Setting[_]] = Seq(
   fork := true,
