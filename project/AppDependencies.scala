@@ -4,11 +4,18 @@ import sbt._
 object AppDependencies {
 
   val compile = Seq(
+<<<<<<< HEAD
     "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.4.0",
     "org.typelevel"           %% "cats-core"                % "1.6.1",
     "com.dmanchester"         %% "playfop"                  % "1.0",
     "net.sf.barcode4j"        %  "barcode4j"                % "2.1",
     "net.sf.barcode4j"        %  "barcode4j-fop-ext"        % "2.1"
+=======
+
+    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.2.0",
+    "org.typelevel"           %% "cats-core"                % "1.6.1",
+    "com.dmanchester"         %% "playfop"                  % "1.0"
+>>>>>>> afb63c1... Create PDF generator and skeleton PDF document
   )
 
   val test = Seq(
