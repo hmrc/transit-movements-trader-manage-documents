@@ -18,18 +18,23 @@ package generators
 
 import java.time.LocalDate
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
+import models.DeclarationType
+import models.reference.AdditionalInformation
+import models.reference.Country
+import models.reference.DocumentType
+import models.reference.KindOfPackage
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
+import org.scalacheck.Arbitrary.arbitrary
+import viewmodels._
 
-trait ModelGenerators extends GeneratorHelpers {
+trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators {
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {
 
       for {
-        kindOfPackage   <- Gen.oneOf(BulkPackage.validCodes)
+        kindOfPackage   <- arbitrary[KindOfPackage]
         marksAndNumbers <- Gen.option(stringWithMaxLength(42))
       } yield BulkPackage(kindOfPackage, marksAndNumbers)
     }
@@ -38,7 +43,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        kindOfPackage   <- Gen.oneOf(UnpackedPackage.validCodes)
+        kindOfPackage   <- arbitrary[KindOfPackage]
         numberOfPieces  <- Gen.choose(1, 99999)
         marksAndNumbers <- Gen.option(stringWithMaxLength(42))
       } yield UnpackedPackage(kindOfPackage, numberOfPieces, marksAndNumbers)
@@ -48,7 +53,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        kindOfPackage    <- stringWithMaxLength(3).suchThat(x => !BulkPackage.validCodes.contains(x) && !UnpackedPackage.validCodes.contains(x))
+        kindOfPackage    <- arbitrary[KindOfPackage]
         numberOfPackages <- Gen.choose(0, 99999)
         marksAndNumbers  <- stringWithMaxLength(42)
       } yield RegularPackage(kindOfPackage, numberOfPackages, marksAndNumbers)
@@ -64,35 +69,31 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        documentType <- stringWithMaxLength(4)
+        documentType <- arbitrary[DocumentType]
         reference    <- Gen.option(stringWithMaxLength(35))
         complement   <- Gen.option(stringWithMaxLength(26))
       } yield ProducedDocument(documentType, reference, complement)
     }
 
-  protected val countrySpecificCodes      = Seq("DG0", "DG1")
-  protected val countrySpecificCodeGen    = Gen.oneOf(countrySpecificCodes)
-  protected val nonCountrySpecificCodeGen = stringWithMaxLength(5).suchThat(!countrySpecificCodes.contains(_))
-
   implicit lazy val arbitrarySpecialMentionEc: Arbitrary[SpecialMentionEc] =
     Arbitrary {
 
-      countrySpecificCodeGen.map(SpecialMentionEc(_))
+      arbitrary[AdditionalInformation].map(SpecialMentionEc)
     }
 
   implicit lazy val arbitrarySpecialMentionNonEc: Arbitrary[SpecialMentionNonEc] =
     Arbitrary {
 
       for {
-        additionalInfo <- countrySpecificCodeGen
-        exportCountry  <- stringWithMaxLength(2)
+        additionalInfo <- arbitrary[AdditionalInformation]
+        exportCountry  <- arbitrary[Country]
       } yield SpecialMentionNonEc(additionalInfo, exportCountry)
     }
 
   implicit lazy val arbitrarySpecialMentionNoCountry: Arbitrary[SpecialMentionNoCountry] =
     Arbitrary {
 
-      nonCountrySpecificCodeGen.map(SpecialMentionNoCountry(_))
+      arbitrary[AdditionalInformation].map(SpecialMentionNoCountry)
     }
 
   implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
@@ -110,7 +111,7 @@ trait ModelGenerators extends GeneratorHelpers {
         streetAndNumber <- Gen.option(stringWithMaxLength(35))
         postCode        <- Gen.option(stringWithMaxLength(9))
         city            <- Gen.option(stringWithMaxLength(35))
-        countryCode     <- Gen.option(stringWithMaxLength(2))
+        countryCode     <- Gen.option(arbitrary[Country])
       } yield TraderAtDestinationWithEori(eori, name, streetAndNumber, postCode, city, countryCode)
     }
 
@@ -122,7 +123,7 @@ trait ModelGenerators extends GeneratorHelpers {
         streetAndNumber <- stringWithMaxLength(35)
         postCode        <- stringWithMaxLength(9)
         city            <- stringWithMaxLength(35)
-        countryCode     <- stringWithMaxLength(2)
+        countryCode     <- arbitrary[Country]
       } yield TraderAtDestinationWithoutEori(name, streetAndNumber, postCode, city, countryCode)
     }
 
@@ -140,7 +141,7 @@ trait ModelGenerators extends GeneratorHelpers {
         streetAndNumber <- stringWithMaxLength(35)
         postCode        <- stringWithMaxLength(9)
         city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        country         <- arbitrary[Country]
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield Consignee(name, streetAndNumber, postCode, city, country, eori)
     }
@@ -153,7 +154,7 @@ trait ModelGenerators extends GeneratorHelpers {
         streetAndNumber <- stringWithMaxLength(35)
         postCode        <- stringWithMaxLength(9)
         city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        country         <- arbitrary[Country]
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield Consignor(name, streetAndNumber, postCode, city, country, eori)
     }
@@ -166,7 +167,7 @@ trait ModelGenerators extends GeneratorHelpers {
         streetAndNumber <- stringWithMaxLength(35)
         postCode        <- stringWithMaxLength(9)
         city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        country         <- arbitrary[Country]
         eori            <- Gen.option(stringWithMaxLength(17))
         tin             <- Gen.option(stringWithMaxLength(17))
       } yield Principal(name, streetAndNumber, postCode, city, country, eori, tin)
@@ -188,8 +189,8 @@ trait ModelGenerators extends GeneratorHelpers {
         description          <- stringWithMaxLength(280)
         grossMass            <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass              <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch    <- stringWithMaxLength(2)
-        countryOfDestination <- stringWithMaxLength(2)
+        countryOfDispatch    <- arbitrary[Country]
+        countryOfDestination <- arbitrary[Country]
         producedDocuments    <- listWithMaxSize(9, arbitrary[ProducedDocument])
         specialMentions      <- listWithMaxSize(9, arbitrary[SpecialMention])
         consignor            <- Gen.option(arbitrary[Consignor])
@@ -215,17 +216,6 @@ trait ModelGenerators extends GeneratorHelpers {
         )
     }
 
-  implicit lazy val arbitraryPermissionToContinueUnloading: Arbitrary[PermissionToContinueUnloading] =
-    Arbitrary {
-
-      for {
-        mrn                <- stringWithMaxLength(17) // TODO: Introduce MRN model
-        continue           <- Gen.choose(1, 9)
-        presentationOffice <- stringWithMaxLength(8)
-        trader             <- arbitrary[TraderAtDestination]
-      } yield PermissionToContinueUnloading(mrn, continue, presentationOffice, trader)
-    }
-
   implicit lazy val arbitraryPermissionToStartUnloading: Arbitrary[PermissionToStartUnloading] =
     Arbitrary {
 
@@ -233,7 +223,7 @@ trait ModelGenerators extends GeneratorHelpers {
         mrn                 <- stringWithMaxLength(17) // TODO: Introduce MRN model
         declarationType     <- arbitrary[DeclarationType]
         transportId         <- Gen.option(stringWithMaxLength(27))
-        transportCountry    <- Gen.option(stringWithMaxLength(2))
+        transportCountry    <- Gen.option(arbitrary[Country])
         acceptanceDate      <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
         numberOfItems       <- Gen.choose(1, 99999)
         numberOfPackages    <- Gen.choose(1, 9999999)
@@ -241,8 +231,8 @@ trait ModelGenerators extends GeneratorHelpers {
         principal           <- arbitrary[Principal]
         traderAtDestination <- arbitrary[TraderAtDestination]
         presentationOffice  <- stringWithMaxLength(8)
-        seals               <- listWithMaxSize(9, stringWithMaxLength(20))
-        goodsItems          <- listWithMaxSize(9, arbitrary[GoodsItem])
+        seals               <- nonEmptyListWithMaxSize(9, stringWithMaxLength(20))
+        goodsItems          <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield
         PermissionToStartUnloading(
           mrn,
