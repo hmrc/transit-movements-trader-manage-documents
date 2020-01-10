@@ -19,7 +19,7 @@ package models.reference
 import play.api.libs.json.OFormat
 import play.api.libs.json.Json
 
-final case class DocumentType(code: String, description: String, transportDocument: Boolean)
+final case class DocumentType(code: String, description: String, transportDocument: Boolean) extends CodedReferenceData
 
 object DocumentType {
 

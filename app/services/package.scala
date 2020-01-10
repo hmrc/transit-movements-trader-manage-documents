@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-package models
+import cats.data.ValidatedNec
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+package object services {
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
-
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+  type ValidationResult[A] = ValidatedNec[ValidationError, A]
 }

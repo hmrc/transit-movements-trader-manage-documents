@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package models
+package services
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.reference.Country
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+object PrincipalConverter extends Converter {
 
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+  def toViewModel(p: models.Principal, path: String, countries: Seq[Country]): ValidationResult[viewmodels.Principal] =
+    findReferenceData(p.countryCode, countries, s"$path.countryCode")
+      .map(viewmodels.Principal(p.name, p.streetAndNumber, p.postCode, p.city, _, p.eori, p.tir))
 }

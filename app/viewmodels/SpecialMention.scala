@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.reference.AdditionalInformation
+import models.reference.Country
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+trait SpecialMention
 
-object ProducedDocument {
+final case class SpecialMentionEc(additionalInformationCoded: AdditionalInformation) extends SpecialMention
 
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-}
+final case class SpecialMentionNonEc(additionalInformationCoded: AdditionalInformation, exportFromCountry: Country) extends SpecialMention
+
+final case class SpecialMentionNoCountry(additionalInformationCoded: AdditionalInformation) extends SpecialMention

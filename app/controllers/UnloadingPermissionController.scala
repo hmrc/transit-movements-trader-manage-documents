@@ -16,18 +16,46 @@
 
 package controllers
 
+import cats.data.NonEmptyChain
 import javax.inject.Inject
+import models.PermissionToStartUnloading
+import play.api.Logger
 import play.api.mvc.Action
-import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
+import services.ConversionService
+import services.JsonError
+import services.ReferenceDataRetrievalError
+import services.ValidationError
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
-class UnloadingPermissionController @Inject()(
-  cc: ControllerComponents
-) extends BackendController(cc) {
+import scala.concurrent.ExecutionContext
 
-  def post(): Action[AnyContent] = Action {
+class UnloadingPermissionController @Inject()(
+  conversionService: ConversionService,
+  cc: ControllerComponents
+)(implicit ec: ExecutionContext)
+    extends BackendController(cc) {
+
+  private val logger = Logger(getClass)
+
+  private def logErrors(errors: NonEmptyChain[ValidationError]): Unit =
+    logger.warn(errors.toChain.toList.mkString("\n"))
+
+  def post(): Action[PermissionToStartUnloading] = Action.async(parse.json[PermissionToStartUnloading]) {
     implicit request =>
-      NotImplemented
+      conversionService.convertUnloadingPermission(request.body).map {
+        _.fold(
+          errors => {
+            logErrors(errors)
+
+            errors match {
+              case x if x.exists(y => y.isInstanceOf[JsonError])                   => InternalServerError
+              case x if x.exists(y => y.isInstanceOf[ReferenceDataRetrievalError]) => BadGateway
+              case _                                                               => BadRequest
+            }
+          },
+          _ => Ok
+        )
+      }
   }
 }

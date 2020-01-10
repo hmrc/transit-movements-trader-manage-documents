@@ -18,7 +18,10 @@ package models
 
 import play.api.libs.json._
 
-trait SpecialMention
+trait SpecialMention {
+
+  def additionalInformationCoded: String
+}
 
 object SpecialMention {
 

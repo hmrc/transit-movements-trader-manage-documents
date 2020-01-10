@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import java.time.LocalDate
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
+import models.DeclarationType
+import models.reference.Country
+
+final case class PermissionToStartUnloading(
+  movementReferenceNumber: String,
+  declarationType: DeclarationType,
+  transportIdentity: Option[String],
+  transportCountry: Option[Country],
+  acceptanceDate: LocalDate,
+  numberOfItems: Int,
+  numberOfPackages: Int,
+  grossMass: BigDecimal,
+  principal: Principal,
+  traderAtDestination: TraderAtDestination,
+  presentationOffice: String,
+  seals: Seq[String],
+  goodsItems: Seq[GoodsItem]
 )
-
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-}

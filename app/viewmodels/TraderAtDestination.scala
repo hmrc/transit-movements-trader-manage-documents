@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.reference.Country
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+sealed trait TraderAtDestination
 
-object ProducedDocument {
+final case class TraderAtDestinationWithEori(
+  eori: String,
+  name: Option[String],
+  streetAndNumber: Option[String],
+  postCode: Option[String],
+  city: Option[String],
+  country: Option[Country]
+) extends TraderAtDestination
 
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-}
+final case class TraderAtDestinationWithoutEori(
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  country: Country
+) extends TraderAtDestination

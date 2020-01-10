@@ -19,7 +19,7 @@ package models.reference
 import play.api.libs.json.OFormat
 import play.api.libs.json.Json
 
-case class KindOfPackage(code: String, description: String)
+case class KindOfPackage(code: String, description: String) extends CodedReferenceData
 
 object KindOfPackage {
 

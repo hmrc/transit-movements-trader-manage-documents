@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package models
+package services
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import cats.implicits._
+import models.reference.CodedReferenceData
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+trait Converter {
 
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+  def findReferenceData[A <: CodedReferenceData](code: String, referenceData: Seq[A], path: String): ValidationResult[A] =
+    referenceData.find(_.code == code) match {
+      case Some(data) => data.validNec
+      case None       => ReferenceDataNotFound(path, code).invalidNec
+    }
 }

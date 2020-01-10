@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package models
+package services
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.reference.Country
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+object ConsigneeConverter extends Converter {
 
-object ProducedDocument {
-
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+  def toViewModel(consignee: models.Consignee, path: String, countries: Seq[Country]): ValidationResult[viewmodels.Consignee] =
+    findReferenceData(consignee.countryCode, countries, s"$path.countryCode")
+      .map {
+        country =>
+          viewmodels.Consignee(consignee.name, consignee.streetAndNumber, consignee.postCode, consignee.city, country, consignee.eori)
+      }
 }
