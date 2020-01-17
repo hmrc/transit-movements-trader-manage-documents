@@ -15,5 +15,17 @@
     @row_1(permission)
 
     @row_2(permission)
+
+    @row_3(permission)
+
+    @row_4(permission)
+
+    @row_5(permission)
+
+    @row_6(permission)
+
+    @row_7(permission)
+
+    @row_8()
   </fo:table-body>
 </fo:table>
