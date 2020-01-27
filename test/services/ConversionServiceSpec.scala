@@ -18,6 +18,7 @@ package services
 
 import java.time.LocalDate
 
+import cats.data.NonEmptyList
 import cats.implicits._
 import cats.data.Validated.Valid
 import cats.scalatest.ValidatedMatchers
@@ -69,7 +70,7 @@ class ConversionServiceSpec
     traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
     presentationOffice = "Presentation office",
     seals = Seq("seal 1"),
-    goodsItems = Seq(
+    goodsItems = NonEmptyList.one(
       models.GoodsItem(
         itemNumber = 1,
         commodityCode = None,
@@ -88,12 +89,15 @@ class ConversionServiceSpec
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None)),
         containers = Seq("container 1"),
-        packages = Seq(
+        packages = NonEmptyList(
           models.BulkPackage(kindsOfPackage.head.code, Some("numbers")),
-          models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
-          models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+          List(
+            models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
+            models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+          )
         )
-      ))
+      )
+    )
   )
 
   "convertUnloadingPermission" - {
@@ -122,7 +126,7 @@ class ConversionServiceSpec
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
-        goodsItems = Seq(
+        goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
             itemNumber = 1,
             commodityCode = None,
@@ -141,10 +145,12 @@ class ConversionServiceSpec
             consignor = Some(viewmodels.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
             consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
             containers = Seq("container 1"),
-            packages = Seq(
+            packages = NonEmptyList(
               viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
-              viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
-              viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+              List(
+                viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+                viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+              )
             )
           )
         )

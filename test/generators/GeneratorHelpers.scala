@@ -20,6 +20,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 
+import cats.data.NonEmptyList
 import org.scalacheck.Gen
 import org.scalacheck.Shrink
 
@@ -39,11 +40,12 @@ trait GeneratorHelpers {
       items <- Gen.listOfN(size, gen)
     } yield items
 
-  def nonEmptyListWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[Seq[T]] =
+  def nonEmptyListWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[NonEmptyList[T]] =
     for {
-      size  <- Gen.choose(1, maxSize)
-      items <- Gen.listOfN(size, gen)
-    } yield items
+      head     <- gen
+      tailSize <- Gen.choose(1, maxSize - 1)
+      tail     <- Gen.listOfN(tailSize, gen)
+    } yield NonEmptyList(head, tail)
 
   def datesBetween(min: LocalDate, max: LocalDate): Gen[LocalDate] = {
 

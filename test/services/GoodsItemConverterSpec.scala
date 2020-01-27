@@ -16,6 +16,7 @@
 
 package services
 
+import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.reference.AdditionalInformation
@@ -56,10 +57,12 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None)),
         containers = Seq("container 1"),
-        packages = Seq(
+        packages = NonEmptyList(
           models.BulkPackage(kindsOfPackage.head.code, Some("numbers")),
-          models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
-          models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+          List(
+            models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
+            models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+          )
         )
       )
 
@@ -81,10 +84,12 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         consignor = Some(viewmodels.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
         containers = Seq("container 1"),
-        packages = Seq(
+        packages = NonEmptyList(
           viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
-          viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
-          viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+          List(
+            viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+            viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+          )
         )
       )
 
@@ -113,10 +118,12 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None)),
         containers = Seq("container 1"),
-        packages = Seq(
+        packages = NonEmptyList(
           models.BulkPackage(invalidCode, Some("numbers")),
-          models.UnpackedPackage(invalidCode, 1, Some("marks")),
-          models.RegularPackage(invalidCode, 1, "marks and numbers")
+          List(
+            models.UnpackedPackage(invalidCode, 1, Some("marks")),
+            models.RegularPackage(invalidCode, 1, "marks and numbers")
+          )
         )
       )
 

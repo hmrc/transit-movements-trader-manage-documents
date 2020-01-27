@@ -14,25 +14,29 @@
  * limitations under the License.
  */
 
-package viewmodels
-
 import cats.data.NonEmptyList
-import models.DeclarationType
-import models.reference.Country
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
-final case class GoodsItem(
-  itemNumber: Int,
-  commodityCode: Option[String],
-  declarationType: Option[DeclarationType],
-  description: String,
-  grossMass: Option[BigDecimal],
-  netMass: Option[BigDecimal],
-  countryOfDispatch: Country,
-  countryOfDestination: Country,
-  producedDocuments: Seq[ProducedDocument],
-  specialMentions: Seq[SpecialMention],
-  consignor: Option[Consignor],
-  consignee: Option[Consignee],
-  containers: Seq[String],
-  packages: NonEmptyList[Package]
-)
+package object json {
+
+  implicit object NonEmptyListOps {
+
+    implicit def reads[A: Reads]: Reads[NonEmptyList[A]] =
+      Reads
+        .of[List[A]]
+        .collect(
+          JsonValidationError("expected a NonEmptyList but the list was empty")
+        ) {
+          case head :: tail => NonEmptyList(head, tail)
+        }
+
+    implicit def writes[A: Writes]: Writes[NonEmptyList[A]] =
+      Writes
+        .of[List[A]]
+        .contramap(_.toList)
+
+    implicit def format[A: Format]: Format[NonEmptyList[A]] =
+      Format(reads, writes)
+  }
+}

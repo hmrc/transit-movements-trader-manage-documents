@@ -16,6 +16,7 @@
 
 package services
 
+import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
 import models.reference.AdditionalInformation
@@ -50,14 +51,21 @@ object GoodsItemConverter extends Converter {
         .toList
         .sequence
 
-    def convertPackages(packages: Seq[models.Package]): ValidationResult[List[viewmodels.Package]] =
-      packages.zipWithIndex
-        .map {
-          case (pkg, index) =>
-            PackageConverter.toViewModel(pkg, s"$path.packages[$index]", kindsOfPackage)
-        }
-        .toList
-        .sequence
+    def convertPackages(packages: NonEmptyList[models.Package]): ValidationResult[NonEmptyList[viewmodels.Package]] = {
+      val head = PackageConverter.toViewModel(packages.head, s"$path.packages[0]", kindsOfPackage)
+
+      val tail = packages.tail.zipWithIndex.map {
+        case (pkg, index) =>
+          PackageConverter.toViewModel(pkg, s"$path.packages[${index + 1}]", kindsOfPackage)
+      }.sequence
+
+      (
+        head,
+        tail
+      ).mapN(
+        (head, tail) => NonEmptyList(head, tail)
+      )
+    }
 
     def convertConsignor(maybeConsignor: Option[models.Consignor]): ValidationResult[Option[viewmodels.Consignor]] =
       maybeConsignor match {

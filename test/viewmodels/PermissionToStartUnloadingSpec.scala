@@ -16,6 +16,7 @@
 
 package viewmodels
 
+import cats.data.NonEmptyList
 import generators.ViewmodelGenerators
 import models.reference.Country
 import org.scalacheck.Arbitrary.arbitrary
@@ -73,7 +74,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
             val goodsItemWithConsignor1 = goodsItem copy (consignor = Some(consignor1))
             val goodsItemWithConsignor2 = goodsItem copy (consignor = Some(consignor2))
 
-            val updatedPermission = permission copy (goodsItems = Seq(goodsItemWithConsignor1, goodsItemWithConsignor2))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithConsignor1, List(goodsItemWithConsignor2)))
 
             updatedPermission.consignor mustBe empty
           }
@@ -94,7 +95,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
           val itemsWithNoConsignor = items1.map(_ copy (consignor = None))
           val itemsWithConsignor   = items2.map(_ copy (consignor = Some(consignor)))
 
-          val updatedPermission = permission copy (goodsItems = itemsWithNoConsignor ++ itemsWithConsignor)
+          val updatedPermission = permission copy (goodsItems = itemsWithNoConsignor.concatNel(itemsWithConsignor))
 
           updatedPermission.consignor mustBe empty
       }
@@ -139,7 +140,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
             val goodsItemWithConsignee1 = goodsItem copy (consignee = Some(consignee1))
             val goodsItemWithConsignee2 = goodsItem copy (consignee = Some(consignee2))
 
-            val updatedPermission = permission copy (goodsItems = Seq(goodsItemWithConsignee1, goodsItemWithConsignee2))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithConsignee1, List(goodsItemWithConsignee2)))
 
             updatedPermission.consignee mustBe empty
           }
@@ -160,7 +161,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
           val itemsWithNoConsignee = items1.map(_ copy (consignee = None))
           val itemsWithConsignee   = items2.map(_ copy (consignee = Some(consignee)))
 
-          val updatedPermission = permission copy (goodsItems = itemsWithNoConsignee ++ itemsWithConsignee)
+          val updatedPermission = permission copy (goodsItems = itemsWithNoConsignee.concatNel(itemsWithConsignee))
 
           updatedPermission.consignee mustBe empty
       }
@@ -193,7 +194,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
             val goodsItemWithCountryOfDispatch1 = goodsItem copy (countryOfDispatch = countryOfDispatch1)
             val goodsItemWithCountryOfDispatch2 = goodsItem copy (countryOfDispatch = countryOfDispatch2)
 
-            val updatedPermission = permission copy (goodsItems = Seq(goodsItemWithCountryOfDispatch1, goodsItemWithCountryOfDispatch2))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithCountryOfDispatch1, List(goodsItemWithCountryOfDispatch2)))
 
             updatedPermission.countryOfDispatch mustBe empty
           }
@@ -227,7 +228,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
             val goodsItemWithCountryOfDestination1 = goodsItem copy (countryOfDestination = countryOfDestination1)
             val goodsItemWithCountryOfDestination2 = goodsItem copy (countryOfDestination = countryOfDestination2)
 
-            val updatedPermission = permission copy (goodsItems = Seq(goodsItemWithCountryOfDestination1, goodsItemWithCountryOfDestination2))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithCountryOfDestination1, List(goodsItemWithCountryOfDestination2)))
 
             updatedPermission.countryOfDestination mustBe empty
           }
@@ -255,7 +256,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
           (permission, container1, container2) =>
             val updatedGoodsItem = permission.goodsItems.head copy (containers = Seq(container1, container2))
 
-            val updatedPermission = permission copy (goodsItems = Seq(updatedGoodsItem))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -265,9 +266,9 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
 
         forAll(arbitrary[PermissionToStartUnloading], arbitrary[Package], arbitrary[Package]) {
           (permission, package1, package2) =>
-            val updatedGoodsItem = permission.goodsItems.head copy (packages = Seq(package1, package2))
+            val updatedGoodsItem = permission.goodsItems.head copy (packages = NonEmptyList(package1, List(package2)))
 
-            val updatedPermission = permission copy (goodsItems = Seq(updatedGoodsItem))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -285,7 +286,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
           case (permission, mentions) =>
             val updatedGoodsItem = permission.goodsItems.head copy (specialMentions = mentions)
 
-            val updatedPermission = permission copy (goodsItems = Seq(updatedGoodsItem))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -303,7 +304,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
           case (permission, documents) =>
             val updatedGoodsItem = permission.goodsItems.head copy (producedDocuments = documents)
 
-            val updatedPermission = permission copy (goodsItems = Seq(updatedGoodsItem))
+            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -317,12 +318,12 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
             case (permission, containers, onePackage, mentions, documents) =>
               val updatedGoodsItem = permission.goodsItems.head.copy(
                 containers = containers,
-                packages = Seq(onePackage),
+                packages = NonEmptyList.one(onePackage),
                 specialMentions = mentions,
                 producedDocuments = documents
               )
 
-              val updatedPermission = permission copy (goodsItems = Seq(updatedGoodsItem))
+              val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
 
               updatedPermission.printListOfItems mustEqual false
           }
@@ -364,12 +365,12 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
         case (permission, containers, onePackage, mentions, documents) =>
           val updatedGoodsItem = permission.goodsItems.head.copy(
             containers = containers,
-            packages = Seq(onePackage),
+            packages = NonEmptyList.one(onePackage),
             specialMentions = mentions,
             producedDocuments = documents
           )
 
-          val updatedPermission = permission copy (goodsItems = Seq(updatedGoodsItem))
+          val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
 
           updatedPermission.printVariousConsignors mustEqual false
       }
@@ -440,12 +441,12 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
         case (permission, containers, onePackage, mentions, documents) =>
           val updatedGoodsItem = permission.goodsItems.head.copy(
             containers = containers,
-            packages = Seq(onePackage),
+            packages = NonEmptyList.one(onePackage),
             specialMentions = mentions,
             producedDocuments = documents
           )
 
-          val updatedPermission = permission copy (goodsItems = Seq(updatedGoodsItem))
+          val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
 
           updatedPermission.printVariousConsignees mustEqual false
       }

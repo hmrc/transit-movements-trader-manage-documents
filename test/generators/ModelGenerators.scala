@@ -195,7 +195,7 @@ trait ModelGenerators extends GeneratorHelpers {
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
         containers           <- listWithMaxSize(9, stringWithMaxLength(17))
-        packages             <- listWithMaxSize(9, arbitrary[Package])
+        packages             <- nonEmptyListWithMaxSize(9, arbitrary[Package])
       } yield
         GoodsItem(
           itemNumber,
@@ -242,7 +242,7 @@ trait ModelGenerators extends GeneratorHelpers {
         traderAtDestination <- arbitrary[TraderAtDestination]
         presentationOffice  <- stringWithMaxLength(8)
         seals               <- listWithMaxSize(9, stringWithMaxLength(20))
-        goodsItems          <- listWithMaxSize(9, arbitrary[GoodsItem])
+        goodsItems          <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield
         PermissionToStartUnloading(
           mrn,

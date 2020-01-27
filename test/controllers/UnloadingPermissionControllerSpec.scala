@@ -20,6 +20,7 @@ import java.time.LocalDate
 
 import cats.data.Chain
 import cats.data.NonEmptyChain
+import cats.data.NonEmptyList
 import cats.implicits._
 import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
@@ -63,7 +64,7 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
     traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
     presentationOffice = "Presentation office",
     seals = Seq("seal 1"),
-    goodsItems = Seq(
+    goodsItems = NonEmptyList.one(
       models.GoodsItem(
         itemNumber = 1,
         commodityCode = None,
@@ -82,8 +83,9 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", "AA", None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", "AA", None)),
         containers = Seq("container 1"),
-        packages = Seq(models.RegularPackage("BB", 1, "marks and numbers"))
-      ))
+        packages = NonEmptyList.one(models.RegularPackage("BB", 1, "marks and numbers"))
+      )
+    )
   )
   "post" - {
 
@@ -107,7 +109,7 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
-        goodsItems = Seq(
+        goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
             itemNumber = 1,
             commodityCode = None,
@@ -126,7 +128,7 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
             consignor = Some(viewmodels.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", country, None)),
             consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", country, None)),
             containers = Seq("container 1"),
-            packages = Seq(viewmodels.RegularPackage(kindOfPackage, 1, "marks and numbers"))
+            packages = NonEmptyList.one(viewmodels.RegularPackage(kindOfPackage, 1, "marks and numbers"))
           )
         )
       )

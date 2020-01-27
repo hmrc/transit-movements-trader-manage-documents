@@ -18,7 +18,9 @@ package models
 
 import java.time.LocalDate
 
+import cats.data.NonEmptyList
 import play.api.libs.json._
+import json.NonEmptyListOps._
 
 sealed trait UnloadingPermission
 
@@ -58,7 +60,7 @@ final case class PermissionToStartUnloading(
   traderAtDestination: TraderAtDestination,
   presentationOffice: String,
   seals: Seq[String],
-  goodsItems: Seq[GoodsItem]
+  goodsItems: NonEmptyList[GoodsItem]
 ) extends UnloadingPermission
 
 object PermissionToStartUnloading {
