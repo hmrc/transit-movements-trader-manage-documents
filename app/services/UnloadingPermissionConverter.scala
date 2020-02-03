@@ -16,6 +16,7 @@
 
 package services
 
+import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
 import models.reference.AdditionalInformation
@@ -37,14 +38,22 @@ object UnloadingPermissionConverter extends Converter {
         case None          => Valid(None)
       }
 
-    def convertGoodsItems(items: Seq[models.GoodsItem]): ValidationResult[List[viewmodels.GoodsItem]] =
-      items.zipWithIndex
-        .map {
-          case (item, index) =>
-            GoodsItemConverter.toViewModel(item, s"goodsItems[$index]", countries, additionalInfo, kindsOfPackage, documentTypes)
-        }
-        .toList
-        .sequence
+    def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
+
+      val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
+
+      val tail = items.tail.zipWithIndex.map {
+        case (item, index) =>
+          GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes)
+      }.sequence
+
+      (
+        head,
+        tail
+      ).mapN(
+        (head, tail) => NonEmptyList(head, tail)
+      )
+    }
 
     (
       PrincipalConverter.toViewModel(permission.principal, "principal", countries),

@@ -24,7 +24,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 
-trait ReferenceModelGenerators extends ModelGenerators {
+trait ReferenceModelGenerators extends GeneratorHelpers {
 
   implicit lazy val arbitraryCountry: Arbitrary[Country] =
     Arbitrary {

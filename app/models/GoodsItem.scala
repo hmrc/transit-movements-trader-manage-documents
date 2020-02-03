@@ -16,8 +16,10 @@
 
 package models
 
+import cats.data.NonEmptyList
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
+import json.NonEmptyListOps._
 
 final case class GoodsItem(
   itemNumber: Int,
@@ -33,7 +35,7 @@ final case class GoodsItem(
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   containers: Seq[String],
-  packages: Seq[Package]
+  packages: NonEmptyList[Package]
 )
 
 object GoodsItem {

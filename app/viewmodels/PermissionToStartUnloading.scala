@@ -18,6 +18,7 @@ package viewmodels
 
 import java.time.LocalDate
 
+import cats.data.NonEmptyList
 import models.DeclarationType
 import models.reference.Country
 
@@ -34,5 +35,42 @@ final case class PermissionToStartUnloading(
   traderAtDestination: TraderAtDestination,
   presentationOffice: String,
   seals: Seq[String],
-  goodsItems: Seq[GoodsItem]
-)
+  goodsItems: NonEmptyList[GoodsItem]
+) {
+
+  private def singleValue[A](items: Seq[A]): Option[A] =
+    if (items.distinct.size == 1 && items.size == goodsItems.size) {
+      Some(items.head)
+    } else {
+      None
+    }
+
+  val consignor: Option[Consignor] =
+    singleValue(goodsItems.toList.flatMap(_.consignor))
+
+  val consignee: Option[Consignee] =
+    singleValue(goodsItems.toList.flatMap(_.consignee))
+
+  val countryOfDispatch: Option[Country] =
+    singleValue(goodsItems.toList.map(_.countryOfDispatch))
+
+  val countryOfDestination: Option[Country] =
+    singleValue(goodsItems.toList.map(_.countryOfDestination))
+
+  val printListOfItems: Boolean =
+    goodsItems.size > 1 ||
+      goodsItems.head.containers.size > 1 ||
+      goodsItems.head.packages.size > 1 ||
+      goodsItems.head.specialMentions.size > 4 ||
+      goodsItems.head.producedDocuments.size > 4
+
+  val printVariousConsignees: Boolean =
+    printListOfItems &&
+      consignee.isEmpty &&
+      goodsItems.toList.flatMap(_.consignee).nonEmpty
+
+  val printVariousConsignors: Boolean =
+    printListOfItems &&
+      consignor.isEmpty &&
+      goodsItems.toList.flatMap(_.consignor).nonEmpty
+}

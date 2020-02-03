@@ -18,6 +18,7 @@ package services
 
 import java.time.LocalDate
 
+import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType
@@ -55,7 +56,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
-        goodsItems = Seq(
+        goodsItems = NonEmptyList.one(
           models.GoodsItem(
             itemNumber = 1,
             commodityCode = None,
@@ -74,12 +75,15 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None)),
             consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None)),
             containers = Seq("container 1"),
-            packages = Seq(
+            packages = NonEmptyList(
               models.BulkPackage(kindsOfPackage.head.code, Some("numbers")),
-              models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
-              models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+              List(
+                models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
+                models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+              )
             )
-          ))
+          )
+        )
       )
 
       val expectedResult = viewmodels.PermissionToStartUnloading(
@@ -96,7 +100,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
-        goodsItems = Seq(
+        goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
             itemNumber = 1,
             commodityCode = None,
@@ -115,10 +119,12 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             consignor = Some(viewmodels.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
             consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
             containers = Seq("container 1"),
-            packages = Seq(
+            packages = NonEmptyList(
               viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
-              viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
-              viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+              List(
+                viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+                viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+              )
             )
           )
         )
@@ -144,7 +150,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", Some("name"), Some("street"), Some("postCode"), Some("city"), Some(invalidCode)),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
-        goodsItems = Seq(
+        goodsItems = NonEmptyList.one(
           models.GoodsItem(
             itemNumber = 1,
             commodityCode = None,
@@ -163,12 +169,15 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None)),
             consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None)),
             containers = Seq("container 1"),
-            packages = Seq(
+            packages = NonEmptyList(
               models.BulkPackage(invalidCode, Some("numbers")),
-              models.UnpackedPackage(invalidCode, 1, Some("marks")),
-              models.RegularPackage(invalidCode, 1, "marks and numbers")
+              List(
+                models.UnpackedPackage(invalidCode, 1, Some("marks")),
+                models.RegularPackage(invalidCode, 1, "marks and numbers")
+              )
             )
-          ))
+          )
+        )
       )
 
       val result = UnloadingPermissionConverter.toViewModel(permission, countries, additionalInfo, kindsOfPackage, documentTypes)
