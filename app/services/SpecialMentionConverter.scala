@@ -16,7 +16,6 @@
 
 package services
 
-import cats.data._
 import cats.data.Validated._
 import cats.implicits._
 import models.reference.AdditionalInformation

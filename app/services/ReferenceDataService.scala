@@ -24,8 +24,6 @@ import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
 import play.api.http.Status
-import play.api.libs.json.JsPath
-import play.api.libs.json.JsonValidationError
 import play.api.libs.json.Reads
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpReads
@@ -40,9 +38,8 @@ class ReferenceDataService @Inject()(
   httpClient: HttpClient
 ) {
 
-  private def referenceDataReads[A](typeOfData: String)(implicit ev: Reads[A]): HttpReads[ValidationResult[Seq[A]]] = new HttpReads[ValidationResult[Seq[A]]] {
-
-    override def read(method: String, url: String, response: HttpResponse): ValidationResult[Seq[A]] =
+  private def referenceDataReads[A](typeOfData: String)(implicit ev: Reads[A]): HttpReads[ValidationResult[Seq[A]]] =
+    (_, _, response: HttpResponse) =>
       response.status match {
         case Status.OK =>
           response.json
@@ -52,8 +49,7 @@ class ReferenceDataService @Inject()(
               result => result.validNec
             )
         case _ => ReferenceDataRetrievalError(typeOfData, response.status, response.body).invalidNec
-      }
-  }
+    }
 
   def countries()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[Country]]] = {
 

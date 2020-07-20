@@ -17,7 +17,6 @@
 package models
 
 import generators.ModelGenerators
-import org.scalacheck.Gen
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
