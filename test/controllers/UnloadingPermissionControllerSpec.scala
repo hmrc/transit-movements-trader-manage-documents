@@ -18,10 +18,8 @@ package controllers
 
 import java.time.LocalDate
 
-import cats.data.Chain
 import cats.data.NonEmptyChain
 import cats.data.NonEmptyList
-import cats.implicits._
 import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
 import models.DeclarationType
@@ -45,7 +43,6 @@ import services.ConversionService
 import services.JsonError
 import services.ReferenceDataNotFound
 import services.ReferenceDataRetrievalError
-import services.ValidationError
 
 import scala.concurrent.Future
 

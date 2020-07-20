@@ -22,7 +22,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.status
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import config.ReferenceDataConfig
 import generators.ReferenceModelGenerators
 import models.reference.AdditionalInformation
 import models.reference.Country
