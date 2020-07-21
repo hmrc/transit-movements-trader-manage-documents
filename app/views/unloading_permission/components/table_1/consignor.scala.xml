@@ -8,6 +8,7 @@
       <fo:table-column column-number="3" column-width="37mm"/>
 
       <fo:table-body>
+        @* TODO: Need to handle displaying consignors when individual goods item have a consignor *@
         @if(permission.printVariousConsignors) {
           @consignor_various()
         } else {
