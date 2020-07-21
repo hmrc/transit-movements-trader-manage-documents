@@ -107,7 +107,12 @@ class UnloadingPermissionController @Inject()(
               viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
             ),
             consignor = Some(
-              viewmodels.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", Country("valid", "AA", "Country A"), None)),
+              viewmodels.Consignor("consignor name",
+                                   "consignor street",
+                                   "consignor postCode",
+                                   "consignor city",
+                                   Country("valid", "AA", "Country A"),
+                                   Some("IT444100201000"))),
             consignee = Some(
               viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
             containers = Seq("container 1"),
