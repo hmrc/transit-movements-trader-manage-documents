@@ -50,7 +50,6 @@
                                                     <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" font-weight="bold" text-align="center">
                                                         <fo:block>
                                                             <!-- Number and kind -->
-                                                            <!--if not set to print on top page value should be -&#45;&#45;-->
                                                             @if(!permission.printListOfItems) {
                                                                 @permission.numberOfItems
                                                             } else {
@@ -69,148 +68,11 @@
                             </fo:table-row>
                             <fo:table-row height="24mm">
                                 <fo:table-cell font-weight="bold" padding-left="2mm" wrap-option="wrap">
-
                                     @if(permission.printListOfItems) {
                                         <fo:block margin-top="1mm">See List of Items</fo:block>
                                     } else {
-
-                                        <fo:table width="100%" table-layout="fixed">
-                                            <fo:table-column column-width="20mm"/>
-                                            <fo:table-column column-width="25mm"/>
-                                            <fo:table-column column-width="15mm"/>
-                                            <fo:table-column column-width="25mm"/>
-                                            <fo:table-column column-width="25mm"/>
-                                            <fo:table-body>
-                                                <fo:table-row height="15mm" padding-top="1mm">
-                                                    <fo:table-cell font-weight="bold" wrap-option="wrap">
-                                                        <fo:block>
-                                                            <!--Marks and numbers-->
-                                                            @* TODO: do we display all records or just a single record*@
-                                                            <!--<xsl:if test="string-length(*/GOOITEGDS/PACGS2/MarNumOfPacGS21) > 0">-->
-                                                            @permission.goodsItems.head.packages.toList.map(x =>
-                                                            x.marksAndNumbersValue.map( y => y)
-                                                            )
-                                                        </fo:block>
-
-
-                                                    </fo:table-cell>
-                                                    <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
-                                                        @* TODO: do we display all records or just a single record*@
-                                                        <!--<xsl:value-of select="*/GOOITEGDS/CONNR2/ConNumNR21"/>-->
-                                                        <!-- Container No(s) -->
-                                                        <fo:block>
-                                                            @permission.goodsItems.head.containers.map(
-                                                            containers => containers
-                                                            )
-                                                        </fo:block>
-
-                                                    </fo:table-cell>
-                                                    <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
-
-                                                        <!-- Number and kind -->
-                                                        <fo:block>
-                                                            <!--Logic:
-                                                            If KinOfPacGS23 exist and number of packages is greater than 0,
-                                                            display `num of packages - kind of package`
-                                                            else
-                                                            if number of packages is 0 just display kind of package
-                                                            -->
-
-
-                                                            <fo:inline font-style="italic">
-                                                                @*  @permission.goodsItems.head.packages.toList.map(x =>
-                                                                x.packageAndNumber.getOrElse(x.kindOfPackage.description)
-                                                                ) *@
-                                                                @permission.goodsItems.head.packages.toList.head.packageAndNumber.getOrElse(permission.goodsItems.head.packages.toList.head.kindOfPackage.description)
-                                                            </fo:inline>
-
-                                                            @* TODO: It looks like there's a link to external reference data and if found
-                                                            java:getValue($Kin-Of-Pac, */GOOITEGDS/PACGS2/KinOfPacGS23) works out the kind of package used
-                                                            Need to work out what this reference data looks like
-                                                            *@
-
-                                                        </fo:block>
-
-                                                        <!--<xsl:choose>-->
-                                                        <!--<xsl:when test="string-length($Kin-Of-Pac) > 0">-->
-                                                        <!--<xsl:if test="string-length(*/GOOITEGDS/PACGS2/KinOfPacGS23) > 0">-->
-                                                        <!--<fo:block>-->
-                                                        <!--<xsl:variable name="kinVal" select="java:getValue($Kin-Of-Pac, */GOOITEGDS/PACGS2/KinOfPacGS23)"/>-->
-                                                        <!--<xsl:choose>-->
-                                                        <!--<xsl:when test="string-length($kinVal) > 0">-->
-                                                        <!--<xsl:choose>-->
-                                                        <!--<xsl:when test="string-length(*/GOOITEGDS/PACGS2/NumOfPacGS24) > 0">-->
-                                                        <!--<xsl:value-of select="concat(concat(*/GOOITEGDS/PACGS2/NumOfPacGS24,' - '), $kinVal)"/>-->
-                                                        <!--</xsl:when>-->
-                                                        <!--<xsl:otherwise>-->
-                                                        <!--<xsl:value-of select="$kinVal"/>-->
-                                                        <!--</xsl:otherwise>-->
-                                                        <!--</xsl:choose>-->
-                                                        <!--</xsl:when>-->
-                                                        <!--<xsl:otherwise>-->
-                                                        <!--<xsl:call-template name="printKinVal">-->
-                                                        <!--<xsl:with-param name="kinVal" select="*/GOOITEGDS/PACGS2/KinOfPacGS23"/>-->
-                                                        <!--<xsl:with-param name="numOfPacks" select="*/GOOITEGDS/PACGS2/NumOfPacGS24"/>-->
-                                                        <!--</xsl:call-template>-->
-                                                        <!--</xsl:otherwise>-->
-                                                        <!--</xsl:choose>-->
-                                                        <!--</fo:block>-->
-                                                        <!--</xsl:if>-->
-                                                        <!--</xsl:when>-->
-                                                        <!--<xsl:otherwise>-->
-                                                        <!--<fo:block>-->
-                                                        <!--<xsl:call-template name="printKinVal">-->
-                                                        <!--<xsl:with-param name="kinVal" select="*/GOOITEGDS/PACGS2/KinOfPacGS23"/>-->
-                                                        <!--<xsl:with-param name="numOfPacks" select="*/GOOITEGDS/PACGS2/NumOfPacGS24"/>-->
-                                                        <!--</xsl:call-template>-->
-                                                        <!--</fo:block>-->
-                                                        <!--</xsl:otherwise>-->
-                                                        <!--</xsl:choose>-->
-                                                        <!-- Number of pieces -->
-                                                        @if(permission.goodsItems.head.packages.toList.head.numberOfPiecesValue > 0) {
-                                                        <fo:block font-weight="normal">
-                                                            <fo:inline font-weight="bold">
-                                                                Pieces @permission.goodsItems.head.packages.toList.head.numberOfPiecesValue
-                                                            </fo:inline>
-                                                        </fo:block>
-                                                        }
-                                                    </fo:table-cell>
-                                                    <!-- Sensitive goods code -->
-                                                    @if(permission.goodsItems.head.sensitiveGoodsInformation.length > 0 && permission.goodsItems.head.sensitiveGoodsInformation.head.goodsCode.isDefined) {
-                                                    <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
-                                                        <fo:block>
-                                                            <fo:inline font-weight="normal">Sensitive Goods code:</fo:inline>
-                                                            @permission.goodsItems.head.sensitiveGoodsInformation.head.goodsCode.map(code => code)
-                                                        </fo:block>
-                                                    </fo:table-cell>
-                                                    }
-                                                    <!-- Sensitive goods quantity -->
-                                                    @if(permission.goodsItems.head.sensitiveGoodsInformation.length > 0) {
-                                                    <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
-                                                        <fo:block>
-                                                            <fo:inline font-weight="normal">Sensitive Quantity:</fo:inline>
-                                                            @permission.goodsItems.head.sensitiveGoodsInformation.head.quantity
-                                                        </fo:block>
-                                                    </fo:table-cell>
-                                                    }
-                                                </fo:table-row>
-                                                <!-- Description -->
-                                                <fo:table-row padding-top="1mm">
-                                                    <fo:table-cell number-columns-spanned="5" font-weight="bold" wrap-option="wrap">
-                                                        <fo:block>
-                                                            @permission.goodsItems.head.description
-                                                        </fo:block>
-                                                    </fo:table-cell>
-                                                </fo:table-row>
-                                            </fo:table-body>
-                                        </fo:table>
+                                        @goods_item(permission)
                                     }
-
-
-
-
-
-
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>
@@ -218,6 +80,120 @@
                 </fo:block>
             </fo:table-cell>
 
+
+
+            <fo:table-cell number-columns-spanned="2">
+                <fo:block>
+                    <fo:table width="100%" table-layout="fixed">
+                        <fo:table-column column-width="24mm"/>
+                        <fo:table-column column-width="32mm"/>
+                        <fo:table-column column-width="12mm"/>
+                        <fo:table-body>
+                            <fo:table-row height="8mm">
+                                <fo:table-cell number-columns-spanned="3">
+                                    <fo:block>
+                                        <fo:table width="100%" table-layout="fixed">
+                                            <fo:table-column column-width="24mm"/>
+                                            <fo:table-column column-width="44mm"/>
+                                            <fo:table-body>
+                                                <fo:table-row height="4mm">
+                                                    <fo:table-cell display-align="center" number-columns-spanned="2" padding-left="2mm">
+                                                        <fo:block>33 Commodity Code</fo:block>
+                                                    </fo:table-cell>
+                                                </fo:table-row>
+                                                <fo:table-row height="4mm">
+                                                    <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
+                                                        @if(!permission.printListOfItems) {
+                                                            <fo:block>
+                                                                @permission.goodsItems.head.commodityCode.map(code => code)
+                                                            </fo:block>
+                                                        }
+                                                    </fo:table-cell>
+                                                    <fo:table-cell>
+                                                        <fo:block/>
+                                                    </fo:table-cell>
+                                                </fo:table-row>
+                                            </fo:table-body>
+                                        </fo:table>
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="8mm">
+                                <fo:table-cell border-style="solid" border-width="1pt" border-color="black" number-rows-spanned="1 @* TODO: This may need to be 2 *@">
+                                    <fo:block/>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <fo:table width="100%" table-layout="fixed">
+                                            <fo:table-column column-width="32mm" padding-top="1mm"/>
+                                            <fo:table-body>
+                                                <fo:table-row height="4mm">
+                                                    <fo:table-cell padding-left="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center">
+                                                        <fo:block>35 Gross mass (Kg)</fo:block>
+                                                    </fo:table-cell>
+                                                </fo:table-row>
+                                                <fo:table-row height="4mm">
+                                                    <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
+                                                        <fo:block>
+                                                            @permission.grossMass
+                                                        </fo:block>
+                                                        <fo:block/>
+                                                    </fo:table-cell>
+                                                </fo:table-row>
+                                            </fo:table-body>
+                                        </fo:table>
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block/>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="8mm">
+                                <fo:table-cell border-style="solid" border-width="1pt" border-color="black">
+                                    <fo:block>
+                                        <fo:table width="100%" table-layout="fixed">
+                                            <fo:table-column column-width="32mm"/>
+                                            <fo:table-body>
+                                                <fo:table-row height="4mm">
+                                                    <fo:table-cell padding-left="2mm" padding-top="1mm">
+                                                        <fo:block>38 Net mass (Kg)</fo:block>
+                                                    </fo:table-cell>
+                                                </fo:table-row>
+                                                <fo:table-row height="4mm">
+                                                    <fo:table-cell display-align="center" font-weight="bold" text-align="center">
+                                                        @if(!permission.printListOfItems) {
+                                                            <fo:block>
+                                                                @permission.goodsItems.head.netMass.map(netMass => netMass)
+                                                            </fo:block>
+                                                        }
+                                                    </fo:table-cell>
+                                                </fo:table-row>
+                                            </fo:table-body>
+                                        </fo:table>
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block/>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <!--<fo:table-row height="8mm">-->
+                                <!--<fo:table-cell padding-left="2mm" padding-top="1mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-columns-spanned="3">-->
+                                    <!--<fo:block>40 Summary declaration/Previous document</fo:block>-->
+                                    <!--<fo:block margin-top="1mm" font-weight="bold">-->
+                                        <!--<xsl:if test="$PrintOnTopPage = 1">-->
+                                            <!--<xsl:call-template name="print-pre-doc">-->
+                                                <!--<xsl:with-param name="docTyp" select="*/GOOITEGDS/PREADMREFAR2/PreDocTypAR21"/>-->
+                                                <!--<xsl:with-param name="docRef" select="*/GOOITEGDS/PREADMREFAR2/PreDocRefAR26"/>-->
+                                                <!--<xsl:with-param name="comInf" select="*/GOOITEGDS/PREADMREFAR2/ComOfInfAR29"/>-->
+                                            <!--</xsl:call-template>-->
+                                        <!--</xsl:if>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </fo:table-cell>
 
         </fo:table-row>
     </fo:table-body>

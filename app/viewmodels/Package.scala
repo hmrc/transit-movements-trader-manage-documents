@@ -23,22 +23,22 @@ sealed trait Package {
   val kindOfPackage: KindOfPackage
 
   val marksAndNumbersValue: Option[String] = this match {
-    case packageType: BulkPackage     => packageType.marksAndNumbers
-    case packageType: UnpackedPackage => packageType.marksAndNumbers
-    case packageType: RegularPackage  => Some(packageType.marksAndNumbers)
+    case packageType: BulkPackage     => packageType.marksAndNumbers.filter(x => x.trim.nonEmpty)
+    case packageType: UnpackedPackage => packageType.marksAndNumbers.filter(x => x.trim.nonEmpty)
+    case packageType: RegularPackage  => if (packageType.marksAndNumbers.nonEmpty) Some(packageType.marksAndNumbers) else None
   }
 
   val packageAndNumber: Option[String] = this match {
-    case _: BulkPackage => None
+    case bulkPackage: BulkPackage => if (bulkPackage.kindOfPackage.description.nonEmpty) Some(s"1 - ${bulkPackage.kindOfPackage.description}") else None
     case packageType: UnpackedPackage => {
 
-      if (packageType.numberOfPieces > 0) {
+      if (packageType.numberOfPieces > 0 && packageType.kindOfPackage.description.nonEmpty) {
         Some(s"${packageType.numberOfPieces} - ${packageType.kindOfPackage.description}")
       } else None
 
     }
     case packageType: RegularPackage => {
-      if (packageType.numberOfPackages > 0) {
+      if (packageType.numberOfPackages > 0 && packageType.kindOfPackage.description.nonEmpty) {
         Some(s"${packageType.numberOfPackages} - ${packageType.kindOfPackage.description}")
       } else None
     }

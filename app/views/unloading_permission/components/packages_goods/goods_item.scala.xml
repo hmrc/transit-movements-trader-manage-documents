@@ -1,0 +1,73 @@
+@(permission: viewmodels.PermissionToStartUnloading)
+
+@if(permission.goodsItems.head.packages.toList.length > 0) {
+<fo:table width="100%" table-layout="fixed">
+    <fo:table-column column-width="20mm"/>
+    <fo:table-column column-width="25mm"/>
+    <fo:table-column column-width="15mm"/>
+    <fo:table-column column-width="25mm"/>
+    <fo:table-column column-width="25mm"/>
+    <fo:table-body>
+        <fo:table-row height="15mm" padding-top="1mm">
+            <fo:table-cell font-weight="bold" wrap-option="wrap">
+                <fo:block>
+                    <!--Marks and numbers-->
+                    @permission.goodsItems.head.packages.toList.head.marksAndNumbersValue.map( y => y)
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                <!-- Container No(s) -->
+                <fo:block>
+                    @permission.goodsItems.head.containers.head
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                <!-- Number and kind -->
+                <fo:block>
+                    <fo:inline font-style="italic">
+                        @permission.goodsItems.head.packages.toList.head.packageAndNumber.getOrElse(permission.goodsItems.head.packages.toList.head.kindOfPackage.description)
+                    </fo:inline>
+                    @* TODO: It looks like there's a link to external reference data
+                    and if found works out the kind of package used see java:getValue($Kin-Of-Pac, */GOOITEGDS/PACGS2/KinOfPacGS23)
+                    Need to work out what this reference data looks like
+                    *@
+                </fo:block>
+                <!-- Number of pieces -->
+                @if(permission.goodsItems.head.packages.toList.head.numberOfPiecesValue > 0) {
+                    <fo:block font-weight="normal">
+                        <fo:inline font-weight="bold">
+                            Pieces @permission.goodsItems.head.packages.toList.head.numberOfPiecesValue
+                        </fo:inline>
+                    </fo:block>
+                }
+            </fo:table-cell>
+            <!-- Sensitive goods code -->
+            @if(permission.goodsItems.head.sensitiveGoodsInformation.length > 0 && permission.goodsItems.head.sensitiveGoodsInformation.head.goodsCode.isDefined) {
+                <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                    <fo:block>
+                        <fo:inline font-weight="normal">Sensitive Goods code:</fo:inline>
+                        @permission.goodsItems.head.sensitiveGoodsInformation.head.goodsCode.map(code => code)
+                    </fo:block>
+                </fo:table-cell>
+            }
+            <!-- Sensitive goods quantity -->
+            @if(permission.goodsItems.head.sensitiveGoodsInformation.length > 0) {
+                <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                    <fo:block>
+                        <fo:inline font-weight="normal">Sensitive Quantity:</fo:inline>
+                        @permission.goodsItems.head.sensitiveGoodsInformation.head.quantity
+                    </fo:block>
+                </fo:table-cell>
+            }
+        </fo:table-row>
+        <!-- Description -->
+        <fo:table-row padding-top="1mm">
+            <fo:table-cell number-columns-spanned="5" font-weight="bold" wrap-option="wrap">
+                <fo:block>
+                    @permission.goodsItems.head.description
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+    </fo:table-body>
+</fo:table>
+}

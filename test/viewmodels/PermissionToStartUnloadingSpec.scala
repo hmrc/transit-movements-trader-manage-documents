@@ -310,6 +310,19 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
         }
       }
 
+      "with more than 1 sensitive goods item" in {
+
+        forAll(arbitrary[PermissionToStartUnloading], stringWithMaxLength(2), Gen.choose(1, 99999)) {
+          (permission, code, quantity) =>
+            val updatedGoodsItem = permission.goodsItems.head copy (sensitiveGoodsInformation =
+              Seq(SensitiveGoodsInformation(Some(code), quantity), SensitiveGoodsInformation(Some(code), quantity)))
+
+            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+
+            updatedPermission.printListOfItems mustEqual true
+        }
+      }
+
       "must indicate that a list of items should not be printed" - {
 
         "when there is one goods item with at most one container, one package, at most four special mentions and at most four produced documents" in {
