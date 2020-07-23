@@ -37,6 +37,7 @@ import services.PdfGenerator
 import services.ReferenceDataRetrievalError
 import services.ValidationError
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
+import viewmodels.SensitiveGoodsInformation
 
 import scala.concurrent.ExecutionContext
 
@@ -123,9 +124,14 @@ class UnloadingPermissionController @Inject()(
                 viewmodels.UnpackedPackage(KindOfPackage("P1", "Package 1"), 1, Some("marks")),
                 viewmodels.RegularPackage(KindOfPackage("P1", "Package 1"), 1, "marks and numbers")
               )
-            )
+            ),
+            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
           )
         )
+      )
+
+      permission.goodsItems.head.containers.map(
+        x => x
       )
 
       Ok(pdf.generateUnloadingPermission(permission))

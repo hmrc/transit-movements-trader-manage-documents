@@ -103,7 +103,8 @@ object GoodsItemConverter extends Converter {
           consignor,
           consignee,
           goodsItem.containers,
-          packages
+          packages,
+          goodsItem.sensitiveGoodsInformation
       )
     )
   }

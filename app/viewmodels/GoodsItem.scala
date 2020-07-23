@@ -34,5 +34,6 @@ final case class GoodsItem(
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   containers: Seq[String],
-  packages: NonEmptyList[Package]
+  packages: NonEmptyList[Package],
+  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation]
 )

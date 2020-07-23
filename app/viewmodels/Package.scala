@@ -18,7 +18,37 @@ package viewmodels
 
 import models.reference.KindOfPackage
 
-sealed trait Package
+sealed trait Package {
+
+  val kindOfPackage: KindOfPackage
+
+  val marksAndNumbersValue: Option[String] = this match {
+    case packageType: BulkPackage     => packageType.marksAndNumbers
+    case packageType: UnpackedPackage => packageType.marksAndNumbers
+    case packageType: RegularPackage  => Some(packageType.marksAndNumbers)
+  }
+
+  val packageAndNumber: Option[String] = this match {
+    case _: BulkPackage => None
+    case packageType: UnpackedPackage => {
+
+      if (packageType.numberOfPieces > 0) {
+        Some(s"${packageType.numberOfPieces} - ${packageType.kindOfPackage.description}")
+      } else None
+
+    }
+    case packageType: RegularPackage => {
+      if (packageType.numberOfPackages > 0) {
+        Some(s"${packageType.numberOfPackages} - ${packageType.kindOfPackage.description}")
+      } else None
+    }
+  }
+
+  val numberOfPiecesValue: Int = this match {
+    case packageType: UnpackedPackage => packageType.numberOfPieces
+    case _                            => 0
+  }
+}
 
 final case class BulkPackage(
   kindOfPackage: KindOfPackage,

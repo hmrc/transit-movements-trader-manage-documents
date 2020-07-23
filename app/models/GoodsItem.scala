@@ -20,6 +20,7 @@ import cats.data.NonEmptyList
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 import json.NonEmptyListOps._
+import viewmodels.SensitiveGoodsInformation
 
 final case class GoodsItem(
   itemNumber: Int,
@@ -35,7 +36,8 @@ final case class GoodsItem(
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   containers: Seq[String],
-  packages: NonEmptyList[Package]
+  packages: NonEmptyList[Package],
+  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation]
 )
 
 object GoodsItem {

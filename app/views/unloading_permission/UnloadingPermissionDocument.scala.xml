@@ -12,6 +12,8 @@
 
         @components.table_1.table(permission)
 
+        @components.packages_goods.table(permission)
+
       </fo:block>
     </fo:flow>
   </fo:page-sequence>
