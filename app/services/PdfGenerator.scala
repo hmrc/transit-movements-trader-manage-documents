@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package viewmodels
+package services
 
-import models.reference.DocumentType
+import com.dmanchester.playfop.sapi.PlayFop
+import javax.inject.Inject
+import org.apache.xmlgraphics.util.MimeConstants
+import viewmodels.PermissionToStartUnloading
+import views.xml.unloading_permission.UnloadingPermissionDocument
 
-final case class ProducedDocument(
-  documentType: DocumentType,
-  reference: Option[String],
-  complementOfInformation: Option[String]
+class PdfGenerator @Inject()(
+  fop: PlayFop,
+  document: UnloadingPermissionDocument
 ) {
 
-  val display: String =
-    Seq(
-      Some(documentType.description),
-      reference,
-      complementOfInformation
-    ).flatten.mkString(" - ")
+  def generateUnloadingPermission(permission: PermissionToStartUnloading): Array[Byte] = {
+
+    val renderedDocument = document.render(permission)
+
+    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF)
+  }
 }

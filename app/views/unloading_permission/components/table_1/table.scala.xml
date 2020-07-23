@@ -1,0 +1,31 @@
+@(permission: viewmodels.PermissionToStartUnloading)
+
+<fo:table width="100%" table-layout="fixed">
+
+  <fo:table-column column-number="1" column-width="8mm"/>
+  <fo:table-column column-number="2" column-width="8mm"/>
+  <fo:table-column column-number="3" column-width="89mm"/>
+  <fo:table-column column-number="4" column-width="32mm"/>
+  <fo:table-column column-number="5" column-width="5mm"/>
+  <fo:table-column column-number="6" column-width="5mm"/>
+  <fo:table-column column-number="7" column-width="4mm"/>
+  <fo:table-column column-number="8" column-width="49mm"/>
+
+  <fo:table-body>
+    @row_1(permission)
+
+    @row_2(permission)
+
+    @row_3(permission)
+
+    @row_4(permission)
+
+    @row_5(permission)
+
+    @row_6(permission)
+
+    @row_7(permission)
+
+    @row_8()
+  </fo:table-body>
+</fo:table>

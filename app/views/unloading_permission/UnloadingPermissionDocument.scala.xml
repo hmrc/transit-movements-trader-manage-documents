@@ -1,0 +1,18 @@
+@this()
+
+@(permission: viewmodels.PermissionToStartUnloading)
+<?xml version='1.0' encoding='utf-8'?>
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="sans-serif" font-size="7pt" text-align="left">
+
+  @components.layout_master_set()
+
+  <fo:page-sequence master-reference="top-page" initial-page-number="1" force-page-count="no-force">
+    <fo:flow flow-name="xsl-region-body">
+      <fo:block>
+
+        @components.table_1.table(permission)
+
+      </fo:block>
+    </fo:flow>
+  </fo:page-sequence>
+</fo:root>
