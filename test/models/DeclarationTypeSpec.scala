@@ -19,13 +19,17 @@ package models
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.{FreeSpec, MustMatchers, OptionValues}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
+import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsString, Json}
+import play.api.libs.json.JsError
+import play.api.libs.json.JsString
+import play.api.libs.json.Json
 
 class DeclarationTypeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-  "Declaration Type" -  {
+  "Declaration Type" - {
 
     "Json" - {
 
@@ -46,8 +50,7 @@ class DeclarationTypeSpec extends FreeSpec with MustMatchers with ScalaCheckProp
       "must deserialise" in {
         forAll(arbitrary[DeclarationType]) {
           declarationType =>
-
-            val xml = <TypOfDecHEA24>{declarationType.toString}</TypOfDecHEA24>
+            val xml    = <TypOfDecHEA24>{declarationType.toString}</TypOfDecHEA24>
             val result = XmlReader.of[DeclarationType].read(xml).toOption.value
 
             result mustBe declarationType
@@ -55,7 +58,7 @@ class DeclarationTypeSpec extends FreeSpec with MustMatchers with ScalaCheckProp
       }
 
       "must fail to deserialise" in {
-        val xml = <TypOfDecHEA24>Invalid value</TypOfDecHEA24>
+        val xml    = <TypOfDecHEA24>Invalid value</TypOfDecHEA24>
         val result = XmlReader.of[DeclarationType].read(xml).toOption
 
         result mustBe None

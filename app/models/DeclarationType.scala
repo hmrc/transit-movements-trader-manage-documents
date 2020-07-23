@@ -16,7 +16,11 @@
 
 package models
 
-import com.lucidchart.open.xtract.{ParseError, ParseFailure, ParseResult, ParseSuccess, XmlReader}
+import com.lucidchart.open.xtract.ParseError
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseResult
+import com.lucidchart.open.xtract.ParseSuccess
+import com.lucidchart.open.xtract.XmlReader
 
 import scala.xml.NodeSeq
 
@@ -42,7 +46,8 @@ object DeclarationType extends Enumerable.Implicits {
 
         case class DeclarationTypeParseFailure(message: String) extends ParseError
 
-        values.find(_.toString == xml.text)
+        values
+          .find(_.toString == xml.text)
           .map(ParseSuccess(_))
           .getOrElse(ParseFailure(DeclarationTypeParseFailure(s"Could not parse the following value to DeclarationType: ${xml.text}")))
       }
