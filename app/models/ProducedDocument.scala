@@ -16,8 +16,11 @@
 
 package models
 
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
+import cats.syntax.all._
 
 final case class ProducedDocument(
   documentType: String,
@@ -28,4 +31,10 @@ final case class ProducedDocument(
 object ProducedDocument {
 
   implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+
+  implicit val xmlReader: XmlReader[ProducedDocument] = (
+    (__ \ "DocTypDC21").read[String],
+    (__ \ "DocRefDC23").read[String].optional,
+    (__ \ "ComOfInfDC25").read[String].optional
+  ).mapN(apply)
 }
