@@ -18,8 +18,26 @@ package utils
 
 import java.time.LocalDate
 
+import com.lucidchart.open.xtract.ParseError
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.XmlReader
+import utils.DateFormatter.dateFormatter
 
-class LocalDateXMLReader {
-  implicit val xmlLocalDateReads: XmlReader[LocalDate] = ???
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
+
+object LocalDateXMLReader {
+
+  case class LocalDateParseFailure(message: String) extends ParseError
+
+  implicit val xmlDateReads: XmlReader[LocalDate] = {
+    xml =>
+      Try(LocalDate.parse(xml.text, dateFormatter)) match {
+        case Success(value) => ParseSuccess(value)
+        case Failure(e)     => ParseFailure(LocalDateParseFailure(e.getMessage))
+      }
+  }
+
 }
