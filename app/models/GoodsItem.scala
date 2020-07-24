@@ -17,6 +17,11 @@
 package models
 
 import cats.data.NonEmptyList
+import com.lucidchart.open.xtract.XmlReader.seq
+import com.lucidchart.open.xtract.XmlReader.strictReadSeq
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
+import json.NonEmptyListOps
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 import json.NonEmptyListOps._
@@ -41,4 +46,13 @@ final case class GoodsItem(
 object GoodsItem {
 
   implicit lazy val format: OFormat[GoodsItem] = Json.format[GoodsItem]
+
+//  implicit val xmlReader: XmlReader[GoodsItem] = (
+//    (__ \ "IteNumGDS7").read[Int],
+//    (__ \ "ComCodTarCodGDS10").read[String].optional,
+//    (__ \ "DecTypGDS15").read[DeclarationType].optional,
+//    (__ \ "GooDesGDS23").read[String],
+//    (__ \ "GroMasGDS46").read[BigDecimal].optional,
+//    (__ \ "NetMasGDS48").read[BigDecimal].optional,
+//  ).mapN(apply)
 }
