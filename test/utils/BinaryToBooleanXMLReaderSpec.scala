@@ -16,40 +16,43 @@
 
 package utils
 
-import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
-import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import utils.BigDecimalXMLReader._
+import utils.BinaryToBooleanXMLReader._
 
-class BigDecimalXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
+class BinaryToBooleanXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-  "BigDecimalXMLReader" - {
+  "BinaryToBooleanXMLReader" - {
 
-    "must deserialize XML to BigDecimal with correct format" in {
+    "must convert 0 to false" in {
 
-      forAll(arbitrary[BigDecimal]) {
-        bigDecimal =>
-          val xml = <testXml>{bigDecimal}</testXml>
+      val xml = <testXml>0</testXml>
 
-          val result = XmlReader.of[BigDecimal].read(xml).toOption.value
+      val result = XmlReader.of[Boolean].read(xml).toOption.value
 
-          result mustBe bigDecimal
-      }
-    }
-
-    "must return ParseFailure when failing to deserialize XML to BigDecimal" in {
-
-      val xml = <testXml>Invalid value</testXml>
-
-      val result = XmlReader.of[BigDecimal].read(xml)
-
-      result mustBe an[ParseFailure]
+      result mustBe false
     }
   }
 
+  "must convert 1 to true" in {
+
+    val xml = <testXml>1</testXml>
+
+    val result = XmlReader.of[Boolean].read(xml).toOption.value
+
+    result mustBe true
+  }
+
+  "must fail to deserialise if given invalid value" in {
+
+    val xml = <testXml>Invalid value</testXml>
+
+    val result = XmlReader.of[Boolean].read(xml).toOption
+
+    result mustBe None
+  }
 }

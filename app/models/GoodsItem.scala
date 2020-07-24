@@ -17,11 +17,6 @@
 package models
 
 import cats.data.NonEmptyList
-import com.lucidchart.open.xtract.XmlReader.seq
-import com.lucidchart.open.xtract.XmlReader.strictReadSeq
-import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
-import json.NonEmptyListOps
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 import json.NonEmptyListOps._
@@ -54,5 +49,13 @@ object GoodsItem {
 //    (__ \ "GooDesGDS23").read[String],
 //    (__ \ "GroMasGDS46").read[BigDecimal].optional,
 //    (__ \ "NetMasGDS48").read[BigDecimal].optional,
+//    (__ \ "CouOfDisGDS58").read[String],
+//    (__ \ "CouOfDesGDS59").read[String],
+//    (__ \ "PRODOCDC2").read[ProducedDocument],
+//    (__ \ "SPEMENMT2").read[SpecialMention],
+//    (__ \ "TRACONCO2").read[Consignor],
+//    (__ \ "TRACONCE2").read[Consignee],
+//    (__ \ "CONNR2").read(seq[String]),
+//    (__ \ "PACGS2").read(seq[Package])
 //  ).mapN(apply)
 }

@@ -16,7 +16,13 @@
 
 package models
 
+import cats.syntax.all._
+import com.lucidchart.open.xtract.ParseError
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
+import com.lucidchart.open.xtract.XmlReader
 import play.api.libs.json._
+import utils.BinaryToBooleanXMLReader._
 
 trait SpecialMention {
 
@@ -26,6 +32,19 @@ trait SpecialMention {
 object SpecialMention {
 
   val countrySpecificCodes = Seq("DG0", "DG1")
+
+  implicit val xmlReader: XmlReader[SpecialMention] = {
+
+    import com.lucidchart.open.xtract.__
+
+    (__ \ "ExpFroECMT24")
+      .read[Option[Boolean]]
+      .flatMap {
+        case Some(true)  => SpecialMentionEc.xmlReader
+        case Some(false) => SpecialMentionNonEc.xmlReader
+        case _           => SpecialMentionNoCountry.xmlReader
+      }
+  }
 
   implicit lazy val reads: Reads[SpecialMention] = {
 
@@ -53,6 +72,32 @@ object SpecialMention {
 final case class SpecialMentionEc(additionalInformationCoded: String) extends SpecialMention
 
 object SpecialMentionEc {
+
+  implicit val xmlReader: XmlReader[SpecialMentionEc] = {
+
+    import com.lucidchart.open.xtract.__
+
+    case class LocalDateParseFailure(message: String) extends ParseError
+    (
+      (__ \ "ExpFroECMT24")
+        .read[Boolean]
+        .flatMap {
+          case true  => XmlReader(_ => ParseSuccess(true))
+          case false => XmlReader(_ => ParseFailure(LocalDateParseFailure("Failed")))
+        },
+      (__ \ "AddInfCodMT23").read[String].flatMap {
+        code =>
+          if (SpecialMention.countrySpecificCodes.contains(code)) {
+            XmlReader(_ => ParseSuccess(code))
+          } else {
+            XmlReader(_ => ParseFailure(LocalDateParseFailure("Failed")))
+          }
+      }
+    ).mapN {
+      (_, y) =>
+        SpecialMentionEc(y)
+    }
+  }
 
   implicit lazy val reads: Reads[SpecialMentionEc] = {
 
@@ -103,6 +148,18 @@ final case class SpecialMentionNonEc(
 
 object SpecialMentionNonEc {
 
+  implicit val xmlReader: XmlReader[SpecialMentionNonEc] = {
+
+    // TODO Do we need more complex logic to confirm that this is false?
+
+    import com.lucidchart.open.xtract.__
+
+    (
+      (__ \ "AddInfCodMT23").read[String],
+      (__ \ "ExpFroCouMT25").read[String]
+    ).mapN(apply)
+  }
+
   implicit lazy val reads: Reads[SpecialMentionNonEc] = {
 
     import play.api.libs.functional.syntax._
@@ -152,6 +209,13 @@ object SpecialMentionNonEc {
 final case class SpecialMentionNoCountry(additionalInformationCoded: String) extends SpecialMention
 
 object SpecialMentionNoCountry {
+
+  implicit val xmlReader: XmlReader[SpecialMentionNoCountry] = {
+
+    import com.lucidchart.open.xtract.__
+
+    (__ \ "AddInfCodMT23").read[String].map(apply)
+  }
 
   implicit lazy val reads: Reads[SpecialMentionNoCountry] = {
 

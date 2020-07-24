@@ -16,15 +16,20 @@
 
 package models
 
+import java.time.LocalDate
+
+import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.JsError
 import play.api.libs.json.JsSuccess
 import play.api.libs.json.Json
+import org.scalacheck.Arbitrary.arbitrary
 
-class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
+class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
   "SpecialMentionEc" - {
 
@@ -271,4 +276,58 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
       }
     }
   }
+
+  "XML" - {
+
+    "SpecialMentionEc" - {
+
+      "must deserialise when `export from EC` is true and code is country specific" in {
+
+        forAll(arbitrary[SpecialMentionEc]) {
+          specialMentionEc =>
+            val xml = {
+              <SPEMENMT2>
+                <AddInfCodMT23>{specialMentionEc.additionalInformationCoded}</AddInfCodMT23>
+                <ExpFroECMT24>1</ExpFroECMT24>
+              </SPEMENMT2>
+            }
+
+            val result = XmlReader.of[SpecialMentionEc].read(xml).toOption.value
+
+            result mustBe specialMentionEc
+        }
+      }
+
+      "must fail to deserialise when 'export from EC` is false" in {
+        forAll(arbitrary[SpecialMentionEc]) {
+          specialMentionEc =>
+            val xml = {
+              <SPEMENMT2>
+                <AddInfCodMT23>{specialMentionEc.additionalInformationCoded}</AddInfCodMT23>
+                <ExpFroECMT24>0</ExpFroECMT24>
+              </SPEMENMT2>
+            }
+
+            val result = XmlReader.of[SpecialMentionEc].read(xml).toOption
+
+            result mustBe None
+        }
+      }
+
+      "must fail to deserialise when code is not country specific" in {
+
+        val xml = {
+          <SPEMENMT2>
+            <AddInfCodMT23>Invalid code</AddInfCodMT23>
+            <ExpFroECMT24>1</ExpFroECMT24>
+          </SPEMENMT2>
+        }
+
+        val result = XmlReader.of[SpecialMentionEc].read(xml).toOption
+
+        result mustBe None
+      }
+    }
+  }
+
 }
