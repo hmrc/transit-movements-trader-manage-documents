@@ -27,6 +27,7 @@ import models.reference.DocumentType
 import models.reference.KindOfPackage
 import models.DeclarationType
 import models.PermissionToStartUnloading
+import models.SensitiveGoodsInformation
 import play.api.Logger
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -37,7 +38,6 @@ import services.PdfGenerator
 import services.ReferenceDataRetrievalError
 import services.ValidationError
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
-import viewmodels.SensitiveGoodsInformation
 
 import scala.concurrent.ExecutionContext
 

@@ -21,48 +21,60 @@ import models.reference.KindOfPackage
 sealed trait Package {
 
   val kindOfPackage: KindOfPackage
+  val marksAndNumbersValue: Option[String]
+  val packageAndNumber: Option[String]
+  val numberOfPiecesValue: Int
 
-  val marksAndNumbersValue: Option[String] = this match {
-    case packageType: BulkPackage     => packageType.marksAndNumbers.filter(x => x.trim.nonEmpty)
-    case packageType: UnpackedPackage => packageType.marksAndNumbers.filter(x => x.trim.nonEmpty)
-    case packageType: RegularPackage  => if (packageType.marksAndNumbers.nonEmpty) Some(packageType.marksAndNumbers) else None
-  }
+  val validateString: Option[String] => Option[String] = _.filter(x => x.trim.nonEmpty)
 
-  val packageAndNumber: Option[String] = this match {
-    case bulkPackage: BulkPackage => if (bulkPackage.kindOfPackage.description.nonEmpty) Some(s"1 - ${bulkPackage.kindOfPackage.description}") else None
-    case packageType: UnpackedPackage => {
+  val validateCountAndPackage: Int => String => Option[String] =
+    count =>
+      description =>
+        if (count > 0 && description.nonEmpty) {
+          Some(s"$count - $description")
+        } else None
 
-      if (packageType.numberOfPieces > 0 && packageType.kindOfPackage.description.nonEmpty) {
-        Some(s"${packageType.numberOfPieces} - ${packageType.kindOfPackage.description}")
+  val validatePackage: String => Option[String] =
+    description =>
+      if (description.nonEmpty) {
+        Some(s"1 - $description")
       } else None
-
-    }
-    case packageType: RegularPackage => {
-      if (packageType.numberOfPackages > 0 && packageType.kindOfPackage.description.nonEmpty) {
-        Some(s"${packageType.numberOfPackages} - ${packageType.kindOfPackage.description}")
-      } else None
-    }
-  }
-
-  val numberOfPiecesValue: Int = this match {
-    case packageType: UnpackedPackage => packageType.numberOfPieces
-    case _                            => 0
-  }
 }
 
 final case class BulkPackage(
   kindOfPackage: KindOfPackage,
   marksAndNumbers: Option[String]
-) extends Package
+) extends Package {
+
+  override val marksAndNumbersValue: Option[String] = validateString(marksAndNumbers)
+
+  override val packageAndNumber: Option[String] = validatePackage(kindOfPackage.description)
+
+  override val numberOfPiecesValue: Int = 0
+}
 
 final case class UnpackedPackage(
   kindOfPackage: KindOfPackage,
   numberOfPieces: Int,
   marksAndNumbers: Option[String]
-) extends Package
+) extends Package {
+
+  override val marksAndNumbersValue: Option[String] = validateString(marksAndNumbers)
+
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPieces)(kindOfPackage.description)
+
+  override val numberOfPiecesValue: Int = numberOfPieces
+}
 
 final case class RegularPackage(
   kindOfPackage: KindOfPackage,
   numberOfPackages: Int,
   marksAndNumbers: String
-) extends Package
+) extends Package {
+
+  override val marksAndNumbersValue: Option[String] = validateString(Some(marksAndNumbers))
+
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPackages)(kindOfPackage.description)
+
+  override val numberOfPiecesValue: Int = 0
+}

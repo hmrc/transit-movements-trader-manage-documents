@@ -19,6 +19,7 @@ package viewmodels
 import cats.data.NonEmptyList
 import models.DeclarationType
 import models.reference.Country
+import models.SensitiveGoodsInformation
 
 final case class GoodsItem(
   itemNumber: Int,

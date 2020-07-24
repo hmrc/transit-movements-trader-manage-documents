@@ -81,7 +81,7 @@
                                         <fo:table-cell display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
                                                 @if(!permission.printListOfItems) {
-                                                @permission.goodsItems.head.netMass.map(netMass => netMass)
+                                                    @permission.goodsItems.head.netMass.map(netMass => netMass)
                                                 }
                                             </fo:block>
                                         </fo:table-cell>
@@ -100,7 +100,7 @@
                         <fo:block margin-top="1mm" font-weight="bold">
                             @* TODO: It looks like there's a link to external reference data used for documents
                             with print-pre-doc template java:getValue($Pre-Doc, $docTyp)
-                            Need to work out what this reference data looks like or just display actual values below
+                            UPDATE: ProducedDocumentConverter is used to load reference data
                             *@
                             @if(!permission.printListOfItems) {
                             <fo:inline font-style="italic">
