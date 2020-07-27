@@ -168,7 +168,8 @@ trait ModelGenerators extends GeneratorHelpers {
         city            <- stringWithMaxLength(35)
         country         <- stringWithMaxLength(2)
         eori            <- Gen.option(stringWithMaxLength(17))
-      } yield Principal(name, streetAndNumber, postCode, city, country, eori)
+        tir             <- Gen.option(stringWithMaxLength(17))
+      } yield Principal(name, streetAndNumber, postCode, city, country, eori, tir)
     }
 
   implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =

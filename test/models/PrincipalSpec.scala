@@ -41,7 +41,16 @@ class PrincipalSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
                 <PosCodPC123>{principal.postCode}</PosCodPC123>
                 <CitPC124>{principal.city}</CitPC124>
                 <CouPC125>{principal.countryCode}</CouPC125>
-                {principal.eori.fold(NodeSeq.Empty)(eori => <TINPC159>{eori}</TINPC159>)}
+                {
+                  principal.eori.fold(NodeSeq.Empty) {
+                    eori =>
+                      <TINPC159>{eori}</TINPC159>
+                  } ++
+                  principal.tir.fold(NodeSeq.Empty) {
+                    tir =>
+                      <HITPC126>{tir}</HITPC126>
+                  }
+                }
               </TRAPRIPC1>
 
             val result = XmlReader.of[Principal].read(xml).toOption.value

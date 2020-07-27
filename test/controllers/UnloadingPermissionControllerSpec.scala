@@ -57,7 +57,7 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
     numberOfItems = 1,
     numberOfPackages = 3,
     grossMass = 1.0,
-    principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", "AA", Some("Principal EORI")),
+    principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", "AA", Some("Principal EORI"), Some("tir")),
     traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
     presentationOffice = "Presentation office",
     seals = Seq("seal 1"),
