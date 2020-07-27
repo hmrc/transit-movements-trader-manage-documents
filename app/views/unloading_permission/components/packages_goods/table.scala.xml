@@ -1,0 +1,19 @@
+@(permission: viewmodels.PermissionToStartUnloading)
+
+<fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 2 -->
+    <fo:table-column column-width="16mm"/>
+    <fo:table-column column-width="115mm"/>
+    <fo:table-column column-width="33mm"/>
+    <fo:table-column column-width="36mm"/>
+    <fo:table-body>
+        <fo:table-row height="32mm"> <!-- S1 T2 ROW 1-->
+
+            <!--Commodity marks/containers/items-->
+            @left_block(permission)
+
+            <!--Commodity code/weight/documents-->
+            @right_block(permission)
+
+        </fo:table-row>
+    </fo:table-body>
+</fo:table>

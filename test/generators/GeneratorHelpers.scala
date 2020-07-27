@@ -21,6 +21,7 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 
 import cats.data.NonEmptyList
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Shrink
 
@@ -33,6 +34,9 @@ trait GeneratorHelpers {
       length <- Gen.choose(1, maxLength)
       chars  <- Gen.listOfN(length, Gen.alphaNumChar)
     } yield chars.mkString
+
+  def nonEmptyString: Gen[String] =
+    arbitrary[String] suchThat (_.nonEmpty)
 
   def listWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[Seq[T]] =
     for {

@@ -177,24 +177,33 @@ trait ModelGenerators extends GeneratorHelpers {
       Gen.oneOf(DeclarationType.values)
     }
 
+  implicit lazy val arbitrarySensitiveGoodsInformation: Arbitrary[SensitiveGoodsInformation] =
+    Arbitrary {
+      for {
+        goodsCode <- Gen.option(stringWithMaxLength(2))
+        quantity  <- Gen.choose(1, 99999)
+      } yield SensitiveGoodsInformation(goodsCode, quantity)
+    }
+
   implicit lazy val arbitraryGoodsItem: Arbitrary[GoodsItem] =
     Arbitrary {
 
       for {
-        itemNumber           <- Gen.choose(1, 99999)
-        commodityCode        <- Gen.option(stringWithMaxLength(22))
-        declarationType      <- Gen.option(arbitrary[DeclarationType])
-        description          <- stringWithMaxLength(280)
-        grossMass            <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        netMass              <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch    <- stringWithMaxLength(2)
-        countryOfDestination <- stringWithMaxLength(2)
-        producedDocuments    <- listWithMaxSize(9, arbitrary[ProducedDocument])
-        specialMentions      <- listWithMaxSize(9, arbitrary[SpecialMention])
-        consignor            <- Gen.option(arbitrary[Consignor])
-        consignee            <- Gen.option(arbitrary[Consignee])
-        containers           <- listWithMaxSize(9, stringWithMaxLength(17))
-        packages             <- nonEmptyListWithMaxSize(9, arbitrary[Package])
+        itemNumber                <- Gen.choose(1, 99999)
+        commodityCode             <- Gen.option(stringWithMaxLength(22))
+        declarationType           <- Gen.option(arbitrary[DeclarationType])
+        description               <- stringWithMaxLength(280)
+        grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        countryOfDispatch         <- stringWithMaxLength(2)
+        countryOfDestination      <- stringWithMaxLength(2)
+        producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
+        specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
+        consignor                 <- Gen.option(arbitrary[Consignor])
+        consignee                 <- Gen.option(arbitrary[Consignee])
+        containers                <- listWithMaxSize(9, stringWithMaxLength(17))
+        packages                  <- nonEmptyListWithMaxSize(9, arbitrary[Package])
+        sensitiveGoodsInformation <- listWithMaxSize(9, arbitrary[SensitiveGoodsInformation])
       } yield
         GoodsItem(
           itemNumber,
@@ -210,7 +219,8 @@ trait ModelGenerators extends GeneratorHelpers {
           consignor,
           consignee,
           containers,
-          packages
+          packages,
+          sensitiveGoodsInformation
         )
     }
 

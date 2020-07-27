@@ -16,30 +16,15 @@
 
 package models
 
-import cats.data.NonEmptyList
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
-import json.NonEmptyListOps._
 
-final case class GoodsItem(
-  itemNumber: Int,
-  commodityCode: Option[String],
-  declarationType: Option[DeclarationType],
-  description: String,
-  grossMass: Option[BigDecimal],
-  netMass: Option[BigDecimal],
-  countryOfDispatch: String,
-  countryOfDestination: String,
-  producedDocuments: Seq[ProducedDocument],
-  specialMentions: Seq[SpecialMention],
-  consignor: Option[Consignor],
-  consignee: Option[Consignee],
-  containers: Seq[String],
-  packages: NonEmptyList[Package],
-  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation]
+final case class SensitiveGoodsInformation(
+  goodsCode: Option[String],
+  quantity: Int
 )
 
-object GoodsItem {
+object SensitiveGoodsInformation {
 
-  implicit lazy val format: OFormat[GoodsItem] = Json.format[GoodsItem]
+  implicit lazy val format: OFormat[SensitiveGoodsInformation] = Json.format[SensitiveGoodsInformation]
 }

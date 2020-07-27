@@ -19,6 +19,7 @@ package viewmodels
 import cats.data.NonEmptyList
 import models.DeclarationType
 import models.reference.Country
+import models.SensitiveGoodsInformation
 
 final case class GoodsItem(
   itemNumber: Int,
@@ -34,5 +35,6 @@ final case class GoodsItem(
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   containers: Seq[String],
-  packages: NonEmptyList[Package]
+  packages: NonEmptyList[Package],
+  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation]
 )
