@@ -43,21 +43,22 @@ object GoodsItem {
 
   implicit lazy val format: OFormat[GoodsItem] = Json.format[GoodsItem]
 
-//  implicit val xmlReader: XmlReader[GoodsItem] = (
-//    (__ \ "IteNumGDS7").read[Int],
-//    (__ \ "ComCodTarCodGDS10").read[String].optional,
-//    (__ \ "DecTypGDS15").read[DeclarationType].optional,
-//    (__ \ "GooDesGDS23").read[String],
-//    (__ \ "GroMasGDS46").read[BigDecimal].optional,
-//    (__ \ "NetMasGDS48").read[BigDecimal].optional,
-//    (__ \ "CouOfDisGDS58").read[String],
-//    (__ \ "CouOfDesGDS59").read[String],
-//    (__ \ "PRODOCDC2").read[ProducedDocument],
-//    (__ \ "SPEMENMT2").read[SpecialMention],
-//    (__ \ "TRACONCO2").read[Consignor],
-//    (__ \ "TRACONCE2").read[Consignee],
-//    (__ \ "CONNR2").read(seq[String]),
-//    (__ \ "PACGS2").read(seq[Package])
-//    (__ \ "SGICODSD2").read[Seq[SensitiveGoodsInformation]]
-//  ).mapN(apply)
+//  implicit val xmlReader: XmlReader[GoodsItem] =
+//    (
+//      (__ \ "IteNumGDS7").read[Int],
+//      (__ \ "ComCodTarCodGDS10").read[String].optional,
+//      (__ \ "DecTypGDS15").read[DeclarationType].optional,
+//      (__ \ "GooDesGDS23").read[String],
+//      (__ \ "GroMasGDS46").read[BigDecimal].optional,
+//      (__ \ "NetMasGDS48").read[BigDecimal].optional,
+//      (__ \ "CouOfDisGDS58").read[String],
+//      (__ \ "CouOfDesGDS59").read[String],
+//      (__ \ "PRODOCDC2").read(seq[ProducedDocument]),
+//      (__ \ "SPEMENMT2").read(seq[SpecialMention]),
+//      (__ \ "TRACONCO2").read[Consignor].optional,
+//      (__ \ "TRACONCE2").read[Consignee].optional,
+//      (__ \ "CONNR2").read(seq[String]),
+//      (__ \ "PACGS2").read(strictReadSeq[Package]),
+//      (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
+//    ).mapN(apply)
 }
