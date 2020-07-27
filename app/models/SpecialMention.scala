@@ -16,7 +16,6 @@
 
 package models
 
-import cats.syntax.all._
 import com.lucidchart.open.xtract.ParseError
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
@@ -36,15 +35,10 @@ object SpecialMention {
 
   implicit val xmlReader: XmlReader[SpecialMention] = {
 
-    import com.lucidchart.open.xtract.__
+    SpecialMentionEc.xmlReader
+      .or(SpecialMentionNonEc.xmlReader)
+      .or(SpecialMentionNoCountry.xmlReader)
 
-    (__ \ "ExpFroECMT24")
-      .read[Option[Boolean]]
-      .flatMap {
-        case Some(true)  => SpecialMentionEc.xmlReader
-        case Some(false) => SpecialMentionNonEc.xmlReader
-        case _           => SpecialMentionNoCountry.xmlReader
-      }
   }
 
   implicit lazy val reads: Reads[SpecialMention] = {

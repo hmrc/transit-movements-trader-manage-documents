@@ -292,7 +292,7 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
               </SPEMENMT2>
             }
 
-            val result = XmlReader.of[SpecialMentionEc].read(xml).toOption.value
+            val result = XmlReader.of[SpecialMention].read(xml).toOption.value
 
             result mustBe specialMentionEc
         }
@@ -343,7 +343,7 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
               </SPEMENMT2>
             }
 
-            val result = XmlReader.of[SpecialMentionNonEc].read(xml).toOption.value
+            val result = XmlReader.of[SpecialMention].read(xml).toOption.value
 
             result mustBe specialMentionNonEc
         }
@@ -409,7 +409,7 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
               </SPEMENMT2>
             }
 
-            val result = XmlReader.of[SpecialMentionNoCountry].read(xml).toOption.value
+            val result = XmlReader.of[SpecialMention].read(xml).toOption.value
 
             result mustBe specialMentionNoCountry
         }
