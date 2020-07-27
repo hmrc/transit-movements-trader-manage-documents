@@ -32,14 +32,6 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
     "XML" - {
 
-//      (__ \ "NamCO17").read[String],
-//      (__ \ "StrAndNumCO122").read[String],
-//      (__ \ "PosCodCO123").read[String],
-//      (__ \ "CitCO124").read[String],
-//      (__ \ "CouCO125").read[String],
-//      (__ \ "NADLNGCO").read[String].optional,
-//      (__ \ "TINCO159").read[String].optional
-
       "must deserialise" in {
 
         forAll(arbitrary[Consignor]) {

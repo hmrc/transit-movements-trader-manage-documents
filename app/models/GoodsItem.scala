@@ -58,5 +58,6 @@ object GoodsItem {
 //    (__ \ "TRACONCE2").read[Consignee],
 //    (__ \ "CONNR2").read(seq[String]),
 //    (__ \ "PACGS2").read(seq[Package])
+//    (__ \ "SGICODSD2").read[Seq[SensitiveGoodsInformation]]
 //  ).mapN(apply)
 }

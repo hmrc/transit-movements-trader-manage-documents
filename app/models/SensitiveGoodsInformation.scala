@@ -16,6 +16,9 @@
 
 package models
 
+import cats.syntax.all._
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -27,4 +30,11 @@ final case class SensitiveGoodsInformation(
 object SensitiveGoodsInformation {
 
   implicit lazy val format: OFormat[SensitiveGoodsInformation] = Json.format[SensitiveGoodsInformation]
+
+  implicit val xmlReader: XmlReader[SensitiveGoodsInformation] = {
+    (
+      (__ \ "SenGooCodSD22").read[String].optional,
+      (__ \ "SenQuaSD23").read[Int]
+    ).mapN(apply)
+  }
 }
