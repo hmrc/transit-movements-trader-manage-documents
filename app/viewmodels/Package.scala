@@ -18,21 +18,64 @@ package viewmodels
 
 import models.reference.KindOfPackage
 
-sealed trait Package
+sealed trait Package {
+
+  val kindOfPackage: KindOfPackage
+  val marksAndNumbersValue: Option[String]
+  val packageAndNumber: Option[String]
+  val numberOfPiecesValue: Int
+
+  //TODO: Consider putting some of the validation logic in xml reader
+  val validateString: Option[String] => Option[String] = _.filter(x => x.trim.nonEmpty)
+
+  val validateCountAndPackage: Int => String => Option[String] =
+    count =>
+      description =>
+        if (count > 0 && description.nonEmpty) {
+          Some(s"$count - $description")
+        } else None
+
+  val validatePackage: String => Option[String] =
+    description =>
+      if (description.nonEmpty) {
+        Some(s"1 - $description")
+      } else None
+}
 
 final case class BulkPackage(
   kindOfPackage: KindOfPackage,
   marksAndNumbers: Option[String]
-) extends Package
+) extends Package {
+
+  override val marksAndNumbersValue: Option[String] = validateString(marksAndNumbers)
+
+  override val packageAndNumber: Option[String] = validatePackage(kindOfPackage.description)
+
+  override val numberOfPiecesValue: Int = 0
+}
 
 final case class UnpackedPackage(
   kindOfPackage: KindOfPackage,
   numberOfPieces: Int,
   marksAndNumbers: Option[String]
-) extends Package
+) extends Package {
+
+  override val marksAndNumbersValue: Option[String] = validateString(marksAndNumbers)
+
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPieces)(kindOfPackage.description)
+
+  override val numberOfPiecesValue: Int = numberOfPieces
+}
 
 final case class RegularPackage(
   kindOfPackage: KindOfPackage,
   numberOfPackages: Int,
   marksAndNumbers: String
-) extends Package
+) extends Package {
+
+  override val marksAndNumbersValue: Option[String] = validateString(Some(marksAndNumbers))
+
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPackages)(kindOfPackage.description)
+
+  override val numberOfPiecesValue: Int = 0
+}

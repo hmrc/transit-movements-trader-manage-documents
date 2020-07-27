@@ -60,6 +60,7 @@ final case class PermissionToStartUnloading(
   val printListOfItems: Boolean =
     goodsItems.size > 1 ||
       goodsItems.head.containers.size > 1 ||
+      goodsItems.head.sensitiveGoodsInformation.length > 1 ||
       goodsItems.head.packages.size > 1 ||
       goodsItems.head.specialMentions.size > 4 ||
       goodsItems.head.producedDocuments.size > 4

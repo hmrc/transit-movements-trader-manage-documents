@@ -49,10 +49,11 @@ class ConversionServiceSpec
     with ScalaFutures
     with IntegrationPatience {
 
-  private val countries      = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
-  private val kindsOfPackage = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
-  private val documentTypes  = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
-  private val additionalInfo = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
+  private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
+  private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val sensitiveGoodsInformation = Nil
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
@@ -95,7 +96,8 @@ class ConversionServiceSpec
             models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
-        )
+        ),
+        sensitiveGoodsInformation = sensitiveGoodsInformation
       )
     )
   )
@@ -150,7 +152,8 @@ class ConversionServiceSpec
                 viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
                 viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
               )
-            )
+            ),
+            sensitiveGoodsInformation = sensitiveGoodsInformation
           )
         )
       )

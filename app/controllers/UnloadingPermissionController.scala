@@ -27,6 +27,7 @@ import models.reference.DocumentType
 import models.reference.KindOfPackage
 import models.DeclarationType
 import models.PermissionToStartUnloading
+import models.SensitiveGoodsInformation
 import play.api.Logger
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -72,7 +73,7 @@ class UnloadingPermissionController @Inject()(
 
   def get(): Action[AnyContent] = Action {
     implicit request =>
-      val permission = viewmodels.PermissionToStartUnloading(
+      val permissionMultiple = viewmodels.PermissionToStartUnloading(
         movementReferenceNumber = "19GB9876AB88901209",
         declarationType = DeclarationType.T1,
         transportIdentity = Some("identity"),
@@ -122,9 +123,68 @@ class UnloadingPermissionController @Inject()(
                 viewmodels.UnpackedPackage(KindOfPackage("P1", "Package 1"), 1, Some("marks")),
                 viewmodels.RegularPackage(KindOfPackage("P1", "Package 1"), 1, "marks and numbers")
               )
-            )
+            ),
+            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
           )
         )
+      )
+
+      val permission = viewmodels.PermissionToStartUnloading(
+        movementReferenceNumber = "19GB9876AB88901209",
+        declarationType = DeclarationType.T1,
+        transportIdentity = Some("identity"),
+        transportCountry = Some(Country("valid", "AA", "Country A")),
+        acceptanceDate = LocalDate.now(),
+        numberOfItems = 1,
+        numberOfPackages = 3,
+        grossMass = 1.0,
+        principal = viewmodels.Principal("Principal name",
+                                         "Principal street",
+                                         "Principal postCode",
+                                         "Principal city",
+                                         Country("valid", "AA", "Country A"),
+                                         Some("Principal EORI"),
+                                         None),
+        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+        presentationOffice = "Presentation office",
+        seals = Seq("seal 1"),
+        goodsItems = NonEmptyList.one(
+          viewmodels.GoodsItem(
+            itemNumber = 1,
+            commodityCode = Some("CC"),
+            declarationType = None,
+            description = "Flowers",
+            grossMass = Some(1.0),
+            netMass = Some(0.9),
+            countryOfDispatch = Country("valid", "AA", "Country A"),
+            countryOfDestination = Country("valid", "AA", "Country A"),
+            producedDocuments = Seq(viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), Some("ref"), Some("info"))),
+            specialMentions = Seq(
+              viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
+              viewmodels.SpecialMentionNonEc(AdditionalInformation("I1", "Info 1"), Country("valid", "AA", "Country A")),
+              viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
+            ),
+            consignor = Some(
+              viewmodels.Consignor("consignor name",
+                                   "consignor street",
+                                   "consignor postCode",
+                                   "consignor city",
+                                   Country("valid", "AA", "Country A"),
+                                   Some("IT444100201000"))),
+            consignee = Some(
+              viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
+            containers = Seq("INTERFLORA005"),
+            packages = NonEmptyList(
+              viewmodels.BulkPackage(KindOfPackage("P1", "Box"), Some("INTERFLORA05")),
+              Nil
+            ),
+            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
+          )
+        )
+      )
+
+      permission.goodsItems.head.containers.map(
+        x => x
       )
 
       Ok(pdf.generateUnloadingPermission(permission))

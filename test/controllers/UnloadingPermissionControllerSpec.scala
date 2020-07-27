@@ -80,7 +80,8 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", "AA", None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", "AA", None)),
         containers = Seq("container 1"),
-        packages = NonEmptyList.one(models.RegularPackage("BB", 1, "marks and numbers"))
+        packages = NonEmptyList.one(models.RegularPackage("BB", 1, "marks and numbers")),
+        sensitiveGoodsInformation = Nil
       )
     )
   )
@@ -126,7 +127,8 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
             consignor = Some(viewmodels.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", country, None)),
             consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", country, None)),
             containers = Seq("container 1"),
-            packages = NonEmptyList.one(viewmodels.RegularPackage(kindOfPackage, 1, "marks and numbers"))
+            packages = NonEmptyList.one(viewmodels.RegularPackage(kindOfPackage, 1, "marks and numbers")),
+            sensitiveGoodsInformation = Nil
           )
         )
       )
