@@ -30,7 +30,7 @@ class ConsigneeConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
 
     "must return a view model when the country code is found in the reference data" in {
 
-      val consignee = models.Consignee("name", "street", "postCode", "city", countries.head.code, Some("EORI"))
+      val consignee = models.Consignee("name", "street", "postCode", "city", countries.head.code, Some("EN"), Some("EORI"))
 
       val result = ConsigneeConverter.toViewModel(consignee, "path", countries)
 
@@ -39,7 +39,7 @@ class ConsigneeConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
 
     "must return Country Not Found when the country code cannot be found in the reference data" in {
 
-      val consignee = models.Consignee("name", "street", "postCode", "city", "invalid code", Some("EORI"))
+      val consignee = models.Consignee("name", "street", "postCode", "city", "invalid code", Some("EN"), Some("EORI"))
 
       val result = ConsigneeConverter.toViewModel(consignee, "path", countries)
 

@@ -77,8 +77,8 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
           models.SpecialMentionNonEc("CC", "AA"),
           models.SpecialMentionNoCountry("CC")
         ),
-        consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", "AA", None)),
-        consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", "AA", None)),
+        consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", "AA", None, None)),
+        consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", "AA", None, None)),
         containers = Seq("container 1"),
         packages = NonEmptyList.one(models.RegularPackage("BB", 1, "marks and numbers")),
         sensitiveGoodsInformation = Nil

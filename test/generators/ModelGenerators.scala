@@ -141,8 +141,9 @@ trait ModelGenerators extends GeneratorHelpers {
         postCode        <- stringWithMaxLength(9)
         city            <- stringWithMaxLength(35)
         country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
-      } yield Consignee(name, streetAndNumber, postCode, city, country, eori)
+      } yield Consignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
 
   implicit lazy val arbitraryConsignor: Arbitrary[Consignor] =
@@ -154,8 +155,9 @@ trait ModelGenerators extends GeneratorHelpers {
         postCode        <- stringWithMaxLength(9)
         city            <- stringWithMaxLength(35)
         country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
-      } yield Consignor(name, streetAndNumber, postCode, city, country, eori)
+      } yield Consignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
 
   implicit lazy val arbitraryPrincipal: Arbitrary[Principal] =
