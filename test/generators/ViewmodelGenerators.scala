@@ -170,7 +170,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         country         <- arbitrary[Country]
         eori            <- Gen.option(stringWithMaxLength(17))
         tin             <- Gen.option(stringWithMaxLength(17))
-      } yield Principal(name, streetAndNumber, postCode, city, country, eori, tin)
+      } yield Principal(name, streetAndNumber, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =

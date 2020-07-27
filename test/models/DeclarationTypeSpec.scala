@@ -16,82 +16,54 @@
 
 package models
 
+import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.JsError
 import play.api.libs.json.JsString
-import play.api.libs.json.JsSuccess
 import play.api.libs.json.Json
 
-class DeclarationTypeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
+class DeclarationTypeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
   "Declaration Type" - {
 
-    "must deserialise from `T-`" in {
+    "Json" - {
 
-      JsString("T-").validate[DeclarationType] mustEqual JsSuccess(DeclarationType.TMinus)
+      "must serialise and deserialise" in {
+        forAll(arbitrary[DeclarationType]) {
+          declarationType =>
+            Json.toJson(declarationType).validate[DeclarationType].asOpt.value mustBe declarationType
+        }
+      }
+
+      "must fail to deserialise" in {
+        JsString("Invalid").validate[DeclarationType] mustBe a[JsError]
+      }
     }
 
-    "must deserialise from `T1`" in {
+    "XML" - {
 
-      JsString("T1").validate[DeclarationType] mustEqual JsSuccess(DeclarationType.T1)
-    }
+      "must deserialise" in {
+        forAll(arbitrary[DeclarationType]) {
+          declarationType =>
+            val xml    = <TypOfDecHEA24>{declarationType.toString}</TypOfDecHEA24>
+            val result = XmlReader.of[DeclarationType].read(xml).toOption.value
 
-    "must deserialise from `T2`" in {
+            result mustBe declarationType
+        }
+      }
 
-      JsString("T2").validate[DeclarationType] mustEqual JsSuccess(DeclarationType.T2)
-    }
+      "must fail to deserialise" in {
+        val xml    = <TypOfDecHEA24>Invalid value</TypOfDecHEA24>
+        val result = XmlReader.of[DeclarationType].read(xml).toOption
 
-    "must deserialise from `T2F`" in {
-
-      JsString("T2F").validate[DeclarationType] mustEqual JsSuccess(DeclarationType.T2F)
-    }
-
-    "must deserialise from `T2SM`" in {
-
-      JsString("T2SM").validate[DeclarationType] mustEqual JsSuccess(DeclarationType.T2SM)
-    }
-
-    "must deserialise from `TIR`" in {
-
-      JsString("TIR").validate[DeclarationType] mustEqual JsSuccess(DeclarationType.TIR)
-    }
-
-    "must fail to deserialise from an invalid value" in {
-
-      JsString("Invalid").validate[DeclarationType] mustBe a[JsError]
-    }
-
-    "must serialise to `T-`" in {
-
-      Json.toJson(DeclarationType.TMinus: DeclarationType) mustEqual JsString("T-")
-    }
-
-    "must serialise to `T1`" in {
-
-      Json.toJson(DeclarationType.T1: DeclarationType) mustEqual JsString("T1")
-    }
-
-    "must serialise to `T2`" in {
-
-      Json.toJson(DeclarationType.T2: DeclarationType) mustEqual JsString("T2")
-    }
-
-    "must serialise to `T2F`" in {
-
-      Json.toJson(DeclarationType.T2F: DeclarationType) mustEqual JsString("T2F")
-    }
-
-    "must serialise to `T2SM`" in {
-
-      Json.toJson(DeclarationType.T2SM: DeclarationType) mustEqual JsString("T2SM")
-    }
-
-    "must serialise to `TIR`" in {
-
-      Json.toJson(DeclarationType.TIR: DeclarationType) mustEqual JsString("TIR")
+        result mustBe None
+      }
     }
   }
+
 }

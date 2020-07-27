@@ -16,13 +16,19 @@
 
 package models
 
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
 import play.api.libs.json.Reads
+import play.api.libs.json.Writes
+import cats.syntax.all._
 
 sealed trait TraderAtDestination
 
 object TraderAtDestination {
+
+  implicit lazy val xmlReader: XmlReader[TraderAtDestination] =
+    TraderAtDestinationWithEori.xmlReader.or(TraderAtDestinationWithoutEori.xmlReader)
 
   implicit lazy val reads: Reads[TraderAtDestination] = {
 
@@ -39,9 +45,9 @@ object TraderAtDestination {
       TraderAtDestinationWithoutEori.reads
   }
 
-  implicit lazy val writes: OWrites[TraderAtDestination] = OWrites {
-    case t: TraderAtDestinationWithEori    => Json.toJsObject(t)(TraderAtDestinationWithEori.writes)
-    case t: TraderAtDestinationWithoutEori => Json.toJsObject(t)(TraderAtDestinationWithoutEori.writes)
+  implicit lazy val writes: Writes[TraderAtDestination] = Writes {
+    case t: TraderAtDestinationWithEori    => Json.toJson(t)(TraderAtDestinationWithEori.writes)
+    case t: TraderAtDestinationWithoutEori => Json.toJson(t)(TraderAtDestinationWithoutEori.writes)
   }
 }
 
@@ -59,8 +65,17 @@ object TraderAtDestinationWithEori {
   implicit lazy val reads: Reads[TraderAtDestinationWithEori] =
     Json.reads[TraderAtDestinationWithEori]
 
-  implicit lazy val writes: OWrites[TraderAtDestinationWithEori] =
+  implicit lazy val writes: Writes[TraderAtDestinationWithEori] =
     Json.writes[TraderAtDestinationWithEori]
+
+  implicit val xmlReader: XmlReader[TraderAtDestinationWithEori] = (
+    (__ \ "TINTRD59").read[String],
+    (__ \ "NamTRD7").read[String].optional,
+    (__ \ "StrAndNumTRD22").read[String].optional,
+    (__ \ "PosCodTRD23").read[String].optional,
+    (__ \ "CitTRD24").read[String].optional,
+    (__ \ "CouTRD25").read[String].optional
+  ).mapN(apply)
 }
 
 final case class TraderAtDestinationWithoutEori(
@@ -76,6 +91,14 @@ object TraderAtDestinationWithoutEori {
   implicit lazy val reads: Reads[TraderAtDestinationWithoutEori] =
     Json.reads[TraderAtDestinationWithoutEori]
 
-  implicit lazy val writes: OWrites[TraderAtDestinationWithoutEori] =
+  implicit lazy val writes: Writes[TraderAtDestinationWithoutEori] =
     Json.writes[TraderAtDestinationWithoutEori]
+
+  implicit val xmlReader: XmlReader[TraderAtDestinationWithoutEori] = (
+    (__ \ "NamTRD7").read[String],
+    (__ \ "StrAndNumTRD22").read[String],
+    (__ \ "PosCodTRD23").read[String],
+    (__ \ "CitTRD24").read[String],
+    (__ \ "CouTRD25").read[String]
+  ).mapN(apply)
 }

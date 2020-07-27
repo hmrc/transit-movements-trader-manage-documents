@@ -16,20 +16,31 @@
 
 package models
 
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import play.api.libs.json.Reads
+import play.api.libs.json.Writes
+import cats.syntax.all._
 
-final case class Principal(
-  name: String,
-  streetAndNumber: String,
-  postCode: String,
-  city: String,
-  countryCode: String,
-  eori: Option[String],
-  tir: Option[String]
-)
+final case class Principal(name: String, streetAndNumber: String, postCode: String, city: String, countryCode: String, eori: Option[String])
+//tir: Option[String] = None //TODO Investigate this??
 
 object Principal {
 
-  implicit lazy val format: OFormat[Principal] = Json.format[Principal]
+  implicit lazy val reads: Reads[Principal] =
+    Json.reads[Principal]
+
+  implicit lazy val writes: Writes[Principal] =
+    Json.writes[Principal]
+
+  implicit val xmlReads: XmlReader[Principal] =
+    (
+      (__ \ "NamPC17").read[String],
+      (__ \ "StrAndNumPC122").read[String],
+      (__ \ "PosCodPC123").read[String],
+      (__ \ "CitPC124").read[String],
+      (__ \ "CouPC125").read[String],
+      (__ \ "TINPC159").read[String].optional
+    ).mapN(apply)
 }

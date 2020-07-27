@@ -16,6 +16,14 @@
 
 package models
 
+import com.lucidchart.open.xtract.ParseError
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseResult
+import com.lucidchart.open.xtract.ParseSuccess
+import com.lucidchart.open.xtract.XmlReader
+
+import scala.xml.NodeSeq
+
 sealed trait DeclarationType
 
 object DeclarationType extends Enumerable.Implicits {
@@ -31,4 +39,17 @@ object DeclarationType extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[DeclarationType] =
     Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+
+  implicit lazy val xmlReader: XmlReader[DeclarationType] =
+    new XmlReader[DeclarationType] {
+      override def read(xml: NodeSeq): ParseResult[DeclarationType] = {
+
+        case class DeclarationTypeParseFailure(message: String) extends ParseError
+
+        values
+          .find(_.toString == xml.text)
+          .map(ParseSuccess(_))
+          .getOrElse(ParseFailure(DeclarationTypeParseFailure(s"Could not parse the following value to DeclarationType: ${xml.text}")))
+      }
+    }
 }

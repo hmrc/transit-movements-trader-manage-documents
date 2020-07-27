@@ -51,8 +51,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal =
-          models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), None),
+        principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
@@ -95,8 +94,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal =
-          viewmodels.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head, Some("Principal EORI"), None),
+        principal = viewmodels.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head, Some("Principal EORI")),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
@@ -146,7 +144,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), None),
+        principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", Some("name"), Some("street"), Some("postCode"), Some("city"), Some(invalidCode)),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),

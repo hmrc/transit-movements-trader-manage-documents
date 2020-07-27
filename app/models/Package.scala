@@ -16,11 +16,18 @@
 
 package models
 
+import com.lucidchart.open.xtract.XmlReader
 import play.api.libs.json._
+import cats.syntax.all._
 
 sealed trait Package
 
 object Package {
+
+  implicit lazy val xmlReader: XmlReader[Package] =
+    UnpackedPackage.xmlReader
+      .or(RegularPackage.xmlReader)
+      .or(BulkPackage.xmlReader)
 
   implicit lazy val reads: Reads[Package] = {
 
@@ -51,6 +58,16 @@ final case class BulkPackage(
 ) extends Package
 
 object BulkPackage {
+
+  implicit val xmlReader: XmlReader[BulkPackage] = {
+
+    import com.lucidchart.open.xtract.__
+
+    (
+      (__ \ "KinOfPacGS23").read[String],
+      (__ \ "MarNumOfPacGS21").read[String].optional,
+    ).mapN(apply)
+  }
 
   val validCodes: Set[String] = Set("VQ", "VG", "VL", "VY", "VR", "VS", "VO")
 
@@ -88,6 +105,17 @@ final case class UnpackedPackage(
 
 object UnpackedPackage {
 
+  implicit val xmlReader: XmlReader[UnpackedPackage] = {
+
+    import com.lucidchart.open.xtract.__
+
+    (
+      (__ \ "KinOfPacGS23").read[String],
+      (__ \ "NumOfPieGS25").read[Int],
+      (__ \ "MarNumOfPacGS21").read[String].optional,
+    ).mapN(apply)
+  }
+
   val validCodes: Set[String] = Set("NE", "NF", "NG")
 
   implicit lazy val reads: Reads[UnpackedPackage] = {
@@ -124,6 +152,17 @@ final case class RegularPackage(
 ) extends Package
 
 object RegularPackage {
+
+  implicit val xmlReader: XmlReader[RegularPackage] = {
+
+    import com.lucidchart.open.xtract.__
+
+    (
+      (__ \ "KinOfPacGS23").read[String],
+      (__ \ "NumOfPacGS24").read[Int],
+      (__ \ "MarNumOfPacGS21").read[String],
+    ).mapN(apply)
+  }
 
   implicit lazy val reads: Reads[RegularPackage] = {
 

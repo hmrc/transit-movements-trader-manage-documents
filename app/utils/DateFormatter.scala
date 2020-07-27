@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package viewmodels
+package utils
 
-import models.reference.Country
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-final case class Principal(
-  name: String,
-  streetAndNumber: String,
-  postCode: String,
-  city: String,
-  country: Country,
-  eori: Option[String]
-)
+object DateFormatter {
+  val dateFormatter: DateTimeFormatter       = DateTimeFormatter.ofPattern("yyyyMMdd")
+  def dateFormatted(date: LocalDate): String = date.format(dateFormatter)
+}
