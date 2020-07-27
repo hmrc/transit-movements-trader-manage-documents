@@ -21,6 +21,7 @@ import com.lucidchart.open.xtract.ParseError
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.XmlReader
+import play.api.libs.json.__
 import play.api.libs.json._
 import utils.BinaryToBooleanXMLReader._
 
@@ -77,26 +78,25 @@ object SpecialMentionEc {
 
     import com.lucidchart.open.xtract.__
 
-    case class LocalDateParseFailure(message: String) extends ParseError
-    (
-      (__ \ "ExpFroECMT24")
-        .read[Boolean]
-        .flatMap {
-          case true  => XmlReader(_ => ParseSuccess(true))
-          case false => XmlReader(_ => ParseFailure(LocalDateParseFailure("Failed")))
-        },
-      (__ \ "AddInfCodMT23").read[String].flatMap {
-        code =>
-          if (SpecialMention.countrySpecificCodes.contains(code)) {
-            XmlReader(_ => ParseSuccess(code))
-          } else {
-            XmlReader(_ => ParseFailure(LocalDateParseFailure("Failed")))
+    case class SpecialMentionEcParseFailure(message: String) extends ParseError
+
+    (__ \ "ExpFroECMT24")
+      .read[Boolean]
+      .flatMap {
+        case true  => XmlReader(_ => ParseSuccess(true))
+        case false => XmlReader(_ => ParseFailure(SpecialMentionEcParseFailure("Failed to parse to SpecialMentionEc: ExpFroECMT24 was false")))
+      }
+      .flatMap {
+        _ =>
+          (__ \ "AddInfCodMT23").read[String].flatMap {
+            code =>
+              if (SpecialMention.countrySpecificCodes.contains(code)) {
+                XmlReader(_ => ParseSuccess(SpecialMentionEc(code)))
+              } else {
+                XmlReader(_ => ParseFailure(SpecialMentionEcParseFailure(s"Failed to parse to SpecialMentionEc: $code was not country specific")))
+              }
           }
       }
-    ).mapN {
-      (_, y) =>
-        SpecialMentionEc(y)
-    }
   }
 
   implicit lazy val reads: Reads[SpecialMentionEc] = {
@@ -150,14 +150,34 @@ object SpecialMentionNonEc {
 
   implicit val xmlReader: XmlReader[SpecialMentionNonEc] = {
 
-    // TODO Do we need more complex logic to confirm that this is false?
-
     import com.lucidchart.open.xtract.__
 
-    (
-      (__ \ "AddInfCodMT23").read[String],
-      (__ \ "ExpFroCouMT25").read[String]
-    ).mapN(apply)
+    case class SpecialMentionNonEcParseFailure(message: String) extends ParseError
+
+    (__ \ "ExpFroECMT24")
+      .read[Boolean]
+      .flatMap {
+        case true  => XmlReader(_ => ParseFailure(SpecialMentionNonEcParseFailure("Failed to parse to SpecialMentionNonEc: ExpFroECMT24 was true")))
+        case false => XmlReader(_ => ParseSuccess(false))
+      }
+      .flatMap {
+        _ =>
+          (__ \ "AddInfCodMT23").read[String].flatMap {
+            code =>
+              if (SpecialMention.countrySpecificCodes.contains(code)) {
+                XmlReader(_ => ParseSuccess(code))
+              } else {
+                XmlReader(_ => ParseFailure(SpecialMentionNonEcParseFailure(s"Failed to parse to SpecialMentionNonEc: $code was not country specific")))
+              }
+          }
+      }
+      .flatMap {
+        code =>
+          (__ \ "ExpFroCouMT25").read[String].flatMap {
+            exportFromCountry =>
+              XmlReader(_ => ParseSuccess(SpecialMentionNonEc(code, exportFromCountry)))
+          }
+      }
   }
 
   implicit lazy val reads: Reads[SpecialMentionNonEc] = {
@@ -214,7 +234,16 @@ object SpecialMentionNoCountry {
 
     import com.lucidchart.open.xtract.__
 
-    (__ \ "AddInfCodMT23").read[String].map(apply)
+    case class SpecialMentionNoCountryParseFailure(message: String) extends ParseError
+
+    (__ \ "AddInfCodMT23").read[String].flatMap {
+      code =>
+        if (SpecialMention.countrySpecificCodes.contains(code)) {
+          XmlReader(_ => ParseFailure(SpecialMentionNoCountryParseFailure(s"Failed to parse to SpecialMentionNoCountry: $code was country specific")))
+        } else {
+          XmlReader(_ => ParseSuccess(SpecialMentionNoCountry(code)))
+        }
+    }
   }
 
   implicit lazy val reads: Reads[SpecialMentionNoCountry] = {
