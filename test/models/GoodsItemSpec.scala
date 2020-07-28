@@ -92,6 +92,15 @@ class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
             result mustBe goodsItem
         }
       }
+
+      "must fail to deserialise when given invalid xml" in {
+
+        val xml = <GOOITEGDS></GOOITEGDS>
+
+        val result = XmlReader.of[GoodsItem].read(xml).toOption
+
+        result mustBe None
+      }
     }
   }
 

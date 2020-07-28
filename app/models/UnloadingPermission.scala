@@ -19,7 +19,14 @@ package models
 import java.time.LocalDate
 
 import cats.data.NonEmptyList
+import cats.syntax.all._
+import com.lucidchart.open.xtract.XmlReader._
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
 import play.api.libs.json._
+import utils.BigDecimalXMLReader._
+import utils.LocalDateXMLReader._
+import utils.NonEmptyListXMLReader._
 import json.NonEmptyListOps._
 
 sealed trait UnloadingPermission
@@ -67,6 +74,24 @@ object PermissionToStartUnloading {
 
   implicit lazy val format: OFormat[PermissionToStartUnloading] =
     Json.format[PermissionToStartUnloading]
+
+  implicit val xmlReader: XmlReader[PermissionToStartUnloading] = {
+    (
+      (__ \ "HEAHEA" \ "DocNumHEA5").read[String],
+      (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
+      (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,
+      (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
+      (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate],
+      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
+      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int],
+      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
+      (__ \ "TRAPRIPC1").read[Principal],
+      (__ \ "TRADESTRD").read[TraderAtDestination],
+      (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String],
+      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(seq[String]),
+      (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])
+    ).mapN(apply)
+  }
 }
 
 final case class PermissionToContinueUnloading(

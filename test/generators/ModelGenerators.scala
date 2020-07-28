@@ -253,8 +253,8 @@ trait ModelGenerators extends GeneratorHelpers {
         principal           <- arbitrary[Principal]
         traderAtDestination <- arbitrary[TraderAtDestination]
         presentationOffice  <- stringWithMaxLength(8)
-        seals               <- listWithMaxSize(9, stringWithMaxLength(20))
-        goodsItems          <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        seals               <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems          <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
         PermissionToStartUnloading(
           mrn,
