@@ -104,8 +104,8 @@
                             *@
                             @if(!permission.printListOfItems) {
                                 <fo:inline font-style="italic">
-
-                                    @* TODO: Is this the correct value for /GOOITEGDS/PREADMREFAR2/PreDocTypAR21*@
+                                    @* TODO: Is this the correct value for /GOOITEGDS/PREADMREFAR2/PreDocTypAR21 PREVIOUS ADMINISTRATIVE REFERENCES
+                                    This may need removing*@
                                     @permission.goodsItems.head.producedDocuments.head.display
                                 </fo:inline>
                             }

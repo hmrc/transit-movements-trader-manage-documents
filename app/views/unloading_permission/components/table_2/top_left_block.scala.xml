@@ -63,7 +63,7 @@
                     @if(permission.printListOfItems) {
                     <fo:block margin-top="1mm">See List of Items</fo:block>
                     } else {
-                        @goods_item(permission)
+                        @item.goods(permission)
                     }
                 </fo:table-cell>
             </fo:table-row>
