@@ -157,10 +157,13 @@ class UnloadingPermissionController @Inject()(
             netMass = Some(0.9),
             countryOfDispatch = Country("valid", "AA", "Country A"),
             countryOfDestination = Country("valid", "AA", "Country A"),
-            producedDocuments = Seq(viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), Some("ref"), Some("info"))),
+            producedDocuments = Seq(
+              viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), Some("ref"), Some("info")),
+              viewmodels.ProducedDocument(DocumentType("T2", "Document 2", transportDocument = false), None, Some("info here"))
+            ),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
-              viewmodels.SpecialMentionNonEc(AdditionalInformation("I1", "Info 1"), Country("valid", "AA", "Country A")),
+              viewmodels.SpecialMentionNonEc(AdditionalInformation("I122222", "Info 1"), Country("valid", "AA", "Country A")),
               viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
             ),
             consignor = Some(

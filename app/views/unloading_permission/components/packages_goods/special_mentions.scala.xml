@@ -1,0 +1,35 @@
+@(specialMentions: viewmodels.SpecialMention)
+
+<fo:block>
+    @if(specialMentions.additionalInformationCoded.code.trim.nonEmpty) {
+        @if(specialMentions.additionalInformationCoded.code.trim.length > 6) {
+            <fo:inline>Export </fo:inline>
+            <fo:inline font-weight="bold">
+                @specialMentions.country.map(x => x)
+            </fo:inline>
+            <fo:inline>
+                @specialMentions.additionalInformationCoded.code Export
+            </fo:inline>
+            @if(specialMentions.additionalInformationCoded.code.trim.nonEmpty) {
+                <fo:inline>-
+                    @specialMentions.additionalInformationCoded.description
+                </fo:inline>
+            }
+        } else {
+            @specialMentions.additionalInformationCoded.code
+        }
+    } else {
+    @* TODO: Assuming ref data is always pulled back for code. What if it's unavailable. We should be able to show raw value *@
+        <!--<fo:inline font-style="italic">-->
+        <!--<xsl:value-of select="$cod"/>-->
+        <!--</fo:inline>-->
+        <!--<fo:inline font-weight="bold">-->
+        <!--<xsl:value-of select="concat(' ', $val-to-ins)"/>-->
+        <!--</fo:inline>-->
+        <!--<xsl:if test="string-length($ref) > 0">-->
+        <!--<fo:inline>-->
+        <!--<xsl:value-of select="concat('- ', $ref)"/>-->
+        <!--</fo:inline>-->
+        <!--</xsl:if>-->
+    }
+</fo:block>

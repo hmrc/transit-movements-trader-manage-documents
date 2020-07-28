@@ -19,10 +19,19 @@ package viewmodels
 import models.reference.AdditionalInformation
 import models.reference.Country
 
-trait SpecialMention
+trait SpecialMention {
+  val additionalInformationCoded: AdditionalInformation
+  val country: Option[String]
+}
 
-final case class SpecialMentionEc(additionalInformationCoded: AdditionalInformation) extends SpecialMention
+final case class SpecialMentionEc(additionalInformationCoded: AdditionalInformation) extends SpecialMention {
+  val country = Some("EC")
+}
 
-final case class SpecialMentionNonEc(additionalInformationCoded: AdditionalInformation, exportFromCountry: Country) extends SpecialMention
+final case class SpecialMentionNonEc(additionalInformationCoded: AdditionalInformation, exportFromCountry: Country) extends SpecialMention {
+  val country = Some(exportFromCountry.description)
+}
 
-final case class SpecialMentionNoCountry(additionalInformationCoded: AdditionalInformation) extends SpecialMention
+final case class SpecialMentionNoCountry(additionalInformationCoded: AdditionalInformation) extends SpecialMention {
+  val country = None
+}
