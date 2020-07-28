@@ -36,6 +36,7 @@ import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.PermissionToStartUnloading
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -158,7 +159,7 @@ class ConversionServiceSpec
         )
       )
 
-      val result = service.convertUnloadingPermission(validUnloadingPermission).futureValue
+      val result: ValidationResult[PermissionToStartUnloading] = service.convertUnloadingPermission(validUnloadingPermission).futureValue
 
       result.valid.value mustEqual expectedResult
     }

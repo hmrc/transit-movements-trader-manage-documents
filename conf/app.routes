@@ -1,4 +1,3 @@
 # microservice specific routes
 
-POST        /unloading-permission          controllers.UnloadingPermissionController.post
 GET         /unloading-permission          controllers.UnloadingPermissionController.get
