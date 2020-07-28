@@ -16,9 +16,6 @@
 
 package utils
 
-import java.io
-import java.time.LocalDate
-
 import cats.data.NonEmptyList
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.XmlReader
@@ -28,7 +25,6 @@ import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import utils.DateFormatter.dateFormatted
 import utils.NonEmptyListXMLReader._
 
 import scala.xml.NodeSeq
@@ -48,7 +44,7 @@ class NonEmptyListXMLReaderSpec extends FreeSpec with MustMatchers with ScalaChe
             }
           }
 
-          val result = XmlReader.of[NonEmptyList[String]].read(xml).toOption.value
+          val result = XmlReader.of(xmlNonEmptyListReads[String]).read(xml).toOption.value
 
           result.toList mustBe list
       }
@@ -58,7 +54,7 @@ class NonEmptyListXMLReaderSpec extends FreeSpec with MustMatchers with ScalaChe
 
       val xml = NodeSeq.Empty
 
-      val result = XmlReader.of[NonEmptyList[String]].read(xml)
+      val result = XmlReader.of(xmlNonEmptyListReads[String]).read(xml)
 
       result mustBe an[ParseFailure]
     }

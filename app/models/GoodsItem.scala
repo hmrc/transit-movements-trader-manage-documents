@@ -63,7 +63,7 @@ object GoodsItem {
       (__ \ "SPEMENMT2").read(seq[SpecialMention]),
       (__ \ "TRACONCO2").read[Consignor].optional,
       (__ \ "TRACONCE2").read[Consignee].optional,
-      (__ \ "CONNR2").read(seq[String]),
+      (__ \ "CONNR2" \ "ConNumNR21").read(seq[String]),
       (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
       (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
     ).mapN(apply)

@@ -1,7 +1,26 @@
+/*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package models
 
+import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
-import org.scalatest.{FreeSpec, MustMatchers, OptionValues}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
+import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalacheck.Arbitrary.arbitrary
 
@@ -17,16 +36,17 @@ class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
         forAll(arbitrary[GoodsItem]) {
           goodsItem =>
-
-          val xml = {
-            <GOOITEGDS>
+            val xml = {
+              <GOOITEGDS>
               <IteNumGDS7>{goodsItem.itemNumber}</IteNumGDS7>
               {
-                goodsItem.commodityCode.fold(NodeSeq.Empty) { commodityCode =>
-                  <ComCodTarCodGDS10>{commodityCode}</ComCodTarCodGDS10>
-                } ++
-                goodsItem.declarationType.fold(NodeSeq.Empty) { declarationType =>
-                  <TypOfDecHEA24>{declarationType.toString}</TypOfDecHEA24>
+                {
+                  goodsItem.commodityCode.fold(NodeSeq.Empty) { commodityCode =>
+                    <ComCodTarCodGDS10>{commodityCode}</ComCodTarCodGDS10>
+                  } ++
+                  goodsItem.declarationType.fold(NodeSeq.Empty) { declarationType =>
+                    <DecTypGDS15>{declarationType.toString}</DecTypGDS15>
+                  }
                 }
               }
               <GooDesGDS23>{goodsItem.description}</GooDesGDS23>
@@ -46,38 +66,36 @@ class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
                 goodsItem.consignor.map(consignorXML) ++
                 goodsItem.consignee.map(consigneeXML) ++
                 goodsItem.containers.map {
-                  value =>
-                    <CONNR2>{value}</CONNR2>
+                  containersNumber =>
+                    <CONNR2>
+                      <ConNumNR21>{containersNumber}</ConNumNR21>
+                    </CONNR2>
                 } ++
-                goodsItem.packages.map()
+                goodsItem.packages.toList.map(packageToXML) ++
+                goodsItem.sensitiveGoodsInformation.map {
+                  sensitiveInformation =>
+                  <SGICODSD2>
+                    {
+                      sensitiveInformation.goodsCode.fold(NodeSeq.Empty) { goodsCode =>
+                        <SenGooCodSD22>{goodsCode}</SenGooCodSD22>
+                      }
+                    }
+                    <SenQuaSD23>{sensitiveInformation.quantity}</SenQuaSD23>
+                  </SGICODSD2>
+                }
               }
             </GOOITEGDS>
-          }
+            }
+
+            val result = XmlReader.of[GoodsItem].read(xml).toOption.value
+
+            result mustBe goodsItem
         }
-
-//        (
-//          (__ \ "IteNumGDS7").read[Int],
-//          (__ \ "ComCodTarCodGDS10").read[String].optional,
-//          (__ \ "DecTypGDS15").read[DeclarationType].optional,
-//          (__ \ "GooDesGDS23").read[String],
-//          (__ \ "GroMasGDS46").read[BigDecimal].optional,
-//          (__ \ "NetMasGDS48").read[BigDecimal].optional,
-//          (__ \ "CouOfDisGDS58").read[String],
-//          (__ \ "CouOfDesGDS59").read[String],
-//          (__ \ "PRODOCDC2").read(seq[ProducedDocument]),
-//          (__ \ "SPEMENMT2").read(seq[SpecialMention]),
-//          (__ \ "TRACONCO2").read[Consignor].optional,
-//          (__ \ "TRACONCE2").read[Consignee].optional,
-//          (__ \ "CONNR2").read(seq[String]),
-//          (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
-//          (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
-//          ).mapN(apply)
-
       }
     }
   }
 
-  private def producedDocumentXML(producedDocument: ProducedDocument): NodeSeq = {
+  private def producedDocumentXML(producedDocument: ProducedDocument): NodeSeq =
     <PRODOCDC2>
       <DocTypDC21>{producedDocument.documentType}</DocTypDC21>
       {
@@ -89,9 +107,8 @@ class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
         }
       }
     </PRODOCDC2>
-  }
 
-  private def specialMentionXML(specialMention: SpecialMention): NodeSeq = {
+  private def specialMentionXML(specialMention: SpecialMention): NodeSeq =
     <SPEMENMT2>
     {
       specialMention match {
@@ -107,10 +124,9 @@ class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
       }
     }
     </SPEMENMT2>
-  }
 
-  private def consignorXML(consignor: Consignor): NodeSeq = {
-    <TRACONCO1>
+  private def consignorXML(consignor: Consignor): NodeSeq =
+    <TRACONCO2>
       <NamCO17>{consignor.name}</NamCO17>
       <StrAndNumCO122>{consignor.streetAndNumber}</StrAndNumCO122>
       <PosCodCO123>{consignor.postCode}</PosCodCO123>
@@ -124,11 +140,10 @@ class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
           <TINCO159>{eori}</TINCO159>
         }
       }
-    </TRACONCO1>
-  }
+    </TRACONCO2>
 
-  private def consigneeXML(consignee: Consignee): NodeSeq = {
-    <TRACONCE1>
+  private def consigneeXML(consignee: Consignee): NodeSeq =
+    <TRACONCE2>
       <NamCE17>{consignee.name}</NamCE17>
       <StrAndNumCE122>{consignee.streetAndNumber}</StrAndNumCE122>
       <PosCodCE123>{consignee.postCode}</PosCodCE123>
@@ -142,15 +157,35 @@ class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
           <TINCE159>{eori}</TINCE159>
         }
       }
-    </TRACONCE1>
-  }
+    </TRACONCE2>
 
-  private def packageToXML(packageModel: Package): NodeSeq = {
+  private def packageToXML(packageModel: Package): NodeSeq =
     packageModel match {
-      case value: UnpackedPackage => ???
-      case value: RegularPackage  => ???
-      case value: BulkPackage     => ???
+      case value: UnpackedPackage =>
+        <PACGS2>
+          <KinOfPacGS23>{value.kindOfPackage}</KinOfPacGS23>
+          <NumOfPieGS25>{value.numberOfPieces}</NumOfPieGS25>
+          {
+            value.marksAndNumbers.fold(NodeSeq.Empty) { marksAndNumbers =>
+              <MarNumOfPacGS21>{marksAndNumbers}</MarNumOfPacGS21>
+            }
+          }
+        </PACGS2>
+      case value: RegularPackage =>
+        <PACGS2>
+          <KinOfPacGS23>{value.kindOfPackage}</KinOfPacGS23>
+          <NumOfPacGS24>{value.numberOfPackages}</NumOfPacGS24>
+          <MarNumOfPacGS21>{value.marksAndNumbers}</MarNumOfPacGS21>
+        </PACGS2>
+      case value: BulkPackage =>
+        <PACGS2>
+          <KinOfPacGS23>{value.kindOfPackage}</KinOfPacGS23>
+          {
+            value.marksAndNumbers.fold(NodeSeq.Empty) { marksAndNumbers =>
+              <MarNumOfPacGS21>{marksAndNumbers}</MarNumOfPacGS21>
+            }
+          }
+        </PACGS2>
     }
-  }
 
 }
