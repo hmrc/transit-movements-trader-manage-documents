@@ -26,46 +26,41 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 import scala.xml.NodeSeq
 
-class PrincipalSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
+class ProducedDocumentSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-  "Principal" - {
+  "ProducedDocument" - {
+
     "XML" - {
 
-      "must deserialise" in {
-        forAll(arbitrary[Principal]) {
-          principal =>
-            val xml =
-              <TRAPRIPC1>
-                <NamPC17>{principal.name}</NamPC17>
-                <StrAndNumPC122>{principal.streetAndNumber}</StrAndNumPC122>
-                <PosCodPC123>{principal.postCode}</PosCodPC123>
-                <CitPC124>{principal.city}</CitPC124>
-                <CouPC125>{principal.countryCode}</CouPC125>
+      "must deserialise to ProducedDocument" in {
+
+        forAll(arbitrary[ProducedDocument]) {
+          producedDocument =>
+            val xml = {
+              <PRODOCDC2>
+                <DocTypDC21>{producedDocument.documentType}</DocTypDC21>
                 {
-                  principal.eori.fold(NodeSeq.Empty) {
-                    eori =>
-                      <TINPC159>{eori}</TINPC159>
+                  producedDocument.reference.fold(NodeSeq.Empty) { reference =>
+                    <DocRefDC23>{reference}</DocRefDC23>
                   } ++
-                  principal.tir.fold(NodeSeq.Empty) {
-                    tir =>
-                      <HITPC126>{tir}</HITPC126>
+                  producedDocument.complementOfInformation.fold(NodeSeq.Empty) { information =>
+                    <ComOfInfDC25>{information}</ComOfInfDC25>
                   }
                 }
-              </TRAPRIPC1>
+              </PRODOCDC2>
+            }
 
-            val result = XmlReader.of[Principal].read(xml).toOption.value
+            val result = XmlReader.of[ProducedDocument].read(xml).toOption.value
 
-            result mustBe principal
+            result mustBe producedDocument
         }
       }
 
       "must fail to deserialise when a mandatory field is missing" in {
-        val xml =
-          <TRAPRIPC1>
-            <NamPC17></NamPC17>
-          </TRAPRIPC1>
 
-        val result = XmlReader.of[Principal].read(xml).toOption
+        val xml = <PRODOCDC2></PRODOCDC2>
+
+        val result = XmlReader.of[ProducedDocument].read(xml).toOption
 
         result mustBe None
       }

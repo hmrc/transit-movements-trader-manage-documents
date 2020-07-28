@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-package models
+package utils
 
+import com.lucidchart.open.xtract.ParseError
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
-import cats.syntax.all._
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
-object ProducedDocument {
+object BigDecimalXMLReader {
 
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
+  case class BigDecimalParseError(message: String) extends ParseError
 
-  implicit val xmlReader: XmlReader[ProducedDocument] = (
-    (__ \ "DocTypDC21").read[String],
-    (__ \ "DocRefDC23").read[String].optional,
-    (__ \ "ComOfInfDC25").read[String].optional
-  ).mapN(apply)
+  implicit val xmlBigDecimalReads: XmlReader[BigDecimal] = {
+    xml =>
+      Try(BigDecimal(xml.text)) match {
+        case Success(value) => ParseSuccess(value)
+        case Failure(e)     => ParseFailure(BigDecimalParseError(e.getMessage))
+      }
+  }
+
 }

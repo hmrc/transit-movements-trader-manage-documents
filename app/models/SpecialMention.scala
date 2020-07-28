@@ -16,7 +16,13 @@
 
 package models
 
+import com.lucidchart.open.xtract.ParseError
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
+import com.lucidchart.open.xtract.XmlReader
+import play.api.libs.json.__
 import play.api.libs.json._
+import utils.BinaryToBooleanXMLReader._
 
 trait SpecialMention {
 
@@ -26,6 +32,14 @@ trait SpecialMention {
 object SpecialMention {
 
   val countrySpecificCodes = Seq("DG0", "DG1")
+
+  implicit val xmlReader: XmlReader[SpecialMention] = {
+
+    SpecialMentionEc.xmlReader
+      .or(SpecialMentionNonEc.xmlReader)
+      .or(SpecialMentionNoCountry.xmlReader)
+
+  }
 
   implicit lazy val reads: Reads[SpecialMention] = {
 
@@ -53,6 +67,31 @@ object SpecialMention {
 final case class SpecialMentionEc(additionalInformationCoded: String) extends SpecialMention
 
 object SpecialMentionEc {
+
+  implicit val xmlReader: XmlReader[SpecialMentionEc] = {
+
+    import com.lucidchart.open.xtract.__
+
+    case class SpecialMentionEcParseFailure(message: String) extends ParseError
+
+    (__ \ "ExpFroECMT24")
+      .read[Boolean]
+      .flatMap {
+        case true  => XmlReader(_ => ParseSuccess(true))
+        case false => XmlReader(_ => ParseFailure(SpecialMentionEcParseFailure("Failed to parse to SpecialMentionEc: ExpFroECMT24 was false")))
+      }
+      .flatMap {
+        _ =>
+          (__ \ "AddInfCodMT23").read[String].flatMap {
+            code =>
+              if (SpecialMention.countrySpecificCodes.contains(code)) {
+                XmlReader(_ => ParseSuccess(SpecialMentionEc(code)))
+              } else {
+                XmlReader(_ => ParseFailure(SpecialMentionEcParseFailure(s"Failed to parse to SpecialMentionEc: $code was not country specific")))
+              }
+          }
+      }
+  }
 
   implicit lazy val reads: Reads[SpecialMentionEc] = {
 
@@ -103,6 +142,38 @@ final case class SpecialMentionNonEc(
 
 object SpecialMentionNonEc {
 
+  implicit val xmlReader: XmlReader[SpecialMentionNonEc] = {
+
+    import com.lucidchart.open.xtract.__
+
+    case class SpecialMentionNonEcParseFailure(message: String) extends ParseError
+
+    (__ \ "ExpFroECMT24")
+      .read[Boolean]
+      .flatMap {
+        case true  => XmlReader(_ => ParseFailure(SpecialMentionNonEcParseFailure("Failed to parse to SpecialMentionNonEc: ExpFroECMT24 was true")))
+        case false => XmlReader(_ => ParseSuccess(false))
+      }
+      .flatMap {
+        _ =>
+          (__ \ "AddInfCodMT23").read[String].flatMap {
+            code =>
+              if (SpecialMention.countrySpecificCodes.contains(code)) {
+                XmlReader(_ => ParseSuccess(code))
+              } else {
+                XmlReader(_ => ParseFailure(SpecialMentionNonEcParseFailure(s"Failed to parse to SpecialMentionNonEc: $code was not country specific")))
+              }
+          }
+      }
+      .flatMap {
+        code =>
+          (__ \ "ExpFroCouMT25").read[String].flatMap {
+            exportFromCountry =>
+              XmlReader(_ => ParseSuccess(SpecialMentionNonEc(code, exportFromCountry)))
+          }
+      }
+  }
+
   implicit lazy val reads: Reads[SpecialMentionNonEc] = {
 
     import play.api.libs.functional.syntax._
@@ -152,6 +223,22 @@ object SpecialMentionNonEc {
 final case class SpecialMentionNoCountry(additionalInformationCoded: String) extends SpecialMention
 
 object SpecialMentionNoCountry {
+
+  implicit val xmlReader: XmlReader[SpecialMentionNoCountry] = {
+
+    import com.lucidchart.open.xtract.__
+
+    case class SpecialMentionNoCountryParseFailure(message: String) extends ParseError
+
+    (__ \ "AddInfCodMT23").read[String].flatMap {
+      code =>
+        if (SpecialMention.countrySpecificCodes.contains(code)) {
+          XmlReader(_ => ParseFailure(SpecialMentionNoCountryParseFailure(s"Failed to parse to SpecialMentionNoCountry: $code was country specific")))
+        } else {
+          XmlReader(_ => ParseSuccess(SpecialMentionNoCountry(code)))
+        }
+    }
+  }
 
   implicit lazy val reads: Reads[SpecialMentionNoCountry] = {
 

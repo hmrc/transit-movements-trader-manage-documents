@@ -16,8 +16,10 @@
 
 package utils
 
+import java.io
 import java.time.LocalDate
 
+import cats.data.NonEmptyList
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
@@ -27,28 +29,36 @@ import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import utils.DateFormatter.dateFormatted
-import utils.LocalDateXMLReader._
+import utils.NonEmptyListXMLReader._
 
-class LocalDateXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
+import scala.xml.NodeSeq
 
-  "LocalDateXMLReader" - {
+class NonEmptyListXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-    "must deserialize XML to LocalDate with correct format" in {
+  "NonEmptyListXMLReader" - {
 
-      forAll(arbitrary[LocalDate]) {
-        date =>
-          val xml    = <testXml>{dateFormatted(date)}</testXml>
-          val result = XmlReader.of[LocalDate].read(xml).toOption.value
+    "must deserialize" in {
 
-          result mustBe date
+      forAll(arbitrary[List[String]].suchThat(_.nonEmpty)) {
+        list =>
+          val xml = {
+            list.map {
+              value =>
+                <testChild>{value}</testChild>
+            }
+          }
+
+          val result = XmlReader.of[NonEmptyList[String]].read(xml).toOption.value
+
+          result.toList mustBe list
       }
     }
 
-    "must return ParseFailure when failing to deserialize XML to LocalDate" in {
+    "must fail to deserialise if empty" in {
 
-      val xml = <testXml>Invalid Date</testXml>
+      val xml = NodeSeq.Empty
 
-      val result = XmlReader.of[LocalDate].read(xml)
+      val result = XmlReader.of[NonEmptyList[String]].read(xml)
 
       result mustBe an[ParseFailure]
     }

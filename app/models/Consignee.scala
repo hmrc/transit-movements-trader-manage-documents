@@ -16,6 +16,9 @@
 
 package models
 
+import cats.syntax.all._
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -25,10 +28,23 @@ final case class Consignee(
   postCode: String,
   city: String,
   countryCode: String,
+  nadLanguageCode: Option[String],
   eori: Option[String]
 )
 
 object Consignee {
 
   implicit lazy val format: OFormat[Consignee] = Json.format[Consignee]
+
+  implicit val xmlReader: XmlReader[Consignee] = {
+    (
+      (__ \ "NamCE17").read[String],
+      (__ \ "StrAndNumCE122").read[String],
+      (__ \ "PosCodCE123").read[String],
+      (__ \ "CitCE124").read[String],
+      (__ \ "CouCE125").read[String],
+      (__ \ "NADLNGCE").read[String].optional,
+      (__ \ "TINCE159").read[String].optional
+    ).mapN(apply)
+  }
 }

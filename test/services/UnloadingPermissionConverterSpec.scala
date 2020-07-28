@@ -52,7 +52,13 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI")),
+        principal = models.Principal("Principal name",
+                                     "Principal street",
+                                     "Principal postCode",
+                                     "Principal city",
+                                     countries.head.code,
+                                     Some("Principal EORI"),
+                                     Some("tir")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
@@ -72,8 +78,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
               models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code),
               models.SpecialMentionNoCountry(additionalInfo.head.code)
             ),
-            consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None)),
-            consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None)),
+            consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
+            consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
             containers = Seq("container 1"),
             packages = NonEmptyList(
               models.BulkPackage(kindsOfPackage.head.code, Some("numbers")),
@@ -147,7 +153,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI")),
+        principal =
+          models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", Some("name"), Some("street"), Some("postCode"), Some("city"), Some(invalidCode)),
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
@@ -167,8 +174,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
               models.SpecialMentionNonEc(invalidCode, invalidCode),
               models.SpecialMentionNoCountry(invalidCode)
             ),
-            consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None)),
-            consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None)),
+            consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None, None)),
+            consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None, None)),
             containers = Seq("container 1"),
             packages = NonEmptyList(
               models.BulkPackage(invalidCode, Some("numbers")),

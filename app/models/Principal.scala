@@ -23,8 +23,15 @@ import play.api.libs.json.Reads
 import play.api.libs.json.Writes
 import cats.syntax.all._
 
-final case class Principal(name: String, streetAndNumber: String, postCode: String, city: String, countryCode: String, eori: Option[String])
-//tir: Option[String] = None //TODO Investigate this??
+final case class Principal(
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String,
+  eori: Option[String],
+  tir: Option[String]
+)
 
 object Principal {
 
@@ -41,6 +48,7 @@ object Principal {
       (__ \ "PosCodPC123").read[String],
       (__ \ "CitPC124").read[String],
       (__ \ "CouPC125").read[String],
-      (__ \ "TINPC159").read[String].optional
+      (__ \ "TINPC159").read[String].optional,
+      (__ \ "HITPC126").read[String].optional
     ).mapN(apply)
 }

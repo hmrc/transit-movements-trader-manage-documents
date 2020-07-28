@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package models
+package utils
 
+import com.lucidchart.open.xtract.ParseError
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
-import cats.syntax.all._
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+object BinaryToBooleanXMLReader {
 
-object ProducedDocument {
+  case class BinaryToBooleanXMLReaderError(message: String) extends ParseError
 
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-
-  implicit val xmlReader: XmlReader[ProducedDocument] = (
-    (__ \ "DocTypDC21").read[String],
-    (__ \ "DocRefDC23").read[String].optional,
-    (__ \ "ComOfInfDC25").read[String].optional
-  ).mapN(apply)
+  implicit val xmlBinaryToBooleanReads: XmlReader[Boolean] = {
+    xml =>
+      xml.text match {
+        case "1"   => ParseSuccess(true)
+        case "0"   => ParseSuccess(false)
+        case value => ParseFailure(BinaryToBooleanXMLReaderError(s"Failed to parse the following to boolean: $value"))
+      }
+  }
 }

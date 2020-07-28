@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package models
+package utils
 
+import cats.data.NonEmptyList
+import com.lucidchart.open.xtract.ParseError
 import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
-import cats.syntax.all._
+import com.lucidchart.open.xtract.XmlReader._
 
-final case class ProducedDocument(
-  documentType: String,
-  reference: Option[String],
-  complementOfInformation: Option[String]
-)
+object NonEmptyListXMLReader {
 
-object ProducedDocument {
+  case class NonEmptyListXMLReaderParseFailure(message: String) extends ParseError
 
-  implicit lazy val format: OFormat[ProducedDocument] = Json.format[ProducedDocument]
-
-  implicit val xmlReader: XmlReader[ProducedDocument] = (
-    (__ \ "DocTypDC21").read[String],
-    (__ \ "DocRefDC23").read[String].optional,
-    (__ \ "ComOfInfDC25").read[String].optional
-  ).mapN(apply)
+  implicit def xmlNonEmptyListReads[A](implicit xmlReader: XmlReader[A]): XmlReader[NonEmptyList[A]] =
+    XmlReader
+      .of(seq[A].atLeast(1))
+      .collect(
+        NonEmptyListXMLReaderParseFailure("Failed to parse to NonEmptyList due to empty list")
+      ) {
+        case result => NonEmptyList(result.head, result.tail.toList)
+      }
 }

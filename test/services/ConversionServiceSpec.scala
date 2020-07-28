@@ -66,7 +66,8 @@ class ConversionServiceSpec
     numberOfItems = 1,
     numberOfPackages = 3,
     grossMass = 1.0,
-    principal = models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI")),
+    principal =
+      models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
     presentationOffice = "Presentation office",
     seals = Seq("seal 1"),
@@ -86,8 +87,8 @@ class ConversionServiceSpec
           models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code),
           models.SpecialMentionNoCountry(additionalInfo.head.code)
         ),
-        consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None)),
-        consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None)),
+        consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
+        consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
         containers = Seq("container 1"),
         packages = NonEmptyList(
           models.BulkPackage(kindsOfPackage.head.code, Some("numbers")),

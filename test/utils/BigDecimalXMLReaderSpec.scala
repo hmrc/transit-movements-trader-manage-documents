@@ -16,8 +16,6 @@
 
 package utils
 
-import java.time.LocalDate
-
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
@@ -26,29 +24,29 @@ import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import utils.DateFormatter.dateFormatted
-import utils.LocalDateXMLReader._
+import utils.BigDecimalXMLReader._
 
-class LocalDateXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
+class BigDecimalXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-  "LocalDateXMLReader" - {
+  "BigDecimalXMLReader" - {
 
-    "must deserialize XML to LocalDate with correct format" in {
+    "must deserialize XML to BigDecimal with correct format" in {
 
-      forAll(arbitrary[LocalDate]) {
-        date =>
-          val xml    = <testXml>{dateFormatted(date)}</testXml>
-          val result = XmlReader.of[LocalDate].read(xml).toOption.value
+      forAll(arbitrary[BigDecimal]) {
+        bigDecimal =>
+          val xml = <testXml>{bigDecimal}</testXml>
 
-          result mustBe date
+          val result = XmlReader.of[BigDecimal].read(xml).toOption.value
+
+          result mustBe bigDecimal
       }
     }
 
-    "must return ParseFailure when failing to deserialize XML to LocalDate" in {
+    "must return ParseFailure when failing to deserialize XML to BigDecimal" in {
 
-      val xml = <testXml>Invalid Date</testXml>
+      val xml = <testXml>Invalid value</testXml>
 
-      val result = XmlReader.of[LocalDate].read(xml)
+      val result = XmlReader.of[BigDecimal].read(xml)
 
       result mustBe an[ParseFailure]
     }
