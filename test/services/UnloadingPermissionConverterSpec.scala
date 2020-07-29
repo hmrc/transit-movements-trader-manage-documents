@@ -60,6 +60,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
                                      Some("Principal EORI"),
                                      Some("tir")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+        departureOffice = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -102,8 +103,15 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal = viewmodels.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head, Some("Principal EORI")),
+        principal = viewmodels.Principal("Principal name",
+                                         "Principal street",
+                                         "Principal postCode",
+                                         "Principal city",
+                                         countries.head,
+                                         Some("Principal EORI"),
+                                         Some("tir")),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+        departureOffice = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -156,6 +164,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", Some("name"), Some("street"), Some("postCode"), Some("city"), Some(invalidCode)),
+        departureOffice = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(

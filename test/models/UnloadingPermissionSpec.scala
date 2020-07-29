@@ -52,6 +52,7 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               "grossMass"               -> permission.grossMass,
               "principal"               -> Json.toJson(permission.principal),
               "traderAtDestination"     -> Json.toJson(permission.traderAtDestination),
+              "departureOffice"         -> permission.departureOffice,
               "presentationOffice"      -> permission.presentationOffice,
               "seals"                   -> permission.seals,
               "goodsItems"              -> permission.goodsItems
@@ -105,6 +106,7 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               "grossMass"               -> permission.grossMass,
               "principal"               -> Json.toJson(permission.principal),
               "traderAtDestination"     -> Json.toJson(permission.traderAtDestination),
+              "departureOffice"         -> permission.departureOffice,
               "presentationOffice"      -> permission.presentationOffice,
               "seals"                   -> permission.seals,
               "goodsItems"              -> permission.goodsItems
@@ -174,6 +176,9 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               XMLBuilderHelper.traderAtDestinationToXml(unloadingPermission.traderAtDestination)
             }
             </TRADESTRD>
+            <CUSOFFDEPEPT>
+              <RefNumEPT1>{unloadingPermission.departureOffice}</RefNumEPT1>
+            </CUSOFFDEPEPT>
             <CUSOFFPREOFFRES>
               <RefNumRES1>{unloadingPermission.presentationOffice}</RefNumRES1>
             </CUSOFFPREOFFRES>

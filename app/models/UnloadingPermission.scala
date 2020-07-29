@@ -65,6 +65,7 @@ final case class PermissionToStartUnloading(
   grossMass: BigDecimal,
   principal: Principal,
   traderAtDestination: TraderAtDestination,
+  departureOffice: String,
   presentationOffice: String,
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
@@ -87,6 +88,7 @@ object PermissionToStartUnloading {
       (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
       (__ \ "TRAPRIPC1").read[Principal],
       (__ \ "TRADESTRD").read[TraderAtDestination],
+      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
       (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String],
       (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(seq[String]),
       (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])

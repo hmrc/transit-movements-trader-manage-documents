@@ -33,6 +33,7 @@ final case class PermissionToStartUnloading(
   grossMass: BigDecimal,
   principal: Principal,
   traderAtDestination: TraderAtDestination,
+  departureOffice: String,
   presentationOffice: String,
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]

@@ -73,6 +73,7 @@ object UnloadingPermissionConverter extends Converter {
           permission.grossMass,
           principal,
           trader,
+          permission.departureOffice,
           permission.presentationOffice,
           permission.seals,
           goodsItems

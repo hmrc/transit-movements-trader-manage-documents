@@ -252,6 +252,7 @@ trait ModelGenerators extends GeneratorHelpers {
         grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
         principal           <- arbitrary[Principal]
         traderAtDestination <- arbitrary[TraderAtDestination]
+        departureOffice     <- stringWithMaxLength(8)
         presentationOffice  <- stringWithMaxLength(8)
         seals               <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems          <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
@@ -267,6 +268,7 @@ trait ModelGenerators extends GeneratorHelpers {
           grossMass,
           principal,
           traderAtDestination,
+          departureOffice,
           presentationOffice,
           seals,
           goodsItems

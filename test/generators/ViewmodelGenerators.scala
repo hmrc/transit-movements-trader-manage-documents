@@ -171,7 +171,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         country         <- arbitrary[Country]
         eori            <- Gen.option(stringWithMaxLength(17))
         tin             <- Gen.option(stringWithMaxLength(17))
-      } yield Principal(name, streetAndNumber, postCode, city, country, eori)
+        tir             <- Gen.option(stringWithMaxLength(17))
+      } yield Principal(name, streetAndNumber, postCode, city, country, eori, tir)
     }
 
   implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
@@ -241,6 +242,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
         principal           <- arbitrary[Principal]
         traderAtDestination <- arbitrary[TraderAtDestination]
+        departureOffice     <- stringWithMaxLength(8)
         presentationOffice  <- stringWithMaxLength(8)
         seals               <- listWithMaxSize(9, stringWithMaxLength(20))
         goodsItems          <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
@@ -256,6 +258,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           grossMass,
           principal,
           traderAtDestination,
+          departureOffice,
           presentationOffice,
           seals,
           goodsItems
