@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-import cats.data.NonEmptyList
-import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
@@ -25,39 +23,33 @@ import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import utils.NonEmptyListXMLReader._
+import utils.XMLBuilderHelper
 
-import scala.xml.NodeSeq
+class GoodsItemSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-class NonEmptyListXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
+  "GoodsItem" - {
 
-  "NonEmptyListXMLReader" - {
+    "XML" - {
 
-    "must deserialize" in {
+      "must deserialise" in {
 
-      forAll(arbitrary[List[String]].suchThat(_.nonEmpty)) {
-        list =>
-          val xml = {
-            list.map {
-              value =>
-                <testChild>{value}</testChild>
-            }
-          }
+        forAll(arbitrary[GoodsItem]) {
+          goodsItem =>
+            val xml    = XMLBuilderHelper.goodsItemToXml(goodsItem)
+            val result = XmlReader.of[GoodsItem].read(xml).toOption.value
 
-          val result = XmlReader.of(xmlNonEmptyListReads[String]).read(xml).toOption.value
+            result mustBe goodsItem
+        }
+      }
 
-          result.toList mustBe list
+      "must fail to deserialise when given invalid xml" in {
+
+        val xml = <GOOITEGDS></GOOITEGDS>
+
+        val result = XmlReader.of[GoodsItem].read(xml).toOption
+
+        result mustBe None
       }
     }
-
-    "must fail to deserialise if empty" in {
-
-      val xml = NodeSeq.Empty
-
-      val result = XmlReader.of(xmlNonEmptyListReads[String]).read(xml)
-
-      result mustBe an[ParseFailure]
-    }
   }
-
 }

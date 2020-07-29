@@ -17,8 +17,14 @@
 package models
 
 import cats.data.NonEmptyList
+import cats.syntax.all._
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
+import com.lucidchart.open.xtract.XmlReader._
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
+import utils.BigDecimalXMLReader._
+import utils.NonEmptyListXMLReader._
 import json.NonEmptyListOps._
 
 final case class GoodsItem(
@@ -43,22 +49,22 @@ object GoodsItem {
 
   implicit lazy val format: OFormat[GoodsItem] = Json.format[GoodsItem]
 
-//  implicit val xmlReader: XmlReader[GoodsItem] =
-//    (
-//      (__ \ "IteNumGDS7").read[Int],
-//      (__ \ "ComCodTarCodGDS10").read[String].optional,
-//      (__ \ "DecTypGDS15").read[DeclarationType].optional,
-//      (__ \ "GooDesGDS23").read[String],
-//      (__ \ "GroMasGDS46").read[BigDecimal].optional,
-//      (__ \ "NetMasGDS48").read[BigDecimal].optional,
-//      (__ \ "CouOfDisGDS58").read[String],
-//      (__ \ "CouOfDesGDS59").read[String],
-//      (__ \ "PRODOCDC2").read(seq[ProducedDocument]),
-//      (__ \ "SPEMENMT2").read(seq[SpecialMention]),
-//      (__ \ "TRACONCO2").read[Consignor].optional,
-//      (__ \ "TRACONCE2").read[Consignee].optional,
-//      (__ \ "CONNR2").read(seq[String]),
-//      (__ \ "PACGS2").read(strictReadSeq[Package]),
-//      (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
-//    ).mapN(apply)
+  implicit val xmlReader: XmlReader[GoodsItem] =
+    (
+      (__ \ "IteNumGDS7").read[Int],
+      (__ \ "ComCodTarCodGDS10").read[String].optional,
+      (__ \ "DecTypGDS15").read[DeclarationType].optional,
+      (__ \ "GooDesGDS23").read[String],
+      (__ \ "GroMasGDS46").read[BigDecimal].optional,
+      (__ \ "NetMasGDS48").read[BigDecimal].optional,
+      (__ \ "CouOfDisGDS58").read[String],
+      (__ \ "CouOfDesGDS59").read[String],
+      (__ \ "PRODOCDC2").read(seq[ProducedDocument]),
+      (__ \ "SPEMENMT2").read(seq[SpecialMention]),
+      (__ \ "TRACONCO2").read[Consignor].optional,
+      (__ \ "TRACONCE2").read[Consignee].optional,
+      (__ \ "CONNR2" \ "ConNumNR21").read(seq[String]),
+      (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
+      (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
+    ).mapN(apply)
 }

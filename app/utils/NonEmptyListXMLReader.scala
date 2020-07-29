@@ -25,7 +25,7 @@ object NonEmptyListXMLReader {
 
   case class NonEmptyListXMLReaderParseFailure(message: String) extends ParseError
 
-  implicit def xmlNonEmptyListReads[A](implicit xmlReader: XmlReader[A]): XmlReader[NonEmptyList[A]] =
+  def xmlNonEmptyListReads[A](implicit xmlReader: XmlReader[A]): XmlReader[NonEmptyList[A]] =
     XmlReader
       .of(seq[A].atLeast(1))
       .collect(

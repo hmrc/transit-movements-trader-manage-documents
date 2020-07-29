@@ -200,13 +200,13 @@ trait ModelGenerators extends GeneratorHelpers {
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         countryOfDispatch         <- stringWithMaxLength(2)
         countryOfDestination      <- stringWithMaxLength(2)
-        producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
-        specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
+        producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
+        specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
-        containers                <- listWithMaxSize(9, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(9, arbitrary[Package])
-        sensitiveGoodsInformation <- listWithMaxSize(9, arbitrary[SensitiveGoodsInformation])
+        containers                <- listWithMaxSize(2, stringWithMaxLength(17))
+        packages                  <- nonEmptyListWithMaxSize(2, arbitrary[Package])
+        sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
       } yield
         GoodsItem(
           itemNumber,
@@ -253,8 +253,8 @@ trait ModelGenerators extends GeneratorHelpers {
         principal           <- arbitrary[Principal]
         traderAtDestination <- arbitrary[TraderAtDestination]
         presentationOffice  <- stringWithMaxLength(8)
-        seals               <- listWithMaxSize(9, stringWithMaxLength(20))
-        goodsItems          <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        seals               <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems          <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
         PermissionToStartUnloading(
           mrn,

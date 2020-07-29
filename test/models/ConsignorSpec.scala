@@ -38,20 +38,20 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
           consignor =>
             val xml = {
               <TRACONCO1>
-              <NamCO17>{consignor.name}</NamCO17>
-              <StrAndNumCO122>{consignor.streetAndNumber}</StrAndNumCO122>
-              <PosCodCO123>{consignor.postCode}</PosCodCO123>
-              <CitCO124>{consignor.city}</CitCO124>
-              <CouCO125>{consignor.countryCode}</CouCO125>
-              {
-                consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-                  <NADLNGCO>{nadLangCode}</NADLNGCO>
-                } ++
-                consignor.eori.fold(NodeSeq.Empty) { eori =>
-                  <TINCO159>{eori}</TINCO159>
+                <NamCO17>{consignor.name}</NamCO17>
+                <StrAndNumCO122>{consignor.streetAndNumber}</StrAndNumCO122>
+                <PosCodCO123>{consignor.postCode}</PosCodCO123>
+                <CitCO124>{consignor.city}</CitCO124>
+                <CouCO125>{consignor.countryCode}</CouCO125>
+                {
+                  consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+                    <NADLNGCO>{nadLangCode}</NADLNGCO>
+                  } ++
+                  consignor.eori.fold(NodeSeq.Empty) { eori =>
+                    <TINCO159>{eori}</TINCO159>
+                  }
                 }
-              }
-            </TRACONCO1>
+              </TRACONCO1>
             }
 
             val result = XmlReader.of[Consignor].read(xml).toOption.value
