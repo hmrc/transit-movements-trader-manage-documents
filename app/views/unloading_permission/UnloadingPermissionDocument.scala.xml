@@ -11,9 +11,14 @@
     <fo:flow flow-name="xsl-region-body">
       <fo:block>
 
+        <!--main header-->
         @components.table_1.table(permission)
 
-        @components.packages_goods.table(permission)
+        <!--packages/goods description/docs/certs-->
+        @components.table_2.table(permission)
+
+        <!--transhipment/certification-->
+        @components.table_3.table(permission)
 
       </fo:block>
     </fo:flow>

@@ -9,10 +9,24 @@
         <fo:table-row height="32mm"> <!-- S1 T2 ROW 1-->
 
             <!--Commodity marks/containers/items-->
-            @left_block(permission)
+            @top_left_block(permission)
 
             <!--Commodity code/weight/documents-->
-            @right_block(permission)
+            @top_right_block(permission)
+
+        </fo:table-row>
+
+        <fo:table-row height="4mm"> <!-- S1 T2 ROW 3 -->
+
+            <!--Additional information/ BinItiHEA246???-->
+            @bottom_left_block(permission)
+
+        </fo:table-row>
+
+        <fo:table-row height="16mm"> <!-- S1 T2 ROW 4 -->
+
+            <!--Special mentions/ produced documents-->
+            @bottom_right_block(permission)
 
         </fo:table-row>
     </fo:table-body>
