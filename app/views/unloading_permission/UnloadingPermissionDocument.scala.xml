@@ -20,6 +20,8 @@
         <!--transhipment/certification-->
         @components.table_3.table(permission)
 
+        @components.table_4.table(permission)
+
       </fo:block>
     </fo:flow>
   </fo:page-sequence>

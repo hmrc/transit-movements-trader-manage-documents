@@ -24,5 +24,6 @@ final case class Principal(
   postCode: String,
   city: String,
   country: Country,
-  eori: Option[String]
+  eori: Option[String],
+  tir: Option[String]
 )

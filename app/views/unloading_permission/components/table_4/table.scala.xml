@@ -1,0 +1,393 @@
+@(permission: viewmodels.PermissionToStartUnloading)
+
+<fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
+    <fo:table-column column-width="16mm" column-number="1"/>
+    <fo:table-column column-width="122.64mm" column-number="2"/>
+    <fo:table-column column-width="61.32mm" column-number="3"/>
+    <fo:table-body>
+        <fo:table-row height="18.75mm"> <!-- S1 T4 ROW 1 -->
+            <fo:table-cell border-top-color="black" border-top-width="1pt" border-top-style="solid">
+                <fo:block/>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" number-rows-spanned="1 @* TODO: This needs to be 2*@">
+                <fo:block>
+                    <fo:table width="100%" table-layout="fixed">
+                        <fo:table-column column-width="45mm"/>
+                        <fo:table-column column-width="6mm"/>
+                        <fo:table-column column-width="33.36mm"/>
+                        <fo:table-column column-width="10mm"/>
+                        <fo:table-column column-width="33mm"/>
+                        <fo:table-body>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell padding-left="2mm" display-align="center">
+                                    <fo:block>Principal/TIR Holder (50)</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding-left="2mm" display-align="center">
+                                    <fo:block>No</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        <!--output eori/tirid or eori-->
+                                        @if(permission.principal.tir.nonEmpty && permission.principal.eori.nonEmpty) {
+                                            @permission.principal.eori.map(x => x) / @permission.principal.tir.map(x => x)
+                                        } else {
+                                            @permission.principal.eori.map(x => x)
+                                        }
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="5" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @permission.principal.name
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @*TODO: This value needs limiting to 32 - if it's greater than 32, limit length automatically to 32 and make last 3 characters *@
+                                        @permission.principal.streetAndNumber
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @permission.principal.postCode
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @permission.principal.city
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @permission.principal.country.code
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </fo:table-cell>
+            <!--<fo:table-cell border-top-style="dashed" border-top-width="0.5pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2">-->
+                <!--<fo:block>-->
+                    <!--<fo:table width="100%" table-layout="fixed">-->
+                        <!--<fo:table-column/>-->
+                        <!--<fo:table-body>-->
+                            <!--<fo:table-row height="3.6875mm">-->
+                                <!--<fo:table-cell padding-left="2mm" display-align="center">-->
+                                    <!--<fo:block>C OFFICE OF DEPARTURE</fo:block>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                            <!--<fo:table-row height="3.6875mm">-->
+                                <!--<fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-1">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Dep-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFDEPEPT/RefNumEPT1"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'45'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                            <!--<fo:table-row height="3.6875mm">-->
+                                <!--<fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">-->
+                                    <!--<fo:block/>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                            <!--<fo:table-row height="3.6875mm">-->
+                                <!--<fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="format-ddmmccyy">-->
+                                            <!--<xsl:with-param name="val" select="*/HEAHEA/AccDatHEA158"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                            <!--<fo:table-row height="12mm">-->
+                                <!--<fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">-->
+                                    <!--<xsl:if test="*/CONRESERS/ConResCodERS16 = 'A3'">-->
+                                        <!--<fo:block>-->
+                                            <!--<xsl:value-of select="*/HEAHEA/AutIdHEA380"/>-->
+                                        <!--</fo:block>-->
+                                        <!--<fo:block>-->
+                                            <!--<xsl:value-of select="*/TRAPRIPC1/NamPC17"/>-->
+                                        <!--</fo:block>-->
+                                    <!--</xsl:if>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                        <!--</fo:table-body>-->
+                    <!--</fo:table>-->
+                <!--</fo:block>-->
+            <!--</fo:table-cell>-->
+        </fo:table-row>
+        <!--<fo:table-row height="8mm"> &lt;!&ndash; S1 T4 ROW 2 &ndash;&gt;-->
+            <!--<fo:table-cell number-rows-spanned="2" padding-top="1mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">-->
+                <!--<fo:block>-->
+                    <!--<fo:list-block>-->
+                        <!--<fo:list-item>-->
+                            <!--<fo:list-item-label>-->
+                                <!--<fo:block>-->
+                                    <!--<xsl:number format="1" value="51"/>-->
+                                <!--</fo:block>-->
+                            <!--</fo:list-item-label>-->
+                            <!--<fo:list-item-body start-indent="3mm" end-indent="0mm">-->
+                                <!--<fo:block wrap-option="wrap">Intended offices of transit (and country)</fo:block>-->
+                            <!--</fo:list-item-body>-->
+                        <!--</fo:list-item>-->
+                    <!--</fo:list-block>-->
+                <!--</fo:block>-->
+            <!--</fo:table-cell>-->
+        <!--</fo:table-row>-->
+        <!--<fo:table-row height="8mm"> &lt;!&ndash; S1 T4 ROW 3 &ndash;&gt;-->
+            <!--<fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">-->
+                <!--<fo:block>-->
+                    <!--<fo:table width="100%" table-layout="fixed">-->
+                        <!--<fo:table-column column-width="30.66mm"/>-->
+                        <!--<fo:table-column column-width="30.66mm"/>-->
+                        <!--<fo:table-column column-width="30.66mm"/>-->
+                        <!--<fo:table-column column-width="30.66mm"/>-->
+                        <!--<fo:table-column column-width="30.66mm"/>-->
+                        <!--<fo:table-column column-width="30.66mm"/>-->
+                        <!--<fo:table-body>-->
+                            <!--<fo:table-row height="7.5mm">-->
+                                <!--<fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="2mm">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-2">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Tra-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFTRARNS[1]/RefNumRNS1"/>-->
+                                            <!--<xsl:with-param name="arr-time" select="*/CUSOFFTRARNS[1]/ArrTimTRACUS085"/>-->
+                                            <!--<xsl:with-param name="min-len" select="'18'"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'32'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                                <!--<fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="1mm">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-2">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Tra-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFTRARNS[2]/RefNumRNS1"/>-->
+                                            <!--<xsl:with-param name="arr-time" select="*/CUSOFFTRARNS[2]/ArrTimTRACUS085"/>-->
+                                            <!--<xsl:with-param name="min-len" select="'18'"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'32'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                                <!--<fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="1mm">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-2">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Tra-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFTRARNS[3]/RefNumRNS1"/>-->
+                                            <!--<xsl:with-param name="arr-time" select="*/CUSOFFTRARNS[3]/ArrTimTRACUS085"/>-->
+                                            <!--<xsl:with-param name="min-len" select="'18'"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'32'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                                <!--<fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="1mm">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-2">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Tra-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFTRARNS[4]/RefNumRNS1"/>-->
+                                            <!--<xsl:with-param name="arr-time" select="*/CUSOFFTRARNS[4]/ArrTimTRACUS085"/>-->
+                                            <!--<xsl:with-param name="min-len" select="'18'"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'32'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                                <!--<fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="1mm">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-2">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Tra-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFTRARNS[5]/RefNumRNS1"/>-->
+                                            <!--<xsl:with-param name="arr-time" select="*/CUSOFFTRARNS[5]/ArrTimTRACUS085"/>-->
+                                            <!--<xsl:with-param name="min-len" select="'18'"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'32'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                                <!--<fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="1mm">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-2">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Tra-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFTRARNS[6]/RefNumRNS1"/>-->
+                                            <!--<xsl:with-param name="arr-time" select="*/CUSOFFTRARNS[6]/ArrTimTRACUS085"/>-->
+                                            <!--<xsl:with-param name="min-len" select="'18'"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'32'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                        <!--</fo:table-body>-->
+                    <!--</fo:table>-->
+                <!--</fo:block>-->
+            <!--</fo:table-cell>-->
+        <!--</fo:table-row>-->
+        <!--<fo:table-row height="8mm"> &lt;!&ndash; S1 T4 ROW 4 &ndash;&gt;-->
+            <!--<fo:table-cell>-->
+                <!--<fo:block>-->
+                    <!--<fo:list-block>-->
+                        <!--<fo:list-item>-->
+                            <!--<fo:list-item-label>-->
+                                <!--<fo:block>-->
+                                    <!--<xsl:number format="1" value="52"/>-->
+                                <!--</fo:block>-->
+                            <!--</fo:list-item-label>-->
+                            <!--<fo:list-item-body start-indent="3mm" end-indent="0mm">-->
+                                <!--<fo:block wrap-option="wrap">Guarantee not valid for</fo:block>-->
+                            <!--</fo:list-item-body>-->
+                        <!--</fo:list-item>-->
+                    <!--</fo:list-block>-->
+                <!--</fo:block>-->
+            <!--</fo:table-cell>-->
+            <!--<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">-->
+                <!--<fo:table width="100%" table-layout="fixed">-->
+                    <!--<fo:table-column column-width="114.64mm"/>-->
+                    <!--<fo:table-column column-width="8mm"/>-->
+                    <!--<fo:table-body>-->
+                        <!--<fo:table-row height="4mm">-->
+                            <!--<fo:table-cell number-rows-spanned="2">-->
+                                <!--<fo:block>-->
+                                    <!--<fo:table width="100%" table-layout="fixed">-->
+                                        <!--<fo:table-column column-width="38.213mm"/>-->
+                                        <!--<fo:table-column column-width="38.213mm"/>-->
+                                        <!--<fo:table-column column-width="38.213mm"/>-->
+                                        <!--<fo:table-body>-->
+                                            <!--<fo:table-row height="4mm">-->
+                                                <!--<xsl:for-each select="*/GUAGUA">-->
+                                                    <!--<xsl:if test="position() &lt; 4">-->
+                                                        <!--<xsl:choose>-->
+                                                            <!--<xsl:when test="count(GUAREFREF) > 1 and GuaTypGUA1 = 4">-->
+                                                                <!--<xsl:call-template name="print-gua-ref">-->
+                                                                    <!--<xsl:with-param name="ref-num1" select="GUAREFREF[1]/GuaRefNumGRNREF1"/>-->
+                                                                    <!--<xsl:with-param name="ref-num2" select="concat(' - ', substring(GUAREFREF[last()]/GuaRefNumGRNREF1, 18, 24))"/>-->
+                                                                    <!--<xsl:with-param name="oth-ref1" select="''"/>-->
+                                                                    <!--<xsl:with-param name="oth-ref2" select="''"/>-->
+                                                                    <!--<xsl:with-param name="padding" select="'0.5'"/>-->
+                                                                    <!--<xsl:with-param name="pos" select="position()"/>-->
+                                                                <!--</xsl:call-template>-->
+                                                            <!--</xsl:when>-->
+                                                            <!--<xsl:when test="count(GUAREFREF) > 1 and not(GuaTypGUA1 = 4)">-->
+                                                                <!--<xsl:choose>-->
+                                                                    <!--<xsl:when test="string-length(GUAREFREF[1]/GuaRefNumGRNREF1) > 0">-->
+                                                                        <!--<xsl:call-template name="print-gua-ref">-->
+                                                                            <!--<xsl:with-param name="ref-num1" select="GUAREFREF[1]/GuaRefNumGRNREF1"/>-->
+                                                                            <!--<xsl:with-param name="ref-num2" select="' ***'"/>-->
+                                                                            <!--<xsl:with-param name="oth-ref1" select="''"/>-->
+                                                                            <!--<xsl:with-param name="oth-ref2" select="''"/>-->
+                                                                            <!--<xsl:with-param name="pos" select="position()"/>-->
+                                                                        <!--</xsl:call-template>-->
+                                                                    <!--</xsl:when>-->
+                                                                    <!--<xsl:when test="string-length(GUAREFREF[1]/OthGuaRefREF4) > 0">-->
+                                                                        <!--<xsl:call-template name="print-gua-ref">-->
+                                                                            <!--<xsl:with-param name="ref-num1" select="''"/>-->
+                                                                            <!--<xsl:with-param name="ref-num2" select="''"/>-->
+                                                                            <!--<xsl:with-param name="oth-ref1" select="GUAREFREF[1]/OthGuaRefREF4"/>-->
+                                                                            <!--<xsl:with-param name="oth-ref2" select="' ***'"/>-->
+                                                                            <!--<xsl:with-param name="pos" select="position()"/>-->
+                                                                        <!--</xsl:call-template>-->
+                                                                    <!--</xsl:when>-->
+                                                                <!--</xsl:choose>-->
+                                                            <!--</xsl:when>-->
+                                                            <!--<xsl:otherwise>-->
+                                                                <!--<xsl:call-template name="print-gua-ref">-->
+                                                                    <!--<xsl:with-param name="ref-num1" select="GUAREFREF/GuaRefNumGRNREF1"/>-->
+                                                                    <!--<xsl:with-param name="ref-num2" select="''"/>-->
+                                                                    <!--<xsl:with-param name="oth-ref1" select="GUAREFREF/OthGuaRefREF4"/>-->
+                                                                    <!--<xsl:with-param name="oth-ref2" select="''"/>-->
+                                                                    <!--<xsl:with-param name="pos" select="position()"/>-->
+                                                                <!--</xsl:call-template>-->
+                                                            <!--</xsl:otherwise>-->
+                                                        <!--</xsl:choose>-->
+                                                    <!--</xsl:if>-->
+                                                <!--</xsl:for-each>-->
+                                            <!--</fo:table-row>-->
+                                            <!--<fo:table-row height="4mm">-->
+                                                <!--<xsl:for-each select="*/GUAGUA">-->
+                                                    <!--<xsl:if test="position() &lt; 4">-->
+                                                        <!--<fo:table-cell display-align="center" padding-left="1mm" text-align="left" border-width="0.pt" border-color="black" border-style="solid">-->
+                                                            <!--<fo:block>-->
+                                                                <!--<xsl:for-each select="GUAREFREF">-->
+                                                                    <!--<xsl:if test="VALLIMECVLE/NotValForECVLE1 = 1">-->
+                                                                        <!--<fo:inline>-->
+                                                                            <!--<xsl:value-of select="'EU'"/>-->
+                                                                        <!--</fo:inline>-->
+                                                                        <!--<fo:inline color="white" font-size="2">-->
+                                                                            <!--<xsl:value-of select="'|'"/>-->
+                                                                            <!--&lt;!&ndash; adding space &ndash;&gt;-->
+                                                                        <!--</fo:inline>-->
+                                                                    <!--</xsl:if>-->
+                                                                    <!--<xsl:for-each select="VALLIMNONECLIM">-->
+                                                                        <!--<fo:inline>-->
+                                                                            <!--<xsl:value-of select="NotValForOthConPLIM2"/>-->
+                                                                        <!--</fo:inline>-->
+                                                                        <!--<fo:inline color="white" font-size="2">-->
+                                                                            <!--<xsl:value-of select="'|'"/>-->
+                                                                            <!--&lt;!&ndash; adding space &ndash;&gt;-->
+                                                                        <!--</fo:inline>-->
+                                                                    <!--</xsl:for-each>-->
+                                                                <!--</xsl:for-each>-->
+                                                            <!--</fo:block>-->
+                                                        <!--</fo:table-cell>-->
+                                                    <!--</xsl:if>-->
+                                                <!--</xsl:for-each>-->
+                                            <!--</fo:table-row>-->
+                                        <!--</fo:table-body>-->
+                                    <!--</fo:table>-->
+                                <!--</fo:block>-->
+                            <!--</fo:table-cell>-->
+                            <!--<fo:table-cell text-align="center" display-align="center">-->
+                                <!--<fo:block>Code</fo:block>-->
+                            <!--</fo:table-cell>-->
+                        <!--</fo:table-row>-->
+                        <!--<fo:table-row height="4mm">-->
+                            <!--<fo:table-cell display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center">-->
+                                <!--<fo:block>-->
+                                    <!--<xsl:if test="string-length(*/GUAGUA[1]/GuaTypGUA1) > 0">-->
+                                        <!--<xsl:value-of select="*/GUAGUA[1]/GuaTypGUA1"/>-->
+                                    <!--</xsl:if>-->
+                                    <!--<xsl:if test="string-length(*/GUAGUA[2]/GuaTypGUA1) > 0">-->
+                                        <!--<fo:inline>,</fo:inline>-->
+                                        <!--<xsl:value-of select="*/GUAGUA[2]/GuaTypGUA1"/>-->
+                                    <!--</xsl:if>-->
+                                    <!--<xsl:if test="string-length(*/GUAGUA[3]/GuaTypGUA1) > 0">-->
+                                        <!--<fo:inline>,</fo:inline>-->
+                                        <!--<xsl:value-of select="*/GUAGUA[3]/GuaTypGUA1"/>-->
+                                    <!--</xsl:if>-->
+                                <!--</fo:block>-->
+                            <!--</fo:table-cell>-->
+                        <!--</fo:table-row>-->
+                    <!--</fo:table-body>-->
+                <!--</fo:table>-->
+            <!--</fo:table-cell>-->
+            <!--<fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black">-->
+                <!--<fo:block>-->
+                    <!--<fo:table width="100%" table-layout="fixed">-->
+                        <!--<fo:table-column/>-->
+                        <!--<fo:table-body>-->
+                            <!--<fo:table-row height="4mm">-->
+                                <!--<fo:table-cell padding-left="2mm" display-align="center">-->
+                                    <!--<fo:block>53 Office of destination (and country)</fo:block>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                            <!--<fo:table-row height="4mm">-->
+                                <!--<fo:table-cell text-align="center" display-align="center" font-weight="bold">-->
+                                    <!--<fo:block>-->
+                                        <!--<xsl:call-template name="print-cou-2">-->
+                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Des-Ref"/>-->
+                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFDESEST/RefNumEST1"/>-->
+                                            <!--<xsl:with-param name="max-len" select="'45'"/>-->
+                                        <!--</xsl:call-template>-->
+                                    <!--</fo:block>-->
+                                <!--</fo:table-cell>-->
+                            <!--</fo:table-row>-->
+                        <!--</fo:table-body>-->
+                    <!--</fo:table>-->
+                <!--</fo:block>-->
+            <!--</fo:table-cell>-->
+        <!--</fo:table-row>-->
+    </fo:table-body>
+</fo:table>
