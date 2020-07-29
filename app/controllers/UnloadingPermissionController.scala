@@ -90,7 +90,7 @@ class UnloadingPermissionController @Inject()(
                                          Some("Principal EORI"),
                                          None),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
-        departureOffice = "Departure office",
+        departureOffice = "IT021300",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -142,7 +142,7 @@ class UnloadingPermissionController @Inject()(
         grossMass = 1.0,
         principal = viewmodels.Principal("Mancini Carriers", "90 Desio Way", "MOD 5JJ", "Modea", Country("valid", "IT", "Italy"), Some("IT444100201000"), None),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
-        departureOffice = "Departure office",
+        departureOffice = "IT021300",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(

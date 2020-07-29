@@ -72,57 +72,47 @@
                     </fo:table>
                 </fo:block>
             </fo:table-cell>
-            <!--<fo:table-cell border-top-style="dashed" border-top-width="0.5pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2">-->
-                <!--<fo:block>-->
-                    <!--<fo:table width="100%" table-layout="fixed">-->
-                        <!--<fo:table-column/>-->
-                        <!--<fo:table-body>-->
-                            <!--<fo:table-row height="3.6875mm">-->
-                                <!--<fo:table-cell padding-left="2mm" display-align="center">-->
-                                    <!--<fo:block>C OFFICE OF DEPARTURE</fo:block>-->
-                                <!--</fo:table-cell>-->
-                            <!--</fo:table-row>-->
-                            <!--<fo:table-row height="3.6875mm">-->
-                                <!--<fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">-->
-                                    <!--<fo:block>-->
-                                        <!--<xsl:call-template name="print-cou-1">-->
-                                            <!--<xsl:with-param name="cou-code-set" select="$Cou-Dep-Ref"/>-->
-                                            <!--<xsl:with-param name="ref-num" select="*/CUSOFFDEPEPT/RefNumEPT1"/>-->
-                                            <!--<xsl:with-param name="max-len" select="'45'"/>-->
-                                        <!--</xsl:call-template>-->
-                                    <!--</fo:block>-->
-                                <!--</fo:table-cell>-->
-                            <!--</fo:table-row>-->
-                            <!--<fo:table-row height="3.6875mm">-->
-                                <!--<fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">-->
-                                    <!--<fo:block/>-->
-                                <!--</fo:table-cell>-->
-                            <!--</fo:table-row>-->
-                            <!--<fo:table-row height="3.6875mm">-->
-                                <!--<fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">-->
-                                    <!--<fo:block>-->
-                                        <!--<xsl:call-template name="format-ddmmccyy">-->
-                                            <!--<xsl:with-param name="val" select="*/HEAHEA/AccDatHEA158"/>-->
-                                        <!--</xsl:call-template>-->
-                                    <!--</fo:block>-->
-                                <!--</fo:table-cell>-->
-                            <!--</fo:table-row>-->
-                            <!--<fo:table-row height="12mm">-->
-                                <!--<fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">-->
-                                    <!--<xsl:if test="*/CONRESERS/ConResCodERS16 = 'A3'">-->
-                                        <!--<fo:block>-->
-                                            <!--<xsl:value-of select="*/HEAHEA/AutIdHEA380"/>-->
-                                        <!--</fo:block>-->
-                                        <!--<fo:block>-->
-                                            <!--<xsl:value-of select="*/TRAPRIPC1/NamPC17"/>-->
-                                        <!--</fo:block>-->
-                                    <!--</xsl:if>-->
-                                <!--</fo:table-cell>-->
-                            <!--</fo:table-row>-->
-                        <!--</fo:table-body>-->
-                    <!--</fo:table>-->
-                <!--</fo:block>-->
-            <!--</fo:table-cell>-->
+            <fo:table-cell border-top-style="dashed" border-top-width="0.5pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="1 @* TODO: This needs to be 2*@">
+                <fo:block>
+                    <fo:table width="100%" table-layout="fixed">
+                        <fo:table-column/>
+                        <fo:table-body>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center">
+                                    <fo:block>C OFFICE OF DEPARTURE</fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @*TODO: This value needs limiting to 45 - if it's greater than 45, limit length automatically to 45 and make last 3 characters *@
+                                        @permission.departureOffice
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block/>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @* TODO: format to dd/mm/yy*@
+                                        @permission.acceptanceDate
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="12mm">
+                                <fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">
+                                    <fo:block/>
+                                    <!--@* TODO: /CONRESERS/ConResCodERS16 is displayed here, not available within IE043 *@-->
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </fo:table-cell>
         </fo:table-row>
         <!--<fo:table-row height="8mm"> &lt;!&ndash; S1 T4 ROW 2 &ndash;&gt;-->
             <!--<fo:table-cell number-rows-spanned="2" padding-top="1mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">-->
