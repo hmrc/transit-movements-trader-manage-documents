@@ -16,7 +16,9 @@
 
 package controllers
 
-import org.scalatest.{FreeSpec, MustMatchers, OptionValues}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
+import org.scalatest.OptionValues
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 
@@ -24,19 +26,11 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
 
   "get" - {
 
-    "must return OK and PDF" in {
+    "must return OK and PDF" in {}
 
+    "must return a BadRequest when given an invalid XMl" in {}
 
-
-    }
-
-    "must return a BadRequest when given an invalid XMl" in {
-
-    }
-
-    "must return and InternalServerError if the conversion fails" in {
-
-    }
+    "must return and InternalServerError if the conversion fails" in {}
 
   }
 }
