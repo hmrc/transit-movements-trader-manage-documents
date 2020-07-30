@@ -25,7 +25,7 @@ object StringTransformer {
         if (x.length > maxLength) {
           if (x.length <= concealCharacters.length) {
             x.slice(0, maxLength)
-          } else x.slice(0, maxLength - (concealCharacters.length - 1)) + concealCharacters
+          } else x.slice(0, maxLength - concealCharacters.length) + concealCharacters
         } else x
     }
   }

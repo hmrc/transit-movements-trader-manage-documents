@@ -43,6 +43,8 @@ class StringTransformerSpec extends FreeSpec with MustMatchers with GeneratorHel
           string =>
             val limit = string.length + 1
             string.shorten(limit)("***") mustBe string
+
+            string.shorten(limit)("***").length mustBe string.length
         }
       }
 
@@ -56,8 +58,8 @@ class StringTransformerSpec extends FreeSpec with MustMatchers with GeneratorHel
               string.shorten(limit)("***") mustNot endWith("***")
             } else {
               string.shorten(limit)("***") must endWith("***")
+              string.shorten(limit)("***").length mustBe limit
             }
-
         }
       }
 

@@ -105,6 +105,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         grossMass = 1.0,
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",
+                                         "Principal street",
                                          "Principal postCode",
                                          "Principal city",
                                          countries.head,

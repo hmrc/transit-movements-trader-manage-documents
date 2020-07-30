@@ -46,8 +46,7 @@
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @*TODO: This value needs limiting to 32 - if it's greater than 32, limit length automatically to 32 and make last 3 characters *@
-                                        @permission.principal.streetAndNumber
+                                        @permission.principal.streetAndNumberTrimmed
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">

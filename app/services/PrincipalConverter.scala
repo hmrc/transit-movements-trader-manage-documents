@@ -17,10 +17,11 @@
 package services
 
 import models.reference.Country
+import utils.StringTransformer._
 
 object PrincipalConverter extends Converter {
 
   def toViewModel(p: models.Principal, path: String, countries: Seq[Country]): ValidationResult[viewmodels.Principal] =
     findReferenceData(p.countryCode, countries, s"$path.countryCode")
-      .map(viewmodels.Principal(p.name, p.streetAndNumber, p.postCode, p.city, _, p.eori, p.tir))
+      .map(viewmodels.Principal(p.name, p.streetAndNumber, p.streetAndNumber.shorten(32)("***"), p.postCode, p.city, _, p.eori, p.tir))
 }

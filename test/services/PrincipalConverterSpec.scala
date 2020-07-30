@@ -30,11 +30,18 @@ class PrincipalConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
 
     "must return a view model when the country code is found in reference data" in {
 
-      val principal = models.Principal("name", "street", "postCode", "city", countries.head.code, Some("EORI"), Some("tir"))
+      val principal = models.Principal("name", "street longer than 32 characters...", "postCode", "city", countries.head.code, Some("EORI"), Some("tir"))
 
       val result = PrincipalConverter.toViewModel(principal, "path", countries)
 
-      result.valid.value mustBe viewmodels.Principal("name", "street", "postCode", "city", countries.head, Some("EORI"), Some("tir"))
+      result.valid.value mustBe viewmodels.Principal("name",
+                                                     "street longer than 32 characters...",
+                                                     "street longer than 32 charact***",
+                                                     "postCode",
+                                                     "city",
+                                                     countries.head,
+                                                     Some("EORI"),
+                                                     Some("tir"))
     }
 
     "must return Invalid when the country code cannot be found in reference data" in {
