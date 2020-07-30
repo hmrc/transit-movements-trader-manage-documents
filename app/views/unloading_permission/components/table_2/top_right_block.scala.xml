@@ -37,7 +37,7 @@
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row height="8mm">
-                    <fo:table-cell border-style="solid" border-width="1pt" border-color="black" number-rows-spanned="2 @* TODO: This may need to be 2 *@">
+                    <fo:table-cell border-style="solid" border-width="1pt" border-color="black" number-rows-spanned="2">
                         <fo:block/>
                     </fo:table-cell>
                     <fo:table-cell>
@@ -96,16 +96,18 @@
                 </fo:table-row>
                 <fo:table-row height="8mm">
                     <fo:table-cell padding-left="2mm" padding-top="1mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-columns-spanned="3">
-                        <fo:block>40 Summary declaration/Previous document</fo:block>
+                            <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
                             @* TODO: It looks like there's a link to external reference data used for documents
                             with print-pre-doc template java:getValue($Pre-Doc, $docTyp)
                             UPDATE: ProducedDocumentConverter is used to load reference data
                             *@
                             @if(!permission.printListOfItems) {
-                            <fo:inline font-style="italic">
-                                @permission.goodsItems.head.producedDocuments.head.display
-                            </fo:inline>
+                                <fo:inline font-style="italic">
+                                    @* TODO: Is this the correct value for /GOOITEGDS/PREADMREFAR2/PreDocTypAR21 PREVIOUS ADMINISTRATIVE REFERENCES
+                                    This may need removing*@
+                                    @permission.goodsItems.head.producedDocuments.head.display
+                                </fo:inline>
                             }
                         </fo:block>
                     </fo:table-cell>
