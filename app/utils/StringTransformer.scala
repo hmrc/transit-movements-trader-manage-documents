@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package services
+package utils
 
-import cats.implicits._
-import models.reference.CodedReferenceData
+object StringTransformer {
 
-trait Converter {
+  implicit class StringFormatter(val x: String) {
 
-  def findReferenceData[A <: CodedReferenceData](code: String, referenceData: Seq[A], path: String): ValidationResult[A] =
-    referenceData.find(_.code == code) match {
-      case Some(data) => data.validNec
-      case None       => ReferenceDataNotFound(path, code).invalidNec
+    val shorten: Int => String => String = {
+      maxLength => concealCharacters =>
+        if (x.length > maxLength) {
+          if (x.length <= concealCharacters.length) {
+            x.slice(0, maxLength)
+          } else x.slice(0, maxLength - (concealCharacters.length - 1)) + concealCharacters
+        } else x
     }
+  }
 
 }
