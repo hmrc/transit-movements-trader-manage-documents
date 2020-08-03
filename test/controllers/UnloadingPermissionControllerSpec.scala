@@ -56,9 +56,6 @@ class UnloadingPermissionControllerSpec
 
   lazy val unloadingPermissionControllerRoute: String = routes.UnloadingPermissionController.get().url
 
-  val mockCoversionService: ConversionService = mock[ConversionService]
-  val mockPDFGenerator: PdfGenerator          = mock[PdfGenerator]
-
   "get" - {
 
     def applicationBuilder: GuiceApplicationBuilder =
@@ -66,6 +63,9 @@ class UnloadingPermissionControllerSpec
         .configure(Configuration("metrics.enabled" -> "false"))
 
     "must return OK and PDF" in {
+
+      val mockCoversionService: ConversionService = mock[ConversionService]
+      val mockPDFGenerator: PdfGenerator          = mock[PdfGenerator]
 
       forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
         (permissionToStartUnloadingViewModel, pdf) =>
@@ -94,6 +94,9 @@ class UnloadingPermissionControllerSpec
 
     "must return a BadRequest when given an invalid XML" in {
 
+      val mockCoversionService: ConversionService = mock[ConversionService]
+      val mockPDFGenerator: PdfGenerator          = mock[PdfGenerator]
+
       val application = applicationBuilder
         .overrides {
           bind[ConversionService].toInstance(mockCoversionService)
@@ -112,6 +115,9 @@ class UnloadingPermissionControllerSpec
     }
 
     "must return and InternalServerError if the conversion fails" in {
+
+      val mockCoversionService: ConversionService = mock[ConversionService]
+      val mockPDFGenerator: PdfGenerator          = mock[PdfGenerator]
 
       val application = applicationBuilder
         .overrides {
