@@ -113,6 +113,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
                                          Some("tir")),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         departureOffice = "Departure office",
+        departureOfficeTrimmed = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(

@@ -84,8 +84,7 @@
                             <fo:table-row height="3.6875mm">
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @*TODO: This value needs limiting to 45 - if it's greater than 45, limit length automatically to 45 and make last 3 characters *@
-                                        @permission.departureOffice
+                                        @permission.departureOfficeTrimmed
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>

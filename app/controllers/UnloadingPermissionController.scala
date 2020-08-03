@@ -94,6 +94,7 @@ class UnloadingPermissionController @Inject()(
         ),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         departureOffice = "IT021300",
+        departureOfficeTrimmed = "IT021300",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -155,6 +156,7 @@ class UnloadingPermissionController @Inject()(
         ),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         departureOffice = "IT021300",
+        departureOfficeTrimmed = "Trimmed departure office value here ***",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(

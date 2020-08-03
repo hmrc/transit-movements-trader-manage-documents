@@ -259,6 +259,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           principal,
           traderAtDestination,
           departureOffice,
+          departureOffice,
           presentationOffice,
           seals,
           goodsItems

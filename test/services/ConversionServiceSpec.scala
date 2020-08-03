@@ -69,7 +69,7 @@ class ConversionServiceSpec
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
-    departureOffice = "Departure office",
+    departureOffice = "The Departure office, less than 45 characters long",
     presentationOffice = "Presentation office",
     seals = Seq("seal 1"),
     goodsItems = NonEmptyList.one(
@@ -133,7 +133,8 @@ class ConversionServiceSpec
                                          Some("Principal EORI"),
                                          Some("tir")),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
-        departureOffice = "Departure office",
+        departureOffice = "The Departure office, less than 45 characters long",
+        departureOfficeTrimmed = "The Departure office, less than 45 charact***",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(

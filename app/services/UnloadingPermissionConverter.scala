@@ -23,6 +23,7 @@ import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import utils.StringTransformer._
 
 object UnloadingPermissionConverter extends Converter {
 
@@ -74,6 +75,7 @@ object UnloadingPermissionConverter extends Converter {
           principal,
           trader,
           permission.departureOffice,
+          permission.departureOffice.shorten(45)("***"),
           permission.presentationOffice,
           permission.seals,
           goodsItems

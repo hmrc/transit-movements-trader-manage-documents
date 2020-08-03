@@ -34,6 +34,7 @@ final case class PermissionToStartUnloading(
   principal: Principal,
   traderAtDestination: TraderAtDestination,
   departureOffice: String,
+  departureOfficeTrimmed: String,
   presentationOffice: String,
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
