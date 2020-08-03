@@ -16,9 +16,7 @@
 
 package controllers
 
-import com.lucidchart.open.xtract.XmlReader
 import javax.inject.Inject
-import models.PermissionToStartUnloading
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
@@ -29,7 +27,7 @@ import scala.concurrent.Future
 import scala.xml.NodeSeq
 
 class UnloadingPermissionController @Inject()(
-  conversionService: ConversionService,
+  xmlToPermissionToStartUnloadingViewModelService: XMLToPermissionToStartUnloadingViewModelService,
   pdf: PdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
@@ -37,22 +35,19 @@ class UnloadingPermissionController @Inject()(
 
   def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
-      XmlReader
-        .of[PermissionToStartUnloading]
-        .read(request.body)
-        .toOption
+      xmlToPermissionToStartUnloadingViewModelService
+        .convert(request.body)
         .map {
-          permission =>
-            conversionService.convertUnloadingPermission(permission).map {
-              permissionToStartUnloading =>
-                permissionToStartUnloading.toOption match {
+          unloadingPermissionViewModel =>
+            unloadingPermissionViewModel.map {
+              validationResult =>
+                validationResult.toOption match {
                   case Some(viewModel) => Ok(pdf.generateUnloadingPermission(viewModel))
                   case None            => InternalServerError
                 }
             }
         }
-        .getOrElse {
-          Future.successful(BadRequest)
-        }
+        .getOrElse(Future.successful(BadRequest))
   }
+
 }
