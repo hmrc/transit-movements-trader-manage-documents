@@ -57,12 +57,14 @@ class ConversionServiceSpec
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
+  private val acceptanceDate = LocalDate.of(2020, 8, 1)
+
   private val validUnloadingPermission = models.PermissionToStartUnloading(
     movementReferenceNumber = "mrn",
     declarationType = DeclarationType.T1,
     transportIdentity = Some("identity"),
     transportCountry = Some(countries.head.code),
-    acceptanceDate = LocalDate.now(),
+    acceptanceDate = acceptanceDate,
     numberOfItems = 1,
     numberOfPackages = 3,
     grossMass = 1.0,
@@ -120,7 +122,8 @@ class ConversionServiceSpec
         declarationType = DeclarationType.T1,
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = LocalDate.now(),
+        acceptanceDate = acceptanceDate,
+        acceptanceDateFormatted = "01/08/2020",
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,

@@ -28,6 +28,7 @@ final case class PermissionToStartUnloading(
   transportIdentity: Option[String],
   transportCountry: Option[Country],
   acceptanceDate: LocalDate,
+  acceptanceDateFormatted: String,
   numberOfItems: Int,
   numberOfPackages: Int,
   grossMass: BigDecimal,

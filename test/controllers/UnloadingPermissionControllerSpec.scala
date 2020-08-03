@@ -102,6 +102,7 @@ class UnloadingPermissionControllerSpec extends FreeSpec with MustMatchers with 
         transportIdentity = Some("identity"),
         transportCountry = Some(country),
         acceptanceDate = LocalDate.now(),
+        acceptanceDateFormatted = "date here",
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,

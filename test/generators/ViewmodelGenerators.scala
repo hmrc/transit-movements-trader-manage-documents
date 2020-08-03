@@ -232,20 +232,21 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        mrn                 <- stringWithMaxLength(17) // TODO: Introduce MRN model
-        declarationType     <- arbitrary[DeclarationType]
-        transportId         <- Gen.option(stringWithMaxLength(27))
-        transportCountry    <- Gen.option(arbitrary[Country])
-        acceptanceDate      <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
-        numberOfItems       <- Gen.choose(1, 99999)
-        numberOfPackages    <- Gen.choose(1, 9999999)
-        grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        principal           <- arbitrary[Principal]
-        traderAtDestination <- arbitrary[TraderAtDestination]
-        departureOffice     <- stringWithMaxLength(8)
-        presentationOffice  <- stringWithMaxLength(8)
-        seals               <- listWithMaxSize(9, stringWithMaxLength(20))
-        goodsItems          <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        mrn                   <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        declarationType       <- arbitrary[DeclarationType]
+        transportId           <- Gen.option(stringWithMaxLength(27))
+        transportCountry      <- Gen.option(arbitrary[Country])
+        acceptanceDate        <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+        acceptanceDateTrimmed <- stringWithMaxLength(8)
+        numberOfItems         <- Gen.choose(1, 99999)
+        numberOfPackages      <- Gen.choose(1, 9999999)
+        grossMass             <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        principal             <- arbitrary[Principal]
+        traderAtDestination   <- arbitrary[TraderAtDestination]
+        departureOffice       <- stringWithMaxLength(8)
+        presentationOffice    <- stringWithMaxLength(8)
+        seals                 <- listWithMaxSize(9, stringWithMaxLength(20))
+        goodsItems            <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield
         PermissionToStartUnloading(
           mrn,
@@ -253,6 +254,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           transportId,
           transportCountry,
           acceptanceDate,
+          acceptanceDateTrimmed,
           numberOfItems,
           numberOfPackages,
           grossMass,

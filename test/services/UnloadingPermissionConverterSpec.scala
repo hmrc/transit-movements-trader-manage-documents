@@ -43,12 +43,14 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
 
     "must return a view model when all of the necessary reference data can be found" in {
 
+      val date = LocalDate.of(2020, 8, 1)
+
       val permission = models.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head.code),
-        acceptanceDate = LocalDate.now(),
+        acceptanceDate = date,
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -99,7 +101,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         declarationType = DeclarationType.T1,
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = LocalDate.now(),
+        acceptanceDate = date,
+        acceptanceDateFormatted = "01/08/2020",
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
