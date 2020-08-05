@@ -160,7 +160,7 @@ class UnloadingPermissionController @Inject()(
         departureOffice = "IT021300",
         departureOfficeTrimmed = "Trimmed departure office value here ***",
         presentationOffice = "Presentation office",
-        seals = Seq("seal 1"),
+        seals = Seq("seal 1", "seal 2", "seal 3"),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
             itemNumber = 1,
