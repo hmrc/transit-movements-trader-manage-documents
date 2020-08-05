@@ -21,8 +21,10 @@ import models.reference.Country
 final case class Principal(
   name: String,
   streetAndNumber: String,
+  streetAndNumberTrimmed: String,
   postCode: String,
   city: String,
   country: Country,
-  eori: Option[String]
+  eori: Option[String],
+  tir: Option[String]
 )

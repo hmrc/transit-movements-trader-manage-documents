@@ -17,6 +17,8 @@
             </fo:table-row>
         </fo:table-body>
     </fo:table>
+    } else {
+        <fo:block/>
     }
     </fo:block>
 </fo:table-cell>

@@ -256,6 +256,7 @@ trait ModelGenerators extends GeneratorHelpers {
         grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
         principal           <- arbitrary[Principal]
         traderAtDestination <- arbitrary[TraderAtDestination]
+        departureOffice     <- stringWithMaxLength(8)
         presentationOffice  <- stringWithMaxLength(8)
         seals               <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems          <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
@@ -271,6 +272,7 @@ trait ModelGenerators extends GeneratorHelpers {
           grossMass,
           principal,
           traderAtDestination,
+          departureOffice,
           presentationOffice,
           seals,
           goodsItems
@@ -284,19 +286,6 @@ trait ModelGenerators extends GeneratorHelpers {
         code        <- Gen.pick(2, 'A' to 'Z')
         description <- arbitrary[String]
       } yield Country(state, code.mkString, description)
-    }
-  }
-
-  implicit lazy val arbitraryPrincipleViewModel: Arbitrary[viewmodels.Principal] = {
-    Arbitrary {
-      for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- arbitrary[Country]
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield viewmodels.Principal(name, streetAndNumber, postCode, city, country, eori)
     }
   }
 
@@ -505,41 +494,6 @@ trait ModelGenerators extends GeneratorHelpers {
           containers,
           packages,
           sensitiveGoodsInformation
-        )
-    }
-  }
-
-  implicit lazy val arbitraryPermissionToStartUnloadingViewModel: Arbitrary[viewmodels.PermissionToStartUnloading] = {
-    Arbitrary {
-      for {
-        mrn                 <- stringWithMaxLength(17)
-        declarationType     <- arbitrary[DeclarationType]
-        transportId         <- Gen.option(stringWithMaxLength(27))
-        transportCountry    <- Gen.option(arbitrary[Country])
-        acceptanceDate      <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
-        numberOfItems       <- Gen.choose(1, 99999)
-        numberOfPackages    <- Gen.choose(1, 9999999)
-        grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        principal           <- arbitrary[viewmodels.Principal]
-        traderAtDestination <- arbitrary[viewmodels.TraderAtDestination]
-        presentationOffice  <- stringWithMaxLength(8)
-        seals               <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems          <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.GoodsItem])
-      } yield
-        viewmodels.PermissionToStartUnloading(
-          mrn,
-          declarationType,
-          transportId,
-          transportCountry,
-          acceptanceDate,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          principal,
-          traderAtDestination,
-          presentationOffice,
-          seals,
-          goodsItems
         )
     }
   }

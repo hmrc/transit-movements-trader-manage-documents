@@ -43,12 +43,14 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
 
     "must return a view model when all of the necessary reference data can be found" in {
 
+      val date = LocalDate.of(2020, 8, 1)
+
       val permission = models.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head.code),
-        acceptanceDate = LocalDate.now(),
+        acceptanceDate = date,
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -60,6 +62,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
                                      Some("Principal EORI"),
                                      Some("tir")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+        departureOffice = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -98,12 +101,22 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         declarationType = DeclarationType.T1,
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = LocalDate.now(),
+        acceptanceDate = date,
+        acceptanceDateFormatted = "01/08/2020",
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal = viewmodels.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head, Some("Principal EORI")),
+        principal = viewmodels.Principal("Principal name",
+                                         "Principal street",
+                                         "Principal street",
+                                         "Principal postCode",
+                                         "Principal city",
+                                         countries.head,
+                                         Some("Principal EORI"),
+                                         Some("tir")),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+        departureOffice = "Departure office",
+        departureOfficeTrimmed = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -156,6 +169,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", Some("name"), Some("street"), Some("postCode"), Some("city"), Some(invalidCode)),
+        departureOffice = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(

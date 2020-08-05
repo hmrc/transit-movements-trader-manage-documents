@@ -30,19 +30,43 @@ class DateFormatterSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSu
 
   "DateFormatted" - {
 
-    "must format LocalDate" in {
+    "must" - {
 
-      forAll(arbitrary[LocalDate]) {
-        localDate =>
-          val expectedResult =
-            s"${localDate.getYear}" +
-              s"${"%02d".format(localDate.getMonthValue)}" +
-              s"${"%02d".format(localDate.getDayOfMonth)}"
+      "format LocalDate" in {
 
-          DateFormatter.dateFormatted(localDate) mustBe expectedResult
+        forAll(arbitrary[LocalDate]) {
+          localDate =>
+            val expectedResult =
+              s"${localDate.getYear}" +
+                s"${"%02d".format(localDate.getMonthValue)}" +
+                s"${"%02d".format(localDate.getDayOfMonth)}"
+
+            DateFormatter.dateFormatted(localDate) mustBe expectedResult
+        }
+
       }
 
+      "format LocalDate with custom pattern" in {
+
+        forAll(arbitrary[LocalDate]) {
+          localDate =>
+            val expectedResult =
+              s"${"%02d".format(localDate.getDayOfMonth)}/" +
+                s"${"%02d".format(localDate.getMonthValue)}/" +
+                s"${localDate.getYear}"
+
+            DateFormatter.dateFormatted(localDate, "dd/MM/yyyy") mustBe expectedResult
+        }
+
+      }
+
+      "toString date if date pattern is invalid" in {
+
+        forAll(arbitrary[LocalDate]) {
+          localDate =>
+            DateFormatter.dateFormatted(localDate, "invalid") mustBe localDate.toString
+        }
+      }
     }
   }
-
 }

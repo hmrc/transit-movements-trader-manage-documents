@@ -19,19 +19,18 @@ package services
 import cats.data.NonEmptyChain
 import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
-import generators.ModelGenerators
+import generators.ViewmodelGenerators
 import org.mockito.Matchers.any
 import org.mockito.Mockito._
-import org.scalatest.concurrent.IntegrationPatience
-import org.scalatest.concurrent.ScalaFutures
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
+import org.scalatest.concurrent.IntegrationPatience
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.scalacheck.Arbitrary.arbitrary
 import uk.gov.hmrc.http.HeaderCarrier
-import org.scalatest.concurrent.ScalaFutures
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -43,7 +42,7 @@ class XMLToPermissionToStartUnloadingViewModelServiceSpec
     with ScalaFutures
     with OptionValues
     with IntegrationPatience
-    with ModelGenerators
+    with ViewmodelGenerators
     with ScalaCheckPropertyChecks {
 
   "XMLToPermissionToStartUnloadingViewModelService" - {
