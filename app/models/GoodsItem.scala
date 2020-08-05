@@ -59,11 +59,11 @@ object GoodsItem {
       (__ \ "NetMasGDS48").read[BigDecimal].optional,
       (__ \ "CouOfDisGDS58").read[String],
       (__ \ "CouOfDesGDS59").read[String],
-      (__ \ "PRODOCDC2").read(seq[ProducedDocument]),
-      (__ \ "SPEMENMT2").read(seq[SpecialMention]),
+      (__ \ "PRODOCDC2").read(strictReadSeq[ProducedDocument]),
+      (__ \ "SPEMENMT2").read(strictReadSeq[SpecialMention]),
       (__ \ "TRACONCO2").read[Consignor].optional,
       (__ \ "TRACONCE2").read[Consignee].optional,
-      (__ \ "CONNR2" \ "ConNumNR21").read(seq[String]),
+      (__ \ "CONNR2" \ "ConNumNR21").read(strictReadSeq[String]),
       (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
       (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
     ).mapN(apply)
