@@ -90,7 +90,7 @@ object PermissionToStartUnloading {
       (__ \ "TRADESTRD").read[TraderAtDestination],
       (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
       (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String],
-      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(seq[String]),
+      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),
       (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])
     ).mapN(apply)
   }

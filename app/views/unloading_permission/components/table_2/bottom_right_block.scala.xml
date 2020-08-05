@@ -1,6 +1,7 @@
 @(permission: viewmodels.PermissionToStartUnloading)
 
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-columns-spanned="2" padding-top="2mm" font-weight="bold">
+    <fo:block>
     @if(!permission.printListOfItems) {
     <fo:table width="100%">
         <fo:table-column column-width="74mm"/>
@@ -19,6 +20,7 @@
     } else {
         <fo:block/>
     }
+    </fo:block>
 </fo:table-cell>
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
 <fo:block/>

@@ -18,191 +18,181 @@ package controllers
 
 import java.time.LocalDate
 
-import cats.data.NonEmptyChain
 import cats.data.NonEmptyList
 import javax.inject.Inject
+import models.DeclarationType
+import models.SensitiveGoodsInformation
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
-import models.DeclarationType
-import models.PermissionToStartUnloading
-import models.SensitiveGoodsInformation
-import play.api.Logger
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
-import services.ConversionService
-import services.JsonError
-import services.PdfGenerator
-import services.ReferenceDataRetrievalError
-import services.ValidationError
+import services._
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
 import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import scala.xml.NodeSeq
 
 class UnloadingPermissionController @Inject()(
-  conversionService: ConversionService,
+  xmlToPermissionToStartUnloadingViewModelService: XMLToPermissionToStartUnloadingViewModelService,
   pdf: PdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc) {
 
-  private val logger = Logger(getClass)
-
-  private def logErrors(errors: NonEmptyChain[ValidationError]): Unit =
-    logger.warn(errors.toChain.toList.mkString("\n"))
-
-  def post(): Action[PermissionToStartUnloading] = Action.async(parse.json[PermissionToStartUnloading]) {
+  def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
-      conversionService.convertUnloadingPermission(request.body).map {
-        _.fold(
-          errors => {
-            logErrors(errors)
-
-            errors match {
-              case x if x.exists(y => y.isInstanceOf[JsonError])                   => InternalServerError
-              case x if x.exists(y => y.isInstanceOf[ReferenceDataRetrievalError]) => BadGateway
-              case _                                                               => BadRequest
+      xmlToPermissionToStartUnloadingViewModelService
+        .convert(request.body)
+        .map {
+          unloadingPermissionViewModel =>
+            unloadingPermissionViewModel.map {
+              validationResult =>
+                validationResult.toOption match {
+                  case Some(viewModel) => Ok(pdf.generateUnloadingPermission(viewModel))
+                  case None            => InternalServerError
+                }
             }
-          },
-          _ => Ok
-        )
-      }
+        }
+        .getOrElse(Future.successful(BadRequest))
   }
 
-  def get(): Action[AnyContent] = Action {
-    implicit request =>
-      val permissionMultiple = viewmodels.PermissionToStartUnloading(
-        movementReferenceNumber = "19GB9876AB88901209",
-        declarationType = DeclarationType.T1,
-        transportIdentity = Some("identity"),
-        transportCountry = Some(Country("valid", "AA", "Country A")),
-        acceptanceDate = LocalDate.now(),
-        acceptanceDateFormatted = "23/07/2015",
-        numberOfItems = 1,
-        numberOfPackages = 3,
-        grossMass = 1.0,
-        principal = viewmodels.Principal(
-          "Principal name",
-          "Principal street",
-          "Principal street",
-          "Principal postCode",
-          "Principal city",
-          Country("valid", "AA", "Country A"),
-          Some("Principal EORI"),
-          None
-        ),
-        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
-        departureOffice = "IT021300",
-        departureOfficeTrimmed = "IT021300",
-        presentationOffice = "Presentation office",
-        seals = Seq("seal 1"),
-        goodsItems = NonEmptyList.one(
-          viewmodels.GoodsItem(
-            itemNumber = 1,
-            commodityCode = None,
-            declarationType = None,
-            description = "Description",
-            grossMass = Some(1.0),
-            netMass = Some(0.9),
-            countryOfDispatch = Country("valid", "AA", "Country A"),
-            countryOfDestination = Country("valid", "AA", "Country A"),
-            producedDocuments = Seq(viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), None, None)),
-            specialMentions = Seq(
-              viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
-              viewmodels.SpecialMentionNonEc(AdditionalInformation("I1", "Info 1"), Country("valid", "AA", "Country A")),
-              viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
-            ),
-            consignor = Some(
-              viewmodels.Consignor("consignor name",
-                                   "consignor street",
-                                   "consignor postCode",
-                                   "consignor city",
-                                   Country("valid", "AA", "Country A"),
-                                   Some("IT444100201000"))),
-            consignee = Some(
-              viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
-            containers = Seq("container 1"),
-            packages = NonEmptyList(
-              viewmodels.BulkPackage(KindOfPackage("P1", "Package 1"), Some("numbers")),
-              List(
-                viewmodels.UnpackedPackage(KindOfPackage("P1", "Package 1"), 1, Some("marks")),
-                viewmodels.RegularPackage(KindOfPackage("P1", "Package 1"), 1, "marks and numbers")
-              )
-            ),
-            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
-          )
-        )
-      )
+//  def get(): Action[AnyContent] = Action {
+//    implicit request =>
+//      val permissionMultiple = viewmodels.PermissionToStartUnloading(
+//        movementReferenceNumber = "19GB9876AB88901209",
+//        declarationType = DeclarationType.T1,
+//        transportIdentity = Some("identity"),
+//        transportCountry = Some(Country("valid", "AA", "Country A")),
+//        acceptanceDate = LocalDate.now(),
+//        acceptanceDateFormatted = "23/07/2015",
+//        numberOfItems = 1,
+//        numberOfPackages = 3,
+//        grossMass = 1.0,
+//        principal = viewmodels.Principal(
+//          "Principal name",
+//          "Principal street",
+//          "Principal street",
+//          "Principal postCode",
+//          "Principal city",
+//          Country("valid", "AA", "Country A"),
+//          Some("Principal EORI"),
+//          None
+//        ),
+//        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+//        departureOffice = "IT021300",
+//        departureOfficeTrimmed = "IT021300",
+//        presentationOffice = "Presentation office",
+//        seals = Seq("seal 1"),
+//        goodsItems = NonEmptyList.one(
+//          viewmodels.GoodsItem(
+//            itemNumber = 1,
+//            commodityCode = None,
+//            declarationType = None,
+//            description = "Description",
+//            grossMass = Some(1.0),
+//            netMass = Some(0.9),
+//            countryOfDispatch = Country("valid", "AA", "Country A"),
+//            countryOfDestination = Country("valid", "AA", "Country A"),
+//            producedDocuments = Seq(viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), None, None)),
+//            specialMentions = Seq(
+//              viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
+//              viewmodels.SpecialMentionNonEc(AdditionalInformation("I1", "Info 1"), Country("valid", "AA", "Country A")),
+//              viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
+//            ),
+//            consignor = Some(
+//              viewmodels.Consignor("consignor name",
+//                                   "consignor street",
+//                                   "consignor postCode",
+//                                   "consignor city",
+//                                   Country("valid", "AA", "Country A"),
+//                                   Some("IT444100201000"))),
+//            consignee = Some(
+//              viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
+//            containers = Seq("container 1"),
+//            packages = NonEmptyList(
+//              viewmodels.BulkPackage(KindOfPackage("P1", "Package 1"), Some("numbers")),
+//              List(
+//                viewmodels.UnpackedPackage(KindOfPackage("P1", "Package 1"), 1, Some("marks")),
+//                viewmodels.RegularPackage(KindOfPackage("P1", "Package 1"), 1, "marks and numbers")
+//              )
+//            ),
+//            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
+//          )
+//        )
+//      )
+//
+//      val permission = viewmodels.PermissionToStartUnloading(
+//        movementReferenceNumber = "19GB9876AB88901209",
+//        declarationType = DeclarationType.T1,
+//        transportIdentity = Some("identity"),
+//        transportCountry = Some(Country("valid", "AA", "Country A")),
+//        acceptanceDate = LocalDate.now(),
+//        acceptanceDateFormatted = "23/07/2015",
+//        numberOfItems = 1,
+//        numberOfPackages = 3,
+//        grossMass = 1.0,
+//        principal = viewmodels.Principal(
+//          "Mancini Carriers",
+//          "street and number should be trimmed",
+//          "street and number should be t***",
+//          "MOD 5JJ",
+//          "Modea",
+//          Country("valid", "IT", "Italy"),
+//          Some("IT444100201000"),
+//          None
+//        ),
+//        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+//        departureOffice = "IT021300",
+//        departureOfficeTrimmed = "Trimmed departure office value here ***",
+//        presentationOffice = "Presentation office",
+//        seals = Seq("seal 1", "seal 2", "seal 3"),
+//        goodsItems = NonEmptyList.one(
+//          viewmodels.GoodsItem(
+//            itemNumber = 1,
+//            commodityCode = Some("CC"),
+//            declarationType = None,
+//            description = "Flowers",
+//            grossMass = Some(1.0),
+//            netMass = Some(0.9),
+//            countryOfDispatch = Country("valid", "AA", "Country A"),
+//            countryOfDestination = Country("valid", "AA", "Country A"),
+//            producedDocuments = Seq(
+//              viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), Some("ref"), Some("info")),
+//              viewmodels.ProducedDocument(DocumentType("T2", "Document 2", transportDocument = false), None, Some("info here"))
+//            ),
+//            specialMentions = Seq(
+//              viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
+//              viewmodels.SpecialMentionNonEc(AdditionalInformation("I122222", "Info 1"), Country("valid", "AA", "Country A")),
+//              viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
+//            ),
+//            consignor = Some(
+//              viewmodels.Consignor("consignor name",
+//                                   "consignor street",
+//                                   "consignor postCode",
+//                                   "consignor city",
+//                                   Country("valid", "AA", "Country A"),
+//                                   Some("IT444100201000"))),
+//            consignee = Some(
+//              viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
+//            containers = Seq("INTERFLORA005"),
+//            packages = NonEmptyList(
+//              viewmodels.BulkPackage(KindOfPackage("P1", "Box"), Some("INTERFLORA05")),
+//              Nil
+//            ),
+//            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
+//          )
+//        )
+//      )
+//
+//      permission.goodsItems.head.containers.map(
+//        x => x
+//      )
+//
+//      Ok(pdf.generateUnloadingPermission(permission))
+//  }
 
-      val permission = viewmodels.PermissionToStartUnloading(
-        movementReferenceNumber = "19GB9876AB88901209",
-        declarationType = DeclarationType.T1,
-        transportIdentity = Some("identity"),
-        transportCountry = Some(Country("valid", "AA", "Country A")),
-        acceptanceDate = LocalDate.now(),
-        acceptanceDateFormatted = "23/07/2015",
-        numberOfItems = 1,
-        numberOfPackages = 3,
-        grossMass = 1.0,
-        principal = viewmodels.Principal(
-          "Mancini Carriers",
-          "street and number should be trimmed",
-          "street and number should be t***",
-          "MOD 5JJ",
-          "Modea",
-          Country("valid", "IT", "Italy"),
-          Some("IT444100201000"),
-          None
-        ),
-        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
-        departureOffice = "IT021300",
-        departureOfficeTrimmed = "Trimmed departure office value here ***",
-        presentationOffice = "Presentation office",
-        seals = Seq("seal 1", "seal 2", "seal 3"),
-        goodsItems = NonEmptyList.one(
-          viewmodels.GoodsItem(
-            itemNumber = 1,
-            commodityCode = Some("CC"),
-            declarationType = None,
-            description = "Flowers",
-            grossMass = Some(1.0),
-            netMass = Some(0.9),
-            countryOfDispatch = Country("valid", "AA", "Country A"),
-            countryOfDestination = Country("valid", "AA", "Country A"),
-            producedDocuments = Seq(
-              viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), Some("ref"), Some("info")),
-              viewmodels.ProducedDocument(DocumentType("T2", "Document 2", transportDocument = false), None, Some("info here"))
-            ),
-            specialMentions = Seq(
-              viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
-              viewmodels.SpecialMentionNonEc(AdditionalInformation("I122222", "Info 1"), Country("valid", "AA", "Country A")),
-              viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
-            ),
-            consignor = Some(
-              viewmodels.Consignor("consignor name",
-                                   "consignor street",
-                                   "consignor postCode",
-                                   "consignor city",
-                                   Country("valid", "AA", "Country A"),
-                                   Some("IT444100201000"))),
-            consignee = Some(
-              viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
-            containers = Seq("INTERFLORA005"),
-            packages = NonEmptyList(
-              viewmodels.BulkPackage(KindOfPackage("P1", "Box"), Some("INTERFLORA05")),
-              Nil
-            ),
-            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
-          )
-        )
-      )
-
-      permission.goodsItems.head.containers.map(
-        x => x
-      )
-
-      Ok(pdf.generateUnloadingPermission(permission))
-  }
 }

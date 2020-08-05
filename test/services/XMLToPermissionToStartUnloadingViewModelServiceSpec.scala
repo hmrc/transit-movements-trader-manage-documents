@@ -14,147 +14,78 @@
  * limitations under the License.
  */
 
-package controllers
+package services
 
+import cats.data.NonEmptyChain
 import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
-import cats.data._
 import generators.ViewmodelGenerators
 import org.mockito.Matchers.any
-import org.mockito.Mockito.when
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
+import org.scalatest.concurrent.IntegrationPatience
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.Configuration
-import play.api.inject.bind
-import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.Call
-import play.api.test.FakeRequest
-import play.api.test.Helpers.route
-import play.api.test.Helpers.status
-import play.api.test.Helpers._
-import services.ConversionService
-import services.PdfGenerator
-import services.ReferenceDataRetrievalError
-import services.XMLToPermissionToStartUnloadingViewModelService
+import uk.gov.hmrc.http.HeaderCarrier
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UnloadingPermissionControllerSpec
+class XMLToPermissionToStartUnloadingViewModelServiceSpec
     extends FreeSpec
     with MustMatchers
-    with GuiceOneAppPerSuite
-    with OptionValues
     with MockitoSugar
-    with ScalaCheckPropertyChecks
-    with ViewmodelGenerators {
+    with ScalaFutures
+    with OptionValues
+    with IntegrationPatience
+    with ViewmodelGenerators
+    with ScalaCheckPropertyChecks {
 
-  def onwardRoute: Call = Call("GET", "/foo")
+  "XMLToPermissionToStartUnloadingViewModelService" - {
 
-  lazy val unloadingPermissionControllerRoute: String = routes.UnloadingPermissionController.get().url
+    "convert" - {
 
-  "get" - {
+      implicit val hc: HeaderCarrier = HeaderCarrier()
 
-    def applicationBuilder: GuiceApplicationBuilder =
-      new GuiceApplicationBuilder()
-        .configure(Configuration("metrics.enabled" -> "false"))
+      "must return Some Valid UnloadingPermissionView model when successful" in {
 
-    "must return OK and PDF" in {
+        val mockConversionService = mock[ConversionService]
 
-      val mockXMLToPermissionToStartUnloading      = mock[XMLToPermissionToStartUnloadingViewModelService]
-      val mockPDFGenerator: PdfGenerator           = mock[PdfGenerator]
-      val mockConversionService: ConversionService = mock[ConversionService]
-
-      val application = applicationBuilder
-        .overrides {
-          bind[XMLToPermissionToStartUnloadingViewModelService].toInstance(mockXMLToPermissionToStartUnloading)
-          bind[PdfGenerator].toInstance(mockPDFGenerator)
-          bind[ConversionService].toInstance(mockConversionService)
-        }
-        .build()
-
-      running(application) {
-
-        forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
-          (permissionToStartUnloadingViewModel, pdf) =>
-            when(mockXMLToPermissionToStartUnloading.convert(any())(any(), any()))
-              .thenReturn(Some(Future.successful(Valid(permissionToStartUnloadingViewModel))))
-
+        forAll(arbitrary[viewmodels.PermissionToStartUnloading]) {
+          unloadingPermission =>
             when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
-              .thenReturn(Future.successful(Valid(permissionToStartUnloadingViewModel)))
+              .thenReturn(Future.successful(Valid(unloadingPermission)))
 
-            when(mockPDFGenerator.generateUnloadingPermission(any()))
-              .thenReturn(pdf)
+            val service = new XMLToPermissionToStartUnloadingViewModelService(mockConversionService)
 
-            val request = FakeRequest(POST, unloadingPermissionControllerRoute).withXmlBody(validUnloadingPermissionXml)
-
-            val result = route(application, request).value
-
-            status(result) mustEqual OK
+            service.convert(validUnloadingPermissionXml).value.futureValue mustBe Valid(unloadingPermission)
         }
       }
-    }
 
-    "must return a BadRequest when given an invalid XML" in {
+      "must return Some Invalid when conversion to UnloadingPermission fails" in {
 
-      val mockXMLToPermissionToStartUnloading = mock[XMLToPermissionToStartUnloadingViewModelService]
+        val mockConversionService = mock[ConversionService]
 
-      val application = applicationBuilder
-        .overrides {
-          bind[XMLToPermissionToStartUnloadingViewModelService].toInstance(mockXMLToPermissionToStartUnloading)
-        }
-        .build()
+        when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
+          .thenReturn(Future.successful(Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))))
 
-      running(application) {
+        val service = new XMLToPermissionToStartUnloadingViewModelService(mockConversionService)
 
-        when(mockXMLToPermissionToStartUnloading.convert(any())(any(), any()))
-          .thenReturn(None)
-
-        val request = FakeRequest(POST, unloadingPermissionControllerRoute).withXmlBody(<invalid></invalid>)
-
-        val result = route(application, request).value
-
-        status(result) mustEqual BAD_REQUEST
+        service.convert(validUnloadingPermissionXml).value.futureValue mustBe Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))
       }
-    }
 
-    "must return and InternalServerError if the conversion fails" in {
+      "must return None when XML is invalid" in {
 
-      val mockXMLToPermissionToStartUnloading      = mock[XMLToPermissionToStartUnloadingViewModelService]
-      val mockPDFGenerator: PdfGenerator           = mock[PdfGenerator]
-      val mockConversionService: ConversionService = mock[ConversionService]
+        val mockConversionService = mock[ConversionService]
 
-      val application = applicationBuilder
-        .overrides {
-          bind[XMLToPermissionToStartUnloadingViewModelService].toInstance(mockXMLToPermissionToStartUnloading)
-          bind[PdfGenerator].toInstance(mockPDFGenerator)
-          bind[ConversionService].toInstance(mockConversionService)
-        }
-        .build()
+        val service    = new XMLToPermissionToStartUnloadingViewModelService(mockConversionService)
+        val invalidXml = <invalidXml>Invalid</invalidXml>
 
-      running(application) {
-
-        forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
-          (permissionToStartUnloadingViewModel, pdf) =>
-            when(mockXMLToPermissionToStartUnloading.convert(any())(any(), any()))
-              .thenReturn(Some(Future.successful(Valid(permissionToStartUnloadingViewModel))))
-
-            when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
-              .thenReturn(Future.successful(Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))))
-
-            when(mockPDFGenerator.generateUnloadingPermission(any()))
-              .thenReturn(pdf)
-
-            val request = FakeRequest(POST, unloadingPermissionControllerRoute).withXmlBody(validUnloadingPermissionXml)
-
-            val result = route(application, request).value
-
-            status(result) mustEqual INTERNAL_SERVER_ERROR
-        }
+        service.convert(invalidXml) mustBe None
       }
     }
   }
@@ -290,5 +221,4 @@ class UnloadingPermissionControllerSpec
         </SGICODSD2>
       </GOOITEGDS>
     </CC043A>
-
 }
