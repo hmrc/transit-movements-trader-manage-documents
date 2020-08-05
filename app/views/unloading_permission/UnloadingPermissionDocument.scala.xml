@@ -26,8 +26,11 @@
         <!--control by office of departure/destination-->
         @components.table_5.table(permission)
 
-
       </fo:block>
     </fo:flow>
   </fo:page-sequence>
+  @if(permission.printListOfItems) {
+    <!-- goods items -->
+    @components.second_page.table(permission)
+  }
 </fo:root>
