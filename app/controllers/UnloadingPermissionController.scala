@@ -92,7 +92,7 @@ class UnloadingPermissionController @Inject()(
             itemNumber = 1,
             commodityCode = None,
             declarationType = None,
-            description = "Description",
+            description = "Flowers",
             grossMass = Some(1.0),
             netMass = Some(0.9),
             countryOfDispatch = Country("valid", "AA", "Country A"),
@@ -100,7 +100,7 @@ class UnloadingPermissionController @Inject()(
             producedDocuments = Seq(viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), None, None)),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
-              viewmodels.SpecialMentionNonEc(AdditionalInformation("I1", "Info 1"), Country("valid", "AA", "Country A")),
+              viewmodels.SpecialMentionNonEc(AdditionalInformation("I122222", "Info 1"), Country("valid", "AA", "Country A")),
               viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
             ),
             consignor = Some(
@@ -120,7 +120,7 @@ class UnloadingPermissionController @Inject()(
                 viewmodels.RegularPackage(KindOfPackage("P1", "Package 1"), 1, "marks and numbers")
               )
             ),
-            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
+            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2), SensitiveGoodsInformation(None, 3))
           )
         )
       )
