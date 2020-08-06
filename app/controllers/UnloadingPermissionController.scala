@@ -17,13 +17,16 @@
 package controllers
 
 import cats.data.Validated
-import com.lucidchart.open.xtract.{ParseFailure, ParseSuccess}
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
 import javax.inject.Inject
-import play.api.mvc.{Action, ControllerComponents}
+import play.api.mvc.Action
+import play.api.mvc.ControllerComponents
 import services._
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 import scala.xml.NodeSeq
 
 class UnloadingPermissionController @Inject()(
