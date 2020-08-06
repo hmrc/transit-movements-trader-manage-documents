@@ -20,6 +20,8 @@ import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
 import cats.data._
 import generators.ModelGenerators
+import cats.data._
+import generators.ViewmodelGenerators
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -50,7 +52,7 @@ class UnloadingPermissionControllerSpec
     with OptionValues
     with MockitoSugar
     with ScalaCheckPropertyChecks
-    with ModelGenerators {
+    with ViewmodelGenerators {
 
   def onwardRoute: Call = Call("GET", "/foo")
 

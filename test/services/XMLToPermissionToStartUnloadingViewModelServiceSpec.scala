@@ -16,12 +16,9 @@
 
 package services
 
-import generators.ModelGenerators
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
-import org.scalatest.OptionValues
-import org.scalatest.concurrent.IntegrationPatience
-import org.scalatest.concurrent.ScalaFutures
+import generators.ViewmodelGenerators
+import org.scalatest.{FreeSpec, MustMatchers, OptionValues}
+import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
@@ -32,7 +29,7 @@ class XMLToPermissionToStartUnloadingViewModelServiceSpec
     with ScalaFutures
     with OptionValues
     with IntegrationPatience
-    with ModelGenerators
+    with ViewmodelGenerators
     with ScalaCheckPropertyChecks {
 
   "XMLToPermissionToStartUnloading" - {

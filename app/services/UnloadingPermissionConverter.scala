@@ -23,6 +23,8 @@ import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import utils.DateFormatter
+import utils.StringTransformer._
 
 object UnloadingPermissionConverter extends Converter {
 
@@ -68,11 +70,14 @@ object UnloadingPermissionConverter extends Converter {
           permission.transportIdentity,
           transportCountry,
           permission.acceptanceDate,
+          DateFormatter.dateFormatted(permission.acceptanceDate, "dd/MM/yyyy"),
           permission.numberOfItems,
           permission.numberOfPackages,
           permission.grossMass,
           principal,
           trader,
+          permission.departureOffice,
+          permission.departureOffice.shorten(45)("***"),
           permission.presentationOffice,
           permission.seals,
           goodsItems

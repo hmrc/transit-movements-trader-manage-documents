@@ -20,6 +20,13 @@
         <!--transhipment/certification-->
         @components.table_3.table(permission)
 
+        <!--Principal/TIR Holder/Office of departure-->
+        @components.table_4.table(permission)
+
+        <!--control by office of departure/destination-->
+        @components.table_5.table(permission)
+
+
       </fo:block>
     </fo:flow>
   </fo:page-sequence>
