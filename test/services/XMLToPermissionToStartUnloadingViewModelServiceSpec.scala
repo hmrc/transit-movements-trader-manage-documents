@@ -16,25 +16,14 @@
 
 package services
 
-import cats.data.NonEmptyChain
-import cats.data.Validated.Invalid
-import cats.data.Validated.Valid
 import generators.ModelGenerators
-import org.mockito.Matchers.any
-import org.mockito.Mockito._
-import org.scalatest.concurrent.IntegrationPatience
-import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
+import org.scalatest.concurrent.IntegrationPatience
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.scalacheck.Arbitrary.arbitrary
-import uk.gov.hmrc.http.HeaderCarrier
-import org.scalatest.concurrent.ScalaFutures
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 class XMLToPermissionToStartUnloadingViewModelServiceSpec
     extends FreeSpec
@@ -46,47 +35,22 @@ class XMLToPermissionToStartUnloadingViewModelServiceSpec
     with ModelGenerators
     with ScalaCheckPropertyChecks {
 
-  "XMLToPermissionToStartUnloadingViewModelService" - {
+  "XMLToPermissionToStartUnloading" - {
 
-    "convert" - {
+    "xmlToPermissionToStartUnloading" - {
 
-      implicit val hc: HeaderCarrier = HeaderCarrier()
+      "must return a ParseSuccess with UnloadingPermission when given a valid XML" in {
 
-      "must return Some Valid UnloadingPermissionView model when successful" in {
+        val result = XMLToPermissionToStartUnloading.convert(validUnloadingPermissionXml)
 
-        val mockConversionService = mock[ConversionService]
-
-        forAll(arbitrary[viewmodels.PermissionToStartUnloading]) {
-          unloadingPermission =>
-            when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
-              .thenReturn(Future.successful(Valid(unloadingPermission)))
-
-            val service = new XMLToPermissionToStartUnloadingViewModelService(mockConversionService)
-
-            service.convert(validUnloadingPermissionXml).value.futureValue mustBe Valid(unloadingPermission)
-        }
+        result.isSuccessful mustBe true
       }
 
-      "must return Some Invalid when conversion to UnloadingPermission fails" in {
+      "must return a ParseFailure when given an invalid XML" in {
 
-        val mockConversionService = mock[ConversionService]
+        val result = XMLToPermissionToStartUnloading.convert(<InvalidXml></InvalidXml>)
 
-        when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
-          .thenReturn(Future.successful(Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))))
-
-        val service = new XMLToPermissionToStartUnloadingViewModelService(mockConversionService)
-
-        service.convert(validUnloadingPermissionXml).value.futureValue mustBe Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))
-      }
-
-      "must return None when XML is invalid" in {
-
-        val mockConversionService = mock[ConversionService]
-
-        val service    = new XMLToPermissionToStartUnloadingViewModelService(mockConversionService)
-        val invalidXml = <invalidXml>Invalid</invalidXml>
-
-        service.convert(invalidXml) mustBe None
+        result.isSuccessful mustBe false
       }
     }
   }
@@ -155,18 +119,6 @@ class XMLToPermissionToStartUnloadingViewModelServiceSpec
       <CUSOFFPREOFFRES>
         <RefNumRES1>GB000060</RefNumRES1>
       </CUSOFFPREOFFRES>
-      <SEAINFSLI>
-        <SeaNumSLI2>3</SeaNumSLI2>
-        <SEAIDSID>
-          <SeaIdeSID1>Seals01</SeaIdeSID1>
-        </SEAIDSID>
-        <SEAIDSID>
-          <SeaIdeSID1>Seals02</SeaIdeSID1>
-        </SEAIDSID>
-        <SEAIDSID>
-          <SeaIdeSID1>Seals03</SeaIdeSID1>
-        </SEAIDSID>
-      </SEAINFSLI>
       <GOOITEGDS>
         <IteNumGDS7>1</IteNumGDS7>
         <GooDesGDS23>Flowers</GooDesGDS23>
@@ -178,39 +130,6 @@ class XMLToPermissionToStartUnloadingViewModelServiceSpec
           <DocTypDC21>235</DocTypDC21>
           <DocRefDC23>Ref.</DocRefDC23>
         </PRODOCDC2>
-        <CONNR2>
-          <ConNumNR21>container 1</ConNumNR21>
-        </CONNR2>
-        <CONNR2>
-          <ConNumNR21>container 2</ConNumNR21>
-        </CONNR2>
-        <PACGS2>
-          <MarNumOfPacGS21>Ref.</MarNumOfPacGS21>
-          <KinOfPacGS23>BX</KinOfPacGS23>
-          <NumOfPacGS24>1</NumOfPacGS24>
-        </PACGS2>
-        <SGICODSD2>
-          <SenGooCodSD22>1</SenGooCodSD22>
-          <SenQuaSD23>1</SenQuaSD23>
-        </SGICODSD2>
-      </GOOITEGDS>
-      <GOOITEGDS>
-        <IteNumGDS7>1</IteNumGDS7>
-        <GooDesGDS23>Flowers</GooDesGDS23>
-        <GroMasGDS46>1000</GroMasGDS46>
-        <NetMasGDS48>999</NetMasGDS48>
-        <CouOfDisGDS58>GB</CouOfDisGDS58>
-        <CouOfDesGDS59>GB</CouOfDesGDS59>
-        <PRODOCDC2>
-          <DocTypDC21>235</DocTypDC21>
-          <DocRefDC23>Ref.</DocRefDC23>
-        </PRODOCDC2>
-        <CONNR2>
-          <ConNumNR21>container 1</ConNumNR21>
-        </CONNR2>
-        <CONNR2>
-          <ConNumNR21>container 2</ConNumNR21>
-        </CONNR2>
         <PACGS2>
           <MarNumOfPacGS21>Ref.</MarNumOfPacGS21>
           <KinOfPacGS23>BX</KinOfPacGS23>

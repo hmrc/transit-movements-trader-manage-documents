@@ -16,24 +16,14 @@
 
 package services
 
-import com.google.inject.Inject
+import com.lucidchart.open.xtract.ParseResult
 import com.lucidchart.open.xtract.XmlReader
 import models.PermissionToStartUnloading
-import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
 import scala.xml.NodeSeq
 
-class XMLToPermissionToStartUnloadingViewModelService @Inject()(
-  conversionService: ConversionService
-) {
+object XMLToPermissionToStartUnloading {
 
-  def convert(xml: NodeSeq)(implicit ec: ExecutionContext, hc: HeaderCarrier): Option[Future[ValidationResult[viewmodels.PermissionToStartUnloading]]] =
-    XmlReader
-      .of[PermissionToStartUnloading]
-      .read(xml)
-      .toOption
-      .map(conversionService.convertUnloadingPermission)
-
+  def convert(xml: NodeSeq): ParseResult[PermissionToStartUnloading] =
+    XmlReader.of[PermissionToStartUnloading].read(xml)
 }

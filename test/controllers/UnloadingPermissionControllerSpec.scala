@@ -16,9 +16,9 @@
 
 package controllers
 
-import cats.data._
 import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
+import cats.data._
 import generators.ModelGenerators
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -40,7 +40,6 @@ import play.api.test.Helpers._
 import services.ConversionService
 import services.PdfGenerator
 import services.ReferenceDataRetrievalError
-import services.XMLToPermissionToStartUnloadingViewModelService
 
 import scala.concurrent.Future
 
@@ -65,13 +64,11 @@ class UnloadingPermissionControllerSpec
 
     "must return OK and PDF" in {
 
-      val mockXMLToPermissionToStartUnloading      = mock[XMLToPermissionToStartUnloadingViewModelService]
       val mockPDFGenerator: PdfGenerator           = mock[PdfGenerator]
       val mockConversionService: ConversionService = mock[ConversionService]
 
       val application = applicationBuilder
         .overrides {
-          bind[XMLToPermissionToStartUnloadingViewModelService].toInstance(mockXMLToPermissionToStartUnloading)
           bind[PdfGenerator].toInstance(mockPDFGenerator)
           bind[ConversionService].toInstance(mockConversionService)
         }
@@ -81,9 +78,6 @@ class UnloadingPermissionControllerSpec
 
         forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
           (permissionToStartUnloadingViewModel, pdf) =>
-            when(mockXMLToPermissionToStartUnloading.convert(any())(any(), any()))
-              .thenReturn(Some(Future.successful(Valid(permissionToStartUnloadingViewModel))))
-
             when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
               .thenReturn(Future.successful(Valid(permissionToStartUnloadingViewModel)))
 
@@ -101,18 +95,9 @@ class UnloadingPermissionControllerSpec
 
     "must return a BadRequest when given an invalid XML" in {
 
-      val mockXMLToPermissionToStartUnloading = mock[XMLToPermissionToStartUnloadingViewModelService]
-
-      val application = applicationBuilder
-        .overrides {
-          bind[XMLToPermissionToStartUnloadingViewModelService].toInstance(mockXMLToPermissionToStartUnloading)
-        }
-        .build()
+      val application = applicationBuilder.build()
 
       running(application) {
-
-        when(mockXMLToPermissionToStartUnloading.convert(any())(any(), any()))
-          .thenReturn(None)
 
         val request = FakeRequest(POST, unloadingPermissionControllerRoute).withXmlBody(<invalid></invalid>)
 
@@ -124,13 +109,11 @@ class UnloadingPermissionControllerSpec
 
     "must return and InternalServerError if the conversion fails" in {
 
-      val mockXMLToPermissionToStartUnloading      = mock[XMLToPermissionToStartUnloadingViewModelService]
       val mockPDFGenerator: PdfGenerator           = mock[PdfGenerator]
       val mockConversionService: ConversionService = mock[ConversionService]
 
       val application = applicationBuilder
         .overrides {
-          bind[XMLToPermissionToStartUnloadingViewModelService].toInstance(mockXMLToPermissionToStartUnloading)
           bind[PdfGenerator].toInstance(mockPDFGenerator)
           bind[ConversionService].toInstance(mockConversionService)
         }
@@ -140,9 +123,6 @@ class UnloadingPermissionControllerSpec
 
         forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
           (permissionToStartUnloadingViewModel, pdf) =>
-            when(mockXMLToPermissionToStartUnloading.convert(any())(any(), any()))
-              .thenReturn(Some(Future.successful(Valid(permissionToStartUnloadingViewModel))))
-
             when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
               .thenReturn(Future.successful(Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))))
 
