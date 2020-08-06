@@ -106,7 +106,11 @@
                                 <fo:inline font-style="italic">
                                     @* TODO: Is this the correct value for /GOOITEGDS/PREADMREFAR2/PreDocTypAR21 PREVIOUS ADMINISTRATIVE REFERENCES
                                     This may need removing*@
-                                    @permission.goodsItems.head.producedDocuments.head.display
+                                    @if(permission.goodsItems.head.producedDocuments.nonEmpty) {
+                                        @permission.goodsItems.head.producedDocuments.head.display
+                                    } else {
+                                        <fo:block/>
+                                    }
                                 </fo:inline>
                             }
                         </fo:block>

@@ -18,7 +18,7 @@
             <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
                 <!-- Container No(s) -->
                 <fo:block>
-                    @permission.goodsItems.head.containers.head
+                    @permission.goodsItems.head.containers.headOption
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
