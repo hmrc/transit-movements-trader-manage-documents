@@ -17,6 +17,7 @@
 package services
 
 import models.reference.Country
+import utils.StringTransformer._
 
 object ConsignorConverter extends Converter {
 
@@ -24,6 +25,14 @@ object ConsignorConverter extends Converter {
     findReferenceData(consignor.countryCode, countries, s"$path.countryCode")
       .map {
         country =>
-          viewmodels.Consignor(consignor.name, consignor.streetAndNumber, consignor.postCode, consignor.city, country, consignor.eori)
+          viewmodels.Consignor(
+            consignor.name,
+            consignor.streetAndNumber,
+            consignor.streetAndNumber.shorten(32)("***"),
+            consignor.postCode,
+            consignor.city,
+            country,
+            consignor.eori
+          )
       }
 }

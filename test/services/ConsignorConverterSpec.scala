@@ -30,15 +30,21 @@ class ConsignorConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
 
     "must return a view model when the country code is found in the reference data" in {
 
-      val consignor = models.Consignor("name", "street", "postCode", "city", countries.head.code, Some("EN"), Some("EORI"))
+      val consignor = models.Consignor("name", "street longer than 32 characters...", "postCode", "city", countries.head.code, Some("EN"), Some("EORI"))
 
       val result = ConsignorConverter.toViewModel(consignor, "path", countries)
 
-      result.valid.value mustEqual viewmodels.Consignor("name", "street", "postCode", "city", countries.head, Some("EORI"))
+      result.valid.value mustEqual viewmodels.Consignor("name",
+                                                        "street longer than 32 characters...",
+                                                        "street longer than 32 charact***",
+                                                        "postCode",
+                                                        "city",
+                                                        countries.head,
+                                                        Some("EORI"))
     }
 
     "must return Data Not Found when the country code cannot be found in the reference data" in {
-      val consignor = models.Consignor("name", "street", "postCode", "city", "invalid code", Some("EN"), Some("EORI"))
+      val consignor = models.Consignor("name", "street longer than 32 characters...", "postCode", "city", "invalid code", Some("EN"), Some("EORI"))
 
       val result = ConsignorConverter.toViewModel(consignor, "path", countries)
 

@@ -151,13 +151,14 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- arbitrary[Country]
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield Consignor(name, streetAndNumber, postCode, city, country, eori)
+        name                   <- stringWithMaxLength(35)
+        streetAndNumber        <- stringWithMaxLength(35)
+        streetAndNumberTrimmed <- stringWithMaxLength(35)
+        postCode               <- stringWithMaxLength(9)
+        city                   <- stringWithMaxLength(35)
+        country                <- arbitrary[Country]
+        eori                   <- Gen.option(stringWithMaxLength(17))
+      } yield Consignor(name, streetAndNumber, streetAndNumberTrimmed, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryPrincipal: Arbitrary[Principal] =
@@ -170,7 +171,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         city            <- stringWithMaxLength(35)
         country         <- arbitrary[Country]
         eori            <- Gen.option(stringWithMaxLength(17))
-        tin             <- Gen.option(stringWithMaxLength(17))
         tir             <- Gen.option(stringWithMaxLength(17))
       } yield Principal(name, streetAndNumber, streetAndNumber, postCode, city, country, eori, tir)
     }

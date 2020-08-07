@@ -23,7 +23,7 @@
 <fo:table-row height="5.33mm">
 <fo:table-cell display-align="center" padding-left="2mm" number-columns-spanned="2" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.streetAndNumber) @* TODO: If this is longer than 32, print the first 29 chars plus `***` ??? *@
+    @consignor.map(c => c.streetAndNumber)
   </fo:block>
 </fo:table-cell>
 <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
