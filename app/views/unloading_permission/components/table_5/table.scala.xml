@@ -4,7 +4,7 @@
     <fo:table-column column-width="93mm"/>
     <fo:table-column column-width="107mm"/>
     <fo:table-body>
-        <fo:table-row height="25mm"> <!-- S1 T5 ROW 1 -->
+        <fo:table-row height="16mm"> <!-- S1 T5 ROW 1 -->
             <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black">
                 <fo:block>
                     <fo:table width="100%" table-layout="fixed">
@@ -14,7 +14,7 @@
                         <fo:table-column column-width="10mm"/>
                         <fo:table-column column-width="58mm"/>
                         <fo:table-body>
-                            <fo:table-row height="4mm">
+                            <fo:table-row height="2mm">
                                 <fo:table-cell display-align="center">
                                     <fo:block>D</fo:block>
                                 </fo:table-cell>
@@ -22,7 +22,7 @@
                                     <fo:block>CONTROL BY OFFICE OF DEPARTURE</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <fo:table-row height="3.75mm">
+                            <fo:table-row height="2mm">
                                 <fo:table-cell>
                                     <fo:block/>
                                 </fo:table-cell>
@@ -35,7 +35,7 @@
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <fo:table-row height="3.75mm">
+                            <fo:table-row height="2mm">
                                 <fo:table-cell>
                                     <fo:block/>
                                 </fo:table-cell>
@@ -55,7 +55,7 @@
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <fo:table-row height="3.75mm">
+                            <fo:table-row height="2mm">
                                 <fo:table-cell>
                                     <fo:block/>
                                 </fo:table-cell>
@@ -79,7 +79,7 @@
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <fo:table-row height="6.25mm">
+                            <fo:table-row height="2mm">
                                 <fo:table-cell>
                                     <fo:block/>
                                 </fo:table-cell>
@@ -93,7 +93,7 @@
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <fo:table-row height="3.75mm">
+                            <fo:table-row height="2mm">
                                 <fo:table-cell number-columns-spanned="5" padding-top="1mm">
                                     <fo:block>
                                         <!--@* TODO: /ATHATH/AutInfATH766 is displayed here, not available within IE043 Customs office of transit*@-->
@@ -110,19 +110,19 @@
                         <fo:table-column column-width="53.5mm"/>
                         <fo:table-column column-width="53.5mm"/>
                         <fo:table-body>
-                            <fo:table-row height="4mm">
+                            <fo:table-row height="2mm">
                                 <fo:table-cell padding-top="1mm" padding-left="3mm">
                                     <fo:block>I CONTROL BY OFFICE OF DESTINATION</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <fo:table-row height="21mm">
+                            <fo:table-row height="16mm">
                                 <fo:table-cell border-right-color="black" border-right-style="solid" border-right-width="1pt">
                                     <fo:block>
                                         <fo:table width="100%" table-layout="fixed">
                                             <fo:table-column column-width="27mm"/>
                                             <fo:table-column column-width="26.5mm"/>
                                             <fo:table-body>
-                                                <fo:table-row height="3.5mm">
+                                                <fo:table-row height="2mm">
                                                     <fo:table-cell padding-top="0.5mm" padding-left="3mm">
                                                         <fo:block>Date of arrival:</fo:block>
                                                     </fo:table-cell>
@@ -130,7 +130,7 @@
                                                         <fo:block/>
                                                     </fo:table-cell>
                                                 </fo:table-row>
-                                                <fo:table-row height="3.5mm">
+                                                <fo:table-row height="2mm">
                                                     <fo:table-cell padding-top="0.5mm" padding-left="3mm">
                                                         <fo:block>Examination of seals:</fo:block>
                                                     </fo:table-cell>
@@ -138,12 +138,12 @@
                                                         <fo:block/>
                                                     </fo:table-cell>
                                                 </fo:table-row>
-                                                <fo:table-row height="5.25mm">
+                                                <fo:table-row height="2mm">
                                                     <fo:table-cell padding-left="3mm" padding-top="0.5mm">
                                                         <fo:block/>
                                                     </fo:table-cell>
                                                 </fo:table-row>
-                                                <fo:table-row height="3.5mm">
+                                                <fo:table-row height="2mm">
                                                     <fo:table-cell padding-top="0.5mm" padding-left="3mm">
                                                         <fo:block>Remarks:</fo:block>
                                                     </fo:table-cell>
@@ -151,7 +151,7 @@
                                                         <fo:block/>
                                                     </fo:table-cell>
                                                 </fo:table-row>
-                                                <fo:table-row height="5.25mm">
+                                                <fo:table-row height="2mm">
                                                     <fo:table-cell padding-top="0.5mm" padding-left="3mm">
                                                         <fo:block/>
                                                     </fo:table-cell>
