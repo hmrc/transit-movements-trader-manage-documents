@@ -16,18 +16,11 @@
 
 package controllers
 
-import java.time.LocalDate
-
-import cats.data.NonEmptyList
+import cats.data.Validated
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
 import javax.inject.Inject
-import models.DeclarationType
-import models.SensitiveGoodsInformation
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
 import play.api.mvc.Action
-import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
 import services._
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
@@ -37,7 +30,7 @@ import scala.concurrent.Future
 import scala.xml.NodeSeq
 
 class UnloadingPermissionController @Inject()(
-  xmlToPermissionToStartUnloadingViewModelService: XMLToPermissionToStartUnloadingViewModelService,
+  conversionService: ConversionService,
   pdf: PdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
@@ -45,19 +38,15 @@ class UnloadingPermissionController @Inject()(
 
   def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
-      xmlToPermissionToStartUnloadingViewModelService
-        .convert(request.body)
-        .map {
-          unloadingPermissionViewModel =>
-            unloadingPermissionViewModel.map {
-              validationResult =>
-                validationResult.toOption match {
-                  case Some(viewModel) => Ok(pdf.generateUnloadingPermission(viewModel))
-                  case None            => InternalServerError
-                }
-            }
-        }
-        .getOrElse(Future.successful(BadRequest))
+      XMLToPermissionToStartUnloading.convert(request.body) match {
+        case ParseSuccess(unloadingPermission) =>
+          conversionService.convertUnloadingPermission(unloadingPermission).map {
+            case Validated.Valid(viewModel) => Ok(pdf.generateUnloadingPermission(viewModel))
+            case Validated.Invalid(errors)  => InternalServerError(s"Failed to convert to UnloadingPermissionViewModel with following errors: $errors")
+          }
+        case ParseFailure(errors) =>
+          Future.successful(BadRequest(s"Failed to parse xml to UnloadingPermission with the following errors: $errors"))
+      }
   }
 
 //  def get(): Action[AnyContent] = Action {
