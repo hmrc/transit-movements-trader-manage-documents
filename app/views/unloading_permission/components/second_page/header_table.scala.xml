@@ -54,7 +54,6 @@
                                     </fo:table-cell>
                                     <fo:table-cell text-align="center" display-align="center">
                                         <fo:block>
-                                            @*TODO: If NCTRetCopHEA104 is set this should be B, otherwise A (NCTRetCopHEA104 is only contained in an IE029 message)*@
                                             A
                                         </fo:block>
                                     </fo:table-cell>
@@ -65,7 +64,6 @@
                                     </fo:table-cell>
                                     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center" display-align="center">
                                         <fo:block>
-                                            @*TODO: If NCTRetCopHEA104 is set this should be B-last-page, otherwise A-last-page (NCTRetCopHEA104 is only contained in an IE029 message)*@
                                             <fo:page-number-citation ref-id="A-last-page"/>
                                         </fo:block>
                                     </fo:table-cell>

@@ -1,9 +1,10 @@
+@(permission: viewmodels.PermissionToStartUnloading)
+
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
       <fo:table-column/>
       <fo:table-column/>
-
       <fo:table-body>
         <fo:table-row height="4.5mm">
           <fo:table-cell number-columns-spanned="2" text-align="center" display-align="center">
@@ -13,12 +14,16 @@
         <fo:table-row height="4.5mm">
           <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
             <fo:block>
-              1 @* TODO This was related to "number of loading lists?" *@
+              1
             </fo:block>
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
             <fo:block>
-              1 @* TODO: This should change base on PrintOnTopPage *@
+              @if(!permission.printListOfItems) {
+                1
+              } else {
+                <fo:page-number-citation ref-id="A-last-page"/>
+              }
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

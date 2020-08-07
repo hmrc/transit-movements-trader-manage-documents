@@ -235,7 +235,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        mrn                <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        mrn                <- stringWithMaxLength(17)
         continue           <- Gen.choose(1, 9)
         presentationOffice <- stringWithMaxLength(8)
         trader             <- arbitrary[TraderAtDestination]
@@ -246,7 +246,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        mrn                 <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        mrn                 <- stringWithMaxLength(17)
         declarationType     <- arbitrary[DeclarationType]
         transportId         <- Gen.option(stringWithMaxLength(27))
         transportCountry    <- Gen.option(stringWithMaxLength(2))

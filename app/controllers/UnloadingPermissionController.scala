@@ -60,6 +60,7 @@ class UnloadingPermissionController @Inject()(
         .getOrElse(Future.successful(BadRequest))
   }
 
+  //TODO: This can be removed
 //  def get(): Action[AnyContent] = Action {
 //    implicit request =>
 //      val permissionMultiple = viewmodels.PermissionToStartUnloading(
@@ -105,6 +106,7 @@ class UnloadingPermissionController @Inject()(
 //            ),
 //            consignor = Some(
 //              viewmodels.Consignor("consignor name",
+//                                   "consignor street",
 //                                   "consignor street",
 //                                   "consignor postCode",
 //                                   "consignor city",
@@ -171,6 +173,7 @@ class UnloadingPermissionController @Inject()(
 //            ),
 //            consignor = Some(
 //              viewmodels.Consignor("consignor name",
+//                                   "consignor street",
 //                                   "consignor street",
 //                                   "consignor postCode",
 //                                   "consignor city",

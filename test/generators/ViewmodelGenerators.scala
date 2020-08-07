@@ -232,7 +232,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        mrn                   <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        mrn                   <- stringWithMaxLength(17)
         declarationType       <- arbitrary[DeclarationType]
         transportId           <- Gen.option(stringWithMaxLength(27))
         transportCountry      <- Gen.option(arbitrary[Country])

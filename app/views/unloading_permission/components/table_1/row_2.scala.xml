@@ -4,10 +4,9 @@
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
-
   <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block font-weight="bold" font-size="12pt" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-      A @* TODO: Does this depend on whether it's the first page? *@
+      A
     </fo:block>
   </fo:table-cell>
 
@@ -32,7 +31,7 @@
                   <fo:table-body>
                     <fo:table-row height="9mm">
 
-                      @forms()
+                      @forms(permission)
 
                       @loading_lists()
                     </fo:table-row>

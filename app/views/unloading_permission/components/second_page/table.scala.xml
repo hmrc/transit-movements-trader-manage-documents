@@ -8,7 +8,6 @@
         <fo:block>
             @permission.goodsItems.toList.map(goodsItem => item.goods_item(goodsItem, permission))
         </fo:block>
-        @*TODO: If NCTRetCopHEA104 is set this should be B, otherwise A (NCTRetCopHEA104 is only contained in an IE029 message)*@
         <fo:block id="A-last-page"/>
     </fo:flow>
 </fo:page-sequence>

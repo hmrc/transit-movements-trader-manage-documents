@@ -18,18 +18,5 @@
         } else {
             @specialMentions.additionalInformationCoded.code
         }
-    } else {
-    @* TODO: Assuming ref data is always pulled back for code. What if it's unavailable. We should be able to show raw value *@
-        <!--<fo:inline font-style="italic">-->
-        <!--<xsl:value-of select="$cod"/>-->
-        <!--</fo:inline>-->
-        <!--<fo:inline font-weight="bold">-->
-        <!--<xsl:value-of select="concat(' ', $val-to-ins)"/>-->
-        <!--</fo:inline>-->
-        <!--<xsl:if test="string-length($ref) > 0">-->
-        <!--<fo:inline>-->
-        <!--<xsl:value-of select="concat('- ', $ref)"/>-->
-        <!--</fo:inline>-->
-        <!--</xsl:if>-->
     }
 </fo:block>

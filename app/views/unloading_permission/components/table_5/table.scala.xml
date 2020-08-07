@@ -30,9 +30,7 @@
                                     <fo:block>Result:</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        <!--@* TODO: /CONRESERS is displayed here, not available within IE043 Customs office of transit*@-->
-                                    </fo:block>
+                                    <fo:block/>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="2mm">
@@ -59,10 +57,7 @@
                                 <fo:table-cell>
                                     <fo:block/>
                                 </fo:table-cell>
-                                <fo:table-cell>
-                                    <fo:block/>
-                                </fo:table-cell>
-                                <fo:table-cell number-columns-spanned="1 @* TODO: This needs to be 2*@" display-align="center">
+                                <fo:table-cell number-columns-spanned="2" display-align="center">
                                     <fo:block>identity:</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="2" display-align="center" font-weight="bold">
@@ -88,16 +83,12 @@
                                     @* TODO: Missing Node - Where is /HEAHEA/BinItiHEA246 from? Looks like it's a message from Release for Transit (IE029) *@
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" font-weight="bold">
-                                    <fo:block>
-                                        <!--@* TODO: /CONRESERS is displayed here, not available within IE043 Customs office of transit*@-->
-                                    </fo:block>
+                                    <fo:block/>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="2mm">
                                 <fo:table-cell number-columns-spanned="5" padding-top="1mm">
-                                    <fo:block>
-                                        <!--@* TODO: /ATHATH/AutInfATH766 is displayed here, not available within IE043 Customs office of transit*@-->
-                                    </fo:block>
+                                    <fo:block/>
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>
