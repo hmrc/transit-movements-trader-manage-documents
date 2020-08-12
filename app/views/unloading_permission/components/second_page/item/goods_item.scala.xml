@@ -1,0 +1,138 @@
+@(goodsItem: viewmodels.GoodsItem, permission: viewmodels.PermissionToStartUnloading)
+<fo:table width="100%" table-layout="fixed">
+    <fo:table-column column-width="28mm"/>
+    <fo:table-column column-width="28mm"/>
+    <fo:table-column column-width="28mm"/>
+    <fo:table-column column-width="28mm"/>
+    <fo:table-column column-width="78mm"/>
+    <fo:table-body>
+        <fo:table-row height="3.5mm">
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
+                <fo:block>
+                    @goodsItem.itemNumber
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                    @goodsItem.packages.toList.map(x => block(x.marksAndNumbersValue.getOrElse("")))
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                @goodsItem.packages.toList.map(x => package_item(x))
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                @if(goodsItem.containers.nonEmpty) {
+                    @goodsItem.containers.map(x => block(x))
+                } else {
+                    <fo:block>--</fo:block>
+                }
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>
+                    @goodsItem.description
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="3.5mm">
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>
+                    @permission.declarationType
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>
+                   @goodsItem.commodityCode.getOrElse("--")
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
+                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.goodsCode.getOrElse("--")))
+                } else {
+                    <fo:block>--</fo:block>
+                }
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
+                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.quantity.toString))
+                } else {
+                    <fo:block>--</fo:block>
+                }
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>--</fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="3.5mm">
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>
+                    @goodsItem.countryOfDispatch.code
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>
+                    @goodsItem.countryOfDestination.code
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>
+                    @goodsItem.grossMass.getOrElse("---")
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:block>
+                    @goodsItem.netMass.getOrElse("---")
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-top="0.5mm">
+                <fo:table width="100%">
+                    <fo:table-column column-width="30mm"/>
+                    <fo:table-column column-width="39mm"/>
+                    <fo:table-body>
+                        <fo:table-row>
+                            <fo:table-cell padding-left="2mm">
+                                @if(goodsItem.specialMentions.nonEmpty) {
+                                    @goodsItem.specialMentions.map(x => special_mentions(x))
+                                } else {
+                                    <fo:block>--</fo:block>
+                                }
+                            </fo:table-cell>
+                            <fo:table-cell padding-left="2mm">
+                                @if(goodsItem.producedDocuments.nonEmpty) {
+                                    @goodsItem.producedDocuments.map(producedDocument => produced_document(producedDocument))
+                                } else {
+                                    <fo:block>--</fo:block>
+                                }
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="3.5mm">
+            <fo:table-cell border-bottom-style="solid" border-bottom-width="1.25pt" border-bottom-color="black" number-columns-spanned="5">
+                <fo:block>
+                    <fo:table width="100%" table-layout="fixed">
+                        <fo:table-column column-width="95mm"/>
+                        <fo:table-column column-width="95mm"/>
+                        <fo:table-body>
+                            <fo:table-row height="3.5mm">
+                                <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
+                                    @if(goodsItem.consignor.nonEmpty) {
+                                        @goodsItem.consignor.map(x => consignor(x))
+                                    } else {
+                                        <fo:block>---</fo:block>
+                                    }
+                                </fo:table-cell>
+                                <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
+                                    @if(goodsItem.consignee.nonEmpty) {
+                                        @goodsItem.consignee.map(x => consignee(x))
+                                    } else {
+                                        <fo:block>---</fo:block>
+                                    }
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+    </fo:table-body>
+</fo:table>

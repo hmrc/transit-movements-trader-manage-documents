@@ -2,7 +2,6 @@
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
       <fo:table-column/>
-
       <fo:table-body>
         <fo:table-row height="4.5mm">
           <fo:table-cell text-align="center" display-align="center" font-size="6pt">
@@ -12,7 +11,7 @@
         <fo:table-row height="4.5mm">
           <fo:table-cell text-align="center" display-align="center" font-weight="bold">
             <fo:block>
-              --- @* TODO: This was related to "Number of loading lists?" *@
+              ---
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

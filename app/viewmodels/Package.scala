@@ -25,7 +25,6 @@ sealed trait Package {
   val packageAndNumber: Option[String]
   val numberOfPiecesValue: Int
 
-  //TODO: Consider putting some of the validation logic in xml reader
   val validateString: Option[String] => Option[String] = _.filter(x => x.trim.nonEmpty)
 
   val validateCountAndPackage: Int => String => Option[String] =

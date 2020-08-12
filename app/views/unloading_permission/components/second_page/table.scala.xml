@@ -1,0 +1,13 @@
+@(permission: viewmodels.PermissionToStartUnloading)
+
+<fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force"> <!-- SEQ 2 -->
+    <fo:static-content flow-name="xsl-region-before">
+        @header_table(permission)
+    </fo:static-content>
+    <fo:flow flow-name="xsl-region-body">
+        <fo:block>
+            @permission.goodsItems.toList.map(goodsItem => item.goods_item(goodsItem, permission))
+        </fo:block>
+        <fo:block id="A-last-page"/>
+    </fo:flow>
+</fo:page-sequence>

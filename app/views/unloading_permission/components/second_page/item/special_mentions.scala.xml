@@ -11,9 +11,9 @@
                 @specialMentions.additionalInformationCoded.code Export
             </fo:inline>
             @if(specialMentions.additionalInformationCoded.code.trim.nonEmpty) {
-                <fo:inline>-
-                    @specialMentions.additionalInformationCoded.description
-                </fo:inline>
+            <fo:inline>-
+                @specialMentions.additionalInformationCoded.description
+            </fo:inline>
             }
         } else {
             @specialMentions.additionalInformationCoded.code

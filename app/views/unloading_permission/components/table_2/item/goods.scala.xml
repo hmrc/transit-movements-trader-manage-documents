@@ -18,7 +18,7 @@
             <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
                 <!-- Container No(s) -->
                 <fo:block>
-                    @permission.goodsItems.head.containers.head
+                    @permission.goodsItems.head.containers.headOption
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
@@ -27,10 +27,6 @@
                     <fo:inline font-style="italic">
                         @permission.goodsItems.head.packages.toList.head.packageAndNumber.getOrElse(permission.goodsItems.head.packages.toList.head.kindOfPackage.description)
                     </fo:inline>
-                    @* TODO: It looks like there's a link to external reference data
-                    and if found works out the kind of package used see java:getValue($Kin-Of-Pac, */GOOITEGDS/PACGS2/KinOfPacGS23)
-                    UPDATE: PackageConverter is used to load reference data
-                    *@
                 </fo:block>
                 <!-- Number of pieces -->
                 @if(permission.goodsItems.head.packages.toList.head.numberOfPiecesValue > 0) {

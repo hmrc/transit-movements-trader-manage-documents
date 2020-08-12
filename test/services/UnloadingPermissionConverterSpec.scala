@@ -135,7 +135,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
               viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
               viewmodels.SpecialMentionNoCountry(additionalInfo.head)
             ),
-            consignor = Some(viewmodels.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+            consignor = Some(
+              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
             consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
             containers = Seq("container 1"),
             packages = NonEmptyList(

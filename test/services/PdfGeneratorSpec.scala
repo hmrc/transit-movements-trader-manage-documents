@@ -15,23 +15,29 @@
  */
 
 package services
-
-import com.dmanchester.playfop.sapi.PlayFop
-import javax.inject.Inject
-import org.apache.xmlgraphics.util.MimeConstants
+import generators.ViewmodelGenerators
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import viewmodels.PermissionToStartUnloading
-import views.xml.unloading_permission.UnloadingPermissionDocument
 
-class PdfGenerator @Inject()(
-  fop: PlayFop,
-  document: UnloadingPermissionDocument
-) {
+class PdfGeneratorSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with ViewmodelGenerators {
 
-  def generateUnloadingPermission(permission: PermissionToStartUnloading): Array[Byte] = {
+  private lazy val service: PdfGenerator = app.injector.instanceOf[PdfGenerator]
 
-    val renderedDocument = document.render(permission)
+  "PdfGenerator" - {
 
-    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF)
+    "return pdf" in {
+
+      val unloadingPermissionObject = arbitrary[PermissionToStartUnloading]
+
+      val unloadingPermission = unloadingPermissionObject.sample.get
+
+      service.generateUnloadingPermission(unloadingPermission) mustBe an[Array[Byte]]
+
+    }
+
   }
 
 }

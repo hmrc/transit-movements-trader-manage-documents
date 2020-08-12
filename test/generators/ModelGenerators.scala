@@ -235,7 +235,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        mrn                <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        mrn                <- stringWithMaxLength(17)
         continue           <- Gen.choose(1, 9)
         presentationOffice <- stringWithMaxLength(8)
         trader             <- arbitrary[TraderAtDestination]
@@ -246,7 +246,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        mrn                 <- stringWithMaxLength(17) // TODO: Introduce MRN model
+        mrn                 <- stringWithMaxLength(17)
         declarationType     <- arbitrary[DeclarationType]
         transportId         <- Gen.option(stringWithMaxLength(27))
         transportCountry    <- Gen.option(stringWithMaxLength(2))
@@ -406,13 +406,14 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- arbitrary[Country]
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield viewmodels.Consignor(name, streetAndNumber, postCode, city, country, eori)
+        name                   <- stringWithMaxLength(35)
+        streetAndNumber        <- stringWithMaxLength(35)
+        streetAndNumberTrimmed <- stringWithMaxLength(35)
+        postCode               <- stringWithMaxLength(9)
+        city                   <- stringWithMaxLength(35)
+        country                <- arbitrary[Country]
+        eori                   <- Gen.option(stringWithMaxLength(17))
+      } yield viewmodels.Consignor(name, streetAndNumber, streetAndNumberTrimmed, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryKindOfPackage: Arbitrary[KindOfPackage] = {
