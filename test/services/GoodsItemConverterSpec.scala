@@ -85,7 +85,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         ),
         consignor =
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-        consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+        consignee =
+          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
         containers = Seq("container 1"),
         packages = NonEmptyList(
           viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),

@@ -140,7 +140,8 @@ class ConversionServiceSpec
                                          Some("tir")),
         consignor =
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-        consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+        consignee =
+          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         departureOffice = "The Departure office, less than 45 characters long",
         departureOfficeTrimmed = "The Departure office, less than 45 charact***",
@@ -164,7 +165,8 @@ class ConversionServiceSpec
             ),
             consignor = Some(
               viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-            consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+            consignee = Some(
+              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
             containers = Seq("container 1"),
             packages = NonEmptyList(
               viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),

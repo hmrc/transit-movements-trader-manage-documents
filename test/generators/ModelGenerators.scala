@@ -397,13 +397,14 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- arbitrary[Country]
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield viewmodels.Consignee(name, streetAndNumber, postCode, city, country, eori)
+        name                   <- stringWithMaxLength(35)
+        streetAndNumber        <- stringWithMaxLength(35)
+        streetAndNumberTrimmed <- stringWithMaxLength(35)
+        postCode               <- stringWithMaxLength(9)
+        city                   <- stringWithMaxLength(35)
+        country                <- arbitrary[Country]
+        eori                   <- Gen.option(stringWithMaxLength(17))
+      } yield viewmodels.Consignee(name, streetAndNumber, streetAndNumberTrimmed, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryConsignorViewModel: Arbitrary[viewmodels.Consignor] =

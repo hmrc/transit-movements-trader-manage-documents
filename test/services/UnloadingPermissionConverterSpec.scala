@@ -120,7 +120,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
                                          Some("tir")),
         consignor =
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-        consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+        consignee =
+          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
         traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
         departureOffice = "Departure office",
         departureOfficeTrimmed = "Departure office",
@@ -144,7 +145,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             ),
             consignor = Some(
               viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-            consignee = Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+            consignee = Some(
+              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
             containers = Seq("container 1"),
             packages = NonEmptyList(
               viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),

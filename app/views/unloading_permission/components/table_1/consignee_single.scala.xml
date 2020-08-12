@@ -23,7 +23,7 @@
 <fo:table-row height="6.25mm">
 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignee.map(c => c.streetAndNumber)
+    @consignee.map(c => c.streetAndNumberTrimmed)
   </fo:block>
 </fo:table-cell>
 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
