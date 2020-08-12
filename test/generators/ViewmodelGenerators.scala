@@ -242,6 +242,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         numberOfPackages      <- Gen.choose(1, 9999999)
         grossMass             <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
         principal             <- arbitrary[Principal]
+        consignor             <- Gen.option(arbitrary[Consignor])
+        consignee             <- Gen.option(arbitrary[Consignee])
         traderAtDestination   <- arbitrary[TraderAtDestination]
         departureOffice       <- stringWithMaxLength(8)
         presentationOffice    <- stringWithMaxLength(8)
@@ -259,6 +261,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           numberOfPackages,
           grossMass,
           principal,
+          consignor,
+          consignee,
           traderAtDestination,
           departureOffice,
           departureOffice,

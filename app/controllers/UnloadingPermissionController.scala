@@ -16,11 +16,21 @@
 
 package controllers
 
+import java.time.LocalDate
+
+import cats.data.NonEmptyList
 import cats.data.Validated
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
 import javax.inject.Inject
+import models.DeclarationType
+import models.SensitiveGoodsInformation
+import models.reference.AdditionalInformation
+import models.reference.Country
+import models.reference.DocumentType
+import models.reference.KindOfPackage
 import play.api.mvc.Action
+import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
 import services._
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
@@ -72,6 +82,16 @@ class UnloadingPermissionController @Inject()(
 //          Some("Principal EORI"),
 //          None
 //        ),
+//        consignor = Some(
+//          viewmodels.Consignor("consignor name",
+//                               "consignor street",
+//                               "consignor street",
+//                               "consignor postCode",
+//                               "consignor city",
+//                               Country("valid", "AA", "Country A"),
+//                               Some("IT444100201000"))),
+//        consignee =
+//          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
 //        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
 //        departureOffice = "IT021300",
 //        departureOfficeTrimmed = "IT021300",
@@ -136,6 +156,16 @@ class UnloadingPermissionController @Inject()(
 //          Some("IT444100201000"),
 //          None
 //        ),
+//        consignor = Some(
+//          viewmodels.Consignor("consignor name",
+//                               "consignor street",
+//                               "consignor street",
+//                               "consignor postCode",
+//                               "consignor city",
+//                               Country("valid", "AA", "Country A"),
+//                               Some("IT444100201000"))),
+//        consignee =
+//          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
 //        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
 //        departureOffice = "IT021300",
 //        departureOfficeTrimmed = "Trimmed departure office value here ***",
@@ -160,16 +190,8 @@ class UnloadingPermissionController @Inject()(
 //              viewmodels.SpecialMentionNonEc(AdditionalInformation("I122222", "Info 1"), Country("valid", "AA", "Country A")),
 //              viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
 //            ),
-//            consignor = Some(
-//              viewmodels.Consignor("consignor name",
-//                                   "consignor street",
-//                                   "consignor street",
-//                                   "consignor postCode",
-//                                   "consignor city",
-//                                   Country("valid", "AA", "Country A"),
-//                                   Some("IT444100201000"))),
-//            consignee = Some(
-//              viewmodels.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", Country("valid", "AA", "Country A"), None)),
+//            consignor = None,
+//            consignee = None,
 //            containers = Seq("INTERFLORA005"),
 //            packages = NonEmptyList(
 //              viewmodels.BulkPackage(KindOfPackage("P1", "Box"), Some("INTERFLORA05")),

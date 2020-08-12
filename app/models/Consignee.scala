@@ -36,7 +36,10 @@ object Consignee {
 
   implicit lazy val format: OFormat[Consignee] = Json.format[Consignee]
 
-  implicit val xmlReader: XmlReader[Consignee] = {
+  implicit lazy val xmlReader: XmlReader[Consignee] =
+    xmlReaderGoodsLevel.or(xmlReaderHeaderLevel)
+
+  private val xmlReaderGoodsLevel: XmlReader[Consignee] = {
     (
       (__ \ "NamCE27").read[String],
       (__ \ "StrAndNumCE222").read[String],
@@ -45,6 +48,18 @@ object Consignee {
       (__ \ "CouCE225").read[String],
       (__ \ "NADLNGGICE").read[String].optional,
       (__ \ "TINCE259").read[String].optional
+    ).mapN(apply)
+  }
+
+  private val xmlReaderHeaderLevel: XmlReader[Consignee] = {
+    (
+      (__ \ "NamCE17").read[String],
+      (__ \ "StrAndNumCE122").read[String],
+      (__ \ "PosCodCE123").read[String],
+      (__ \ "CitCE124").read[String],
+      (__ \ "CouCE125").read[String],
+      (__ \ "NADLNGCE").read[String].optional,
+      (__ \ "TINCE159").read[String].optional
     ).mapN(apply)
   }
 }

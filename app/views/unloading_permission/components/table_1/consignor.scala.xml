@@ -10,7 +10,7 @@
         @if(permission.printVariousConsignors) {
           @consignor_various()
         } else {
-          @consignor_single(permission.consignor)
+          @consignor_single(permission.consignorOne)
         }
       </fo:table-body>
     </fo:table>

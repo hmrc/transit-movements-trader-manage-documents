@@ -48,22 +48,37 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
 
           val permissionWithConsignors = permission copy (goodsItems = goodsItemsWithConsignor)
 
-          permissionWithConsignors.consignor.value mustEqual consignor
+          permissionWithConsignors.consignorOne.value mustEqual consignor
+      }
+    }
+
+    "when no goods items have a consignor but header has a consignor" in {
+
+      forAll(arbitrary[PermissionToStartUnloading], arbitrary[Consignor]) {
+        (permission, consignor) =>
+          val goodsItemsNoConsignor = permission.goodsItems.map(_ copy (consignor = None))
+
+          val permissionWithConsignors = permission copy (
+            consignor = Some(consignor),
+            goodsItems = goodsItemsNoConsignor
+          )
+
+          permissionWithConsignors.consignorOne.value mustEqual consignor
       }
     }
   }
 
   "must not have a consignor" - {
 
-    "when no goods items have consignors" in {
+    "when no goods items have consignors and header has no consignor" in {
 
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
           val goodsItemsWithNoConsignors = permission.goodsItems.map(_ copy (consignor = None))
 
-          val permissionWithNoConsignors = permission copy (goodsItems = goodsItemsWithNoConsignors)
+          val permissionWithNoConsignors = permission copy (consignor = None, goodsItems = goodsItemsWithNoConsignors)
 
-          permissionWithNoConsignors.consignor mustBe empty
+          permissionWithNoConsignors.consignorOne mustBe empty
       }
     }
 
@@ -76,9 +91,9 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
             val goodsItemWithConsignor1 = goodsItem copy (consignor = Some(consignor1))
             val goodsItemWithConsignor2 = goodsItem copy (consignor = Some(consignor2))
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithConsignor1, List(goodsItemWithConsignor2)))
+            val updatedPermission = permission copy (consignor = None, goodsItems = NonEmptyList(goodsItemWithConsignor1, List(goodsItemWithConsignor2)))
 
-            updatedPermission.consignor mustBe empty
+            updatedPermission.consignorOne mustBe empty
           }
       }
     }
@@ -97,9 +112,9 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
           val itemsWithNoConsignor = items1.map(_ copy (consignor = None))
           val itemsWithConsignor   = items2.map(_ copy (consignor = Some(consignor)))
 
-          val updatedPermission = permission copy (goodsItems = itemsWithNoConsignor.concatNel(itemsWithConsignor))
+          val updatedPermission = permission copy (consignor = None, goodsItems = itemsWithNoConsignor.concatNel(itemsWithConsignor))
 
-          updatedPermission.consignor mustBe empty
+          updatedPermission.consignorOne mustBe empty
       }
     }
   }
@@ -114,22 +129,34 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
 
           val permissionWithConsignees = permission copy (goodsItems = goodsItemsWithConsignee)
 
-          permissionWithConsignees.consignee.value mustEqual consignee
+          permissionWithConsignees.consigneeOne.value mustEqual consignee
+      }
+    }
+
+    "when no goods items have a consignee but header has a consignee" in {
+
+      forAll(arbitrary[PermissionToStartUnloading], arbitrary[Consignee]) {
+        (permission, consignee) =>
+          val goodsItemsWithNoConsignee = permission.goodsItems.map(_ copy (consignee = None))
+
+          val permissionWithConsignees = permission copy (consignee = Some(consignee), goodsItems = goodsItemsWithNoConsignee)
+
+          permissionWithConsignees.consigneeOne.value mustEqual consignee
       }
     }
   }
 
   "must not have a consignee" - {
 
-    "when no goods items have consignees" in {
+    "when no goods or header has consignees" in {
 
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
           val goodsItemsWithNoConsignees = permission.goodsItems.map(_ copy (consignee = None))
 
-          val permissionWithNoConsignees = permission copy (goodsItems = goodsItemsWithNoConsignees)
+          val permissionWithNoConsignees = permission copy (consignee = None, goodsItems = goodsItemsWithNoConsignees)
 
-          permissionWithNoConsignees.consignee mustBe empty
+          permissionWithNoConsignees.consigneeOne mustBe empty
       }
     }
 
@@ -142,9 +169,9 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
             val goodsItemWithConsignee1 = goodsItem copy (consignee = Some(consignee1))
             val goodsItemWithConsignee2 = goodsItem copy (consignee = Some(consignee2))
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithConsignee1, List(goodsItemWithConsignee2)))
+            val updatedPermission = permission copy (consignee = None, goodsItems = NonEmptyList(goodsItemWithConsignee1, List(goodsItemWithConsignee2)))
 
-            updatedPermission.consignee mustBe empty
+            updatedPermission.consigneeOne mustBe empty
           }
       }
     }
@@ -163,9 +190,9 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
           val itemsWithNoConsignee = items1.map(_ copy (consignee = None))
           val itemsWithConsignee   = items2.map(_ copy (consignee = Some(consignee)))
 
-          val updatedPermission = permission copy (goodsItems = itemsWithNoConsignee.concatNel(itemsWithConsignee))
+          val updatedPermission = permission copy (consignee = None, goodsItems = itemsWithNoConsignee.concatNel(itemsWithConsignee))
 
-          updatedPermission.consignee mustBe empty
+          updatedPermission.consigneeOne mustBe empty
       }
     }
   }

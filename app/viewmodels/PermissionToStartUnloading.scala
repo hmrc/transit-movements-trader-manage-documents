@@ -33,6 +33,8 @@ final case class PermissionToStartUnloading(
   numberOfPackages: Int,
   grossMass: BigDecimal,
   principal: Principal,
+  consignor: Option[Consignor],
+  consignee: Option[Consignee],
   traderAtDestination: TraderAtDestination,
   departureOffice: String,
   departureOfficeTrimmed: String,
@@ -48,11 +50,21 @@ final case class PermissionToStartUnloading(
       None
     }
 
-  val consignor: Option[Consignor] =
-    singleValue(goodsItems.toList.flatMap(_.consignor))
+  val consignorOne: Option[Consignor] = {
+    if (goodsItems.toList.flatMap(_.consignor).nonEmpty) {
+      singleValue(goodsItems.toList.flatMap(_.consignor))
+    } else {
+      consignor
+    }
+  }
 
-  val consignee: Option[Consignee] =
-    singleValue(goodsItems.toList.flatMap(_.consignee))
+  val consigneeOne: Option[Consignee] = {
+    if (goodsItems.toList.flatMap(_.consignee).nonEmpty) {
+      singleValue(goodsItems.toList.flatMap(_.consignee))
+    } else {
+      consignee
+    }
+  }
 
   val countryOfDispatch: Option[Country] =
     singleValue(goodsItems.toList.map(_.countryOfDispatch))
@@ -70,11 +82,11 @@ final case class PermissionToStartUnloading(
 
   val printVariousConsignees: Boolean =
     printListOfItems &&
-      consignee.isEmpty &&
+      consigneeOne.isEmpty &&
       goodsItems.toList.flatMap(_.consignee).nonEmpty
 
   val printVariousConsignors: Boolean =
     printListOfItems &&
-      consignor.isEmpty &&
+      consignorOne.isEmpty &&
       goodsItems.toList.flatMap(_.consignor).nonEmpty
 }

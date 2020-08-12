@@ -40,6 +40,18 @@ object UnloadingPermissionConverter extends Converter {
         case None          => Valid(None)
       }
 
+    def convertConsignor(maybeConsignor: Option[models.Consignor]): ValidationResult[Option[viewmodels.Consignor]] =
+      maybeConsignor match {
+        case Some(consignor) => ConsignorConverter.toViewModel(consignor, s"consignor", countries).map(x => Some(x))
+        case None            => Valid(None)
+      }
+
+    def convertConsignee(maybeConsignee: Option[models.Consignee]): ValidationResult[Option[viewmodels.Consignee]] =
+      maybeConsignee match {
+        case Some(consignee) => ConsigneeConverter.toViewModel(consignee, s"consignee", countries).map(x => Some(x))
+        case None            => Valid(None)
+      }
+
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
       val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
@@ -61,9 +73,11 @@ object UnloadingPermissionConverter extends Converter {
       PrincipalConverter.toViewModel(permission.principal, "principal", countries),
       TraderConverter.toViewModel(permission.traderAtDestination, "traderAtDestination", countries),
       convertTransportCountry(permission.transportCountry),
-      convertGoodsItems(permission.goodsItems)
+      convertGoodsItems(permission.goodsItems),
+      convertConsignor(permission.consignor),
+      convertConsignee(permission.consignee)
     ).mapN(
-      (principal, trader, transportCountry, goodsItems) =>
+      (principal, trader, transportCountry, goodsItems, consignor, consignee) =>
         viewmodels.PermissionToStartUnloading(
           permission.movementReferenceNumber,
           permission.declarationType,
@@ -75,6 +89,8 @@ object UnloadingPermissionConverter extends Converter {
           permission.numberOfPackages,
           permission.grossMass,
           principal,
+          consignor,
+          consignee,
           trader,
           permission.departureOffice,
           permission.departureOffice.shorten(45)("***"),

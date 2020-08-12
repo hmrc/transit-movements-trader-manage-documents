@@ -11,7 +11,7 @@
         @if(permission.printVariousConsignees) {
           @consignee_various()
         } else {
-          @consignee_single(permission.consignee)
+          @consignee_single(permission.consigneeOne)
         }
       </fo:table-body>
     </fo:table>
