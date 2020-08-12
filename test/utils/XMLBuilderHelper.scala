@@ -167,34 +167,34 @@ object XMLBuilderHelper {
 
   def consignorXML(consignor: Consignor): NodeSeq =
     <TRACONCO2>
-      <NamCO17>{consignor.name}</NamCO17>
-      <StrAndNumCO122>{consignor.streetAndNumber}</StrAndNumCO122>
-      <PosCodCO123>{consignor.postCode}</PosCodCO123>
-      <CitCO124>{consignor.city}</CitCO124>
-      <CouCO125>{consignor.countryCode}</CouCO125>
+      <NamCO27>{consignor.name}</NamCO27>
+      <StrAndNumCO222>{consignor.streetAndNumber}</StrAndNumCO222>
+      <PosCodCO223>{consignor.postCode}</PosCodCO223>
+      <CitCO224>{consignor.city}</CitCO224>
+      <CouCO225>{consignor.countryCode}</CouCO225>
       {
       consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-        <NADLNGCO>{nadLangCode}</NADLNGCO>
+        <NADLNGGTCO>{nadLangCode}</NADLNGGTCO>
       } ++
         consignor.eori.fold(NodeSeq.Empty) { eori =>
-          <TINCO159>{eori}</TINCO159>
+          <TINCO259>{eori}</TINCO259>
         }
       }
     </TRACONCO2>
 
   def consigneeXML(consignee: Consignee): NodeSeq =
     <TRACONCE2>
-      <NamCE17>{consignee.name}</NamCE17>
-      <StrAndNumCE122>{consignee.streetAndNumber}</StrAndNumCE122>
-      <PosCodCE123>{consignee.postCode}</PosCodCE123>
-      <CitCE124>{consignee.city}</CitCE124>
-      <CouCE125>{consignee.countryCode}</CouCE125>
+      <NamCE27>{consignee.name}</NamCE27>
+      <StrAndNumCE222>{consignee.streetAndNumber}</StrAndNumCE222>
+      <PosCodCE223>{consignee.postCode}</PosCodCE223>
+      <CitCE224>{consignee.city}</CitCE224>
+      <CouCE225>{consignee.countryCode}</CouCE225>
       {
       consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-        <NADLNGCE>{nadLangCode}</NADLNGCE>
+        <NADLNGGICE>{nadLangCode}</NADLNGGICE>
       } ++
         consignee.eori.fold(NodeSeq.Empty) { eori =>
-          <TINCE159>{eori}</TINCE159>
+          <TINCE259>{eori}</TINCE259>
         }
       }
     </TRACONCE2>

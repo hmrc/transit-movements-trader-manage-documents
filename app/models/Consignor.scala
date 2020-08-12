@@ -38,13 +38,13 @@ object Consignor {
 
   implicit val xmlReader: XmlReader[Consignor] = {
     (
-      (__ \ "NamCO17").read[String],
-      (__ \ "StrAndNumCO122").read[String],
-      (__ \ "PosCodCO123").read[String],
-      (__ \ "CitCO124").read[String],
-      (__ \ "CouCO125").read[String],
-      (__ \ "NADLNGCO").read[String].optional,
-      (__ \ "TINCO159").read[String].optional
+      (__ \ "NamCO27").read[String],
+      (__ \ "StrAndNumCO222").read[String],
+      (__ \ "PosCodCO223").read[String],
+      (__ \ "CitCO224").read[String],
+      (__ \ "CouCO225").read[String],
+      (__ \ "NADLNGGTCO").read[String].optional,
+      (__ \ "TINCO259").read[String].optional
     ).mapN(apply)
   }
 }
