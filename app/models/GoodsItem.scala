@@ -61,8 +61,8 @@ object GoodsItem {
       (__ \ "CouOfDesGDS59").read[String],
       (__ \ "PRODOCDC2").read(strictReadSeq[ProducedDocument]),
       (__ \ "SPEMENMT2").read(strictReadSeq[SpecialMention]),
-      (__ \ "TRACONCO2").read[Consignor].optional,
-      (__ \ "TRACONCE2").read[Consignee].optional,
+      (__ \ "TRACONCO2").read[Consignor](Consignor.xmlReaderGoodsLevel).optional,
+      (__ \ "TRACONCE2").read[Consignee](Consignee.xmlReaderGoodsLevel).optional,
       (__ \ "CONNR2" \ "ConNumNR21").read(strictReadSeq[String]),
       (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
       (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])

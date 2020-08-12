@@ -28,9 +28,9 @@ import scala.xml.NodeSeq
 
 class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-  "Consignor" - {
+  "Consignor XML" - {
 
-    "XML" - {
+    "at GoodsItem level" - {
 
       "must deserialise" in {
 
@@ -54,7 +54,7 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
               </TRACONCO2>
             }
 
-            val result = XmlReader.of[Consignor].read(xml).toOption.value
+            val result = XmlReader.of[Consignor](Consignor.xmlReaderGoodsLevel).read(xml).toOption.value
 
             result mustBe consignor
         }
@@ -64,7 +64,47 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
         val xml = <TRACONCO2></TRACONCO2>
 
-        val result = XmlReader.of[Consignor].read(xml).toOption
+        val result = XmlReader.of[Consignor](Consignor.xmlReaderGoodsLevel).read(xml).toOption
+
+        result mustBe None
+      }
+    }
+
+    "at root level" - {
+
+      "must deserialise" in {
+
+        forAll(arbitrary[Consignor]) {
+          consignor =>
+            val xml = {
+              <TRACONCO1>
+                <NamCO17>{consignor.name}</NamCO17>
+                <StrAndNumCO122>{consignor.streetAndNumber}</StrAndNumCO122>
+                <PosCodCO123>{consignor.postCode}</PosCodCO123>
+                <CitCO124>{consignor.city}</CitCO124>
+                <CouCO125>{consignor.countryCode}</CouCO125>
+                {
+                consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+                  <NADLNGCO>{nadLangCode}</NADLNGCO>
+                } ++
+                  consignor.eori.fold(NodeSeq.Empty) { eori =>
+                    <TINCO159>{eori}</TINCO159>
+                  }
+                }
+              </TRACONCO1>
+            }
+
+            val result = XmlReader.of[Consignor](Consignor.xmlReaderRootLevel).read(xml).toOption.value
+
+            result mustBe consignor
+        }
+      }
+
+      "must fail to deserialise" in {
+
+        val xml = <TRACONCO1></TRACONCO1>
+
+        val result = XmlReader.of[Consignor](Consignor.xmlReaderRootLevel).read(xml).toOption
 
         result mustBe None
       }
