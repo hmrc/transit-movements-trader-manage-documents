@@ -51,6 +51,8 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               "numberOfPackages"        -> permission.numberOfPackages,
               "grossMass"               -> permission.grossMass,
               "principal"               -> Json.toJson(permission.principal),
+              "consignor"               -> Json.toJson(permission.consignor),
+              "consignee"               -> Json.toJson(permission.consignee),
               "traderAtDestination"     -> Json.toJson(permission.traderAtDestination),
               "departureOffice"         -> permission.departureOffice,
               "presentationOffice"      -> permission.presentationOffice,
@@ -97,6 +99,20 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
                 }
                 .getOrElse(Json.obj())
 
+            val consignor = permission.consignor
+              .map {
+                x =>
+                  Json.obj("consignor" -> x)
+              }
+              .getOrElse(Json.obj())
+
+            val consignee = permission.consignee
+              .map {
+                x =>
+                  Json.obj("consignee" -> x)
+              }
+              .getOrElse(Json.obj())
+
             val json = Json.obj(
               "movementReferenceNumber" -> permission.movementReferenceNumber,
               "declarationType"         -> Json.toJson(permission.declarationType),
@@ -110,7 +126,7 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               "presentationOffice"      -> permission.presentationOffice,
               "seals"                   -> permission.seals,
               "goodsItems"              -> permission.goodsItems
-            ) ++ transportIdentityJson ++ transportCountryJson
+            ) ++ transportIdentityJson ++ transportCountryJson ++ consignor ++ consignee
 
             Json.toJson(permission: UnloadingPermission) mustEqual json
         }
@@ -171,6 +187,10 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
                 }
               }
             </TRAPRIPC1>
+            {
+              unloadingPermission.consignor.map(XMLBuilderHelper.consignorHeaderXML) ++
+              unloadingPermission.consignee.map(XMLBuilderHelper.consigneeHeaderXML)
+            }
             <TRADESTRD>
             {
               XMLBuilderHelper.traderAtDestinationToXml(unloadingPermission.traderAtDestination)

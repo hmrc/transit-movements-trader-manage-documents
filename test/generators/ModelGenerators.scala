@@ -255,6 +255,8 @@ trait ModelGenerators extends GeneratorHelpers {
         numberOfPackages    <- Gen.choose(1, 9999999)
         grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
         principal           <- arbitrary[Principal]
+        consignor           <- Gen.option(arbitrary[Consignor])
+        consignee           <- Gen.option(arbitrary[Consignee])
         traderAtDestination <- arbitrary[TraderAtDestination]
         departureOffice     <- stringWithMaxLength(8)
         presentationOffice  <- stringWithMaxLength(8)
@@ -271,6 +273,8 @@ trait ModelGenerators extends GeneratorHelpers {
           numberOfPackages,
           grossMass,
           principal,
+          consignor,
+          consignee,
           traderAtDestination,
           departureOffice,
           presentationOffice,
@@ -393,13 +397,14 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- arbitrary[Country]
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield viewmodels.Consignee(name, streetAndNumber, postCode, city, country, eori)
+        name                   <- stringWithMaxLength(35)
+        streetAndNumber        <- stringWithMaxLength(35)
+        streetAndNumberTrimmed <- stringWithMaxLength(35)
+        postCode               <- stringWithMaxLength(9)
+        city                   <- stringWithMaxLength(35)
+        country                <- arbitrary[Country]
+        eori                   <- Gen.option(stringWithMaxLength(17))
+      } yield viewmodels.Consignee(name, streetAndNumber, streetAndNumberTrimmed, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryConsignorViewModel: Arbitrary[viewmodels.Consignor] =

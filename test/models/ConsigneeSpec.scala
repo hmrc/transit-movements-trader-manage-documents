@@ -28,9 +28,49 @@ import scala.xml.NodeSeq
 
 class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-  "Consignee" - {
+  "Consignee XML" - {
 
-    "XML" - {
+    "at GoodsItem level" - {
+
+      "must deserialise" in {
+
+        forAll(arbitrary[Consignee]) {
+          consignee =>
+            val xml = {
+              <TRACONCE2>
+                <NamCE27>{consignee.name}</NamCE27>
+                <StrAndNumCE222>{consignee.streetAndNumber}</StrAndNumCE222>
+                <PosCodCE223>{consignee.postCode}</PosCodCE223>
+                <CitCE224>{consignee.city}</CitCE224>
+                <CouCE225>{consignee.countryCode}</CouCE225>
+                {
+                  consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+                    <NADLNGGICE>{nadLangCode}</NADLNGGICE>
+                  } ++
+                  consignee.eori.fold(NodeSeq.Empty) { eori =>
+                    <TINCE259>{eori}</TINCE259>
+                  }
+                }
+              </TRACONCE2>
+            }
+
+            val result = XmlReader.of[Consignee](Consignee.xmlReaderGoodsLevel).read(xml).toOption.value
+
+            result mustBe consignee
+        }
+      }
+
+      "must fail to deserialise" in {
+
+        val xml = <TRACONCE2></TRACONCE2>
+
+        val result = XmlReader.of[Consignee](Consignee.xmlReaderGoodsLevel).read(xml).toOption
+
+        result mustBe None
+      }
+    }
+
+    "at root level" - {
 
       "must deserialise" in {
 
@@ -44,9 +84,9 @@ class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
                 <CitCE124>{consignee.city}</CitCE124>
                 <CouCE125>{consignee.countryCode}</CouCE125>
                 {
-                  consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-                    <NADLNGCE>{nadLangCode}</NADLNGCE>
-                  } ++
+                consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+                  <NADLNGCE>{nadLangCode}</NADLNGCE>
+                } ++
                   consignee.eori.fold(NodeSeq.Empty) { eori =>
                     <TINCE159>{eori}</TINCE159>
                   }
@@ -54,7 +94,7 @@ class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
               </TRACONCE1>
             }
 
-            val result = XmlReader.of[Consignee].read(xml).toOption.value
+            val result = XmlReader.of[Consignee](Consignee.xmlReaderRootLevel).read(xml).toOption.value
 
             result mustBe consignee
         }
@@ -62,9 +102,9 @@ class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
       "must fail to deserialise" in {
 
-        val xml = <TRACONCO1></TRACONCO1>
+        val xml = <TRACONCE1></TRACONCE1>
 
-        val result = XmlReader.of[Consignee].read(xml).toOption
+        val result = XmlReader.of[Consignee](Consignee.xmlReaderRootLevel).read(xml).toOption
 
         result mustBe None
       }

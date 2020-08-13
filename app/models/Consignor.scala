@@ -36,7 +36,19 @@ object Consignor {
 
   implicit lazy val format: OFormat[Consignor] = Json.format[Consignor]
 
-  implicit val xmlReader: XmlReader[Consignor] = {
+  implicit val xmlReaderGoodsLevel: XmlReader[Consignor] = {
+    (
+      (__ \ "NamCO27").read[String],
+      (__ \ "StrAndNumCO222").read[String],
+      (__ \ "PosCodCO223").read[String],
+      (__ \ "CitCO224").read[String],
+      (__ \ "CouCO225").read[String],
+      (__ \ "NADLNGGTCO").read[String].optional,
+      (__ \ "TINCO259").read[String].optional
+    ).mapN(apply)
+  }
+
+  implicit val xmlReaderRootLevel: XmlReader[Consignor] = {
     (
       (__ \ "NamCO17").read[String],
       (__ \ "StrAndNumCO122").read[String],

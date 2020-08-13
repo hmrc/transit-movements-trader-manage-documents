@@ -21,6 +21,7 @@ import models.reference.Country
 final case class Consignee(
   name: String,
   streetAndNumber: String,
+  streetAndNumberTrimmed: String,
   postCode: String,
   city: String,
   country: Country,
