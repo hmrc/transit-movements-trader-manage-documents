@@ -31,7 +31,7 @@ class PdfGenerator @Inject()(
 
     val renderedDocument = document.render(permission)
 
-    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF)
+    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
 
 }
