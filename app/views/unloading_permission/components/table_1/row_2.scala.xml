@@ -45,5 +45,10 @@
     </fo:block>
   </fo:table-cell>
 
-  
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
+    <fo:block>
+      @components.barcode(permission)
+    </fo:block>
+  </fo:table-cell>
+
 </fo:table-row>

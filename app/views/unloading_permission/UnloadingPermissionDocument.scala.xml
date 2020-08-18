@@ -3,7 +3,7 @@
 @(permission: viewmodels.PermissionToStartUnloading)
 <?xml version='1.0' encoding='utf-8'?>
 
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="sans-serif" font-size="7pt" text-align="left">
 
   @components.layout_master_set()
 
@@ -14,10 +14,23 @@
         <!--main header-->
         @components.table_1.table(permission)
 
+        <!--packages/goods description/docs/certs-->
+        @components.table_2.table(permission)
 
+        <!--transhipment/certification-->
+        @components.table_3.table(permission)
+
+        <!--Principal/TIR Holder/Office of departure-->
+        @components.table_4.table(permission)
+
+        <!--control by office of departure/destination-->
+        @components.table_5.table(permission)
 
       </fo:block>
     </fo:flow>
   </fo:page-sequence>
-
+  @if(permission.printListOfItems) {
+    <!-- goods items -->
+    @components.second_page.table(permission)
+  }
 </fo:root>
