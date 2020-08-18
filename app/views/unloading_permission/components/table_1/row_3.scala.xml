@@ -6,12 +6,7 @@
   </fo:table-cell>
   <fo:table-cell number-rows-spanned="5" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" padding-top="-10mm">
     <fo:block>
-      <fo:instream-foreign-object>
-        <svg xmlns="http://www.w3.org/2000/svg" width="8mm" height="80mm">
-          <text font-family="sans-serif" font-size="8" x="11" y="0" writing-mode="tb" glyph-orientation-vertical="-90deg">TNEMUCOD GNIYNAPMOCCA - SNOISSIMREP GNIDAOLNU</text>
-          <!-- description typed in reverse order as fo does not support bottom to top mode-->
-        </svg>
-      </fo:instream-foreign-object>
+      SVG here
     </fo:block>
   </fo:table-cell>
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">
