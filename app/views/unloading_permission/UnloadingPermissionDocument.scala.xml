@@ -10,9 +10,14 @@
   <fo:page-sequence master-reference="top-page" initial-page-number="1" force-page-count="no-force">
     <fo:flow flow-name="xsl-region-body">
       <fo:block>
-        TEST
+
+        <!--main header-->
+        @components.table_1.table(permission)
+
+
+
       </fo:block>
     </fo:flow>
   </fo:page-sequence>
-  
+ 
 </fo:root>
