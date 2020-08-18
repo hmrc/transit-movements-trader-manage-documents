@@ -10,27 +10,9 @@
   <fo:page-sequence master-reference="top-page" initial-page-number="1" force-page-count="no-force">
     <fo:flow flow-name="xsl-region-body">
       <fo:block>
-
-        <!--main header-->
-        @components.table_1.table(permission)
-
-        <!--packages/goods description/docs/certs-->
-        @components.table_2.table(permission)
-
-        <!--transhipment/certification-->
-        @components.table_3.table(permission)
-
-        <!--Principal/TIR Holder/Office of departure-->
-        @components.table_4.table(permission)
-
-        <!--control by office of departure/destination-->
-        @components.table_5.table(permission)
-
+        TEST
       </fo:block>
     </fo:flow>
   </fo:page-sequence>
-  @if(permission.printListOfItems) {
-    <!-- goods items -->
-    @components.second_page.table(permission)
-  }
+  
 </fo:root>
