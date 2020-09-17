@@ -63,6 +63,8 @@ class ConversionServiceSpec
   private val validUnloadingPermission = models.PermissionToStartUnloading(
     movementReferenceNumber = "mrn",
     declarationType = DeclarationType.T1,
+    countryOfDispatch = Some(countries.head.code),
+    countryOfDestination = Some(countries.head.code),
     transportIdentity = Some("identity"),
     transportCountry = Some(countries.head.code),
     acceptanceDate = acceptanceDate,
@@ -85,8 +87,8 @@ class ConversionServiceSpec
         description = "Description",
         grossMass = Some(1.0),
         netMass = Some(0.9),
-        countryOfDispatch = countries.head.code,
-        countryOfDestination = countries.head.code,
+        countryOfDispatch = Some(countries.head.code),
+        countryOfDestination = Some(countries.head.code),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(additionalInfo.head.code),
@@ -123,6 +125,8 @@ class ConversionServiceSpec
       val expectedResult = viewmodels.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
+        singleCountryOfDispatch = Some(countries.head),
+        singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
         acceptanceDate = acceptanceDate,
@@ -155,8 +159,8 @@ class ConversionServiceSpec
             description = "Description",
             grossMass = Some(1.0),
             netMass = Some(0.9),
-            countryOfDispatch = countries.head,
-            countryOfDestination = countries.head,
+            countryOfDispatch = Some(countries.head),
+            countryOfDestination = Some(countries.head),
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),

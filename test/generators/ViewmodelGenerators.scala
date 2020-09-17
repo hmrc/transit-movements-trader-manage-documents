@@ -200,8 +200,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- arbitrary[Country]
-        countryOfDestination      <- arbitrary[Country]
+        countryOfDispatch         <- Gen.option(arbitrary[Country])
+        countryOfDestination      <- Gen.option(arbitrary[Country])
         producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
         specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
         consignor                 <- Gen.option(arbitrary[Consignor])
@@ -235,6 +235,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       for {
         mrn                   <- stringWithMaxLength(17)
         declarationType       <- arbitrary[DeclarationType]
+        countryOfDispatch     <- Gen.option(arbitrary[Country])
+        countryOfDestination  <- Gen.option(arbitrary[Country])
         transportId           <- Gen.option(stringWithMaxLength(27))
         transportCountry      <- Gen.option(arbitrary[Country])
         acceptanceDate        <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
@@ -254,6 +256,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         PermissionToStartUnloading(
           mrn,
           declarationType,
+          countryOfDispatch,
+          countryOfDestination,
           transportId,
           transportCountry,
           acceptanceDate,

@@ -57,6 +57,8 @@ object UnloadingPermission {
 final case class PermissionToStartUnloading(
   movementReferenceNumber: String,
   declarationType: DeclarationType,
+  countryOfDispatch: Option[String],
+  countryOfDestination: Option[String],
   transportIdentity: Option[String],
   transportCountry: Option[String],
   acceptanceDate: LocalDate,
@@ -82,6 +84,8 @@ object PermissionToStartUnloading {
     (
       (__ \ "HEAHEA" \ "DocNumHEA5").read[String],
       (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
+      (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional,
+      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
       (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,
       (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
       (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate],

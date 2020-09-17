@@ -57,9 +57,17 @@ object XMLBuilderHelper {
         goodsItem.netMass.fold(NodeSeq.Empty) { netMass =>
           <NetMasGDS48>{netMass}</NetMasGDS48>
         }
+      } ++
+      {
+        goodsItem.countryOfDispatch.fold(NodeSeq.Empty) { countryOfDispatch =>
+          <CouOfDisGDS58>{countryOfDispatch}</CouOfDisGDS58>
+        }
       }
-      <CouOfDisGDS58>{goodsItem.countryOfDispatch}</CouOfDisGDS58>
-      <CouOfDesGDS59>{goodsItem.countryOfDestination}</CouOfDesGDS59>
+      {
+        goodsItem.countryOfDestination.fold(NodeSeq.Empty) { countryOfDestination =>
+          <CouOfDesGDS59>{countryOfDestination}</CouOfDesGDS59>
+        }
+      } ++
       {
       goodsItem.producedDocuments.map(producedDocumentXML) ++
         goodsItem.specialMentions.map(specialMentionXML) ++

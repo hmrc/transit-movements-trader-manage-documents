@@ -25,6 +25,8 @@ import models.reference.Country
 final case class PermissionToStartUnloading(
   movementReferenceNumber: String,
   declarationType: DeclarationType,
+  singleCountryOfDispatch: Option[Country],
+  singleCountryOfDestination: Option[Country],
   transportIdentity: Option[String],
   transportCountry: Option[Country],
   acceptanceDate: LocalDate,
@@ -67,10 +69,10 @@ final case class PermissionToStartUnloading(
   }
 
   val countryOfDispatch: Option[Country] =
-    singleValue(goodsItems.toList.map(_.countryOfDispatch))
+    singleValue(goodsItems.toList.flatMap(_.countryOfDispatch))
 
   val countryOfDestination: Option[Country] =
-    singleValue(goodsItems.toList.map(_.countryOfDestination))
+    singleValue(goodsItems.toList.flatMap(_.countryOfDestination))
 
   val printListOfItems: Boolean =
     goodsItems.size > 1 ||

@@ -47,8 +47,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         description = "Description",
         grossMass = Some(1.0),
         netMass = Some(0.9),
-        countryOfDispatch = countries.head.code,
-        countryOfDestination = countries.head.code,
+        countryOfDispatch = Some(countries.head.code),
+        countryOfDestination = Some(countries.head.code),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(additionalInfo.head.code),
@@ -75,8 +75,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         description = "Description",
         grossMass = Some(1.0),
         netMass = Some(0.9),
-        countryOfDispatch = countries.head,
-        countryOfDestination = countries.head,
+        countryOfDispatch = Some(countries.head),
+        countryOfDestination = Some(countries.head),
         producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
         specialMentions = Seq(
           viewmodels.SpecialMentionEc(additionalInfo.head),
@@ -112,8 +112,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         description = "Description",
         grossMass = Some(1.0),
         netMass = Some(0.9),
-        countryOfDispatch = invalidCode,
-        countryOfDestination = invalidCode,
+        countryOfDispatch = Some(invalidCode),
+        countryOfDestination = Some(invalidCode),
         producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(invalidCode),

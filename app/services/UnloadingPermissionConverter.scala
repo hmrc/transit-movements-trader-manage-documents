@@ -52,6 +52,18 @@ object UnloadingPermissionConverter extends Converter {
         case None            => Valid(None)
       }
 
+    def convertCountryOfDispatch(maybeCountryOfDispatch: Option[String]): ValidationResult[Option[Country]] =
+      maybeCountryOfDispatch match {
+        case Some(countryOfDispatch) => findReferenceData(countryOfDispatch, countries, s"countryOfDispatch").map(x => Some(x))
+        case None                    => Valid(None)
+      }
+
+    def convertCountryOfDestination(maybeCountryOfDestination: Option[String]): ValidationResult[Option[Country]] =
+      maybeCountryOfDestination match {
+        case Some(countryOfDestination) => findReferenceData(countryOfDestination, countries, s"countryOfDestination").map(x => Some(x))
+        case None                       => Valid(None)
+      }
+
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
       val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
@@ -70,6 +82,8 @@ object UnloadingPermissionConverter extends Converter {
     }
 
     (
+      convertCountryOfDispatch(permission.countryOfDispatch),
+      convertCountryOfDestination(permission.countryOfDestination),
       PrincipalConverter.toViewModel(permission.principal, "principal", countries),
       TraderConverter.toViewModel(permission.traderAtDestination, "traderAtDestination", countries),
       convertTransportCountry(permission.transportCountry),
@@ -77,10 +91,12 @@ object UnloadingPermissionConverter extends Converter {
       convertConsignor(permission.consignor),
       convertConsignee(permission.consignee)
     ).mapN(
-      (principal, trader, transportCountry, goodsItems, consignor, consignee) =>
+      (dispatch, destination, principal, trader, transportCountry, goodsItems, consignor, consignee) =>
         viewmodels.PermissionToStartUnloading(
           permission.movementReferenceNumber,
           permission.declarationType,
+          dispatch,
+          destination,
           permission.transportIdentity,
           transportCountry,
           permission.acceptanceDate,

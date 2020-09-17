@@ -44,6 +44,8 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
             val json = Json.obj(
               "movementReferenceNumber" -> permission.movementReferenceNumber,
               "declarationType"         -> Json.toJson(permission.declarationType),
+              "countryOfDispatch"       -> permission.countryOfDispatch,
+              "countryOfDestination"    -> permission.countryOfDestination,
               "transportIdentity"       -> permission.transportIdentity,
               "transportCountry"        -> permission.transportCountry,
               "acceptanceDate"          -> Json.toJson(permission.acceptanceDate),
@@ -113,6 +115,22 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               }
               .getOrElse(Json.obj())
 
+            val countryOfDispatchJson =
+              permission.countryOfDispatch
+                .map {
+                  country =>
+                    Json.obj("countryOfDispatch" -> country)
+                }
+                .getOrElse(Json.obj())
+
+            val countryOfDestination =
+              permission.countryOfDestination
+                .map {
+                  country =>
+                    Json.obj("countryOfDestination" -> country)
+                }
+                .getOrElse(Json.obj())
+
             val json = Json.obj(
               "movementReferenceNumber" -> permission.movementReferenceNumber,
               "declarationType"         -> Json.toJson(permission.declarationType),
@@ -126,7 +144,7 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               "presentationOffice"      -> permission.presentationOffice,
               "seals"                   -> permission.seals,
               "goodsItems"              -> permission.goodsItems
-            ) ++ transportIdentityJson ++ transportCountryJson ++ consignor ++ consignee
+            ) ++ countryOfDispatchJson ++ countryOfDestination ++ transportIdentityJson ++ transportCountryJson ++ consignor ++ consignee
 
             Json.toJson(permission: UnloadingPermission) mustEqual json
         }
@@ -159,6 +177,14 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
             <HEAHEA>
               <DocNumHEA5>{unloadingPermission.movementReferenceNumber}</DocNumHEA5>
               <TypOfDecHEA24>{unloadingPermission.declarationType.toString}</TypOfDecHEA24>
+              {
+                unloadingPermission.countryOfDispatch.fold(NodeSeq.Empty) { countryOfDispatch =>
+                  <CouOfDisCodHEA55>{countryOfDispatch}</CouOfDisCodHEA55>
+                } ++
+                unloadingPermission.countryOfDestination.fold(NodeSeq.Empty) { countryOfDestination =>
+                  <CouOfDesCodHEA30>{countryOfDestination}</CouOfDesCodHEA30>
+                }
+              }
               {
                 unloadingPermission.transportIdentity.fold(NodeSeq.Empty) { transportIdentity =>
                   <IdeOfMeaOfTraAtDHEA78>{transportIdentity}</IdeOfMeaOfTraAtDHEA78>
