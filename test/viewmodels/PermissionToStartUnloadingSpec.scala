@@ -203,7 +203,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Country]) {
         (permission, countryOfDispatch) =>
-          val goodsItemsWithCountryOfDispatch = permission.goodsItems.map(_ copy (countryOfDispatch = countryOfDispatch))
+          val goodsItemsWithCountryOfDispatch = permission.goodsItems.map(_ copy (countryOfDispatch = Some(countryOfDispatch)))
 
           val permissionWithCountriesOfDispatch = permission copy (goodsItems = goodsItemsWithCountryOfDispatch)
 
@@ -220,8 +220,8 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
         (permission, goodsItem, countryOfDispatch1, countryOfDispatch2) =>
           whenever(countryOfDispatch1 != countryOfDispatch2) {
 
-            val goodsItemWithCountryOfDispatch1 = goodsItem copy (countryOfDispatch = countryOfDispatch1)
-            val goodsItemWithCountryOfDispatch2 = goodsItem copy (countryOfDispatch = countryOfDispatch2)
+            val goodsItemWithCountryOfDispatch1 = goodsItem copy (countryOfDispatch = Some(countryOfDispatch1))
+            val goodsItemWithCountryOfDispatch2 = goodsItem copy (countryOfDispatch = Some(countryOfDispatch2))
 
             val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithCountryOfDispatch1, List(goodsItemWithCountryOfDispatch2)))
 
@@ -237,7 +237,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Country]) {
         (permission, countryOfDestination) =>
-          val goodsItemsWithCountryOfDestination = permission.goodsItems.map(_ copy (countryOfDestination = countryOfDestination))
+          val goodsItemsWithCountryOfDestination = permission.goodsItems.map(_ copy (countryOfDestination = Some(countryOfDestination)))
 
           val permissionWithCountriesOfDestination = permission copy (goodsItems = goodsItemsWithCountryOfDestination)
 
@@ -254,8 +254,8 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
         (permission, goodsItem, countryOfDestination1, countryOfDestination2) =>
           whenever(countryOfDestination1 != countryOfDestination2) {
 
-            val goodsItemWithCountryOfDestination1 = goodsItem copy (countryOfDestination = countryOfDestination1)
-            val goodsItemWithCountryOfDestination2 = goodsItem copy (countryOfDestination = countryOfDestination2)
+            val goodsItemWithCountryOfDestination1 = goodsItem copy (countryOfDestination = Some(countryOfDestination1))
+            val goodsItemWithCountryOfDestination2 = goodsItem copy (countryOfDestination = Some(countryOfDestination2))
 
             val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithCountryOfDestination1, List(goodsItemWithCountryOfDestination2)))
 

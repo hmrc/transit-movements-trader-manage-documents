@@ -79,9 +79,20 @@ object GoodsItemConverter extends Converter {
         case None            => Valid(None)
       }
 
+    def convertCountryOfDispatch(maybeCountryOfDispatch: Option[String]): ValidationResult[Option[Country]] =
+      maybeCountryOfDispatch match {
+        case Some(countryOfDispatch) => findReferenceData(countryOfDispatch, countries, s"$path.countryOfDispatch").map(x => Some(x))
+        case None                    => Valid(None)
+      }
+
+    def convertCountryOfDestination(maybeCountryOfDestination: Option[String]): ValidationResult[Option[Country]] =
+      maybeCountryOfDestination match {
+        case Some(countryOfDestination) => findReferenceData(countryOfDestination, countries, s"$path.countryOfDestination").map(x => Some(x))
+        case None                       => Valid(None)
+      }
     (
-      findReferenceData(goodsItem.countryOfDispatch, countries, s"$path.countryOfDispatch"),
-      findReferenceData(goodsItem.countryOfDestination, countries, s"$path.countryOfDestination"),
+      convertCountryOfDispatch(goodsItem.countryOfDispatch),
+      convertCountryOfDestination(goodsItem.countryOfDestination),
       convertDocuments(goodsItem.producedDocuments),
       convertSpecialMentions(goodsItem.specialMentions),
       convertPackages(goodsItem.packages),

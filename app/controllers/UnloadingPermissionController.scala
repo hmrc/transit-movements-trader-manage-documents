@@ -16,21 +16,11 @@
 
 package controllers
 
-import java.time.LocalDate
-
-import cats.data.NonEmptyList
 import cats.data.Validated
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
 import javax.inject.Inject
-import models.DeclarationType
-import models.SensitiveGoodsInformation
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
 import play.api.mvc.Action
-import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
 import services._
 import uk.gov.hmrc.play.bootstrap.controller.BackendController

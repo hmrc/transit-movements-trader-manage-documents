@@ -202,8 +202,8 @@ trait ModelGenerators extends GeneratorHelpers {
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- stringWithMaxLength(2)
-        countryOfDestination      <- stringWithMaxLength(2)
+        countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
+        countryOfDestination      <- Gen.option(stringWithMaxLength(2))
         producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
         specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
         consignor                 <- Gen.option(arbitrary[Consignor])
@@ -246,26 +246,30 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        mrn                 <- stringWithMaxLength(17)
-        declarationType     <- arbitrary[DeclarationType]
-        transportId         <- Gen.option(stringWithMaxLength(27))
-        transportCountry    <- Gen.option(stringWithMaxLength(2))
-        acceptanceDate      <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
-        numberOfItems       <- Gen.choose(1, 99999)
-        numberOfPackages    <- Gen.choose(1, 9999999)
-        grossMass           <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        principal           <- arbitrary[Principal]
-        consignor           <- Gen.option(arbitrary[Consignor])
-        consignee           <- Gen.option(arbitrary[Consignee])
-        traderAtDestination <- arbitrary[TraderAtDestination]
-        departureOffice     <- stringWithMaxLength(8)
-        presentationOffice  <- stringWithMaxLength(8)
-        seals               <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems          <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+        mrn                  <- stringWithMaxLength(17)
+        declarationType      <- arbitrary[DeclarationType]
+        countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
+        countryOfDestination <- Gen.option(stringWithMaxLength(2))
+        transportId          <- Gen.option(stringWithMaxLength(27))
+        transportCountry     <- Gen.option(stringWithMaxLength(2))
+        acceptanceDate       <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+        numberOfItems        <- Gen.choose(1, 99999)
+        numberOfPackages     <- Gen.choose(1, 9999999)
+        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        principal            <- arbitrary[Principal]
+        consignor            <- Gen.option(arbitrary[Consignor])
+        consignee            <- Gen.option(arbitrary[Consignee])
+        traderAtDestination  <- arbitrary[TraderAtDestination]
+        departureOffice      <- stringWithMaxLength(8)
+        presentationOffice   <- stringWithMaxLength(8)
+        seals                <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
         PermissionToStartUnloading(
           mrn,
           declarationType,
+          countryOfDispatch,
+          countryOfDestination,
           transportId,
           transportCountry,
           acceptanceDate,
@@ -474,8 +478,8 @@ trait ModelGenerators extends GeneratorHelpers {
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- arbitrary[Country]
-        countryOfDestination      <- arbitrary[Country]
+        countryOfDispatch         <- Gen.option(arbitrary[Country])
+        countryOfDestination      <- Gen.option(arbitrary[Country])
         producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
         specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
         consignor                 <- Gen.option(arbitrary[viewmodels.Consignor])

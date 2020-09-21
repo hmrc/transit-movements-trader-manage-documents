@@ -20,7 +20,7 @@
           <fo:table-row height="4mm">
             <fo:table-cell text-align="center" font-weight="bold" display-align="center">
               <fo:block>
-                @permission.countryOfDispatch.map(country => country.code).getOrElse("---")
+                @permission.singleCountryOfDispatch.map(country => country.code).getOrElse("---")
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

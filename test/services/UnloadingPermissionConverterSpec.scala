@@ -21,8 +21,6 @@ import java.time.LocalDate
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.Consignee
-import models.Consignor
 import models.DeclarationType
 import models.reference.AdditionalInformation
 import models.reference.Country
@@ -50,6 +48,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
       val permission = models.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
+        countryOfDispatch = Some(countries.head.code),
+        countryOfDestination = Some(countries.head.code),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head.code),
         acceptanceDate = date,
@@ -77,8 +77,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             description = "Description",
             grossMass = Some(1.0),
             netMass = Some(0.9),
-            countryOfDispatch = countries.head.code,
-            countryOfDestination = countries.head.code,
+            countryOfDispatch = Some(countries.head.code),
+            countryOfDestination = Some(countries.head.code),
             producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(additionalInfo.head.code),
@@ -103,6 +103,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
       val expectedResult = viewmodels.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
+        singleCountryOfDispatch = Some(countries.head),
+        singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
         acceptanceDate = date,
@@ -135,8 +137,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             description = "Description",
             grossMass = Some(1.0),
             netMass = Some(0.9),
-            countryOfDispatch = countries.head,
-            countryOfDestination = countries.head,
+            countryOfDispatch = Some(countries.head),
+            countryOfDestination = Some(countries.head),
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),
@@ -170,6 +172,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
       val permission = models.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
+        countryOfDispatch = Some(invalidCode),
+        countryOfDestination = Some(invalidCode),
         transportIdentity = Some("identity"),
         transportCountry = Some(invalidCode),
         acceptanceDate = LocalDate.now(),
@@ -192,8 +196,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             description = "Description",
             grossMass = Some(1.0),
             netMass = Some(0.9),
-            countryOfDispatch = invalidCode,
-            countryOfDestination = invalidCode,
+            countryOfDispatch = Some(invalidCode),
+            countryOfDestination = Some(invalidCode),
             producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(invalidCode),
@@ -218,6 +222,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
       val result = UnloadingPermissionConverter.toViewModel(permission, countries, additionalInfo, kindsOfPackage, documentTypes)
 
       val expectedErrors = Seq(
+        ReferenceDataNotFound("countryOfDispatch", invalidCode),
+        ReferenceDataNotFound("countryOfDestination", invalidCode),
         ReferenceDataNotFound("transportCountry", invalidCode),
         ReferenceDataNotFound("principal.countryCode", invalidCode),
         ReferenceDataNotFound("traderAtDestination.countryCode", invalidCode),
