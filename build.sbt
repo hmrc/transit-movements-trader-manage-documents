@@ -1,6 +1,7 @@
 import uk.gov.hmrc.DefaultBuildSettings.integrationTestSettings
 import uk.gov.hmrc.SbtArtifactory
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
+import scoverage.ScoverageKeys
 
 val appName = "transit-movements-trader-manage-documents"
 
@@ -10,7 +11,13 @@ lazy val microservice = Project(appName, file("."))
   .settings(
     majorVersion := 0,
     libraryDependencies ++= AppDependencies.compile ++ AppDependencies.test,
-    scalafmtOnCompile in ThisBuild := true
+    scalafmtOnCompile in ThisBuild := true,
+    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*handlers.*;.*repositories.*;" +
+      ".*BuildInfo.*;.*javascript.*;.*Routes.*;.*GuiceInjector;" +
+      ".*ControllerConfiguration;.*LanguageSwitchController",
+    ScoverageKeys.coverageMinimum := 75,
+    ScoverageKeys.coverageFailOnMinimum := true,
+    ScoverageKeys.coverageHighlighting := true
   )
   .settings(publishingSettings: _*)
   .settings(scalaVersion := "2.12.12")
