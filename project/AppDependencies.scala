@@ -4,7 +4,7 @@ import sbt._
 object AppDependencies {
 
   val compile = Seq(
-    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.4.0",
+    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.16.0",
     "org.typelevel"           %% "cats-core"                % "1.6.1",
     "com.dmanchester"         %% "playfop"                  % "1.0",
     "net.sf.barcode4j"        %  "barcode4j"                % "2.1",
