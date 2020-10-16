@@ -13,7 +13,7 @@ lazy val microservice = Project(appName, file("."))
     scalafmtOnCompile in ThisBuild := true
   )
   .settings(publishingSettings: _*)
-  .settings(scalaVersion := "2.12.11")
+  .settings(scalaVersion := "2.12.12")
   .settings(resolvers += Resolver.jcenterRepo)
   .settings(inConfig(Test)(testSettings): _*)
   .settings(PlayKeys.playDefaultPort := 9484)
