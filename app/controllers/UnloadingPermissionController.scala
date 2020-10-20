@@ -23,6 +23,8 @@ import javax.inject.Inject
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
+import services.conversion.UnloadingPermissionConversionService
+import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
 import scala.concurrent.ExecutionContext
@@ -30,8 +32,8 @@ import scala.concurrent.Future
 import scala.xml.NodeSeq
 
 class UnloadingPermissionController @Inject()(
-  conversionService: ConversionService,
-  pdf: PdfGenerator,
+  conversionService: UnloadingPermissionConversionService,
+  pdf: UnloadingPermissionPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc) {
@@ -40,7 +42,7 @@ class UnloadingPermissionController @Inject()(
     implicit request =>
       XMLToPermissionToStartUnloading.convert(request.body) match {
         case ParseSuccess(unloadingPermission) =>
-          conversionService.convertUnloadingPermission(unloadingPermission).map {
+          conversionService.toViewModel(unloadingPermission).map {
             case Validated.Valid(viewModel) => Ok(pdf.generateUnloadingPermission(viewModel))
             case Validated.Invalid(errors)  => InternalServerError(s"Failed to convert to UnloadingPermissionViewModel with following errors: $errors")
           }

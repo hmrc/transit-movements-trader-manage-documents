@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package services
+package services.conversion
 
 import cats.data.Validated.Invalid
 import cats.implicits._
 import javax.inject.Inject
+import services.ReferenceDataService
+import services.UnloadingPermissionConverter
+import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class ConversionService @Inject()(referenceData: ReferenceDataService) {
+class UnloadingPermissionConversionService @Inject()(referenceData: ReferenceDataService) {
 
-  def convertUnloadingPermission(permission: models.PermissionToStartUnloading)(
-    implicit ec: ExecutionContext,
-    hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
+  def toViewModel(permission: models.PermissionToStartUnloading)(implicit ec: ExecutionContext,
+                                                                 hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
 
     val countriesFuture      = referenceData.countries()
     val additionalInfoFuture = referenceData.additionalInformation()

@@ -37,9 +37,9 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.route
 import play.api.test.Helpers.status
 import play.api.test.Helpers._
-import services.ConversionService
-import services.PdfGenerator
 import services.ReferenceDataRetrievalError
+import services.conversion.UnloadingPermissionConversionService
+import services.pdf.UnloadingPermissionPdfGenerator
 
 import scala.concurrent.Future
 
@@ -64,13 +64,13 @@ class UnloadingPermissionControllerSpec
 
     "must return OK and PDF" in {
 
-      val mockPDFGenerator: PdfGenerator           = mock[PdfGenerator]
-      val mockConversionService: ConversionService = mock[ConversionService]
+      val mockPDFGenerator: UnloadingPermissionPdfGenerator           = mock[UnloadingPermissionPdfGenerator]
+      val mockConversionService: UnloadingPermissionConversionService = mock[UnloadingPermissionConversionService]
 
       val application = applicationBuilder
         .overrides {
-          bind[PdfGenerator].toInstance(mockPDFGenerator)
-          bind[ConversionService].toInstance(mockConversionService)
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
+          bind[UnloadingPermissionConversionService].toInstance(mockConversionService)
         }
         .build()
 
@@ -78,7 +78,7 @@ class UnloadingPermissionControllerSpec
 
         forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
           (permissionToStartUnloadingViewModel, pdf) =>
-            when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
+            when(mockConversionService.toViewModel(any())(any(), any()))
               .thenReturn(Future.successful(Valid(permissionToStartUnloadingViewModel)))
 
             when(mockPDFGenerator.generateUnloadingPermission(any()))
@@ -109,13 +109,13 @@ class UnloadingPermissionControllerSpec
 
     "must return and InternalServerError if the conversion fails" in {
 
-      val mockPDFGenerator: PdfGenerator           = mock[PdfGenerator]
-      val mockConversionService: ConversionService = mock[ConversionService]
+      val mockPDFGenerator: UnloadingPermissionPdfGenerator           = mock[UnloadingPermissionPdfGenerator]
+      val mockConversionService: UnloadingPermissionConversionService = mock[UnloadingPermissionConversionService]
 
       val application = applicationBuilder
         .overrides {
-          bind[PdfGenerator].toInstance(mockPDFGenerator)
-          bind[ConversionService].toInstance(mockConversionService)
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
+          bind[UnloadingPermissionConversionService].toInstance(mockConversionService)
         }
         .build()
 
@@ -123,7 +123,7 @@ class UnloadingPermissionControllerSpec
 
         forAll(arbitrary[Array[Byte]]) {
           pdf =>
-            when(mockConversionService.convertUnloadingPermission(any())(any(), any()))
+            when(mockConversionService.toViewModel(any())(any(), any()))
               .thenReturn(Future.successful(Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))))
 
             when(mockPDFGenerator.generateUnloadingPermission(any()))
