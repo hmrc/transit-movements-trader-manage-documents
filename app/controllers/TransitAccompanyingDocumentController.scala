@@ -23,7 +23,7 @@ import javax.inject.Inject
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
-import services.conversion.TadConversionService
+import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.TransitAccompanyingDocumentPdfGenerator
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
@@ -32,7 +32,7 @@ import scala.concurrent.Future
 import scala.xml.NodeSeq
 
 class TransitAccompanyingDocumentController @Inject()(
-  conversionService: TadConversionService,
+  conversionService: TransitAccompanyingDocumentConversionService,
   pdf: TransitAccompanyingDocumentPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)

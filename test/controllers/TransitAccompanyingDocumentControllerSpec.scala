@@ -38,7 +38,7 @@ import play.api.test.Helpers.route
 import play.api.test.Helpers.status
 import play.api.test.Helpers._
 import services.ReferenceDataRetrievalError
-import services.conversion.TadConversionService
+import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.TransitAccompanyingDocumentPdfGenerator
 
 import scala.concurrent.Future
@@ -64,13 +64,13 @@ class TransitAccompanyingDocumentControllerSpec
 
     "must return OK and PDF" in {
 
-      val mockPDFGenerator: TransitAccompanyingDocumentPdfGenerator = mock[TransitAccompanyingDocumentPdfGenerator]
-      val mockConversionService: TadConversionService               = mock[TadConversionService]
+      val mockPDFGenerator: TransitAccompanyingDocumentPdfGenerator           = mock[TransitAccompanyingDocumentPdfGenerator]
+      val mockConversionService: TransitAccompanyingDocumentConversionService = mock[TransitAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
         .overrides {
           bind[TransitAccompanyingDocumentPdfGenerator].toInstance(mockPDFGenerator)
-          bind[TadConversionService].toInstance(mockConversionService)
+          bind[TransitAccompanyingDocumentConversionService].toInstance(mockConversionService)
         }
         .build()
 
@@ -109,13 +109,13 @@ class TransitAccompanyingDocumentControllerSpec
 
     "must return and InternalServerError if the conversion fails" in {
 
-      val mockPDFGenerator: TransitAccompanyingDocumentPdfGenerator = mock[TransitAccompanyingDocumentPdfGenerator]
-      val mockConversionService: TadConversionService               = mock[TadConversionService]
+      val mockPDFGenerator: TransitAccompanyingDocumentPdfGenerator           = mock[TransitAccompanyingDocumentPdfGenerator]
+      val mockConversionService: TransitAccompanyingDocumentConversionService = mock[TransitAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
         .overrides {
           bind[TransitAccompanyingDocumentPdfGenerator].toInstance(mockPDFGenerator)
-          bind[TadConversionService].toInstance(mockConversionService)
+          bind[TransitAccompanyingDocumentConversionService].toInstance(mockConversionService)
         }
         .build()
 
