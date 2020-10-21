@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
-package services
-import generators.ViewmodelGenerators
+package services.pdf
+
+import generators.TadViewModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import viewmodels.PermissionToStartUnloading
+import viewmodels.tad.TransitAccompanyingDocument
 
-class PdfGeneratorSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with ViewmodelGenerators {
+class TransitAccompanyingDocumentPdfGeneratorSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with TadViewModelGenerators {
 
-  private lazy val service: PdfGenerator = app.injector.instanceOf[PdfGenerator]
+  private lazy val service: TransitAccompanyingDocumentPdfGenerator = app.injector.instanceOf[TransitAccompanyingDocumentPdfGenerator]
 
-  "PdfGenerator" - {
+  "TransitAccompanyingDocumentPdfGenerator" - {
 
     "return pdf" in {
 
-      val unloadingPermissionObject = arbitrary[PermissionToStartUnloading]
+      val viewModel = arbitrary[TransitAccompanyingDocument].sample.get
 
-      val unloadingPermission = unloadingPermissionObject.sample.get
-
-      service.generateUnloadingPermission(unloadingPermission) mustBe an[Array[Byte]]
+      service.generate(viewModel) mustBe an[Array[Byte]]
 
     }
 

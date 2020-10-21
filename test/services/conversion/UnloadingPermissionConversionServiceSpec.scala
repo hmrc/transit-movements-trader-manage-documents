@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package services
+package services.conversion
 
 import java.time.LocalDate
 
 import cats.data.NonEmptyList
-import cats.implicits._
 import cats.data.Validated.Valid
+import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType
@@ -35,13 +35,17 @@ import org.scalatest.MustMatchers
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
+import services.ReferenceDataNotFound
+import services.ReferenceDataRetrievalError
+import services.ReferenceDataService
+import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.PermissionToStartUnloading
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-class ConversionServiceSpec
+class UnloadingPermissionConversionServiceSpec
     extends FreeSpec
     with MustMatchers
     with MockitoSugar
@@ -120,7 +124,7 @@ class ConversionServiceSpec
       when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
       when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
 
-      val service = new ConversionService(referenceDataService)
+      val service = new UnloadingPermissionConversionService(referenceDataService)
 
       val expectedResult = viewmodels.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
@@ -184,7 +188,7 @@ class ConversionServiceSpec
         )
       )
 
-      val result: ValidationResult[PermissionToStartUnloading] = service.convertUnloadingPermission(validUnloadingPermission).futureValue
+      val result: ValidationResult[PermissionToStartUnloading] = service.toViewModel(validUnloadingPermission).futureValue
 
       result.valid.value mustEqual expectedResult
     }
@@ -205,9 +209,9 @@ class ConversionServiceSpec
       when(referenceDataService.additionalInformation()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("additionalInformation", 503, "body").invalidNec))
 
-      val service = new ConversionService(referenceDataService)
+      val service = new UnloadingPermissionConversionService(referenceDataService)
 
-      val result = service.convertUnloadingPermission(validUnloadingPermission).futureValue
+      val result = service.toViewModel(validUnloadingPermission).futureValue
 
       val expectedErrors = Seq(
         ReferenceDataRetrievalError("countries", 500, "body"),
@@ -227,11 +231,11 @@ class ConversionServiceSpec
       when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
       when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
 
-      val service = new ConversionService(referenceDataService)
+      val service = new UnloadingPermissionConversionService(referenceDataService)
 
       val invalidUnloadingPermission = validUnloadingPermission copy (transportCountry = Some("non-existent code"))
 
-      val result = service.convertUnloadingPermission(invalidUnloadingPermission).futureValue
+      val result = service.toViewModel(invalidUnloadingPermission).futureValue
 
       result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("transportCountry", "non-existent code"))
     }
