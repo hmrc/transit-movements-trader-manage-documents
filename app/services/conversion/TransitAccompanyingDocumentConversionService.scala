@@ -34,20 +34,12 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
 //    val countriesFuture      = referenceData.countries()
 //    val additionalInfoFuture = referenceData.additionalInformation()
 //    val kindsOfPackageFuture = referenceData.kindsOfPackage()
-//    val documentTypesFuture  = referenceData.documentTypes() // CL013. Document Type (Common)
-
-//    val transportMode  = referenceData.transportMode() //CL018. Transport mode
-//    val controlResultCode = referenceData.controlResultCode() //CL047 Control result // CONRESERS.ConResCodERS16
+//    val documentTypesFuture  = referenceData.documentTypes()
 //
-//    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()/// CL014. Previous document type (Common)
-//    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode() //CL064
-//
-//    val specialMentionsCodeFuture = referenceData.specialMentions() //CL039
-
-  // TODO: Don't think we need guarantee type (uses the code that is pass in message)
-  // val guaranteeType = referenceData.guaranteeType() //CL051 // GUAGUA.GuaTypGUA1
-
-  //TODO: Could use the countries ref data for this
-  // val guaranteeManagementCountries = referenceData.guaranteeManagementCountries() //CL071. Country Codes (Guarantee Management - non EC) // GUAGUA.NotValForOthConPLIM2
+//    val transportMode  = referenceData.transportMode()
+//    val controlResultCode = referenceData.controlResult()
+//    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
+//    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
+//    val specialMentionsCodeFuture = referenceData.specialMentions()
 
 }

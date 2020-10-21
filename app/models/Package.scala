@@ -16,9 +16,9 @@
 
 package models
 
+import cats.syntax.all._
 import com.lucidchart.open.xtract.XmlReader
 import play.api.libs.json._
-import cats.syntax.all._
 
 sealed trait Package
 
@@ -50,6 +50,7 @@ object Package {
     case u: UnpackedPackage => Json.toJsObject(u)(UnpackedPackage.writes)
     case r: RegularPackage  => Json.toJsObject(r)(RegularPackage.writes)
   }
+
 }
 
 final case class BulkPackage(

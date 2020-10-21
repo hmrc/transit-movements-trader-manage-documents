@@ -30,4 +30,11 @@ class ReferenceDataConfig @Inject()(config: Configuration) {
   val kindsOfPackageUrl: String        = s"$baseUrl/kinds-of-package"
   val documentTypesUrl: String         = s"$baseUrl/document-types"
   val additionalInformationUrl: String = s"$baseUrl/additional-information"
+
+  val transportModeUrl: String         = s"$baseUrl/transport-mode"
+  val controlResultUrl: String         = s"$baseUrl/control-result"
+  val previousDocumentTypesUrl: String = s"$baseUrl/previous-document-types"
+  val sensitiveGoodsCodeUrl: String    = s"$baseUrl/sensitive-goods-code"
+  val specialMentionsUrl: String       = s"$baseUrl/special-mentions"
+
 }

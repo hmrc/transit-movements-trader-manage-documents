@@ -16,10 +16,7 @@
 
 package generators
 
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
@@ -58,5 +55,45 @@ trait ReferenceModelGenerators extends GeneratorHelpers {
         code        <- stringWithMaxLength(5)
         description <- stringWithMaxLength(50)
       } yield AdditionalInformation(code, description)
+    }
+
+  implicit lazy val arbitraryTransportMode: Arbitrary[TransportMode] =
+    Arbitrary {
+      for {
+        code        <- Gen.choose(0, 99)
+        description <- stringWithMaxLength(50)
+      } yield TransportMode(code.toString, description)
+    }
+
+  implicit lazy val arbitraryControlResult: Arbitrary[ControlResult] =
+    Arbitrary {
+      for {
+        code        <- stringWithMaxLength(2)
+        description <- stringWithMaxLength(50)
+      } yield ControlResult(code, description)
+    }
+
+  implicit lazy val arbitraryPreviousDocumentTypes: Arbitrary[PreviousDocumentTypes] =
+    Arbitrary {
+      for {
+        code        <- stringWithMaxLength(6)
+        description <- stringWithMaxLength(50)
+      } yield PreviousDocumentTypes(code, description)
+    }
+
+  implicit lazy val arbitrarySpecialMentions: Arbitrary[SpecialMentions] =
+    Arbitrary {
+      for {
+        code        <- stringWithMaxLength(5)
+        description <- stringWithMaxLength(50)
+      } yield SpecialMentions(code, description)
+    }
+
+  implicit lazy val arbitrarySensitiveGoodsCode: Arbitrary[SensitiveGoodsCode] =
+    Arbitrary {
+      for {
+        code        <- Gen.choose(0, 99)
+        description <- stringWithMaxLength(50)
+      } yield SensitiveGoodsCode(code.toString, description)
     }
 }
