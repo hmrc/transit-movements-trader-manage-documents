@@ -15,5 +15,10 @@
  */
 
 package viewmodels.tad
+import models.DeclarationType
+import models.reference.Country
 
-case class TransitAccompanyingDocument(localReferenceNumber: String)
+case class TransitAccompanyingDocument(localReferenceNumber: String,
+                                       declarationType: DeclarationType,
+                                       singleCountryOfDispatch: Option[Country],
+                                       singleCountryOfDestination: Option[Country])

@@ -15,18 +15,29 @@
  */
 
 package generators
+import models.DeclarationType
+import models.reference.Country
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 import viewmodels.tad.TransitAccompanyingDocument
 
-trait TadViewModelGenerators extends GeneratorHelpers with ReferenceModelGenerators {
+trait TadViewModelGenerators extends ModelGenerators {
 
-  implicit lazy val arbitraryPermissionToStartUnloading: Arbitrary[TransitAccompanyingDocument] =
+  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
     Arbitrary {
       for {
         localReferenceNumber <- stringWithMaxLength(22)
+        declarationType      <- arbitrary[DeclarationType]
+        countryOfDispatch    <- Gen.option(arbitrary[Country])
+        countryOfDestination <- Gen.option(arbitrary[Country])
+
       } yield
         TransitAccompanyingDocument(
-          localReferenceNumber
+          localReferenceNumber,
+          declarationType: DeclarationType,
+          countryOfDispatch,
+          countryOfDestination
         )
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package services
+package services.conversion
 
 import java.time.LocalDate
 
@@ -28,6 +28,7 @@ import models.reference.DocumentType
 import models.reference.KindOfPackage
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import services.ReferenceDataNotFound
 
 class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 

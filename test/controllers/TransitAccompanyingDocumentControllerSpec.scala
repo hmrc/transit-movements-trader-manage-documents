@@ -143,7 +143,10 @@ class TransitAccompanyingDocumentControllerSpec
   private def declarationXml =
     <CC015A>
       <HEAHEA>
-        <RefNumHEA4>99IT9876AB88901209</RefNumHEA4>
+        <RefNumHEA4>LRNVALUE</RefNumHEA4>
+        <TypOfDecHEA24>T2</TypOfDecHEA24>
+          <CouOfDisCodHEA55>GB</CouOfDisCodHEA55>
+          <CouOfDesCodHEA30>IT</CouOfDesCodHEA30>
       </HEAHEA>
     </CC015A>
 

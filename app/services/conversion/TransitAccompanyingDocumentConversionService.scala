@@ -16,7 +16,7 @@
 
 package services.conversion
 
-import cats.implicits._
+import cats.data.Validated.Invalid
 import javax.inject.Inject
 import services.ReferenceDataService
 import services.ValidationResult
@@ -29,9 +29,9 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
 
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument)(
     implicit ec: ExecutionContext,
-    hc: HeaderCarrier): Future[ValidationResult[viewmodels.tad.TransitAccompanyingDocument]] =
-    ???
-//    val countriesFuture      = referenceData.countries()
+    hc: HeaderCarrier): Future[ValidationResult[viewmodels.tad.TransitAccompanyingDocument]] = {
+    val countriesFuture = referenceData.countries()
+    //TODO: ref data will be needed below when we're building out the view model
 //    val additionalInfoFuture = referenceData.additionalInformation()
 //    val kindsOfPackageFuture = referenceData.kindsOfPackage()
 //    val documentTypesFuture  = referenceData.documentTypes()
@@ -42,4 +42,18 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
 //    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
 //    val specialMentionsCodeFuture = referenceData.specialMentions()
 
+    for {
+      countriesResult <- countriesFuture
+    } yield {
+      (
+        countriesResult,
+      ).map(
+          (countries) => TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries)
+        )
+        .fold(
+          errors => Invalid(errors),
+          result => result
+        )
+    }
+  }
 }
