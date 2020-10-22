@@ -18,6 +18,8 @@ package viewmodels.tad
 import models.DeclarationType
 import models.reference.Country
 
+//TODO: Do we need two document models?
+//TODO: Spike having a single document model
 case class TransitAccompanyingDocument(localReferenceNumber: String,
                                        declarationType: DeclarationType,
                                        singleCountryOfDispatch: Option[Country],

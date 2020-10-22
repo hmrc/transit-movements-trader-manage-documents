@@ -37,9 +37,16 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         localReferenceNumber = "lrn",
         declarationType = DeclarationType.T1,
         countryOfDispatch = Some(countries.head.code),
-        countryOfDestination = Some(countries.head.code)
+        countryOfDestination = Some(countries.head.code),
+        transportIdentity = Some("identity"),
+        transportCountry = Some(countries.head.code),
+        //acceptanceDate = date,
+        numberOfItems = 1,
+        numberOfPackages = 3,
+        grossMass = 1.0,
       )
 
+      //TODO: Do we need seperate view models
       val expectedResult = viewmodels.tad.TransitAccompanyingDocument(
         localReferenceNumber = "lrn",
         declarationType = DeclarationType.T1,
@@ -58,7 +65,13 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         localReferenceNumber = "lrn",
         declarationType = DeclarationType.T1,
         countryOfDispatch = Some(invalidCode),
-        countryOfDestination = Some(invalidCode)
+        countryOfDestination = Some(invalidCode),
+        transportIdentity = Some("identity"),
+        transportCountry = Some(invalidCode),
+        //acceptanceDate = LocalDate.now(),
+        numberOfItems = 1,
+        numberOfPackages = 3,
+        grossMass = 1.0,
       )
 
       val result = TransitAccompanyingDocumentConverter.toViewModel(model, countries)

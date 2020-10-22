@@ -147,6 +147,11 @@ class TransitAccompanyingDocumentControllerSpec
         <TypOfDecHEA24>T2</TypOfDecHEA24>
           <CouOfDisCodHEA55>GB</CouOfDisCodHEA55>
           <CouOfDesCodHEA30>IT</CouOfDesCodHEA30>
+          <IdeOfMeaOfTraAtDHEA78>abcd</IdeOfMeaOfTraAtDHEA78>
+          <NatOfMeaOfTraAtDHEA80>IT</NatOfMeaOfTraAtDHEA80>
+        <TotNumOfIteHEA305>1</TotNumOfIteHEA305>
+        <TotNumOfPacHEA306>1</TotNumOfPacHEA306>
+        <TotGroMasHEA307>1000</TotGroMasHEA307>
       </HEAHEA>
     </CC015A>
 

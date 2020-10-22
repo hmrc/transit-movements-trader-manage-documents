@@ -55,7 +55,7 @@ class DateFormatterSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSu
                 s"${"%02d".format(localDate.getMonthValue)}/" +
                 s"${localDate.getYear}"
 
-            DateFormatter.dateFormatted(localDate, "dd/MM/yyyy") mustBe expectedResult
+            DateFormatter.dateFormatted(Some(localDate), "dd/MM/yyyy").value mustBe expectedResult
         }
 
       }
@@ -64,7 +64,7 @@ class DateFormatterSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSu
 
         forAll(arbitrary[LocalDate]) {
           localDate =>
-            DateFormatter.dateFormatted(localDate, "invalid") mustBe localDate.toString
+            DateFormatter.dateFormatted(Some(localDate), "invalid").value mustBe localDate.toString
         }
       }
     }

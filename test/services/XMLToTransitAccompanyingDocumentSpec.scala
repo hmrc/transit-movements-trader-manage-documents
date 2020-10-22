@@ -37,9 +37,16 @@ class XMLToTransitAccompanyingDocumentSpec
 
   "XMLToTransitAccompanyingDocument" - {
 
-    "must return a ParseSuccess with TransitAccompanyingDocument when given a valid XML" in {
+    "must return a ParseSuccess with TransitAccompanyingDocument when given a full XML" in {
 
-      val result = XMLToTransitAccompanyingDocument.convert(declarationXml)
+      val result = XMLToTransitAccompanyingDocument.convert(declarationXmlFull)
+
+      result.isSuccessful mustBe true
+    }
+
+    "must return a ParseSuccess with TransitAccompanyingDocument when given a minimum XML" in {
+
+      val result = XMLToTransitAccompanyingDocument.convert(declarationXmlMinimum)
 
       result.isSuccessful mustBe true
     }
@@ -53,13 +60,29 @@ class XMLToTransitAccompanyingDocumentSpec
   }
 
   //TODO: Add additional nodes here
-  private def declarationXml =
+  private def declarationXmlFull =
     <CC015A>
       <HEAHEA>
         <RefNumHEA4>LRNVALUE</RefNumHEA4>
         <TypOfDecHEA24>T2</TypOfDecHEA24>
           <CouOfDisCodHEA55>GB</CouOfDisCodHEA55>
           <CouOfDesCodHEA30>IT</CouOfDesCodHEA30>
+          <IdeOfMeaOfTraAtDHEA78>abcd</IdeOfMeaOfTraAtDHEA78>
+          <NatOfMeaOfTraAtDHEA80>IT</NatOfMeaOfTraAtDHEA80>
+        <TotNumOfIteHEA305>1</TotNumOfIteHEA305>
+        <TotNumOfPacHEA306>1</TotNumOfPacHEA306>
+        <TotGroMasHEA307>1000</TotGroMasHEA307>
+      </HEAHEA>
+    </CC015A>
+
+  private def declarationXmlMinimum =
+    <CC015A>
+      <HEAHEA>
+        <RefNumHEA4>LRNVALUE</RefNumHEA4>
+        <TypOfDecHEA24>T2</TypOfDecHEA24>
+        <TotNumOfIteHEA305>1</TotNumOfIteHEA305>
+        <TotNumOfPacHEA306>1</TotNumOfPacHEA306>
+        <TotGroMasHEA307>1000</TotGroMasHEA307>
       </HEAHEA>
     </CC015A>
 }
