@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
-package viewmodels.tad
-import models.DeclarationType
-import models.reference.Country
+package models.reference
 
-case class TransitAccompanyingDocument(localReferenceNumber: String,
-                                       declarationType: DeclarationType,
-                                       singleCountryOfDispatch: Option[Country],
-                                       singleCountryOfDestination: Option[Country])
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+
+final case class TransportMode(code: String, description: String) extends CodedReferenceData
+
+object TransportMode {
+
+  implicit val writes: Writes[TransportMode] = (
+    (JsPath \ "code").write[String] and
+      (JsPath \ "description").write[String]
+  )(unlift(TransportMode.unapply))
+
+  implicit val reads: Reads[TransportMode] = (
+    (JsPath \ "code").read[String](readString) and
+      (JsPath \ "description").read[String]
+  )(TransportMode.apply _)
+}

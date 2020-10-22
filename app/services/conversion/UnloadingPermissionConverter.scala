@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package services
+package services.conversion
 
+import cats.implicits._
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
-import cats.implicits._
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import services._
 import utils.DateFormatter
 import utils.StringTransformer._
 

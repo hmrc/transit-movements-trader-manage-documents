@@ -20,7 +20,6 @@ import cats.data.Validated.Invalid
 import cats.implicits._
 import javax.inject.Inject
 import services.ReferenceDataService
-import services.UnloadingPermissionConverter
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 

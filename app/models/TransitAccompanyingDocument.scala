@@ -21,8 +21,14 @@ import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
+import cats.syntax.all._
 
-final case class TransitAccompanyingDocument(localReferenceNumber: String)
+final case class TransitAccompanyingDocument(
+  localReferenceNumber: String,
+  declarationType: DeclarationType,
+  countryOfDispatch: Option[String],
+  countryOfDestination: Option[String]
+)
 
 object TransitAccompanyingDocument {
 
@@ -30,6 +36,9 @@ object TransitAccompanyingDocument {
     Json.format[TransitAccompanyingDocument]
 
   implicit val xmlReader: XmlReader[TransitAccompanyingDocument] = {
-    (__ \ "HEAHEA" \ "RefNumHEA4").read[String].map(apply)
+    ((__ \ "HEAHEA" \ "RefNumHEA4").read[String],
+     (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
+     (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional,
+     (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional).mapN(apply)
   }
 }

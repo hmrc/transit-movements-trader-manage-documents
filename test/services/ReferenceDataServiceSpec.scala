@@ -23,10 +23,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.status
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import generators.ReferenceModelGenerators
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
@@ -335,6 +332,337 @@ class ReferenceDataServiceSpec
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
               result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("additionalInformation", Seq(expectedError)))
+          }
+      }
+    }
+  }
+
+  "transportMode" - {
+
+    val endpoint = "/transit-movements-trader-reference-data/transport-mode"
+
+    "must return a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[TransportMode]]) {
+        (hc, data) =>
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(Json.toJson(data).toString)
+              )
+          )
+
+          whenReady(service.transportMode()(implicitly, hc)) {
+            result =>
+              result.valid.value mustEqual data
+          }
+      }
+    }
+
+    "must return a Reference Data Retrieval Error" - {
+
+      "when the server returns a 4xx or 5xx status" in {
+
+        forAll(arbitrary[HeaderCarrier], errorStatuses) {
+          (hc, returnStatus) =>
+            server.stubFor(
+              get(urlEqualTo(endpoint))
+                .willReturn(
+                  status(returnStatus).withBody("body")
+                )
+            )
+
+            whenReady(service.transportMode()(implicitly, hc)) {
+              result =>
+                result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("transportMode", returnStatus, "body"))
+            }
+        }
+      }
+    }
+
+    "when the server returns data that cannot be read as a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier]) {
+        hc =>
+          val invalidJson = Json.obj("foo" -> "bar")
+
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(invalidJson.toString)
+              )
+          )
+
+          whenReady(service.transportMode()(implicitly, hc)) {
+            result =>
+              val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
+
+              result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("transportMode", Seq(expectedError)))
+          }
+      }
+    }
+  }
+
+  "controlResultCode" - {
+
+    val endpoint = "/transit-movements-trader-reference-data/control-result"
+
+    "must return a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[ControlResult]]) {
+        (hc, data) =>
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(Json.toJson(data).toString)
+              )
+          )
+
+          whenReady(service.controlResult()(implicitly, hc)) {
+            result =>
+              result.valid.value mustEqual data
+          }
+      }
+    }
+
+    "must return a Reference Data Retrieval Error" - {
+
+      "when the server returns a 4xx or 5xx status" in {
+
+        forAll(arbitrary[HeaderCarrier], errorStatuses) {
+          (hc, returnStatus) =>
+            server.stubFor(
+              get(urlEqualTo(endpoint))
+                .willReturn(
+                  status(returnStatus).withBody("body")
+                )
+            )
+
+            whenReady(service.controlResult()(implicitly, hc)) {
+              result =>
+                result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("controlResult", returnStatus, "body"))
+            }
+        }
+      }
+    }
+
+    "when the server returns data that cannot be read as a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier]) {
+        hc =>
+          val invalidJson = Json.obj("foo" -> "bar")
+
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(invalidJson.toString)
+              )
+          )
+
+          whenReady(service.controlResult()(implicitly, hc)) {
+            result =>
+              val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
+
+              result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("controlResult", Seq(expectedError)))
+          }
+      }
+    }
+  }
+
+  "previousDocumentTypes" - {
+
+    val endpoint = "/transit-movements-trader-reference-data/previous-document-types"
+
+    "must return a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[PreviousDocumentTypes]]) {
+        (hc, data) =>
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(Json.toJson(data).toString)
+              )
+          )
+
+          whenReady(service.previousDocumentTypes()(implicitly, hc)) {
+            result =>
+              result.valid.value mustEqual data
+          }
+      }
+    }
+
+    "must return a Reference Data Retrieval Error" - {
+
+      "when the server returns a 4xx or 5xx status" in {
+
+        forAll(arbitrary[HeaderCarrier], errorStatuses) {
+          (hc, returnStatus) =>
+            server.stubFor(
+              get(urlEqualTo(endpoint))
+                .willReturn(
+                  status(returnStatus).withBody("body")
+                )
+            )
+
+            whenReady(service.previousDocumentTypes()(implicitly, hc)) {
+              result =>
+                result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
+                  ReferenceDataRetrievalError("previousDocumentTypes", returnStatus, "body"))
+            }
+        }
+      }
+    }
+
+    "when the server returns data that cannot be read as a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier]) {
+        hc =>
+          val invalidJson = Json.obj("foo" -> "bar")
+
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(invalidJson.toString)
+              )
+          )
+
+          whenReady(service.previousDocumentTypes()(implicitly, hc)) {
+            result =>
+              val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
+
+              result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("previousDocumentTypes", Seq(expectedError)))
+          }
+      }
+    }
+  }
+
+  "sensitiveGoodsCode" - {
+
+    val endpoint = "/transit-movements-trader-reference-data/sensitive-goods-code"
+
+    "must return a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[SensitiveGoodsCode]]) {
+        (hc, data) =>
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(Json.toJson(data).toString)
+              )
+          )
+
+          whenReady(service.sensitiveGoodsCode()(implicitly, hc)) {
+            result =>
+              result.valid.value mustEqual data
+          }
+      }
+    }
+
+    "must return a Reference Data Retrieval Error" - {
+
+      "when the server returns a 4xx or 5xx status" in {
+
+        forAll(arbitrary[HeaderCarrier], errorStatuses) {
+          (hc, returnStatus) =>
+            server.stubFor(
+              get(urlEqualTo(endpoint))
+                .willReturn(
+                  status(returnStatus).withBody("body")
+                )
+            )
+
+            whenReady(service.sensitiveGoodsCode()(implicitly, hc)) {
+              result =>
+                result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("sensitiveGoodsCode", returnStatus, "body"))
+            }
+        }
+      }
+    }
+
+    "when the server returns data that cannot be read as a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier]) {
+        hc =>
+          val invalidJson = Json.obj("foo" -> "bar")
+
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(invalidJson.toString)
+              )
+          )
+
+          whenReady(service.sensitiveGoodsCode()(implicitly, hc)) {
+            result =>
+              val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
+
+              result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("sensitiveGoodsCode", Seq(expectedError)))
+          }
+      }
+    }
+  }
+
+  "specialMentions" - {
+
+    val endpoint = "/transit-movements-trader-reference-data/special-mentions"
+
+    "must return a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[SpecialMentions]]) {
+        (hc, data) =>
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(Json.toJson(data).toString)
+              )
+          )
+
+          whenReady(service.specialMentions()(implicitly, hc)) {
+            result =>
+              result.valid.value mustEqual data
+          }
+      }
+    }
+
+    "must return a Reference Data Retrieval Error" - {
+
+      "when the server returns a 4xx or 5xx status" in {
+
+        forAll(arbitrary[HeaderCarrier], errorStatuses) {
+          (hc, returnStatus) =>
+            server.stubFor(
+              get(urlEqualTo(endpoint))
+                .willReturn(
+                  status(returnStatus).withBody("body")
+                )
+            )
+
+            whenReady(service.specialMentions()(implicitly, hc)) {
+              result =>
+                result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("specialMentions", returnStatus, "body"))
+            }
+        }
+      }
+    }
+
+    "when the server returns data that cannot be read as a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier]) {
+        hc =>
+          val invalidJson = Json.obj("foo" -> "bar")
+
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(invalidJson.toString)
+              )
+          )
+
+          whenReady(service.specialMentions()(implicitly, hc)) {
+            result =>
+              val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
+
+              result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("specialMentions", Seq(expectedError)))
           }
       }
     }

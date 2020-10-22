@@ -19,10 +19,7 @@ package services
 import cats.implicits._
 import config.ReferenceDataConfig
 import javax.inject.Inject
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import play.api.http.Status
 import play.api.libs.json.Reads
 import uk.gov.hmrc.http.HeaderCarrier
@@ -76,5 +73,40 @@ class ReferenceDataService @Inject()(
 
     val reads = referenceDataReads[AdditionalInformation]("additionalInformation")
     httpClient.GET[ValidationResult[Seq[AdditionalInformation]]](config.additionalInformationUrl)(reads, implicitly, implicitly)
+  }
+
+  def transportMode()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[TransportMode]]] = {
+
+    val reads = referenceDataReads[TransportMode]("transportMode")
+
+    httpClient.GET[ValidationResult[Seq[TransportMode]]](config.transportModeUrl)(reads, implicitly, implicitly)
+  }
+
+  def controlResult()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[ControlResult]]] = {
+
+    val reads = referenceDataReads[ControlResult]("controlResult")
+
+    httpClient.GET[ValidationResult[Seq[ControlResult]]](config.controlResultUrl)(reads, implicitly, implicitly)
+  }
+
+  def previousDocumentTypes()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[PreviousDocumentTypes]]] = {
+
+    val reads = referenceDataReads[PreviousDocumentTypes]("previousDocumentTypes")
+
+    httpClient.GET[ValidationResult[Seq[PreviousDocumentTypes]]](config.previousDocumentTypesUrl)(reads, implicitly, implicitly)
+  }
+
+  def sensitiveGoodsCode()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[SensitiveGoodsCode]]] = {
+
+    val reads = referenceDataReads[SensitiveGoodsCode]("sensitiveGoodsCode")
+
+    httpClient.GET[ValidationResult[Seq[SensitiveGoodsCode]]](config.sensitiveGoodsCodeUrl)(reads, implicitly, implicitly)
+  }
+
+  def specialMentions()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[SpecialMentions]]] = {
+
+    val reads = referenceDataReads[SpecialMentions]("specialMentions")
+
+    httpClient.GET[ValidationResult[Seq[SpecialMentions]]](config.specialMentionsUrl)(reads, implicitly, implicitly)
   }
 }

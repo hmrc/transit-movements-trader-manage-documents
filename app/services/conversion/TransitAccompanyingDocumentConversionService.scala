@@ -16,7 +16,7 @@
 
 package services.conversion
 
-import cats.implicits._
+import cats.data.Validated.Invalid
 import javax.inject.Inject
 import services.ReferenceDataService
 import services.ValidationResult
@@ -29,25 +29,31 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
 
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument)(
     implicit ec: ExecutionContext,
-    hc: HeaderCarrier): Future[ValidationResult[viewmodels.tad.TransitAccompanyingDocument]] =
-    ???
-//    val countriesFuture      = referenceData.countries()
+    hc: HeaderCarrier): Future[ValidationResult[viewmodels.tad.TransitAccompanyingDocument]] = {
+    val countriesFuture = referenceData.countries()
+    //TODO: ref data will be needed below when we're building out the view model
 //    val additionalInfoFuture = referenceData.additionalInformation()
 //    val kindsOfPackageFuture = referenceData.kindsOfPackage()
-//    val documentTypesFuture  = referenceData.documentTypes() // CL013. Document Type (Common)
-
-//    val transportMode  = referenceData.transportMode() //CL018. Transport mode
-//    val controlResultCode = referenceData.controlResultCode() //CL047 Control result // CONRESERS.ConResCodERS16
+//    val documentTypesFuture  = referenceData.documentTypes()
 //
-//    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()/// CL014. Previous document type (Common)
-//    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode() //CL064
-//
-//    val specialMentionsCodeFuture = referenceData.specialMentions() //CL039
+//    val transportMode  = referenceData.transportMode()
+//    val controlResultCode = referenceData.controlResult()
+//    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
+//    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
+//    val specialMentionsCodeFuture = referenceData.specialMentions()
 
-  // TODO: Don't think we need guarantee type (uses the code that is pass in message)
-  // val guaranteeType = referenceData.guaranteeType() //CL051 // GUAGUA.GuaTypGUA1
-
-  //TODO: Could use the countries ref data for this
-  // val guaranteeManagementCountries = referenceData.guaranteeManagementCountries() //CL071. Country Codes (Guarantee Management - non EC) // GUAGUA.NotValForOthConPLIM2
-
+    for {
+      countriesResult <- countriesFuture
+    } yield {
+      (
+        countriesResult,
+      ).map(
+          (countries) => TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries)
+        )
+        .fold(
+          errors => Invalid(errors),
+          result => result
+        )
+    }
+  }
 }

@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-package viewmodels.tad
-import models.DeclarationType
-import models.reference.Country
+package models
+import play.api.libs.json.JsonValidationError
+import play.api.libs.json.Reads
 
-case class TransitAccompanyingDocument(localReferenceNumber: String,
-                                       declarationType: DeclarationType,
-                                       singleCountryOfDispatch: Option[Country],
-                                       singleCountryOfDestination: Option[Country])
+import scala.util.Success
+import scala.util.Try
+
+package object reference {
+
+  private val readStringFromInt: Reads[String] = implicitly[Reads[Int]]
+    .map(x => Try(x.toString))
+    .collect(JsonValidationError(Seq("Parsing error"))) {
+      case Success(a) => a
+    }
+
+  val readString: Reads[String] = implicitly[Reads[String]].orElse(readStringFromInt)
+}

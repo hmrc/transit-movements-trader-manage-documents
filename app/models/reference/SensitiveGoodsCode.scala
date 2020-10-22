@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
-package viewmodels.tad
-import models.DeclarationType
-import models.reference.Country
+package models.reference
 
-case class TransitAccompanyingDocument(localReferenceNumber: String,
-                                       declarationType: DeclarationType,
-                                       singleCountryOfDispatch: Option[Country],
-                                       singleCountryOfDestination: Option[Country])
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+
+final case class SensitiveGoodsCode(code: String, description: String) extends CodedReferenceData
+
+object SensitiveGoodsCode {
+
+  implicit val writes: Writes[SensitiveGoodsCode] = (
+    (JsPath \ "code").write[String] and
+      (JsPath \ "description").write[String]
+  )(unlift(SensitiveGoodsCode.unapply))
+
+  implicit val reads: Reads[SensitiveGoodsCode] = (
+    (JsPath \ "code").read[String](readString) and
+      (JsPath \ "description").read[String]
+  )(SensitiveGoodsCode.apply _)
+}

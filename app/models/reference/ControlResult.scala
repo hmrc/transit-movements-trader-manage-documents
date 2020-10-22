@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package viewmodels.tad
-import models.DeclarationType
-import models.reference.Country
+package models.reference
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class TransitAccompanyingDocument(localReferenceNumber: String,
-                                       declarationType: DeclarationType,
-                                       singleCountryOfDispatch: Option[Country],
-                                       singleCountryOfDestination: Option[Country])
+final case class ControlResult(code: String, description: String) extends CodedReferenceData
+
+object ControlResult {
+
+  implicit lazy val format: OFormat[ControlResult] =
+    Json.format[ControlResult]
+}
