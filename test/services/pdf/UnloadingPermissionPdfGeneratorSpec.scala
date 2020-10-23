@@ -35,7 +35,7 @@ class UnloadingPermissionPdfGeneratorSpec extends FreeSpec with MustMatchers wit
 
       val unloadingPermission = unloadingPermissionObject.sample.get
 
-      service.generateUnloadingPermission(unloadingPermission) mustBe an[Array[Byte]]
+      service.generate(unloadingPermission) mustBe an[Array[Byte]]
 
     }
 

@@ -43,7 +43,7 @@ class UnloadingPermissionController @Inject()(
       XMLToPermissionToStartUnloading.convert(request.body) match {
         case ParseSuccess(unloadingPermission) =>
           conversionService.toViewModel(unloadingPermission).map {
-            case Validated.Valid(viewModel) => Ok(pdf.generateUnloadingPermission(viewModel))
+            case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
             case Validated.Invalid(errors)  => InternalServerError(s"Failed to convert to UnloadingPermissionViewModel with following errors: $errors")
           }
         case ParseFailure(errors) =>

@@ -24,7 +24,7 @@ import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
 import services.conversion.TransitAccompanyingDocumentConversionService
-import services.pdf.TransitAccompanyingDocumentPdfGenerator
+import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
 import scala.concurrent.ExecutionContext
@@ -33,7 +33,7 @@ import scala.xml.NodeSeq
 
 class TransitAccompanyingDocumentController @Inject()(
   conversionService: TransitAccompanyingDocumentConversionService,
-  pdf: TransitAccompanyingDocumentPdfGenerator,
+  pdf: UnloadingPermissionPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc) {

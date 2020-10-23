@@ -19,7 +19,6 @@ package controllers
 import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
 import cats.data._
-import generators.TadViewModelGenerators
 import generators.ViewmodelGenerators
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -40,7 +39,7 @@ import play.api.test.Helpers.status
 import play.api.test.Helpers._
 import services.ReferenceDataRetrievalError
 import services.conversion.TransitAccompanyingDocumentConversionService
-import services.pdf.TransitAccompanyingDocumentPdfGenerator
+import services.pdf.UnloadingPermissionPdfGenerator
 
 import scala.concurrent.Future
 
@@ -65,12 +64,12 @@ class TransitAccompanyingDocumentControllerSpec
 
     "must return OK and PDF" in {
 
-      val mockPDFGenerator: TransitAccompanyingDocumentPdfGenerator           = mock[TransitAccompanyingDocumentPdfGenerator]
+      val mockPDFGenerator: UnloadingPermissionPdfGenerator                   = mock[UnloadingPermissionPdfGenerator]
       val mockConversionService: TransitAccompanyingDocumentConversionService = mock[TransitAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
         .overrides {
-          bind[TransitAccompanyingDocumentPdfGenerator].toInstance(mockPDFGenerator)
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
           bind[TransitAccompanyingDocumentConversionService].toInstance(mockConversionService)
         }
         .build()
@@ -110,12 +109,12 @@ class TransitAccompanyingDocumentControllerSpec
 
     "must return and InternalServerError if the conversion fails" in {
 
-      val mockPDFGenerator: TransitAccompanyingDocumentPdfGenerator           = mock[TransitAccompanyingDocumentPdfGenerator]
+      val mockPDFGenerator: UnloadingPermissionPdfGenerator                   = mock[UnloadingPermissionPdfGenerator]
       val mockConversionService: TransitAccompanyingDocumentConversionService = mock[TransitAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
         .overrides {
-          bind[TransitAccompanyingDocumentPdfGenerator].toInstance(mockPDFGenerator)
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
           bind[TransitAccompanyingDocumentConversionService].toInstance(mockConversionService)
         }
         .build()
