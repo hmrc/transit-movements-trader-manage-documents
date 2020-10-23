@@ -247,9 +247,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         principal             <- arbitrary[Principal]
         consignor             <- Gen.option(arbitrary[Consignor])
         consignee             <- Gen.option(arbitrary[Consignee])
-        traderAtDestination   <- arbitrary[TraderAtDestination]
+        traderAtDestination   <- Gen.option(arbitrary[TraderAtDestination])
         departureOffice       <- stringWithMaxLength(8)
-        presentationOffice    <- stringWithMaxLength(8)
+        presentationOffice    <- Gen.option(stringWithMaxLength(8))
         seals                 <- listWithMaxSize(9, stringWithMaxLength(20))
         goodsItems            <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield

@@ -15,12 +15,16 @@
  */
 
 package services.conversion
+import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType
+import models.reference.AdditionalInformation
 import models.reference.Country
+import models.reference.DocumentType
+import models.reference.KindOfPackage
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalatest.FreeSpec
@@ -46,7 +50,11 @@ class TransitAccompanyingDocumentConversionServiceSpec
     with ScalaFutures
     with IntegrationPatience {
 
-  private val countries = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
+  private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
+  private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val sensitiveGoodsInformation = Nil
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
@@ -61,6 +69,41 @@ class TransitAccompanyingDocumentConversionServiceSpec
     numberOfItems = 1,
     numberOfPackages = 3,
     grossMass = 1.0,
+    principal =
+      models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
+    consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
+    consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+    departureOffice = "The Departure office, less than 45 characters long",
+    seals = Seq("seal 1"),
+    goodsItems = NonEmptyList.one(
+      models.GoodsItem(
+        itemNumber = 1,
+        commodityCode = None,
+        declarationType = None,
+        description = "Description",
+        grossMass = Some(1.0),
+        netMass = Some(0.9),
+        countryOfDispatch = Some(countries.head.code),
+        countryOfDestination = Some(countries.head.code),
+        producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
+        specialMentions = Seq(
+          models.SpecialMentionEc(additionalInfo.head.code),
+          models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code),
+          models.SpecialMentionNoCountry(additionalInfo.head.code)
+        ),
+        consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
+        consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        containers = Seq("container 1"),
+        packages = NonEmptyList(
+          models.BulkPackage(kindsOfPackage.head.code, Some("numbers")),
+          List(
+            models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
+            models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+          )
+        ),
+        sensitiveGoodsInformation = sensitiveGoodsInformation
+      )
+    )
   )
 
   "toViewModel" - {
@@ -72,6 +115,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
+      //TODO: Consider using the same view model for up and tad
       val expectedResult = viewmodels.tad.TransitAccompanyingDocument(
         localReferenceNumber = "lrn",
         declarationType = DeclarationType.T1,

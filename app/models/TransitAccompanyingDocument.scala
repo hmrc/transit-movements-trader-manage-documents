@@ -16,8 +16,7 @@
 
 package models
 
-import java.time.LocalDate
-
+import cats.data.NonEmptyList
 import com.lucidchart.open.xtract.XmlReader._
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
@@ -26,6 +25,7 @@ import play.api.libs.json.OFormat
 import cats.syntax.all._
 import utils.NonEmptyListXMLReader.xmlNonEmptyListReads
 import utils.BigDecimalXMLReader._
+import json.NonEmptyListOps._
 
 final case class TransitAccompanyingDocument(
   localReferenceNumber: String,
@@ -37,7 +37,13 @@ final case class TransitAccompanyingDocument(
 //  acceptanceDate: LocalDate,
   numberOfItems: Int,
   numberOfPackages: Int,
-  grossMass: BigDecimal
+  grossMass: BigDecimal,
+  principal: Principal,
+  consignor: Option[Consignor],
+  consignee: Option[Consignee],
+  departureOffice: String,
+  seals: Seq[String],
+  goodsItems: NonEmptyList[GoodsItem]
 )
 
 object TransitAccompanyingDocument {
@@ -52,11 +58,18 @@ object TransitAccompanyingDocument {
      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
      (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,
      (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
-     //(__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate], //TODO: This doesn't exist
+     //(__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate], //DOES NOT EXIST IN IE015
      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int],
      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
-    ).mapN(apply)
+     (__ \ "TRAPRIPC1").read[Principal],
+     (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
+     (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
+     // (__ \ "TRADESTRD").read[TraderAtDestination], //DOES NOT EXIST IN IE015
+     (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
+     // (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String], //DOES NOT EXIST IN IE015
+     (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),
+     (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])).mapN(apply)
   }
 
 //  implicit val xmlReader: XmlReader[PermissionToStartUnloading] = {
@@ -67,17 +80,17 @@ object TransitAccompanyingDocument {
 //      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
 //      (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,
 //      (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
-//      (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate],
+//      (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate], //NOT IN IE15
 //      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
 //      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int],
 //      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
-
 //      (__ \ "TRAPRIPC1").read[Principal],
 //      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
 //      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
-//      (__ \ "TRADESTRD").read[TraderAtDestination],
+//      (__ \ "TRADESTRD").read[TraderAtDestination], //NOT IN IE15
 //      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
-//      (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String],
+  //TODO: Continue adding in required data
+//      (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String], //NOT IN IE15
 //      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),
 //      (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])
 //    ).mapN(apply)

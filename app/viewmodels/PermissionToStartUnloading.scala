@@ -37,10 +37,10 @@ final case class PermissionToStartUnloading(
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
-  traderAtDestination: TraderAtDestination,
+  traderAtDestination: Option[TraderAtDestination],
   departureOffice: String,
   departureOfficeTrimmed: String,
-  presentationOffice: String,
+  presentationOffice: Option[String],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
 ) {

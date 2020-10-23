@@ -108,10 +108,10 @@ object UnloadingPermissionConverter extends Converter {
           principal,
           consignor,
           consignee,
-          trader,
+          Some(trader),
           permission.departureOffice,
           permission.departureOffice.shorten(45)("***"),
-          permission.presentationOffice,
+          Some(permission.presentationOffice),
           permission.seals,
           goodsItems
       )

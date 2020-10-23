@@ -109,7 +109,7 @@ class UnloadingPermissionConversionServiceSpec
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation //TODO: Pass in data here
       )
     )
   )
@@ -150,10 +150,10 @@ class UnloadingPermissionConversionServiceSpec
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
           Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
-        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+        traderAtDestination = Some(viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None)),
         departureOffice = "The Departure office, less than 45 characters long",
         departureOfficeTrimmed = "The Departure office, less than 45 charact***",
-        presentationOffice = "Presentation office",
+        presentationOffice = Some("Presentation office"),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
