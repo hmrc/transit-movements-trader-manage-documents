@@ -23,7 +23,7 @@ import org.scalacheck.Gen
 import viewmodels.tad.TransitAccompanyingDocument
 
 trait TadViewModelGenerators extends ModelGenerators {
-
+//TODO: Could probably remove this class
   implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
     Arbitrary {
       for {

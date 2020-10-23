@@ -21,6 +21,7 @@ import javax.inject.Inject
 import services.ReferenceDataService
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
+import cats.implicits._
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -29,31 +30,53 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
 
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument)(
     implicit ec: ExecutionContext,
-    hc: HeaderCarrier): Future[ValidationResult[viewmodels.tad.TransitAccompanyingDocument]] = {
-    val countriesFuture = referenceData.countries()
+    hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
+
+    val countriesFuture      = referenceData.countries()
+    val additionalInfoFuture = referenceData.additionalInformation()
+    val kindsOfPackageFuture = referenceData.kindsOfPackage()
+    val documentTypesFuture  = referenceData.documentTypes()
+
     //TODO: ref data will be needed below when we're building out the view model
-//    val additionalInfoFuture = referenceData.additionalInformation()
-//    val kindsOfPackageFuture = referenceData.kindsOfPackage()
-//    val documentTypesFuture  = referenceData.documentTypes()
-//
-//    val transportMode  = referenceData.transportMode()
-//    val controlResultCode = referenceData.controlResult()
-//    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
-//    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
-//    val specialMentionsCodeFuture = referenceData.specialMentions()
+    //    val transportMode  = referenceData.transportMode()
+    //    val controlResultCode = referenceData.controlResult()
+    //    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
+    //    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
+    //    val specialMentionsCodeFuture = referenceData.specialMentions()
 
     for {
-      countriesResult <- countriesFuture
+      countriesResult      <- countriesFuture
+      additionalInfoResult <- additionalInfoFuture
+      kindsOfPackageResult <- kindsOfPackageFuture
+      documentTypesResult  <- documentTypesFuture
     } yield {
       (
         countriesResult,
-      ).map(
-          (countries) => TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries)
+        additionalInfoResult,
+        kindsOfPackageResult,
+        documentTypesResult
+      ).mapN(
+          (countries, additionalInfo, kindsOfPackage, documentTypes) =>
+            TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries, additionalInfo, kindsOfPackage, documentTypes)
         )
         .fold(
           errors => Invalid(errors),
           result => result
         )
     }
+//
+//    for {
+//      countriesResult <- countriesFuture
+//    } yield {
+//      (
+//        countriesResult,
+//      ).map(
+//          (countries) => TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries)
+//        )
+//        .fold(
+//          errors => Invalid(errors),
+//          result => result
+//        )
+//    }
   }
 }

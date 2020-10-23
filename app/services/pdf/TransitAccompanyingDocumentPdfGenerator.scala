@@ -20,14 +20,16 @@ import com.dmanchester.playfop.sapi.PlayFop
 import javax.inject.Inject
 import viewmodels.tad.TransitAccompanyingDocument
 import org.apache.xmlgraphics.util.MimeConstants
+import viewmodels.PermissionToStartUnloading
 import views.xml.tad.TadDocument
+import views.xml.unloading_permission.UnloadingPermissionDocument
 
 class TransitAccompanyingDocumentPdfGenerator @Inject()(
   fop: PlayFop,
-  document: TadDocument
+  document: UnloadingPermissionDocument
 ) {
 
-  def generate(tad: TransitAccompanyingDocument): Array[Byte] = {
+  def generate(tad: PermissionToStartUnloading): Array[Byte] = {
 
     val renderedDocument = document.render(tad)
 

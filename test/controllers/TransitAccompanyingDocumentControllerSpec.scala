@@ -20,6 +20,7 @@ import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
 import cats.data._
 import generators.TadViewModelGenerators
+import generators.ViewmodelGenerators
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -50,7 +51,7 @@ class TransitAccompanyingDocumentControllerSpec
     with OptionValues
     with MockitoSugar
     with ScalaCheckPropertyChecks
-    with TadViewModelGenerators {
+    with ViewmodelGenerators {
 
   def onwardRoute: Call = Call("GET", "/foo")
 
@@ -76,7 +77,7 @@ class TransitAccompanyingDocumentControllerSpec
 
       running(application) {
 
-        forAll(arbitrary[viewmodels.tad.TransitAccompanyingDocument], arbitrary[Array[Byte]]) {
+        forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
           (viewModel, pdf) =>
             when(mockConversionService.toViewModel(any())(any(), any()))
               .thenReturn(Future.successful(Valid(viewModel)))

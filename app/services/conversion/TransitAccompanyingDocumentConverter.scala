@@ -16,16 +16,43 @@
 
 package services.conversion
 
+import cats.data.NonEmptyList
 import cats.implicits._
 import cats.data.Validated.Valid
+import models.reference.AdditionalInformation
 import models.reference.Country
-import services.Converter
-import services.ValidationResult
+import models.reference.DocumentType
+import models.reference.KindOfPackage
+import services.conversion.UnloadingPermissionConverter.findReferenceData
+import services._
+import utils.DateFormatter
+import utils.StringTransformer._
 
 object TransitAccompanyingDocumentConverter extends Converter {
 
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
-                  countries: Seq[Country]): ValidationResult[viewmodels.tad.TransitAccompanyingDocument] = {
+                  countries: Seq[Country],
+                  additionalInfo: Seq[AdditionalInformation],
+                  kindsOfPackage: Seq[KindOfPackage],
+                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.PermissionToStartUnloading] = {
+
+    def convertTransportCountry(maybeCountry: Option[String]): ValidationResult[Option[Country]] =
+      maybeCountry match {
+        case Some(country) => findReferenceData[Country](country, countries, s"transportCountry").map(x => Some(x))
+        case None          => Valid(None)
+      }
+
+    def convertConsignor(maybeConsignor: Option[models.Consignor]): ValidationResult[Option[viewmodels.Consignor]] =
+      maybeConsignor match {
+        case Some(consignor) => ConsignorConverter.toViewModel(consignor, s"consignor", countries).map(x => Some(x))
+        case None            => Valid(None)
+      }
+
+    def convertConsignee(maybeConsignee: Option[models.Consignee]): ValidationResult[Option[viewmodels.Consignee]] =
+      maybeConsignee match {
+        case Some(consignee) => ConsigneeConverter.toViewModel(consignee, s"consignee", countries).map(x => Some(x))
+        case None            => Valid(None)
+      }
 
     def convertCountryOfDispatch(maybeCountryOfDispatch: Option[String]): ValidationResult[Option[Country]] =
       maybeCountryOfDispatch match {
@@ -39,16 +66,54 @@ object TransitAccompanyingDocumentConverter extends Converter {
         case None                       => Valid(None)
       }
 
+    def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
+
+      val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
+
+      val tail = items.tail.zipWithIndex.map {
+        case (item, index) =>
+          GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes)
+      }.sequence
+
+      (
+        head,
+        tail
+      ).mapN(
+        (head, tail) => NonEmptyList(head, tail)
+      )
+    }
+
     (
       convertCountryOfDispatch(transitAccompanyingDocument.countryOfDispatch),
       convertCountryOfDestination(transitAccompanyingDocument.countryOfDestination),
+      PrincipalConverter.toViewModel(transitAccompanyingDocument.principal, "principal", countries),
+      convertTransportCountry(transitAccompanyingDocument.transportCountry),
+      convertGoodsItems(transitAccompanyingDocument.goodsItems),
+      convertConsignor(transitAccompanyingDocument.consignor),
+      convertConsignee(transitAccompanyingDocument.consignee)
     ).mapN(
-      (dispatch, destination) =>
-        viewmodels.tad.TransitAccompanyingDocument(
-          transitAccompanyingDocument.localReferenceNumber,
+      (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee) =>
+        viewmodels.PermissionToStartUnloading(
+          "MRN GOES HERE",
           transitAccompanyingDocument.declarationType,
           dispatch,
-          destination
+          destination,
+          transitAccompanyingDocument.transportIdentity,
+          transportCountry,
+          None,
+          None,
+          transitAccompanyingDocument.numberOfItems,
+          transitAccompanyingDocument.numberOfPackages,
+          transitAccompanyingDocument.grossMass,
+          principal,
+          consignor,
+          consignee,
+          None,
+          transitAccompanyingDocument.departureOffice,
+          transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+          None,
+          transitAccompanyingDocument.seals,
+          goodsItems
       )
     )
 

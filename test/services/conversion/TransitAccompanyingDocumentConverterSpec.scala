@@ -61,7 +61,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
                                      Some("tir")),
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
-        departureOffice = "The Departure office, less than 45 characters long",
+        departureOffice = "Departure office",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           models.GoodsItem(
@@ -94,15 +94,69 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      //TODO: Do we need seperate view models
-      val expectedResult = viewmodels.tad.TransitAccompanyingDocument(
-        localReferenceNumber = "lrn",
+      val expectedResult = viewmodels.PermissionToStartUnloading(
+        movementReferenceNumber = "MRN GOES HERE",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
-        singleCountryOfDestination = Some(countries.head)
+        singleCountryOfDestination = Some(countries.head),
+        transportIdentity = Some("identity"),
+        transportCountry = Some(countries.head),
+        acceptanceDate = None,
+        acceptanceDateFormatted = None,
+        numberOfItems = 1,
+        numberOfPackages = 3,
+        grossMass = 1.0,
+        principal = viewmodels.Principal("Principal name",
+                                         "Principal street",
+                                         "Principal street",
+                                         "Principal postCode",
+                                         "Principal city",
+                                         countries.head,
+                                         Some("Principal EORI"),
+                                         Some("tir")),
+        consignor =
+          Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+        consignee =
+          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+        traderAtDestination = None,
+        departureOffice = "Departure office",
+        departureOfficeTrimmed = "Departure office",
+        presentationOffice = None,
+        seals = Seq("seal 1"),
+        goodsItems = NonEmptyList.one(
+          viewmodels.GoodsItem(
+            itemNumber = 1,
+            commodityCode = None,
+            declarationType = None,
+            description = "Description",
+            grossMass = Some(1.0),
+            netMass = Some(0.9),
+            countryOfDispatch = Some(countries.head),
+            countryOfDestination = Some(countries.head),
+            producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+            specialMentions = Seq(
+              viewmodels.SpecialMentionEc(additionalInfo.head),
+              viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
+              viewmodels.SpecialMentionNoCountry(additionalInfo.head)
+            ),
+            consignor = Some(
+              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+            consignee = Some(
+              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+            containers = Seq("container 1"),
+            packages = NonEmptyList(
+              viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
+              List(
+                viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+                viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+              )
+            ),
+            sensitiveGoodsInformation = sensitiveGoodsInformation
+          )
+        )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel(model, countries)
+      val result = TransitAccompanyingDocumentConverter.toViewModel(model, countries, additionalInfo, kindsOfPackage, documentTypes)
 
       result.valid.value mustEqual expectedResult
     }
@@ -116,19 +170,13 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         countryOfDestination = Some(invalidCode),
         transportIdentity = Some("identity"),
         transportCountry = Some(invalidCode),
-        //acceptanceDate = LocalDate.now(),
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
-        principal = models.Principal("Principal name",
-                                     "Principal street",
-                                     "Principal postCode",
-                                     "Principal city",
-                                     countries.head.code,
-                                     Some("Principal EORI"),
-                                     Some("tir")),
-        consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        principal =
+          models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
+        consignor = None,
+        consignee = None,
         departureOffice = "The Departure office, less than 45 characters long",
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -139,22 +187,22 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             description = "Description",
             grossMass = Some(1.0),
             netMass = Some(0.9),
-            countryOfDispatch = Some(countries.head.code),
-            countryOfDestination = Some(countries.head.code),
-            producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
+            countryOfDispatch = Some(invalidCode),
+            countryOfDestination = Some(invalidCode),
+            producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
             specialMentions = Seq(
-              models.SpecialMentionEc(additionalInfo.head.code),
-              models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code),
-              models.SpecialMentionNoCountry(additionalInfo.head.code)
+              models.SpecialMentionEc(invalidCode),
+              models.SpecialMentionNonEc(invalidCode, invalidCode),
+              models.SpecialMentionNoCountry(invalidCode)
             ),
-            consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-            consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+            consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None, None)),
+            consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None, None)),
             containers = Seq("container 1"),
             packages = NonEmptyList(
-              models.BulkPackage(kindsOfPackage.head.code, Some("numbers")),
+              models.BulkPackage(invalidCode, Some("numbers")),
               List(
-                models.UnpackedPackage(kindsOfPackage.head.code, 1, Some("marks")),
-                models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
+                models.UnpackedPackage(invalidCode, 1, Some("marks")),
+                models.RegularPackage(invalidCode, 1, "marks and numbers")
               )
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation
@@ -162,14 +210,32 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel(model, countries)
+      val result = TransitAccompanyingDocumentConverter.toViewModel(model, countries, additionalInfo, kindsOfPackage, documentTypes)
 
       val expectedErrors = Seq(
         ReferenceDataNotFound("countryOfDispatch", invalidCode),
-        ReferenceDataNotFound("countryOfDestination", invalidCode)
+        ReferenceDataNotFound("countryOfDestination", invalidCode),
+        ReferenceDataNotFound("transportCountry", invalidCode),
+        ReferenceDataNotFound("principal.countryCode", invalidCode),
+//        ReferenceDataNotFound("traderAtDestination.countryCode", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].countryOfDispatch", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].countryOfDestination", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].producedDocuments[0].documentType", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].specialMentions[0].additionalInformationCoded", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].specialMentions[1].countryCode", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].specialMentions[1].additionalInformationCoded", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].specialMentions[2].additionalInformationCoded", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].consignor.countryCode", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].consignee.countryCode", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].packages[0].kindOfPackage", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].packages[1].kindOfPackage", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].packages[2].kindOfPackage", invalidCode)
       )
 
       result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
     }
   }
 }
+
+//List(ReferenceDataNotFound(countryOfDispatch,non-existent code), ReferenceDataNotFound(countryOfDestination,non-existent code), ReferenceDataNotFound(principal.countryCode,non-existent code), ReferenceDataNotFound(transportCountry,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDispatch,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDestination,non-existent code), ReferenceDataNotFound(goodsItems[0].producedDocuments[0].documentType,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[0].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[2].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[0].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[1].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[2].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].consignor.countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].consignee.countryCode,non-existent code), ReferenceDataNotFound(consignor.countryCode,non-existent code), ReferenceDataNotFound(consignee.countryCode,non-existent code))
+//List(ReferenceDataNotFound(countryOfDispatch,non-existent code), ReferenceDataNotFound(countryOfDestination,non-existent code), ReferenceDataNotFound(transportCountry,non-existent code), ReferenceDataNotFound(principal.countryCode,non-existent code), ReferenceDataNotFound(consignor,non-existent code), ReferenceDataNotFound(consignee,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDispatch,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDestination,non-existent code), ReferenceDataNotFound(goodsItems[0].producedDocuments[0].documentType,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[0].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[2].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].consignor.countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].consignee.countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[0].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[1].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[2].kindOfPackage,non-existent code)) (TransitAccompanyingDocumentConverterSpec.scala:239)

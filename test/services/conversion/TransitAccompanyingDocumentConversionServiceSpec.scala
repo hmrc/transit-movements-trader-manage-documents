@@ -59,13 +59,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
   val validModel = models.TransitAccompanyingDocument(
-    localReferenceNumber = "lrn",
+    localReferenceNumber = "MRN GOES HERE",
     declarationType = DeclarationType.T1,
     countryOfDispatch = Some(countries.head.code),
     countryOfDestination = Some(countries.head.code),
     transportIdentity = Some("identity"),
     transportCountry = Some(countries.head.code),
-//    acceptanceDate = acceptanceDate,
     numberOfItems = 1,
     numberOfPackages = 3,
     grossMass = 1.0,
@@ -112,18 +111,75 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       val referenceDataService = mock[ReferenceDataService]
       when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
+      when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
+      when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
+      when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
-      //TODO: Consider using the same view model for up and tad
-      val expectedResult = viewmodels.tad.TransitAccompanyingDocument(
-        localReferenceNumber = "lrn",
+      val expectedResult = viewmodels.PermissionToStartUnloading(
+        movementReferenceNumber = "MRN GOES HERE",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
-        singleCountryOfDestination = Some(countries.head)
+        singleCountryOfDestination = Some(countries.head),
+        transportIdentity = Some("identity"),
+        transportCountry = Some(countries.head),
+        acceptanceDate = None,
+        acceptanceDateFormatted = None,
+        numberOfItems = 1,
+        numberOfPackages = 3,
+        grossMass = 1.0,
+        principal = viewmodels.Principal("Principal name",
+                                         "Principal street",
+                                         "Principal street",
+                                         "Principal postCode",
+                                         "Principal city",
+                                         countries.head,
+                                         Some("Principal EORI"),
+                                         Some("tir")),
+        consignor =
+          Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+        consignee =
+          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+        traderAtDestination = None,
+        departureOffice = "The Departure office, less than 45 characters long",
+        departureOfficeTrimmed = "The Departure office, less than 45 charact***",
+        presentationOffice = None,
+        seals = Seq("seal 1"),
+        goodsItems = NonEmptyList.one(
+          viewmodels.GoodsItem(
+            itemNumber = 1,
+            commodityCode = None,
+            declarationType = None,
+            description = "Description",
+            grossMass = Some(1.0),
+            netMass = Some(0.9),
+            countryOfDispatch = Some(countries.head),
+            countryOfDestination = Some(countries.head),
+            producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+            specialMentions = Seq(
+              viewmodels.SpecialMentionEc(additionalInfo.head),
+              viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
+              viewmodels.SpecialMentionNoCountry(additionalInfo.head)
+            ),
+            consignor = Some(
+              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+            consignee = Some(
+              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+            containers = Seq("container 1"),
+            packages = NonEmptyList(
+              viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
+              List(
+                viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+                viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+              )
+            ),
+            sensitiveGoodsInformation = sensitiveGoodsInformation
+          )
+        )
       )
 
-      val result: ValidationResult[viewmodels.tad.TransitAccompanyingDocument] = service.toViewModel(validModel).futureValue
+      val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModel).futureValue
 
       result.valid.value mustEqual expectedResult
     }
@@ -135,12 +191,24 @@ class TransitAccompanyingDocumentConversionServiceSpec
       when(referenceDataService.countries()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("countries", 500, "body").invalidNec))
 
+      when(referenceDataService.kindsOfPackage()(any(), any()))
+        .thenReturn(Future.successful(ReferenceDataRetrievalError("kindsOfPackage", 501, "body").invalidNec))
+
+      when(referenceDataService.documentTypes()(any(), any()))
+        .thenReturn(Future.successful(ReferenceDataRetrievalError("documentTypes", 502, "body").invalidNec))
+
+      when(referenceDataService.additionalInformation()(any(), any()))
+        .thenReturn(Future.successful(ReferenceDataRetrievalError("additionalInformation", 503, "body").invalidNec))
+
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
       val result = service.toViewModel(validModel).futureValue
 
       val expectedErrors = Seq(
-        ReferenceDataRetrievalError("countries", 500, "body")
+        ReferenceDataRetrievalError("countries", 500, "body"),
+        ReferenceDataRetrievalError("kindsOfPackage", 501, "body"),
+        ReferenceDataRetrievalError("documentTypes", 502, "body"),
+        ReferenceDataRetrievalError("additionalInformation", 503, "body")
       )
 
       result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
@@ -150,6 +218,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       val referenceDataService = mock[ReferenceDataService]
       when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
+      when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
+      when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
+      when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 

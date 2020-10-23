@@ -17,13 +17,16 @@
 package services.pdf
 
 import generators.TadViewModelGenerators
+import generators.ViewmodelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import viewmodels.tad.TransitAccompanyingDocument
+import viewmodels.PermissionToStartUnloading
 
-class TransitAccompanyingDocumentPdfGeneratorSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with TadViewModelGenerators {
+class TransitAccompanyingDocumentPdfGeneratorSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with ViewmodelGenerators {
+
+  //TODO: Don't need this, only creating a single view model
 
   private lazy val service: TransitAccompanyingDocumentPdfGenerator = app.injector.instanceOf[TransitAccompanyingDocumentPdfGenerator]
 
@@ -31,7 +34,7 @@ class TransitAccompanyingDocumentPdfGeneratorSpec extends FreeSpec with MustMatc
 
     "return pdf" in {
 
-      val viewModel = arbitrary[TransitAccompanyingDocument].sample.get
+      val viewModel = arbitrary[PermissionToStartUnloading].sample.get
 
       service.generate(viewModel) mustBe an[Array[Byte]]
 
