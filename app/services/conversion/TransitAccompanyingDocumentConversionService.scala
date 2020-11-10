@@ -28,6 +28,13 @@ import scala.concurrent.Future
 
 class TransitAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataService) {
 
+  //TODO: Rename PermissionToStartUnloading view model
+  /*
+   * The TAD/UL xsd files are identical, both documents share same structure
+   * There's no point having separate templates under views
+   * One view model can hold all the required data which can be used to build a document
+   * Let each Converter handle what goes in the view model
+   */
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument)(
     implicit ec: ExecutionContext,
     hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
