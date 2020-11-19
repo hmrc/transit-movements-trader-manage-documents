@@ -78,7 +78,7 @@ class TransitAccompanyingDocumentControllerSpec
 
         forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
           (viewModel, pdf) =>
-            when(mockConversionService.toViewModel(any())(any(), any()))
+            when(mockConversionService.toViewModel(any(), any())(any(), any()))
               .thenReturn(Future.successful(Valid(viewModel)))
 
             when(mockPDFGenerator.generate(any()))
@@ -123,7 +123,7 @@ class TransitAccompanyingDocumentControllerSpec
 
         forAll(arbitrary[Array[Byte]]) {
           pdf =>
-            when(mockConversionService.toViewModel(any())(any(), any()))
+            when(mockConversionService.toViewModel(any(), any())(any(), any()))
               .thenReturn(Future.successful(Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))))
 
             when(mockPDFGenerator.generate(any()))

@@ -30,7 +30,8 @@ import utils.StringTransformer._
 
 object TransitAccompanyingDocumentConverter extends Converter {
 
-  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
+  def toViewModel(mrn: String,
+                  transitAccompanyingDocument: models.TransitAccompanyingDocument,
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],
@@ -94,7 +95,7 @@ object TransitAccompanyingDocumentConverter extends Converter {
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee) =>
         viewmodels.PermissionToStartUnloading(
-          "MRN GOES HERE",
+          mrn,
           transitAccompanyingDocument.declarationType,
           dispatch,
           destination,

@@ -51,7 +51,7 @@ object TransitAccompanyingDocument {
     Json.format[TransitAccompanyingDocument]
 
   implicit val xmlReader: XmlReader[TransitAccompanyingDocument] = {
-    ((__ \ "HEAHEA" \ "RefNumHEA4").read[String], //TODO: This is the lrn NOT mrn. Is this needed?
+    ((__ \ "HEAHEA" \ "RefNumHEA4").read[String],
      (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
      (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional,
      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,

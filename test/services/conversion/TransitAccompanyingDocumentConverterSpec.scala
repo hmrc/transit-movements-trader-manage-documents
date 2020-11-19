@@ -95,7 +95,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
       )
 
       val expectedResult = viewmodels.PermissionToStartUnloading(
-        movementReferenceNumber = "MRN GOES HERE",
+        movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
@@ -156,7 +156,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel(model, countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result = TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes)
 
       result.valid.value mustEqual expectedResult
     }
@@ -210,7 +210,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel(model, countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result = TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes)
 
       val expectedErrors = Seq(
         ReferenceDataNotFound("countryOfDispatch", invalidCode),

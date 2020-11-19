@@ -35,9 +35,8 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
    * One view model can hold all the required data which can be used to build a document
    * Let each Converter handle what goes in the view model
    */
-  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument)(
-    implicit ec: ExecutionContext,
-    hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
+  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
+                  mrn: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
 
     val countriesFuture      = referenceData.countries()
     val additionalInfoFuture = referenceData.additionalInformation()
@@ -64,26 +63,12 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
         documentTypesResult
       ).mapN(
           (countries, additionalInfo, kindsOfPackage, documentTypes) =>
-            TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries, additionalInfo, kindsOfPackage, documentTypes)
+            TransitAccompanyingDocumentConverter.toViewModel(mrn, transitAccompanyingDocument, countries, additionalInfo, kindsOfPackage, documentTypes)
         )
         .fold(
           errors => Invalid(errors),
           result => result
         )
     }
-//
-//    for {
-//      countriesResult <- countriesFuture
-//    } yield {
-//      (
-//        countriesResult,
-//      ).map(
-//          (countries) => TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries)
-//        )
-//        .fold(
-//          errors => Invalid(errors),
-//          result => result
-//        )
-//    }
   }
 }

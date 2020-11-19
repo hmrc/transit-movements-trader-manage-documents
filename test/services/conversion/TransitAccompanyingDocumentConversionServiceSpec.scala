@@ -59,7 +59,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
   val validModel = models.TransitAccompanyingDocument(
-    localReferenceNumber = "MRN GOES HERE",
+    localReferenceNumber = "lrn",
     declarationType = DeclarationType.T1,
     countryOfDispatch = Some(countries.head.code),
     countryOfDestination = Some(countries.head.code),
@@ -118,7 +118,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
       val expectedResult = viewmodels.PermissionToStartUnloading(
-        movementReferenceNumber = "MRN GOES HERE",
+        movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
@@ -179,7 +179,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
         )
       )
 
-      val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModel).futureValue
+      val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModel, "mrn").futureValue
 
       result.valid.value mustEqual expectedResult
     }
@@ -202,7 +202,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
-      val result = service.toViewModel(validModel).futureValue
+      val result = service.toViewModel(validModel, "mrn").futureValue
 
       val expectedErrors = Seq(
         ReferenceDataRetrievalError("countries", 500, "body"),
@@ -226,7 +226,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       val invalidRefData = validModel copy (countryOfDispatch = Some("non-existent code"))
 
-      val result = service.toViewModel(invalidRefData).futureValue
+      val result = service.toViewModel(invalidRefData, "mrn").futureValue
 
       result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("countryOfDispatch", "non-existent code"))
     }
