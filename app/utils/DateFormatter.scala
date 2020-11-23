@@ -31,11 +31,4 @@ object DateFormatter {
         case _ => date.toString
       }
   }
-
-//  def dateFormatted(date: LocalDate, pattern: String): String =
-//    try {
-//      date.format(DateTimeFormatter.ofPattern(pattern))
-//    } catch {
-//      case _ => date.toString
-//    }
 }

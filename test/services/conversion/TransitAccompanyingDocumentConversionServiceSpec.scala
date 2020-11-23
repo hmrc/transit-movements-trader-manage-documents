@@ -20,18 +20,24 @@ import cats.data.Validated.Valid
 import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
+import generators.ModelGenerators
+import models.Consignee
+import models.Consignor
 import models.DeclarationType
+import models.TransitAccompanyingDocument
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import services.ReferenceDataNotFound
 import services.ReferenceDataRetrievalError
 import services.ReferenceDataService
@@ -40,6 +46,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import utils.StringTransformer._
 
 class TransitAccompanyingDocumentConversionServiceSpec
     extends FreeSpec
@@ -48,7 +55,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
     with ValidatedMatchers
     with ValidatedValues
     with ScalaFutures
-    with IntegrationPatience {
+    with IntegrationPatience
+    with ModelGenerators
+    with ScalaCheckPropertyChecks {
 
   private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
@@ -107,81 +116,231 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
   "toViewModel" - {
 
-    "must return a view model" in {
+    "must return a view model" - {
 
-      val referenceDataService = mock[ReferenceDataService]
-      when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
-      when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
-      when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
-      when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+      "all data exists" in {
 
-      val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
+        forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
+          (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn) =>
+            val referenceDataService = mock[ReferenceDataService]
+            when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
+            when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
+            when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
+            when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
 
-      val expectedResult = viewmodels.PermissionToStartUnloading(
-        movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
-        singleCountryOfDispatch = Some(countries.head),
-        singleCountryOfDestination = Some(countries.head),
-        transportIdentity = Some("identity"),
-        transportCountry = Some(countries.head),
-        acceptanceDate = None,
-        acceptanceDateFormatted = None,
-        numberOfItems = 1,
-        numberOfPackages = 3,
-        grossMass = 1.0,
-        principal = viewmodels.Principal("Principal name",
-                                         "Principal street",
-                                         "Principal street",
-                                         "Principal postCode",
-                                         "Principal city",
-                                         countries.head,
-                                         Some("Principal EORI"),
-                                         Some("tir")),
-        consignor =
-          Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-        consignee =
-          Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
-        traderAtDestination = None,
-        departureOffice = "The Departure office, less than 45 characters long",
-        departureOfficeTrimmed = "The Departure office, less than 45 charact***",
-        presentationOffice = None,
-        seals = Seq("seal 1"),
-        goodsItems = NonEmptyList.one(
-          viewmodels.GoodsItem(
-            itemNumber = 1,
-            commodityCode = None,
-            declarationType = None,
-            description = "Description",
-            grossMass = Some(1.0),
-            netMass = Some(0.9),
-            countryOfDispatch = Some(countries.head),
-            countryOfDestination = Some(countries.head),
-            producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
-            specialMentions = Seq(
-              viewmodels.SpecialMentionEc(additionalInfo.head),
-              viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
-              viewmodels.SpecialMentionNoCountry(additionalInfo.head)
-            ),
-            consignor = Some(
-              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-            consignee = Some(
-              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
-            containers = Seq("container 1"),
-            packages = NonEmptyList(
-              viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
-              List(
-                viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
-                viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+            val consignorGenUpdated = Some(consignorGen.copy(countryCode = "AA"))
+            val consigneeGenUpdated = Some(consigneeGen.copy(countryCode = "AA"))
+
+            val transitAccompanyingDocument =
+              transitAccompanyingDocumentGen.copy(
+                principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code),
+                consignor = consignorGenUpdated,
+                consignee = consigneeGenUpdated
               )
-            ),
-            sensitiveGoodsInformation = sensitiveGoodsInformation
-          )
-        )
-      )
 
-      val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModel, "mrn").futureValue
+            val validModelUpdated = validModel.copy(
+              declarationType = transitAccompanyingDocument.declarationType,
+              countryOfDispatch = Some(countriesGen.code),
+              countryOfDestination = Some(countriesGen.code),
+              transportIdentity = transitAccompanyingDocument.transportIdentity,
+              transportCountry = Some(countriesGen.code),
+              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
+              grossMass = transitAccompanyingDocument.grossMass,
+              principal = transitAccompanyingDocument.principal,
+              consignor = transitAccompanyingDocument.consignor,
+              consignee = transitAccompanyingDocument.consignee,
+              departureOffice = transitAccompanyingDocument.departureOffice,
+              seals = transitAccompanyingDocument.seals
+            )
 
-      result.valid.value mustEqual expectedResult
+            val expectedResult = viewmodels.PermissionToStartUnloading(
+              movementReferenceNumber = mrn,
+              declarationType = transitAccompanyingDocument.declarationType,
+              singleCountryOfDispatch = Some(countriesGen),
+              singleCountryOfDestination = Some(countriesGen),
+              transportIdentity = transitAccompanyingDocument.transportIdentity,
+              transportCountry = Some(countriesGen),
+              acceptanceDate = None,
+              acceptanceDateFormatted = None,
+              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
+              grossMass = transitAccompanyingDocument.grossMass,
+              principal = viewmodels.Principal(
+                transitAccompanyingDocument.principal.name,
+                transitAccompanyingDocument.principal.streetAndNumber,
+                transitAccompanyingDocument.principal.streetAndNumber.shorten(32)("***"),
+                transitAccompanyingDocument.principal.postCode,
+                transitAccompanyingDocument.principal.city,
+                countriesGen,
+                transitAccompanyingDocument.principal.eori,
+                transitAccompanyingDocument.principal.tir
+              ),
+              consignor = Some(
+                viewmodels.Consignor(
+                  transitAccompanyingDocument.consignor.get.name,
+                  transitAccompanyingDocument.consignor.get.streetAndNumber,
+                  transitAccompanyingDocument.consignor.get.streetAndNumber.shorten(32)("***"),
+                  transitAccompanyingDocument.consignor.get.postCode,
+                  transitAccompanyingDocument.consignor.get.city,
+                  countries.head,
+                  transitAccompanyingDocument.consignor.get.eori
+                )),
+              consignee = Some(
+                viewmodels.Consignee(
+                  transitAccompanyingDocument.consignee.get.name,
+                  transitAccompanyingDocument.consignee.get.streetAndNumber,
+                  transitAccompanyingDocument.consignee.get.streetAndNumber.shorten(32)("***"),
+                  transitAccompanyingDocument.consignee.get.postCode,
+                  transitAccompanyingDocument.consignee.get.city,
+                  countries.head,
+                  transitAccompanyingDocument.consignee.get.eori
+                )),
+              traderAtDestination = None,
+              departureOffice = transitAccompanyingDocument.departureOffice,
+              departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+              presentationOffice = None,
+              seals = transitAccompanyingDocument.seals,
+              goodsItems = NonEmptyList.one(
+                viewmodels.GoodsItem(
+                  itemNumber = 1,
+                  commodityCode = None,
+                  declarationType = None,
+                  description = "Description",
+                  grossMass = Some(1.0),
+                  netMass = Some(0.9),
+                  countryOfDispatch = Some(countries.head),
+                  countryOfDestination = Some(countries.head),
+                  producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+                  specialMentions = Seq(
+                    viewmodels.SpecialMentionEc(additionalInfo.head),
+                    viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
+                    viewmodels.SpecialMentionNoCountry(additionalInfo.head)
+                  ),
+                  consignor = Some(viewmodels
+                    .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+                  consignee = Some(viewmodels
+                    .Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+                  containers = Seq("container 1"),
+                  packages = NonEmptyList(
+                    viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
+                    List(
+                      viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+                      viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+                    )
+                  ),
+                  sensitiveGoodsInformation = sensitiveGoodsInformation
+                )
+              )
+            )
+
+            val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
+
+            val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModelUpdated, mrn).futureValue
+
+            result.valid.value mustEqual expectedResult
+        }
+
+      }
+
+      "mandatory data exists" in {
+
+        forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], stringWithMaxLength(17)) {
+          (countriesGen, transitAccompanyingDocumentGen, mrn) =>
+            val referenceDataService = mock[ReferenceDataService]
+            when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
+            when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
+            when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
+            when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+
+            val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
+
+            val transitAccompanyingDocument =
+              transitAccompanyingDocumentGen.copy(principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code))
+
+            val validModelUpdated = validModel.copy(
+              declarationType = transitAccompanyingDocument.declarationType,
+              countryOfDispatch = None,
+              countryOfDestination = None,
+              transportIdentity = None,
+              transportCountry = None,
+              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
+              grossMass = transitAccompanyingDocument.grossMass,
+              principal = transitAccompanyingDocument.principal,
+              consignor = None,
+              consignee = None,
+              departureOffice = transitAccompanyingDocument.departureOffice,
+              seals = Nil
+            )
+
+            val expectedResult = viewmodels.PermissionToStartUnloading(
+              movementReferenceNumber = mrn,
+              declarationType = transitAccompanyingDocument.declarationType,
+              singleCountryOfDispatch = None,
+              singleCountryOfDestination = None,
+              transportIdentity = None,
+              transportCountry = None,
+              acceptanceDate = None,
+              acceptanceDateFormatted = None,
+              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
+              grossMass = transitAccompanyingDocument.grossMass,
+              principal = viewmodels.Principal(
+                transitAccompanyingDocument.principal.name,
+                transitAccompanyingDocument.principal.streetAndNumber,
+                transitAccompanyingDocument.principal.streetAndNumber.shorten(32)("***"),
+                transitAccompanyingDocument.principal.postCode,
+                transitAccompanyingDocument.principal.city,
+                countriesGen,
+                transitAccompanyingDocument.principal.eori,
+                transitAccompanyingDocument.principal.tir
+              ),
+              consignor = None,
+              consignee = None,
+              traderAtDestination = None,
+              departureOffice = transitAccompanyingDocument.departureOffice,
+              departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+              presentationOffice = None,
+              seals = Nil,
+              goodsItems = NonEmptyList.one(
+                viewmodels.GoodsItem(
+                  itemNumber = 1,
+                  commodityCode = None,
+                  declarationType = None,
+                  description = "Description",
+                  grossMass = Some(1.0),
+                  netMass = Some(0.9),
+                  countryOfDispatch = Some(countries.head),
+                  countryOfDestination = Some(countries.head),
+                  producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+                  specialMentions = Seq(
+                    viewmodels.SpecialMentionEc(additionalInfo.head),
+                    viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
+                    viewmodels.SpecialMentionNoCountry(additionalInfo.head)
+                  ),
+                  consignor = Some(viewmodels
+                    .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+                  consignee = Some(viewmodels
+                    .Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+                  containers = Seq("container 1"),
+                  packages = NonEmptyList(
+                    viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
+                    List(
+                      viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+                      viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+                    )
+                  ),
+                  sensitiveGoodsInformation = sensitiveGoodsInformation
+                )
+              )
+            )
+
+            val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModelUpdated, mrn).futureValue
+
+            result.valid.value mustEqual expectedResult
+        }
+      }
     }
 
     "must return errors when reference data cannot be retrieved" in {

@@ -48,7 +48,6 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         countryOfDestination = Some(countries.head.code),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head.code),
-        //acceptanceDate = date,
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -217,7 +216,6 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         ReferenceDataNotFound("countryOfDestination", invalidCode),
         ReferenceDataNotFound("transportCountry", invalidCode),
         ReferenceDataNotFound("principal.countryCode", invalidCode),
-//        ReferenceDataNotFound("traderAtDestination.countryCode", invalidCode),
         ReferenceDataNotFound("goodsItems[0].countryOfDispatch", invalidCode),
         ReferenceDataNotFound("goodsItems[0].countryOfDestination", invalidCode),
         ReferenceDataNotFound("goodsItems[0].producedDocuments[0].documentType", invalidCode),
@@ -236,6 +234,3 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
     }
   }
 }
-
-//List(ReferenceDataNotFound(countryOfDispatch,non-existent code), ReferenceDataNotFound(countryOfDestination,non-existent code), ReferenceDataNotFound(principal.countryCode,non-existent code), ReferenceDataNotFound(transportCountry,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDispatch,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDestination,non-existent code), ReferenceDataNotFound(goodsItems[0].producedDocuments[0].documentType,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[0].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[2].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[0].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[1].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[2].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].consignor.countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].consignee.countryCode,non-existent code), ReferenceDataNotFound(consignor.countryCode,non-existent code), ReferenceDataNotFound(consignee.countryCode,non-existent code))
-//List(ReferenceDataNotFound(countryOfDispatch,non-existent code), ReferenceDataNotFound(countryOfDestination,non-existent code), ReferenceDataNotFound(transportCountry,non-existent code), ReferenceDataNotFound(principal.countryCode,non-existent code), ReferenceDataNotFound(consignor,non-existent code), ReferenceDataNotFound(consignee,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDispatch,non-existent code), ReferenceDataNotFound(goodsItems[0].countryOfDestination,non-existent code), ReferenceDataNotFound(goodsItems[0].producedDocuments[0].documentType,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[0].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[1].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].specialMentions[2].additionalInformationCoded,non-existent code), ReferenceDataNotFound(goodsItems[0].consignor.countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].consignee.countryCode,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[0].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[1].kindOfPackage,non-existent code), ReferenceDataNotFound(goodsItems[0].packages[2].kindOfPackage,non-existent code)) (TransitAccompanyingDocumentConverterSpec.scala:239)
