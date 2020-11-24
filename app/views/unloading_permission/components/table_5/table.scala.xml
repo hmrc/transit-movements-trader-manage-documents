@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(permission: viewmodels.TransitDocument)
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 5 -->
     <fo:table-column column-width="93mm"/>

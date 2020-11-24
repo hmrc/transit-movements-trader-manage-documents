@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(permission: viewmodels.TransitDocument)
 
 @if(permission.goodsItems.head.packages.toList.length > 0) {
 <fo:table width="100%" table-layout="fixed">

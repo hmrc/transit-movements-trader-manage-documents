@@ -1,4 +1,4 @@
-@(goodsItem: viewmodels.GoodsItem, permission: viewmodels.PermissionToStartUnloading)
+@(goodsItem: viewmodels.GoodsItem, permission: viewmodels.TransitDocument)
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
     <fo:table-column column-width="28mm"/>

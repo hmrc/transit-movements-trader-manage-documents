@@ -19,15 +19,15 @@ package services.pdf
 import com.dmanchester.playfop.sapi.PlayFop
 import javax.inject.Inject
 import org.apache.xmlgraphics.util.MimeConstants
-import viewmodels.PermissionToStartUnloading
-import views.xml.unloading_permission.UnloadingPermissionDocument
+import viewmodels.TransitDocument
+import views.xml.unloading_permission.TransitDocumentTemplate
 
 class UnloadingPermissionPdfGenerator @Inject()(
   fop: PlayFop,
-  document: UnloadingPermissionDocument
+  document: TransitDocumentTemplate
 ) {
 
-  def generate(permission: PermissionToStartUnloading): Array[Byte] = {
+  def generate(permission: TransitDocument): Array[Byte] = {
 
     val renderedDocument = document.render(permission)
 

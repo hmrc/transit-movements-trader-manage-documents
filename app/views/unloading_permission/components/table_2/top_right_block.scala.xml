@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(permission: viewmodels.TransitDocument)
 
 <fo:table-cell number-columns-spanned="2">
     <fo:block>

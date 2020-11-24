@@ -22,28 +22,27 @@ import cats.data.NonEmptyList
 import models.DeclarationType
 import models.reference.Country
 
-final case class PermissionToStartUnloading(
-  movementReferenceNumber: String,
-  declarationType: DeclarationType,
-  singleCountryOfDispatch: Option[Country],
-  singleCountryOfDestination: Option[Country],
-  transportIdentity: Option[String],
-  transportCountry: Option[Country],
-  acceptanceDate: Option[LocalDate],
-  acceptanceDateFormatted: Option[String],
-  numberOfItems: Int,
-  numberOfPackages: Int,
-  grossMass: BigDecimal,
-  principal: Principal,
-  consignor: Option[Consignor],
-  consignee: Option[Consignee],
-  traderAtDestination: Option[TraderAtDestination],
-  departureOffice: String,
-  departureOfficeTrimmed: String,
-  presentationOffice: Option[String],
-  seals: Seq[String],
-  goodsItems: NonEmptyList[GoodsItem]
-) {
+trait TransitDocument {
+  val movementReferenceNumber: String
+  val declarationType: DeclarationType
+  val singleCountryOfDispatch: Option[Country]
+  val singleCountryOfDestination: Option[Country]
+  val transportIdentity: Option[String]
+  val transportCountry: Option[Country]
+  val acceptanceDate: Option[LocalDate]
+  val acceptanceDateFormatted: Option[String]
+  val numberOfItems: Int
+  val numberOfPackages: Int
+  val grossMass: BigDecimal
+  val principal: Principal
+  val consignor: Option[Consignor]
+  val consignee: Option[Consignee]
+  val traderAtDestination: Option[TraderAtDestination]
+  val departureOffice: String
+  val departureOfficeTrimmed: String
+  val presentationOffice: Option[String]
+  val seals: Seq[String]
+  val goodsItems: NonEmptyList[GoodsItem]
 
   private def singleValue[A](items: Seq[A]): Option[A] =
     if (items.distinct.size == 1 && items.size == goodsItems.size) {
@@ -92,3 +91,26 @@ final case class PermissionToStartUnloading(
       consignorOne.isEmpty &&
       goodsItems.toList.flatMap(_.consignor).nonEmpty
 }
+
+final case class PermissionToStartUnloading(
+  movementReferenceNumber: String,
+  declarationType: DeclarationType,
+  singleCountryOfDispatch: Option[Country],
+  singleCountryOfDestination: Option[Country],
+  transportIdentity: Option[String],
+  transportCountry: Option[Country],
+  acceptanceDate: Option[LocalDate],
+  acceptanceDateFormatted: Option[String],
+  numberOfItems: Int,
+  numberOfPackages: Int,
+  grossMass: BigDecimal,
+  principal: Principal,
+  consignor: Option[Consignor],
+  consignee: Option[Consignee],
+  traderAtDestination: Option[TraderAtDestination],
+  departureOffice: String,
+  departureOfficeTrimmed: String,
+  presentationOffice: Option[String],
+  seals: Seq[String],
+  goodsItems: NonEmptyList[GoodsItem]
+) extends TransitDocument
