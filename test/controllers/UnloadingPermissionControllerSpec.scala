@@ -81,7 +81,7 @@ class UnloadingPermissionControllerSpec
             when(mockConversionService.toViewModel(any())(any(), any()))
               .thenReturn(Future.successful(Valid(permissionToStartUnloadingViewModel)))
 
-            when(mockPDFGenerator.generateUnloadingPermission(any()))
+            when(mockPDFGenerator.generate(any()))
               .thenReturn(pdf)
 
             val request = FakeRequest(POST, unloadingPermissionControllerRoute).withXmlBody(validUnloadingPermissionXml)
@@ -126,7 +126,7 @@ class UnloadingPermissionControllerSpec
             when(mockConversionService.toViewModel(any())(any(), any()))
               .thenReturn(Future.successful(Invalid(NonEmptyChain(ReferenceDataRetrievalError("", 500, "")))))
 
-            when(mockPDFGenerator.generateUnloadingPermission(any()))
+            when(mockPDFGenerator.generate(any()))
               .thenReturn(pdf)
 
             val request = FakeRequest(POST, unloadingPermissionControllerRoute).withXmlBody(validUnloadingPermissionXml)

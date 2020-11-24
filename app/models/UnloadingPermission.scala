@@ -68,7 +68,7 @@ final case class PermissionToStartUnloading(
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
-  traderAtDestination: TraderAtDestination,
+  traderAtDestination: TraderAtDestination, //TODO: Is this used for pdf?
   departureOffice: String,
   presentationOffice: String,
   seals: Seq[String],

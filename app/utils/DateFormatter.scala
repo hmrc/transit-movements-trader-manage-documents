@@ -23,10 +23,12 @@ object DateFormatter {
   val dateFormatter: DateTimeFormatter       = DateTimeFormatter.ofPattern("yyyyMMdd")
   def dateFormatted(date: LocalDate): String = date.format(dateFormatter)
 
-  def dateFormatted(date: LocalDate, pattern: String): String =
-    try {
-      date.format(DateTimeFormatter.ofPattern(pattern))
-    } catch {
-      case _ => date.toString
-    }
+  def dateFormatted(dateOption: Option[LocalDate], pattern: String): Option[String] = dateOption.map {
+    date =>
+      try {
+        date.format(DateTimeFormatter.ofPattern(pattern))
+      } catch {
+        case _ => date.toString
+      }
+  }
 }

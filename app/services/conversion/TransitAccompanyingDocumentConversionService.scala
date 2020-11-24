@@ -21,34 +21,49 @@ import javax.inject.Inject
 import services.ReferenceDataService
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
+import cats.implicits._
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
 class TransitAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataService) {
 
-  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument)(
-    implicit ec: ExecutionContext,
-    hc: HeaderCarrier): Future[ValidationResult[viewmodels.tad.TransitAccompanyingDocument]] = {
-    val countriesFuture = referenceData.countries()
+  //TODO: Rename PermissionToStartUnloading view model
+  /*
+   * The TAD/UL xsd files are identical, both documents share same structure
+   * There's no point having separate templates under views
+   * One view model can hold all the required data which can be used to build a document
+   * Let each Converter handle what goes in the view model
+   */
+  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
+                  mrn: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
+
+    val countriesFuture      = referenceData.countries()
+    val additionalInfoFuture = referenceData.additionalInformation()
+    val kindsOfPackageFuture = referenceData.kindsOfPackage()
+    val documentTypesFuture  = referenceData.documentTypes()
+
     //TODO: ref data will be needed below when we're building out the view model
-//    val additionalInfoFuture = referenceData.additionalInformation()
-//    val kindsOfPackageFuture = referenceData.kindsOfPackage()
-//    val documentTypesFuture  = referenceData.documentTypes()
-//
-//    val transportMode  = referenceData.transportMode()
-//    val controlResultCode = referenceData.controlResult()
-//    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
-//    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
-//    val specialMentionsCodeFuture = referenceData.specialMentions()
+    //    val transportMode  = referenceData.transportMode()
+    //    val controlResultCode = referenceData.controlResult()
+    //    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
+    //    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
+    //    val specialMentionsCodeFuture = referenceData.specialMentions()
 
     for {
-      countriesResult <- countriesFuture
+      countriesResult      <- countriesFuture
+      additionalInfoResult <- additionalInfoFuture
+      kindsOfPackageResult <- kindsOfPackageFuture
+      documentTypesResult  <- documentTypesFuture
     } yield {
       (
         countriesResult,
-      ).map(
-          (countries) => TransitAccompanyingDocumentConverter.toViewModel(transitAccompanyingDocument, countries)
+        additionalInfoResult,
+        kindsOfPackageResult,
+        documentTypesResult
+      ).mapN(
+          (countries, additionalInfo, kindsOfPackage, documentTypes) =>
+            TransitAccompanyingDocumentConverter.toViewModel(mrn, transitAccompanyingDocument, countries, additionalInfo, kindsOfPackage, documentTypes)
         )
         .fold(
           errors => Invalid(errors),

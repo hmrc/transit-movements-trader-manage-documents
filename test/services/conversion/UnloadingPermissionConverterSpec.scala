@@ -108,8 +108,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = date,
-        acceptanceDateFormatted = "01/08/2020",
+        acceptanceDate = Some(date),
+        acceptanceDateFormatted = Some("01/08/2020"),
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -125,10 +125,10 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
           Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
-        traderAtDestination = viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
+        traderAtDestination = Some(viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None)),
         departureOffice = "Departure office",
         departureOfficeTrimmed = "Departure office",
-        presentationOffice = "Presentation office",
+        presentationOffice = Some("Presentation office"),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(

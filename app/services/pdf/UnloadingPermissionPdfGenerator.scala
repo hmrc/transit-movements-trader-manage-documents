@@ -27,7 +27,7 @@ class UnloadingPermissionPdfGenerator @Inject()(
   document: UnloadingPermissionDocument
 ) {
 
-  def generateUnloadingPermission(permission: PermissionToStartUnloading): Array[Byte] = {
+  def generate(permission: PermissionToStartUnloading): Array[Byte] = {
 
     val renderedDocument = document.render(permission)
 
