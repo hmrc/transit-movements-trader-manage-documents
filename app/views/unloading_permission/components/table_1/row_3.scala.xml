@@ -7,11 +7,12 @@
   <fo:table-cell number-rows-spanned="5" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" padding-top="-10mm">
     <fo:block-container
           font-family="sans-serif" font-size="8"
+          @if(permission.documentHeading.isBold) { font-weight="bold" }
           reference-orientation="90" display-align="center"
           inline-progression-dimension.minimum="8mm"
           inline-progression-dimension.optimum="80mm"
           inline-progression-dimension.maximum="auto">
-      <fo:block hyphenate="true">UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT</fo:block>
+      <fo:block hyphenate="true">@permission.documentHeading.title</fo:block>
     </fo:block-container>
   </fo:table-cell>
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">

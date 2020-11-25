@@ -38,6 +38,14 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
     sensitiveGoodsInformation <- listWithMaxSize(1, arbitrary[SensitiveGoodsInformation])
   } yield (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation)
 
+  "must have document heading" in {
+
+    val permissionToStartUnloading = arbitrary[PermissionToStartUnloading].sample.get
+
+    permissionToStartUnloading.documentHeading.title mustBe "UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT"
+    permissionToStartUnloading.documentHeading.isBold mustBe false
+  }
+
   "must have a consignor" - {
 
     "when all goods items have the same consignor" in {

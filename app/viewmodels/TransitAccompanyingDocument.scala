@@ -15,35 +15,28 @@
  */
 
 package viewmodels
-
-import java.time.LocalDate
-
 import cats.data.NonEmptyList
 import models.DeclarationType
 import models.reference.Country
 
-final case class PermissionToStartUnloading(
+final case class TransitAccompanyingDocument(
   movementReferenceNumber: String,
   declarationType: DeclarationType,
   singleCountryOfDispatch: Option[Country],
   singleCountryOfDestination: Option[Country],
   transportIdentity: Option[String],
   transportCountry: Option[Country],
-  override val acceptanceDate: Option[LocalDate],
-  override val acceptanceDateFormatted: Option[String],
   numberOfItems: Int,
   numberOfPackages: Int,
   grossMass: BigDecimal,
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
-  override val traderAtDestination: Option[TraderAtDestination],
   departureOffice: String,
   departureOfficeTrimmed: String,
-  override val presentationOffice: Option[String],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
 ) extends TransitDocument {
 
-  val documentHeading = PermissionToStartUnloadingDocumentHeading
+  val documentHeading = TransitAccompanyingDocumentHeading
 }

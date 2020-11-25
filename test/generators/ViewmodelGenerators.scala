@@ -276,4 +276,44 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           goodsItems
         )
     }
+
+  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
+    Arbitrary {
+
+      for {
+        mrn                  <- stringWithMaxLength(17)
+        declarationType      <- arbitrary[DeclarationType]
+        countryOfDispatch    <- Gen.option(arbitrary[Country])
+        countryOfDestination <- Gen.option(arbitrary[Country])
+        transportId          <- Gen.option(stringWithMaxLength(27))
+        transportCountry     <- Gen.option(arbitrary[Country])
+        numberOfItems        <- Gen.choose(1, 99999)
+        numberOfPackages     <- Gen.choose(1, 9999999)
+        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        principal            <- arbitrary[Principal]
+        consignor            <- Gen.option(arbitrary[Consignor])
+        consignee            <- Gen.option(arbitrary[Consignee])
+        departureOffice      <- stringWithMaxLength(8)
+        seals                <- listWithMaxSize(9, stringWithMaxLength(20))
+        goodsItems           <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+      } yield
+        TransitAccompanyingDocument(
+          mrn,
+          declarationType,
+          countryOfDispatch,
+          countryOfDestination,
+          transportId,
+          transportCountry,
+          numberOfItems,
+          numberOfPackages,
+          grossMass,
+          principal,
+          consignor,
+          consignee,
+          departureOffice,
+          departureOffice,
+          seals,
+          goodsItems
+        )
+    }
 }
