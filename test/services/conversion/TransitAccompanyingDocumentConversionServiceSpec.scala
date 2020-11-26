@@ -25,10 +25,7 @@ import models.Consignee
 import models.Consignor
 import models.DeclarationType
 import models.TransitAccompanyingDocument
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -59,10 +56,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
     with ModelGenerators
     with ScalaCheckPropertyChecks {
 
-  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
-  private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
-  private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
-  private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val countries             = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val kindsOfPackage        = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
+  private val documentTypes         = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
+  private val additionalInfo        = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val previousDocumentTypes = Seq(PreviousDocumentTypes("235", "Container list"), PreviousDocumentTypes("270", "Loading list (delivery note)"))
+
   private val sensitiveGoodsInformation = Nil
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
@@ -93,6 +92,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        previousAdministrativeReferences = Seq(
+          models.PreviousAdministrativeReference(
+            previousDocumentTypes.head.code,
+            "ref",
+            Some("information")
+          )),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(additionalInfo.head.code),
@@ -127,6 +132,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
             when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
             when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
             when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+            when(referenceDataService.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
             val consignorGenUpdated = Some(consignorGen.copy(countryCode = "AA"))
             val consigneeGenUpdated = Some(consigneeGen.copy(countryCode = "AA"))
@@ -154,15 +160,13 @@ class TransitAccompanyingDocumentConversionServiceSpec
               seals = transitAccompanyingDocument.seals
             )
 
-            val expectedResult = viewmodels.PermissionToStartUnloading(
+            val expectedResult = viewmodels.TransitAccompanyingDocument(
               movementReferenceNumber = mrn,
               declarationType = transitAccompanyingDocument.declarationType,
               singleCountryOfDispatch = Some(countriesGen),
               singleCountryOfDestination = Some(countriesGen),
               transportIdentity = transitAccompanyingDocument.transportIdentity,
               transportCountry = Some(countriesGen),
-              acceptanceDate = None,
-              acceptanceDateFormatted = None,
               numberOfItems = transitAccompanyingDocument.numberOfItems,
               numberOfPackages = transitAccompanyingDocument.numberOfPackages,
               grossMass = transitAccompanyingDocument.grossMass,
@@ -196,10 +200,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   countries.head,
                   transitAccompanyingDocument.consignee.get.eori
                 )),
-              traderAtDestination = None,
               departureOffice = transitAccompanyingDocument.departureOffice,
               departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
-              presentationOffice = None,
               seals = transitAccompanyingDocument.seals,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
@@ -236,7 +238,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
             val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
-            val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModelUpdated, mrn).futureValue
+            val result: ValidationResult[viewmodels.TransitAccompanyingDocument] = service.toViewModel(validModelUpdated, mrn).futureValue
 
             result.valid.value mustEqual expectedResult
         }
@@ -252,6 +254,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
             when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
             when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
             when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+            when(referenceDataService.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
             val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
@@ -274,15 +277,13 @@ class TransitAccompanyingDocumentConversionServiceSpec
               seals = Nil
             )
 
-            val expectedResult = viewmodels.PermissionToStartUnloading(
+            val expectedResult = viewmodels.TransitAccompanyingDocument(
               movementReferenceNumber = mrn,
               declarationType = transitAccompanyingDocument.declarationType,
               singleCountryOfDispatch = None,
               singleCountryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
-              acceptanceDate = None,
-              acceptanceDateFormatted = None,
               numberOfItems = transitAccompanyingDocument.numberOfItems,
               numberOfPackages = transitAccompanyingDocument.numberOfPackages,
               grossMass = transitAccompanyingDocument.grossMass,
@@ -298,10 +299,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
               ),
               consignor = None,
               consignee = None,
-              traderAtDestination = None,
               departureOffice = transitAccompanyingDocument.departureOffice,
               departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
-              presentationOffice = None,
               seals = Nil,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
@@ -336,7 +335,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               )
             )
 
-            val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModelUpdated, mrn).futureValue
+            val result: ValidationResult[viewmodels.TransitAccompanyingDocument] = service.toViewModel(validModelUpdated, mrn).futureValue
 
             result.valid.value mustEqual expectedResult
         }

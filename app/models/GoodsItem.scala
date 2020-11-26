@@ -36,6 +36,7 @@ final case class GoodsItem(
   netMass: Option[BigDecimal],
   countryOfDispatch: Option[String],
   countryOfDestination: Option[String],
+  previousAdministrativeReferences: Seq[PreviousAdministrativeReference],
   producedDocuments: Seq[ProducedDocument],
   specialMentions: Seq[SpecialMention],
   consignor: Option[Consignor],
@@ -59,7 +60,7 @@ object GoodsItem {
       (__ \ "NetMasGDS48").read[BigDecimal].optional,
       (__ \ "CouOfDisGDS58").read[String].optional,
       (__ \ "CouOfDesGDS59").read[String].optional,
-      //TODO: PREADMREFAR2 needs adding
+      (__ \ "PREADMREFAR2").read(strictReadSeq[PreviousAdministrativeReference]),
       (__ \ "PRODOCDC2").read(strictReadSeq[ProducedDocument]),
       (__ \ "SPEMENMT2").read(strictReadSeq[SpecialMention]),
       (__ \ "TRACONCO2").read[Consignor](Consignor.xmlReaderGoodsLevel).optional,

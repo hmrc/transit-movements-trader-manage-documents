@@ -196,21 +196,22 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        itemNumber                <- Gen.choose(1, 99999)
-        commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
-        description               <- stringWithMaxLength(280)
-        grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
-        countryOfDestination      <- Gen.option(stringWithMaxLength(2))
-        producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
-        specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
-        consignor                 <- Gen.option(arbitrary[Consignor])
-        consignee                 <- Gen.option(arbitrary[Consignee])
-        containers                <- listWithMaxSize(2, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(2, arbitrary[Package])
-        sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        itemNumber                      <- Gen.choose(1, 99999)
+        commodityCode                   <- Gen.option(stringWithMaxLength(22))
+        declarationType                 <- Gen.option(arbitrary[DeclarationType])
+        description                     <- stringWithMaxLength(280)
+        grossMass                       <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        netMass                         <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        countryOfDispatch               <- Gen.option(stringWithMaxLength(2))
+        countryOfDestination            <- Gen.option(stringWithMaxLength(2))
+        previousAdministrativeReference <- listWithMaxSize(2, arbitrary[PreviousAdministrativeReference])
+        producedDocuments               <- listWithMaxSize(2, arbitrary[ProducedDocument])
+        specialMentions                 <- listWithMaxSize(2, arbitrary[SpecialMention])
+        consignor                       <- Gen.option(arbitrary[Consignor])
+        consignee                       <- Gen.option(arbitrary[Consignee])
+        containers                      <- listWithMaxSize(2, stringWithMaxLength(17))
+        packages                        <- nonEmptyListWithMaxSize(2, arbitrary[Package])
+        sensitiveGoodsInformation       <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
       } yield
         GoodsItem(
           itemNumber,
@@ -221,6 +222,7 @@ trait ModelGenerators extends GeneratorHelpers {
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          previousAdministrativeReference,
           producedDocuments,
           specialMentions,
           consignor,
@@ -367,6 +369,16 @@ trait ModelGenerators extends GeneratorHelpers {
         arbitrary[viewmodels.TraderAtDestinationWithEori],
         arbitrary[viewmodels.TraderAtDestinationWithoutEori]
       )
+    }
+  }
+
+  implicit lazy val arbitraryPreviousAdministrativeReference: Arbitrary[PreviousAdministrativeReference] = {
+    Arbitrary {
+      for {
+        documentType <- stringWithMaxLength(PreviousAdministrativeReference.Constants.previousDocumentTypeLength)
+        documentRef  <- stringWithMaxLength(PreviousAdministrativeReference.Constants.previousDocumentReferenceLength)
+        information  <- Gen.option(stringWithMaxLength(PreviousAdministrativeReference.Constants.complementOfInformationLength))
+      } yield PreviousAdministrativeReference(documentType, documentRef, information)
     }
   }
 

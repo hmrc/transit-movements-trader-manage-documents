@@ -21,6 +21,7 @@ import models.Consignee
 import models.Consignor
 import models.GoodsItem
 import models.Package
+import models.PreviousAdministrativeReference
 import models.ProducedDocument
 import models.RegularPackage
 import models.SpecialMention
@@ -69,6 +70,9 @@ object XMLBuilderHelper {
         }
       } ++
       {
+        goodsItem.previousAdministrativeReferences.map(previousAdministrativeReferencesXML)
+      } ++
+      {
       goodsItem.producedDocuments.map(producedDocumentXML) ++
         goodsItem.specialMentions.map(specialMentionXML) ++
         goodsItem.consignor.map(consignorXML) ++
@@ -93,6 +97,18 @@ object XMLBuilderHelper {
         }
       }
     </GOOITEGDS>
+
+  def previousAdministrativeReferencesXML(previousAdministrativeReference: PreviousAdministrativeReference): NodeSeq =
+    <PREADMREFAR2>
+      <PreDocTypAR21>{previousAdministrativeReference.preDocTypAR21}</PreDocTypAR21>
+      <PreDocRefAR26>{previousAdministrativeReference.preDocRefAR26}</PreDocRefAR26>
+      {
+      previousAdministrativeReference.comOfInfAR29.fold(NodeSeq.Empty) {
+        information =>
+          <ComOfInfAR29>{information}</ComOfInfAR29>
+      }
+      }
+    </PREADMREFAR2>
 
   def traderAtDestinationToXml(traderAtDestination: TraderAtDestination): NodeSeq =
     traderAtDestination match {

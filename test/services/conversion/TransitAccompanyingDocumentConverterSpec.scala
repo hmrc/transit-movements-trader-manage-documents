@@ -19,10 +19,7 @@ import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import services.ReferenceDataNotFound
@@ -33,6 +30,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val previousDocumentTypes     = Seq(PreviousDocumentTypes("235", "Container list"), PreviousDocumentTypes("270", "Loading list (delivery note)"))
   private val sensitiveGoodsInformation = Nil
 
   private val invalidCode = "non-existent code"
@@ -72,6 +70,12 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head.code),
             countryOfDestination = Some(countries.head.code),
+            previousAdministrativeReferences = Seq(
+              models.PreviousAdministrativeReference(
+                previousDocumentTypes.head.code,
+                "ref",
+                Some("information")
+              )),
             producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(additionalInfo.head.code),
@@ -93,15 +97,13 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val expectedResult = viewmodels.PermissionToStartUnloading(
+      val expectedResult = viewmodels.TransitAccompanyingDocument(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = None,
-        acceptanceDateFormatted = None,
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -117,10 +119,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
           Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
-        traderAtDestination = None,
         departureOffice = "Departure office",
         departureOfficeTrimmed = "Departure office",
-        presentationOffice = None,
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
@@ -188,6 +188,12 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(invalidCode),
             countryOfDestination = Some(invalidCode),
+            previousAdministrativeReferences = Seq(
+              models.PreviousAdministrativeReference(
+                invalidCode,
+                "ref",
+                Some("information")
+              )),
             producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(invalidCode),

@@ -33,7 +33,7 @@ object TransitAccompanyingDocumentConverter extends Converter {
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.PermissionToStartUnloading] = {
+                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.TransitAccompanyingDocument] = {
 
     def convertTransportCountry(maybeCountry: Option[String]): ValidationResult[Option[Country]] =
       maybeCountry match {
@@ -92,25 +92,21 @@ object TransitAccompanyingDocumentConverter extends Converter {
       convertConsignee(transitAccompanyingDocument.consignee)
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee) =>
-        viewmodels.PermissionToStartUnloading(
+        viewmodels.TransitAccompanyingDocument(
           mrn,
           transitAccompanyingDocument.declarationType,
           dispatch,
           destination,
           transitAccompanyingDocument.transportIdentity,
           transportCountry,
-          None,
-          None,
           transitAccompanyingDocument.numberOfItems,
           transitAccompanyingDocument.numberOfPackages,
           transitAccompanyingDocument.grossMass,
           principal,
           consignor,
           consignee,
-          None,
           transitAccompanyingDocument.departureOffice,
           transitAccompanyingDocument.departureOffice.shorten(45)("***"),
-          None,
           transitAccompanyingDocument.seals,
           goodsItems
       )

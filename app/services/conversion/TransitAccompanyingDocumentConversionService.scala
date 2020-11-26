@@ -36,7 +36,7 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
    * Let each Converter handle what goes in the view model
    */
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
-                  mrn: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
+                  mrn: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitAccompanyingDocument]] = {
 
     val countriesFuture      = referenceData.countries()
     val additionalInfoFuture = referenceData.additionalInformation()

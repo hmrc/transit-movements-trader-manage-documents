@@ -76,7 +76,7 @@ class TransitAccompanyingDocumentControllerSpec
 
       running(application) {
 
-        forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
+        forAll(arbitrary[viewmodels.TransitAccompanyingDocument], arbitrary[Array[Byte]]) {
           (viewModel, pdf) =>
             when(mockConversionService.toViewModel(any(), any())(any(), any()))
               .thenReturn(Future.successful(Valid(viewModel)))
