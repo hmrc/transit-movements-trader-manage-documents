@@ -19,10 +19,7 @@ package generators
 import java.time.LocalDate
 
 import models.DeclarationType
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import models.SensitiveGoodsInformation
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
@@ -64,6 +61,15 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       Gen.oneOf(arbitrary[BulkPackage], arbitrary[UnpackedPackage], arbitrary[RegularPackage])
+    }
+
+  implicit lazy val arbitraryPreviousDocumentType: Arbitrary[PreviousDocumentType] =
+    Arbitrary {
+      for {
+        documentType            <- arbitrary[PreviousDocumentTypes]
+        reference               <- stringWithMaxLength(35)
+        complementOfInformation <- Gen.option(stringWithMaxLength(26))
+      } yield PreviousDocumentType(documentType, reference, complementOfInformation)
     }
 
   implicit lazy val arbitraryProducedDocument: Arbitrary[ProducedDocument] =
@@ -194,21 +200,22 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        itemNumber                <- Gen.choose(1, 99999)
-        commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
-        description               <- stringWithMaxLength(280)
-        grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- Gen.option(arbitrary[Country])
-        countryOfDestination      <- Gen.option(arbitrary[Country])
-        producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
-        specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
-        consignor                 <- Gen.option(arbitrary[Consignor])
-        consignee                 <- Gen.option(arbitrary[Consignee])
-        containers                <- listWithMaxSize(9, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(9, arbitrary[Package])
-        sensitiveGoodsInformation <- listWithMaxSize(9, arbitrary[SensitiveGoodsInformation])
+        itemNumber                       <- Gen.choose(1, 99999)
+        commodityCode                    <- Gen.option(stringWithMaxLength(22))
+        declarationType                  <- Gen.option(arbitrary[DeclarationType])
+        description                      <- stringWithMaxLength(280)
+        grossMass                        <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        netMass                          <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        countryOfDispatch                <- Gen.option(arbitrary[Country])
+        countryOfDestination             <- Gen.option(arbitrary[Country])
+        previousAdministrativeReferences <- listWithMaxSize(9, arbitrary[PreviousDocumentType])
+        producedDocuments                <- listWithMaxSize(9, arbitrary[ProducedDocument])
+        specialMentions                  <- listWithMaxSize(9, arbitrary[SpecialMention])
+        consignor                        <- Gen.option(arbitrary[Consignor])
+        consignee                        <- Gen.option(arbitrary[Consignee])
+        containers                       <- listWithMaxSize(9, stringWithMaxLength(17))
+        packages                         <- nonEmptyListWithMaxSize(9, arbitrary[Package])
+        sensitiveGoodsInformation        <- listWithMaxSize(9, arbitrary[SensitiveGoodsInformation])
       } yield
         GoodsItem(
           itemNumber,
@@ -219,6 +226,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          previousAdministrativeReferences,
           producedDocuments,
           specialMentions,
           consignor,

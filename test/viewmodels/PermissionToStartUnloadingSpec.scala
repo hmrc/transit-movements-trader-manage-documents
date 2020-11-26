@@ -36,7 +36,8 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
     mentions                  <- listWithMaxSize(4, arbitrary[SpecialMention])
     documents                 <- listWithMaxSize(4, arbitrary[ProducedDocument])
     sensitiveGoodsInformation <- listWithMaxSize(1, arbitrary[SensitiveGoodsInformation])
-  } yield (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation)
+    previousDocumentType      <- listWithMaxSize(1, arbitrary[PreviousDocumentType])
+  } yield (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation, previousDocumentType)
 
   "must have document heading" in {
 
@@ -358,20 +359,22 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
 
             updatedPermission.printListOfItems mustEqual true
         }
+
       }
 
       "must indicate that a list of items should not be printed" - {
 
-        "when there is one goods item with at most one container, one package, at most four special mentions and at most four produced documents" in {
+        "when there is one goods item with at most one container, one previous document type, one package, at most four special mentions and at most four produced documents" in {
 
           forAll(genPermissionWithoutListOfItems) {
-            case (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation) =>
+            case (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation, previousDocumentType) =>
               val updatedGoodsItem = permission.goodsItems.head.copy(
                 containers = containers,
                 packages = NonEmptyList.one(onePackage),
                 specialMentions = mentions,
                 producedDocuments = documents,
-                sensitiveGoodsInformation = sensitiveGoodsInformation
+                sensitiveGoodsInformation = sensitiveGoodsInformation,
+                previousAdministrativeReferences = previousDocumentType
               )
 
               val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
@@ -413,13 +416,14 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
     "when a list of items should not be printed" in {
 
       forAll(genPermissionWithoutListOfItems) {
-        case (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation) =>
+        case (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation, previousDocumentType) =>
           val updatedGoodsItem = permission.goodsItems.head.copy(
             containers = containers,
             packages = NonEmptyList.one(onePackage),
             specialMentions = mentions,
             producedDocuments = documents,
-            sensitiveGoodsInformation = sensitiveGoodsInformation
+            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            previousAdministrativeReferences = previousDocumentType
           )
 
           val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
@@ -490,13 +494,14 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
     "when a list of items should not be printed" in {
 
       forAll(genPermissionWithoutListOfItems) {
-        case (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation) =>
+        case (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation, previousDocumentType) =>
           val updatedGoodsItem = permission.goodsItems.head.copy(
             containers = containers,
             packages = NonEmptyList.one(onePackage),
             specialMentions = mentions,
             producedDocuments = documents,
-            sensitiveGoodsInformation = sensitiveGoodsInformation
+            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            previousAdministrativeReferences = previousDocumentType
           )
 
           val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))

@@ -141,6 +141,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
+            previousAdministrativeReferences = Nil,
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),

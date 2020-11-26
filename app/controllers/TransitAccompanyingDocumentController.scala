@@ -25,10 +25,7 @@ import com.lucidchart.open.xtract.ParseSuccess
 import javax.inject.Inject
 import models.DeclarationType
 import models.SensitiveGoodsInformation
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
@@ -36,6 +33,7 @@ import services._
 import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
+import viewmodels.PreviousDocumentType
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -63,7 +61,7 @@ class TransitAccompanyingDocumentController @Inject()(
 
 //  def get(): Action[AnyContent] = Action {
 //    implicit request =>
-//      val permissionMultiple = viewmodels.TransitAccompanyingDocument(
+//      val permissionSinglePage = viewmodels.TransitAccompanyingDocument(
 //        movementReferenceNumber = "19GB9876AB88901209",
 //        declarationType = DeclarationType.T1,
 //        singleCountryOfDispatch = None,
@@ -99,10 +97,8 @@ class TransitAccompanyingDocumentController @Inject()(
 //                               "consignee city",
 //                               Country("valid", "AA", "Country A"),
 //                               None)),
-//        //traderAtDestination = Some(viewmodels.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None)),
 //        departureOffice = "IT021300",
 //        departureOfficeTrimmed = "IT021300",
-//        // presentationOffice = Some("Presentation office"),
 //        seals = Seq("seal 1"),
 //        goodsItems = NonEmptyList.one(
 //          viewmodels.GoodsItem(
@@ -114,6 +110,80 @@ class TransitAccompanyingDocumentController @Inject()(
 //            netMass = Some(0.9),
 //            countryOfDispatch = Some(Country("valid", "AA", "Country A")),
 //            countryOfDestination = Some(Country("valid", "AA", "Country A")),
+//            previousAdministrativeReferences = Seq(
+//              viewmodels.PreviousDocumentType(
+//                PreviousDocumentTypes("235", "Container list"),
+//                "ref",
+//                Some("information")
+//              )),
+//            producedDocuments = Seq(viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), None, None)),
+//            specialMentions = Seq(
+//              viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
+//              viewmodels.SpecialMentionNonEc(AdditionalInformation("I122222", "Info 1"), Country("valid", "AA", "Country A")),
+//              viewmodels.SpecialMentionNoCountry(AdditionalInformation("I1", "Info 1"))
+//            ),
+//            consignor = None,
+//            consignee = None,
+//            containers = Seq("container 1"),
+//            packages = NonEmptyList(
+//              viewmodels.BulkPackage(KindOfPackage("P1", "Package 1"), Some("numbers")),
+//              Nil
+//            ),
+//            sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some("010210"), 2))
+//          )
+//        )
+//      )
+
+//      val permissionMultiple = viewmodels.TransitAccompanyingDocument(
+//        movementReferenceNumber = "19GB9876AB88901209",
+//        declarationType = DeclarationType.T1,
+//        singleCountryOfDispatch = None,
+//        singleCountryOfDestination = None,
+//        transportIdentity = Some("identity"),
+//        transportCountry = Some(Country("valid", "AA", "Country A")),
+//        numberOfItems = 1,
+//        numberOfPackages = 3,
+//        grossMass = 1.0,
+//        principal = viewmodels.Principal(
+//          "Principal name",
+//          "Principal street",
+//          "Principal street",
+//          "Principal postCode",
+//          "Principal city",
+//          Country("valid", "AA", "Country A"),
+//          Some("Principal EORI"),
+//          None
+//        ),
+//        consignor = Some(
+//          viewmodels.Consignor("consignor name",
+//            "consignor street",
+//            "consignor street",
+//            "consignor postCode",
+//            "consignor city",
+//            Country("valid", "AA", "Country A"),
+//            Some("IT444100201000"))),
+//        consignee = Some(
+//          viewmodels.Consignee("consignee name",
+//            "consignee street",
+//            "consignee street",
+//            "consignee postCode",
+//            "consignee city",
+//            Country("valid", "AA", "Country A"),
+//            None)),
+//        departureOffice = "IT021300",
+//        departureOfficeTrimmed = "IT021300",
+//        seals = Seq("seal 1"),
+//        goodsItems = NonEmptyList.one(
+//          viewmodels.GoodsItem(
+//            itemNumber = 1,
+//            commodityCode = None,
+//            declarationType = None,
+//            description = "Flowers",
+//            grossMass = Some(1.0),
+//            netMass = Some(0.9),
+//            countryOfDispatch = Some(Country("valid", "AA", "Country A")),
+//            countryOfDestination = Some(Country("valid", "AA", "Country A")),
+//            previousAdministrativeReferences = Nil,
 //            producedDocuments = Seq(viewmodels.ProducedDocument(DocumentType("T1", "Document 1", transportDocument = true), None, None)),
 //            specialMentions = Seq(
 //              viewmodels.SpecialMentionEc(AdditionalInformation("I1", "Info 1")),
@@ -122,20 +192,20 @@ class TransitAccompanyingDocumentController @Inject()(
 //            ),
 //            consignor = Some(
 //              viewmodels.Consignor("consignor name",
-//                                   "consignor street",
-//                                   "consignor street",
-//                                   "consignor postCode",
-//                                   "consignor city",
-//                                   Country("valid", "AA", "Country A"),
-//                                   Some("IT444100201000"))),
+//                "consignor street",
+//                "consignor street",
+//                "consignor postCode",
+//                "consignor city",
+//                Country("valid", "AA", "Country A"),
+//                Some("IT444100201000"))),
 //            consignee = Some(
 //              viewmodels.Consignee("consignee name",
-//                                   "consignee street",
-//                                   "consignee street",
-//                                   "consignee postCode",
-//                                   "consignee city",
-//                                   Country("valid", "AA", "Country A"),
-//                                   None)),
+//                "consignee street",
+//                "consignee street",
+//                "consignee postCode",
+//                "consignee city",
+//                Country("valid", "AA", "Country A"),
+//                None)),
 //            containers = Seq("container 1"),
 //            packages = NonEmptyList(
 //              viewmodels.BulkPackage(KindOfPackage("P1", "Package 1"), Some("numbers")),
@@ -149,11 +219,11 @@ class TransitAccompanyingDocumentController @Inject()(
 //        )
 //      )
 //
-//      permissionMultiple.goodsItems.head.containers.map(
+//      permissionSinglePage.goodsItems.head.containers.map(
 //        x => x
 //      )
 //
-//      Ok(pdf.generate(permissionMultiple))
+//      Ok(pdf.generate(permissionSinglePage))
 //  }
 
 }

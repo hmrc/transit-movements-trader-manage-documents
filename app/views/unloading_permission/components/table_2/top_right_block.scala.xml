@@ -96,10 +96,14 @@
                 </fo:table-row>
                 <fo:table-row height="8mm">
                     <fo:table-cell padding-left="2mm" padding-top="1mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-columns-spanned="3">
-                            <fo:block>40 Summary declaration/Previous document</fo:block>
+                        <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
-                                <fo:block/> @*TODO: PREADMREFAR2 not within IE043 *@
+                                <fo:block>
+                                    @if(!permission.printListOfItems) {
+                                        @permission.goodsItems.head.previousAdministrativeReferences.map(previousDocumentType => previousDocumentType.display)
+                                    }
+                                </fo:block>
                             </fo:inline>
                         </fo:block>
                     </fo:table-cell>

@@ -132,6 +132,12 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
+            previousAdministrativeReferences = Seq(
+              viewmodels.PreviousDocumentType(
+                previousDocumentTypes.head,
+                "ref",
+                Some("information")
+              )),
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),
@@ -155,7 +161,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result =
+        TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
 
       result.valid.value mustEqual expectedResult
     }
@@ -215,7 +222,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result =
+        TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
 
       val expectedErrors = Seq(
         ReferenceDataNotFound("countryOfDispatch", invalidCode),
@@ -233,7 +241,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         ReferenceDataNotFound("goodsItems[0].consignee.countryCode", invalidCode),
         ReferenceDataNotFound("goodsItems[0].packages[0].kindOfPackage", invalidCode),
         ReferenceDataNotFound("goodsItems[0].packages[1].kindOfPackage", invalidCode),
-        ReferenceDataNotFound("goodsItems[0].packages[2].kindOfPackage", invalidCode)
+        ReferenceDataNotFound("goodsItems[0].packages[2].kindOfPackage", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].previousAdministrativeReference[0].previousDocumentTypes", invalidCode)
       )
 
       result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors

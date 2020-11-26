@@ -213,6 +213,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   netMass = Some(0.9),
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
+                  previousAdministrativeReferences = Seq(
+                    viewmodels.PreviousDocumentType(
+                      previousDocumentTypes.head,
+                      "ref",
+                      Some("information")
+                    )),
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   specialMentions = Seq(
                     viewmodels.SpecialMentionEc(additionalInfo.head),
@@ -312,6 +318,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   netMass = Some(0.9),
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
+                  previousAdministrativeReferences = Seq(
+                    viewmodels.PreviousDocumentType(
+                      previousDocumentTypes.head,
+                      "ref",
+                      Some("information")
+                    )),
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   specialMentions = Seq(
                     viewmodels.SpecialMentionEc(additionalInfo.head),
@@ -358,6 +370,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
       when(referenceDataService.additionalInformation()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("additionalInformation", 503, "body").invalidNec))
 
+      when(referenceDataService.previousDocumentTypes()(any(), any()))
+        .thenReturn(Future.successful(ReferenceDataRetrievalError("previousDocumentTypes", 503, "body").invalidNec))
+
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
       val result = service.toViewModel(validModel, "mrn").futureValue
@@ -366,7 +381,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
         ReferenceDataRetrievalError("countries", 500, "body"),
         ReferenceDataRetrievalError("kindsOfPackage", 501, "body"),
         ReferenceDataRetrievalError("documentTypes", 502, "body"),
-        ReferenceDataRetrievalError("additionalInformation", 503, "body")
+        ReferenceDataRetrievalError("additionalInformation", 503, "body"),
+        ReferenceDataRetrievalError("previousDocumentTypes", 503, "body")
       )
 
       result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
@@ -379,6 +395,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
       when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
       when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
       when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+      when(referenceDataService.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 

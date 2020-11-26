@@ -19,10 +19,7 @@ package services.conversion
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import services._
 import utils.StringTransformer._
 
@@ -33,7 +30,8 @@ object TransitAccompanyingDocumentConverter extends Converter {
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.TransitAccompanyingDocument] = {
+                  documentTypes: Seq[DocumentType],
+                  previousDocumentTypes: Seq[PreviousDocumentTypes]): ValidationResult[viewmodels.TransitAccompanyingDocument] = {
 
     def convertTransportCountry(maybeCountry: Option[String]): ValidationResult[Option[Country]] =
       maybeCountry match {
@@ -67,11 +65,11 @@ object TransitAccompanyingDocumentConverter extends Converter {
 
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
-      val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
+      val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
 
       val tail = items.tail.zipWithIndex.map {
         case (item, index) =>
-          GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes)
+          GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
       }.sequence
 
       (

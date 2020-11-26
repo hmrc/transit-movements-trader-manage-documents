@@ -187,6 +187,10 @@ class TransitAccompanyingDocumentControllerSpec
         <NetMasGDS48>999</NetMasGDS48>
         <CouOfDisGDS58>GB</CouOfDisGDS58>
         <CouOfDesGDS59>GB</CouOfDesGDS59>
+        <PREADMREFAR2>
+          <PreDocTypAR21>Type</PreDocTypAR21>
+          <PreDocRefAR26>Ref</PreDocRefAR26>
+        </PREADMREFAR2>
         <PRODOCDC2>
           <DocTypDC21>235</DocTypDC21>
           <DocRefDC23>Ref.</DocRefDC23>

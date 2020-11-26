@@ -518,45 +518,46 @@ trait ModelGenerators extends GeneratorHelpers {
       Gen.oneOf(arbitrary[viewmodels.BulkPackage], arbitrary[viewmodels.UnpackedPackage], arbitrary[viewmodels.RegularPackage])
     }
 
-  implicit lazy val arbitraryGoodsItemViewModel: Arbitrary[viewmodels.GoodsItem] = {
-    Arbitrary {
-
-      for {
-        itemNumber                <- Gen.choose(1, 99999)
-        commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
-        description               <- stringWithMaxLength(280)
-        grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- Gen.option(arbitrary[Country])
-        countryOfDestination      <- Gen.option(arbitrary[Country])
-        producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
-        specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
-        consignor                 <- Gen.option(arbitrary[viewmodels.Consignor])
-        consignee                 <- Gen.option(arbitrary[viewmodels.Consignee])
-        containers                <- listWithMaxSize(2, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
-        sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
-      } yield
-        viewmodels.GoodsItem(
-          itemNumber,
-          commodityCode,
-          declarationType,
-          description,
-          grossMass,
-          netMass,
-          countryOfDispatch,
-          countryOfDestination,
-          producedDocuments,
-          specialMentions,
-          consignor,
-          consignee,
-          containers,
-          packages,
-          sensitiveGoodsInformation
-        )
-    }
-  }
+//  implicit lazy val arbitraryGoodsItemViewModel: Arbitrary[viewmodels.GoodsItem] = {
+//    Arbitrary {
+//
+//      for {
+//        itemNumber                       <- Gen.choose(1, 99999)
+//        commodityCode                    <- Gen.option(stringWithMaxLength(22))
+//        declarationType                  <- Gen.option(arbitrary[DeclarationType])
+//        description                      <- stringWithMaxLength(280)
+//        grossMass                        <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+//        netMass                          <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+//        countryOfDispatch                <- Gen.option(arbitrary[Country])
+//        countryOfDestination             <- Gen.option(arbitrary[Country])
+//        previousAdministrativeReferences <- listWithMaxSize(2, arbitrary[viewmodels.PreviousDocumentType])
+//        producedDocuments                <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
+//        specialMentions                  <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
+//        consignor                        <- Gen.option(arbitrary[viewmodels.Consignor])
+//        consignee                        <- Gen.option(arbitrary[viewmodels.Consignee])
+//        containers                       <- listWithMaxSize(2, stringWithMaxLength(17))
+//        packages                         <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
+//        sensitiveGoodsInformation        <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+//      } yield
+//        viewmodels.GoodsItem(
+//          itemNumber,
+//          commodityCode,
+//          declarationType,
+//          description,
+//          grossMass,
+//          netMass,
+//          countryOfDispatch,
+//          countryOfDestination,
+//          producedDocuments,
+//          specialMentions,
+//          consignor,
+//          consignee,
+//          containers,
+//          packages,
+//          sensitiveGoodsInformation
+//        )
+//    }
+//  }
 
   implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
     datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))

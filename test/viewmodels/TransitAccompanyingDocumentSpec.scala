@@ -15,6 +15,7 @@
  */
 
 package viewmodels
+import cats.data.NonEmptyList
 import generators.ViewmodelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
@@ -30,5 +31,57 @@ class TransitAccompanyingDocumentSpec extends FreeSpec with MustMatchers with Sc
 
     transitAccompanyingDocument.documentHeading.title mustBe "TRANSIT - ACCOMPANYING DOCUMENT"
     transitAccompanyingDocument.documentHeading.isBold mustBe true
+  }
+
+  "must indicate that a list of items should be printed" - {
+
+    "when there is a single goods item" - {
+
+      "with more than 1 previous document type (previous admin reference)" in {
+
+        forAll(arbitrary[TransitAccompanyingDocument], arbitrary[PreviousDocumentType], arbitrary[PreviousDocumentType], arbitrary[Package]) {
+          (transitAccompanyingDocument, previousDocumentType1, previousDocumentType2, package1) =>
+            val updatedGoodsItem = transitAccompanyingDocument.goodsItems.head copy
+              (previousAdministrativeReferences = Seq(previousDocumentType1, previousDocumentType2),
+              containers = Nil,
+              packages = NonEmptyList(package1, Nil),
+              specialMentions = Nil,
+              producedDocuments = Nil,
+              sensitiveGoodsInformation = Nil)
+
+            val transitAccompanyingDocumentViewModel = transitAccompanyingDocument copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+
+            transitAccompanyingDocumentViewModel.printListOfItems mustEqual true
+        }
+      }
+
+    }
+
+  }
+
+  "must NOT indicate that a list of items should be printed" - {
+
+    "when there is a single goods item" - {
+
+      "with a single previous document type (previous admin reference)" in {
+
+        forAll(arbitrary[TransitAccompanyingDocument], arbitrary[PreviousDocumentType], arbitrary[Package]) {
+          (transitAccompanyingDocument, previousDocumentType1, package1) =>
+            val updatedGoodsItem = transitAccompanyingDocument.goodsItems.head copy
+              (previousAdministrativeReferences = Seq(previousDocumentType1),
+              containers = Nil,
+              packages = NonEmptyList(package1, Nil),
+              specialMentions = Nil,
+              producedDocuments = Nil,
+              sensitiveGoodsInformation = Nil)
+
+            val transitAccompanyingDocumentViewModel = transitAccompanyingDocument copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+
+            transitAccompanyingDocumentViewModel.printListOfItems mustEqual false
+        }
+      }
+
+    }
+
   }
 }

@@ -67,11 +67,18 @@ object UnloadingPermissionConverter extends Converter {
 
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
-      val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
+      val head =
+        GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes = Nil)
 
       val tail = items.tail.zipWithIndex.map {
         case (item, index) =>
-          GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes)
+          GoodsItemConverter.toViewModel(item,
+                                         s"goodsItems[${index + 1}",
+                                         countries,
+                                         additionalInfo,
+                                         kindsOfPackage,
+                                         documentTypes,
+                                         previousDocumentTypes = Nil)
       }.sequence
 
       (

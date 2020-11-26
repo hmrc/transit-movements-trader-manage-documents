@@ -28,21 +28,22 @@ trait TransitDocument {
   val singleCountryOfDestination: Option[Country]
   val transportIdentity: Option[String]
   val transportCountry: Option[Country]
-  val acceptanceDate: Option[LocalDate]       = None
-  val acceptanceDateFormatted: Option[String] = None
   val numberOfItems: Int
   val numberOfPackages: Int
   val grossMass: BigDecimal
   val principal: Principal
   val consignor: Option[Consignor]
   val consignee: Option[Consignee]
-  val traderAtDestination: Option[TraderAtDestination] = None
   val departureOffice: String
   val departureOfficeTrimmed: String
-  val presentationOffice: Option[String] = None
   val seals: Seq[String]
   val goodsItems: NonEmptyList[GoodsItem]
   val documentHeading: DocumentHeading
+
+  val presentationOffice: Option[String]               = None
+  val traderAtDestination: Option[TraderAtDestination] = None
+  val acceptanceDate: Option[LocalDate]                = None
+  val acceptanceDateFormatted: Option[String]          = None
 
   private def singleValue[A](items: Seq[A]): Option[A] =
     if (items.distinct.size == 1 && items.size == goodsItems.size) {
@@ -79,7 +80,8 @@ trait TransitDocument {
       goodsItems.head.sensitiveGoodsInformation.length > 1 ||
       goodsItems.head.packages.size > 1 ||
       goodsItems.head.specialMentions.size > 4 ||
-      goodsItems.head.producedDocuments.size > 4
+      goodsItems.head.producedDocuments.size > 4 ||
+      goodsItems.head.previousAdministrativeReferences.size > 1
 
   val printVariousConsignees: Boolean =
     printListOfItems &&

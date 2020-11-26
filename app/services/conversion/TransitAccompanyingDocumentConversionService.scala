@@ -43,27 +43,33 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
     val kindsOfPackageFuture = referenceData.kindsOfPackage()
     val documentTypesFuture  = referenceData.documentTypes()
 
+    //New ref data
+    val previousDocumentTypesFuture = referenceData.previousDocumentTypes()
+
     //TODO: ref data will be needed below when we're building out the view model
     //    val transportMode  = referenceData.transportMode()
     //    val controlResultCode = referenceData.controlResult()
-    //    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
+    //
     //    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
     //    val specialMentionsCodeFuture = referenceData.specialMentions()
 
     for {
-      countriesResult      <- countriesFuture
-      additionalInfoResult <- additionalInfoFuture
-      kindsOfPackageResult <- kindsOfPackageFuture
-      documentTypesResult  <- documentTypesFuture
+      countriesResult       <- countriesFuture
+      additionalInfoResult  <- additionalInfoFuture
+      kindsOfPackageResult  <- kindsOfPackageFuture
+      documentTypesResult   <- documentTypesFuture
+      previousDocumentTypes <- previousDocumentTypesFuture
     } yield {
       (
         countriesResult,
         additionalInfoResult,
         kindsOfPackageResult,
-        documentTypesResult
+        documentTypesResult,
+        previousDocumentTypes
       ).mapN(
-          (countries, additionalInfo, kindsOfPackage, documentTypes) =>
-            TransitAccompanyingDocumentConverter.toViewModel(mrn, transitAccompanyingDocument, countries, additionalInfo, kindsOfPackage, documentTypes)
+          (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes) =>
+            TransitAccompanyingDocumentConverter
+              .toViewModel(mrn, transitAccompanyingDocument, countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
         )
         .fold(
           errors => Invalid(errors),
