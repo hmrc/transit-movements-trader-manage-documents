@@ -1,4 +1,4 @@
-@(permission: viewmodels.TransitDocument)
+@(transitDocument: viewmodels.TransitDocument)
 
 <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2" wrap-option="wrap" padding-top="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
     <fo:block>
@@ -22,4 +22,8 @@
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
 <fo:block/>
 </fo:table-cell>
-@* TODO: Missing Node - Where is /HEAHEA/BinItiHEA246 from? Looks like it's a message from Release for Transit (IE029) *@
+@if(transitDocument.bindingItinerary) {
+    <fo:table-cell margin-left="2mm">
+        <fo:block padding-top="1mm" font-weight="bold">BINDING ITINERARY</fo:block>
+    </fo:table-cell>
+}
