@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package models.reference
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+package services
 
-final case class ControlResult(code: String, description: String) extends CodedReferenceData
+object ControlResultConverter {
 
-object ControlResult {
-
-  implicit lazy val format: OFormat[ControlResult] =
-    Json.format[ControlResult]
+  def toViewModel(controlResult: Option[models.ControlResult]): Option[viewmodels.ControlResult] =
+    controlResult.map {
+      x =>
+        viewmodels.ControlResult(
+          x.conResCodERS16,
+          x.datLimERS69
+        )
+    }
 }

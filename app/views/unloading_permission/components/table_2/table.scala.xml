@@ -18,7 +18,7 @@
 
         <fo:table-row height="4mm"> <!-- S1 T2 ROW 3 -->
 
-            <!--Additional information/ BinItiHEA246???-->
+            <!--Additional information/ Binding itenarary???-->
             @bottom_left_block(permission)
 
         </fo:table-row>

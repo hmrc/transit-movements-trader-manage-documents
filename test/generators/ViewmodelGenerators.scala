@@ -237,6 +237,14 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         )
     }
 
+  implicit lazy val arbitraryControlResultViewModel: Arbitrary[ControlResult] =
+    Arbitrary {
+      for {
+        conResCodERS16 <- Gen.pick(models.ControlResult.Constants.controlResultCodeLength, 'A' to 'Z')
+        datLimERS69    <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+      } yield ControlResult(conResCodERS16.toString, datLimERS69)
+    }
+
   implicit lazy val arbitraryPermissionToStartUnloading: Arbitrary[PermissionToStartUnloading] =
     Arbitrary {
 
@@ -302,6 +310,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
         departureOffice      <- stringWithMaxLength(8)
+        controlResult        <- Gen.option(arbitrary[ControlResult])
         seals                <- listWithMaxSize(9, stringWithMaxLength(20))
         goodsItems           <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield
@@ -320,6 +329,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           consignee,
           departureOffice,
           departureOffice,
+          controlResult,
           seals,
           goodsItems
         )

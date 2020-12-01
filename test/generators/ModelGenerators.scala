@@ -178,6 +178,14 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield Principal(name, streetAndNumber, postCode, city, country, eori, tir)
     }
 
+  implicit lazy val arbitraryControlResult: Arbitrary[ControlResult] =
+    Arbitrary {
+      for {
+        conResCodERS16 <- Gen.pick(ControlResult.Constants.controlResultCodeLength, 'A' to 'Z')
+        datLimERS69    <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+      } yield ControlResult(conResCodERS16.toString, datLimERS69)
+    }
+
   implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
     Arbitrary {
 
@@ -305,6 +313,7 @@ trait ModelGenerators extends GeneratorHelpers {
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
         departureOffice      <- stringWithMaxLength(8)
+        controlResult        <- Gen.option(arbitrary[ControlResult])
         seals                <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
@@ -322,6 +331,7 @@ trait ModelGenerators extends GeneratorHelpers {
           consignor,
           consignee,
           departureOffice,
+          controlResult,
           seals,
           goodsItems
         )

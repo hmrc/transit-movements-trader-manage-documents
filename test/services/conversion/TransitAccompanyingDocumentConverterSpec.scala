@@ -15,9 +15,12 @@
  */
 
 package services.conversion
+import java.time.LocalDate
+
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
+import models.ControlResult
 import models.DeclarationType
 import models.reference._
 import org.scalatest.FreeSpec
@@ -39,6 +42,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
 
     "must return a view model when all of the necessary reference data can be found" in {
 
+      val date = LocalDate.of(2020, 8, 1)
+
       val model = models.TransitAccompanyingDocument(
         localReferenceNumber = "lrn",
         declarationType = DeclarationType.T1,
@@ -59,6 +64,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
         departureOffice = "Departure office",
+        controlResult = Some(ControlResult("AA", date)),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           models.GoodsItem(
@@ -121,6 +127,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
         departureOffice = "Departure office",
         departureOfficeTrimmed = "Departure office",
+        controlResult = Some(viewmodels.ControlResult("AA", date)),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
@@ -184,6 +191,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         consignor = None,
         consignee = None,
         departureOffice = "The Departure office, less than 45 characters long",
+        controlResult = None,
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           models.GoodsItem(

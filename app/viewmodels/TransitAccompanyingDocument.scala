@@ -16,6 +16,7 @@
 
 package viewmodels
 import cats.data.NonEmptyList
+import models.ControlResult
 import models.DeclarationType
 import models.reference.Country
 
@@ -34,6 +35,7 @@ final case class TransitAccompanyingDocument(
   consignee: Option[Consignee],
   departureOffice: String,
   departureOfficeTrimmed: String,
+  override val controlResult: Option[ControlResult],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
 ) extends TransitDocument {

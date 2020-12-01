@@ -21,6 +21,7 @@
         @components.table_3.table(permission)
 
         <!--Principal/TIR Holder/Office of departure-->
+        <!--//TODO: Need to come back to this when its confirmed if principle address is optional or not-->
         @components.table_4.table(permission)
 
         <!--control by office of departure/destination-->

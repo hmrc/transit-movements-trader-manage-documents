@@ -1,0 +1,9 @@
+@(controlResult: viewmodels.ControlResult, principal: viewmodels.Principal)
+
+@if(controlResult.isPrintable) {
+    <!--//TODO: /HEAHEA/AutIdHEA380 only comes from IE029-->
+    <!--<fo:block>-->
+    <!--<xsl:value-of select="*/HEAHEA/AutIdHEA380"/>-->
+    <!--</fo:block>-->
+    @principal.name
+}

@@ -63,6 +63,9 @@ object TransitAccompanyingDocumentConverter extends Converter {
         case None                       => Valid(None)
       }
 
+    def convertControlResult(controlResult: Option[models.ControlResult]): Option[viewmodels.ControlResult] =
+      ControlResultConverter.toViewModel(controlResult)
+
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
       val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
@@ -105,6 +108,7 @@ object TransitAccompanyingDocumentConverter extends Converter {
           consignee,
           transitAccompanyingDocument.departureOffice,
           transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+          convertControlResult(transitAccompanyingDocument.controlResult),
           transitAccompanyingDocument.seals,
           goodsItems
       )

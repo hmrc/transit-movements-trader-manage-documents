@@ -41,10 +41,13 @@ final case class TransitAccompanyingDocument(
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   departureOffice: String,
+  controlResult: Option[ControlResult],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
 )
 
+//TODO: Might be able to extract data from IE029 (instead of IE015)
+//TODO: If so we can include AccDatHEA158
 object TransitAccompanyingDocument {
 
   implicit lazy val format: OFormat[TransitAccompanyingDocument] =
@@ -66,6 +69,7 @@ object TransitAccompanyingDocument {
      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
      // (__ \ "TRADESTRD").read[TraderAtDestination], //DOES NOT EXIST IN IE015
      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
+     (__ \ "CONRESERS").read[ControlResult].optional,
      // (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String], //DOES NOT EXIST IN IE015
      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),
      (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])).mapN(apply)

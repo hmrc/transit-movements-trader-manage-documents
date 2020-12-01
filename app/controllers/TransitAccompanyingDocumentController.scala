@@ -99,6 +99,7 @@ class TransitAccompanyingDocumentController @Inject()(
 //                               None)),
 //        departureOffice = "IT021300",
 //        departureOfficeTrimmed = "IT021300",
+//        controlResult = Some(viewmodels.ControlResult("A3", LocalDate.now())),
 //        seals = Seq("seal 1"),
 //        goodsItems = NonEmptyList.one(
 //          viewmodels.GoodsItem(
@@ -156,22 +157,23 @@ class TransitAccompanyingDocumentController @Inject()(
 //        ),
 //        consignor = Some(
 //          viewmodels.Consignor("consignor name",
-//            "consignor street",
-//            "consignor street",
-//            "consignor postCode",
-//            "consignor city",
-//            Country("valid", "AA", "Country A"),
-//            Some("IT444100201000"))),
+//                               "consignor street",
+//                               "consignor street",
+//                               "consignor postCode",
+//                               "consignor city",
+//                               Country("valid", "AA", "Country A"),
+//                               Some("IT444100201000"))),
 //        consignee = Some(
 //          viewmodels.Consignee("consignee name",
-//            "consignee street",
-//            "consignee street",
-//            "consignee postCode",
-//            "consignee city",
-//            Country("valid", "AA", "Country A"),
-//            None)),
+//                               "consignee street",
+//                               "consignee street",
+//                               "consignee postCode",
+//                               "consignee city",
+//                               Country("valid", "AA", "Country A"),
+//                               None)),
 //        departureOffice = "IT021300",
 //        departureOfficeTrimmed = "IT021300",
+//        controlResult = None,
 //        seals = Seq("seal 1"),
 //        goodsItems = NonEmptyList.one(
 //          viewmodels.GoodsItem(
@@ -192,20 +194,20 @@ class TransitAccompanyingDocumentController @Inject()(
 //            ),
 //            consignor = Some(
 //              viewmodels.Consignor("consignor name",
-//                "consignor street",
-//                "consignor street",
-//                "consignor postCode",
-//                "consignor city",
-//                Country("valid", "AA", "Country A"),
-//                Some("IT444100201000"))),
+//                                   "consignor street",
+//                                   "consignor street",
+//                                   "consignor postCode",
+//                                   "consignor city",
+//                                   Country("valid", "AA", "Country A"),
+//                                   Some("IT444100201000"))),
 //            consignee = Some(
 //              viewmodels.Consignee("consignee name",
-//                "consignee street",
-//                "consignee street",
-//                "consignee postCode",
-//                "consignee city",
-//                Country("valid", "AA", "Country A"),
-//                None)),
+//                                   "consignee street",
+//                                   "consignee street",
+//                                   "consignee postCode",
+//                                   "consignee city",
+//                                   Country("valid", "AA", "Country A"),
+//                                   None)),
 //            containers = Seq("container 1"),
 //            packages = NonEmptyList(
 //              viewmodels.BulkPackage(KindOfPackage("P1", "Package 1"), Some("numbers")),
@@ -218,7 +220,7 @@ class TransitAccompanyingDocumentController @Inject()(
 //          )
 //        )
 //      )
-//
+
 //      permissionSinglePage.goodsItems.head.containers.map(
 //        x => x
 //      )

@@ -21,10 +21,7 @@ import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import generators.ModelGenerators
-import models.Consignee
-import models.Consignor
-import models.DeclarationType
-import models.TransitAccompanyingDocument
+import models._
 import models.reference._
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -81,6 +78,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
     consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
     departureOffice = "The Departure office, less than 45 characters long",
+    controlResult = None,
     seals = Seq("seal 1"),
     goodsItems = NonEmptyList.one(
       models.GoodsItem(
@@ -125,8 +123,13 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       "all data exists" in {
 
-        forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
-          (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn) =>
+        forAll(arbitrary[Country],
+               arbitrary[TransitAccompanyingDocument],
+               arbitrary[Consignor],
+               arbitrary[Consignee],
+               stringWithMaxLength(17),
+               arbitrary[ControlResult]) {
+          (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn, controlResult) =>
             val referenceDataService = mock[ReferenceDataService]
             when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
             when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
@@ -157,6 +160,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               consignor = transitAccompanyingDocument.consignor,
               consignee = transitAccompanyingDocument.consignee,
               departureOffice = transitAccompanyingDocument.departureOffice,
+              controlResult = Some(controlResult),
               seals = transitAccompanyingDocument.seals
             )
 
@@ -202,6 +206,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
                 )),
               departureOffice = transitAccompanyingDocument.departureOffice,
               departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+              controlResult = Some(viewmodels.ControlResult(controlResult.conResCodERS16, controlResult.datLimERS69)),
               seals = transitAccompanyingDocument.seals,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
@@ -307,6 +312,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               consignee = None,
               departureOffice = transitAccompanyingDocument.departureOffice,
               departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+              controlResult = None,
               seals = Nil,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
