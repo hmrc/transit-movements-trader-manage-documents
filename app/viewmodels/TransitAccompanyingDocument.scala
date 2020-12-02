@@ -35,6 +35,7 @@ final case class TransitAccompanyingDocument(
   consignee: Option[Consignee],
   departureOffice: String,
   departureOfficeTrimmed: String,
+  override val customsOfficeTransit: Seq[CustomsOfficeTransit],
   override val controlResult: Option[ControlResult],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]

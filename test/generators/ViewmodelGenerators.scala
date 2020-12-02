@@ -19,8 +19,8 @@ package generators
 import java.time.LocalDate
 
 import models.DeclarationType
-import models.reference._
 import models.SensitiveGoodsInformation
+import models.reference._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary.arbitrary
@@ -245,6 +245,14 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield ControlResult(conResCodERS16.toString, datLimERS69)
     }
 
+  implicit lazy val arbitraryCustomsOfficeTransit: Arbitrary[CustomsOfficeTransit] =
+    Arbitrary {
+      for {
+        customsOffice   <- Gen.pick(models.CustomsOfficeTransit.Constants.customsOfficeLength, 'A' to 'Z')
+        arrivalDateTime <- Gen.option(arbitrary(arbitraryLocalDateTime))
+      } yield CustomsOfficeTransit(customsOffice.mkString, arrivalDateTime)
+    }
+
   implicit lazy val arbitraryPermissionToStartUnloading: Arbitrary[PermissionToStartUnloading] =
     Arbitrary {
 
@@ -310,6 +318,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
         departureOffice      <- stringWithMaxLength(8)
+        customsOfficeTransit <- listWithMaxSize(6, arbitrary[CustomsOfficeTransit])
         controlResult        <- Gen.option(arbitrary[ControlResult])
         seals                <- listWithMaxSize(9, stringWithMaxLength(20))
         goodsItems           <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
@@ -329,6 +338,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           consignee,
           departureOffice,
           departureOffice,
+          customsOfficeTransit,
           controlResult,
           seals,
           goodsItems

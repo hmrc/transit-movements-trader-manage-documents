@@ -41,6 +41,7 @@ final case class TransitAccompanyingDocument(
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   departureOffice: String,
+  customsOfficeTransit: Seq[CustomsOfficeTransit],
   controlResult: Option[ControlResult],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
@@ -69,6 +70,7 @@ object TransitAccompanyingDocument {
      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
      // (__ \ "TRADESTRD").read[TraderAtDestination], //DOES NOT EXIST IN IE015
      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
+     (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeTransit]),
      (__ \ "CONRESERS").read[ControlResult].optional,
      // (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String], //DOES NOT EXIST IN IE015
      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),

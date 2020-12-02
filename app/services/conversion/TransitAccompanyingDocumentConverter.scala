@@ -66,6 +66,9 @@ object TransitAccompanyingDocumentConverter extends Converter {
     def convertControlResult(controlResult: Option[models.ControlResult]): Option[viewmodels.ControlResult] =
       ControlResultConverter.toViewModel(controlResult)
 
+    def convertCustomsOfficeTransit(customsOfficeTransit: Seq[models.CustomsOfficeTransit]): Seq[viewmodels.CustomsOfficeTransit] =
+      CustomsOfficeTransitConverter.toViewModel(customsOfficeTransit)
+
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
       val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
@@ -108,6 +111,7 @@ object TransitAccompanyingDocumentConverter extends Converter {
           consignee,
           transitAccompanyingDocument.departureOffice,
           transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+          convertCustomsOfficeTransit(transitAccompanyingDocument.customsOfficeTransit),
           convertControlResult(transitAccompanyingDocument.controlResult),
           transitAccompanyingDocument.seals,
           goodsItems

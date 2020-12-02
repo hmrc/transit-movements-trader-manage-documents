@@ -46,8 +46,9 @@ trait TransitDocument {
   val acceptanceDateFormatted: Option[String]          = None
   //TODO: bindingItinerary is taken from IE029 under /HEAHEA/BinItiHEA246
   //TODO: It is currently being confirmed if we need it
-  val bindingItinerary: Boolean            = false
-  val controlResult: Option[ControlResult] = None
+  val bindingItinerary: Boolean                       = false
+  val customsOfficeTransit: Seq[CustomsOfficeTransit] = Nil
+  val controlResult: Option[ControlResult]            = None
 
   private def singleValue[A](items: Seq[A]): Option[A] =
     if (items.distinct.size == 1 && items.size == goodsItems.size) {

@@ -17,6 +17,7 @@
 package controllers
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 import cats.data.NonEmptyList
 import cats.data.Validated
@@ -99,6 +100,11 @@ class TransitAccompanyingDocumentController @Inject()(
 //                               None)),
 //        departureOffice = "IT021300",
 //        departureOfficeTrimmed = "IT021300",
+//        customsOfficeTransit = Seq(
+//          viewmodels.CustomsOfficeTransit("BBBBBB", Some(LocalDateTime.now())),
+//          viewmodels.CustomsOfficeTransit("AAAAAA", None),
+//          viewmodels.CustomsOfficeTransit("AAAAAA", Some(LocalDateTime.now()))
+//        ),
 //        controlResult = Some(viewmodels.ControlResult("A3", LocalDate.now())),
 //        seals = Seq("seal 1"),
 //        goodsItems = NonEmptyList.one(
@@ -134,7 +140,7 @@ class TransitAccompanyingDocumentController @Inject()(
 //          )
 //        )
 //      )
-
+//
 //      val permissionMultiple = viewmodels.TransitAccompanyingDocument(
 //        movementReferenceNumber = "19GB9876AB88901209",
 //        declarationType = DeclarationType.T1,
@@ -173,6 +179,7 @@ class TransitAccompanyingDocumentController @Inject()(
 //                               None)),
 //        departureOffice = "IT021300",
 //        departureOfficeTrimmed = "IT021300",
+//        customsOfficeTransit = Seq(viewmodels.CustomsOfficeTransit("CODE", Some(LocalDateTime.now()))),
 //        controlResult = None,
 //        seals = Seq("seal 1"),
 //        goodsItems = NonEmptyList.one(
@@ -220,7 +227,7 @@ class TransitAccompanyingDocumentController @Inject()(
 //          )
 //        )
 //      )
-
+//
 //      permissionSinglePage.goodsItems.head.containers.map(
 //        x => x
 //      )

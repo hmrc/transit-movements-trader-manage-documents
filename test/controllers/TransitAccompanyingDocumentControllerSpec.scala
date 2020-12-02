@@ -180,6 +180,9 @@ class TransitAccompanyingDocumentControllerSpec
       <CUSOFFDEPEPT>
         <RefNumEPT1>GB000060</RefNumEPT1>
       </CUSOFFDEPEPT>
+      <CUSOFFTRARNS>
+        <RefNumRNS1>GB000060</RefNumRNS1>
+      </CUSOFFTRARNS>
       <GOOITEGDS>
         <IteNumGDS7>1</IteNumGDS7>
         <GooDesGDS23>Flowers</GooDesGDS23>

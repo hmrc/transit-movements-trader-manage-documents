@@ -16,7 +16,10 @@
 
 package generators
 
+import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 import models._
 import models.reference.AdditionalInformation
@@ -28,6 +31,14 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 
 trait ModelGenerators extends GeneratorHelpers {
+
+  implicit lazy val arbitraryCustomsOfficeTransit: Arbitrary[CustomsOfficeTransit] =
+    Arbitrary {
+      for {
+        customsOffice   <- Gen.pick(CustomsOfficeTransit.Constants.customsOfficeLength, 'A' to 'Z')
+        arrivalDateTime <- Gen.option(arbitrary(arbitraryLocalDateTime))
+      } yield CustomsOfficeTransit(customsOffice.mkString, arrivalDateTime)
+    }
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {
@@ -313,6 +324,7 @@ trait ModelGenerators extends GeneratorHelpers {
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
         departureOffice      <- stringWithMaxLength(8)
+        customsOfficeTransit <- listWithMaxSize(9, arbitrary[CustomsOfficeTransit])
         controlResult        <- Gen.option(arbitrary[ControlResult])
         seals                <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
@@ -331,6 +343,7 @@ trait ModelGenerators extends GeneratorHelpers {
           consignor,
           consignee,
           departureOffice,
+          customsOfficeTransit,
           controlResult,
           seals,
           goodsItems
@@ -569,7 +582,4 @@ trait ModelGenerators extends GeneratorHelpers {
 //    }
 //  }
 
-  implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
-    datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
-  }
 }

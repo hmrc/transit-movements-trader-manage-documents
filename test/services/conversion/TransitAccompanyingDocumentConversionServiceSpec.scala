@@ -63,6 +63,16 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
+  private val genTransitAccompanyingDocumentData = for {
+    countriesGen                   <- arbitrary[Country]
+    transitAccompanyingDocumentGen <- arbitrary[TransitAccompanyingDocument]
+    consignorGen                   <- arbitrary[Consignor]
+    consigneeGen                   <- arbitrary[Consignee]
+    mrn                            <- stringWithMaxLength(17)
+    controlResult                  <- arbitrary[ControlResult]
+    customsOfficeTransit           <- arbitrary[CustomsOfficeTransit]
+  } yield (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn, controlResult, customsOfficeTransit)
+
   val validModel = models.TransitAccompanyingDocument(
     localReferenceNumber = "lrn",
     declarationType = DeclarationType.T1,
@@ -78,6 +88,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
     consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
     departureOffice = "The Departure office, less than 45 characters long",
+    customsOfficeTransit = Nil,
     controlResult = None,
     seals = Seq("seal 1"),
     goodsItems = NonEmptyList.one(
@@ -123,13 +134,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       "all data exists" in {
 
-        forAll(arbitrary[Country],
-               arbitrary[TransitAccompanyingDocument],
-               arbitrary[Consignor],
-               arbitrary[Consignee],
-               stringWithMaxLength(17),
-               arbitrary[ControlResult]) {
-          (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn, controlResult) =>
+        forAll(genTransitAccompanyingDocumentData) {
+          case (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn, controlResult, customsOfficeTransitGen) =>
             val referenceDataService = mock[ReferenceDataService]
             when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
             when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
@@ -160,6 +166,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               consignor = transitAccompanyingDocument.consignor,
               consignee = transitAccompanyingDocument.consignee,
               departureOffice = transitAccompanyingDocument.departureOffice,
+              customsOfficeTransit = Seq(customsOfficeTransitGen),
               controlResult = Some(controlResult),
               seals = transitAccompanyingDocument.seals
             )
@@ -206,6 +213,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
                 )),
               departureOffice = transitAccompanyingDocument.departureOffice,
               departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+              customsOfficeTransit = Seq(viewmodels.CustomsOfficeTransit(customsOfficeTransitGen.referenceNumber, customsOfficeTransitGen.arrivalTime)),
               controlResult = Some(viewmodels.ControlResult(controlResult.conResCodERS16, controlResult.datLimERS69)),
               seals = transitAccompanyingDocument.seals,
               goodsItems = NonEmptyList.one(
@@ -312,6 +320,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               consignee = None,
               departureOffice = transitAccompanyingDocument.departureOffice,
               departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
+              customsOfficeTransit = Nil,
               controlResult = None,
               seals = Nil,
               goodsItems = NonEmptyList.one(

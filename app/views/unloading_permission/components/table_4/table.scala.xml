@@ -130,6 +130,29 @@
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
+
+        @if(transitDocument.customsOfficeTransit.length > 0) {
+            <fo:table-row height="8mm">
+                <fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">
+                    <fo:block>
+                        <fo:table width="100%" table-layout="fixed">
+                            <fo:table-column column-width="30.66mm"/>
+                            <fo:table-column column-width="30.66mm"/>
+                            <fo:table-column column-width="30.66mm"/>
+                            <fo:table-column column-width="30.66mm"/>
+                            <fo:table-column column-width="30.66mm"/>
+                            <fo:table-column column-width="30.66mm"/>
+                            <fo:table-body>
+                                <fo:table-row height="7.5mm">
+                                    @transitDocument.customsOfficeTransit.map(x => customs_office_transit(x))
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        }
+
         <fo:table-row height="8mm"> <!-- S1 T4 ROW 3 -->
             <fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">
                 <fo:block>

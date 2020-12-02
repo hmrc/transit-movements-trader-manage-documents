@@ -16,11 +16,13 @@
 
 package services.conversion
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.ControlResult
+import models.CustomsOfficeTransit
 import models.DeclarationType
 import models.reference._
 import org.scalatest.FreeSpec
@@ -37,6 +39,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
   private val sensitiveGoodsInformation = Nil
 
   private val invalidCode = "non-existent code"
+
+  private val customsOfficeTransitModel     = CustomsOfficeTransit("BBBBBB", None)
+  private val customsOfficeTransitViewModel = viewmodels.CustomsOfficeTransit("BBBBBB", None)
 
   "toViewModel" - {
 
@@ -64,6 +69,15 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
         departureOffice = "Departure office",
+        customsOfficeTransit = Seq(
+          customsOfficeTransitModel,
+          customsOfficeTransitModel,
+          customsOfficeTransitModel,
+          customsOfficeTransitModel,
+          customsOfficeTransitModel,
+          customsOfficeTransitModel,
+          customsOfficeTransitModel
+        ),
         controlResult = Some(ControlResult("AA", date)),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -127,6 +141,14 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
         departureOffice = "Departure office",
         departureOfficeTrimmed = "Departure office",
+        customsOfficeTransit = Seq(
+          customsOfficeTransitViewModel,
+          customsOfficeTransitViewModel,
+          customsOfficeTransitViewModel,
+          customsOfficeTransitViewModel,
+          customsOfficeTransitViewModel,
+          customsOfficeTransitViewModel
+        ),
         controlResult = Some(viewmodels.ControlResult("AA", date)),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
@@ -191,6 +213,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         consignor = None,
         consignee = None,
         departureOffice = "The Departure office, less than 45 characters long",
+        customsOfficeTransit = Nil,
         controlResult = None,
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
