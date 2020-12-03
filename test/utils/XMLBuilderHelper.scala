@@ -19,6 +19,8 @@ package utils
 import models.BulkPackage
 import models.Consignee
 import models.Consignor
+import models.ControlResult
+import models.CustomsOfficeTransit
 import models.GoodsItem
 import models.Package
 import models.PreviousAdministrativeReference
@@ -32,6 +34,7 @@ import models.TraderAtDestination
 import models.TraderAtDestinationWithEori
 import models.TraderAtDestinationWithoutEori
 import models.UnpackedPackage
+import utils.DateFormatter.dateFormatted
 
 import scala.xml.NodeSeq
 
@@ -284,6 +287,35 @@ object XMLBuilderHelper {
             }
           }
         </PACGS2>
+    }
+
+  def controlResult(controlResult: Option[ControlResult]): NodeSeq =
+    controlResult
+      .map {
+        controlResult =>
+          <CONRESERS>
+            <ConResCodERS16>{controlResult.conResCodERS16}</ConResCodERS16>
+            <DatLimERS69>{dateFormatted(controlResult.datLimERS69)}</DatLimERS69>
+          </CONRESERS>
+      }
+      .getOrElse(NodeSeq.Empty)
+
+  def customsOfficeTransitToXml(customsOfficeTransit: Seq[CustomsOfficeTransit]): NodeSeq =
+    customsOfficeTransit match {
+      case customsOfficeTransit: Seq[CustomsOfficeTransit] if customsOfficeTransit.nonEmpty =>
+        customsOfficeTransit.map {
+          customsOffice =>
+            val arrivalTime = customsOffice.arrivalTime.map {
+              arrivalTime =>
+                <ArrTimTRACUS085>{DateFormatter.dateTimeFormatted(arrivalTime)}</ArrTimTRACUS085>
+            }
+            <CUSOFFTRARNS>
+              <RefNumRNS1>{customsOffice.referenceNumber}</RefNumRNS1>
+              {arrivalTime.getOrElse(NodeSeq.Empty)}
+            </CUSOFFTRARNS>
+        }
+
+      case _ => NodeSeq.Empty
     }
 
 }

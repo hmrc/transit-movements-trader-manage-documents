@@ -64,7 +64,7 @@ object TransitAccompanyingDocument {
      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
      (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,
      (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
-     (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate], //TODO: Need to add this to C OFFICE OF DEPARTURE
+     (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate],
      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int],
      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
@@ -72,11 +72,9 @@ object TransitAccompanyingDocument {
      (__ \ "TRAPRIPC1").read[Principal],
      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
-     // (__ \ "TRADESTRD").read[TraderAtDestination],
      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
      (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeTransit]),
      (__ \ "CONRESERS").read[ControlResult].optional,
-     // (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String],
      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),
      (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])).mapN(apply)
   }
