@@ -17,11 +17,21 @@
 package utils
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 object DateFormatter {
   val dateFormatter: DateTimeFormatter       = DateTimeFormatter.ofPattern("yyyyMMdd")
   def dateFormatted(date: LocalDate): String = date.format(dateFormatter)
+
+  val dateTimeFormatter: DateTimeFormatter               = DateTimeFormatter.ofPattern("yyyyMMddHHmm")
+  def dateTimeFormatted(dateTime: LocalDateTime): String = dateTime.format(dateTimeFormatter)
+
+  val arrivalDateTimeFormatter: DateTimeFormatter =
+    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+  def arrivalDateTimeFormatted(dateTime: LocalDateTime): String = dateTime.format(arrivalDateTimeFormatter)
+
+  def dateFormatted(date: LocalDate, pattern: String): String = date.format(DateTimeFormatter.ofPattern(pattern))
 
   def dateFormatted(dateOption: Option[LocalDate], pattern: String): Option[String] = dateOption.map {
     date =>

@@ -19,8 +19,9 @@ package services.conversion
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
-import models.reference.{AdditionalInformation, Country, DocumentType, KindOfPackage}
+import models.reference._
 import services._
+import utils.DateFormatter
 import utils.StringTransformer._
 
 object TransitAccompanyingDocumentConverter extends Converter {
@@ -30,7 +31,8 @@ object TransitAccompanyingDocumentConverter extends Converter {
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.PermissionToStartUnloading] = {
+                  documentTypes: Seq[DocumentType],
+                  previousDocumentTypes: Seq[PreviousDocumentTypes]): ValidationResult[viewmodels.TransitAccompanyingDocument] = {
 
     def convertTransportCountry(maybeCountry: Option[String]): ValidationResult[Option[Country]] =
       maybeCountry match {
@@ -62,13 +64,19 @@ object TransitAccompanyingDocumentConverter extends Converter {
         case None                       => Valid(None)
       }
 
+    def convertControlResult(controlResult: Option[models.ControlResult]): Option[viewmodels.ControlResult] =
+      ControlResultConverter.toViewModel(controlResult)
+
+    def convertCustomsOfficeTransit(customsOfficeTransit: Seq[models.CustomsOfficeTransit]): Seq[viewmodels.CustomsOfficeTransit] =
+      CustomsOfficeTransitConverter.toViewModel(customsOfficeTransit)
+
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
-      val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
+      val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
 
       val tail = items.tail.zipWithIndex.map {
         case (item, index) =>
-          GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes)
+          GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
       }.sequence
 
       (
@@ -89,25 +97,26 @@ object TransitAccompanyingDocumentConverter extends Converter {
       convertConsignee(transitAccompanyingDocument.consignee)
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee) =>
-        viewmodels.PermissionToStartUnloading(
+        viewmodels.TransitAccompanyingDocument(
           mrn,
           transitAccompanyingDocument.declarationType,
           dispatch,
           destination,
           transitAccompanyingDocument.transportIdentity,
           transportCountry,
-          None,
-          None,
+          transitAccompanyingDocument.acceptanceDate,
+          DateFormatter.dateFormatted(transitAccompanyingDocument.acceptanceDate, "dd/MM/yyyy"),
           transitAccompanyingDocument.numberOfItems,
           transitAccompanyingDocument.numberOfPackages,
           transitAccompanyingDocument.grossMass,
+          transitAccompanyingDocument.authorisationId,
           principal,
           consignor,
           consignee,
-          None,
           transitAccompanyingDocument.departureOffice,
           transitAccompanyingDocument.departureOffice.shorten(45)("***"),
-          None,
+          convertCustomsOfficeTransit(transitAccompanyingDocument.customsOfficeTransit),
+          convertControlResult(transitAccompanyingDocument.controlResult),
           transitAccompanyingDocument.seals,
           goodsItems
       )

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package models.reference
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+package viewmodels
+import java.time.LocalDateTime
 
-final case class ControlResult(code: String, description: String) extends CodedReferenceData
+import utils.DateFormatter
 
-object ControlResult {
-
-  implicit lazy val format: OFormat[ControlResult] =
-    Json.format[ControlResult]
+final case class CustomsOfficeTransit(
+  referenceNumber: String,
+  arrivalTime: Option[LocalDateTime]
+) {
+  val dateTimeFormatted: Option[String] = arrivalTime.map(x => DateFormatter.arrivalDateTimeFormatted(x))
 }

@@ -16,7 +16,10 @@
 
 package generators
 
+import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 import models._
 import models.reference.AdditionalInformation
@@ -28,6 +31,14 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 
 trait ModelGenerators extends GeneratorHelpers {
+
+  implicit lazy val arbitraryCustomsOfficeTransit: Arbitrary[CustomsOfficeTransit] =
+    Arbitrary {
+      for {
+        customsOffice   <- Gen.pick(CustomsOfficeTransit.Constants.customsOfficeLength, 'A' to 'Z')
+        arrivalDateTime <- Gen.option(arbitrary(arbitraryLocalDateTime))
+      } yield CustomsOfficeTransit(customsOffice.mkString, arrivalDateTime)
+    }
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {
@@ -178,6 +189,14 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield Principal(name, streetAndNumber, postCode, city, country, eori, tir)
     }
 
+  implicit lazy val arbitraryControlResult: Arbitrary[ControlResult] =
+    Arbitrary {
+      for {
+        conResCodERS16 <- Gen.pick(ControlResult.Constants.controlResultCodeLength, 'A' to 'Z')
+        datLimERS69    <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+      } yield ControlResult(conResCodERS16.toString, datLimERS69)
+    }
+
   implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
     Arbitrary {
 
@@ -196,21 +215,22 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        itemNumber                <- Gen.choose(1, 99999)
-        commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
-        description               <- stringWithMaxLength(280)
-        grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
-        countryOfDestination      <- Gen.option(stringWithMaxLength(2))
-        producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
-        specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
-        consignor                 <- Gen.option(arbitrary[Consignor])
-        consignee                 <- Gen.option(arbitrary[Consignee])
-        containers                <- listWithMaxSize(2, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(2, arbitrary[Package])
-        sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        itemNumber                      <- Gen.choose(1, 99999)
+        commodityCode                   <- Gen.option(stringWithMaxLength(22))
+        declarationType                 <- Gen.option(arbitrary[DeclarationType])
+        description                     <- stringWithMaxLength(280)
+        grossMass                       <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        netMass                         <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+        countryOfDispatch               <- Gen.option(stringWithMaxLength(2))
+        countryOfDestination            <- Gen.option(stringWithMaxLength(2))
+        previousAdministrativeReference <- listWithMaxSize(2, arbitrary[PreviousAdministrativeReference])
+        producedDocuments               <- listWithMaxSize(2, arbitrary[ProducedDocument])
+        specialMentions                 <- listWithMaxSize(2, arbitrary[SpecialMention])
+        consignor                       <- Gen.option(arbitrary[Consignor])
+        consignee                       <- Gen.option(arbitrary[Consignee])
+        containers                      <- listWithMaxSize(2, stringWithMaxLength(17))
+        packages                        <- nonEmptyListWithMaxSize(2, arbitrary[Package])
+        sensitiveGoodsInformation       <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
       } yield
         GoodsItem(
           itemNumber,
@@ -221,6 +241,7 @@ trait ModelGenerators extends GeneratorHelpers {
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          previousAdministrativeReference,
           producedDocuments,
           specialMentions,
           consignor,
@@ -296,13 +317,17 @@ trait ModelGenerators extends GeneratorHelpers {
         countryOfDestination <- Gen.option(stringWithMaxLength(2))
         transportId          <- Gen.option(stringWithMaxLength(27))
         transportCountry     <- Gen.option(stringWithMaxLength(2))
+        acceptanceDate       <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
         numberOfItems        <- Gen.choose(1, 99999)
         numberOfPackages     <- Gen.choose(1, 9999999)
         grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        authorisationId      <- Gen.option(stringWithMaxLength(17))
         principal            <- arbitrary[Principal]
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
         departureOffice      <- stringWithMaxLength(8)
+        customsOfficeTransit <- listWithMaxSize(9, arbitrary[CustomsOfficeTransit])
+        controlResult        <- Gen.option(arbitrary[ControlResult])
         seals                <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
@@ -313,13 +338,17 @@ trait ModelGenerators extends GeneratorHelpers {
           countryOfDestination,
           transportId,
           transportCountry,
+          acceptanceDate,
           numberOfItems,
           numberOfPackages,
           grossMass,
+          authorisationId,
           principal,
           consignor,
           consignee,
           departureOffice,
+          customsOfficeTransit,
+          controlResult,
           seals,
           goodsItems
         )
@@ -367,6 +396,16 @@ trait ModelGenerators extends GeneratorHelpers {
         arbitrary[viewmodels.TraderAtDestinationWithEori],
         arbitrary[viewmodels.TraderAtDestinationWithoutEori]
       )
+    }
+  }
+
+  implicit lazy val arbitraryPreviousAdministrativeReference: Arbitrary[PreviousAdministrativeReference] = {
+    Arbitrary {
+      for {
+        documentType <- stringWithMaxLength(PreviousAdministrativeReference.Constants.previousDocumentTypeLength)
+        documentRef  <- stringWithMaxLength(PreviousAdministrativeReference.Constants.previousDocumentReferenceLength)
+        information  <- Gen.option(stringWithMaxLength(PreviousAdministrativeReference.Constants.complementOfInformationLength))
+      } yield PreviousAdministrativeReference(documentType, documentRef, information)
     }
   }
 
@@ -506,47 +545,45 @@ trait ModelGenerators extends GeneratorHelpers {
       Gen.oneOf(arbitrary[viewmodels.BulkPackage], arbitrary[viewmodels.UnpackedPackage], arbitrary[viewmodels.RegularPackage])
     }
 
-  implicit lazy val arbitraryGoodsItemViewModel: Arbitrary[viewmodels.GoodsItem] = {
-    Arbitrary {
+//  implicit lazy val arbitraryGoodsItemViewModel: Arbitrary[viewmodels.GoodsItem] = {
+//    Arbitrary {
+//
+//      for {
+//        itemNumber                       <- Gen.choose(1, 99999)
+//        commodityCode                    <- Gen.option(stringWithMaxLength(22))
+//        declarationType                  <- Gen.option(arbitrary[DeclarationType])
+//        description                      <- stringWithMaxLength(280)
+//        grossMass                        <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+//        netMass                          <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
+//        countryOfDispatch                <- Gen.option(arbitrary[Country])
+//        countryOfDestination             <- Gen.option(arbitrary[Country])
+//        previousAdministrativeReferences <- listWithMaxSize(2, arbitrary[viewmodels.PreviousDocumentType])
+//        producedDocuments                <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
+//        specialMentions                  <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
+//        consignor                        <- Gen.option(arbitrary[viewmodels.Consignor])
+//        consignee                        <- Gen.option(arbitrary[viewmodels.Consignee])
+//        containers                       <- listWithMaxSize(2, stringWithMaxLength(17))
+//        packages                         <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
+//        sensitiveGoodsInformation        <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+//      } yield
+//        viewmodels.GoodsItem(
+//          itemNumber,
+//          commodityCode,
+//          declarationType,
+//          description,
+//          grossMass,
+//          netMass,
+//          countryOfDispatch,
+//          countryOfDestination,
+//          producedDocuments,
+//          specialMentions,
+//          consignor,
+//          consignee,
+//          containers,
+//          packages,
+//          sensitiveGoodsInformation
+//        )
+//    }
+//  }
 
-      for {
-        itemNumber                <- Gen.choose(1, 99999)
-        commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
-        description               <- stringWithMaxLength(280)
-        grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
-        countryOfDispatch         <- Gen.option(arbitrary[Country])
-        countryOfDestination      <- Gen.option(arbitrary[Country])
-        producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
-        specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
-        consignor                 <- Gen.option(arbitrary[viewmodels.Consignor])
-        consignee                 <- Gen.option(arbitrary[viewmodels.Consignee])
-        containers                <- listWithMaxSize(2, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
-        sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
-      } yield
-        viewmodels.GoodsItem(
-          itemNumber,
-          commodityCode,
-          declarationType,
-          description,
-          grossMass,
-          netMass,
-          countryOfDispatch,
-          countryOfDestination,
-          producedDocuments,
-          specialMentions,
-          consignor,
-          consignee,
-          containers,
-          packages,
-          sensitiveGoodsInformation
-        )
-    }
-  }
-
-  implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
-    datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
-  }
 }

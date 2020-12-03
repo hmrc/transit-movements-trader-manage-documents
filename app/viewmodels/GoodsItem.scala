@@ -30,6 +30,7 @@ final case class GoodsItem(
   netMass: Option[BigDecimal],
   countryOfDispatch: Option[Country],
   countryOfDestination: Option[Country],
+  previousAdministrativeReferences: Seq[PreviousDocumentType],
   producedDocuments: Seq[ProducedDocument],
   specialMentions: Seq[SpecialMention],
   consignor: Option[Consignor],

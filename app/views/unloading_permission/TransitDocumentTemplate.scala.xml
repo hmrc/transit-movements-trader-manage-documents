@@ -1,6 +1,6 @@
 @this()
 
-@(permission: viewmodels.PermissionToStartUnloading)
+@(permission: viewmodels.TransitDocument)
 <?xml version='1.0' encoding='utf-8'?>
 
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="sans-serif" font-size="7pt" text-align="left">
@@ -21,6 +21,7 @@
         @components.table_3.table(permission)
 
         <!--Principal/TIR Holder/Office of departure-->
+        <!--//TODO: Need to come back to this when its confirmed if principle address is optional or not-->
         @components.table_4.table(permission)
 
         <!--control by office of departure/destination-->

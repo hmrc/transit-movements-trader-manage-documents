@@ -409,7 +409,7 @@ class ReferenceDataServiceSpec
 
     "must return a sequence" in {
 
-      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[ControlResult]]) {
+      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[ControlResultData]]) {
         (hc, data) =>
           server.stubFor(
             get(urlEqualTo(endpoint))

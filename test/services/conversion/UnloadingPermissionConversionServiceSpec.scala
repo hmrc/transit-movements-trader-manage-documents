@@ -41,6 +41,7 @@ import services.ReferenceDataService
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.PermissionToStartUnloading
+import viewmodels.PreviousDocumentType
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -93,6 +94,7 @@ class UnloadingPermissionConversionServiceSpec
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        previousAdministrativeReferences = Nil,
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(additionalInfo.head.code),
@@ -133,8 +135,8 @@ class UnloadingPermissionConversionServiceSpec
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = Some(acceptanceDate),
-        acceptanceDateFormatted = Some("01/08/2020"),
+        acceptanceDate = acceptanceDate,
+        acceptanceDateFormatted = "01/08/2020",
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -165,6 +167,7 @@ class UnloadingPermissionConversionServiceSpec
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
+            previousAdministrativeReferences = Nil,
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),

@@ -76,7 +76,7 @@ class TransitAccompanyingDocumentControllerSpec
 
       running(application) {
 
-        forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
+        forAll(arbitrary[viewmodels.TransitAccompanyingDocument], arbitrary[Array[Byte]]) {
           (viewModel, pdf) =>
             when(mockConversionService.toViewModel(any(), any())(any(), any()))
               .thenReturn(Future.successful(Valid(viewModel)))
@@ -145,10 +145,11 @@ class TransitAccompanyingDocumentControllerSpec
       <HEAHEA>
         <RefNumHEA4>LRNVALUE</RefNumHEA4>
         <TypOfDecHEA24>T2</TypOfDecHEA24>
-          <CouOfDisCodHEA55>GB</CouOfDisCodHEA55>
-          <CouOfDesCodHEA30>IT</CouOfDesCodHEA30>
-          <IdeOfMeaOfTraAtDHEA78>abcd</IdeOfMeaOfTraAtDHEA78>
-          <NatOfMeaOfTraAtDHEA80>IT</NatOfMeaOfTraAtDHEA80>
+        <CouOfDisCodHEA55>GB</CouOfDisCodHEA55>
+        <CouOfDesCodHEA30>IT</CouOfDesCodHEA30>
+        <IdeOfMeaOfTraAtDHEA78>abcd</IdeOfMeaOfTraAtDHEA78>
+        <NatOfMeaOfTraAtDHEA80>IT</NatOfMeaOfTraAtDHEA80>
+        <AccDatHEA158>20190912</AccDatHEA158>
         <TotNumOfIteHEA305>1</TotNumOfIteHEA305>
         <TotNumOfPacHEA306>1</TotNumOfPacHEA306>
         <TotGroMasHEA307>1000</TotGroMasHEA307>
@@ -180,6 +181,9 @@ class TransitAccompanyingDocumentControllerSpec
       <CUSOFFDEPEPT>
         <RefNumEPT1>GB000060</RefNumEPT1>
       </CUSOFFDEPEPT>
+      <CUSOFFTRARNS>
+        <RefNumRNS1>GB000060</RefNumRNS1>
+      </CUSOFFTRARNS>
       <GOOITEGDS>
         <IteNumGDS7>1</IteNumGDS7>
         <GooDesGDS23>Flowers</GooDesGDS23>
@@ -187,6 +191,10 @@ class TransitAccompanyingDocumentControllerSpec
         <NetMasGDS48>999</NetMasGDS48>
         <CouOfDisGDS58>GB</CouOfDisGDS58>
         <CouOfDesGDS59>GB</CouOfDesGDS59>
+        <PREADMREFAR2>
+          <PreDocTypAR21>Type</PreDocTypAR21>
+          <PreDocRefAR26>Ref</PreDocRefAR26>
+        </PREADMREFAR2>
         <PRODOCDC2>
           <DocTypDC21>235</DocTypDC21>
           <DocRefDC23>Ref.</DocRefDC23>

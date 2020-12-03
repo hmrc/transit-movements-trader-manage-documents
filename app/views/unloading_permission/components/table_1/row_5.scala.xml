@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(permission: viewmodels.TransitDocument)
 
 <fo:table-row height="8mm">
   <fo:table-cell>

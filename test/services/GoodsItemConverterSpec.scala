@@ -19,19 +19,18 @@ package services
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 
 class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
-  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
-  private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
-  private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
-  private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val countries             = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val kindsOfPackage        = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
+  private val documentTypes         = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
+  private val additionalInfo        = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
+  private val previousDocumentTypes = Seq(PreviousDocumentTypes("235", "Container list"), PreviousDocumentTypes("270", "Loading list (delivery note)"))
+
   private val sensitiveGoodsInformation = Nil
 
   private val invalidCode = "non-existent code"
@@ -49,6 +48,12 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        previousAdministrativeReferences = Seq(
+          models.PreviousAdministrativeReference(
+            previousDocumentTypes.head.code,
+            "ref",
+            Some("information")
+          )),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(additionalInfo.head.code),
@@ -77,6 +82,12 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head),
         countryOfDestination = Some(countries.head),
+        previousAdministrativeReferences = Seq(
+          viewmodels.PreviousDocumentType(
+            previousDocumentTypes.head,
+            "ref",
+            Some("information")
+          )),
         producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
         specialMentions = Seq(
           viewmodels.SpecialMentionEc(additionalInfo.head),
@@ -98,7 +109,7 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         sensitiveGoodsInformation = sensitiveGoodsInformation
       )
 
-      val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
 
       result.valid.value mustEqual expectedViewModel
     }
@@ -114,6 +125,12 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(invalidCode),
         countryOfDestination = Some(invalidCode),
+        previousAdministrativeReferences = Seq(
+          models.PreviousAdministrativeReference(
+            invalidCode,
+            "ref",
+            Some("information")
+          )),
         producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(invalidCode),
@@ -133,7 +150,7 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         sensitiveGoodsInformation = sensitiveGoodsInformation
       )
 
-      val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes)
 
       val expectedErrors = Seq(
         ReferenceDataNotFound("path.countryOfDispatch", invalidCode),
@@ -147,7 +164,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         ReferenceDataNotFound("path.consignee.countryCode", invalidCode),
         ReferenceDataNotFound("path.packages[0].kindOfPackage", invalidCode),
         ReferenceDataNotFound("path.packages[1].kindOfPackage", invalidCode),
-        ReferenceDataNotFound("path.packages[2].kindOfPackage", invalidCode)
+        ReferenceDataNotFound("path.packages[2].kindOfPackage", invalidCode),
+        ReferenceDataNotFound("path.previousAdministrativeReference[0].previousDocumentTypes", invalidCode)
       )
 
       result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors

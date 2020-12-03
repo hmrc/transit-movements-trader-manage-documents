@@ -16,6 +16,8 @@
 
 package models
 
+import java.time.LocalDate
+
 import cats.data.NonEmptyList
 import com.lucidchart.open.xtract.XmlReader._
 import com.lucidchart.open.xtract.XmlReader
@@ -25,6 +27,7 @@ import play.api.libs.json.OFormat
 import cats.syntax.all._
 import utils.NonEmptyListXMLReader.xmlNonEmptyListReads
 import utils.BigDecimalXMLReader._
+import utils.LocalDateXMLReader._
 import json.NonEmptyListOps._
 
 final case class TransitAccompanyingDocument(
@@ -34,13 +37,17 @@ final case class TransitAccompanyingDocument(
   countryOfDestination: Option[String],
   transportIdentity: Option[String],
   transportCountry: Option[String],
+  acceptanceDate: LocalDate,
   numberOfItems: Int,
   numberOfPackages: Int,
   grossMass: BigDecimal,
+  authorisationId: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   departureOffice: String,
+  customsOfficeTransit: Seq[CustomsOfficeTransit],
+  controlResult: Option[ControlResult],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
 )
@@ -57,16 +64,17 @@ object TransitAccompanyingDocument {
      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
      (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,
      (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
-     //(__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate], //DOES NOT EXIST IN IE015
+     (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate],
      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int],
      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
+     (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional,
      (__ \ "TRAPRIPC1").read[Principal],
      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
-     // (__ \ "TRADESTRD").read[TraderAtDestination], //DOES NOT EXIST IN IE015
      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
-     // (__ \ "CUSOFFPREOFFRES" \ "RefNumRES1").read[String], //DOES NOT EXIST IN IE015
+     (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeTransit]),
+     (__ \ "CONRESERS").read[ControlResult].optional,
      (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),
      (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])).mapN(apply)
   }

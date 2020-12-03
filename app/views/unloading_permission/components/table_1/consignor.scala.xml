@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(permission: viewmodels.TransitDocument)
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
   <fo:block>

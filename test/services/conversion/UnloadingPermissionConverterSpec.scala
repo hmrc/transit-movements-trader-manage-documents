@@ -80,6 +80,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head.code),
             countryOfDestination = Some(countries.head.code),
+            previousAdministrativeReferences = Nil,
             producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(additionalInfo.head.code),
@@ -108,8 +109,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = Some(date),
-        acceptanceDateFormatted = Some("01/08/2020"),
+        acceptanceDate = date,
+        acceptanceDateFormatted = "01/08/2020",
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -140,6 +141,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
+            previousAdministrativeReferences = Nil,
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),
@@ -199,6 +201,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             netMass = Some(0.9),
             countryOfDispatch = Some(invalidCode),
             countryOfDestination = Some(invalidCode),
+            previousAdministrativeReferences = Nil,
             producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(invalidCode),
