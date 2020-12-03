@@ -15,6 +15,8 @@
  */
 
 package services.conversion
+import java.time.LocalDate
+
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
@@ -63,6 +65,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
+  private val acceptanceDate = LocalDate.of(2020, 8, 1)
+
   private val genTransitAccompanyingDocumentData = for {
     countriesGen                   <- arbitrary[Country]
     transitAccompanyingDocumentGen <- arbitrary[TransitAccompanyingDocument]
@@ -80,6 +84,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
     countryOfDestination = Some(countries.head.code),
     transportIdentity = Some("identity"),
     transportCountry = Some(countries.head.code),
+    acceptanceDate = acceptanceDate,
     numberOfItems = 1,
     numberOfPackages = 3,
     grossMass = 1.0,

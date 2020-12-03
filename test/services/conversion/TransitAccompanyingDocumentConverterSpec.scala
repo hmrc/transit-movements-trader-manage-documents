@@ -43,11 +43,11 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
   private val customsOfficeTransitModel     = CustomsOfficeTransit("BBBBBB", None)
   private val customsOfficeTransitViewModel = viewmodels.CustomsOfficeTransit("BBBBBB", None)
 
+  private val date = LocalDate.of(2020, 8, 1)
+
   "toViewModel" - {
 
     "must return a view model when all of the necessary reference data can be found" in {
-
-      val date = LocalDate.of(2020, 8, 1)
 
       val model = models.TransitAccompanyingDocument(
         localReferenceNumber = "lrn",
@@ -56,6 +56,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         countryOfDestination = Some(countries.head.code),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head.code),
+        acceptanceDate = date,
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,
@@ -205,6 +206,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         countryOfDestination = Some(invalidCode),
         transportIdentity = Some("identity"),
         transportCountry = Some(invalidCode),
+        acceptanceDate = date,
         numberOfItems = 1,
         numberOfPackages = 3,
         grossMass = 1.0,

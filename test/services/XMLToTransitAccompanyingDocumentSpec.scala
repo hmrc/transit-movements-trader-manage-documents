@@ -65,10 +65,11 @@ class XMLToTransitAccompanyingDocumentSpec
       <HEAHEA>
         <RefNumHEA4>LRNVALUE</RefNumHEA4>
         <TypOfDecHEA24>T2</TypOfDecHEA24>
-          <CouOfDisCodHEA55>GB</CouOfDisCodHEA55>
-          <CouOfDesCodHEA30>IT</CouOfDesCodHEA30>
-          <IdeOfMeaOfTraAtDHEA78>abcd</IdeOfMeaOfTraAtDHEA78>
-          <NatOfMeaOfTraAtDHEA80>IT</NatOfMeaOfTraAtDHEA80>
+        <CouOfDisCodHEA55>GB</CouOfDisCodHEA55>
+        <CouOfDesCodHEA30>IT</CouOfDesCodHEA30>
+        <IdeOfMeaOfTraAtDHEA78>abcd</IdeOfMeaOfTraAtDHEA78>
+        <NatOfMeaOfTraAtDHEA80>IT</NatOfMeaOfTraAtDHEA80>
+        <AccDatHEA158>20200729</AccDatHEA158>
         <TotNumOfIteHEA305>1</TotNumOfIteHEA305>
         <TotNumOfPacHEA306>1</TotNumOfPacHEA306>
         <TotGroMasHEA307>1000</TotGroMasHEA307>
@@ -137,6 +138,7 @@ class XMLToTransitAccompanyingDocumentSpec
       <HEAHEA>
         <RefNumHEA4>LRNVALUE</RefNumHEA4>
         <TypOfDecHEA24>T2</TypOfDecHEA24>
+        <AccDatHEA158>20200729</AccDatHEA158>
         <TotNumOfIteHEA305>1</TotNumOfIteHEA305>
         <TotNumOfPacHEA306>1</TotNumOfPacHEA306>
         <TotGroMasHEA307>1000</TotGroMasHEA307>

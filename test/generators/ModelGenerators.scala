@@ -317,6 +317,7 @@ trait ModelGenerators extends GeneratorHelpers {
         countryOfDestination <- Gen.option(stringWithMaxLength(2))
         transportId          <- Gen.option(stringWithMaxLength(27))
         transportCountry     <- Gen.option(stringWithMaxLength(2))
+        acceptanceDate       <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
         numberOfItems        <- Gen.choose(1, 99999)
         numberOfPackages     <- Gen.choose(1, 9999999)
         grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
@@ -336,6 +337,7 @@ trait ModelGenerators extends GeneratorHelpers {
           countryOfDestination,
           transportId,
           transportCountry,
+          acceptanceDate,
           numberOfItems,
           numberOfPackages,
           grossMass,
