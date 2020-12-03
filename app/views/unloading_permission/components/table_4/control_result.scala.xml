@@ -1,9 +1,12 @@
-@(controlResult: viewmodels.ControlResult, principal: viewmodels.Principal)
+@(controlResult: viewmodels.ControlResult, principal: viewmodels.Principal, authorisationId: Option[String])
 
 @if(controlResult.isPrintable) {
-    <!--//TODO: /HEAHEA/AutIdHEA380 only comes from IE029-->
-    <!--<fo:block>-->
-    <!--<xsl:value-of select="*/HEAHEA/AutIdHEA380"/>-->
-    <!--</fo:block>-->
-    @principal.name
+    <fo:block>
+        @authorisationId.map(x => x)
+    </fo:block>
+    <fo:block>
+        @principal.name
+    </fo:block>
+} else {
+    <fo:block/>
 }

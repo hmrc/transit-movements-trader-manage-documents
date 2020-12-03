@@ -15,6 +15,8 @@
  */
 
 package viewmodels
+import java.time.LocalDate
+
 import cats.data.NonEmptyList
 import models.ControlResult
 import models.DeclarationType
@@ -27,9 +29,12 @@ final case class TransitAccompanyingDocument(
   singleCountryOfDestination: Option[Country],
   transportIdentity: Option[String],
   transportCountry: Option[Country],
+  acceptanceDate: LocalDate,
+  acceptanceDateFormatted: String,
   numberOfItems: Int,
   numberOfPackages: Int,
   grossMass: BigDecimal,
+  override val authorisationId: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],

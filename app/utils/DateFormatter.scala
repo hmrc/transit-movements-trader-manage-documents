@@ -31,6 +31,8 @@ object DateFormatter {
     DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
   def arrivalDateTimeFormatted(dateTime: LocalDateTime): String = dateTime.format(arrivalDateTimeFormatter)
 
+  def dateFormatted(date: LocalDate, pattern: String): String = date.format(DateTimeFormatter.ofPattern(pattern))
+
   def dateFormatted(dateOption: Option[LocalDate], pattern: String): Option[String] = dateOption.map {
     date =>
       try {

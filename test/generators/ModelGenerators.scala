@@ -321,6 +321,7 @@ trait ModelGenerators extends GeneratorHelpers {
         numberOfItems        <- Gen.choose(1, 99999)
         numberOfPackages     <- Gen.choose(1, 9999999)
         grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        authorisationId      <- Gen.option(stringWithMaxLength(17))
         principal            <- arbitrary[Principal]
         consignor            <- Gen.option(arbitrary[Consignor])
         consignee            <- Gen.option(arbitrary[Consignee])
@@ -341,6 +342,7 @@ trait ModelGenerators extends GeneratorHelpers {
           numberOfItems,
           numberOfPackages,
           grossMass,
+          authorisationId,
           principal,
           consignor,
           consignee,

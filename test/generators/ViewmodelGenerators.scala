@@ -263,8 +263,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         countryOfDestination  <- Gen.option(arbitrary[Country])
         transportId           <- Gen.option(stringWithMaxLength(27))
         transportCountry      <- Gen.option(arbitrary[Country])
-        acceptanceDate        <- Gen.option(datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now))
-        acceptanceDateTrimmed <- Gen.option(stringWithMaxLength(8))
+        acceptanceDate        <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+        acceptanceDateTrimmed <- stringWithMaxLength(8)
         numberOfItems         <- Gen.choose(1, 99999)
         numberOfPackages      <- Gen.choose(1, 9999999)
         grossMass             <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
@@ -305,23 +305,26 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        mrn                  <- stringWithMaxLength(17)
-        declarationType      <- arbitrary[DeclarationType]
-        countryOfDispatch    <- Gen.option(arbitrary[Country])
-        countryOfDestination <- Gen.option(arbitrary[Country])
-        transportId          <- Gen.option(stringWithMaxLength(27))
-        transportCountry     <- Gen.option(arbitrary[Country])
-        numberOfItems        <- Gen.choose(1, 99999)
-        numberOfPackages     <- Gen.choose(1, 9999999)
-        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        principal            <- arbitrary[Principal]
-        consignor            <- Gen.option(arbitrary[Consignor])
-        consignee            <- Gen.option(arbitrary[Consignee])
-        departureOffice      <- stringWithMaxLength(8)
-        customsOfficeTransit <- listWithMaxSize(6, arbitrary[CustomsOfficeTransit])
-        controlResult        <- Gen.option(arbitrary[ControlResult])
-        seals                <- listWithMaxSize(9, stringWithMaxLength(20))
-        goodsItems           <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        mrn                   <- stringWithMaxLength(17)
+        declarationType       <- arbitrary[DeclarationType]
+        countryOfDispatch     <- Gen.option(arbitrary[Country])
+        countryOfDestination  <- Gen.option(arbitrary[Country])
+        transportId           <- Gen.option(stringWithMaxLength(27))
+        transportCountry      <- Gen.option(arbitrary[Country])
+        acceptanceDate        <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+        acceptanceDateTrimmed <- stringWithMaxLength(8)
+        numberOfItems         <- Gen.choose(1, 99999)
+        numberOfPackages      <- Gen.choose(1, 9999999)
+        grossMass             <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        authorisationId       <- Gen.option(stringWithMaxLength(17))
+        principal             <- arbitrary[Principal]
+        consignor             <- Gen.option(arbitrary[Consignor])
+        consignee             <- Gen.option(arbitrary[Consignee])
+        departureOffice       <- stringWithMaxLength(8)
+        customsOfficeTransit  <- listWithMaxSize(6, arbitrary[CustomsOfficeTransit])
+        controlResult         <- Gen.option(arbitrary[ControlResult])
+        seals                 <- listWithMaxSize(9, stringWithMaxLength(20))
+        goodsItems            <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield
         TransitAccompanyingDocument(
           mrn,
@@ -330,9 +333,12 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           countryOfDestination,
           transportId,
           transportCountry,
+          acceptanceDate,
+          acceptanceDateTrimmed,
           numberOfItems,
           numberOfPackages,
           grossMass,
+          authorisationId,
           principal,
           consignor,
           consignee,

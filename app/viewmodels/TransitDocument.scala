@@ -28,6 +28,8 @@ trait TransitDocument {
   val singleCountryOfDestination: Option[Country]
   val transportIdentity: Option[String]
   val transportCountry: Option[Country]
+  val acceptanceDate: LocalDate
+  val acceptanceDateFormatted: String
   val numberOfItems: Int
   val numberOfPackages: Int
   val grossMass: BigDecimal
@@ -40,10 +42,10 @@ trait TransitDocument {
   val goodsItems: NonEmptyList[GoodsItem]
   val documentHeading: DocumentHeading
 
+  val authorisationId: Option[String]                  = None
   val presentationOffice: Option[String]               = None
   val traderAtDestination: Option[TraderAtDestination] = None
-  val acceptanceDate: Option[LocalDate]                = None
-  val acceptanceDateFormatted: Option[String]          = None
+
   //TODO: bindingItinerary is taken from IE029 under /HEAHEA/BinItiHEA246
   //TODO: It is currently being confirmed if we need it
   val bindingItinerary: Boolean                       = false

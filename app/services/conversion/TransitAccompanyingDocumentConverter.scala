@@ -21,6 +21,7 @@ import cats.data.Validated.Valid
 import cats.implicits._
 import models.reference._
 import services._
+import utils.DateFormatter
 import utils.StringTransformer._
 
 object TransitAccompanyingDocumentConverter extends Converter {
@@ -103,9 +104,12 @@ object TransitAccompanyingDocumentConverter extends Converter {
           destination,
           transitAccompanyingDocument.transportIdentity,
           transportCountry,
+          transitAccompanyingDocument.acceptanceDate,
+          DateFormatter.dateFormatted(transitAccompanyingDocument.acceptanceDate, "dd/MM/yyyy"),
           transitAccompanyingDocument.numberOfItems,
           transitAccompanyingDocument.numberOfPackages,
           transitAccompanyingDocument.grossMass,
+          transitAccompanyingDocument.authorisationId,
           principal,
           consignor,
           consignee,
