@@ -23,9 +23,9 @@ import models.reference._
 import play.api.http.Status
 import play.api.libs.json.Reads
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.http.HttpReads
 import uk.gov.hmrc.http.HttpResponse
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
