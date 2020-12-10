@@ -19,10 +19,7 @@ package services.conversion
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference.{AdditionalInformation, Country, DocumentType, KindOfPackage}
 import services._
 import utils.StringTransformer._
 
