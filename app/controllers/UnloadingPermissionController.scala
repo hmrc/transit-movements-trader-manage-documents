@@ -20,6 +20,7 @@ import cats.data.Validated
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
 import javax.inject.Inject
+import logging.Logging
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
@@ -36,7 +37,8 @@ class UnloadingPermissionController @Inject()(
   pdf: UnloadingPermissionPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
-    extends BackendController(cc) {
+    extends BackendController(cc)
+    with Logging {
 
   def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
@@ -44,10 +46,15 @@ class UnloadingPermissionController @Inject()(
         case ParseSuccess(unloadingPermission) =>
           conversionService.toViewModel(unloadingPermission).map {
             case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
-            case Validated.Invalid(errors)  => InternalServerError(s"Failed to convert to UnloadingPermissionViewModel with following errors: $errors")
+            case Validated.Invalid(errors) =>
+              logger.error(s"Failed to convert to UnloadingPermissionViewModel with following errors: $errors")
+
+              InternalServerError
           }
         case ParseFailure(errors) =>
-          Future.successful(BadRequest(s"Failed to parse xml to UnloadingPermission with the following errors: $errors"))
+          logger.error(s"Failed to parse xml to UnloadingPermission with the following errors: $errors")
+
+          Future.successful(BadRequest)
       }
   }
 
