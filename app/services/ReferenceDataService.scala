@@ -103,10 +103,4 @@ class ReferenceDataService @Inject()(
     httpClient.GET[ValidationResult[Seq[SensitiveGoodsCode]]](config.sensitiveGoodsCodeUrl)(reads, implicitly, implicitly)
   }
 
-  def specialMentions()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[SpecialMentions]]] = {
-
-    val reads = referenceDataReads[SpecialMentions]("specialMentions")
-
-    httpClient.GET[ValidationResult[Seq[SpecialMentions]]](config.specialMentionsUrl)(reads, implicitly, implicitly)
-  }
 }
