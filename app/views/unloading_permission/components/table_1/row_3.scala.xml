@@ -61,7 +61,7 @@
             </fo:table-cell>
             <fo:table-cell text-align="center" display-align="center" font-weight="bold">
               <fo:block>
-                @permission.numberOfPackages
+                @permission.numberOfPackages.getOrElse("")
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

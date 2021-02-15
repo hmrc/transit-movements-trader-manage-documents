@@ -73,7 +73,7 @@ class UnloadingPermissionConversionServiceSpec
     transportCountry = Some(countries.head.code),
     acceptanceDate = acceptanceDate,
     numberOfItems = 1,
-    numberOfPackages = 3,
+    numberOfPackages = Some(3),
     grossMass = 1.0,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
@@ -136,7 +136,7 @@ class UnloadingPermissionConversionServiceSpec
         acceptanceDate = Some(acceptanceDate),
         acceptanceDateFormatted = Some("01/08/2020"),
         numberOfItems = 1,
-        numberOfPackages = 3,
+        numberOfPackages = Some(3),
         grossMass = 1.0,
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",

@@ -32,7 +32,7 @@ final case class PermissionToStartUnloading(
   acceptanceDate: Option[LocalDate],
   acceptanceDateFormatted: Option[String],
   numberOfItems: Int,
-  numberOfPackages: Int,
+  numberOfPackages: Option[Int],
   grossMass: BigDecimal,
   principal: Principal,
   consignor: Option[Consignor],

@@ -131,12 +131,19 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
                 }
                 .getOrElse(Json.obj())
 
+            val totalNumberOfPackage =
+              permission.numberOfPackages
+                .map {
+                  totalNumberOfPackage =>
+                    Json.obj("numberOfPackages" -> totalNumberOfPackage)
+                }
+                .getOrElse(Json.obj())
+
             val json = Json.obj(
               "movementReferenceNumber" -> permission.movementReferenceNumber,
               "declarationType"         -> Json.toJson(permission.declarationType),
               "acceptanceDate"          -> Json.toJson(permission.acceptanceDate),
               "numberOfItems"           -> permission.numberOfItems,
-              "numberOfPackages"        -> permission.numberOfPackages,
               "grossMass"               -> permission.grossMass,
               "principal"               -> Json.toJson(permission.principal),
               "traderAtDestination"     -> Json.toJson(permission.traderAtDestination),
@@ -144,7 +151,7 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               "presentationOffice"      -> permission.presentationOffice,
               "seals"                   -> permission.seals,
               "goodsItems"              -> permission.goodsItems
-            ) ++ countryOfDispatchJson ++ countryOfDestination ++ transportIdentityJson ++ transportCountryJson ++ consignor ++ consignee
+            ) ++ countryOfDispatchJson ++ countryOfDestination ++ transportIdentityJson ++ transportCountryJson ++ consignor ++ consignee ++ totalNumberOfPackage
 
             Json.toJson(permission: UnloadingPermission) mustEqual json
         }
@@ -195,7 +202,9 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               }
               <AccDatHEA158>{dateFormatted(unloadingPermission.acceptanceDate)}</AccDatHEA158>
               <TotNumOfIteHEA305>{unloadingPermission.numberOfItems}</TotNumOfIteHEA305>
-              <TotNumOfPacHEA306>{unloadingPermission.numberOfPackages}</TotNumOfPacHEA306>
+              {unloadingPermission.numberOfPackages.fold(NodeSeq.Empty) { numberOfPackages =>
+                <TotNumOfPacHEA306>{numberOfPackages}</TotNumOfPacHEA306>
+               }}
               <TotGroMasHEA307>{unloadingPermission.grossMass}</TotGroMasHEA307>
             </HEAHEA>
             <TRAPRIPC1>
