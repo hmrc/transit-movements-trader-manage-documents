@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
     transportIdentity = Some("identity"),
     transportCountry = Some(countries.head.code),
     numberOfItems = 1,
-    numberOfPackages = 3,
+    numberOfPackages = Some(3),
     grossMass = 1.0,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),

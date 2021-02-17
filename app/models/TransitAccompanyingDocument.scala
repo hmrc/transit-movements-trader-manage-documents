@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ final case class TransitAccompanyingDocument(
   transportIdentity: Option[String],
   transportCountry: Option[String],
   numberOfItems: Int,
-  numberOfPackages: Int,
+  numberOfPackages: Option[Int],
   grossMass: BigDecimal,
   principal: Principal,
   consignor: Option[Consignor],
@@ -59,7 +59,7 @@ object TransitAccompanyingDocument {
      (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
      //(__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate], //DOES NOT EXIST IN IE015
      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
-     (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int],
+     (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional,
      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
      (__ \ "TRAPRIPC1").read[Principal],
      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,

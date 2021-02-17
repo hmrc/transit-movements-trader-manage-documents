@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ final case class PermissionToStartUnloading(
   acceptanceDate: Option[LocalDate],
   acceptanceDateFormatted: Option[String],
   numberOfItems: Int,
-  numberOfPackages: Int,
+  numberOfPackages: Option[Int],
   grossMass: BigDecimal,
   principal: Principal,
   consignor: Option[Consignor],
@@ -91,4 +91,6 @@ final case class PermissionToStartUnloading(
     printListOfItems &&
       consignorOne.isEmpty &&
       goodsItems.toList.flatMap(_.consignor).nonEmpty
+
+  val totalNumberOfPackages: String = numberOfPackages.fold("")(_.toString)
 }

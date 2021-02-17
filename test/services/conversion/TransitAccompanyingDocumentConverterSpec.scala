@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head.code),
         numberOfItems = 1,
-        numberOfPackages = 3,
+        numberOfPackages = Some(3),
         grossMass = 1.0,
         principal = models.Principal("Principal name",
                                      "Principal street",
@@ -103,7 +103,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         acceptanceDate = None,
         acceptanceDateFormatted = None,
         numberOfItems = 1,
-        numberOfPackages = 3,
+        numberOfPackages = Some(3),
         grossMass = 1.0,
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",
@@ -170,7 +170,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         transportIdentity = Some("identity"),
         transportCountry = Some(invalidCode),
         numberOfItems = 1,
-        numberOfPackages = 3,
+        numberOfPackages = Some(3),
         grossMass = 1.0,
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
