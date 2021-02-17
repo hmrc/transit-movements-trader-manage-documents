@@ -91,4 +91,6 @@ final case class PermissionToStartUnloading(
     printListOfItems &&
       consignorOne.isEmpty &&
       goodsItems.toList.flatMap(_.consignor).nonEmpty
+
+  val totalNumberOfPackages: String = numberOfPackages.fold("")(_.toString)
 }

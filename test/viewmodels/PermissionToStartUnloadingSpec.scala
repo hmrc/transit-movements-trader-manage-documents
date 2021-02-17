@@ -528,4 +528,19 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
       }
     }
   }
+
+  "must print 'total number of packages' value" - {
+
+    "must print the value as blank when 'total number of packages' data is missing" in {
+      val permissionToStartUnloading = arbitrary[PermissionToStartUnloading].sample.value
+      permissionToStartUnloading.copy(numberOfPackages = None).totalNumberOfPackages mustEqual ""
+    }
+
+    "must print the value when 'total number of packages' data is available" in {
+      val numberOfPackage            = 10
+      val permissionToStartUnloading = arbitrary[PermissionToStartUnloading].sample.value
+      permissionToStartUnloading.copy(numberOfPackages = Some(numberOfPackage)).totalNumberOfPackages mustEqual numberOfPackage.toString
+    }
+
+  }
 }
