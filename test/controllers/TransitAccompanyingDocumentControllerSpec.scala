@@ -61,6 +61,7 @@ class TransitAccompanyingDocumentControllerSpec
     def applicationBuilder: GuiceApplicationBuilder =
       new GuiceApplicationBuilder()
         .configure(Configuration("metrics.enabled" -> "false"))
+        .overrides(bind(classOf[TransitAccompanyingDocumentController]).to(classOf[LiveTransitAccompanyingDocumentController]).eagerly())
 
     "must return OK and PDF" in {
 
