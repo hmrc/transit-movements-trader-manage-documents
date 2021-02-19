@@ -45,7 +45,12 @@ class UnloadingPermissionController @Inject()(
       XMLToPermissionToStartUnloading.convert(request.body) match {
         case ParseSuccess(unloadingPermission) =>
           conversionService.toViewModel(unloadingPermission).map {
-            case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
+            case Validated.Valid(viewModel) =>
+              val h: Array[Byte] = pdf.generate(viewModel)
+              println("--------------------------" + viewModel)
+              println("------bb--------------------" + h.mkString("Array(", ", ", ")"))
+              Ok(pdf.generate(viewModel))
+
             case Validated.Invalid(errors) =>
               logger.error(s"Failed to convert to UnloadingPermissionViewModel with following errors: $errors")
 
