@@ -16,22 +16,24 @@
 
 package services.pdf
 
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.time.LocalDate
-import java.util
-import java.util.Base64
 
 import cats.data.NonEmptyList
 import generators.ViewmodelGenerators
-import models.DeclarationType
-import models.SensitiveGoodsInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import models.DeclarationType
+import models.SensitiveGoodsInformation
+import org.apache.pdfbox.pdmodel.PDDocument
+import org.apache.pdfbox.text.PDFTextStripper
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
-import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Environment
 import uk.gov.hmrc.http.HeaderCarrier
@@ -63,40 +65,40 @@ class UnloadingPermissionPdfGeneratorSpec
 
     "must match with the 'Unloading Permission' template" in {
 
-      val h = GoodsItem(
-        1,
-        None,
-        None,
-        "Flowers",
-        Some(1000),
-        Some(999),
-        Some(Country("valid", "GB", "United Kingdom")),
-        Some(Country("valid", "GB", "United Kingdom")),
-        List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
-        List(),
-        None,
-        None,
-        List("container 1", "container 2"),
-        NonEmptyList.of(RegularPackage(KindOfPackage("PB", "Pallet, box Combined open-ended box and pallet"), 0, "Ref.")),
-        Vector(SensitiveGoodsInformation(Some("1"), 1))
+      val goodsItem = GoodsItem(
+        itemNumber = 1,
+        commodityCode = None,
+        declarationType = None,
+        description = "Flowers",
+        grossMass = Some(1000),
+        netMass = Some(999),
+        countryOfDispatch = Some(Country("valid", "GB", "United Kingdom")),
+        countryOfDestination = Some(Country("valid", "GB", "United Kingdom")),
+        producedDocuments = List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
+        specialMentions = List(),
+        consignor = None,
+        consignee = None,
+        containers = List("container 1", "container 2"),
+        packages = NonEmptyList.of(RegularPackage(KindOfPackage("PB", "Pallet, box Combined open-ended box and pallet"), 0, "Ref.")),
+        sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1))
       )
 
-      val h1 = GoodsItem(
-        2,
-        None,
-        None,
-        "Vases",
-        Some(10000),
-        Some(9999),
-        Some(Country("valid", "GB", "United Kingdom")),
-        Some(Country("valid", "GB", "United Kingdom")),
-        List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
-        List(),
-        None,
-        None,
-        List("container 3", "container 4"),
-        NonEmptyList.of(RegularPackage(KindOfPackage("PB", "Pallet, box Combined open-ended box and pallet"), 0, "Ref.")),
-        Vector(SensitiveGoodsInformation(Some("1"), 1))
+      val goodsItem1 = GoodsItem(
+        itemNumber = 2,
+        commodityCode = None,
+        declarationType = None,
+        description = "Vases",
+        grossMass = Some(10000),
+        netMass = Some(9999),
+        countryOfDispatch = Some(Country("valid", "GB", "United Kingdom")),
+        countryOfDestination = Some(Country("valid", "GB", "United Kingdom")),
+        producedDocuments = List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
+        specialMentions = List(),
+        consignor = None,
+        consignee = None,
+        containers = List("container 3", "container 4"),
+        packages = NonEmptyList.of(RegularPackage(KindOfPackage("PB", "Pallet, box Combined open-ended box and pallet"), 0, "Ref.")),
+        sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1))
       )
 
       val viewModel = PermissionToStartUnloading(
@@ -125,89 +127,23 @@ class UnloadingPermissionPdfGeneratorSpec
         "IT021100",
         Some("GB000060"),
         List("Seals01", "Seals02", "Seals03"),
-        NonEmptyList.of(h, h1)
+        NonEmptyList.of(goodsItem, goodsItem1)
       )
 
-      val hh = PermissionToStartUnloading(
-        "99IT9876AB88901209",
-        DeclarationType.T1,
-        Some(Country("valid", "IT", "Italy")),
-        Some(Country("valid", "GB", "United Kingdom")),
-        Some("abcd"),
-        Some(Country("valid", "IT", "Italy")),
-        Some(LocalDate.parse("2019-09-12")),
-        Some("12/09/2019"),
-        1,
-        None,
-        1000,
-        Principal("Mancini Carriers", "90 Desio Way", "90 Desio Way", "MOD 5JJ", "Modena", Country("valid", "IT", "Italy"), Some("IT444100201000"), None),
-        Some(Consignor("Mancini Carriers", "90 Desio Way", "90 Desio Way", "MOD 5JJ", "Modena", Country("valid", "IT", "Italy"), Some("IT444100201000"))),
-        Some(Consignee("Mancini Carriers", "90 Desio Way", "90 Desio Way", "MOD 5JJ", "Modena", Country("valid", "IT", "Italy"), Some("IT444100201000"))),
-        Some(
-          TraderAtDestinationWithEori("GB163910077000",
-                                      Some("The Luggage Carriers"),
-                                      Some("225 Suedopolish Yard,"),
-                                      Some("SS8 2BB"),
-                                      Some(","),
-                                      Some(Country("valid", "GB", "United Kingdom")))),
-        "IT021100",
-        "IT021100",
-        Some("GB000060"),
-        List("Seals01", "Seals02", "Seals03"),
-        NonEmptyList.of(
-          GoodsItem(
-            1,
-            None,
-            None,
-            "Flowers",
-            Some(1000),
-            Some(999),
-            Some(Country("valid", "GB", "United Kingdom")),
-            Some(Country("valid", "GB", "United Kingdom")),
-            List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
-            List(),
-            None,
-            None,
-            List("container 1", "container 2"),
-            NonEmptyList.of(RegularPackage(KindOfPackage("PB", "Pallet, box Combined open-ended box and pallet"), 0, "Ref.")),
-            Vector(SensitiveGoodsInformation(Some("1"), 1))
-          ),
-          GoodsItem(
-            2,
-            None,
-            None,
-            "Vases",
-            Some(10000),
-            Some(9999),
-            Some(Country("valid", "GB", "United Kingdom")),
-            Some(Country("valid", "GB", "United Kingdom")),
-            List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
-            List(),
-            None,
-            None,
-            List("container 3", "container 4"),
-            NonEmptyList.of(RegularPackage(KindOfPackage("PB", "Pallet, box Combined open-ended box and pallet"), 0, "Ref.")),
-            Vector(SensitiveGoodsInformation(Some("1"), 1))
-          )
-        )
-      )
-
-      import java.nio.file.Files
-      import java.nio.file.Paths
-      val pdfPath          = Paths.get("test/resources/unloading-permission-pdf (7)")
+      val pdfPath          = Paths.get("test/resources/unloading-permission-pdf")
       val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
 
-      val pdfPath1          = Paths.get("test/resources/unloading-permission-pdf (6)")
-      val pdf1: Array[Byte] = Files.readAllBytes(pdfPath1)
+      val pdfDocument: PDDocument         = PDDocument.load(service.generate(viewModel))
+      val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 
-      // "unloading-permission-pdf (6)".getBytes mustBe "unloading-permission-pdf (7)".getBytes
-
-      println("+++++++++++++++++++" + service.generate(viewModel))
-      println("+++++++++++++++++++" + service.generate(viewModel))
-      service.generate(viewModel) mustBe service.generate(viewModel)
-      // pdf mustBe pdf
-      // pdf1 mustBe pdf
-
+      try {
+        val pdfData         = new PDFTextStripper().getText(pdfDocument)
+        val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
+        pdfData mustBe expectedPdfData
+      } finally {
+        pdfDocument.close()
+        expectedPdfDocument.close()
+      }
     }
 
   }
