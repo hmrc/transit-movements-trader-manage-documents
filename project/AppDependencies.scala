@@ -20,6 +20,7 @@ object AppDependencies {
     "org.scalacheck"          %% "scalacheck"               % "1.14.1",
     "org.mockito"             %  "mockito-all"              % "1.10.19",
     "com.github.tomakehurst"  %  "wiremock-standalone"      % "2.17.0",
-    "com.ironcorelabs"        %% "cats-scalatest"           % "2.4.0"
+    "com.ironcorelabs"        %% "cats-scalatest"           % "2.4.0" ,
+    "org.apache.pdfbox"       %  "pdfbox"             % "2.0.21"
   ).map(_ % "test")
 }
