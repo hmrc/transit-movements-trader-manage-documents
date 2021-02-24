@@ -19,7 +19,6 @@ package controllers
 import cats.data.Validated
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
-import javax.inject.Inject
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
@@ -27,16 +26,24 @@ import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 
+import java.io.File
+import java.nio.file.Files
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.NodeSeq
 
-class TransitAccompanyingDocumentController @Inject()(
+trait TransitAccompanyingDocumentController {
+  def get(): Action[NodeSeq]
+}
+
+class LiveTransitAccompanyingDocumentController @Inject()(
   conversionService: TransitAccompanyingDocumentConversionService,
   pdf: UnloadingPermissionPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
-    extends BackendController(cc) {
+    extends BackendController(cc)
+    with TransitAccompanyingDocumentController {
 
   def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
@@ -50,5 +57,17 @@ class TransitAccompanyingDocumentController @Inject()(
           Future.successful(BadRequest(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors"))
       }
   }
+}
 
+class DummyTransitAccompanyingDocumentController @Inject()(
+  cc: ControllerComponents
+)(implicit ec: ExecutionContext)
+    extends BackendController(cc)
+    with TransitAccompanyingDocumentController {
+
+  def get(): Action[NodeSeq] = Action(parse.xml) {
+    implicit request =>
+      val blankPdf = Files.readAllBytes(new File(getClass.getResource(s"/files/EmptyTAD.pdf").getPath).toPath)
+      Ok(blankPdf)
+  }
 }
