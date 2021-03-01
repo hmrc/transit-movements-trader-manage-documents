@@ -1,4 +1,6 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@import cats.data.NonEmptyList
+
+@(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItem])
 
 <fo:table-cell number-columns-spanned="2">
     <fo:block>
@@ -22,8 +24,8 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
-                                                @if(!permission.printListOfItems) {
-                                                    @permission.goodsItems.head.commodityCode.map(code => code)
+                                                @if(!printListOfItems) {
+                                                    @goodsItems.head.commodityCode.map(code => code)
                                                 }
                                             </fo:block>
                                         </fo:table-cell>
@@ -53,7 +55,7 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
-                                                @permission.grossMass
+                                                @grossMass
                                             </fo:block>
                                             <fo:block/>
                                         </fo:table-cell>
@@ -80,8 +82,8 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
-                                                @if(!permission.printListOfItems) {
-                                                    @permission.goodsItems.head.netMass.map(netMass => netMass)
+                                                @if(!printListOfItems) {
+                                                    @goodsItems.head.netMass.map(netMass => netMass)
                                                 }
                                             </fo:block>
                                         </fo:table-cell>

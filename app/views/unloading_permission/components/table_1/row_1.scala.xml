@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(mrn: String)
 
 <fo:table-row height="4mm">
   <fo:table-cell>
@@ -15,7 +15,7 @@
   </fo:table-cell>
   <fo:table-cell number-columns-spanned="2" padding-left="3mm">
     <fo:block font-size="11pt">
-      @permission.movementReferenceNumber
+      @mrn
     </fo:block>
   </fo:table-cell>
 </fo:table-row>

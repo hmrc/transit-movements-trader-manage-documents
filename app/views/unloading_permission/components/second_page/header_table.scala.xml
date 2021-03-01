@@ -1,5 +1,5 @@
-@(permission: viewmodels.PermissionToStartUnloading)
-
+@import views.xml.components.barcode_small
+@(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: Option[String])
 <fo:block>
     <fo:table width="100%" table-layout="fixed" font-size="12pt" font-weight="bold">
         <fo:table-column column-width="52mm"/>
@@ -24,7 +24,7 @@
                 </fo:table-cell>
                 <fo:table-cell display-align="center" padding-left="1mm" font-weight="normal">
                     <fo:block>
-                        @permission.departureOffice
+                        @departureOffice
                     </fo:block>
                 </fo:table-cell>
                 <fo:table-cell>
@@ -35,7 +35,7 @@
                 </fo:table-cell>
                 <fo:table-cell number-columns-spanned="2" display-align="center" padding-left="2mm" font-weight="normal">
                     <fo:block font-size="11pt">
-                        @permission.movementReferenceNumber
+                        @movementReferenceNumber
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
@@ -77,7 +77,7 @@
                 </fo:table-cell>
                 <fo:table-cell display-align="center" padding-left="1mm" font-weight="normal">
                     <fo:block>
-                        @permission.acceptanceDateFormatted
+                        @acceptanceDateFormatted
                     </fo:block>
                 </fo:table-cell>
                 <fo:table-cell>
@@ -85,7 +85,7 @@
                 </fo:table-cell>
                 <fo:table-cell number-columns-spanned="3" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
                     <fo:block>
-                        @components.barcode_small(permission)
+                        @barcode_small(movementReferenceNumber)
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>

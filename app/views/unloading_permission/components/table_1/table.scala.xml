@@ -1,4 +1,24 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@import views.xml.unloading_permission.components.table_1._
+
+@this()
+
+@(
+        title: String,
+        movementReferenceNumber: String,
+        printVariousConsignors: Boolean,
+        consignorOne: Option[viewmodels.Consignor],
+        declarationType: DeclarationType,
+        printListOfItems: Boolean,
+        consignor: Option[viewmodels.Consignor],
+        numberOfItems: Int,
+        totalNumberOfPackages: String,
+        printVariousConsignees: Boolean,
+        consigneeOne: Option[viewmodels.Consignee],
+        singleCountryOfDispatch: Option[models.reference.Country],
+        singleCountryOfDestination: Option[models.reference.Country],
+        transportIdentity: Option[String],
+        transportCountry: Option[models.reference.Country]
+)
 
 <fo:table width="100%" table-layout="fixed">
 
@@ -12,22 +32,21 @@
   <fo:table-column column-number="8" column-width="49mm"/>
 
   <fo:table-body>
-    @row_1(permission)
+    @row_1(movementReferenceNumber)
 
-    @row_2(permission)
+    @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems)
 
-    @row_3(permission)
+    @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title)
 
-    @row_4(permission)
+    @row_4(printVariousConsignees, consigneeOne)
 
-    @row_5(permission)
+    @row_5(singleCountryOfDispatch)
 
-    @row_6(permission)
+    @row_6(singleCountryOfDestination)
 
-    @row_7(permission)
+    @row_7(transportIdentity, transportCountry)
 
     @row_8()
-
 
   </fo:table-body>
 </fo:table>

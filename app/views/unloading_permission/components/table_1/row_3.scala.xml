@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(printVariousConsignors: Boolean, consignor: Option[viewmodels.Consignor], numberOfItems: Int, totalNumberOfPackages: String, formName: String)
 
 <fo:table-row height="8mm">
   <fo:table-cell>
@@ -11,12 +11,12 @@
           inline-progression-dimension.minimum="8mm"
           inline-progression-dimension.optimum="80mm"
           inline-progression-dimension.maximum="auto">
-      <fo:block hyphenate="true">UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT</fo:block>
+      <fo:block hyphenate="true">@formName</fo:block>
     </fo:block-container>
   </fo:table-cell>
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block>
-      @if(!permission.printVariousConsignors) {
+      @if(!printVariousConsignors) {
       <fo:table width="100%" table-layout="fixed">
         <fo:table-column column-number="1" column-width="44mm"/>
         <fo:table-column column-number="2" column-width="8mm"/>
@@ -25,12 +25,12 @@
           <fo:table-row height="5mm">
             <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
               <fo:block>
-                @permission.consignor.map(_.city)
+                @consignor.map(_.city)
               </fo:block>
             </fo:table-cell>
             <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
               <fo:block>
-                @permission.consignor.map(_.country.code)
+                @consignor.map(_.country.code)
               </fo:block>
             </fo:table-cell>
           </fo:table-row>
@@ -56,12 +56,12 @@
           <fo:table-row height="4mm">
             <fo:table-cell text-align="center" display-align="center" font-weight="bold">
               <fo:block>
-                @permission.numberOfItems
+                @numberOfItems
               </fo:block>
             </fo:table-cell>
             <fo:table-cell text-align="center" display-align="center" font-weight="bold">
               <fo:block>
-                @permission.totalNumberOfPackages
+                @totalNumberOfPackages
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

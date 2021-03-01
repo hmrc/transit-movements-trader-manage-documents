@@ -17,14 +17,15 @@
 package services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
+
 import javax.inject.Inject
 import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.PermissionToStartUnloading
-import views.xml.unloading_permission.UnloadingPermissionDocument
+import views.xml.unloading_permission.UnloadingPermissionDocument2
 
 class UnloadingPermissionPdfGenerator @Inject()(
   fop: PlayFop,
-  document: UnloadingPermissionDocument
+  document: UnloadingPermissionDocument2
 ) {
 
   def generate(permission: PermissionToStartUnloading): Array[Byte] = {

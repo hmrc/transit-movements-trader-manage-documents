@@ -1,4 +1,8 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@import cats.data.NonEmptyList
+
+@this()
+
+@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItem], grossMass: BigDecimal)
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 2 -->
     <fo:table-column column-width="16mm"/>
@@ -9,24 +13,24 @@
         <fo:table-row height="32mm"> <!-- S1 T2 ROW 1-->
 
             <!--Commodity marks/containers/items-->
-            @top_left_block(permission)
+            @top_left_block(printListOfItems, numberOfItems, goodsItems)
 
             <!--Commodity code/weight/documents-->
-            @top_right_block(permission)
+            @top_right_block(printListOfItems, grossMass, goodsItems)
 
         </fo:table-row>
 
         <fo:table-row height="4mm"> <!-- S1 T2 ROW 3 -->
 
             <!--Additional information/ BinItiHEA246???-->
-            @bottom_left_block(permission)
+            @bottom_left_block()
 
         </fo:table-row>
 
         <fo:table-row height="16mm"> <!-- S1 T2 ROW 4 -->
 
             <!--Special mentions/ produced documents-->
-            @bottom_right_block(permission)
+            @bottom_right_block(printListOfItems, goodsItems)
 
         </fo:table-row>
     </fo:table-body>

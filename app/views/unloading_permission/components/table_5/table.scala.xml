@@ -1,4 +1,6 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@this()
+
+@(seals: Seq[String])
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 5 -->
     <fo:table-column column-width="93mm"/>
@@ -45,8 +47,8 @@
                                 </fo:table-cell>
                                 <fo:table-cell display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @if(permission.seals.length > 0) {
-                                            @permission.seals.length
+                                        @if(seals.length > 0) {
+                                            @seals.length
                                         } else {
                                             ---
                                         }
@@ -62,11 +64,11 @@
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="2" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @if(permission.seals.length > 0) {
-                                                @if(permission.seals.length > 1) {
-                                                    @permission.seals(0) - @permission.seals(permission.seals.length - 1)
+                                        @if(seals.length > 0) {
+                                                @if(seals.length > 1) {
+                                                    @seals(0) - @seals(seals.length - 1)
                                                 } else {
-                                                    @permission.seals
+                                                    @seals
                                                 }
                                             } else {
                                             ---

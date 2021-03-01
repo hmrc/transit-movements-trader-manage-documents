@@ -1,3 +1,6 @@
+@this()
+
+@()
 <fo:layout-master-set>
   <fo:simple-page-master master-name="top-page" page-height="11.69in" page-width="8.27in" margin-left="6mm" margin-right="5mm">
     <fo:region-body margin-top="8mm"/>

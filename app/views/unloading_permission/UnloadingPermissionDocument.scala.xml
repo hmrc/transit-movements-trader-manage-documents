@@ -1,36 +1,61 @@
-@this()
+@import views.xml.unloading_permission.DocumentTemplate
+@import views.xml.unloading_permission.components._
+@import views.xml.unloading_permission.PageOne
+@import views.xml.unloading_permission.components.second_page
+
+@this(
+        mainHeader: table_1.table,
+        table2: table_2.table,
+        table3: table_3.table,
+        table4: table_4.table,
+        table5: table_5.table,
+        template: DocumentTemplate,
+        pageOne: PageOne
+)
 
 @(permission: viewmodels.PermissionToStartUnloading)
-<?xml version='1.0' encoding='utf-8'?>
+@template(
+    pageOne = pageOne(pageOneBody),
+    pageTwo =  if(permission.printListOfItems) {
+        Some(second_page.table(
+            permission.departureOffice,
+            permission.movementReferenceNumber,
+            permission.acceptanceDateFormatted,
+            permission.goodsItems,
+            permission.declarationType
+        ))
+    } else None
+)
 
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="sans-serif" font-size="7pt" text-align="left">
+@pageOneBody = {
+    <!--main header-->
+    @mainHeader(
+        title = "UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT",
+        movementReferenceNumber = permission.movementReferenceNumber,
+        printVariousConsignors = permission.printVariousConsignors,
+        consignorOne = permission.consignorOne,
+        declarationType = permission.declarationType,
+        printListOfItems = permission.printListOfItems,
+        consignor = permission.consignor,
+        numberOfItems = permission.numberOfItems,
+        totalNumberOfPackages = permission.totalNumberOfPackages,
+        printVariousConsignees = permission.printVariousConsignees,
+        consigneeOne = permission.consigneeOne,
+        singleCountryOfDispatch = permission.singleCountryOfDispatch,
+        singleCountryOfDestination = permission.singleCountryOfDestination,
+        transportIdentity = permission.transportIdentity,
+        transportCountry = permission.transportCountry
+    )
 
-  @components.layout_master_set()
+    <!--packages/goods description/docs/certs-->
+    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass)
 
-  <fo:page-sequence master-reference="top-page" initial-page-number="1" force-page-count="no-force">
-    <fo:flow flow-name="xsl-region-body">
-      <fo:block>
+    <!--transhipment/certification-->
+    @table3()
 
-        <!--main header-->
-        @components.table_1.table(permission)
+    <!--Principal/TIR Holder/Office of departure-->
+    @table4(permission.principal, permission.departureOfficeTrimmed, permission.acceptanceDateFormatted)
 
-        <!--packages/goods description/docs/certs-->
-        @components.table_2.table(permission)
-
-        <!--transhipment/certification-->
-        @components.table_3.table(permission)
-
-        <!--Principal/TIR Holder/Office of departure-->
-        @components.table_4.table(permission)
-
-        <!--control by office of departure/destination-->
-        @components.table_5.table(permission)
-
-      </fo:block>
-    </fo:flow>
-  </fo:page-sequence>
-  @if(permission.printListOfItems) {
-    <!-- goods items -->
-    @components.second_page.table(permission)
-  }
-</fo:root>
+    <!--control by office of departure/destination-->
+    @table5(permission.seals)
+}

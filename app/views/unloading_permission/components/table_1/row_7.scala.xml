@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(transportIdentity: Option[String], transportCountry: Option[models.reference.Country])
 
 <fo:table-row height="24mm">
   <fo:table-cell>
@@ -18,12 +18,12 @@
           <fo:table-row height="6mm">
             <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" padding-left="2mm" font-weight="bold">
               <fo:block>
-                @permission.transportIdentity.getOrElse("---")
+                @transportIdentity.getOrElse("---")
               </fo:block>
             </fo:table-cell>
             <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" text-align="center" font-weight="bold">
               <fo:block>
-                @permission.transportCountry.map(country => country.code).getOrElse("---")
+                @transportCountry.map(country => country.code).getOrElse("---")
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

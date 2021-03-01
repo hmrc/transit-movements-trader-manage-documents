@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(printVariousConsignees: Boolean, consigneeOne: Option[viewmodels.Consignee])
 
 <fo:table-cell alignment-adjust="auto" border-style="solid" border-width="1pt" border-color="black" column-number="3">
   <fo:block>
@@ -8,10 +8,10 @@
       <fo:table-column column-number="3" column-width="37mm"/>
 
       <fo:table-body>
-        @if(permission.printVariousConsignees) {
+        @if(printVariousConsignees) {
           @consignee_various()
         } else {
-          @consignee_single(permission.consigneeOne)
+          @consignee_single(consigneeOne)
         }
       </fo:table-body>
     </fo:table>

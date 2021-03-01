@@ -1,4 +1,4 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(printListOfItems: Boolean)
 
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
   <fo:block>
@@ -19,7 +19,7 @@
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
             <fo:block>
-              @if(!permission.printListOfItems) {
+              @if(!printListOfItems) {
                 1
               } else {
                 <fo:page-number-citation ref-id="A-last-page"/>

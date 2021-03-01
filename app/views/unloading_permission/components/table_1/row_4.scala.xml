@@ -1,11 +1,11 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(printVariousConsignees: Boolean, consigneeOne: Option[viewmodels.Consignee])
 
 <fo:table-row height="25mm">
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
 
-  @consignee(permission)
+  @consignee(printVariousConsignees, consigneeOne)
 
   <fo:table-cell alignment-adjust="auto" number-columns-spanned="5">
     <fo:block>

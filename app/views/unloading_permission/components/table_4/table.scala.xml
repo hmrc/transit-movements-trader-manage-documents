@@ -1,4 +1,6 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@this()
+
+@(principal: viewmodels.Principal, departureOfficeTrimmed: String, acceptanceDateFormatted: Option[String])
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
     <fo:table-column column-width="16mm" column-number="1"/>
@@ -28,10 +30,10 @@
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
                                         <!--output eori/tirid or eori-->
-                                        @if(permission.principal.tir.nonEmpty && permission.principal.eori.nonEmpty) {
-                                            @permission.principal.eori.map(x => x) / @permission.principal.tir.map(x => x)
+                                        @if(principal.tir.nonEmpty && principal.eori.nonEmpty) {
+                                            @principal.eori.map(x => x) / @principal.tir.map(x => x)
                                         } else {
-                                            @permission.principal.eori.map(x => x)
+                                            @principal.eori.map(x => x)
                                         }
                                     </fo:block>
                                 </fo:table-cell>
@@ -39,31 +41,31 @@
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="5" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @permission.principal.name
+                                        @principal.name
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @permission.principal.streetAndNumberTrimmed
+                                        @principal.streetAndNumberTrimmed
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @permission.principal.postCode
+                                        @principal.postCode
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @permission.principal.city
+                                        @principal.city
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @permission.principal.country.code
+                                        @principal.country.code
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -84,7 +86,7 @@
                             <fo:table-row height="3.6875mm">
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @permission.departureOfficeTrimmed
+                                        @departureOfficeTrimmed
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -96,7 +98,7 @@
                             <fo:table-row height="3.6875mm">
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @permission.acceptanceDateFormatted
+                                        @acceptanceDateFormatted
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>

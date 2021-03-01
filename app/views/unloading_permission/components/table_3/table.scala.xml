@@ -1,4 +1,6 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@this()
+
+@()
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 3 -->
     <fo:table-column column-width="16mm"/>

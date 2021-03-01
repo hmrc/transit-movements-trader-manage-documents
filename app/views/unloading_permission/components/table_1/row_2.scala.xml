@@ -1,4 +1,11 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@import views.xml.unloading_permission.components.table_1.consignor
+@import views.xml.unloading_permission.components.table_1.declaration_type
+@import views.xml.unloading_permission.components.table_1.forms
+@import views.xml.unloading_permission.components.table_1.loading_lists
+
+@import views.xml.components.barcode
+
+@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean)
 
 <fo:table-row height="16mm">
   <fo:table-cell>
@@ -10,7 +17,7 @@
     </fo:block>
   </fo:table-cell>
 
-  @consignor(permission)
+  @consignor(printVariousConsignors, consignorOne)
 
   <fo:table-cell>
     <fo:block>
@@ -19,7 +26,7 @@
 
         <fo:table-body>
 
-          @declaration_type(permission.declarationType)
+          @declaration_type(declarationType)
 
           <fo:table-row>
             <fo:table-cell>
@@ -31,8 +38,7 @@
                   <fo:table-body>
                     <fo:table-row height="9mm">
 
-                      @forms(permission)
-
+                      @forms(printListOfItems)
                       @loading_lists()
                     </fo:table-row>
                   </fo:table-body>
@@ -47,7 +53,7 @@
 
   <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
     <fo:block>
-      @components.barcode(permission)
+      @barcode(movementReferenceNumber)
     </fo:block>
   </fo:table-cell>
 </fo:table-row>
