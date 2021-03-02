@@ -17,9 +17,10 @@
 package utils
 
 import java.time.LocalDate
-
+import java.time.LocalDateTime
 import com.lucidchart.open.xtract.ParseError
 import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseResult
 import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.XmlReader
 import utils.DateFormatter.dateFormatter
@@ -27,16 +28,26 @@ import utils.DateFormatter.dateFormatter
 import scala.util.Failure
 import scala.util.Success
 import scala.util.Try
+import scala.xml.NodeSeq
 
 object LocalDateXMLReader {
 
-  case class LocalDateParseFailure(message: String) extends ParseError
+  case class LocalDateParseFailure(message: String)     extends ParseError
+  case class LocalDateTimeParseFailure(message: String) extends ParseError
 
   implicit val xmlDateReads: XmlReader[LocalDate] = {
     xml =>
       Try(LocalDate.parse(xml.text, dateFormatter)) match {
         case Success(value) => ParseSuccess(value)
         case Failure(e)     => ParseFailure(LocalDateParseFailure(e.getMessage))
+      }
+  }
+
+  implicit val xmlDateTimeReads: XmlReader[LocalDateTime] = {
+    (xml: NodeSeq) =>
+      Try(LocalDateTime.parse(xml.text, DateFormatter.dateTimeFormatter)) match {
+        case Success(value) => ParseSuccess(value)
+        case Failure(e)     => ParseFailure(LocalDateTimeParseFailure(e.getMessage))
       }
   }
 

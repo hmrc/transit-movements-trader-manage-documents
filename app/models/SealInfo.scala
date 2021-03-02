@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package services.pdf
+package models
 
-import com.dmanchester.playfop.sapi.PlayFop
-import org.apache.xmlgraphics.util.MimeConstants
-import viewmodels.PermissionToStartUnloading
-import views.xml.unloading_permission.UnloadingPermissionDocument
+import cats.implicits.catsSyntaxTuple2Semigroupal
+import com.lucidchart.open.xtract.XmlReader
+import com.lucidchart.open.xtract.__
 
-import javax.inject.Inject
+case class SealInfo(sealNumber: Int, sealId: String)
 
-class UnloadingPermissionPdfGenerator @Inject()(
-  fop: PlayFop,
-  document: UnloadingPermissionDocument
-) {
-
-  def generate(permission: PermissionToStartUnloading): Array[Byte] = {
-
-    val renderedDocument = document.render(permission)
-
-    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
-  }
-
+object SealInfo {
+  implicit val xmlReads: XmlReader[SealInfo] = (
+    (__ \ "SeaNumSLI2").read[Int],
+    (__ \ "SEAIDSID" \ "SeaIdeSID1").read[String]
+  ).mapN(SealInfo.apply)
 }

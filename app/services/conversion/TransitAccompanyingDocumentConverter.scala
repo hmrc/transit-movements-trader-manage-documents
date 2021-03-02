@@ -111,7 +111,7 @@ object TransitAccompanyingDocumentConverter extends Converter {
           transitAccompanyingDocument.departureOffice,
           transitAccompanyingDocument.departureOffice.shorten(45)("***"),
           None,
-          transitAccompanyingDocument.seals,
+          transitAccompanyingDocument.seals.map(_.sealId),
           goodsItems
       )
     )

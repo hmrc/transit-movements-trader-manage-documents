@@ -1,4 +1,8 @@
 @import cats.data.NonEmptyList
+@import views.xml.unloading_permission.components.table_2.top_left_block
+@import views.xml.unloading_permission.components.table_2.top_right_block
+@import views.xml.unloading_permission.components.table_2.bottom_left_block
+@import views.xml.unloading_permission.components.table_2.bottom_right_block
 
 @this()
 

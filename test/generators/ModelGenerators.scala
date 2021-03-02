@@ -287,43 +287,43 @@ trait ModelGenerators extends GeneratorHelpers {
         )
     }
 
-  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
-    Arbitrary {
-      for {
-        lrn                  <- stringWithMaxLength(22)
-        declarationType      <- arbitrary[DeclarationType]
-        countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
-        countryOfDestination <- Gen.option(stringWithMaxLength(2))
-        transportId          <- Gen.option(stringWithMaxLength(27))
-        transportCountry     <- Gen.option(stringWithMaxLength(2))
-        numberOfItems        <- Gen.choose(1, 99999)
-        numberOfPackages     <- Gen.option(Gen.choose(1, 9999999))
-        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        principal            <- arbitrary[Principal]
-        consignor            <- Gen.option(arbitrary[Consignor])
-        consignee            <- Gen.option(arbitrary[Consignee])
-        departureOffice      <- stringWithMaxLength(8)
-        seals                <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
-      } yield
-        TransitAccompanyingDocument(
-          lrn,
-          declarationType,
-          countryOfDispatch,
-          countryOfDestination,
-          transportId,
-          transportCountry,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          principal,
-          consignor,
-          consignee,
-          departureOffice,
-          seals,
-          goodsItems
-        )
-    }
+//  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
+//    Arbitrary {
+//      for {
+//        lrn                  <- stringWithMaxLength(22)
+//        declarationType      <- arbitrary[DeclarationType]
+//        countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
+//        countryOfDestination <- Gen.option(stringWithMaxLength(2))
+//        transportId          <- Gen.option(stringWithMaxLength(27))
+//        transportCountry     <- Gen.option(stringWithMaxLength(2))
+//        numberOfItems        <- Gen.choose(1, 99999)
+//        numberOfPackages     <- Gen.option(Gen.choose(1, 9999999))
+//        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+//        principal            <- arbitrary[Principal]
+//        consignor            <- Gen.option(arbitrary[Consignor])
+//        consignee            <- Gen.option(arbitrary[Consignee])
+//        departureOffice      <- stringWithMaxLength(8)
+//        seals                <- listWithMaxSize(2, stringWithMaxLength(20))
+//        goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+//      } yield
+//        TransitAccompanyingDocument(
+//          lrn,
+//          declarationType,
+//          countryOfDispatch,
+//          countryOfDestination,
+//          transportId,
+//          transportCountry,
+//          numberOfItems,
+//          numberOfPackages,
+//          grossMass,
+//          principal,
+//          consignor,
+//          consignee,
+//          departureOffice,
+//          seals,
+//          goodsItems
+//        )
+//    }
 
   implicit lazy val arbitraryCountry: Arbitrary[Country] = {
     Arbitrary {
