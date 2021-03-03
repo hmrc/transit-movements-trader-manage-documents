@@ -24,12 +24,12 @@ import play.api.libs.json.OFormat
 
 case class GuaranteeDetails(
   guaranteeType: String,
-  guaranteeRef: Option[String],
+  guaranteeRef: Option[String], // TODO: Can this have multiple references
   otherGuaranteeRef: Option[String],
   notValidForEc: Option[Boolean],
   notValidForOther: Option[Boolean]
 ) {
-  val reference: String = guaranteeRef orElse otherGuaranteeRef getOrElse ""
+//  val reference: String = guaranteeRef orElse otherGuaranteeRef getOrElse ""
 }
 
 object GuaranteeDetails {

@@ -1,0 +1,33 @@
+@(guarantees: Seq[GuaranteeDetails])
+@for(i <- 0 to 2){
+    @if(guarantees.isDefinedAt(i)){
+        @if(guarantees(i).guaranteeRef.size > 1 && guarantees(i).guaranteeType == "4"){
+            <fo:table-cell display-align="center" padding-left="1mm" text-align="left" font-size="6pt" padding-top="0.5mm">
+                <fo:block>
+                    @guarantees(i).guaranteeRef.head - @guarantees(i).guaranteeRef.last.substring(18, 24)
+                </fo:block>
+            </fo:table-cell>
+        } else {
+            <fo:table-cell display-align="center" padding-left="1mm" text-align="left" font-size="6pt">
+                @if(guarantees(i).guaranteeRef.size > 1 && guarantees(i).guaranteeType != "4"){
+                    <fo:block>
+                        @guarantees(i).guaranteeRef.map( _ + " ***" )
+                        @guarantees(i).otherGuaranteeRef.map( _ + " ***" )
+                    </fo:block>
+                } else {
+                    <fo:block>
+                        @guarantees(i).guaranteeRef
+                        @guarantees(i).otherGuaranteeRef
+                        @if(i == 2 && guarantees.length > 3){
+                            ***
+                        }
+                    </fo:block>
+                }
+            </fo:table-cell>
+        }
+    } else {
+        <fo:table-cell>
+            <fo:block/>
+        </fo:table-cell>
+    }
+}

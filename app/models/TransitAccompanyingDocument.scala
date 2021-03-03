@@ -47,7 +47,7 @@ final case class TransitAccompanyingDocument(
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   customsOfficeOfTransit: Seq[CustomsOfficeOfTransit],
-  guaranteeDetails: Option[String],
+  guaranteeDetails: NonEmptyList[GuaranteeDetails],
   departureOffice: String,
   destinationOffice: String,
   controlResult: Option[ControlResult],
@@ -77,7 +77,7 @@ object TransitAccompanyingDocument {
      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
      (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeOfTransit]), //TODO make this an object
-     (__ \ "GUAGUA").read[String].optional, // TODO make this an object
+     (__ \ "GUAGUA").read(xmlNonEmptyListReads[GuaranteeDetails]), // TODO make this an object
      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
      (__ \ "CUSOFFDESEST" \ "RefNumEST1").read[String],
      (__ \ "CONRESERS").read[ControlResult].optional,

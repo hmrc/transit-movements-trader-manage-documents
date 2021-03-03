@@ -1,3 +1,6 @@
+@import views.xml.unloading_permission.components.table_4.row_3
+@import views.xml.unloading_permission.components.table_4.row_4
+
 @this()
 
 @(principal: viewmodels.Principal, departureOfficeTrimmed: String, acceptanceDateFormatted: Option[String], transitOffices: Seq[CustomsOfficeOfTransit] = Nil)
@@ -131,116 +134,10 @@
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="8mm"> <!-- S1 T4 ROW 3 -->
-            <fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">
-                <fo:block>
-                    <fo:table width="100%" table-layout="fixed">
-                        <fo:table-column column-width="30.66mm"/>
-                        <fo:table-column column-width="30.66mm"/>
-                        <fo:table-column column-width="30.66mm"/>
-                        <fo:table-column column-width="30.66mm"/>
-                        <fo:table-column column-width="30.66mm"/>
-                        <fo:table-column column-width="30.66mm"/>
-                        <fo:table-body>
-                            <fo:table-row height="7.5mm">
-                                @for(i <- 1 to 6){
-                                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="2mm">
-                                        @if(transitOffices.isDefinedAt(i)) {
-                                            <fo:block>
-                                                <fo:inline font-style="italic">
-                                                    @transitOffices(i).reference
-                                                </fo:inline>
-                                            </fo:block>
-                                            <fo:block>
-                                                <fo:inline font-style="italic">
-                                                    @transitOffices(i).formattedDate
-                                                </fo:inline>
-                                            </fo:block>
-                                        } else {
-                                            <fo:block/>
-                                        }
-                                    </fo:table-cell>
-                                }
-                            </fo:table-row>
-                        </fo:table-body>
-                    </fo:table>
-                </fo:block>
-            </fo:table-cell>
+            @row_3(transitOffices)
         </fo:table-row>
         <fo:table-row height="8mm"> <!-- S1 T4 ROW 4 -->
-            <fo:table-cell>
-                <fo:block>
-                    <fo:list-block>
-                        <fo:list-item>
-                            <fo:list-item-label>
-                                <fo:block>
-                                    52
-                                </fo:block>
-                            </fo:list-item-label>
-                            <fo:list-item-body start-indent="3mm" end-indent="0mm">
-                                <fo:block wrap-option="wrap">Guarantee not valid for</fo:block>
-                            </fo:list-item-body>
-                        </fo:list-item>
-                    </fo:list-block>
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                <fo:table width="100%" table-layout="fixed">
-                    <fo:table-column column-width="114.64mm"/>
-                    <fo:table-column column-width="8mm"/>
-                    <fo:table-body>
-                        <fo:table-row height="2mm">
-                            <fo:table-cell number-rows-spanned="2">
-                                <fo:block>
-                                    <fo:table width="100%" table-layout="fixed">
-                                        <fo:table-column column-width="38.213mm"/>
-                                        <fo:table-column column-width="38.213mm"/>
-                                        <fo:table-column column-width="38.213mm"/>
-                                        <fo:table-body>
-                                            <fo:table-row height="2mm">
-                                                <fo:table-cell>
-                                                    <fo:block/>
-                                                </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row height="2mm">
-                                                <fo:table-cell>
-                                                    <fo:block/>
-                                                </fo:table-cell>
-                                            </fo:table-row>
-                                        </fo:table-body>
-                                    </fo:table>
-                                </fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell text-align="center" display-align="center">
-                                <fo:block>Code</fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-                        <fo:table-row height="2mm">
-                            <fo:table-cell display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center">
-                                <fo:block/>
-                            </fo:table-cell>
-                        </fo:table-row>
-                    </fo:table-body>
-                </fo:table>
-            </fo:table-cell>
-            <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                <fo:block>
-                    <fo:table width="100%" table-layout="fixed">
-                        <fo:table-column/>
-                        <fo:table-body>
-                            <fo:table-row height="2mm">
-                                <fo:table-cell padding-left="2mm" display-align="center">
-                                    <fo:block>53 Office of destination (and country)</fo:block>
-                                </fo:table-cell>
-                            </fo:table-row>
-                            <fo:table-row height="2mm">
-                                <fo:table-cell text-align="center" display-align="center" font-weight="bold">
-                                    <fo:block/>
-                                </fo:table-cell>
-                            </fo:table-row>
-                        </fo:table-body>
-                    </fo:table>
-                </fo:block>
-            </fo:table-cell>
+            @row_4()
         </fo:table-row>
     </fo:table-body>
 </fo:table>
