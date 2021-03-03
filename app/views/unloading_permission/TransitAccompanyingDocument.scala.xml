@@ -1,0 +1,52 @@
+@import views.xml.unloading_permission.DocumentTemplate
+@import views.xml.unloading_permission.components._
+@import views.xml.unloading_permission.PageOne
+@import views.xml.unloading_permission.components.second_page
+
+@this(
+        mainHeader: table_1.table,
+        table2: table_2.table,
+        table3: table_3.table,
+        table4: table_4.table,
+        table5: table_5.table,
+        template: DocumentTemplate,
+        pageOne: PageOne
+)
+
+@(tadModel: viewmodels.TransitAccompanyingDocumentPDF)
+@template(
+    pageOne = pageOne(pageOneBody)
+)
+
+@pageOneBody = {
+    <!--main header-->
+@mainHeader(
+    title = "TRANSIT - ACCOMPANYING DOCUMENT",
+    movementReferenceNumber = tadModel.movementReferenceNumber,
+    printVariousConsignors = tadModel.printVariousConsignors,
+    consignorOne = tadModel.consignorOne,
+    declarationType = tadModel.declarationType,
+    printListOfItems = tadModel.printListOfItems,
+    consignor = tadModel.consignor,
+    numberOfItems = tadModel.numberOfItems,
+    totalNumberOfPackages = tadModel.totalNumberOfPackages,
+    printVariousConsignees = tadModel.printVariousConsignees,
+    consigneeOne = tadModel.consigneeOne,
+    singleCountryOfDispatch = tadModel.singleCountryOfDispatch,
+    singleCountryOfDestination = tadModel.singleCountryOfDestination,
+    transportIdentity = tadModel.transportIdentity,
+    transportCountry = tadModel.transportCountry
+)
+
+    <!--packages/goods description/docs/certs-->
+@table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
+
+    <!--transhipment/certification-->
+@table3()
+
+    <!--Principal/TIR Holder/Office of departure-->
+@table4(tadModel.principal, tadModel.departureOffice.trimmed, tadModel.acceptanceDate.map(_.formattedDate), tadModel.customsOfficeOfTransit)
+
+    <!--control by office of departure/destination-->
+@table5(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult)
+}

@@ -23,6 +23,7 @@ import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
 import services.conversion.TransitAccompanyingDocumentConversionService
+import services.pdf.TADPdfGenerator
 import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 
@@ -39,7 +40,7 @@ trait TransitAccompanyingDocumentController {
 
 class LiveTransitAccompanyingDocumentController @Inject()(
   conversionService: TransitAccompanyingDocumentConversionService,
-  pdf: UnloadingPermissionPdfGenerator,
+  pdf: TADPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
@@ -50,8 +51,9 @@ class LiveTransitAccompanyingDocumentController @Inject()(
       XMLToTransitAccompanyingDocument.convert(request.body) match {
         case ParseSuccess(transitAccompanyingDocument) =>
           conversionService.toViewModel(transitAccompanyingDocument, "mrn").map {
-            case Validated.Valid(viewModel) => Ok("")
-            case Validated.Invalid(errors)  => InternalServerError(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
+            case Validated.Valid(viewModel) =>
+              Ok(pdf.generate(viewModel))
+            case Validated.Invalid(errors) => InternalServerError(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
           }
         case ParseFailure(errors) =>
           Future.successful(BadRequest(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors"))

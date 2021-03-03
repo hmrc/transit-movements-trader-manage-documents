@@ -47,14 +47,13 @@ object TransitAccompanyingDocumentConverter extends Converter with Helpers {
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee) =>
         viewmodels.TransitAccompanyingDocumentPDF(
-          mrn,
+          transitAccompanyingDocument.movementReferenceNumber,
           transitAccompanyingDocument.declarationType,
           dispatch,
           destination,
           transitAccompanyingDocument.transportIdentity,
           transportCountry,
           Some(FormattedDate(transitAccompanyingDocument.acceptanceDate)),
-          None,
           transitAccompanyingDocument.numberOfItems,
           transitAccompanyingDocument.numberOfPackages,
           transitAccompanyingDocument.grossMass,
@@ -66,6 +65,7 @@ object TransitAccompanyingDocumentConverter extends Converter with Helpers {
           None,
           ShortenedString(transitAccompanyingDocument.departureOffice, 45, "***"),
           ShortenedString(transitAccompanyingDocument.destinationOffice, 45, "***"),
+          transitAccompanyingDocument.customsOfficeOfTransit,
           None,
           transitAccompanyingDocument.seals,
           transitAccompanyingDocument.controlResult,

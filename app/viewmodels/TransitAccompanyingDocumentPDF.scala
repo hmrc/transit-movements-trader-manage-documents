@@ -19,6 +19,7 @@ package viewmodels
 import java.time.LocalDate
 import cats.data.NonEmptyList
 import models.ControlResult
+import models.CustomsOfficeOfTransit
 import models.DeclarationType
 import models.reference.Country
 import utils.FormattedDate
@@ -32,7 +33,6 @@ final case class TransitAccompanyingDocumentPDF(
   transportIdentity: Option[String],
   transportCountry: Option[Country],
   acceptanceDate: Option[FormattedDate],
-  acceptanceDateFormatted: Option[String],
   numberOfItems: Int,
   numberOfPackages: Option[Int],
   grossMass: BigDecimal,
@@ -44,6 +44,7 @@ final case class TransitAccompanyingDocumentPDF(
   traderAtDestination: Option[TraderAtDestination],
   departureOffice: ShortenedString,
   destinationOffice: ShortenedString,
+  customsOfficeOfTransit: Seq[CustomsOfficeOfTransit],
   presentationOffice: Option[String],
   seals: Seq[String],
   controlResult: Option[ControlResult],

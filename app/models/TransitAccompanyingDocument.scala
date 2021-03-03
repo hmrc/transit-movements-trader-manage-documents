@@ -69,7 +69,7 @@ object TransitAccompanyingDocument {
      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional,
      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
-     (__ \ "HEAHEA" \ "BinItiHEA246").read[Boolean],
+     (__ \ "HEAHEA" \ "BinItiHEA246").read[Int].map(_ == 1),
      (__ \ "HEAHEA" \ "AutIdHEA380").read[String],
      (__ \ "TRAPRIPC1").read[Principal],
      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
