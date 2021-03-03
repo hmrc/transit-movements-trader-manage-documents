@@ -50,7 +50,7 @@ class LiveTransitAccompanyingDocumentController @Inject()(
       XMLToTransitAccompanyingDocument.convert(request.body) match {
         case ParseSuccess(transitAccompanyingDocument) =>
           conversionService.toViewModel(transitAccompanyingDocument, "mrn").map {
-            case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
+            case Validated.Valid(viewModel) => Ok("")
             case Validated.Invalid(errors)  => InternalServerError(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
           }
         case ParseFailure(errors) =>

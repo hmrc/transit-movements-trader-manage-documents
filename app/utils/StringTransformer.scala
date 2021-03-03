@@ -16,6 +16,24 @@
 
 package utils
 
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+case class ShortenedString(originalValue: String, maxlength: Int, shortener: String) {
+  import StringTransformer._
+
+  def trimmed: String = originalValue.shorten(maxlength)(shortener)
+}
+
+case class FormattedDate(originalValue: LocalDate, formatter: DateTimeFormatter = DateFormatter.dateFormatter) {
+  def formattedDate: String = originalValue.format(formatter)
+}
+
+case class FormattedDateTime(originalValue: LocalDateTime, formatter: DateTimeFormatter = DateFormatter.dateTimeFormatter) {
+  def formattedDate: String = originalValue.format(formatter)
+}
+
 object StringTransformer {
 
   implicit class StringFormatter(val x: String) {

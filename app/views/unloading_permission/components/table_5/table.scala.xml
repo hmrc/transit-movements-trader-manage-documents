@@ -1,6 +1,9 @@
+@import views.xml.unloading_permission.components.binding_itinerary
+@import models.ControlResult
+
 @this()
 
-@(seals: Seq[String])
+@(seals: Seq[String], bindingItinerary: Boolean =  false, controlResult: Option[ControlResult] = None)
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 5 -->
     <fo:table-column column-width="93mm"/>
@@ -47,7 +50,7 @@
                                 </fo:table-cell>
                                 <fo:table-cell display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @if(seals.length > 0) {
+                                        @if(seals.nonEmpty) {
                                             @seals.length
                                         } else {
                                             ---
@@ -64,13 +67,13 @@
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="2" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @if(seals.length > 0) {
-                                                @if(seals.length > 1) {
-                                                    @seals(0) - @seals(seals.length - 1)
-                                                } else {
-                                                    @seals
-                                                }
+                                        @if(seals.nonEmpty) {
+                                            @if(seals.length > 1) {
+                                                @seals.head - @seals.last
                                             } else {
+                                                @seals
+                                            }
+                                        } else {
                                             ---
                                         }
                                     </fo:block>
@@ -82,10 +85,12 @@
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" number-columns-spanned="3">
                                     <fo:block>Time limit (date):</fo:block>
-                                    @* TODO: Missing Node - Where is /HEAHEA/BinItiHEA246 from? Looks like it's a message from Release for Transit (IE029) *@
+                                    @binding_itinerary(bindingItinerary)
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" font-weight="bold">
-                                    <fo:block/>
+                                    <fo:block>
+                                        @controlResult.map(_.formattedDate)
+                                    </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="2mm">

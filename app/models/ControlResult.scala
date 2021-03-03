@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package models.reference
-import cats.implicits.catsSyntaxTuple2Semigroupal
+package models
+
+import cats.syntax.all._
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
-import play.api.libs.json.Reads
-import play.api.libs.json.Writes
+import utils.DateFormatter
+import utils.LocalDateXMLReader._
 
 import java.time.LocalDate
 
-final case class ControlResult(code: String, description: String) extends CodedReferenceData
-//case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate)
+case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate) {
+  lazy val formattedDate: String = datLimERS69.format(DateFormatter.dateFormatter)
+}
 
 object ControlResult {
 
@@ -34,13 +34,7 @@ object ControlResult {
     val controlResultCodeLength = 2
   }
 
-  implicit lazy val reads: Reads[ControlResult] =
-    Json.reads[ControlResult]
-
-  implicit lazy val writes: Writes[ControlResult] =
-    Json.writes[ControlResult]
-
   implicit val xmlReader: XmlReader[ControlResult] =
-    ((__ \ "ConResCodERS16").read[String], (__ \ "DatLimERS69").read[String])
+    ((__ \ "ConResCodERS16").read[String], (__ \ "DatLimERS69").read[LocalDate])
       .mapN(apply)
 }

@@ -21,6 +21,8 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 
+import java.time.LocalDate
+
 trait ReferenceModelGenerators extends GeneratorHelpers {
 
   implicit lazy val arbitraryCountry: Arbitrary[Country] =
@@ -65,12 +67,12 @@ trait ReferenceModelGenerators extends GeneratorHelpers {
       } yield TransportMode(code.toString, description)
     }
 
-  implicit lazy val arbitraryControlResult: Arbitrary[ControlResult] =
+  implicit lazy val arbitraryControlResult: Arbitrary[ControlResultData] =
     Arbitrary {
       for {
         code        <- stringWithMaxLength(2)
         description <- stringWithMaxLength(50)
-      } yield ControlResult(code, description)
+      } yield ControlResultData(code, description)
     }
 
   implicit lazy val arbitraryPreviousDocumentTypes: Arbitrary[PreviousDocumentTypes] =

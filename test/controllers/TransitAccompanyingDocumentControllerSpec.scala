@@ -80,7 +80,7 @@ class TransitAccompanyingDocumentControllerSpec
         forAll(arbitrary[viewmodels.PermissionToStartUnloading], arbitrary[Array[Byte]]) {
           (viewModel, pdf) =>
             when(mockConversionService.toViewModel(any(), any())(any(), any()))
-              .thenReturn(Future.successful(Valid(viewModel)))
+              .thenReturn(Future.successful(Valid(???)))
 
             when(mockPDFGenerator.generate(any()))
               .thenReturn(pdf)

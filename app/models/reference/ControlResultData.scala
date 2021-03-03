@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-package viewmodels
+package models.reference
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class CustomsOfficeTransit()
+case class ControlResultData(code: String, description: String) extends CodedReferenceData {}
+
+object ControlResultData {
+  implicit lazy val format: OFormat[ControlResultData] =
+    Json.format[ControlResultData]
+
+}

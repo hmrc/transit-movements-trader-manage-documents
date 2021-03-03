@@ -20,13 +20,11 @@ import cats.data.NonEmptyList
 import com.lucidchart.open.xtract.XmlReader._
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
 import cats.syntax.all._
 import utils.LocalDateXMLReader._
 import utils.NonEmptyListXMLReader.xmlNonEmptyListReads
 import utils.BigDecimalXMLReader._
-import models.reference.ControlResult
+import models.ControlResult
 
 import java.time.LocalDate
 
@@ -41,7 +39,7 @@ final case class TransitAccompanyingDocument(
   numberOfItems: Int,
   numberOfPackages: Option[Int],
   grossMass: BigDecimal,
-  printBindingItinary: Boolean,
+  printBindingItinerary: Boolean,
   authId: String,
   principal: Principal,
   consignor: Option[Consignor],
@@ -51,7 +49,7 @@ final case class TransitAccompanyingDocument(
   departureOffice: String,
   destinationOffice: String,
   controlResult: Option[ControlResult],
-  seals: Seq[SealInfo],
+  seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
 )
 
@@ -61,13 +59,13 @@ object TransitAccompanyingDocument {
 //    Json.format[TransitAccompanyingDocument]
 
   implicit val xmlReader: XmlReader[TransitAccompanyingDocument] = {
-    ((__ \ "HEAHEA" \ "DocNumHEA5").read[String],
+    ((__ \ "HEAHEA" \ "DocNumHEA5").read[String], // mrn
      (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
      (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional,
      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
      (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,
      (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional,
-     (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate], //DOES NOT EXIST IN IE029
+     (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate],
      (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int],
      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional,
      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
@@ -76,12 +74,12 @@ object TransitAccompanyingDocument {
      (__ \ "TRAPRIPC1").read[Principal],
      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
-     (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeOfTransit]), //TODO make this an object
-     (__ \ "GUAGUA").read(xmlNonEmptyListReads[GuaranteeDetails]), // TODO make this an object
+     (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeOfTransit]),
+     (__ \ "GUAGUA").read(xmlNonEmptyListReads[GuaranteeDetails]),
      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
      (__ \ "CUSOFFDESEST" \ "RefNumEST1").read[String],
      (__ \ "CONRESERS").read[ControlResult].optional,
-     (__ \ "SEAINFSLI").read(strictReadSeq[SealInfo]), // TODO make this an object
+     (__ \ "SEAINFSLI" \ "SeaIdeSID1").read(strictReadSeq[String]), // TODO make this an object
      (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])).mapN(apply)
   }
 }
