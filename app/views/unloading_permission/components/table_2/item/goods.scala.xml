@@ -2,6 +2,9 @@
 
 @(goodsItems: NonEmptyList[viewmodels.GoodsItem])
 
+@println(Console.CYAN + s"======================= $goodsItems ========================" + Console.RESET)
+
+
 @if(goodsItems.head.packages.toList.length > 0) {
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="20mm"/>

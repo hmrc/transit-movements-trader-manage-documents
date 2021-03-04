@@ -14,26 +14,13 @@
  * limitations under the License.
  */
 
-package models
+package models.reference
 
-import cats.implicits.catsSyntaxTuple2Semigroupal
-import cats.implicits.catsSyntaxTuple5Semigroupal
-import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.XmlReader.strictReadSeq
-import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class GuaranteeDetails(
-  guaranteeType: String,
-  guaranteeReference: Seq[GuaranteeReference]
-)
+case class CustomsOffice(id: String, name: Option[String])
 
-object GuaranteeDetails {
-  implicit lazy val format: OFormat[GuaranteeDetails] = Json.format[GuaranteeDetails]
-
-  implicit val xmlReads: XmlReader[GuaranteeDetails] = (
-    (__ \ "GuaTypGUA1").read[String],
-    (__ \ "GUAREFREF").read(strictReadSeq[GuaranteeReference])
-  ).mapN(GuaranteeDetails.apply)
+object CustomsOffice {
+  implicit val format: OFormat[CustomsOffice] = Json.format[CustomsOffice]
 }

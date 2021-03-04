@@ -103,7 +103,21 @@ class ReferenceDataService @Inject()(
     httpClient.GET[ValidationResult[Seq[SensitiveGoodsCode]]](config.sensitiveGoodsCodeUrl)(reads, implicitly, implicitly)
   }
 
-  def customsOfficeSearch(code: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Seq[_]] =
-    ???
+  def customsOfficeSearch(code: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[CustomsOffice] = {
+
+    implicit val reads: HttpReads[CustomsOffice] = (_: String, _: String, response: HttpResponse) =>
+      response.status match {
+        case 200 =>
+          response.json
+            .validate[CustomsOffice]
+            .fold(
+              invalid = _ => throw new Exception("failed"),
+              valid = identity
+            )
+        case _ => throw new Exception("failed")
+    }
+
+    httpClient.GET[CustomsOffice](config.customsOfficeUrl + code)
+  }
 
 }

@@ -26,8 +26,6 @@ import utils.LocalDateXMLReader
 
 import java.time.LocalDateTime
 
-//TODO This needs to link in with the customs reference data service
-@deprecated("This needs a view model that combines the Customs office info with this")
 case class CustomsOfficeOfTransit(reference: String, arrivalTime: LocalDateTime) {
   val formattedDate: String = arrivalTime.format(DateFormatter.dateTimeFormatter)
 }

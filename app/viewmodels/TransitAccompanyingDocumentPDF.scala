@@ -21,6 +21,7 @@ import cats.data.NonEmptyList
 import models.ControlResult
 import models.CustomsOfficeOfTransit
 import models.DeclarationType
+import models.GuaranteeDetails
 import models.reference.Country
 import utils.FormattedDate
 import utils.ShortenedString
@@ -37,14 +38,15 @@ final case class TransitAccompanyingDocumentPDF(
   numberOfPackages: Option[Int],
   grossMass: BigDecimal,
   printBindingItinerary: Boolean,
-  authId: String,
+  authId: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   traderAtDestination: Option[TraderAtDestination],
-  departureOffice: ShortenedString,
-  destinationOffice: ShortenedString,
-  customsOfficeOfTransit: Seq[CustomsOfficeOfTransit],
+  departureOffice: CustomsOfficeWithOptionalDate,
+  destinationOffice: CustomsOfficeWithOptionalDate,
+  customsOfficeOfTransit: Seq[CustomsOfficeWithOptionalDate],
+  guaranteeDetails: Seq[GuaranteeDetails],
   presentationOffice: Option[String],
   seals: Seq[String],
   controlResult: Option[ControlResult],

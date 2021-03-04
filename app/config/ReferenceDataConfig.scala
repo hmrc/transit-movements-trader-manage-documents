@@ -35,5 +35,6 @@ class ReferenceDataConfig @Inject()(config: Configuration) {
   val controlResultUrl: String         = s"$baseUrl/control-result"
   val previousDocumentTypesUrl: String = s"$baseUrl/previous-document-types"
   val sensitiveGoodsCodeUrl: String    = s"$baseUrl/sensitive-goods-code"
+  lazy val customsOfficeUrl: String    = s"$baseUrl/customs-office/"
 
 }

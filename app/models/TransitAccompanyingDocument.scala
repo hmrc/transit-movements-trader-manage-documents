@@ -40,7 +40,7 @@ final case class TransitAccompanyingDocument(
   numberOfPackages: Option[Int],
   grossMass: BigDecimal,
   printBindingItinerary: Boolean,
-  authId: String,
+  authId: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
@@ -59,7 +59,7 @@ object TransitAccompanyingDocument {
 //    Json.format[TransitAccompanyingDocument]
 
   implicit val xmlReader: XmlReader[TransitAccompanyingDocument] = {
-    ((__ \ "HEAHEA" \ "DocNumHEA5").read[String], // mrn
+    ((__ \ "HEAHEA" \ "DocNumHEA5").read[String],
      (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
      (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional,
      (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
@@ -70,7 +70,7 @@ object TransitAccompanyingDocument {
      (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional,
      (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal],
      (__ \ "HEAHEA" \ "BinItiHEA246").read[Int].map(_ == 1),
-     (__ \ "HEAHEA" \ "AutIdHEA380").read[String],
+     (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional,
      (__ \ "TRAPRIPC1").read[Principal],
      (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional,
      (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional,
@@ -79,7 +79,7 @@ object TransitAccompanyingDocument {
      (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String],
      (__ \ "CUSOFFDESEST" \ "RefNumEST1").read[String],
      (__ \ "CONRESERS").read[ControlResult].optional,
-     (__ \ "SEAINFSLI" \ "SeaIdeSID1").read(strictReadSeq[String]), // TODO make this an object
+     (__ \ "SEAINFSLI" \ "SeaIdeSID1").read(strictReadSeq[String]),
      (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])).mapN(apply)
   }
 }

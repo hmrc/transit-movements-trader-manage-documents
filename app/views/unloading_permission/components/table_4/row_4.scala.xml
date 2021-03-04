@@ -1,6 +1,8 @@
 @import views.xml.unloading_permission.components.table_4.guaranteeReference
 
-@(guaranteeDetails: Seq[GuaranteeDetails] = Nil)
+@import viewmodels.CustomsOfficeWithOptionalDate
+@import views.xml.unloading_permission.components.customs_office
+@(guaranteeDetails: Seq[GuaranteeDetails] = Nil, destination: Option[CustomsOfficeWithOptionalDate] = None)
 <fo:table-cell>
     <fo:block>
         <fo:list-block>
@@ -48,7 +50,16 @@
             </fo:table-row>
             <fo:table-row height="2mm">
                 <fo:table-cell display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center">
-                    <fo:block/>
+                    <fo:block>
+                        @for(i <- 0 to 2) {
+                            @if(guaranteeDetails.isDefinedAt(i)){
+                                @if(i != 0){
+                                    <fo:inline>,</fo:inline>
+                                }
+                                @guaranteeDetails(i).guaranteeType
+                            }
+                        }
+                    </fo:block>
                 </fo:table-cell>
             </fo:table-row>
         </fo:table-body>
@@ -66,7 +77,11 @@
                 </fo:table-row>
                 <fo:table-row height="2mm">
                     <fo:table-cell text-align="center" display-align="center" font-weight="bold">
-                        <fo:block/>
+                        @destination.map{ des =>
+                            @customs_office(des)
+                        }.getOrElse(
+                            <fo:block />
+                        )
                     </fo:table-cell>
                 </fo:table-row>
             </fo:table-body>

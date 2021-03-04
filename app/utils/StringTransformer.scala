@@ -26,7 +26,7 @@ case class ShortenedString(originalValue: String, maxlength: Int, shortener: Str
   def trimmed: String = originalValue.shorten(maxlength)(shortener)
 }
 
-case class FormattedDate(originalValue: LocalDate, formatter: DateTimeFormatter = DateFormatter.dateFormatter) {
+case class FormattedDate(originalValue: LocalDate, formatter: DateTimeFormatter = DateFormatter.readableDateFormatter) {
   def formattedDate: String = originalValue.format(formatter)
 }
 

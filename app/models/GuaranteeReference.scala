@@ -16,24 +16,27 @@
 
 package models
 
-import cats.implicits.catsSyntaxTuple2Semigroupal
-import cats.implicits.catsSyntaxTuple5Semigroupal
-import com.lucidchart.open.xtract.XmlReader
+import cats.implicits.catsSyntaxTuple4Semigroupal
 import com.lucidchart.open.xtract.XmlReader.strictReadSeq
+import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class GuaranteeDetails(
-  guaranteeType: String,
-  guaranteeReference: Seq[GuaranteeReference]
+case class GuaranteeReference(
+  guaranteeRef: Option[String],
+  otherGuaranteeRef: Option[String],
+  notValidForEc: Option[Boolean],
+  notValidForOther: Seq[String]
 )
 
-object GuaranteeDetails {
-  implicit lazy val format: OFormat[GuaranteeDetails] = Json.format[GuaranteeDetails]
+object GuaranteeReference {
+  implicit lazy val format: OFormat[GuaranteeReference] = Json.format[GuaranteeReference]
 
-  implicit val xmlReads: XmlReader[GuaranteeDetails] = (
-    (__ \ "GuaTypGUA1").read[String],
-    (__ \ "GUAREFREF").read(strictReadSeq[GuaranteeReference])
-  ).mapN(GuaranteeDetails.apply)
+  implicit val xmlReads: XmlReader[GuaranteeReference] = (
+    (__ \ "GuaRefNumGRNREF1").read[String].optional,
+    (__ \ "OthGuaRefREF4").read[String].optional,
+    (__ \ "VALLIMECVLE" \ "NotValForECVLE1").read[Boolean].optional,
+    (__ \ "VALLIMNONECLIM" \ "NotValForOthConPLIM2").read(strictReadSeq[String])
+  ).mapN(GuaranteeReference.apply)
 }

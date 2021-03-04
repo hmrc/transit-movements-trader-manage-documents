@@ -17,11 +17,13 @@
 package services.conversion
 
 import cats.data.Validated.Invalid
+
 import javax.inject.Inject
 import services.ReferenceDataService
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import cats.implicits._
+import viewmodels.CustomsOfficeWithOptionalDate
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -36,12 +38,29 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
    * Let each Converter handle what goes in the view model
    */
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
-                  mrn: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitAccompanyingDocumentPDF]] = {
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitAccompanyingDocumentPDF]] = {
 
     val countriesFuture      = referenceData.countries()
     val additionalInfoFuture = referenceData.additionalInformation()
     val kindsOfPackageFuture = referenceData.kindsOfPackage()
     val documentTypesFuture  = referenceData.documentTypes()
+    val departureOfficeFuture = referenceData
+      .customsOfficeSearch(transitAccompanyingDocument.departureOffice)
+      .map(
+        office => CustomsOfficeWithOptionalDate(office, None)
+      )
+    val destinationOfficeFuture = referenceData
+      .customsOfficeSearch(transitAccompanyingDocument.destinationOffice)
+      .map(
+        office => CustomsOfficeWithOptionalDate(office, None)
+      )
+    val transitOfficeFuture = Future.sequence(
+      transitAccompanyingDocument.customsOfficeOfTransit.map(
+        office =>
+          referenceData
+            .customsOfficeSearch(office.reference)
+            .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, Some(office.arrivalTime), maxLength = 18))
+      ))
 
     //TODO: ref data will be needed below when we're building out the view model
     //    val transportMode  = referenceData.transportMode()
@@ -55,6 +74,9 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
       additionalInfoResult <- additionalInfoFuture
       kindsOfPackageResult <- kindsOfPackageFuture
       documentTypesResult  <- documentTypesFuture
+      departureOffice      <- departureOfficeFuture
+      destinationOffice    <- destinationOfficeFuture
+      transitOffice        <- transitOfficeFuture
     } yield {
       (
         countriesResult,
@@ -63,7 +85,16 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
         documentTypesResult
       ).mapN(
           (countries, additionalInfo, kindsOfPackage, documentTypes) =>
-            TransitAccompanyingDocumentConverter.toViewModel(mrn, transitAccompanyingDocument, countries, additionalInfo, kindsOfPackage, documentTypes)
+            TransitAccompanyingDocumentConverter.toViewModel(
+              transitAccompanyingDocument,
+              countries,
+              additionalInfo,
+              kindsOfPackage,
+              documentTypes,
+              departureOffice,
+              destinationOffice,
+              transitOffice
+          )
         )
         .fold(
           errors => Invalid(errors),

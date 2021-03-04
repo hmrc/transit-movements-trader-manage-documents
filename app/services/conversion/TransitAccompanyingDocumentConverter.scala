@@ -27,15 +27,18 @@ import services._
 import utils.FormattedDate
 import utils.ShortenedString
 import utils.StringTransformer._
+import viewmodels.CustomsOfficeWithOptionalDate
 
 object TransitAccompanyingDocumentConverter extends Converter with Helpers {
 
-  def toViewModel(mrn: String,
-                  transitAccompanyingDocument: models.TransitAccompanyingDocument,
+  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
+                  documentTypes: Seq[DocumentType],
+                  departureOffice: CustomsOfficeWithOptionalDate,
+                  destinationOffice: CustomsOfficeWithOptionalDate,
+                  transitOffices: Seq[CustomsOfficeWithOptionalDate]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
     (
       convertCountryOfDispatch(transitAccompanyingDocument.countryOfDispatch, countries),
       convertCountryOfDestination(transitAccompanyingDocument.countryOfDestination, countries),
@@ -63,9 +66,10 @@ object TransitAccompanyingDocumentConverter extends Converter with Helpers {
           consignor,
           consignee,
           None,
-          ShortenedString(transitAccompanyingDocument.departureOffice, 45, "***"),
-          ShortenedString(transitAccompanyingDocument.destinationOffice, 45, "***"),
-          transitAccompanyingDocument.customsOfficeOfTransit,
+          departureOffice,
+          destinationOffice,
+          transitOffices,
+          transitAccompanyingDocument.guaranteeDetails.toList,
           None,
           transitAccompanyingDocument.seals,
           transitAccompanyingDocument.controlResult,

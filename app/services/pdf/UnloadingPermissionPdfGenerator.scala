@@ -18,7 +18,6 @@ package services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
 import org.apache.xmlgraphics.util.MimeConstants
-import play.api.Logger
 import viewmodels.PermissionToStartUnloading
 import views.xml.unloading_permission.UnloadingPermissionDocument
 

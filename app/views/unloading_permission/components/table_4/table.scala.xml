@@ -1,9 +1,17 @@
 @import views.xml.unloading_permission.components.table_4.row_3
 @import views.xml.unloading_permission.components.table_4.row_4
+@import viewmodels.CustomsOfficeWithOptionalDate
 
 @this()
 
-@(principal: viewmodels.Principal, departureOfficeTrimmed: String, acceptanceDateFormatted: Option[String], transitOffices: Seq[CustomsOfficeOfTransit] = Nil)
+@(
+        principal: viewmodels.Principal,
+        departureOfficeTrimmed: String,
+        acceptanceDateFormatted: Option[String],
+        transitOffices: Seq[CustomsOfficeWithOptionalDate] = Nil,
+        guaranteeDetails: Seq[GuaranteeDetails] = Nil,
+        destinationOffice: Option[CustomsOfficeWithOptionalDate] = None
+)
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
     <fo:table-column column-width="16mm" column-number="1"/>
@@ -137,7 +145,7 @@
             @row_3(transitOffices)
         </fo:table-row>
         <fo:table-row height="8mm"> <!-- S1 T4 ROW 4 -->
-            @row_4()
+            @row_4(guaranteeDetails, destinationOffice)
         </fo:table-row>
     </fo:table-body>
 </fo:table>
