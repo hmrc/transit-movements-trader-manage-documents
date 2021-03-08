@@ -61,7 +61,9 @@
     tadModel.acceptanceDate.map(_.formattedDate),
     tadModel.customsOfficeOfTransit,
     tadModel.guaranteeDetails,
-    Some(tadModel.destinationOffice)
+    Some(tadModel.destinationOffice),
+    tadModel.authId,
+    tadModel.controlResult
 )
 
     <!--control by office of departure/destination-->

@@ -1,11 +1,7 @@
 @import cats.data.NonEmptyList
 
 @(goodsItems: NonEmptyList[viewmodels.GoodsItem])
-
-@println(Console.CYAN + s"======================= $goodsItems ========================" + Console.RESET)
-
-
-@if(goodsItems.head.packages.toList.length > 0) {
+@if(goodsItems.head.packages.toList.nonEmpty) {
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="20mm"/>
     <fo:table-column column-width="25mm"/>
@@ -43,7 +39,7 @@
                 }
             </fo:table-cell>
             <!-- Sensitive goods code -->
-            @if(goodsItems.head.sensitiveGoodsInformation.length > 0 && goodsItems.head.sensitiveGoodsInformation.head.goodsCode.isDefined) {
+            @if(goodsItems.head.sensitiveGoodsInformation.nonEmpty && goodsItems.head.sensitiveGoodsInformation.head.goodsCode.isDefined) {
                 <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
                     <fo:block>
                         <fo:inline font-weight="normal">Sensitive Goods code:</fo:inline>

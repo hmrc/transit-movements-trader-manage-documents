@@ -102,7 +102,9 @@
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
                                 <fo:block>
-
+                                    @if(!printListOfItems){
+                                        @goodsItems.head.previousDocumentTypes.map(_.display)
+                                    }
                                 </fo:block>
                             </fo:inline>
                         </fo:block>

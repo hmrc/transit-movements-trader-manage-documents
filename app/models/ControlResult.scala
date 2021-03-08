@@ -26,6 +26,7 @@ import java.time.LocalDate
 
 case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate) {
   lazy val formattedDate: String = datLimERS69.format(DateFormatter.dateFormatter)
+  def isPrintable: Boolean       = conResCodERS16 == "A3"
 }
 
 object ControlResult {

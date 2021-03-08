@@ -78,7 +78,7 @@ object TransitAccompanyingDocument {
       departureOffice        <- (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String].read(xml)
       destinationOffice      <- (__ \ "CUSOFFDESEST" \ "RefNumEST1").read[String].read(xml)
       controlResult          <- (__ \ "CONRESERS").read[ControlResult].optional.read(xml)
-      seals                  <- (__ \ "SEAINFSLI" \ "SeaIdeSID1").read(strictReadSeq[String]).read(xml)
+      seals                  <- (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]).read(xml)
       goodsItems             <- (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem]).read(xml)
     } yield
       TransitAccompanyingDocument(

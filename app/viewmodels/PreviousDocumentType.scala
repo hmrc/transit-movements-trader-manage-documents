@@ -16,18 +16,25 @@
 
 package viewmodels
 
+import models.PreviousAdministrativeReference
 import models.reference.PreviousDocumentTypes
 
 final case class PreviousDocumentType(
   documentType: PreviousDocumentTypes,
-  reference: String,
-  complementOfInformation: Option[String]
+  previousAdminReference: PreviousAdministrativeReference,
 ) {
 
-  val display: String =
+  val display: String = if (documentType.description.nonEmpty) {
     Seq(
       Some(documentType.description),
-      Some(reference),
-      complementOfInformation
+      Some(previousAdminReference.documentReference),
+      previousAdminReference.complimentOfInfo
     ).flatten.mkString(" - ")
+  } else {
+    Seq(
+      Some(previousAdminReference.documentType),
+      Some(previousAdminReference.documentReference),
+      previousAdminReference.complimentOfInfo
+    ).flatten.mkString(" - ")
+  }
 }

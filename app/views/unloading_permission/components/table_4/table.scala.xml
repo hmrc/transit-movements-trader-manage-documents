@@ -10,7 +10,9 @@
         acceptanceDateFormatted: Option[String],
         transitOffices: Seq[CustomsOfficeWithOptionalDate] = Nil,
         guaranteeDetails: Seq[GuaranteeDetails] = Nil,
-        destinationOffice: Option[CustomsOfficeWithOptionalDate] = None
+        destinationOffice: Option[CustomsOfficeWithOptionalDate] = None,
+        authId: Option[String] = None,
+        controlResult: Option[ControlResult] = None
 )
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
@@ -115,7 +117,14 @@
                             </fo:table-row>
                             <fo:table-row height="12mm">
                                 <fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">
-                                    <fo:block/>
+                                    @controlResult.map{ result =>
+                                        @if(result.isPrintable){
+                                            <fo:block>@authId</fo:block>
+                                            <fo:block>@principal.name</fo:block>
+                                        } else {
+                                            <fo:block />
+                                        }
+                                    }.getOrElse(<fo:block />)
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>

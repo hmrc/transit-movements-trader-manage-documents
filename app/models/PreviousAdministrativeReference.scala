@@ -27,6 +27,7 @@ case class PreviousAdministrativeReference(documentType: String, documentReferen
 object PreviousAdministrativeReference {
 
   implicit val format: OFormat[PreviousAdministrativeReference] = Json.format[PreviousAdministrativeReference]
+
   implicit val xmlReader: XmlReader[PreviousAdministrativeReference] =
     (
       (__ \ "PreDocTypAR21").read[String],

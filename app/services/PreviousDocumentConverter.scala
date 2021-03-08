@@ -26,8 +26,9 @@ object PreviousDocumentConverter extends Converter {
     findReferenceData(previousAdministrativeReference.documentType, previousDocumentTypes, s"$path.previousDocumentTypes")
       .map {
         previousDocumentTypes =>
-          viewmodels.PreviousDocumentType(previousDocumentTypes,
-                                          previousAdministrativeReference.documentReference,
-                                          previousAdministrativeReference.complimentOfInfo)
+          viewmodels.PreviousDocumentType(
+            previousDocumentTypes,
+            previousAdministrativeReference
+          )
       }
 }
