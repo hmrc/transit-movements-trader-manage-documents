@@ -27,43 +27,13 @@ import services._
 import utils.DateFormatter
 import utils.StringTransformer._
 
-object UnloadingPermissionConverter extends Converter {
+object UnloadingPermissionConverter extends Converter with Helpers {
 
   def toViewModel(permission: models.PermissionToStartUnloading,
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],
                   documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.PermissionToStartUnloading] = {
-
-    def convertTransportCountry(maybeCountry: Option[String]): ValidationResult[Option[Country]] =
-      maybeCountry match {
-        case Some(country) => findReferenceData[Country](country, countries, s"transportCountry").map(x => Some(x))
-        case None          => Valid(None)
-      }
-
-    def convertConsignor(maybeConsignor: Option[models.Consignor]): ValidationResult[Option[viewmodels.Consignor]] =
-      maybeConsignor match {
-        case Some(consignor) => ConsignorConverter.toViewModel(consignor, s"consignor", countries).map(x => Some(x))
-        case None            => Valid(None)
-      }
-
-    def convertConsignee(maybeConsignee: Option[models.Consignee]): ValidationResult[Option[viewmodels.Consignee]] =
-      maybeConsignee match {
-        case Some(consignee) => ConsigneeConverter.toViewModel(consignee, s"consignee", countries).map(x => Some(x))
-        case None            => Valid(None)
-      }
-
-    def convertCountryOfDispatch(maybeCountryOfDispatch: Option[String]): ValidationResult[Option[Country]] =
-      maybeCountryOfDispatch match {
-        case Some(countryOfDispatch) => findReferenceData(countryOfDispatch, countries, s"countryOfDispatch").map(x => Some(x))
-        case None                    => Valid(None)
-      }
-
-    def convertCountryOfDestination(maybeCountryOfDestination: Option[String]): ValidationResult[Option[Country]] =
-      maybeCountryOfDestination match {
-        case Some(countryOfDestination) => findReferenceData(countryOfDestination, countries, s"countryOfDestination").map(x => Some(x))
-        case None                       => Valid(None)
-      }
 
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
@@ -83,14 +53,14 @@ object UnloadingPermissionConverter extends Converter {
     }
 
     (
-      convertCountryOfDispatch(permission.countryOfDispatch),
-      convertCountryOfDestination(permission.countryOfDestination),
+      convertCountryOfDispatch(permission.countryOfDispatch, countries),
+      convertCountryOfDestination(permission.countryOfDestination, countries),
       PrincipalConverter.toViewModel(permission.principal, "principal", countries),
       TraderConverter.toViewModel(permission.traderAtDestination, "traderAtDestination", countries),
-      convertTransportCountry(permission.transportCountry),
+      convertTransportCountry(permission.transportCountry, countries),
       convertGoodsItems(permission.goodsItems),
-      convertConsignor(permission.consignor),
-      convertConsignee(permission.consignee)
+      convertConsignor(permission.consignor, countries),
+      convertConsignee(permission.consignee, countries)
     ).mapN(
       (dispatch, destination, principal, trader, transportCountry, goodsItems, consignor, consignee) =>
         viewmodels.PermissionToStartUnloading(

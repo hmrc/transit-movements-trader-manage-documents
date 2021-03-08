@@ -19,16 +19,16 @@ package services.conversion
 import cats.data.Validated.Invalid
 
 import javax.inject.Inject
-import services.ReferenceDataService
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import cats.implicits._
+import connectors.ReferenceDataConnector
 import viewmodels.CustomsOfficeWithOptionalDate
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class TransitAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataService) {
+class TransitAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataConnector) {
 
   //TODO: Rename PermissionToStartUnloading view model
   /*
@@ -40,10 +40,11 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitAccompanyingDocumentPDF]] = {
 
-    val countriesFuture      = referenceData.countries()
-    val additionalInfoFuture = referenceData.additionalInformation()
-    val kindsOfPackageFuture = referenceData.kindsOfPackage()
-    val documentTypesFuture  = referenceData.documentTypes()
+    val countriesFuture             = referenceData.countries()
+    val additionalInfoFuture        = referenceData.additionalInformation()
+    val kindsOfPackageFuture        = referenceData.kindsOfPackage()
+    val documentTypesFuture         = referenceData.documentTypes()
+    val previousDocumentTypesFuture = referenceData.previousDocumentTypes()
     val departureOfficeFuture = referenceData
       .customsOfficeSearch(transitAccompanyingDocument.departureOffice)
       .map(
@@ -59,32 +60,33 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
         office =>
           referenceData
             .customsOfficeSearch(office.reference)
-            .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, Some(office.arrivalTime), maxLength = 18))
+            .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 18))
       ))
 
     //TODO: ref data will be needed below when we're building out the view model
     //    val transportMode  = referenceData.transportMode()
     //    val controlResultCode = referenceData.controlResult()
-    //    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
     //    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
     //    val specialMentionsCodeFuture = referenceData.specialMentions()
 
     for {
-      countriesResult      <- countriesFuture
-      additionalInfoResult <- additionalInfoFuture
-      kindsOfPackageResult <- kindsOfPackageFuture
-      documentTypesResult  <- documentTypesFuture
-      departureOffice      <- departureOfficeFuture
-      destinationOffice    <- destinationOfficeFuture
-      transitOffice        <- transitOfficeFuture
+      countriesResult        <- countriesFuture
+      additionalInfoResult   <- additionalInfoFuture
+      kindsOfPackageResult   <- kindsOfPackageFuture
+      documentTypesResult    <- documentTypesFuture
+      previousDocumentResult <- previousDocumentTypesFuture
+      departureOffice        <- departureOfficeFuture
+      destinationOffice      <- destinationOfficeFuture
+      transitOffice          <- transitOfficeFuture
     } yield {
       (
         countriesResult,
         additionalInfoResult,
         kindsOfPackageResult,
-        documentTypesResult
+        documentTypesResult,
+        previousDocumentResult
       ).mapN(
-          (countries, additionalInfo, kindsOfPackage, documentTypes) =>
+          (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes) =>
             TransitAccompanyingDocumentConverter.toViewModel(
               transitAccompanyingDocument,
               countries,
@@ -93,7 +95,8 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
               documentTypes,
               departureOffice,
               destinationOffice,
-              transitOffice
+              transitOffice,
+              previousDocumentTypes
           )
         )
         .fold(

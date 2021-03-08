@@ -22,6 +22,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.status
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import connectors.ReferenceDataConnector
 import generators.ReferenceModelGenerators
 import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
@@ -43,7 +44,7 @@ import utils.WireMockHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class ReferenceDataServiceSpec
+class ReferenceDataConnectorSpec
     extends FreeSpec
     with MustMatchers
     with GuiceOneAppPerSuite
@@ -65,7 +66,7 @@ class ReferenceDataServiceSpec
       )
       .build()
 
-  private lazy val service: ReferenceDataService = app.injector.instanceOf[ReferenceDataService]
+  private lazy val service: ReferenceDataConnector = app.injector.instanceOf[ReferenceDataConnector]
 
   private val errorStatuses = Gen.chooseNum(400, 599, 400, 499, 500, 501, 502, 503)
 

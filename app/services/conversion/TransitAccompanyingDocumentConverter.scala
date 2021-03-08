@@ -16,17 +16,10 @@
 
 package services.conversion
 
-import cats.data.NonEmptyList
-import cats.data.Validated.Valid
 import cats.implicits._
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import services._
 import utils.FormattedDate
-import utils.ShortenedString
-import utils.StringTransformer._
 import viewmodels.CustomsOfficeWithOptionalDate
 
 object TransitAccompanyingDocumentConverter extends Converter with Helpers {
@@ -38,15 +31,16 @@ object TransitAccompanyingDocumentConverter extends Converter with Helpers {
                   documentTypes: Seq[DocumentType],
                   departureOffice: CustomsOfficeWithOptionalDate,
                   destinationOffice: CustomsOfficeWithOptionalDate,
-                  transitOffices: Seq[CustomsOfficeWithOptionalDate]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
+                  transitOffices: Seq[CustomsOfficeWithOptionalDate],
+                  previousDocumentTypes: Seq[PreviousDocumentTypes]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
     (
       convertCountryOfDispatch(transitAccompanyingDocument.countryOfDispatch, countries),
       convertCountryOfDestination(transitAccompanyingDocument.countryOfDestination, countries),
       PrincipalConverter.toViewModel(transitAccompanyingDocument.principal, "principal", countries),
       convertTransportCountry(transitAccompanyingDocument.transportCountry, countries),
-      convertGoodsItems(transitAccompanyingDocument.goodsItems, countries, additionalInfo, kindsOfPackage, documentTypes),
+      convertGoodsItems(transitAccompanyingDocument.goodsItems, countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes),
       convertConsignor(transitAccompanyingDocument.consignor, countries),
-      convertConsignee(transitAccompanyingDocument.consignee, countries)
+      convertConsignee(transitAccompanyingDocument.consignee, countries),
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee) =>
         viewmodels.TransitAccompanyingDocumentPDF(
@@ -62,15 +56,14 @@ object TransitAccompanyingDocumentConverter extends Converter with Helpers {
           transitAccompanyingDocument.grossMass,
           transitAccompanyingDocument.printBindingItinerary,
           transitAccompanyingDocument.authId,
+          transitAccompanyingDocument.returnCopy,
           principal,
           consignor,
           consignee,
-          None,
           departureOffice,
           destinationOffice,
           transitOffices,
           transitAccompanyingDocument.guaranteeDetails.toList,
-          None,
           transitAccompanyingDocument.seals,
           transitAccompanyingDocument.controlResult,
           goodsItems

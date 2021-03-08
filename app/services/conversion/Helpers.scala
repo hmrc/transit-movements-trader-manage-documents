@@ -22,6 +22,7 @@ import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import models.reference.PreviousDocumentTypes
 import services.ConsigneeConverter
 import services.ConsignorConverter
 import services.GoodsItemConverter
@@ -65,18 +66,24 @@ trait Helpers {
                         countries: Seq[Country],
                         additionalInfo: Seq[AdditionalInformation],
                         kindsOfPackage: Seq[KindOfPackage],
-                        documentTypes: Seq[DocumentType]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
+                        documentTypes: Seq[DocumentType],
+                        previousDocumentTypes: Seq[PreviousDocumentTypes]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
-    val head = GoodsItemConverter.toViewModel(items.head, "goodsItems[0]", countries, additionalInfo, kindsOfPackage, documentTypes)
-
-    val tail = items.tail.zipWithIndex.map {
+    val head :: tail = items.toList.zipWithIndex.map {
       case (item, index) =>
-        GoodsItemConverter.toViewModel(item, s"goodsItems[${index + 1}", countries, additionalInfo, kindsOfPackage, documentTypes)
-    }.sequence
+        GoodsItemConverter.toViewModel(item,
+                                       s"goodsItems[$index]",
+                                       countries,
+                                       additionalInfo,
+                                       kindsOfPackage,
+                                       documentTypes,
+                                       previousDocumentTypes,
+                                       item.previousAdminRef)
+    }
 
     (
       head,
-      tail
+      tail.sequence
     ).mapN(
       (head, tail) => NonEmptyList(head, tail)
     )

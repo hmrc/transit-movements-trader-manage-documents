@@ -17,12 +17,12 @@
 package services.conversion
 
 import java.time.LocalDate
-
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
+import connectors.ReferenceDataConnector
 import models.DeclarationType
 import models.reference.AdditionalInformation
 import models.reference.Country
@@ -37,7 +37,6 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import services.ReferenceDataNotFound
 import services.ReferenceDataRetrievalError
-import services.ReferenceDataService
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.PermissionToStartUnloading
@@ -118,7 +117,7 @@ class UnloadingPermissionConversionServiceSpec
 
     "must return a view model" in {
 
-      val referenceDataService = mock[ReferenceDataService]
+      val referenceDataService = mock[ReferenceDataConnector]
       when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
       when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
       when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
@@ -195,7 +194,7 @@ class UnloadingPermissionConversionServiceSpec
 
     "must return errors when reference data cannot be retrieved" in {
 
-      val referenceDataService = mock[ReferenceDataService]
+      val referenceDataService = mock[ReferenceDataConnector]
 
       when(referenceDataService.countries()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("countries", 500, "body").invalidNec))
@@ -225,7 +224,7 @@ class UnloadingPermissionConversionServiceSpec
 
     "must return errors when reference data can be retrieved but the conversion fails" in {
 
-      val referenceDataService = mock[ReferenceDataService]
+      val referenceDataService = mock[ReferenceDataConnector]
       when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
       when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
       when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))

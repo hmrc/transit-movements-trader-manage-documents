@@ -16,25 +16,21 @@
 
 package models
 
-import cats.implicits.catsSyntaxTuple2Semigroupal
+import cats.implicits.catsSyntaxTuple3Semigroupal
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
-import utils.DateFormatter
-import utils.LocalDateXMLReader
 
-import java.time.LocalDateTime
+case class PreviousAdministrativeReference(documentType: String, documentReference: String, complimentOfInfo: Option[String])
 
-case class CustomsOfficeOfTransit(reference: String, arrivalTime: Option[LocalDateTime]) {
-  val formattedDate: Option[String] = arrivalTime.map(_.format(DateFormatter.dateTimeFormatter))
-}
+object PreviousAdministrativeReference {
 
-object CustomsOfficeOfTransit {
-  implicit lazy val format: OFormat[CustomsOfficeOfTransit] = Json.format[CustomsOfficeOfTransit]
-
-  implicit val xmlReads: XmlReader[CustomsOfficeOfTransit] = (
-    (__ \ "RefNumRNS1").read[String],
-    (__ \ "ArrTimTRACUS085").read(LocalDateXMLReader.xmlDateTimeReads).optional
-  ).mapN(CustomsOfficeOfTransit.apply)
+  implicit val format: OFormat[PreviousAdministrativeReference] = Json.format[PreviousAdministrativeReference]
+  implicit val xmlReader: XmlReader[PreviousAdministrativeReference] =
+    (
+      (__ \ "PreDocTypAR21").read[String],
+      (__ \ "PreDocRefAR26").read[String],
+      (__ \ "ComOfInfAR29").read[String].optional,
+    ).mapN(apply)
 }

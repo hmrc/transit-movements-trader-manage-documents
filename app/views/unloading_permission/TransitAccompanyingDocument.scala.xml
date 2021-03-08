@@ -31,6 +31,7 @@
     <!--main header-->
 @mainHeader(
     title = "TRANSIT - ACCOMPANYING DOCUMENT",
+    boldHeading = true,
     movementReferenceNumber = tadModel.movementReferenceNumber,
     printVariousConsignors = tadModel.printVariousConsignors,
     consignorOne = tadModel.consignorOne,

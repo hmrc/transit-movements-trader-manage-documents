@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-package services
+package connectors
 
 import cats.implicits._
 import config.ReferenceDataConfig
-import javax.inject.Inject
 import models.reference._
 import play.api.http.Status
 import play.api.libs.json.Reads
+import services.JsonError
+import services.ReferenceDataRetrievalError
+import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.http.HttpReads
 import uk.gov.hmrc.http.HttpResponse
 
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class ReferenceDataService @Inject()(
+class ReferenceDataConnector @Inject()(
   config: ReferenceDataConfig,
   httpClient: HttpClient
 ) {

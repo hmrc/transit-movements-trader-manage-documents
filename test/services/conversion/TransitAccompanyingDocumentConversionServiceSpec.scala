@@ -56,7 +56,7 @@
 //import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 //import services.ReferenceDataNotFound
 //import services.ReferenceDataRetrievalError
-//import services.ReferenceDataService
+//import connectors.ReferenceDataService
 //import services.ValidationResult
 //import uk.gov.hmrc.http.HeaderCarrier
 //

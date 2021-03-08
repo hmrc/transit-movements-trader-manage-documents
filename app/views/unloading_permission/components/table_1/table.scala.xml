@@ -4,6 +4,7 @@
 
 @(
         title: String,
+        boldHeading: Boolean,
         movementReferenceNumber: String,
         printVariousConsignors: Boolean,
         consignorOne: Option[viewmodels.Consignor],
@@ -36,7 +37,7 @@
 
     @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems)
 
-    @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title)
+    @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title, boldHeading)
 
     @row_4(printVariousConsignees, consigneeOne)
 

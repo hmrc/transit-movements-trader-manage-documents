@@ -16,15 +16,12 @@
 
 package viewmodels
 
-import java.time.LocalDate
 import cats.data.NonEmptyList
 import models.ControlResult
-import models.CustomsOfficeOfTransit
 import models.DeclarationType
 import models.GuaranteeDetails
 import models.reference.Country
 import utils.FormattedDate
-import utils.ShortenedString
 
 final case class TransitAccompanyingDocumentPDF(
   movementReferenceNumber: String,
@@ -39,15 +36,14 @@ final case class TransitAccompanyingDocumentPDF(
   grossMass: BigDecimal,
   printBindingItinerary: Boolean,
   authId: Option[String],
+  copyType: Boolean,
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
-  traderAtDestination: Option[TraderAtDestination],
   departureOffice: CustomsOfficeWithOptionalDate,
   destinationOffice: CustomsOfficeWithOptionalDate,
   customsOfficeOfTransit: Seq[CustomsOfficeWithOptionalDate],
   guaranteeDetails: Seq[GuaranteeDetails],
-  presentationOffice: Option[String],
   seals: Seq[String],
   controlResult: Option[ControlResult],
   goodsItems: NonEmptyList[GoodsItem]
