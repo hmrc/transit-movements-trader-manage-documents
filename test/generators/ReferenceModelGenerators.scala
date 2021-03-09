@@ -67,7 +67,7 @@ trait ReferenceModelGenerators extends GeneratorHelpers {
       } yield TransportMode(code.toString, description)
     }
 
-  implicit lazy val arbitraryControlResult: Arbitrary[ControlResultData] =
+  implicit lazy val arbitraryControlResultData: Arbitrary[ControlResultData] =
     Arbitrary {
       for {
         code        <- stringWithMaxLength(2)

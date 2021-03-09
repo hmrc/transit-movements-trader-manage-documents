@@ -90,7 +90,19 @@ object XMLBuilderHelper {
               }
               <SenQuaSD23>{sensitiveInformation.quantity}</SenQuaSD23>
             </SGICODSD2>
-        }
+        } ++
+        goodsItem.previousAdminRef.map(
+          prevAdminRef =>
+            <PREADMREFAR2>
+              <PreDocTypAR21>{prevAdminRef.documentType}</PreDocTypAR21>
+              <PreDocRefAR26>{prevAdminRef.documentReference}</PreDocRefAR26>
+              {
+                prevAdminRef.complimentOfInfo.fold(NodeSeq.Empty){ compliment =>
+                  <ComOfInfAR29>{compliment}</ComOfInfAR29>
+                }
+              }
+            </PREADMREFAR2>
+        )
       }
     </GOOITEGDS>
 

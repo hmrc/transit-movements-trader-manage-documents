@@ -57,7 +57,7 @@ object TransitAccompanyingDocument {
 
   implicit val xmlReader1: XmlReader[TransitAccompanyingDocument] = (xml: NodeSeq) => {
     for {
-      mrn                    <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml)
+      mrn                    <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml) //TODO double check with Luke for IE029
       decType                <- (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType].read(xml)
       countryOfDispatch      <- (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional.read(xml)
       countryOfDestination   <- (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional.read(xml)
@@ -67,7 +67,7 @@ object TransitAccompanyingDocument {
       numberOfItems          <- (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int].read(xml)
       numberOfPackages       <- (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional.read(xml)
       grossMass              <- (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal].read(xml)
-      printBindingItinerary  <- (__ \ "HEAHEA" \ "BinItiHEA246").read[Int].map(_ == 1).read(xml)
+      printBindingItinerary  <- (__ \ "HEAHEA" \ "BinItiHEA246").read[Int].map(_ == 1).read(xml) // TODO steal from frontend
       authId                 <- (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional.read(xml)
       returnCopy             <- (__ \ "HEAHEA" \ "NCTRetCopHEA104").read[Int].map(_ == 1).read(xml)
       principal              <- (__ \ "TRAPRIPC1").read[Principal].read(xml)

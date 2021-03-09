@@ -10,14 +10,15 @@
         table4: table_4.table,
         table5: table_5.table,
         template: DocumentTemplate,
-        pageOne: PageOne
+        pageOne: PageOne,
+        pageTwo: second_page.table
 )
 
 @(tadModel: viewmodels.TransitAccompanyingDocumentPDF)
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo =  if(tadModel.printListOfItems) {
-        Some(second_page.table(
+        Some(pageTwo(
             tadModel.departureOffice.office.id,
             tadModel.movementReferenceNumber,
             tadModel.acceptanceDate.map(_.formattedDate),

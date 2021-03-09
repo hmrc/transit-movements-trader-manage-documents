@@ -30,7 +30,7 @@ import services.ValidationResult
 import services.conversion.TransitAccompanyingDocumentConverter.findReferenceData
 import cats.implicits._
 
-trait Helpers {
+trait ConversionHelpers {
 
   def convertTransportCountry(maybeCountry: Option[String], countries: Seq[Country]): ValidationResult[Option[Country]] =
     maybeCountry match {

@@ -2,6 +2,9 @@
 @import views.xml.unloading_permission.components.second_page.header_table
 
 @import cats.data.NonEmptyList
+
+@this()
+
 @(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: Option[String], goodsItems: NonEmptyList[viewmodels.GoodsItem], declarationType: DeclarationType)
 
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force"> <!-- SEQ 2 -->

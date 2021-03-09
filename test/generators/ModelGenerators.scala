@@ -16,16 +16,15 @@
 
 package generators
 
-import java.time.LocalDate
-
 import models._
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
+import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
+import viewmodels.PreviousDocumentType
+
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 trait ModelGenerators extends GeneratorHelpers {
 
@@ -194,7 +193,6 @@ trait ModelGenerators extends GeneratorHelpers {
 
   implicit lazy val arbitraryGoodsItem: Arbitrary[GoodsItem] =
     Arbitrary {
-
       for {
         itemNumber                <- Gen.choose(1, 99999)
         commodityCode             <- Gen.option(stringWithMaxLength(22))
@@ -205,6 +203,7 @@ trait ModelGenerators extends GeneratorHelpers {
         countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
         countryOfDestination      <- Gen.option(stringWithMaxLength(2))
         producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
+        previousAdminRef          <- listWithMaxSize(2, arbitrary[PreviousAdministrativeReference])
         specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
@@ -221,6 +220,7 @@ trait ModelGenerators extends GeneratorHelpers {
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          previousAdminRef,
           producedDocuments,
           specialMentions,
           consignor,
@@ -287,43 +287,89 @@ trait ModelGenerators extends GeneratorHelpers {
         )
     }
 
-//  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
-//    Arbitrary {
-//      for {
-//        lrn                  <- stringWithMaxLength(22)
-//        declarationType      <- arbitrary[DeclarationType]
-//        countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
-//        countryOfDestination <- Gen.option(stringWithMaxLength(2))
-//        transportId          <- Gen.option(stringWithMaxLength(27))
-//        transportCountry     <- Gen.option(stringWithMaxLength(2))
-//        numberOfItems        <- Gen.choose(1, 99999)
-//        numberOfPackages     <- Gen.option(Gen.choose(1, 9999999))
-//        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-//        principal            <- arbitrary[Principal]
-//        consignor            <- Gen.option(arbitrary[Consignor])
-//        consignee            <- Gen.option(arbitrary[Consignee])
-//        departureOffice      <- stringWithMaxLength(8)
-//        seals                <- listWithMaxSize(2, stringWithMaxLength(20))
-//        goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
-//      } yield
-//        TransitAccompanyingDocument(
-//          lrn,
-//          declarationType,
-//          countryOfDispatch,
-//          countryOfDestination,
-//          transportId,
-//          transportCountry,
-//          numberOfItems,
-//          numberOfPackages,
-//          grossMass,
-//          principal,
-//          consignor,
-//          consignee,
-//          departureOffice,
-//          seals,
-//          goodsItems
-//        )
-//    }
+  implicit lazy val arbitraryCustomsOfficeOfTransit: Arbitrary[CustomsOfficeOfTransit] = Arbitrary {
+    for {
+      reference <- stringWithMaxLength(25)
+      dateTime  <- Gen.option(dateTimeBetween(LocalDateTime.of(1970, 1, 0, 0, 0), LocalDateTime.now()))
+    } yield CustomsOfficeOfTransit(reference, dateTime)
+  }
+
+  implicit lazy val arbitraryGuaranteeReference: Arbitrary[GuaranteeReference] = Arbitrary {
+    for {
+      guaranteeRef      <- Gen.option(stringWithMaxLength(23))
+      otherGuaranteeRef <- stringWithMaxLength(23)
+      notValidForEc     <- Gen.option(arbitrary[Boolean])
+      notValidForOther  <- listWithMaxSize(4, stringWithMaxLength(24))
+    } yield GuaranteeReference(guaranteeRef, if (guaranteeRef.isDefined) None else Some(otherGuaranteeRef), notValidForEc, notValidForOther)
+  }
+
+  implicit lazy val arbitraryGuaranteeDetails: Arbitrary[GuaranteeDetails] = Arbitrary {
+    for {
+      guaranteeType <- Gen.oneOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "A")
+      guaranteeRefs <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeReference])
+    } yield GuaranteeDetails(guaranteeType, guaranteeRefs.toList)
+  }
+
+  implicit lazy val arbitraryControlResult: Arbitrary[ControlResult] = Arbitrary {
+    for {
+      code <- stringWithMaxLength(23)
+      date <- datesBetween(LocalDate.of(1900, 1, 1), LocalDate.now)
+    } yield ControlResult(code, date)
+  }
+
+  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
+    Arbitrary {
+      for {
+        mrn                  <- stringWithMaxLength(22)
+        declarationType      <- arbitrary[DeclarationType]
+        countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
+        countryOfDestination <- Gen.option(stringWithMaxLength(2))
+        transportId          <- Gen.option(stringWithMaxLength(27))
+        transportCountry     <- Gen.option(stringWithMaxLength(2))
+        acceptanceDate       <- datesBetween(LocalDate.of(1970, 1, 1), LocalDate.now())
+        numberOfItems        <- Gen.choose(1, 99999)
+        numberOfPackages     <- Gen.option(Gen.choose(1, 9999999))
+        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        bindingItinerary     <- arbitrary[Boolean]
+        authId               <- Gen.option(stringWithMaxLength(25))
+        returnCopy           <- arbitrary[Boolean]
+        principal            <- arbitrary[Principal]
+        consignor            <- Gen.option(arbitrary[Consignor])
+        consignee            <- Gen.option(arbitrary[Consignee])
+        customsOffOfTransit  <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
+        guaranteeDetails     <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
+        departureOffice      <- stringWithMaxLength(8)
+        destinationOffice    <- stringWithMaxLength(8)
+        controlResult        <- Gen.option(arbitrary[ControlResult])
+        seals                <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+      } yield
+        TransitAccompanyingDocument(
+          mrn,
+          declarationType,
+          countryOfDispatch,
+          countryOfDestination,
+          transportId,
+          transportCountry,
+          acceptanceDate,
+          numberOfItems,
+          numberOfPackages,
+          grossMass,
+          bindingItinerary,
+          authId,
+          returnCopy,
+          principal,
+          consignor,
+          consignee,
+          customsOffOfTransit,
+          guaranteeDetails,
+          departureOffice,
+          destinationOffice,
+          controlResult,
+          seals,
+          goodsItems
+        )
+    }
 
   implicit lazy val arbitraryCountry: Arbitrary[Country] = {
     Arbitrary {
@@ -506,6 +552,32 @@ trait ModelGenerators extends GeneratorHelpers {
       Gen.oneOf(arbitrary[viewmodels.BulkPackage], arbitrary[viewmodels.UnpackedPackage], arbitrary[viewmodels.RegularPackage])
     }
 
+  implicit lazy val arbitraryPreviousDocumentTypes: Arbitrary[PreviousDocumentTypes] =
+    Arbitrary {
+      for {
+        code        <- stringWithMaxLength(6)
+        description <- stringWithMaxLength(50)
+      } yield PreviousDocumentTypes(code, description)
+    }
+
+  implicit lazy val arbitraryPreviousAdministrativeReference: Arbitrary[PreviousAdministrativeReference] = {
+    Arbitrary {
+      for {
+        docType <- Gen.alphaNumStr
+        docRef  <- Gen.alphaNumStr
+        comInf  <- Gen.option(Gen.alphaNumStr)
+      } yield PreviousAdministrativeReference(documentType = docType, documentReference = docRef, complimentOfInfo = comInf)
+    }
+  }
+
+  implicit lazy val arbitraryPreviousDocumentType: Arbitrary[PreviousDocumentType] =
+    Arbitrary {
+      for {
+        prevDocTypes <- arbitrary[PreviousDocumentTypes]
+        prevAdminRef <- arbitrary[PreviousAdministrativeReference]
+      } yield PreviousDocumentType(prevDocTypes, prevAdminRef)
+    }
+
   implicit lazy val arbitraryGoodsItemViewModel: Arbitrary[viewmodels.GoodsItem] = {
     Arbitrary {
 
@@ -519,6 +591,7 @@ trait ModelGenerators extends GeneratorHelpers {
         countryOfDispatch         <- Gen.option(arbitrary[Country])
         countryOfDestination      <- Gen.option(arbitrary[Country])
         producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
+        previousDocTypes          <- listWithMaxSize(2, arbitrary[viewmodels.PreviousDocumentType])
         specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
         consignor                 <- Gen.option(arbitrary[viewmodels.Consignor])
         consignee                 <- Gen.option(arbitrary[viewmodels.Consignee])
@@ -536,6 +609,7 @@ trait ModelGenerators extends GeneratorHelpers {
           countryOfDispatch,
           countryOfDestination,
           producedDocuments,
+          previousDocTypes,
           specialMentions,
           consignor,
           consignee,

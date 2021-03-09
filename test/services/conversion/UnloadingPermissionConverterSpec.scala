@@ -81,6 +81,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             countryOfDispatch = Some(countries.head.code),
             countryOfDestination = Some(countries.head.code),
             producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
+            previousAdminRef = Nil,
             specialMentions = Seq(
               models.SpecialMentionEc(additionalInfo.head.code),
               models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code),
@@ -141,6 +142,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+            previousDocumentTypes = Nil,
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),
               viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
@@ -200,6 +202,7 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             countryOfDispatch = Some(invalidCode),
             countryOfDestination = Some(invalidCode),
             producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
+            previousAdminRef = Nil,
             specialMentions = Seq(
               models.SpecialMentionEc(invalidCode),
               models.SpecialMentionNonEc(invalidCode, invalidCode),

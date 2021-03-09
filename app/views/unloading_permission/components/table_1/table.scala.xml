@@ -21,7 +21,7 @@
         transportCountry: Option[models.reference.Country]
 )
 
-<fo:table width="100%" table-layout="fixed">
+<fo:table width="100%" table-layout="fixed" id="table-1">
 
   <fo:table-column column-number="1" column-width="8mm"/>
   <fo:table-column column-number="2" column-width="8mm"/>

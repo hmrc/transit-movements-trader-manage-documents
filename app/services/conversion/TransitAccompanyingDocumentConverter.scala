@@ -22,7 +22,7 @@ import services._
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
 
-object TransitAccompanyingDocumentConverter extends Converter with Helpers {
+object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 
   def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
                   countries: Seq[Country],

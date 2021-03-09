@@ -27,7 +27,7 @@ import services._
 import utils.DateFormatter
 import utils.StringTransformer._
 
-object UnloadingPermissionConverter extends Converter with Helpers {
+object UnloadingPermissionConverter extends Converter with ConversionHelpers {
 
   def toViewModel(permission: models.PermissionToStartUnloading,
                   countries: Seq[Country],

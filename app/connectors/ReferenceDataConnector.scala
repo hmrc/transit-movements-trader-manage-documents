@@ -96,7 +96,7 @@ class ReferenceDataConnector @Inject()(
 
     val reads = referenceDataReads[PreviousDocumentTypes]("previousDocumentTypes")
 
-    httpClient.GET[ValidationResult[Seq[PreviousDocumentTypes]]](config.previousDocumentTypesUrl)(reads, implicitly, implicitly)
+    httpClient.GET[ValidationResult[Seq[PreviousDocumentTypes]]](config.previousDocumentTypesUrl)(reads, implicitly, implicitly) //TODO refactor for single call
   }
 
   def sensitiveGoodsCode()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[SensitiveGoodsCode]]] = {
@@ -106,7 +106,7 @@ class ReferenceDataConnector @Inject()(
     httpClient.GET[ValidationResult[Seq[SensitiveGoodsCode]]](config.sensitiveGoodsCodeUrl)(reads, implicitly, implicitly)
   }
 
-  def customsOfficeSearch(code: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[CustomsOffice] = {
+  def customsOfficeSearch(customsOfficeId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[CustomsOffice] = {
 
     implicit val reads: HttpReads[CustomsOffice] = (_: String, _: String, response: HttpResponse) =>
       response.status match {
@@ -120,7 +120,7 @@ class ReferenceDataConnector @Inject()(
         case _ => throw new Exception("failed")
     }
 
-    httpClient.GET[CustomsOffice](config.customsOfficeUrl + code)
+    httpClient.GET[CustomsOffice](config.customsOfficeUrl + customsOfficeId)
   }
 
 }

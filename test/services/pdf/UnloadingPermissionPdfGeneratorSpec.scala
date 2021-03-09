@@ -97,6 +97,7 @@ object UnloadingPermissionPdfGeneratorConstants {
     countryOfDispatch = Some(Country("valid", "GB", "United Kingdom")),
     countryOfDestination = Some(Country("valid", "GB", "United Kingdom")),
     producedDocuments = List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
+    previousDocumentTypes = List(),
     specialMentions = List(),
     consignor = None,
     consignee = None,
@@ -115,6 +116,7 @@ object UnloadingPermissionPdfGeneratorConstants {
     countryOfDispatch = Some(Country("valid", "GB", "United Kingdom")),
     countryOfDestination = Some(Country("valid", "GB", "United Kingdom")),
     producedDocuments = List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
+    previousDocumentTypes = Nil,
     specialMentions = List(),
     consignor = Some(
       Consignor("Test Consignor Name",

@@ -10,14 +10,15 @@
         table4: table_4.table,
         table5: table_5.table,
         template: DocumentTemplate,
-        pageOne: PageOne
+        pageOne: PageOne,
+        pageTwo: second_page.table
 )
 
 @(permission: viewmodels.PermissionToStartUnloading)
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo =  if(permission.printListOfItems) {
-        Some(second_page.table(
+        Some(pageTwo(
             permission.departureOffice,
             permission.movementReferenceNumber,
             permission.acceptanceDateFormatted,
