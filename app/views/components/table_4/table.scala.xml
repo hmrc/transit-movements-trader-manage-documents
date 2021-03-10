@@ -1,5 +1,5 @@
-@import views.xml.unloading_permission.components.table_4.row_3
-@import views.xml.unloading_permission.components.table_4.row_4
+@import views.xml.components.table_4.row_3
+@import views.xml.components.table_4.row_4
 @import viewmodels.CustomsOfficeWithOptionalDate
 
 @this()

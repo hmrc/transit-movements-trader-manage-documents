@@ -18,12 +18,10 @@ package services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
 import org.apache.xmlgraphics.util.MimeConstants
-import viewmodels.PermissionToStartUnloading
 import viewmodels.TransitAccompanyingDocumentPDF
-import views.xml.unloading_permission.TransitAccompanyingDocument
+import views.xml.TransitAccompanyingDocument
 
 import javax.inject.Inject
-
 
 //TODO refactor this into one with unloading permission
 class TADPdfGenerator @Inject()(

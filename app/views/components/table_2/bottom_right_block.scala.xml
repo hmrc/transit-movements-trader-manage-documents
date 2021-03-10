@@ -1,4 +1,5 @@
 @import cats.data.NonEmptyList
+@import views.xml.components.table_2.item
 
 @(printListOfItems: Boolean, goodsItems: NonEmptyList[viewmodels.GoodsItem])
 

@@ -1,7 +1,7 @@
-@import views.xml.unloading_permission.DocumentTemplate
-@import views.xml.unloading_permission.components._
-@import views.xml.unloading_permission.PageOne
-@import views.xml.unloading_permission.components.second_page
+@import views.xml.DocumentTemplate
+@import views.xml.components._
+@import views.xml.PageOne
+@import views.xml.components.second_page
 
 @this(
         mainHeader: table_1.table,

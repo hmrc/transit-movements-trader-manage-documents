@@ -17,20 +17,18 @@
 package services.conversion
 
 import cats.data.Validated.Invalid
-
-import javax.inject.Inject
-import services.ValidationResult
-import uk.gov.hmrc.http.HeaderCarrier
 import cats.implicits._
 import connectors.ReferenceDataConnector
+import services.ValidationResult
+import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.CustomsOfficeWithOptionalDate
 
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
 class TransitAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataConnector) {
 
-  //TODO: Rename PermissionToStartUnloading view model
   /*
    * The TAD/UL xsd files are identical, both documents share same structure
    * There's no point having separate templates under views
@@ -45,29 +43,26 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
     val kindsOfPackageFuture        = referenceData.kindsOfPackage()
     val documentTypesFuture         = referenceData.documentTypes()
     val previousDocumentTypesFuture = referenceData.previousDocumentTypes()
-    val departureOfficeFuture = referenceData
+
+    lazy val departureOfficeFuture = referenceData
       .customsOfficeSearch(transitAccompanyingDocument.departureOffice)
-      .map(
-        office => CustomsOfficeWithOptionalDate(office, None)
-      )
-    val destinationOfficeFuture = referenceData
+      .map(office => CustomsOfficeWithOptionalDate(office, None))
+
+    lazy val destinationOfficeFuture = referenceData
       .customsOfficeSearch(transitAccompanyingDocument.destinationOffice)
-      .map(
-        office => CustomsOfficeWithOptionalDate(office, None)
-      )
-    val transitOfficeFuture = Future.sequence(
+      .map(office => CustomsOfficeWithOptionalDate(office, None))
+
+    lazy val transitOfficeFuture = Future.sequence(
       transitAccompanyingDocument.customsOfficeOfTransit.map(
         office =>
           referenceData
             .customsOfficeSearch(office.reference)
             .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 18))
-      ))
+      )
+    )
 
     //TODO: ref data will be needed below when we're building out the view model
-    //    val transportMode  = referenceData.transportMode()
     //    val controlResultCode = referenceData.controlResult()
-    //    val sensitiveGoodsCodeFuture = referenceData.sensitiveGoodsCode()
-    //    val specialMentionsCodeFuture = referenceData.specialMentions()
 
     for {
       countriesResult        <- countriesFuture
@@ -84,7 +79,7 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
         additionalInfoResult,
         kindsOfPackageResult,
         documentTypesResult,
-        previousDocumentResult
+        previousDocumentResult,
       ).mapN(
           (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes) =>
             TransitAccompanyingDocumentConverter.toViewModel(

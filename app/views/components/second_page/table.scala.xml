@@ -1,5 +1,5 @@
-@import views.xml.unloading_permission.components.second_page.item
-@import views.xml.unloading_permission.components.second_page.header_table
+@import views.xml.components.second_page.item
+@import views.xml.components.second_page.header_table
 
 @import cats.data.NonEmptyList
 

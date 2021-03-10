@@ -1,7 +1,7 @@
-@import views.xml.unloading_permission.components.table_1.consignor
-@import views.xml.unloading_permission.components.table_1.declaration_type
-@import views.xml.unloading_permission.components.table_1.forms
-@import views.xml.unloading_permission.components.table_1.loading_lists
+@import views.xml.components.table_1.consignor
+@import views.xml.components.table_1.declaration_type
+@import views.xml.components.table_1.forms
+@import views.xml.components.table_1.loading_lists
 
 @import views.xml.components.barcode
 

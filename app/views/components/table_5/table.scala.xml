@@ -1,4 +1,4 @@
-@import views.xml.unloading_permission.components.binding_itinerary
+@import views.xml.components.binding_itinerary
 @import models.ControlResult
 
 @this()

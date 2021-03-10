@@ -57,7 +57,7 @@ object TransitAccompanyingDocument {
 
   implicit val xmlReader1: XmlReader[TransitAccompanyingDocument] = (xml: NodeSeq) => {
     for {
-      mrn                    <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml) //TODO double check with Luke for IE029
+      mrn                    <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml)
       decType                <- (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType].read(xml)
       countryOfDispatch      <- (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional.read(xml)
       countryOfDestination   <- (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional.read(xml)

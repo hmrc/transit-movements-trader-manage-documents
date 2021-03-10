@@ -1,4 +1,4 @@
-@import views.xml.unloading_permission.components.table_1._
+@import views.xml.components.table_1._
 
 @this()
 

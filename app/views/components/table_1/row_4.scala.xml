@@ -1,3 +1,4 @@
+@import views.xml.components.table_1.consignee
 @(printVariousConsignees: Boolean, consigneeOne: Option[viewmodels.Consignee])
 
 <fo:table-row height="25mm">

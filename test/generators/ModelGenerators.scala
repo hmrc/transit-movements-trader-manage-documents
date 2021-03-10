@@ -290,7 +290,7 @@ trait ModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryCustomsOfficeOfTransit: Arbitrary[CustomsOfficeOfTransit] = Arbitrary {
     for {
       reference <- stringWithMaxLength(25)
-      dateTime  <- Gen.option(dateTimeBetween(LocalDateTime.of(1970, 1, 0, 0, 0), LocalDateTime.now()))
+      dateTime  <- Gen.option(dateTimeBetween(LocalDateTime.of(1970, 1, 1, 0, 0), LocalDateTime.now()))
     } yield CustomsOfficeOfTransit(reference, dateTime)
   }
 

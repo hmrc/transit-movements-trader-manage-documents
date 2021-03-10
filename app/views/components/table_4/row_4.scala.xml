@@ -1,7 +1,7 @@
-@import views.xml.unloading_permission.components.table_4.guaranteeReference
+@import views.xml.components.table_4.guaranteeReference
 
 @import viewmodels.CustomsOfficeWithOptionalDate
-@import views.xml.unloading_permission.components.customs_office
+@import views.xml.components.customs_office
 @(guaranteeDetails: Seq[GuaranteeDetails] = Nil, destination: Option[CustomsOfficeWithOptionalDate] = None)
 <fo:table-cell>
     <fo:block>

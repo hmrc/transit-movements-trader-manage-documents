@@ -46,6 +46,8 @@ class TransitAccompanyingDocumentController @Inject()(
             case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
             case Validated.Invalid(errors) =>
               InternalServerError(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
+          } recover {
+            case e => BadGateway
           }
         case ParseFailure(errors) =>
           Future.successful(BadRequest(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors"))

@@ -1,6 +1,6 @@
 @import viewmodels.CustomsOfficeWithOptionalDate
 
-@import views.xml.unloading_permission.components.customs_office
+@import views.xml.components.customs_office
 @(transitOffices: Seq[CustomsOfficeWithOptionalDate] = Nil)
 <fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">
     <fo:block>

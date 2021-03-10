@@ -1,4 +1,4 @@
-@import views.xml.unloading_permission.components.second_page.item._
+@import views.xml.components.second_page.item._
 @(goodsItem: viewmodels.GoodsItem, declarationType: DeclarationType)
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
@@ -58,7 +58,11 @@
                 }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                <fo:block>--</fo:block>
+                @if(goodsItem.previousDocumentTypes.nonEmpty){
+                    <fo:block>@goodsItem.previousDocumentTypes.map(_.display)</fo:block>
+                } else {
+                    <fo:block>--</fo:block>
+                }
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="3.5mm">

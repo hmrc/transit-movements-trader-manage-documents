@@ -19,7 +19,7 @@ package services.pdf
 import com.dmanchester.playfop.sapi.PlayFop
 import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.PermissionToStartUnloading
-import views.xml.unloading_permission.UnloadingPermissionDocument
+import views.xml.UnloadingPermissionDocument
 
 import javax.inject.Inject
 

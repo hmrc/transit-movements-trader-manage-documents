@@ -19,6 +19,7 @@ package connectors
 import cats.implicits._
 import config.ReferenceDataConfig
 import models.reference._
+import play.api.Logger
 import play.api.http.Status
 import play.api.libs.json.Reads
 import services.JsonError
@@ -33,10 +34,15 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
+case class MalformedReferenceDataException(message: String)                         extends Exception(message)
+case class InvalidReferenceDataStatusException(statusCode: Int, typeOfData: String) extends Exception(s"received $statusCode while retrieving $typeOfData")
+
 class ReferenceDataConnector @Inject()(
   config: ReferenceDataConfig,
   httpClient: HttpClient
 ) {
+
+  val logger: Logger = Logger(s"application.${getClass.getCanonicalName}")
 
   private def referenceDataReads[A](typeOfData: String)(implicit ev: Reads[A]): HttpReads[ValidationResult[Seq[A]]] =
     (_, _, response: HttpResponse) =>
@@ -49,6 +55,24 @@ class ReferenceDataConnector @Inject()(
               result => result.validNec
             )
         case _ => ReferenceDataRetrievalError(typeOfData, response.status, response.body).invalidNec
+    }
+
+  def individualItemReads[T](typeOfData: String)(implicit reads: Reads[T]): HttpReads[T] =
+    (_: String, _: String, response: HttpResponse) =>
+      response.status match {
+        case 200 =>
+          response.json
+            .validate[T]
+            .fold(
+              invalid = _ => {
+                logger.error(s"Failed to validate response for $typeOfData from the reference data service")
+                throw MalformedReferenceDataException(s"Failed to validate response for $typeOfData from the reference data service")
+              },
+              valid = identity
+            )
+        case status =>
+          logger.error(s"received invalid status $status when retrieving $typeOfData from the reference data service")
+          throw InvalidReferenceDataStatusException(status, typeOfData)
     }
 
   def countries()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[Country]]] = {
@@ -96,7 +120,7 @@ class ReferenceDataConnector @Inject()(
 
     val reads = referenceDataReads[PreviousDocumentTypes]("previousDocumentTypes")
 
-    httpClient.GET[ValidationResult[Seq[PreviousDocumentTypes]]](config.previousDocumentTypesUrl)(reads, implicitly, implicitly) //TODO refactor for single call
+    httpClient.GET[ValidationResult[Seq[PreviousDocumentTypes]]](config.previousDocumentTypesUrl)(reads, implicitly, implicitly)
   }
 
   def sensitiveGoodsCode()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[SensitiveGoodsCode]]] = {
@@ -106,21 +130,10 @@ class ReferenceDataConnector @Inject()(
     httpClient.GET[ValidationResult[Seq[SensitiveGoodsCode]]](config.sensitiveGoodsCodeUrl)(reads, implicitly, implicitly)
   }
 
-  def customsOfficeSearch(customsOfficeId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[CustomsOffice] = {
-
-    implicit val reads: HttpReads[CustomsOffice] = (_: String, _: String, response: HttpResponse) =>
-      response.status match {
-        case 200 =>
-          response.json
-            .validate[CustomsOffice]
-            .fold(
-              invalid = _ => throw new Exception("failed"),
-              valid = identity
-            )
-        case _ => throw new Exception("failed")
-    }
-
-    httpClient.GET[CustomsOffice](config.customsOfficeUrl + customsOfficeId)
-  }
+  //TODO refactor to return Validation Result
+  def customsOfficeSearch(customsOfficeId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[CustomsOffice] =
+    httpClient.GET[CustomsOffice](
+      config.customsOfficeUrl + customsOfficeId
+    )(individualItemReads(s"CustomsOffice $customsOfficeId"), implicitly, implicitly)
 
 }

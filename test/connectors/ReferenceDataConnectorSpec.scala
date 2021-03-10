@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package services
+package connectors
 
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import com.github.tomakehurst.wiremock.client.WireMock.get
-import com.github.tomakehurst.wiremock.client.WireMock.ok
-import com.github.tomakehurst.wiremock.client.WireMock.status
-import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import connectors.ReferenceDataConnector
+import com.github.tomakehurst.wiremock.client.WireMock._
 import generators.ReferenceModelGenerators
 import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
@@ -37,11 +33,18 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.JsPath
+import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 import play.api.libs.json.JsonValidationError
+import play.api.test.DefaultAwaitTimeout
+import play.api.test.FutureAwaits
+import services.JsonError
+import services.ReferenceDataRetrievalError
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.logging.RequestId
 import utils.WireMockHelper
 
+import java.util.UUID
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class ReferenceDataConnectorSpec
@@ -54,7 +57,9 @@ class ReferenceDataConnectorSpec
     with ScalaCheckPropertyChecks
     with ReferenceModelGenerators
     with ValidatedMatchers
-    with ValidatedValues {
+    with ValidatedValues
+    with FutureAwaits
+    with DefaultAwaitTimeout {
 
   implicit lazy val arbitraryHC: Arbitrary[HeaderCarrier] =
     Arbitrary(Gen.const(HeaderCarrier()))
@@ -599,6 +604,78 @@ class ReferenceDataConnectorSpec
 
               result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("sensitiveGoodsCode", Seq(expectedError)))
           }
+      }
+    }
+  }
+
+  "Customs office" - {
+    def newRequestId: RequestId = RequestId(UUID.randomUUID().toString)
+    val endpoint                = "/transit-movements-trader-reference-data/customs-office/2345"
+
+    "return a Customs office if found and name is present" in {
+      val requestId = newRequestId
+
+      implicit val hc: HeaderCarrier = HeaderCarrier(requestId = Some(requestId))
+      val validJson: JsValue         = Json.obj("id" -> "SomeCode", "name" -> "Has A Name")
+
+      server.stubFor(
+        get(urlEqualTo(endpoint))
+          .withHeader("X-Request-Id", equalTo(requestId.value))
+          .willReturn(
+            ok(validJson.toString)
+          )
+      )
+
+      service.customsOfficeSearch("2345").futureValue mustBe CustomsOffice("SomeCode", Some("Has A Name"))
+    }
+    "return a Customs office if found and name is not present" in {
+      val requestId = newRequestId
+
+      implicit val hc: HeaderCarrier = HeaderCarrier(requestId = Some(requestId))
+      val validJson: JsValue         = Json.obj("id" -> "SomeCode")
+
+      server.stubFor(
+        get(urlEqualTo(endpoint))
+          .withHeader("X-Request-Id", equalTo(requestId.value))
+          .willReturn(
+            ok(validJson.toString)
+          )
+      )
+
+      service.customsOfficeSearch("2345").futureValue mustBe CustomsOffice("SomeCode", None)
+    }
+    "return a malformed exception if and invalid json is received" in {
+      val requestId = newRequestId
+
+      implicit val hc: HeaderCarrier = HeaderCarrier(requestId = Some(requestId))
+      val validJson: JsValue         = Json.obj("code" -> "SomeCode")
+
+      server.stubFor(
+        get(urlEqualTo(endpoint))
+          .withHeader("X-Request-Id", equalTo(requestId.value))
+          .willReturn(
+            ok(validJson.toString)
+          )
+      )
+
+      intercept[MalformedReferenceDataException](await(service.customsOfficeSearch("2345")))
+    }
+    "return an invalid status exception if and invalid json is received" in {
+      forAll(errorStatuses) {
+        returnStatus =>
+          val requestId = newRequestId
+
+          implicit val hc: HeaderCarrier = HeaderCarrier(requestId = Some(requestId))
+
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .withHeader("X-Request-Id", equalTo(requestId.value))
+              .willReturn(
+                aResponse().withStatus(returnStatus)
+              )
+          )
+
+          intercept[InvalidReferenceDataStatusException](await(service.customsOfficeSearch("2345")))
       }
     }
   }

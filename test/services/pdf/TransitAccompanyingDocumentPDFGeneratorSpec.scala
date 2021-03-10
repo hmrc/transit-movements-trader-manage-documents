@@ -34,7 +34,7 @@ import play.api.Environment
 import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
 import viewmodels.TransitAccompanyingDocumentPDF
-import views.xml.unloading_permission.components._
+import views.xml.components._
 
 class TransitAccompanyingDocumentPDFGeneratorSpec
     extends FreeSpec
@@ -138,24 +138,5 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
           reset(spiedTable1, spiedTable2, spiedTable3, spiedTable4, spiedTable5)
       }
     }
-
-//    "must match with the 'Unloading Permission' template" in {
-//
-//      val pdfPath          = Paths.get("test/resources/unloading-permission-pdf")
-//      val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
-//
-//      val pdfDocument: PDDocument         = PDDocument.load(service.generate(permissionToUnloadViewModel))
-//      val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
-//
-//      try {
-//        val pdfData         = new PDFTextStripper().getText(pdfDocument)
-//        val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
-//        pdfData mustBe expectedPdfData
-//      } finally {
-//        pdfDocument.close()
-//        expectedPdfDocument.close()
-//      }
-//    }
-
   }
 }
