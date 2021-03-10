@@ -55,6 +55,7 @@ final case class TransitAccompanyingDocument(
 
 object TransitAccompanyingDocument {
 
+  //TODO CUSOFFRETCOPOCP is missing
   implicit val xmlReader1: XmlReader[TransitAccompanyingDocument] = (xml: NodeSeq) => {
     for {
       mrn                    <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml)
