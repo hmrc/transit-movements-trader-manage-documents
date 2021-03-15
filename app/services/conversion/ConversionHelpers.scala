@@ -26,6 +26,7 @@ import models.reference.PreviousDocumentTypes
 import services.ConsigneeConverter
 import services.ConsignorConverter
 import services.GoodsItemConverter
+import services.ReturnCopiesCustomsOfficeConverter
 import services.ValidationResult
 import services.conversion.TransitAccompanyingDocumentConverter.findReferenceData
 import cats.implicits._
@@ -48,6 +49,13 @@ trait ConversionHelpers {
     maybeConsignee match {
       case Some(consignee) => ConsigneeConverter.toViewModel(consignee, s"consignee", countries).map(x => Some(x))
       case None            => Valid(None)
+    }
+
+  def convertReturnCopiesCustomsOffice(maybeReturnCopiesCustomsOffice: Option[models.ReturnCopiesCustomsOffice],
+                                       countries: Seq[Country]): ValidationResult[Option[viewmodels.ReturnCopiesCustomsOffice]] =
+    maybeReturnCopiesCustomsOffice match {
+      case Some(customsOffice) => ReturnCopiesCustomsOfficeConverter.toViewModel(customsOffice, s"returnCopiesCustomsOffice", countries).map(x => Some(x))
+      case None                => Valid(None)
     }
 
   def convertCountryOfDispatch(maybeCountryOfDispatch: Option[String], countries: Seq[Country]): ValidationResult[Option[Country]] =

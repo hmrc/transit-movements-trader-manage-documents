@@ -46,7 +46,8 @@
     singleCountryOfDispatch = tadModel.singleCountryOfDispatch,
     singleCountryOfDestination = tadModel.singleCountryOfDestination,
     transportIdentity = tadModel.transportIdentity,
-    transportCountry = tadModel.transportCountry
+    transportCountry = tadModel.transportCountry,
+    returnCopiesCustomsOffice = tadModel.returnCopiesCustomsOffice
 )
 
     <!--packages/goods description/docs/certs-->

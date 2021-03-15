@@ -127,6 +127,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
     ),
     departureOffice = "AB124",
     destinationOffice = "AB125",
+    returnCopiesCustomsOffice = None,
     controlResult = Some(ControlResult("code", LocalDate.of(1990, 2, 3))),
     seals = Seq("seal 1"),
     goodsItems = NonEmptyList.one(
@@ -192,7 +193,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
               transitAccompanyingDocumentGen.copy(
                 principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code),
                 consignor = consignorGenUpdated,
-                consignee = consigneeGenUpdated
+                consignee = consigneeGenUpdated,
+                returnCopiesCustomsOffice = transitAccompanyingDocumentGen.returnCopiesCustomsOffice.map(_.copy(countryCode = countriesGen.code))
               )
 
             val validModelUpdated = validModel.copy(
@@ -207,6 +209,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               principal = transitAccompanyingDocument.principal,
               consignor = transitAccompanyingDocument.consignor,
               consignee = transitAccompanyingDocument.consignee,
+              returnCopiesCustomsOffice = transitAccompanyingDocument.returnCopiesCustomsOffice,
               seals = transitAccompanyingDocument.seals
             )
 
@@ -257,6 +260,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
               departureOffice = CustomsOfficeWithOptionalDate(departureOffice, None),
               destinationOffice = CustomsOfficeWithOptionalDate(destinationOffice, None),
               customsOfficeOfTransit = validModel.customsOfficeOfTransit.map(transit => CustomsOfficeWithOptionalDate(transitOffices, transit.arrivalTime, 18)),
+              returnCopiesCustomsOffice = transitAccompanyingDocument.returnCopiesCustomsOffice.map(office =>
+                viewmodels.ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber, office.postCode, office.city, countriesGen)),
               controlResult = validModel.controlResult,
               guaranteeDetails = validModel.guaranteeDetails.toList,
               seals = transitAccompanyingDocument.seals,
@@ -379,6 +384,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               customsOfficeOfTransit = Nil,
               seals = Nil,
               guaranteeDetails = validModel.guaranteeDetails.toList,
+              returnCopiesCustomsOffice = None,
               controlResult = None,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(

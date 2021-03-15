@@ -320,29 +320,30 @@ trait ModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
     Arbitrary {
       for {
-        mrn                  <- stringWithMaxLength(22)
-        declarationType      <- arbitrary[DeclarationType]
-        countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
-        countryOfDestination <- Gen.option(stringWithMaxLength(2))
-        transportId          <- Gen.option(stringWithMaxLength(27))
-        transportCountry     <- Gen.option(stringWithMaxLength(2))
-        acceptanceDate       <- datesBetween(LocalDate.of(1970, 1, 1), LocalDate.now())
-        numberOfItems        <- Gen.choose(1, 99999)
-        numberOfPackages     <- Gen.option(Gen.choose(1, 9999999))
-        grossMass            <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        bindingItinerary     <- arbitrary[Boolean]
-        authId               <- Gen.option(stringWithMaxLength(25))
-        returnCopy           <- arbitrary[Boolean]
-        principal            <- arbitrary[Principal]
-        consignor            <- Gen.option(arbitrary[Consignor])
-        consignee            <- Gen.option(arbitrary[Consignee])
-        customsOffOfTransit  <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
-        guaranteeDetails     <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
-        departureOffice      <- stringWithMaxLength(8)
-        destinationOffice    <- stringWithMaxLength(8)
-        controlResult        <- Gen.option(arbitrary[ControlResult])
-        seals                <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+        mrn                       <- stringWithMaxLength(22)
+        declarationType           <- arbitrary[DeclarationType]
+        countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
+        countryOfDestination      <- Gen.option(stringWithMaxLength(2))
+        transportId               <- Gen.option(stringWithMaxLength(27))
+        transportCountry          <- Gen.option(stringWithMaxLength(2))
+        acceptanceDate            <- datesBetween(LocalDate.of(1970, 1, 1), LocalDate.now())
+        numberOfItems             <- Gen.choose(1, 99999)
+        numberOfPackages          <- Gen.option(Gen.choose(1, 9999999))
+        grossMass                 <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        bindingItinerary          <- arbitrary[Boolean]
+        authId                    <- Gen.option(stringWithMaxLength(25))
+        returnCopy                <- arbitrary[Boolean]
+        principal                 <- arbitrary[Principal]
+        consignor                 <- Gen.option(arbitrary[Consignor])
+        consignee                 <- Gen.option(arbitrary[Consignee])
+        customsOffOfTransit       <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
+        guaranteeDetails          <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
+        departureOffice           <- stringWithMaxLength(8)
+        destinationOffice         <- stringWithMaxLength(8)
+        returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
+        controlResult             <- Gen.option(arbitrary[ControlResult])
+        seals                     <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems                <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
         TransitAccompanyingDocument(
           mrn,
@@ -365,6 +366,7 @@ trait ModelGenerators extends GeneratorHelpers {
           guaranteeDetails,
           departureOffice,
           destinationOffice,
+          returnCopiesCustomsOffice,
           controlResult,
           seals,
           goodsItems
@@ -623,4 +625,15 @@ trait ModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
     datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
   }
+
+  implicit lazy val arbitraryReturnCopiesCustomsOffice: Arbitrary[ReturnCopiesCustomsOffice] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        countryCode     <- stringWithMaxLength(2)
+      } yield ReturnCopiesCustomsOffice(name, streetAndNumber, postCode, city, countryCode)
+    }
 }

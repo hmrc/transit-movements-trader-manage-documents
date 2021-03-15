@@ -93,7 +93,8 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
               tad.singleCountryOfDispatch,
               tad.singleCountryOfDestination,
               tad.transportIdentity,
-              tad.transportCountry
+              tad.transportCountry,
+              tad.returnCopiesCustomsOffice
             )
 
           verify(spiedTable2, times(1))

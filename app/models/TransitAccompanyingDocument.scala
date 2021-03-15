@@ -23,6 +23,7 @@ import com.lucidchart.open.xtract.__
 import utils.BigDecimalXMLReader._
 import utils.LocalDateXMLReader._
 import utils.NonEmptyListXMLReader.xmlNonEmptyListReads
+import viewmodels.ReturnCopiesCustomsOffice
 
 import java.time.LocalDate
 import scala.xml.NodeSeq
@@ -48,6 +49,7 @@ final case class TransitAccompanyingDocument(
   guaranteeDetails: NonEmptyList[GuaranteeDetails],
   departureOffice: String,
   destinationOffice: String,
+  returnCopiesCustomsOffice: Option[ReturnCopiesCustomsOffice],
   controlResult: Option[ControlResult],
   seals: Seq[String],
   goodsItems: NonEmptyList[GoodsItem]
@@ -55,32 +57,32 @@ final case class TransitAccompanyingDocument(
 
 object TransitAccompanyingDocument {
 
-  //TODO CUSOFFRETCOPOCP is missing
   implicit val xmlReader1: XmlReader[TransitAccompanyingDocument] = (xml: NodeSeq) => {
     for {
-      mrn                    <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml)
-      decType                <- (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType].read(xml)
-      countryOfDispatch      <- (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional.read(xml)
-      countryOfDestination   <- (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional.read(xml)
-      transportIdentity      <- (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional.read(xml)
-      transportCountry       <- (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional.read(xml)
-      acceptanceDate         <- (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate].read(xml)
-      numberOfItems          <- (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int].read(xml)
-      numberOfPackages       <- (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional.read(xml)
-      grossMass              <- (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal].read(xml)
-      printBindingItinerary  <- (__ \ "HEAHEA" \ "BinItiHEA246").read[Int].map(_ == 1).read(xml) // TODO steal from frontend
-      authId                 <- (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional.read(xml)
-      returnCopy             <- (__ \ "HEAHEA" \ "NCTRetCopHEA104").read[Int].map(_ == 1).read(xml)
-      principal              <- (__ \ "TRAPRIPC1").read[Principal].read(xml)
-      consignor              <- (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional.read(xml)
-      consignee              <- (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional.read(xml)
-      customsOfficeOfTransit <- (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeOfTransit]).read(xml)
-      guaranteeDetails       <- (__ \ "GUAGUA").read(xmlNonEmptyListReads[GuaranteeDetails]).read(xml)
-      departureOffice        <- (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String].read(xml)
-      destinationOffice      <- (__ \ "CUSOFFDESEST" \ "RefNumEST1").read[String].read(xml)
-      controlResult          <- (__ \ "CONRESERS").read[ControlResult].optional.read(xml)
-      seals                  <- (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]).read(xml)
-      goodsItems             <- (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem]).read(xml)
+      mrn                       <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml)
+      decType                   <- (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType].read(xml)
+      countryOfDispatch         <- (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional.read(xml)
+      countryOfDestination      <- (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional.read(xml)
+      transportIdentity         <- (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional.read(xml)
+      transportCountry          <- (__ \ "HEAHEA" \ "NatOfMeaOfTraAtDHEA80").read[String].optional.read(xml)
+      acceptanceDate            <- (__ \ "HEAHEA" \ "AccDatHEA158").read[LocalDate].read(xml)
+      numberOfItems             <- (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int].read(xml)
+      numberOfPackages          <- (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional.read(xml)
+      grossMass                 <- (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal].read(xml)
+      printBindingItinerary     <- (__ \ "HEAHEA" \ "BinItiHEA246").read[Int].map(_ == 1).read(xml) // TODO steal from frontend
+      authId                    <- (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional.read(xml)
+      returnCopy                <- (__ \ "HEAHEA" \ "NCTRetCopHEA104").read[Int].map(_ == 1).read(xml)
+      principal                 <- (__ \ "TRAPRIPC1").read[Principal].read(xml)
+      consignor                 <- (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional.read(xml)
+      consignee                 <- (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional.read(xml)
+      customsOfficeOfTransit    <- (__ \ "CUSOFFTRARNS").read(strictReadSeq[CustomsOfficeOfTransit]).read(xml)
+      guaranteeDetails          <- (__ \ "GUAGUA").read(xmlNonEmptyListReads[GuaranteeDetails]).read(xml)
+      departureOffice           <- (__ \ "CUSOFFDEPEPT" \ "RefNumEPT1").read[String].read(xml)
+      destinationOffice         <- (__ \ "CUSOFFDESEST" \ "RefNumEST1").read[String].read(xml)
+      returnCopiesCustomsOffice <- (__ \ "CUSOFFRETCOPOCP").read[ReturnCopiesCustomsOffice].optional.read(xml)
+      controlResult             <- (__ \ "CONRESERS").read[ControlResult].optional.read(xml)
+      seals                     <- (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]).read(xml)
+      goodsItems                <- (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem]).read(xml)
     } yield
       TransitAccompanyingDocument(
         mrn,
@@ -103,6 +105,7 @@ object TransitAccompanyingDocument {
         guaranteeDetails,
         departureOffice,
         destinationOffice,
+        returnCopiesCustomsOffice,
         controlResult,
         seals,
         goodsItems

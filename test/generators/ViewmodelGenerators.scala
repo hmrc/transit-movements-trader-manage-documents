@@ -352,33 +352,45 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     } yield ControlResult(code, date)
   }
 
+  implicit lazy val arbitraryReturnCopiesCustomsOffice: Arbitrary[ReturnCopiesCustomsOffice] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        countryCode     <- arbitrary[Country]
+      } yield ReturnCopiesCustomsOffice(name, streetAndNumber, postCode, city, countryCode)
+    }
+
   implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocumentPDF] =
     Arbitrary {
 
       for {
-        mrn                   <- stringWithMaxLength(17)
-        declarationType       <- arbitrary[DeclarationType]
-        countryOfDispatch     <- Gen.option(arbitrary[Country])
-        countryOfDestination  <- Gen.option(arbitrary[Country])
-        transportId           <- Gen.option(stringWithMaxLength(27))
-        transportCountry      <- Gen.option(arbitrary[Country])
-        acceptanceDate        <- Gen.option(arbitrary[FormattedDate])
-        numberOfItems         <- Gen.choose(1, 99999)
-        numberOfPackages      <- Gen.option(Gen.choose(1, 9999999))
-        grossMass             <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        printBindingItinerary <- arbitrary[Boolean]
-        authId                <- Gen.option(stringWithMaxLength(12))
-        copyType              <- arbitrary[Boolean]
-        principal             <- arbitrary[Principal]
-        consignor             <- Gen.option(arbitrary[Consignor])
-        consignee             <- Gen.option(arbitrary[Consignee])
-        departureOffice       <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
-        destinationOffice     <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
-        cusOfficesOfTransit   <- listWithMaxSize(5, arbitrary[CustomsOfficeWithOptionalDate])
-        guaranteeDetails      <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeDetails])
-        seals                 <- listWithMaxSize(9, stringWithMaxLength(20))
-        controlResult         <- Gen.option(arbitrary[ControlResult])
-        goodsItems            <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        mrn                       <- stringWithMaxLength(17)
+        declarationType           <- arbitrary[DeclarationType]
+        countryOfDispatch         <- Gen.option(arbitrary[Country])
+        countryOfDestination      <- Gen.option(arbitrary[Country])
+        transportId               <- Gen.option(stringWithMaxLength(27))
+        transportCountry          <- Gen.option(arbitrary[Country])
+        acceptanceDate            <- Gen.option(arbitrary[FormattedDate])
+        numberOfItems             <- Gen.choose(1, 99999)
+        numberOfPackages          <- Gen.option(Gen.choose(1, 9999999))
+        grossMass                 <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        printBindingItinerary     <- arbitrary[Boolean]
+        authId                    <- Gen.option(stringWithMaxLength(12))
+        copyType                  <- arbitrary[Boolean]
+        principal                 <- arbitrary[Principal]
+        consignor                 <- Gen.option(arbitrary[Consignor])
+        consignee                 <- Gen.option(arbitrary[Consignee])
+        departureOffice           <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
+        destinationOffice         <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
+        cusOfficesOfTransit       <- listWithMaxSize(5, arbitrary[CustomsOfficeWithOptionalDate])
+        guaranteeDetails          <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeDetails])
+        seals                     <- listWithMaxSize(9, stringWithMaxLength(20))
+        returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
+        controlResult             <- Gen.option(arbitrary[ControlResult])
+        goodsItems                <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield
         TransitAccompanyingDocumentPDF(
           mrn,
@@ -402,6 +414,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           cusOfficesOfTransit,
           guaranteeDetails.toList,
           seals,
+          returnCopiesCustomsOffice,
           controlResult,
           goodsItems
         )

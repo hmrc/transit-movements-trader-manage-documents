@@ -24,6 +24,7 @@ import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.PreviousAdministrativeReference
+import models.ReturnCopiesCustomsOffice
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.CustomsOffice
@@ -89,6 +90,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         departureOffice = "AB124",
         destinationOffice = "AB125",
         controlResult = Some(ControlResult("code", LocalDate.of(1990, 2, 3))),
+        returnCopiesCustomsOffice = Some(ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head.code)),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           models.GoodsItem(
@@ -157,6 +159,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           GuaranteeDetails("A", Seq(GuaranteeReference(Some("RefNum"), None, None, Nil)))
         ),
         seals = Seq("seal 1"),
+        Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
         controlResult = Some(ControlResult("code", LocalDate.of(1990, 2, 3))),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
@@ -239,6 +242,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         ),
         departureOffice = "The Departure office, less than 45 characters long",
         destinationOffice = "The Destination office, less than 45 characters long",
+        returnCopiesCustomsOffice = None,
         controlResult = Some(ControlResult("SomeCode", LocalDate.now())),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(

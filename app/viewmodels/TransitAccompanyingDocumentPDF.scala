@@ -45,6 +45,7 @@ final case class TransitAccompanyingDocumentPDF(
   customsOfficeOfTransit: Seq[CustomsOfficeWithOptionalDate],
   guaranteeDetails: Seq[GuaranteeDetails],
   seals: Seq[String],
+  returnCopiesCustomsOffice: Option[ReturnCopiesCustomsOffice],
   controlResult: Option[ControlResult],
   goodsItems: NonEmptyList[GoodsItem]
 ) {

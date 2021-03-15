@@ -46,7 +46,8 @@
         singleCountryOfDispatch = permission.singleCountryOfDispatch,
         singleCountryOfDestination = permission.singleCountryOfDestination,
         transportIdentity = permission.transportIdentity,
-        transportCountry = permission.transportCountry
+        transportCountry = permission.transportCountry,
+        returnCopiesCustomsOffice = None
     )
 
     <!--packages/goods description/docs/certs-->
