@@ -23,8 +23,6 @@ import com.lucidchart.open.xtract.__
 import utils.BigDecimalXMLReader._
 import utils.LocalDateXMLReader._
 import utils.NonEmptyListXMLReader.xmlNonEmptyListReads
-import viewmodels.ReturnCopiesCustomsOffice
-
 import java.time.LocalDate
 import scala.xml.NodeSeq
 

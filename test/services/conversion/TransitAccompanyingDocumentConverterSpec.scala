@@ -48,11 +48,12 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
   private val sensitiveGoodsInformation = Nil
-  private val departureOffice           = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office")), None)
-  private val destinationOffice         = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office")), None)
-  private val transitOffices            = Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office")), Some(LocalDateTime.of(2020, 1, 1, 0, 0))))
-  private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
-  private val invalidCode               = "non-existent code"
+  private val departureOffice           = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office"), "AB"), None)
+  private val destinationOffice         = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office"), "AB"), None)
+  private val transitOffices = Seq(
+    CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0))))
+  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
+  private val invalidCode           = "non-existent code"
 
   "toViewModel" - {
 
@@ -152,9 +153,10 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
           Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
-        departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office")), None),
-        destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office")), None),
-        customsOfficeOfTransit = Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office")), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))),
+        departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office"), "AB"), None),
+        destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office"), "AB"), None),
+        customsOfficeOfTransit =
+          Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))),
         guaranteeDetails = Seq(
           GuaranteeDetails("A", Seq(GuaranteeReference(Some("RefNum"), None, None, Nil)))
         ),

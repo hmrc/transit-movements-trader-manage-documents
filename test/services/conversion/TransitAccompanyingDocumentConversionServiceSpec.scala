@@ -94,9 +94,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
   private val sensitiveGoodsInformation = Nil
-  private val departureOffice           = CustomsOffice("AB124", Some("Departure Office"))
-  private val destinationOffice         = CustomsOffice("AB125", Some("Destination Office"))
-  private val transitOffices            = CustomsOffice("AB123", Some("Transit Office"))
+  private val departureOffice           = CustomsOffice("AB124", Some("Departure Office"), "AB")
+  private val destinationOffice         = CustomsOffice("AB125", Some("Destination Office"), "AB")
+  private val transitOffices            = CustomsOffice("AB123", Some("Transit Office"), "AB")
   private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
@@ -180,11 +180,11 @@ class TransitAccompanyingDocumentConversionServiceSpec
             when(referenceDataService.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
             when(referenceDataService.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB123", Some("Transit Office")))
+              CustomsOffice("AB123", Some("Transit Office"), "AB"))
             when(referenceDataService.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB124", Some("Departure Office")))
+              CustomsOffice("AB124", Some("Departure Office"), "AB"))
             when(referenceDataService.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB125", Some("Destination Office")))
+              CustomsOffice("AB125", Some("Destination Office"), "AB"))
 
             val consignorGenUpdated = Some(consignorGen.copy(countryCode = "AA"))
             val consigneeGenUpdated = Some(consigneeGen.copy(countryCode = "AA"))
@@ -320,9 +320,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
             when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
             when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB124", Some("Departure Office")))
+              CustomsOffice("AB124", Some("Departure Office"), "AB"))
             when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB125", Some("Destination Office")))
+              CustomsOffice("AB125", Some("Destination Office"), "AB"))
 
             val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
 
@@ -445,11 +445,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
-      when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(CustomsOffice("AB123", Some("Transit Office")))
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB123", Some("Transit Office"), "AB"))
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB124", Some("Departure Office")))
+        CustomsOffice("AB124", Some("Departure Office"), "AB"))
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB125", Some("Destination Office")))
+        CustomsOffice("AB125", Some("Destination Office"), "AB"))
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
 
@@ -474,11 +475,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
       when(referenceDataConnector.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
       when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
-      when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(CustomsOffice("AB123", Some("Transit Office")))
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB123", Some("Transit Office"), "AB"))
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB124", Some("Departure Office")))
+        CustomsOffice("AB124", Some("Departure Office"), "AB"))
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB125", Some("Destination Office")))
+        CustomsOffice("AB125", Some("Destination Office"), "AB"))
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
 

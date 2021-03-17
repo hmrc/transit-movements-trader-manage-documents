@@ -25,7 +25,6 @@ import models.GuaranteeReference
 import models.PreviousAdministrativeReference
 import models.SensitiveGoodsInformation
 import models.reference.AdditionalInformation
-import models.reference.ControlResultData
 import models.reference.Country
 import models.reference.CustomsOffice
 import models.reference.DocumentType
@@ -314,7 +313,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     for {
       id          <- stringWithMaxLength(6)
       description <- Gen.option(stringWithMaxLength(23))
-    } yield CustomsOffice(id, description)
+      countryId   <- nonEmptyString
+    } yield CustomsOffice(id, description, countryId)
   }
   implicit lazy val arbitraryCustomsOfficeWithOptionalDate: Arbitrary[CustomsOfficeWithOptionalDate] = Arbitrary {
     for {

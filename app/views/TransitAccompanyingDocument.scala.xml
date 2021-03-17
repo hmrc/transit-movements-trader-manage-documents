@@ -30,44 +30,44 @@
 
 @pageOneBody = {
     <!--main header-->
-@mainHeader(
-    title = "TRANSIT - ACCOMPANYING DOCUMENT",
-    boldHeading = true,
-    movementReferenceNumber = tadModel.movementReferenceNumber,
-    printVariousConsignors = tadModel.printVariousConsignors,
-    consignorOne = tadModel.consignorOne,
-    declarationType = tadModel.declarationType,
-    printListOfItems = tadModel.printListOfItems,
-    consignor = tadModel.consignor,
-    numberOfItems = tadModel.numberOfItems,
-    totalNumberOfPackages = tadModel.totalNumberOfPackages,
-    printVariousConsignees = tadModel.printVariousConsignees,
-    consigneeOne = tadModel.consigneeOne,
-    singleCountryOfDispatch = tadModel.singleCountryOfDispatch,
-    singleCountryOfDestination = tadModel.singleCountryOfDestination,
-    transportIdentity = tadModel.transportIdentity,
-    transportCountry = tadModel.transportCountry,
-    returnCopiesCustomsOffice = tadModel.returnCopiesCustomsOffice
-)
+    @mainHeader(
+        title = "TRANSIT - ACCOMPANYING DOCUMENT",
+        boldHeading = true,
+        movementReferenceNumber = tadModel.movementReferenceNumber,
+        printVariousConsignors = tadModel.printVariousConsignors,
+        consignorOne = tadModel.consignorOne,
+        declarationType = tadModel.declarationType,
+        printListOfItems = tadModel.printListOfItems,
+        consignor = tadModel.consignor,
+        numberOfItems = tadModel.numberOfItems,
+        totalNumberOfPackages = tadModel.totalNumberOfPackages,
+        printVariousConsignees = tadModel.printVariousConsignees,
+        consigneeOne = tadModel.consigneeOne,
+        singleCountryOfDispatch = tadModel.singleCountryOfDispatch,
+        singleCountryOfDestination = tadModel.singleCountryOfDestination,
+        transportIdentity = tadModel.transportIdentity,
+        transportCountry = tadModel.transportCountry,
+        returnCopiesCustomsOffice = tadModel.returnCopiesCustomsOffice
+    )
 
     <!--packages/goods description/docs/certs-->
-@table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
+    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
 
     <!--transhipment/certification-->
-@table3()
+    @table3()
 
     <!--Principal/TIR Holder/Office of departure-->
-@table4(
-    tadModel.principal,
-    tadModel.departureOffice.reference,
-    tadModel.acceptanceDate.map(_.formattedDate),
-    tadModel.customsOfficeOfTransit,
-    tadModel.guaranteeDetails,
-    Some(tadModel.destinationOffice),
-    tadModel.authId,
-    tadModel.controlResult
-)
+    @table4(
+        tadModel.principal,
+        tadModel.departureOffice.reference,
+        tadModel.acceptanceDate.map(_.formattedDate),
+        tadModel.customsOfficeOfTransit,
+        tadModel.guaranteeDetails,
+        Some(tadModel.destinationOffice),
+        tadModel.authId,
+        tadModel.controlResult
+    )
 
     <!--control by office of departure/destination-->
-@table5(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult)
+    @table5(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult)
 }

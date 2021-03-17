@@ -616,7 +616,7 @@ class ReferenceDataConnectorSpec
       val requestId = newRequestId
 
       implicit val hc: HeaderCarrier = HeaderCarrier(requestId = Some(requestId))
-      val validJson: JsValue         = Json.obj("id" -> "SomeCode", "name" -> "Has A Name")
+      val validJson: JsValue         = Json.obj("id" -> "SomeCode", "name" -> "Has A Name", "countryId" -> "HA")
 
       server.stubFor(
         get(urlEqualTo(endpoint))
@@ -626,13 +626,13 @@ class ReferenceDataConnectorSpec
           )
       )
 
-      service.customsOfficeSearch("2345").futureValue mustBe CustomsOffice("SomeCode", Some("Has A Name"))
+      service.customsOfficeSearch("2345").futureValue mustBe CustomsOffice("SomeCode", Some("Has A Name"), "HA")
     }
     "return a Customs office if found and name is not present" in {
       val requestId = newRequestId
 
       implicit val hc: HeaderCarrier = HeaderCarrier(requestId = Some(requestId))
-      val validJson: JsValue         = Json.obj("id" -> "SomeCode")
+      val validJson: JsValue         = Json.obj("id" -> "SomeCode", "countryId" -> "SC")
 
       server.stubFor(
         get(urlEqualTo(endpoint))
@@ -642,7 +642,7 @@ class ReferenceDataConnectorSpec
           )
       )
 
-      service.customsOfficeSearch("2345").futureValue mustBe CustomsOffice("SomeCode", None)
+      service.customsOfficeSearch("2345").futureValue mustBe CustomsOffice("SomeCode", None, "SC")
     }
     "return a malformed exception if and invalid json is received" in {
       val requestId = newRequestId
