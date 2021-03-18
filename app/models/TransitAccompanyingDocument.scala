@@ -23,6 +23,7 @@ import com.lucidchart.open.xtract.__
 import utils.BigDecimalXMLReader._
 import utils.LocalDateXMLReader._
 import utils.NonEmptyListXMLReader.xmlNonEmptyListReads
+import utils.BinaryToBooleanXMLReader._
 import java.time.LocalDate
 import scala.xml.NodeSeq
 
@@ -67,9 +68,9 @@ object TransitAccompanyingDocument {
       numberOfItems             <- (__ \ "HEAHEA" \ "TotNumOfIteHEA305").read[Int].read(xml)
       numberOfPackages          <- (__ \ "HEAHEA" \ "TotNumOfPacHEA306").read[Int].optional.read(xml)
       grossMass                 <- (__ \ "HEAHEA" \ "TotGroMasHEA307").read[BigDecimal].read(xml)
-      printBindingItinerary     <- (__ \ "HEAHEA" \ "BinItiHEA246").read[Int].map(_ == 1).read(xml) // TODO steal from frontend
+      printBindingItinerary     <- (__ \ "HEAHEA" \ "BinItiHEA246").read[Boolean](xmlBinaryToBooleanReads).read(xml)
       authId                    <- (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional.read(xml)
-      returnCopy                <- (__ \ "HEAHEA" \ "NCTRetCopHEA104").read[Int].map(_ == 1).read(xml)
+      returnCopy                <- (__ \ "HEAHEA" \ "NCTRetCopHEA104").read[Boolean](xmlBinaryToBooleanReads).read(xml)
       principal                 <- (__ \ "TRAPRIPC1").read[Principal].read(xml)
       consignor                 <- (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional.read(xml)
       consignee                 <- (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional.read(xml)

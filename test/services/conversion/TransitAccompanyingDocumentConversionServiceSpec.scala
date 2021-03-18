@@ -261,7 +261,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
               destinationOffice = CustomsOfficeWithOptionalDate(destinationOffice, None),
               customsOfficeOfTransit = validModel.customsOfficeOfTransit.map(transit => CustomsOfficeWithOptionalDate(transitOffices, transit.arrivalTime, 18)),
               returnCopiesCustomsOffice = transitAccompanyingDocument.returnCopiesCustomsOffice.map(office =>
-                viewmodels.ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber, office.postCode, office.city, countriesGen)),
+                viewmodels
+                  .ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber.shorten(32)("***"), office.postCode, office.city, countriesGen)),
               controlResult = validModel.controlResult,
               guaranteeDetails = validModel.guaranteeDetails.toList,
               seals = transitAccompanyingDocument.seals,
