@@ -1,4 +1,5 @@
 @import views.xml.components.binding_itinerary
+@import views.xml.components.table_5.control_results
 @import models.ControlResult
 
 @this()
@@ -35,7 +36,11 @@
                                     <fo:block>Result:</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell display-align="center" font-weight="bold">
-                                    <fo:block/>
+                                    @controlResult.map{ result =>
+                                        @control_results(result)
+                                    }.getOrElse{
+                                        <fo:block/>
+                                    }
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="2mm">

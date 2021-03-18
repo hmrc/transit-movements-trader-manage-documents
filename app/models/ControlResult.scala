@@ -25,7 +25,7 @@ import utils.LocalDateXMLReader._
 import java.time.LocalDate
 
 case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate) {
-  lazy val formattedDate: String = datLimERS69.format(DateFormatter.dateFormatter)
+  lazy val formattedDate: String = datLimERS69.format(DateFormatter.readableDateFormatter)
   def isPrintable: Boolean       = conResCodERS16 == "A3"
 }
 
