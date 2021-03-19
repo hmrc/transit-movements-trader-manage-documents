@@ -57,7 +57,7 @@ class ReferenceDataConnector @Inject()(
         case _ => ReferenceDataRetrievalError(typeOfData, response.status, response.body).invalidNec
     }
 
-  def individualItemReads[T](typeOfData: String)(implicit reads: Reads[T]): HttpReads[T] =
+  private def individualItemReads[T](typeOfData: String)(implicit reads: Reads[T]): HttpReads[T] =
     (_: String, _: String, response: HttpResponse) =>
       response.status match {
         case 200 =>
