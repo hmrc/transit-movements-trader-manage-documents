@@ -14,6 +14,22 @@
  * limitations under the License.
  */
 
+/*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package services.conversion
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
@@ -23,13 +39,21 @@ import cats.scalatest.ValidatedValues
 import generators.ModelGenerators
 import models.Consignee
 import models.Consignor
+import models.ControlResult
+import models.CustomsOfficeOfTransit
 import models.DeclarationType
+import models.GuaranteeDetails
+import models.GuaranteeReference
+import models.PreviousAdministrativeReference
 import models.TransitAccompanyingDocument
 import models.reference.AdditionalInformation
 import models.reference.Country
+import models.reference.CustomsOffice
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import models.reference.PreviousDocumentTypes
 import org.mockito.Matchers.any
+import org.mockito.Matchers.{eq => eqTo}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec
@@ -40,13 +64,19 @@ import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import services.ReferenceDataNotFound
 import services.ReferenceDataRetrievalError
-import services.ReferenceDataService
+import connectors.ReferenceDataConnector
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
+import utils.FormattedDate
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import utils.StringTransformer._
+import viewmodels.CustomsOfficeWithOptionalDate
+import viewmodels.PreviousDocumentType
+
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class TransitAccompanyingDocumentConversionServiceSpec
     extends FreeSpec
@@ -64,24 +94,41 @@ class TransitAccompanyingDocumentConversionServiceSpec
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
   private val sensitiveGoodsInformation = Nil
+  private val departureOffice           = CustomsOffice("AB124", Some("Departure Office"), "AB")
+  private val destinationOffice         = CustomsOffice("AB125", Some("Destination Office"), "AB")
+  private val transitOffices            = CustomsOffice("AB123", Some("Transit Office"), "AB")
+  private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
   val validModel = models.TransitAccompanyingDocument(
-    localReferenceNumber = "lrn",
+    movementReferenceNumber = "mrn",
     declarationType = DeclarationType.T1,
     countryOfDispatch = Some(countries.head.code),
     countryOfDestination = Some(countries.head.code),
     transportIdentity = Some("identity"),
     transportCountry = Some(countries.head.code),
+    acceptanceDate = LocalDate.of(2020, 1, 1),
     numberOfItems = 1,
     numberOfPackages = Some(3),
     grossMass = 1.0,
+    printBindingItinerary = true,
+    authId = Some("AuthId"),
+    returnCopy = false,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
     consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
-    departureOffice = "The Departure office, less than 45 characters long",
+    customsOfficeOfTransit = Seq(
+      CustomsOfficeOfTransit("AB123", Some(LocalDateTime.of(2020, 1, 1, 1, 1)))
+    ),
+    guaranteeDetails = NonEmptyList.one(
+      GuaranteeDetails("A", Seq(GuaranteeReference(Some("RefNum"), None, None, Nil)))
+    ),
+    departureOffice = "AB124",
+    destinationOffice = "AB125",
+    returnCopiesCustomsOffice = None,
+    controlResult = Some(ControlResult("code", LocalDate.of(1990, 2, 3))),
     seals = Seq("seal 1"),
     goodsItems = NonEmptyList.one(
       models.GoodsItem(
@@ -93,6 +140,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        previousAdminRef = Seq(
+          PreviousAdministrativeReference("123", "ABABA", None)
+        ),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         specialMentions = Seq(
           models.SpecialMentionEc(additionalInfo.head.code),
@@ -122,11 +172,19 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
         forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
           (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn) =>
-            val referenceDataService = mock[ReferenceDataService]
+            val referenceDataService = mock[ReferenceDataConnector]
             when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
             when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
             when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
             when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+            when(referenceDataService.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
+
+            when(referenceDataService.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
+              CustomsOffice("AB123", Some("Transit Office"), "AB"))
+            when(referenceDataService.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
+              CustomsOffice("AB124", Some("Departure Office"), "AB"))
+            when(referenceDataService.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
+              CustomsOffice("AB125", Some("Destination Office"), "AB"))
 
             val consignorGenUpdated = Some(consignorGen.copy(countryCode = "AA"))
             val consigneeGenUpdated = Some(consigneeGen.copy(countryCode = "AA"))
@@ -135,7 +193,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
               transitAccompanyingDocumentGen.copy(
                 principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code),
                 consignor = consignorGenUpdated,
-                consignee = consigneeGenUpdated
+                consignee = consigneeGenUpdated,
+                returnCopiesCustomsOffice = transitAccompanyingDocumentGen.returnCopiesCustomsOffice.map(_.copy(countryCode = countriesGen.code))
               )
 
             val validModelUpdated = validModel.copy(
@@ -150,22 +209,24 @@ class TransitAccompanyingDocumentConversionServiceSpec
               principal = transitAccompanyingDocument.principal,
               consignor = transitAccompanyingDocument.consignor,
               consignee = transitAccompanyingDocument.consignee,
-              departureOffice = transitAccompanyingDocument.departureOffice,
+              returnCopiesCustomsOffice = transitAccompanyingDocument.returnCopiesCustomsOffice,
               seals = transitAccompanyingDocument.seals
             )
 
-            val expectedResult = viewmodels.PermissionToStartUnloading(
-              movementReferenceNumber = mrn,
+            val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
+              movementReferenceNumber = validModelUpdated.movementReferenceNumber,
               declarationType = transitAccompanyingDocument.declarationType,
               singleCountryOfDispatch = Some(countriesGen),
               singleCountryOfDestination = Some(countriesGen),
               transportIdentity = transitAccompanyingDocument.transportIdentity,
               transportCountry = Some(countriesGen),
-              acceptanceDate = None,
-              acceptanceDateFormatted = None,
+              acceptanceDate = Some(FormattedDate(validModel.acceptanceDate)),
               numberOfItems = transitAccompanyingDocument.numberOfItems,
               numberOfPackages = transitAccompanyingDocument.numberOfPackages,
               grossMass = transitAccompanyingDocument.grossMass,
+              printBindingItinerary = validModel.printBindingItinerary,
+              authId = validModel.authId,
+              copyType = validModel.returnCopy,
               principal = viewmodels.Principal(
                 transitAccompanyingDocument.principal.name,
                 transitAccompanyingDocument.principal.streetAndNumber,
@@ -196,10 +257,14 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   countries.head,
                   transitAccompanyingDocument.consignee.get.eori
                 )),
-              traderAtDestination = None,
-              departureOffice = transitAccompanyingDocument.departureOffice,
-              departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
-              presentationOffice = None,
+              departureOffice = CustomsOfficeWithOptionalDate(departureOffice, None),
+              destinationOffice = CustomsOfficeWithOptionalDate(destinationOffice, None),
+              customsOfficeOfTransit = validModel.customsOfficeOfTransit.map(transit => CustomsOfficeWithOptionalDate(transitOffices, transit.arrivalTime, 18)),
+              returnCopiesCustomsOffice = transitAccompanyingDocument.returnCopiesCustomsOffice.map(office =>
+                viewmodels
+                  .ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber.shorten(32)("***"), office.postCode, office.city, countriesGen)),
+              controlResult = validModel.controlResult,
+              guaranteeDetails = validModel.guaranteeDetails.toList,
               seals = transitAccompanyingDocument.seals,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
@@ -212,6 +277,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+                  previousDocumentTypes =
+                    validModel.goodsItems.head.previousAdminRef.map(ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)),
                   specialMentions = Seq(
                     viewmodels.SpecialMentionEc(additionalInfo.head),
                     viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
@@ -236,24 +303,29 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
             val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
 
-            val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModelUpdated, mrn).futureValue
+            val result: ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue
 
             result.valid.value mustEqual expectedResult
         }
-
       }
 
       "mandatory data exists" in {
 
         forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], stringWithMaxLength(17)) {
           (countriesGen, transitAccompanyingDocumentGen, mrn) =>
-            val referenceDataService = mock[ReferenceDataService]
-            when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
-            when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
-            when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
-            when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+            val referenceDataConnector = mock[ReferenceDataConnector]
+            when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
+            when(referenceDataConnector.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
+            when(referenceDataConnector.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
+            when(referenceDataConnector.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+            when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
-            val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
+            when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
+              CustomsOffice("AB124", Some("Departure Office"), "AB"))
+            when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
+              CustomsOffice("AB125", Some("Destination Office"), "AB"))
+
+            val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
 
             val transitAccompanyingDocument =
               transitAccompanyingDocumentGen.copy(principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code))
@@ -265,27 +337,37 @@ class TransitAccompanyingDocumentConversionServiceSpec
               transportIdentity = None,
               transportCountry = None,
               numberOfItems = transitAccompanyingDocument.numberOfItems,
-              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
+              numberOfPackages = None,
               grossMass = transitAccompanyingDocument.grossMass,
+              printBindingItinerary = transitAccompanyingDocument.printBindingItinerary,
+              authId = None,
+              returnCopy = transitAccompanyingDocument.returnCopy,
               principal = transitAccompanyingDocument.principal,
               consignor = None,
               consignee = None,
-              departureOffice = transitAccompanyingDocument.departureOffice,
+              customsOfficeOfTransit = Nil,
+              departureOffice = validModel.departureOffice,
+              destinationOffice = validModel.destinationOffice,
+              controlResult = None,
+              goodsItems = validModel.goodsItems
+                .map(_.copy(previousAdminRef = Nil)),
               seals = Nil
             )
 
-            val expectedResult = viewmodels.PermissionToStartUnloading(
-              movementReferenceNumber = mrn,
+            val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
+              movementReferenceNumber = validModel.movementReferenceNumber,
               declarationType = transitAccompanyingDocument.declarationType,
               singleCountryOfDispatch = None,
               singleCountryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
-              acceptanceDate = None,
-              acceptanceDateFormatted = None,
+              acceptanceDate = Some(FormattedDate(validModel.acceptanceDate)),
               numberOfItems = transitAccompanyingDocument.numberOfItems,
-              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
+              numberOfPackages = None,
               grossMass = transitAccompanyingDocument.grossMass,
+              authId = None,
+              copyType = transitAccompanyingDocument.returnCopy,
+              printBindingItinerary = transitAccompanyingDocument.printBindingItinerary,
               principal = viewmodels.Principal(
                 transitAccompanyingDocument.principal.name,
                 transitAccompanyingDocument.principal.streetAndNumber,
@@ -298,11 +380,13 @@ class TransitAccompanyingDocumentConversionServiceSpec
               ),
               consignor = None,
               consignee = None,
-              traderAtDestination = None,
-              departureOffice = transitAccompanyingDocument.departureOffice,
-              departureOfficeTrimmed = transitAccompanyingDocument.departureOffice.shorten(45)("***"),
-              presentationOffice = None,
+              departureOffice = CustomsOfficeWithOptionalDate(departureOffice, None),
+              destinationOffice = CustomsOfficeWithOptionalDate(destinationOffice, None),
+              customsOfficeOfTransit = Nil,
               seals = Nil,
+              guaranteeDetails = validModel.guaranteeDetails.toList,
+              returnCopiesCustomsOffice = None,
+              controlResult = None,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
                   itemNumber = 1,
@@ -314,6 +398,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+                  previousDocumentTypes = Nil,
                   specialMentions = Seq(
                     viewmodels.SpecialMentionEc(additionalInfo.head),
                     viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
@@ -336,7 +421,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               )
             )
 
-            val result: ValidationResult[viewmodels.PermissionToStartUnloading] = service.toViewModel(validModelUpdated, mrn).futureValue
+            val result: ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue
 
             result.valid.value mustEqual expectedResult
         }
@@ -345,23 +430,32 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
     "must return errors when reference data cannot be retrieved" in {
 
-      val referenceDataService = mock[ReferenceDataService]
+      val referenceDataConnector = mock[ReferenceDataConnector]
 
-      when(referenceDataService.countries()(any(), any()))
+      when(referenceDataConnector.countries()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("countries", 500, "body").invalidNec))
 
-      when(referenceDataService.kindsOfPackage()(any(), any()))
+      when(referenceDataConnector.kindsOfPackage()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("kindsOfPackage", 501, "body").invalidNec))
 
-      when(referenceDataService.documentTypes()(any(), any()))
+      when(referenceDataConnector.documentTypes()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("documentTypes", 502, "body").invalidNec))
 
-      when(referenceDataService.additionalInformation()(any(), any()))
+      when(referenceDataConnector.additionalInformation()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("additionalInformation", 503, "body").invalidNec))
 
-      val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
+      when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
-      val result = service.toViewModel(validModel, "mrn").futureValue
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB123", Some("Transit Office"), "AB"))
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB124", Some("Departure Office"), "AB"))
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB125", Some("Destination Office"), "AB"))
+
+      val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
+
+      val result = service.toViewModel(validModel).futureValue
 
       val expectedErrors = Seq(
         ReferenceDataRetrievalError("countries", 500, "body"),
@@ -375,17 +469,25 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
     "must return errors when reference data can be retrieved but the conversion fails" in {
 
-      val referenceDataService = mock[ReferenceDataService]
-      when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
-      when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
-      when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
-      when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+      val referenceDataConnector = mock[ReferenceDataConnector]
+      when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
+      when(referenceDataConnector.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
+      when(referenceDataConnector.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
+      when(referenceDataConnector.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
+      when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
-      val service = new TransitAccompanyingDocumentConversionService(referenceDataService)
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB123", Some("Transit Office"), "AB"))
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB124", Some("Departure Office"), "AB"))
+      when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
+        CustomsOffice("AB125", Some("Destination Office"), "AB"))
+
+      val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
 
       val invalidRefData = validModel copy (countryOfDispatch = Some("non-existent code"))
 
-      val result = service.toViewModel(invalidRefData, "mrn").futureValue
+      val result = service.toViewModel(invalidRefData).futureValue
 
       result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("countryOfDispatch", "non-existent code"))
     }

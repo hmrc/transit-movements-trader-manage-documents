@@ -31,6 +31,7 @@ final case class GoodsItem(
   countryOfDispatch: Option[Country],
   countryOfDestination: Option[Country],
   producedDocuments: Seq[ProducedDocument],
+  previousDocumentTypes: Seq[PreviousDocumentType],
   specialMentions: Seq[SpecialMention],
   consignor: Option[Consignor],
   consignee: Option[Consignee],

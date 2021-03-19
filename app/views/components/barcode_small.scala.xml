@@ -1,8 +1,8 @@
-@(permission: viewmodels.PermissionToStartUnloading)
+@(movementReferenceNumber: String)
 <fo:instream-foreign-object>
   <barcode:barcode
       xmlns:barcode="http://barcode4j.krysalis.org/ns"
-      message="@permission.movementReferenceNumber">
+      message="@movementReferenceNumber">
     <barcode:code128>
       <barcode:height>10mm</barcode:height>
       <barcode:module-width>0.28mm</barcode:module-width>

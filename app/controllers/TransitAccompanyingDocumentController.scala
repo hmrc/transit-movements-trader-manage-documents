@@ -23,51 +23,34 @@ import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
 import services.conversion.TransitAccompanyingDocumentConversionService
-import services.pdf.UnloadingPermissionPdfGenerator
+import services.pdf.TADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 
-import java.io.File
-import java.nio.file.Files
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.NodeSeq
 
-trait TransitAccompanyingDocumentController {
-  def get(): Action[NodeSeq]
-}
-
-class LiveTransitAccompanyingDocumentController @Inject()(
+class TransitAccompanyingDocumentController @Inject()(
   conversionService: TransitAccompanyingDocumentConversionService,
-  pdf: UnloadingPermissionPdfGenerator,
+  pdf: TADPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
-    extends BackendController(cc)
-    with TransitAccompanyingDocumentController {
+    extends BackendController(cc) {
 
   def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
       XMLToTransitAccompanyingDocument.convert(request.body) match {
         case ParseSuccess(transitAccompanyingDocument) =>
-          conversionService.toViewModel(transitAccompanyingDocument, "mrn").map {
+          conversionService.toViewModel(transitAccompanyingDocument).map {
             case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
-            case Validated.Invalid(errors)  => InternalServerError(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
+            case Validated.Invalid(errors) =>
+              InternalServerError(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
+          } recover {
+            case e => BadGateway
           }
         case ParseFailure(errors) =>
           Future.successful(BadRequest(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors"))
       }
-  }
-}
-
-class DummyTransitAccompanyingDocumentController @Inject()(
-  cc: ControllerComponents
-)(implicit ec: ExecutionContext)
-    extends BackendController(cc)
-    with TransitAccompanyingDocumentController {
-
-  def get(): Action[NodeSeq] = Action(parse.xml) {
-    implicit request =>
-      val blankPdf = Files.readAllBytes(new File(getClass.getResource(s"/files/EmptyTAD.pdf").getPath).toPath)
-      Ok(blankPdf)
   }
 }

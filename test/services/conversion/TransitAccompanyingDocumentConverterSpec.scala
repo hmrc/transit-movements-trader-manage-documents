@@ -18,14 +18,28 @@ package services.conversion
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
+import models.ControlResult
+import models.CustomsOfficeOfTransit
 import models.DeclarationType
+import models.GuaranteeDetails
+import models.GuaranteeReference
+import models.PreviousAdministrativeReference
+import models.ReturnCopiesCustomsOffice
 import models.reference.AdditionalInformation
 import models.reference.Country
+import models.reference.CustomsOffice
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import models.reference.PreviousDocumentTypes
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import services.ReferenceDataNotFound
+import utils.FormattedDate
+import viewmodels.CustomsOfficeWithOptionalDate
+import viewmodels.PreviousDocumentType
+
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
@@ -34,23 +48,31 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
   private val sensitiveGoodsInformation = Nil
-
-  private val invalidCode = "non-existent code"
+  private val departureOffice           = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office"), "AB"), None)
+  private val destinationOffice         = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office"), "AB"), None)
+  private val transitOffices = Seq(
+    CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0))))
+  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
+  private val invalidCode           = "non-existent code"
 
   "toViewModel" - {
 
     "must return a view model when all of the necessary reference data can be found" in {
 
       val model = models.TransitAccompanyingDocument(
-        localReferenceNumber = "lrn",
+        movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head.code),
+        acceptanceDate = LocalDate.of(2020, 1, 1),
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 1.0,
+        printBindingItinerary = true,
+        authId = Some("AuthId"),
+        returnCopy = false,
         principal = models.Principal("Principal name",
                                      "Principal street",
                                      "Principal postCode",
@@ -60,7 +82,16 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
                                      Some("tir")),
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
-        departureOffice = "Departure office",
+        customsOfficeOfTransit = Seq(
+          CustomsOfficeOfTransit("AB123", Some(LocalDateTime.of(2020, 1, 1, 0, 0)))
+        ),
+        guaranteeDetails = NonEmptyList.one(
+          GuaranteeDetails("A", Seq(GuaranteeReference(Some("RefNum"), None, None, Nil)))
+        ),
+        departureOffice = "AB124",
+        destinationOffice = "AB125",
+        controlResult = Some(ControlResult("code", LocalDate.of(1990, 2, 3))),
+        returnCopiesCustomsOffice = Some(ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head.code)),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           models.GoodsItem(
@@ -72,6 +103,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head.code),
             countryOfDestination = Some(countries.head.code),
+            previousAdminRef = Seq(
+              PreviousAdministrativeReference("123", "ABABA", None)
+            ),
             producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(additionalInfo.head.code),
@@ -93,18 +127,20 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val expectedResult = viewmodels.PermissionToStartUnloading(
+      val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
         transportCountry = Some(countries.head),
-        acceptanceDate = None,
-        acceptanceDateFormatted = None,
+        acceptanceDate = Some(FormattedDate(LocalDate.of(2020, 1, 1))),
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 1.0,
+        printBindingItinerary = true,
+        authId = Some("AuthId"),
+        copyType = false,
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",
                                          "Principal street",
@@ -117,11 +153,16 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
           Some(viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
-        traderAtDestination = None,
-        departureOffice = "Departure office",
-        departureOfficeTrimmed = "Departure office",
-        presentationOffice = None,
+        departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office"), "AB"), None),
+        destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office"), "AB"), None),
+        customsOfficeOfTransit =
+          Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))),
+        guaranteeDetails = Seq(
+          GuaranteeDetails("A", Seq(GuaranteeReference(Some("RefNum"), None, None, Nil)))
+        ),
         seals = Seq("seal 1"),
+        Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
+        controlResult = Some(ControlResult("code", LocalDate.of(1990, 2, 3))),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
             itemNumber = 1,
@@ -133,6 +174,12 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
+            previousDocumentTypes = Seq(
+              PreviousDocumentType(
+                PreviousDocumentTypes("123", "Some Description"),
+                PreviousAdministrativeReference("123", "ABABA", None)
+              )
+            ),
             specialMentions = Seq(
               viewmodels.SpecialMentionEc(additionalInfo.head),
               viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
@@ -155,7 +202,15 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result = TransitAccompanyingDocumentConverter.toViewModel(model,
+                                                                    countries,
+                                                                    additionalInfo,
+                                                                    kindsOfPackage,
+                                                                    documentTypes,
+                                                                    departureOffice,
+                                                                    destinationOffice,
+                                                                    transitOffices,
+                                                                    previousDocumentTypes)
 
       result.valid.value mustEqual expectedResult
     }
@@ -163,20 +218,34 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
     "must return errors when codes cannot be found in the reference data" in {
 
       val model = models.TransitAccompanyingDocument(
-        localReferenceNumber = "lrn",
+        movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         countryOfDispatch = Some(invalidCode),
         countryOfDestination = Some(invalidCode),
         transportIdentity = Some("identity"),
         transportCountry = Some(invalidCode),
+        acceptanceDate = LocalDate.now(),
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 1.0,
+        printBindingItinerary = true,
+        authId = Some("SomeId"),
+        returnCopy = false,
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         consignor = None,
         consignee = None,
+        customsOfficeOfTransit = Seq(
+          CustomsOfficeOfTransit("SomeRef", Some(LocalDateTime.now()))
+        ),
+        guaranteeDetails = NonEmptyList(
+          GuaranteeDetails("A", Seq(GuaranteeReference(Some("ref"), None, None, Nil))),
+          Nil
+        ),
         departureOffice = "The Departure office, less than 45 characters long",
+        destinationOffice = "The Destination office, less than 45 characters long",
+        returnCopiesCustomsOffice = None,
+        controlResult = Some(ControlResult("SomeCode", LocalDate.now())),
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           models.GoodsItem(
@@ -188,6 +257,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(invalidCode),
             countryOfDestination = Some(invalidCode),
+            previousAdminRef = Seq(
+              PreviousAdministrativeReference(invalidCode, "ABASD", Some("Something"))
+            ),
             producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
             specialMentions = Seq(
               models.SpecialMentionEc(invalidCode),
@@ -209,7 +281,15 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         )
       )
 
-      val result = TransitAccompanyingDocumentConverter.toViewModel("mrn", model, countries, additionalInfo, kindsOfPackage, documentTypes)
+      val result = TransitAccompanyingDocumentConverter.toViewModel(model,
+                                                                    countries,
+                                                                    additionalInfo,
+                                                                    kindsOfPackage,
+                                                                    documentTypes,
+                                                                    departureOffice,
+                                                                    destinationOffice,
+                                                                    transitOffices,
+                                                                    previousDocumentTypes)
 
       val expectedErrors = Seq(
         ReferenceDataNotFound("countryOfDispatch", invalidCode),
@@ -219,6 +299,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         ReferenceDataNotFound("goodsItems[0].countryOfDispatch", invalidCode),
         ReferenceDataNotFound("goodsItems[0].countryOfDestination", invalidCode),
         ReferenceDataNotFound("goodsItems[0].producedDocuments[0].documentType", invalidCode),
+        ReferenceDataNotFound("goodsItems[0].previousAdministrativeReference[0].previousDocumentTypes", invalidCode),
         ReferenceDataNotFound("goodsItems[0].specialMentions[0].additionalInformationCoded", invalidCode),
         ReferenceDataNotFound("goodsItems[0].specialMentions[1].countryCode", invalidCode),
         ReferenceDataNotFound("goodsItems[0].specialMentions[1].additionalInformationCoded", invalidCode),

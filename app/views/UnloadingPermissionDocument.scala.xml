@@ -1,0 +1,64 @@
+@import views.xml.DocumentTemplate
+@import views.xml.components._
+@import views.xml.PageOne
+@import views.xml.components.second_page
+
+@this(
+        mainHeader: table_1.table,
+        table2: table_2.table,
+        table3: table_3.table,
+        table4: table_4.table,
+        table5: table_5.table,
+        template: DocumentTemplate,
+        pageOne: PageOne,
+        pageTwo: second_page.table
+)
+
+@(permission: viewmodels.PermissionToStartUnloading)
+@template(
+    pageOne = pageOne(pageOneBody),
+    pageTwo =  if(permission.printListOfItems) {
+        Some(pageTwo(
+            permission.departureOffice,
+            permission.movementReferenceNumber,
+            permission.acceptanceDateFormatted,
+            permission.goodsItems,
+            permission.declarationType
+        ))
+    } else None
+)
+
+@pageOneBody = {
+    <!--main header-->
+    @mainHeader(
+        title = "UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT",
+        boldHeading = false,
+        movementReferenceNumber = permission.movementReferenceNumber,
+        printVariousConsignors = permission.printVariousConsignors,
+        consignorOne = permission.consignorOne,
+        declarationType = permission.declarationType,
+        printListOfItems = permission.printListOfItems,
+        consignor = permission.consignor,
+        numberOfItems = permission.numberOfItems,
+        totalNumberOfPackages = permission.totalNumberOfPackages,
+        printVariousConsignees = permission.printVariousConsignees,
+        consigneeOne = permission.consigneeOne,
+        singleCountryOfDispatch = permission.singleCountryOfDispatch,
+        singleCountryOfDestination = permission.singleCountryOfDestination,
+        transportIdentity = permission.transportIdentity,
+        transportCountry = permission.transportCountry,
+        returnCopiesCustomsOffice = None
+    )
+
+    <!--packages/goods description/docs/certs-->
+    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass)
+
+    <!--transhipment/certification-->
+    @table3()
+
+    <!--Principal/TIR Holder/Office of departure-->
+    @table4(permission.principal, permission.departureOfficeTrimmed, permission.acceptanceDateFormatted)
+
+    <!--control by office of departure/destination-->
+    @table5(permission.seals)
+}

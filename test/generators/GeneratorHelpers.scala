@@ -18,8 +18,8 @@ package generators
 
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneOffset
-
 import cats.data.NonEmptyList
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
@@ -59,6 +59,17 @@ trait GeneratorHelpers {
     Gen.choose(toMillis(min), toMillis(max)).map {
       millis =>
         Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
+    }
+  }
+
+  def dateTimeBetween(min: LocalDateTime, max: LocalDateTime): Gen[LocalDateTime] = {
+
+    def toMillis(date: LocalDateTime): Long =
+      date.atZone(ZoneOffset.UTC).toInstant.toEpochMilli
+
+    Gen.choose(toMillis(min), toMillis(max)).map {
+      millis =>
+        Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDateTime
     }
   }
 }

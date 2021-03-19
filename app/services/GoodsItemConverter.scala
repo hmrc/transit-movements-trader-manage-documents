@@ -19,10 +19,12 @@ package services
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
+import models.PreviousAdministrativeReference
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import models.reference.PreviousDocumentTypes
 
 object GoodsItemConverter extends Converter {
 
@@ -31,7 +33,18 @@ object GoodsItemConverter extends Converter {
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.GoodsItem] = {
+                  documentTypes: Seq[DocumentType],
+                  previousDocumentTypes: Seq[PreviousDocumentTypes] = Nil,
+                  previousAdministrativeReferences: Seq[PreviousAdministrativeReference] = Nil): ValidationResult[viewmodels.GoodsItem] = {
+
+    def convertPreviousDocumentTypes(docs: Seq[models.PreviousAdministrativeReference]): ValidationResult[List[viewmodels.PreviousDocumentType]] =
+      docs.zipWithIndex
+        .map {
+          case (doc, index) =>
+            PreviousDocumentConverter.toViewModel(doc, s"$path.previousAdministrativeReference[$index]", previousDocumentTypes)
+        }
+        .toList
+        .sequence
 
     def convertDocuments(docs: Seq[models.ProducedDocument]): ValidationResult[List[viewmodels.ProducedDocument]] =
       docs.zipWithIndex
@@ -90,6 +103,7 @@ object GoodsItemConverter extends Converter {
         case Some(countryOfDestination) => findReferenceData(countryOfDestination, countries, s"$path.countryOfDestination").map(x => Some(x))
         case None                       => Valid(None)
       }
+
     (
       convertCountryOfDispatch(goodsItem.countryOfDispatch),
       convertCountryOfDestination(goodsItem.countryOfDestination),
@@ -97,9 +111,10 @@ object GoodsItemConverter extends Converter {
       convertSpecialMentions(goodsItem.specialMentions),
       convertPackages(goodsItem.packages),
       convertConsignor(goodsItem.consignor),
-      convertConsignee(goodsItem.consignee)
+      convertConsignee(goodsItem.consignee),
+      convertPreviousDocumentTypes(previousAdministrativeReferences)
     ).mapN(
-      (dispatch, destination, docs, mentions, packages, consignor, consignee) =>
+      (dispatch, destination, docs, mentions, packages, consignor, consignee, previousDocs) =>
         viewmodels.GoodsItem(
           goodsItem.itemNumber,
           goodsItem.commodityCode,
@@ -110,6 +125,7 @@ object GoodsItemConverter extends Converter {
           dispatch,
           destination,
           docs,
+          previousDocs,
           mentions,
           consignor,
           consignee,

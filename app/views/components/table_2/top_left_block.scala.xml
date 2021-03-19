@@ -1,0 +1,76 @@
+@import cats.data.NonEmptyList
+@import views.xml.components.table_2.item
+
+@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItem])
+
+<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="1" wrap-option="wrap" padding-top="1mm">
+    <fo:block>
+        <fo:list-block>
+            <fo:list-item>
+                <fo:list-item-label>
+                    <fo:block>
+                        31
+                    </fo:block>
+                </fo:list-item-label>
+                <fo:list-item-body start-indent="3mm" end-indent="1mm">
+                    <fo:block>Packages and description of goods</fo:block>
+                </fo:list-item-body>
+            </fo:list-item>
+        </fo:list-block>
+    </fo:block>
+</fo:table-cell>
+
+<fo:table-cell border-style="solid" border-width="1pt" border-color="black" number-rows-spanned="1">
+<fo:block>
+    <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-width="101mm"/>
+        <fo:table-column column-width="14mm"/>
+        <fo:table-body>
+            <fo:table-row height="8mm">
+                <fo:table-cell padding-left="2mm" height="4mm" padding-top="1mm">
+                    <fo:block>Marks and numbers - Container No(s) - Number and kind</fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                    <fo:block>
+                        <fo:table width="100%" table-layout="fixed">
+                            <fo:table-column column-width="8mm"/>
+                            <fo:table-column column-width="6mm"/>
+                            <fo:table-body>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell text-align="center" number-columns-spanned="2" display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+                                        <fo:block>32 Item</fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="3.9mm">
+                                    <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" font-weight="bold" text-align="center">
+                                        <fo:block>
+                                            <!-- Number and kind -->
+                                            @if(!printListOfItems) {
+                                                @numberOfItems
+                                            } else {
+                                            -&#45;&#45;
+                                            }
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell display-align="center" text-align="center" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                                        <fo:block>No</fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row height="24mm">
+                <fo:table-cell font-weight="bold" padding-left="2mm" wrap-option="wrap">
+                    @if(printListOfItems) {
+                    <fo:block margin-top="1mm">See List of Items</fo:block>
+                    } else {
+                        @item.goods(goodsItems)
+                    }
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-body>
+    </fo:table>
+</fo:block>
+</fo:table-cell>

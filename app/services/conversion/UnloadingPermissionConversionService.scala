@@ -18,15 +18,16 @@ package services.conversion
 
 import cats.data.Validated.Invalid
 import cats.implicits._
+import connectors.ReferenceDataConnector
+
 import javax.inject.Inject
-import services.ReferenceDataService
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class UnloadingPermissionConversionService @Inject()(referenceData: ReferenceDataService) {
+class UnloadingPermissionConversionService @Inject()(referenceData: ReferenceDataConnector) {
 
   def toViewModel(permission: models.PermissionToStartUnloading)(implicit ec: ExecutionContext,
                                                                  hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
