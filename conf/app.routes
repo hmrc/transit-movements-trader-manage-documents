@@ -3,3 +3,5 @@
 POST         /unloading-permission                   controllers.UnloadingPermissionController.get
 
 POST         /transit-accompanying-document          controllers.TransitAccompanyingDocumentController.get
+
+POST         /transit-security-accompanying-document controllers.TransitSecurityAccompanyingDocumentController.get()
