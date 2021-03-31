@@ -27,38 +27,38 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with OptionValues {
     "return EU if only exportFromEC is set to true" in {
       SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.SpecialMention(None, Some("1234"), Some(true), None)
+        models.SpecialMention(None, "1234", Some(true), None)
       ).countryCodeToPrint.value mustBe "EU"
     }
     "return EU and country code if exportFromEC is true and exportFromCountry is defined" in {
       SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.SpecialMention(None, Some("1234"), Some(true), Some("CC"))
+        models.SpecialMention(None, "1234", Some(true), Some("CC"))
       ).countryCodeToPrint.value mustBe "EU CC"
     }
     "return country code if exportFromEC is false and exportFromCountry is defined" in {
       SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.SpecialMention(None, Some("1234"), Some(false), Some("CC"))
+        models.SpecialMention(None, "1234", Some(false), Some("CC"))
       ).countryCodeToPrint.value mustBe "CC"
     }
     "return country code if exportFromEC is not defined and exportFromCountry is defined" in {
       SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.SpecialMention(None, Some("1234"), None, Some("CC"))
+        models.SpecialMention(None, "1234", None, Some("CC"))
       ).countryCodeToPrint.value mustBe "CC"
     }
     "return none code if exportFromEC and exportFromCountry are not defined" in {
       SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.SpecialMention(None, Some("1234"), None, None)
+        models.SpecialMention(None, "1234", None, None)
       ).countryCodeToPrint mustBe None
     }
 
     "return none code if exportFromEC is false and exportFromCountry is not defined" in {
       SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.SpecialMention(None, Some("1234"), None, None)
+        models.SpecialMention(None, "1234", None, None)
       ).countryCodeToPrint mustBe None
     }
   }

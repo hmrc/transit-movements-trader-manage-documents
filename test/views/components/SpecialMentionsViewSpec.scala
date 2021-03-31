@@ -32,7 +32,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     "render only the description" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.SpecialMention(Some("AddInf"), Some("1234"), None, None)
+        models.SpecialMention(Some("AddInf"), "1234", None, None)
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -44,7 +44,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     "render not Only the description" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Longer String"),
-        models.SpecialMention(Some("AddInf"), Some("2341"), Some(true), None)
+        models.SpecialMention(Some("AddInf"), "2341", Some(true), None)
       )
 
       val view = special_mentions.render(viewmodel)
@@ -58,7 +58,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     "render not Only the description stripping export in the description" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
-        models.SpecialMention(Some("AddInf"), Some("2341"), Some(true), None)
+        models.SpecialMention(Some("AddInf"), "2341", Some(true), None)
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -71,7 +71,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     "render not Only the description with the country code in the description" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
-        models.SpecialMention(Some("AddInf"), Some("2341"), Some(true), Some("GB"))
+        models.SpecialMention(Some("AddInf"), "2341", Some(true), Some("GB"))
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -84,7 +84,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     "render not Only the description with the country code without the EU text in the description" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
-        models.SpecialMention(Some("AddInfTwenty"), Some("2341"), None, Some("GB"))
+        models.SpecialMention(Some("AddInfTwenty"), "2341", None, Some("GB"))
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -97,7 +97,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     "render code if description is a blank string" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", ""),
-        models.SpecialMention(Some("AddInfTwenty"), Some("2341"), None, Some("GB"))
+        models.SpecialMention(Some("AddInfTwenty"), "2341", None, Some("GB"))
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())

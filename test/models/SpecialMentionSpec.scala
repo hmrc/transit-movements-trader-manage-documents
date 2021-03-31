@@ -42,7 +42,7 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
             "exportFromEC"               -> true
           )
 
-          val expectedMention = SpecialMention(None, Some(additionalInformation), Some(true), None)
+          val expectedMention = SpecialMention(None, additionalInformation, Some(true), None)
 
           json.validate[SpecialMention] mustEqual JsSuccess(expectedMention)
       }
@@ -58,7 +58,7 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
             "exportFromCountry"          -> country
           )
 
-          val expectedMention = SpecialMention(None, Some(additionalInformation), Some(false), Some(country))
+          val expectedMention = SpecialMention(None, additionalInformation, Some(false), Some(country))
 
           json.validate[SpecialMention] mustEqual JsSuccess(expectedMention)
       }
@@ -73,7 +73,7 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
             "additionalInformationCoded" -> additionalInformationCoded
           )
 
-          val expectedMention = SpecialMention(Some(additionalInformation), Some(additionalInformationCoded), None, None)
+          val expectedMention = SpecialMention(Some(additionalInformation), additionalInformationCoded, None, None)
 
           json.validate[SpecialMention] mustEqual JsSuccess(expectedMention)
       }
@@ -102,12 +102,10 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
           val xml = {
             <SPEMENMT2>
                 {
-                specialMention.additionalInformation.fold(NodeSeq.Empty) { ai =>
-                  <AddInfMT21>{ai}</AddInfMT21>
-                } ++
-                  specialMention.additionalInformationCoded.fold(NodeSeq.Empty) { aic =>
-                    <AddInfCodMT23>{aic}</AddInfCodMT23>
+                  specialMention.additionalInformation.fold(NodeSeq.Empty) { ai =>
+                    <AddInfMT21>{ai}</AddInfMT21>
                   } ++
+                  NodeSeq.fromSeq(Seq(<AddInfCodMT23>{specialMention.additionalInformationCoded}</AddInfCodMT23>)) ++
                   specialMention.exportFromEC.fold(NodeSeq.Empty) { efec =>
                     <ExpFroECMT24>{if(efec) 1 else 0}</ExpFroECMT24>
                   } ++
@@ -126,7 +124,19 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
     "must fail to deserialize if a field is invalid" in {
       val xml = {
         <SPEMENT2>
+          <AddInfCodMT23>12345</AddInfCodMT23>
           <ExpFroECMT24>Invalid Value</ExpFroECMT24>
+        </SPEMENT2>
+      }
+
+      val result = XmlReader.of[SpecialMention].read(xml).toOption
+
+      result mustBe None
+    }
+    "must fail to deserialize if no additionalInformationCoded is present" in {
+      val xml = {
+        <SPEMENT2>
+          <ExpFroECMT24>1</ExpFroECMT24>
         </SPEMENT2>
       }
 

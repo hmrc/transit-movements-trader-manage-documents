@@ -31,11 +31,11 @@ class SpecialMentionConverterSpec extends FreeSpec with MustMatchers with Valida
     "convert the correct value" in {
       val specialModel = models.SpecialMention(
         additionalInformation = Some("Some Reference"),
-        additionalInformationCoded = Some("a"),
+        additionalInformationCoded = "a",
         exportFromEC = Some(false),
         exportFromCountry = None
       )
-      TADSpecialMentionConverter.toViewModel(
+      SpecialMentionConverter.toViewModel(
         specialMention = specialModel,
         path = "somePath",
         additionalInfo = additionalInfo
@@ -46,12 +46,12 @@ class SpecialMentionConverterSpec extends FreeSpec with MustMatchers with Valida
     "invalid if additional information not found" in {
       val specialModel = models.SpecialMention(
         additionalInformation = Some("Some Reference"),
-        additionalInformationCoded = Some("x"),
+        additionalInformationCoded = "x",
         exportFromEC = Some(false),
         exportFromCountry = None
       )
 
-      val result = TADSpecialMentionConverter.toViewModel(
+      val result = SpecialMentionConverter.toViewModel(
         specialMention = specialModel,
         path = "somePath",
         additionalInfo = additionalInfo

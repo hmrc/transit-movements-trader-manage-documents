@@ -42,11 +42,11 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
 
   "toViewModel" - {
 
-    val specialMentionEc                 = models.SpecialMention(None, additionalInfo.headOption.map(_.code), Some(true), None)
+    val specialMentionEc                 = models.SpecialMention(None, additionalInfo.head.code, Some(true), None)
     val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
-    val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.headOption.map(_.code), None, countries.headOption.map(_.code))
+    val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.head.code, None, countries.headOption.map(_.code))
     val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
-    val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.headOption.map(_.code), None, None)
+    val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
     val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
     "must return a view model when all of the necessary reference data can be found" in {
@@ -211,9 +211,9 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
             producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
             previousAdminRef = Nil,
             specialMentions = Seq(
-              specialMentionEc.copy(additionalInformationCoded = Some(invalidCode)),
-              specialMentionNonEc.copy(additionalInformationCoded = Some(invalidCode)),
-              specialMentionNoCountry.copy(additionalInformationCoded = Some(invalidCode))
+              specialMentionEc.copy(additionalInformationCoded = invalidCode),
+              specialMentionNonEc.copy(additionalInformationCoded = invalidCode),
+              specialMentionNoCountry.copy(additionalInformationCoded = invalidCode)
             ),
             consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None, None)),
             consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None, None)),

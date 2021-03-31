@@ -101,11 +101,11 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
-  private val specialMentionEc                 = models.SpecialMention(None, additionalInfo.headOption.map(_.code), Some(true), None)
+  private val specialMentionEc                 = models.SpecialMention(None, additionalInfo.head.code, Some(true), None)
   private val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
-  private val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.headOption.map(_.code), None, countries.headOption.map(_.code))
+  private val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.head.code, None, countries.headOption.map(_.code))
   private val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
-  private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.headOption.map(_.code), None, None)
+  private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
   private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
   val validModel = models.TransitAccompanyingDocument(

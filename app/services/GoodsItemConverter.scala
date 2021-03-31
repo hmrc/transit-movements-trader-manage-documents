@@ -61,7 +61,7 @@ object GoodsItemConverter extends Converter {
         .zipWithIndex
         .map {
           case (sm, index) =>
-            TADSpecialMentionConverter.toViewModel(sm, s"$path.specialMentions[$index]", additionalInfo)
+            SpecialMentionConverter.toViewModel(sm, s"$path.specialMentions[$index]", additionalInfo)
         }
         .toList
         .sequence

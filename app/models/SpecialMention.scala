@@ -23,7 +23,7 @@ import play.api.libs.json.OFormat
 
 case class SpecialMention(
   additionalInformation: Option[String],
-  additionalInformationCoded: Option[String],
+  additionalInformationCoded: String,
   exportFromEC: Option[Boolean],
   exportFromCountry: Option[String]
 )
@@ -36,7 +36,7 @@ object SpecialMention {
 
   implicit val xmlReads: XmlReader[SpecialMention] = (
     (__ \ "AddInfMT21").read[String].validateOnlyIfPresent,
-    (__ \ "AddInfCodMT23").read[String].validateOnlyIfPresent,
+    (__ \ "AddInfCodMT23").read[String],
     (__ \ "ExpFroECMT24").read[Int].map(_ == 1).validateOnlyIfPresent,
     (__ \ "ExpFroCouMT25").read[String].validateOnlyIfPresent
   ).mapN(SpecialMention.apply)

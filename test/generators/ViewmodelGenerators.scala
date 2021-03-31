@@ -87,7 +87,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
       for {
         additionalInformation      <- arbitrary[Option[String]]
-        additionalInformationCoded <- arbitrary[Option[String]]
+        additionalInformationCoded <- stringWithMaxLength(5)
         exportFromEC               <- arbitrary[Option[Boolean]]
         exportFromCountry          <- arbitrary[Option[String]]
       } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
@@ -99,7 +99,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       for {
         additionalInformation <- arbitrary[AdditionalInformation]
         specialMentions       <- arbitrary[models.SpecialMention]
-        country               <- arbitrary[Option[Country]]
       } yield SpecialMention(additionalInformation, specialMentions)
     }
 

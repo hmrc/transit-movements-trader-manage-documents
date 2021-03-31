@@ -425,7 +425,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
       for {
         additionalInformation      <- Gen.option(stringWithMaxLength(10))
-        additionalInformationCoded <- Gen.option(stringWithMaxLength(5))
+        additionalInformationCoded <- stringWithMaxLength(5)
         exportFromEC               <- arbitrary[Option[Boolean]]
         exportFromCountry          <- Gen.option(stringWithMaxLength(2))
       } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)

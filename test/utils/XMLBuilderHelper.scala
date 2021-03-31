@@ -171,9 +171,7 @@ object XMLBuilderHelper {
         specialMention.additionalInformation.fold(NodeSeq.Empty) { ai =>
           <AddInfMT21>{ai}</AddInfMT21>
         } ++
-        specialMention.additionalInformationCoded.fold(NodeSeq.Empty) { aic =>
-          <AddInfCodMT23>{aic}</AddInfCodMT23>
-        } ++
+        NodeSeq.fromSeq(Seq(<AddInfCodMT23>{specialMention.additionalInformationCoded}</AddInfCodMT23>)) ++
         specialMention.exportFromEC.fold(NodeSeq.Empty) { efec =>
           <ExpFroECMT24>{if(efec) 1 else 0}</ExpFroECMT24>
         } ++

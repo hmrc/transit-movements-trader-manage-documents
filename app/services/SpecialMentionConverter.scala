@@ -21,17 +21,13 @@ import cats.implicits._
 import models.reference.AdditionalInformation
 import models.reference.Country
 
-object TADSpecialMentionConverter extends Converter {
+object SpecialMentionConverter extends Converter {
 
   def toViewModel(
     specialMention: models.SpecialMention,
     path: String,
     additionalInfo: Seq[AdditionalInformation]
   ): ValidationResult[viewmodels.SpecialMention] =
-    specialMention.additionalInformationCoded
-      .map(
-        code =>
-          findReferenceData(code, additionalInfo, s"$path.additionalInformationCoded")
-            .map(addInfo => viewmodels.SpecialMention(addInfo, specialMention)))
-      .getOrElse(ReferenceDataNotFound("", "").invalidNec)
+    findReferenceData(specialMention.additionalInformationCoded, additionalInfo, s"$path.additionalInformationCoded")
+      .map(addInfo => viewmodels.SpecialMention(addInfo, specialMention))
 }
