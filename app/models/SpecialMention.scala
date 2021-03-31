@@ -30,6 +30,8 @@ case class SpecialMention(
 
 object SpecialMention {
 
+  val calCode = "CAL"
+
   implicit val format: OFormat[SpecialMention] = Json.format[SpecialMention]
 
   import utils.XMLReadersImplicits.OptionalXmlReaderOps

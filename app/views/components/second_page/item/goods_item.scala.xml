@@ -1,4 +1,6 @@
 @import views.xml.components.second_page.item._
+@import views.xml.components.{item => componentItem}
+
 @(goodsItem: viewmodels.GoodsItem, declarationType: DeclarationType)
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
@@ -98,7 +100,7 @@
                         <fo:table-row>
                             <fo:table-cell padding-left="2mm">
                                 @if(goodsItem.specialMentions.nonEmpty) {
-                                    @goodsItem.specialMentions.map(x => special_mentions(x))
+                                    @goodsItem.specialMentions.map(x => componentItem.special_mentions(x))
                                 } else {
                                     <fo:block>--</fo:block>
                                 }

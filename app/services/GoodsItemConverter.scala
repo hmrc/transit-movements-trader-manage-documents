@@ -57,7 +57,7 @@ object GoodsItemConverter extends Converter {
 
     def convertSpecialMentions(mentions: Seq[models.SpecialMention]): ValidationResult[List[viewmodels.SpecialMention]] =
       mentions
-        .filter(!_.additionalInformationCoded.contains("CAL"))
+        .filter(!_.additionalInformationCoded.contains(models.SpecialMention.calCode))
         .zipWithIndex
         .map {
           case (sm, index) =>

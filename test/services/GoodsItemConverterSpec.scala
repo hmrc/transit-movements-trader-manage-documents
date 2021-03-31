@@ -44,8 +44,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
     val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
     val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
     val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
+    val specialMentionCal                = models.SpecialMention(Some("Should be filtered"), models.SpecialMention.calCode, None, None)
 
-    "must return a view model when all of the necessary reference data can be found" in {
+    "must return a view model when all of the necessary reference data can be found filtering out all CAL Special mentions" in {
 
       val goodsItem = models.GoodsItem(
         itemNumber = 1,
@@ -59,6 +60,7 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         previousAdminRef = Nil,
         specialMentions = Seq(
+          specialMentionCal,
           specialMentionEc,
           specialMentionNonEc,
           specialMentionNoCountry

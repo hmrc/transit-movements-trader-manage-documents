@@ -22,7 +22,7 @@ import org.jsoup.parser.Parser
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import viewmodels.SpecialMention
-import views.xml.components.table_2.item.special_mentions
+import views.xml.components.item.special_mentions
 
 import scala.collection.JavaConverters.asScalaIterator
 
