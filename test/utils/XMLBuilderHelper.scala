@@ -23,7 +23,7 @@ import models.GoodsItem
 import models.Package
 import models.ProducedDocument
 import models.RegularPackage
-import models.TADSpecialMention
+import models.SpecialMention
 import models.TraderAtDestination
 import models.TraderAtDestinationWithEori
 import models.TraderAtDestinationWithoutEori
@@ -54,7 +54,7 @@ object XMLBuilderHelper {
         goodsItem.netMass.fold(NodeSeq.Empty) { netMass =>
           <NetMasGDS48>{netMass}</NetMasGDS48>
         }
-      } ++
+      }
       {
         goodsItem.countryOfDispatch.fold(NodeSeq.Empty) { countryOfDispatch =>
           <CouOfDisGDS58>{countryOfDispatch}</CouOfDisGDS58>
@@ -64,7 +64,7 @@ object XMLBuilderHelper {
         goodsItem.countryOfDestination.fold(NodeSeq.Empty) { countryOfDestination =>
           <CouOfDesGDS59>{countryOfDestination}</CouOfDesGDS59>
         }
-      } ++
+      }
       {
       goodsItem.producedDocuments.map(producedDocumentXML) ++
         goodsItem.specialMentions.map(specialMentionXML) ++
@@ -165,7 +165,7 @@ object XMLBuilderHelper {
       }
     </PRODOCDC2>
 
-  def specialMentionXML(specialMention: TADSpecialMention): NodeSeq =
+  def specialMentionXML(specialMention: SpecialMention): NodeSeq =
     <SPEMENMT2>
       {
         specialMention.additionalInformation.fold(NodeSeq.Empty) { ai =>

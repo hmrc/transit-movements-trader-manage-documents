@@ -24,14 +24,14 @@ import models.reference.Country
 object TADSpecialMentionConverter extends Converter {
 
   def toViewModel(
-    specialMention: models.TADSpecialMention,
+    specialMention: models.SpecialMention,
     path: String,
     additionalInfo: Seq[AdditionalInformation]
-  ): ValidationResult[viewmodels.TADSpecialMention] =
+  ): ValidationResult[viewmodels.SpecialMention] =
     specialMention.additionalInformationCoded
       .map(
         code =>
           findReferenceData(code, additionalInfo, s"$path.additionalInformationCoded")
-            .map(addInfo => viewmodels.TADSpecialMention(addInfo, specialMention)))
+            .map(addInfo => viewmodels.SpecialMention(addInfo, specialMention)))
       .getOrElse(ReferenceDataNotFound("", "").invalidNec)
 }

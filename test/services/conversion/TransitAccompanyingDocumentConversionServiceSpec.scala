@@ -101,12 +101,12 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
-  private val specialMentionEc                 = models.TADSpecialMention(None, additionalInfo.headOption.map(_.code), Some(true), None)
-  private val specialMentionEcViewModel        = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionEc)
-  private val specialMentionNonEc              = models.TADSpecialMention(None, additionalInfo.headOption.map(_.code), None, countries.headOption.map(_.code))
-  private val specialMentionNonEcViewModel     = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionNonEc)
-  private val specialMentionNoCountry          = models.TADSpecialMention(Some("Description"), additionalInfo.headOption.map(_.code), None, None)
-  private val specialMentionNoCountryViewModel = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionNoCountry)
+  private val specialMentionEc                 = models.SpecialMention(None, additionalInfo.headOption.map(_.code), Some(true), None)
+  private val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
+  private val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.headOption.map(_.code), None, countries.headOption.map(_.code))
+  private val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
+  private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.headOption.map(_.code), None, None)
+  private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
   val validModel = models.TransitAccompanyingDocument(
     movementReferenceNumber = "mrn",

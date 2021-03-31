@@ -83,24 +83,24 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield ProducedDocument(documentType, reference, complement)
     }
 
-  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.TADSpecialMention] = {
+  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] = {
     Arbitrary {
       for {
         additionalInformation      <- arbitrary[Option[String]]
         additionalInformationCoded <- arbitrary[Option[String]]
         exportFromEC               <- arbitrary[Option[Boolean]]
         exportFromCountry          <- arbitrary[Option[String]]
-      } yield models.TADSpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
+      } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
   }
 
-  implicit lazy val arbitrarySpecialMention: Arbitrary[TADSpecialMention] =
+  implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
     Arbitrary {
       for {
         additionalInformation <- arbitrary[AdditionalInformation]
-        specialMentions       <- arbitrary[models.TADSpecialMention]
+        specialMentions       <- arbitrary[models.SpecialMention]
         country               <- arbitrary[Option[Country]]
-      } yield TADSpecialMention(additionalInformation, specialMentions)
+      } yield SpecialMention(additionalInformation, specialMentions)
     }
 
   implicit lazy val arbitraryTraderAtDestinationWithEori: Arbitrary[TraderAtDestinationWithEori] =
@@ -221,7 +221,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         countryOfDestination      <- Gen.option(arbitrary[Country])
         producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
         previousDocuments         <- listWithMaxSize(9, arbitrary[PreviousDocumentType])
-        specialMentions           <- listWithMaxSize(9, arbitrary[TADSpecialMention])
+        specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
         containers                <- listWithMaxSize(9, stringWithMaxLength(17))

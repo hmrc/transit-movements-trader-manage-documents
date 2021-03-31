@@ -177,7 +177,7 @@ trait ModelGenerators extends GeneratorHelpers {
         countryOfDestination      <- Gen.option(stringWithMaxLength(2))
         producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
         previousAdminRef          <- listWithMaxSize(2, arbitrary[PreviousAdministrativeReference])
-        specialMentions           <- listWithMaxSize(2, arbitrary[TADSpecialMention])
+        specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))
@@ -421,24 +421,24 @@ trait ModelGenerators extends GeneratorHelpers {
     }
   }
 
-  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.TADSpecialMention] = {
+  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] = {
     Arbitrary {
       for {
-        additionalInformation      <- arbitrary[Option[String]]
-        additionalInformationCoded <- arbitrary[Option[String]]
+        additionalInformation      <- Gen.option(stringWithMaxLength(10))
+        additionalInformationCoded <- Gen.option(stringWithMaxLength(5))
         exportFromEC               <- arbitrary[Option[Boolean]]
-        exportFromCountry          <- arbitrary[Option[String]]
-      } yield models.TADSpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
+        exportFromCountry          <- Gen.option(stringWithMaxLength(2))
+      } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
   }
 
-  implicit lazy val arbitraryTADSpecialMention: Arbitrary[viewmodels.TADSpecialMention] =
+  implicit lazy val arbitraryTADSpecialMention: Arbitrary[viewmodels.SpecialMention] =
     Arbitrary {
       for {
         additionalInformation <- arbitrary[AdditionalInformation]
-        specialMentions       <- arbitrary[models.TADSpecialMention]
+        specialMentions       <- arbitrary[models.SpecialMention]
         country               <- arbitrary[Option[Country]]
-      } yield viewmodels.TADSpecialMention(additionalInformation, specialMentions)
+      } yield viewmodels.SpecialMention(additionalInformation, specialMentions)
     }
 
   implicit lazy val arbitraryConsigneeViewModel: Arbitrary[viewmodels.Consignee] =
@@ -552,7 +552,7 @@ trait ModelGenerators extends GeneratorHelpers {
         countryOfDestination      <- Gen.option(arbitrary[Country])
         producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
         previousDocTypes          <- listWithMaxSize(2, arbitrary[viewmodels.PreviousDocumentType])
-        specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.TADSpecialMention])
+        specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
         consignor                 <- Gen.option(arbitrary[viewmodels.Consignor])
         consignee                 <- Gen.option(arbitrary[viewmodels.Consignee])
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))

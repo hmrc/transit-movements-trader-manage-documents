@@ -29,7 +29,7 @@ import play.api.libs.json.Json
 
 import scala.xml.NodeSeq
 
-class TADSpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
+class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
   "JSON" - {
 
@@ -42,9 +42,9 @@ class TADSpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPr
             "exportFromEC"               -> true
           )
 
-          val expectedMention = TADSpecialMention(None, Some(additionalInformation), Some(true), None)
+          val expectedMention = SpecialMention(None, Some(additionalInformation), Some(true), None)
 
-          json.validate[TADSpecialMention] mustEqual JsSuccess(expectedMention)
+          json.validate[SpecialMention] mustEqual JsSuccess(expectedMention)
       }
     }
 
@@ -58,9 +58,9 @@ class TADSpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPr
             "exportFromCountry"          -> country
           )
 
-          val expectedMention = TADSpecialMention(None, Some(additionalInformation), Some(false), Some(country))
+          val expectedMention = SpecialMention(None, Some(additionalInformation), Some(false), Some(country))
 
-          json.validate[TADSpecialMention] mustEqual JsSuccess(expectedMention)
+          json.validate[SpecialMention] mustEqual JsSuccess(expectedMention)
       }
     }
 
@@ -73,9 +73,9 @@ class TADSpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPr
             "additionalInformationCoded" -> additionalInformationCoded
           )
 
-          val expectedMention = TADSpecialMention(Some(additionalInformation), Some(additionalInformationCoded), None, None)
+          val expectedMention = SpecialMention(Some(additionalInformation), Some(additionalInformationCoded), None, None)
 
-          json.validate[TADSpecialMention] mustEqual JsSuccess(expectedMention)
+          json.validate[SpecialMention] mustEqual JsSuccess(expectedMention)
       }
     }
 
@@ -88,7 +88,7 @@ class TADSpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPr
             "exportFromEC"               -> additionalInformation
           )
 
-          json.validate[TADSpecialMention] mustBe a[JsError]
+          json.validate[SpecialMention] mustBe a[JsError]
       }
     }
   }
@@ -97,7 +97,7 @@ class TADSpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPr
 
     "must deserialise from an xml" in {
 
-      forAll(arbitrary[TADSpecialMention]) {
+      forAll(arbitrary[SpecialMention]) {
         specialMention =>
           val xml = {
             <SPEMENMT2>
@@ -118,11 +118,21 @@ class TADSpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPr
               </SPEMENMT2>
           }
 
-          val result = XmlReader.of[TADSpecialMention].read(xml).toOption.value
+          val result = XmlReader.of[SpecialMention].read(xml).toOption.value
 
           result mustBe specialMention
       }
     }
-    //TODO add test where field is present but
+    "must fail to deserialize if a field is invalid" in {
+      val xml = {
+        <SPEMENT2>
+          <ExpFroECMT24>Invalid Value</ExpFroECMT24>
+        </SPEMENT2>
+      }
+
+      val result = XmlReader.of[SpecialMention].read(xml).toOption
+
+      result mustBe None
+    }
   }
 }

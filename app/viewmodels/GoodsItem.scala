@@ -32,7 +32,7 @@ final case class GoodsItem(
   countryOfDestination: Option[Country],
   producedDocuments: Seq[ProducedDocument],
   previousDocumentTypes: Seq[PreviousDocumentType],
-  specialMentions: Seq[TADSpecialMention],
+  specialMentions: Seq[SpecialMention],
   consignor: Option[Consignor],
   consignee: Option[Consignee],
   containers: Seq[String],

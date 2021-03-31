@@ -55,7 +55,7 @@ object GoodsItemConverter extends Converter {
         .toList
         .sequence
 
-    def convertSpecialMentions(mentions: Seq[models.TADSpecialMention]): ValidationResult[List[viewmodels.TADSpecialMention]] =
+    def convertSpecialMentions(mentions: Seq[models.SpecialMention]): ValidationResult[List[viewmodels.SpecialMention]] =
       mentions
         .filter(!_.additionalInformationCoded.contains("CAL"))
         .zipWithIndex

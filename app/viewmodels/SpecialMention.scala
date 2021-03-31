@@ -18,12 +18,12 @@ package viewmodels
 
 import models.reference.AdditionalInformation
 
-case class TADSpecialMention(
+case class SpecialMention(
   additionalInfoCoded: AdditionalInformation,
-  specialMention: models.TADSpecialMention
+  specialMention: models.SpecialMention
 ) {
 
-  val valToInsert: Option[String] = {
+  val countryCodeToPrint: Option[String] = {
     if (specialMention.exportFromEC.contains(true)) {
       specialMention.exportFromCountry
         .map(countyCode => s"EU $countyCode")

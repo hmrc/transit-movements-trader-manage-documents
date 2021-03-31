@@ -19,20 +19,17 @@ package services
 import cats.data.Validated.Valid
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.TADSpecialMention
 import models.reference.AdditionalInformation
-import models.reference.Country
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 
-class TADSpecialMentionConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class SpecialMentionConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
   private val additionalInfo = Seq(AdditionalInformation("a", "info 1"), AdditionalInformation("b", "info 2"))
-  private val invalidCode    = "invalid code"
 
   "toViewModel" - {
     "convert the correct value" in {
-      val specialModel = models.TADSpecialMention(
+      val specialModel = models.SpecialMention(
         additionalInformation = Some("Some Reference"),
         additionalInformationCoded = Some("a"),
         exportFromEC = Some(false),
@@ -43,9 +40,28 @@ class TADSpecialMentionConverterSpec extends FreeSpec with MustMatchers with Val
         path = "somePath",
         additionalInfo = additionalInfo
       ) mustBe Valid(
-        viewmodels.TADSpecialMention(AdditionalInformation("a", "info 1"), specialMention = specialModel)
+        viewmodels.SpecialMention(AdditionalInformation("a", "info 1"), specialMention = specialModel)
       )
     }
-    "invalid if additional information not found" in {}
+    "invalid if additional information not found" in {
+      val specialModel = models.SpecialMention(
+        additionalInformation = Some("Some Reference"),
+        additionalInformationCoded = Some("x"),
+        exportFromEC = Some(false),
+        exportFromCountry = None
+      )
+
+      val result = TADSpecialMentionConverter.toViewModel(
+        specialMention = specialModel,
+        path = "somePath",
+        additionalInfo = additionalInfo
+      )
+
+      val expectedErrors = Seq(
+        ReferenceDataNotFound("somePath.additionalInformationCoded", "x"),
+      )
+
+      result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
+    }
   }
 }

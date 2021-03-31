@@ -42,12 +42,12 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
 
   "toViewModel" - {
 
-    val specialMentionEc                 = models.TADSpecialMention(None, additionalInfo.headOption.map(_.code), Some(true), None)
-    val specialMentionEcViewModel        = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionEc)
-    val specialMentionNonEc              = models.TADSpecialMention(None, additionalInfo.headOption.map(_.code), None, countries.headOption.map(_.code))
-    val specialMentionNonEcViewModel     = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionNonEc)
-    val specialMentionNoCountry          = models.TADSpecialMention(Some("Description"), additionalInfo.headOption.map(_.code), None, None)
-    val specialMentionNoCountryViewModel = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionNoCountry)
+    val specialMentionEc                 = models.SpecialMention(None, additionalInfo.headOption.map(_.code), Some(true), None)
+    val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
+    val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.headOption.map(_.code), None, countries.headOption.map(_.code))
+    val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
+    val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.headOption.map(_.code), None, None)
+    val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
     "must return a view model when all of the necessary reference data can be found" in {
 

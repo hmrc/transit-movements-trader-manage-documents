@@ -21,7 +21,7 @@ import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
-import viewmodels.TADSpecialMention
+import viewmodels.SpecialMention
 import views.xml.components.table_2.item.special_mentions
 
 import scala.collection.JavaConverters.asScalaIterator
@@ -30,9 +30,9 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
 
   "special_mentions" - {
     "render only the description" in {
-      val viewmodel: TADSpecialMention = TADSpecialMention(
+      val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("1234", "Short"),
-        models.TADSpecialMention(Some("AddInf"), Some("1234"), None, None)
+        models.SpecialMention(Some("AddInf"), Some("1234"), None, None)
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -42,9 +42,9 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
       asScalaIterator(block.iterator()).toList.head.text() mustBe "Short"
     }
     "render not Only the description" in {
-      val viewmodel: TADSpecialMention = TADSpecialMention(
+      val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Longer String"),
-        models.TADSpecialMention(Some("AddInf"), Some("2341"), Some(true), None)
+        models.SpecialMention(Some("AddInf"), Some("2341"), Some(true), None)
       )
 
       val view = special_mentions.render(viewmodel)
@@ -56,9 +56,9 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     }
 
     "render not Only the description stripping export in the description" in {
-      val viewmodel: TADSpecialMention = TADSpecialMention(
+      val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
-        models.TADSpecialMention(Some("AddInf"), Some("2341"), Some(true), None)
+        models.SpecialMention(Some("AddInf"), Some("2341"), Some(true), None)
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -69,9 +69,9 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     }
 
     "render not Only the description with the country code in the description" in {
-      val viewmodel: TADSpecialMention = TADSpecialMention(
+      val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
-        models.TADSpecialMention(Some("AddInf"), Some("2341"), Some(true), Some("GB"))
+        models.SpecialMention(Some("AddInf"), Some("2341"), Some(true), Some("GB"))
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -82,9 +82,9 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     }
 
     "render not Only the description with the country code without the EU text in the description" in {
-      val viewmodel: TADSpecialMention = TADSpecialMention(
+      val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
-        models.TADSpecialMention(Some("AddInfTwenty"), Some("2341"), None, Some("GB"))
+        models.SpecialMention(Some("AddInfTwenty"), Some("2341"), None, Some("GB"))
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
@@ -95,9 +95,9 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
     }
 
     "render code if description is a blank string" in {
-      val viewmodel: TADSpecialMention = TADSpecialMention(
+      val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", ""),
-        models.TADSpecialMention(Some("AddInfTwenty"), Some("2341"), None, Some("GB"))
+        models.SpecialMention(Some("AddInfTwenty"), Some("2341"), None, Some("GB"))
       )
       val view = special_mentions.render(viewmodel)
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())

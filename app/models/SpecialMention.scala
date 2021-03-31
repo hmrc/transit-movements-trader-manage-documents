@@ -17,26 +17,27 @@
 package models
 
 import cats.implicits.catsSyntaxTuple4Semigroupal
-import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
+import com.lucidchart.open.xtract._
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TADSpecialMention(
+case class SpecialMention(
   additionalInformation: Option[String],
   additionalInformationCoded: Option[String],
   exportFromEC: Option[Boolean],
   exportFromCountry: Option[String]
 )
 
-object TADSpecialMention {
+object SpecialMention {
 
-  implicit val format: OFormat[TADSpecialMention] = Json.format[TADSpecialMention]
+  implicit val format: OFormat[SpecialMention] = Json.format[SpecialMention]
 
-  implicit val xmlReads: XmlReader[TADSpecialMention] = (
-    (__ \ "AddInfMT21").read[String].optional,
-    (__ \ "AddInfCodMT23").read[String].optional,
-    (__ \ "ExpFroECMT24").read[Int].map(_ == 1).optional,
-    (__ \ "ExpFroCouMT25").read[String].optional
-  ).mapN(TADSpecialMention.apply)
+  import utils.XMLReadersImplicits.OptionalXmlReaderOps
+
+  implicit val xmlReads: XmlReader[SpecialMention] = (
+    (__ \ "AddInfMT21").read[String].validateOnlyIfPresent,
+    (__ \ "AddInfCodMT23").read[String].validateOnlyIfPresent,
+    (__ \ "ExpFroECMT24").read[Int].map(_ == 1).validateOnlyIfPresent,
+    (__ \ "ExpFroCouMT25").read[String].validateOnlyIfPresent
+  ).mapN(SpecialMention.apply)
 }
