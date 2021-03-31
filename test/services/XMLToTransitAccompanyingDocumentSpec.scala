@@ -237,7 +237,6 @@ class XMLToTransitAccompanyingDocumentSpec
       </GOOITEGDS>
     </CC029B>
 
-  //TODO: replace with actual IE029 minimum message
   private def declarationXmlMinimum =
     <CC029B>
       <HEAHEA>

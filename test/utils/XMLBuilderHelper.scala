@@ -23,10 +23,7 @@ import models.GoodsItem
 import models.Package
 import models.ProducedDocument
 import models.RegularPackage
-import models.SpecialMention
-import models.SpecialMentionEc
-import models.SpecialMentionNoCountry
-import models.SpecialMentionNonEc
+import models.TADSpecialMention
 import models.TraderAtDestination
 import models.TraderAtDestinationWithEori
 import models.TraderAtDestinationWithoutEori
@@ -168,20 +165,21 @@ object XMLBuilderHelper {
       }
     </PRODOCDC2>
 
-  def specialMentionXML(specialMention: SpecialMention): NodeSeq =
+  def specialMentionXML(specialMention: TADSpecialMention): NodeSeq =
     <SPEMENMT2>
       {
-      specialMention match {
-        case value: SpecialMentionEc =>
-          <ExpFroECMT24>1</ExpFroECMT24>
-            <AddInfCodMT23>{value.additionalInformationCoded}</AddInfCodMT23>
-        case value: SpecialMentionNonEc =>
-          <ExpFroECMT24>0</ExpFroECMT24>
-            <AddInfCodMT23>{value.additionalInformationCoded}</AddInfCodMT23>
-            <ExpFroCouMT25>{value.exportFromCountry}</ExpFroCouMT25>
-        case value: SpecialMentionNoCountry =>
-          <AddInfCodMT23>{value.additionalInformationCoded}</AddInfCodMT23>
-      }
+        specialMention.additionalInformation.fold(NodeSeq.Empty) { ai =>
+          <AddInfMT21>{ai}</AddInfMT21>
+        } ++
+        specialMention.additionalInformationCoded.fold(NodeSeq.Empty) { aic =>
+          <AddInfCodMT23>{aic}</AddInfCodMT23>
+        } ++
+        specialMention.exportFromEC.fold(NodeSeq.Empty) { efec =>
+          <ExpFroECMT24>{if(efec) 1 else 0}</ExpFroECMT24>
+        } ++
+        specialMention.exportFromCountry.fold(NodeSeq.Empty) { efc =>
+          <ExpFroCouMT25>{efc}</ExpFroCouMT25>
+        }
       }
     </SPEMENMT2>
 

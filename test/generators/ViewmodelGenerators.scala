@@ -83,31 +83,24 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield ProducedDocument(documentType, reference, complement)
     }
 
-  implicit lazy val arbitrarySpecialMentionEc: Arbitrary[SpecialMentionEc] =
+  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.TADSpecialMention] = {
     Arbitrary {
-
-      arbitrary[AdditionalInformation].map(SpecialMentionEc)
-    }
-
-  implicit lazy val arbitrarySpecialMentionNonEc: Arbitrary[SpecialMentionNonEc] =
-    Arbitrary {
-
       for {
-        additionalInfo <- arbitrary[AdditionalInformation]
-        exportCountry  <- arbitrary[Country]
-      } yield SpecialMentionNonEc(additionalInfo, exportCountry)
+        additionalInformation      <- arbitrary[Option[String]]
+        additionalInformationCoded <- arbitrary[Option[String]]
+        exportFromEC               <- arbitrary[Option[Boolean]]
+        exportFromCountry          <- arbitrary[Option[String]]
+      } yield models.TADSpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
+  }
 
-  implicit lazy val arbitrarySpecialMentionNoCountry: Arbitrary[SpecialMentionNoCountry] =
+  implicit lazy val arbitrarySpecialMention: Arbitrary[TADSpecialMention] =
     Arbitrary {
-
-      arbitrary[AdditionalInformation].map(SpecialMentionNoCountry)
-    }
-
-  implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
-    Arbitrary {
-
-      Gen.oneOf(arbitrary[SpecialMentionEc], arbitrary[SpecialMentionNonEc], arbitrary[SpecialMentionNoCountry])
+      for {
+        additionalInformation <- arbitrary[AdditionalInformation]
+        specialMentions       <- arbitrary[models.TADSpecialMention]
+        country               <- arbitrary[Option[Country]]
+      } yield TADSpecialMention(additionalInformation, specialMentions)
     }
 
   implicit lazy val arbitraryTraderAtDestinationWithEori: Arbitrary[TraderAtDestinationWithEori] =
@@ -228,7 +221,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         countryOfDestination      <- Gen.option(arbitrary[Country])
         producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
         previousDocuments         <- listWithMaxSize(9, arbitrary[PreviousDocumentType])
-        specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
+        specialMentions           <- listWithMaxSize(9, arbitrary[TADSpecialMention])
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
         containers                <- listWithMaxSize(9, stringWithMaxLength(17))

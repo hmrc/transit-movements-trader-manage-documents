@@ -57,6 +57,13 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
 
   "toViewModel" - {
 
+    val specialMentionEc                 = models.TADSpecialMention(None, additionalInfo.headOption.map(_.code), Some(true), None)
+    val specialMentionEcViewModel        = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionEc)
+    val specialMentionNonEc              = models.TADSpecialMention(None, additionalInfo.headOption.map(_.code), None, countries.headOption.map(_.code))
+    val specialMentionNonEcViewModel     = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionNonEc)
+    val specialMentionNoCountry          = models.TADSpecialMention(Some("Description"), additionalInfo.headOption.map(_.code), None, None)
+    val specialMentionNoCountryViewModel = viewmodels.TADSpecialMention(additionalInfo.head, specialMentionNoCountry)
+
     "must return a view model when all of the necessary reference data can be found" in {
 
       val model = models.TransitAccompanyingDocument(
@@ -108,9 +115,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             ),
             producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
             specialMentions = Seq(
-              models.SpecialMentionEc(additionalInfo.head.code),
-              models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code),
-              models.SpecialMentionNoCountry(additionalInfo.head.code)
+              specialMentionEc,
+              specialMentionNonEc,
+              specialMentionNoCountry
             ),
             consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
             consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
@@ -181,9 +188,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
               )
             ),
             specialMentions = Seq(
-              viewmodels.SpecialMentionEc(additionalInfo.head),
-              viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
-              viewmodels.SpecialMentionNoCountry(additionalInfo.head)
+              specialMentionEcViewModel,
+              specialMentionNonEcViewModel,
+              specialMentionNoCountryViewModel
             ),
             consignor = Some(
               viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
@@ -262,9 +269,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             ),
             producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
             specialMentions = Seq(
-              models.SpecialMentionEc(invalidCode),
-              models.SpecialMentionNonEc(invalidCode, invalidCode),
-              models.SpecialMentionNoCountry(invalidCode)
+              specialMentionEc.copy(additionalInformationCoded = Some(invalidCode)),
+              specialMentionNonEc.copy(additionalInformationCoded = Some(invalidCode)),
+              specialMentionNoCountry.copy(additionalInformationCoded = Some(invalidCode))
             ),
             consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None, None)),
             consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None, None)),
@@ -301,7 +308,6 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         ReferenceDataNotFound("goodsItems[0].producedDocuments[0].documentType", invalidCode),
         ReferenceDataNotFound("goodsItems[0].previousAdministrativeReference[0].previousDocumentTypes", invalidCode),
         ReferenceDataNotFound("goodsItems[0].specialMentions[0].additionalInformationCoded", invalidCode),
-        ReferenceDataNotFound("goodsItems[0].specialMentions[1].countryCode", invalidCode),
         ReferenceDataNotFound("goodsItems[0].specialMentions[1].additionalInformationCoded", invalidCode),
         ReferenceDataNotFound("goodsItems[0].specialMentions[2].additionalInformationCoded", invalidCode),
         ReferenceDataNotFound("goodsItems[0].consignor.countryCode", invalidCode),

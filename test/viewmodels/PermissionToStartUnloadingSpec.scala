@@ -33,7 +33,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
     permission                <- arbitrary[PermissionToStartUnloading]
     containers                <- listWithMaxSize(1, stringWithMaxLength(17))
     onePackage                <- arbitrary[Package]
-    mentions                  <- listWithMaxSize(4, arbitrary[SpecialMention])
+    mentions                  <- listWithMaxSize(4, arbitrary[TADSpecialMention])
     documents                 <- listWithMaxSize(4, arbitrary[ProducedDocument])
     sensitiveGoodsInformation <- listWithMaxSize(1, arbitrary[SensitiveGoodsInformation])
   } yield (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation)
@@ -308,7 +308,7 @@ class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with Sca
         val gen = for {
           permission       <- arbitrary[PermissionToStartUnloading]
           numberOfMentions <- Gen.choose(5, 99)
-          mentions         <- Gen.listOfN(numberOfMentions, arbitrary[SpecialMention])
+          mentions         <- Gen.listOfN(numberOfMentions, arbitrary[TADSpecialMention])
         } yield (permission, mentions)
 
         forAll(gen) {

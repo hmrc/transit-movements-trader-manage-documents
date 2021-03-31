@@ -55,11 +55,13 @@ object GoodsItemConverter extends Converter {
         .toList
         .sequence
 
-    def convertSpecialMentions(mentions: Seq[models.SpecialMention]): ValidationResult[List[viewmodels.SpecialMention]] =
-      mentions.zipWithIndex
+    def convertSpecialMentions(mentions: Seq[models.TADSpecialMention]): ValidationResult[List[viewmodels.TADSpecialMention]] =
+      mentions
+        .filter(!_.additionalInformationCoded.contains("CAL"))
+        .zipWithIndex
         .map {
           case (sm, index) =>
-            SpecialMentionConverter.toViewModel(sm, s"$path.specialMentions[$index]", additionalInfo, countries)
+            TADSpecialMentionConverter.toViewModel(sm, s"$path.specialMentions[$index]", additionalInfo)
         }
         .toList
         .sequence
