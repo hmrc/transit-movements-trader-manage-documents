@@ -16,84 +16,52 @@
 
 package services
 
+import cats.data.Validated.Valid
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.reference.AdditionalInformation
-import models.reference.Country
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 
 class SpecialMentionConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
-  private val countries      = Seq(Country("valid", "a", "country 1"), Country("valid", "b", "country 2"))
   private val additionalInfo = Seq(AdditionalInformation("a", "info 1"), AdditionalInformation("b", "info 2"))
-  private val invalidCode    = "invalid code"
 
   "toViewModel" - {
-
-    "when given a Special Mention EC" - {
-
-      "must return a view model when the additional information is found in reference data" in {
-
-        val specialMention = models.SpecialMentionEc(additionalInfo.head.code)
-
-        val result = SpecialMentionConverter.toViewModel(specialMention, "path", additionalInfo, countries)
-
-        result.valid.value mustEqual viewmodels.SpecialMentionEc(additionalInfo.head)
-      }
-
-      "must return Invalid when the additional information code cannot be found in reference data" in {
-
-        val specialMention = models.SpecialMentionEc(invalidCode)
-
-        val result = SpecialMentionConverter.toViewModel(specialMention, "path", additionalInfo, countries)
-
-        result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("path.additionalInformationCoded", invalidCode))
-      }
+    "convert the correct value" in {
+      val specialModel = models.SpecialMention(
+        additionalInformation = Some("Some Reference"),
+        additionalInformationCoded = "a",
+        exportFromEC = Some(false),
+        exportFromCountry = None
+      )
+      SpecialMentionConverter.toViewModel(
+        specialMention = specialModel,
+        path = "somePath",
+        additionalInfo = additionalInfo
+      ) mustBe Valid(
+        viewmodels.SpecialMention(AdditionalInformation("a", "info 1"), specialMention = specialModel)
+      )
     }
+    "invalid if additional information not found" in {
+      val specialModel = models.SpecialMention(
+        additionalInformation = Some("Some Reference"),
+        additionalInformationCoded = "x",
+        exportFromEC = Some(false),
+        exportFromCountry = None
+      )
 
-    "when given a Special Mention Non EC" - {
+      val result = SpecialMentionConverter.toViewModel(
+        specialMention = specialModel,
+        path = "somePath",
+        additionalInfo = additionalInfo
+      )
 
-      "must return a view model when the additional information and country code are found in reference data" in {
+      val expectedErrors = Seq(
+        ReferenceDataNotFound("somePath.additionalInformationCoded", "x"),
+      )
 
-        val specialMention = models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code)
-
-        val result = SpecialMentionConverter.toViewModel(specialMention, "path", additionalInfo, countries)
-
-        result.valid.value mustEqual viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head)
-      }
-
-      "must return Invalid when the additional information code cannot be found in reference data" in {
-
-        val specialMention = models.SpecialMentionNonEc(invalidCode, countries.head.code)
-
-        val result = SpecialMentionConverter.toViewModel(specialMention, "path", additionalInfo, countries)
-
-        result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("path.additionalInformationCoded", invalidCode))
-      }
-
-      "must return Invalid when the country code cannot be found in reference data" in {
-
-        val specialMention = models.SpecialMentionNonEc(additionalInfo.head.code, invalidCode)
-
-        val result = SpecialMentionConverter.toViewModel(specialMention, "path", additionalInfo, countries)
-
-        result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("path.countryCode", invalidCode))
-      }
-
-      "must return Invalid when both the additional information code andthe country code cannot be found in reference data" in {
-
-        val specialMention = models.SpecialMentionNonEc(invalidCode, invalidCode)
-
-        val result = SpecialMentionConverter.toViewModel(specialMention, "path", additionalInfo, countries)
-
-        val expectedErrors = Seq(
-          ReferenceDataNotFound("path.additionalInformationCoded", invalidCode),
-          ReferenceDataNotFound("path.countryCode", invalidCode)
-        )
-
-        result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
-      }
+      result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
     }
   }
 }

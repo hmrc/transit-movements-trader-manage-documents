@@ -17,21 +17,20 @@
 package viewmodels
 
 import models.reference.AdditionalInformation
-import models.reference.Country
 
-trait SpecialMention {
-  val additionalInformationCoded: AdditionalInformation
-  val country: Option[String]
-}
+case class SpecialMention(
+  additionalInfoCoded: AdditionalInformation,
+  specialMention: models.SpecialMention
+) {
 
-final case class SpecialMentionEc(additionalInformationCoded: AdditionalInformation) extends SpecialMention {
-  val country = Some("EC")
-}
-
-final case class SpecialMentionNonEc(additionalInformationCoded: AdditionalInformation, exportFromCountry: Country) extends SpecialMention {
-  val country = Some(exportFromCountry.description)
-}
-
-final case class SpecialMentionNoCountry(additionalInformationCoded: AdditionalInformation) extends SpecialMention {
-  val country = None
+  val countryCodeToPrint: Option[String] = {
+    if (specialMention.exportFromEC.contains(true)) {
+      specialMention.exportFromCountry
+        .map(countyCode => s"EU $countyCode")
+        .orElse(Some("EU"))
+    } else {
+      specialMention.exportFromCountry
+        .map(countyCode => s"$countyCode")
+    }
+  }
 }

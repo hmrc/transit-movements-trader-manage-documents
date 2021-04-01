@@ -83,31 +83,23 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield ProducedDocument(documentType, reference, complement)
     }
 
-  implicit lazy val arbitrarySpecialMentionEc: Arbitrary[SpecialMentionEc] =
+  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] = {
     Arbitrary {
-
-      arbitrary[AdditionalInformation].map(SpecialMentionEc)
-    }
-
-  implicit lazy val arbitrarySpecialMentionNonEc: Arbitrary[SpecialMentionNonEc] =
-    Arbitrary {
-
       for {
-        additionalInfo <- arbitrary[AdditionalInformation]
-        exportCountry  <- arbitrary[Country]
-      } yield SpecialMentionNonEc(additionalInfo, exportCountry)
+        additionalInformation      <- arbitrary[Option[String]]
+        additionalInformationCoded <- stringWithMaxLength(5)
+        exportFromEC               <- arbitrary[Option[Boolean]]
+        exportFromCountry          <- arbitrary[Option[String]]
+      } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
-
-  implicit lazy val arbitrarySpecialMentionNoCountry: Arbitrary[SpecialMentionNoCountry] =
-    Arbitrary {
-
-      arbitrary[AdditionalInformation].map(SpecialMentionNoCountry)
-    }
+  }
 
   implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
     Arbitrary {
-
-      Gen.oneOf(arbitrary[SpecialMentionEc], arbitrary[SpecialMentionNonEc], arbitrary[SpecialMentionNoCountry])
+      for {
+        additionalInformation <- arbitrary[AdditionalInformation]
+        specialMentions       <- arbitrary[models.SpecialMention]
+      } yield SpecialMention(additionalInformation, specialMentions)
     }
 
   implicit lazy val arbitraryTraderAtDestinationWithEori: Arbitrary[TraderAtDestinationWithEori] =

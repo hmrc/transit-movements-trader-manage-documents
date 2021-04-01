@@ -101,6 +101,13 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
+  private val specialMentionEc                 = models.SpecialMention(None, additionalInfo.head.code, Some(true), None)
+  private val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
+  private val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.head.code, None, countries.headOption.map(_.code))
+  private val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
+  private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
+  private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
+
   val validModel = models.TransitAccompanyingDocument(
     movementReferenceNumber = "mrn",
     declarationType = DeclarationType.T1,
@@ -145,9 +152,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
         ),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         specialMentions = Seq(
-          models.SpecialMentionEc(additionalInfo.head.code),
-          models.SpecialMentionNonEc(additionalInfo.head.code, countries.head.code),
-          models.SpecialMentionNoCountry(additionalInfo.head.code)
+          specialMentionEc,
+          specialMentionNonEc,
+          specialMentionNoCountry
         ),
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
@@ -280,9 +287,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   previousDocumentTypes =
                     validModel.goodsItems.head.previousAdminRef.map(ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)),
                   specialMentions = Seq(
-                    viewmodels.SpecialMentionEc(additionalInfo.head),
-                    viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
-                    viewmodels.SpecialMentionNoCountry(additionalInfo.head)
+                    specialMentionEcViewModel,
+                    specialMentionNonEcViewModel,
+                    specialMentionNoCountryViewModel
                   ),
                   consignor = Some(viewmodels
                     .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
@@ -400,9 +407,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   previousDocumentTypes = Nil,
                   specialMentions = Seq(
-                    viewmodels.SpecialMentionEc(additionalInfo.head),
-                    viewmodels.SpecialMentionNonEc(additionalInfo.head, countries.head),
-                    viewmodels.SpecialMentionNoCountry(additionalInfo.head)
+                    specialMentionEcViewModel,
+                    specialMentionNonEcViewModel,
+                    specialMentionNoCountryViewModel
                   ),
                   consignor = Some(viewmodels
                     .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),

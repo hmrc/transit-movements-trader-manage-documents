@@ -77,33 +77,6 @@ trait ModelGenerators extends GeneratorHelpers {
   protected val countrySpecificCodeGen    = Gen.oneOf(countrySpecificCodes)
   protected val nonCountrySpecificCodeGen = stringWithMaxLength(5).suchThat(!countrySpecificCodes.contains(_))
 
-  implicit lazy val arbitrarySpecialMentionEc: Arbitrary[SpecialMentionEc] =
-    Arbitrary {
-
-      countrySpecificCodeGen.map(SpecialMentionEc(_))
-    }
-
-  implicit lazy val arbitrarySpecialMentionNonEc: Arbitrary[SpecialMentionNonEc] =
-    Arbitrary {
-
-      for {
-        additionalInfo <- countrySpecificCodeGen
-        exportCountry  <- stringWithMaxLength(2)
-      } yield SpecialMentionNonEc(additionalInfo, exportCountry)
-    }
-
-  implicit lazy val arbitrarySpecialMentionNoCountry: Arbitrary[SpecialMentionNoCountry] =
-    Arbitrary {
-
-      nonCountrySpecificCodeGen.map(SpecialMentionNoCountry(_))
-    }
-
-  implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
-    Arbitrary {
-
-      Gen.oneOf(arbitrary[SpecialMentionEc], arbitrary[SpecialMentionNonEc], arbitrary[SpecialMentionNoCountry])
-    }
-
   implicit lazy val arbitraryTraderAtDestinationWithEori: Arbitrary[TraderAtDestinationWithEori] =
     Arbitrary {
 
@@ -448,40 +421,25 @@ trait ModelGenerators extends GeneratorHelpers {
     }
   }
 
-  implicit lazy val arbitrarySpecialMentionEcViewModel: Arbitrary[viewmodels.SpecialMentionEc] = {
+  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] = {
     Arbitrary {
       for {
-        additionalInformation <- arbitrary[AdditionalInformation]
-      } yield viewmodels.SpecialMentionEc(additionalInformation)
+        additionalInformation      <- Gen.option(stringWithMaxLength(10))
+        additionalInformationCoded <- stringWithMaxLength(5)
+        exportFromEC               <- arbitrary[Option[Boolean]]
+        exportFromCountry          <- Gen.option(stringWithMaxLength(2))
+      } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
   }
 
-  implicit lazy val arbitrarySpecialMentionNonEcViewModel: Arbitrary[viewmodels.SpecialMentionNonEc] = {
+  implicit lazy val arbitraryTADSpecialMention: Arbitrary[viewmodels.SpecialMention] =
     Arbitrary {
       for {
         additionalInformation <- arbitrary[AdditionalInformation]
-        country               <- arbitrary[Country]
-      } yield viewmodels.SpecialMentionNonEc(additionalInformation, country)
+        specialMentions       <- arbitrary[models.SpecialMention]
+        country               <- arbitrary[Option[Country]]
+      } yield viewmodels.SpecialMention(additionalInformation, specialMentions)
     }
-  }
-
-  implicit lazy val arbitrarySpecialMentionNoCountryViewModel: Arbitrary[viewmodels.SpecialMentionNoCountry] = {
-    Arbitrary {
-      for {
-        additionalInformation <- arbitrary[AdditionalInformation]
-      } yield viewmodels.SpecialMentionNoCountry(additionalInformation)
-    }
-  }
-
-  implicit lazy val arbitrarySpecialMentionViewModel: Arbitrary[viewmodels.SpecialMention] = {
-    Arbitrary {
-      Gen.oneOf[viewmodels.SpecialMention](
-        arbitrary[viewmodels.SpecialMentionNonEc],
-        arbitrary[viewmodels.SpecialMentionNoCountry],
-        arbitrary[viewmodels.SpecialMentionEc]
-      )
-    }
-  }
 
   implicit lazy val arbitraryConsigneeViewModel: Arbitrary[viewmodels.Consignee] =
     Arbitrary {

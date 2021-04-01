@@ -56,10 +56,12 @@ object GoodsItemConverter extends Converter {
         .sequence
 
     def convertSpecialMentions(mentions: Seq[models.SpecialMention]): ValidationResult[List[viewmodels.SpecialMention]] =
-      mentions.zipWithIndex
+      mentions
+        .filter(!_.additionalInformationCoded.contains(models.SpecialMention.calCode))
+        .zipWithIndex
         .map {
           case (sm, index) =>
-            SpecialMentionConverter.toViewModel(sm, s"$path.specialMentions[$index]", additionalInfo, countries)
+            SpecialMentionConverter.toViewModel(sm, s"$path.specialMentions[$index]", additionalInfo)
         }
         .toList
         .sequence
