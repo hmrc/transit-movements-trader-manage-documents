@@ -29,7 +29,7 @@ import scala.collection.JavaConverters.asScalaIterator
 class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
 
   "special_mentions" - {
-    "render only the description" in {
+    "render only the additional information description if the description is less than 7 characters" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("1234", "Short"),
         models.SpecialMention(Some("AddInf"), "1234", None, None)
@@ -41,7 +41,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
       asScalaIterator(block.iterator()).toList must have length 1
       asScalaIterator(block.iterator()).toList.head.text() mustBe "Short"
     }
-    "render not Only the description" in {
+    "render the additional info with EU and no the country code if exportFromEc is true and exportFromCountry is not defined" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Longer String"),
         models.SpecialMention(Some("AddInf"), "2341", Some(true), None)
@@ -55,7 +55,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
       asScalaIterator(block.iterator()).toList.head.text() mustBe "Export EU Longer String - AddInf"
     }
 
-    "render not Only the description stripping export in the description" in {
+    "render the additional info stripping export in the description" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
         models.SpecialMention(Some("AddInf"), "2341", Some(true), None)
@@ -68,7 +68,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
       asScalaIterator(block.iterator()).toList.head.text() mustBe "Export EU Longer String - AddInf"
     }
 
-    "render not Only the description with the country code in the description" in {
+    "render the additional info with the country code and EU in the description if both exportForEC and exportFromCountry are defined" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
         models.SpecialMention(Some("AddInf"), "2341", Some(true), Some("GB"))
@@ -81,7 +81,7 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
       asScalaIterator(block.iterator()).toList.head.text() mustBe "Export EU GB Longer String - AddInf"
     }
 
-    "render not Only the description with the country code without the EU text in the description" in {
+    "render the additional info with the country code without the EU text in the description if exportForEC is not defined" in {
       val viewmodel: SpecialMention = SpecialMention(
         AdditionalInformation("2341", "Export Longer String"),
         models.SpecialMention(Some("AddInfTwenty"), "2341", None, Some("GB"))
@@ -92,6 +92,19 @@ class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
       val block = doc.getElementsByTag("fo:block")
       asScalaIterator(block.iterator()).toList must have length 1
       asScalaIterator(block.iterator()).toList.head.text() mustBe "Export GB Longer String - AddInfTwenty"
+    }
+
+    "render the additional info without country code if exportFromCountry and exportFromEC not present" in {
+      val viewmodel: SpecialMention = SpecialMention(
+        AdditionalInformation("2341", "Export Longer String"),
+        models.SpecialMention(Some("AddInfTwenty"), "2341", None, None)
+      )
+      val view = special_mentions.render(viewmodel)
+      val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
+
+      val block = doc.getElementsByTag("fo:block")
+      asScalaIterator(block.iterator()).toList must have length 1
+      asScalaIterator(block.iterator()).toList.head.text() mustBe "Export Longer String - AddInfTwenty"
     }
 
     "render code if description is a blank string" in {
