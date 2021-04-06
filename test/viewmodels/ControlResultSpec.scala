@@ -17,7 +17,8 @@
 package viewmodels
 
 import models.reference.ControlResultData
-import org.scalatest.{FreeSpec, MustMatchers}
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 
 import java.time.LocalDate
 
