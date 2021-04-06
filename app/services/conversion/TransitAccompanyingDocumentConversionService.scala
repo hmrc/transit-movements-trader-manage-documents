@@ -44,6 +44,9 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
     val documentTypesFuture         = referenceData.documentTypes()
     val previousDocumentTypesFuture = referenceData.previousDocumentTypes()
 
+    lazy val controlResultFuture = Future.sequence(transitAccompanyingDocument.controlResult.toList.map(code =>
+      referenceData.controlResultByCode(code.conResCodERS16).map(crd => viewmodels.ControlResult(crd, code))))
+
     lazy val departureOfficeFuture = referenceData
       .customsOfficeSearch(transitAccompanyingDocument.departureOffice)
       .map(office => CustomsOfficeWithOptionalDate(office, None))
@@ -61,9 +64,6 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
       )
     )
 
-    //TODO: ref data will be needed below when we're building out the view model
-    //    val controlResultCode = referenceData.controlResult()
-
     for {
       countriesResult        <- countriesFuture
       additionalInfoResult   <- additionalInfoFuture
@@ -73,6 +73,7 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
       departureOffice        <- departureOfficeFuture
       destinationOffice      <- destinationOfficeFuture
       transitOffice          <- transitOfficeFuture
+      controlResult          <- controlResultFuture
     } yield {
       (
         countriesResult,
@@ -91,7 +92,8 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
               departureOffice,
               destinationOffice,
               transitOffice,
-              previousDocumentTypes
+              previousDocumentTypes,
+              controlResult.headOption
           )
         )
         .fold(

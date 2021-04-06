@@ -17,7 +17,6 @@
 package viewmodels
 
 import cats.data.NonEmptyList
-import models.ControlResult
 import models.DeclarationType
 import models.GuaranteeDetails
 import models.reference.Country

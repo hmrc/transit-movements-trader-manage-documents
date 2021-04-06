@@ -26,6 +26,7 @@ import models.GuaranteeReference
 import models.PreviousAdministrativeReference
 import models.ReturnCopiesCustomsOffice
 import models.reference.AdditionalInformation
+import models.reference.ControlResultData
 import models.reference.Country
 import models.reference.CustomsOffice
 import models.reference.DocumentType
@@ -54,6 +55,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
     CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0))))
   private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
   private val invalidCode           = "non-existent code"
+  private val controlResult         = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
 
   "toViewModel" - {
 
@@ -169,7 +171,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         ),
         seals = Seq("seal 1"),
         Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
-        controlResult = Some(ControlResult("code", LocalDate.of(1990, 2, 3))),
+        controlResult = controlResult,
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
             itemNumber = 1,
@@ -217,7 +219,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
                                                                     departureOffice,
                                                                     destinationOffice,
                                                                     transitOffices,
-                                                                    previousDocumentTypes)
+                                                                    previousDocumentTypes,
+                                                                    controlResult)
 
       result.valid.value mustEqual expectedResult
     }
@@ -296,7 +299,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
                                                                     departureOffice,
                                                                     destinationOffice,
                                                                     transitOffices,
-                                                                    previousDocumentTypes)
+                                                                    previousDocumentTypes,
+                                                                    controlResult)
 
       val expectedErrors = Seq(
         ReferenceDataNotFound("countryOfDispatch", invalidCode),

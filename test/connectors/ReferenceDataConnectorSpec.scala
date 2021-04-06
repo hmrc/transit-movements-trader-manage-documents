@@ -411,66 +411,57 @@ class ReferenceDataConnectorSpec
 
   "controlResultCode" - {
 
-    val endpoint = "/transit-movements-trader-reference-data/control-result"
+    val endpoint = "/transit-movements-trader-reference-data/control-results"
 
     "must return a sequence" in {
 
-      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[ControlResultData]]) {
+      forAll(arbitrary[HeaderCarrier], arbitrary[ControlResultData]) {
         (hc, data) =>
           server.stubFor(
-            get(urlEqualTo(endpoint))
+            get(urlEqualTo(endpoint + s"/${data.code}"))
               .willReturn(
                 ok(Json.toJson(data).toString)
               )
           )
 
-          whenReady(service.controlResult()(implicitly, hc)) {
+          whenReady(service.controlResultByCode(data.code)(implicitly, hc)) {
             result =>
-              result.valid.value mustEqual data
+              result mustEqual data
           }
       }
     }
 
-    "must return a Reference Data Retrieval Error" - {
+    "return a malformed exception if and invalid json is received" in {
+
+      implicit val hc: HeaderCarrier = HeaderCarrier()
+      val validJson: JsValue         = Json.obj("code" -> "SomeCode")
+
+      server.stubFor(
+        get(urlEqualTo(endpoint + "/2345"))
+          .willReturn(
+            ok(validJson.toString)
+          )
+      )
+
+      intercept[MalformedReferenceDataException](await(service.controlResultByCode("2345")))
+    }
+
+    "must return a InvalidReferenceDataStatusException" - {
 
       "when the server returns a 4xx or 5xx status" in {
 
-        forAll(arbitrary[HeaderCarrier], errorStatuses) {
-          (hc, returnStatus) =>
+        forAll(arbitrary[HeaderCarrier], errorStatuses, arbitrary[ControlResultData]) {
+          (hc, returnStatus, controlResult) =>
             server.stubFor(
-              get(urlEqualTo(endpoint))
+              get(urlEqualTo(endpoint + s"/${controlResult.code}"))
                 .willReturn(
                   status(returnStatus).withBody("body")
                 )
             )
 
-            whenReady(service.controlResult()(implicitly, hc)) {
-              result =>
-                result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("controlResult", returnStatus, "body"))
-            }
+            intercept[InvalidReferenceDataStatusException](await(service.controlResultByCode(controlResult.code)(implicitly, hc)))
+
         }
-      }
-    }
-
-    "when the server returns data that cannot be read as a sequence" in {
-
-      forAll(arbitrary[HeaderCarrier]) {
-        hc =>
-          val invalidJson = Json.obj("foo" -> "bar")
-
-          server.stubFor(
-            get(urlEqualTo(endpoint))
-              .willReturn(
-                ok(invalidJson.toString)
-              )
-          )
-
-          whenReady(service.controlResult()(implicitly, hc)) {
-            result =>
-              val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
-
-              result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("controlResult", Seq(expectedError)))
-          }
       }
     }
   }

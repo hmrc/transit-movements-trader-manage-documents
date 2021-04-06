@@ -1,6 +1,10 @@
-@(controlResult: ControlResult)
-<fo:block><!-- TODO: Add the result fo ref data here if not found-->
-    <fo:inline font-style="italic">
-        @controlResult.conResCodERS16
-    </fo:inline>
+@(controlResult: viewmodels.ControlResult)
+<fo:block>
+    @if(controlResult.isDescriptionAvailable){
+        @controlResult.displayName
+    } else {
+        <fo:inline font-style="italic">
+            @controlResult.displayName
+        </fo:inline>
+    }
 </fo:block>
