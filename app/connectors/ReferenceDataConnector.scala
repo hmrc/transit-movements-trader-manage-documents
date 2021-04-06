@@ -109,12 +109,8 @@ class ReferenceDataConnector @Inject()(
     httpClient.GET[ValidationResult[Seq[TransportMode]]](config.transportModeUrl)(reads, implicitly, implicitly)
   }
 
-  def controlResult()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[ControlResultData]]] = {
-
-    val reads = referenceDataReads[ControlResultData]("controlResult")
-
-    httpClient.GET[ValidationResult[Seq[ControlResultData]]](config.controlResultUrl)(reads, implicitly, implicitly)
-  }
+  def controlResultByCode(code: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ControlResultData] =
+    httpClient.GET[ControlResultData](config.controlResultUrl + code)(individualItemReads(s"ControlResults $code"), implicitly, implicitly)
 
   def previousDocumentTypes()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[PreviousDocumentTypes]]] = {
 

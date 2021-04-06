@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import cats.syntax.all._
-import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
+import models.reference.ControlResultData
 import utils.DateFormatter
-import utils.LocalDateXMLReader._
 
-import java.time.LocalDate
+case class ControlResult(controlResultData: ControlResultData, controlResult: models.ControlResult) {
 
-case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate)
+  lazy val isDescriptionAvailable: Boolean = controlResultData.description.nonEmpty
 
-object ControlResult {
-
-  object Constants {
-    val controlResultCodeLength = 2
+  lazy val displayName: String = if (isDescriptionAvailable) {
+    controlResultData.description
+  } else {
+    controlResult.conResCodERS16
   }
 
-  implicit val xmlReader: XmlReader[ControlResult] =
-    ((__ \ "ConResCodERS16").read[String], (__ \ "DatLimERS69").read[LocalDate])
-      .mapN(apply)
+  lazy val formattedDate: String = controlResult.datLimERS69.format(DateFormatter.readableDateFormatter)
+
+  lazy val isSimplifiedMovement: Boolean = controlResult.conResCodERS16 == "A3"
 }

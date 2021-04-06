@@ -1,6 +1,6 @@
 @import views.xml.components.binding_itinerary
 @import views.xml.components.table_5.control_results
-@import models.ControlResult
+@import viewmodels.ControlResult
 
 @this()
 

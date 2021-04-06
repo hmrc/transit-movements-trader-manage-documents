@@ -32,7 +32,8 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   departureOffice: CustomsOfficeWithOptionalDate,
                   destinationOffice: CustomsOfficeWithOptionalDate,
                   transitOffices: Seq[CustomsOfficeWithOptionalDate],
-                  previousDocumentTypes: Seq[PreviousDocumentTypes]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
+                  previousDocumentTypes: Seq[PreviousDocumentTypes],
+                  controlResult: Option[viewmodels.ControlResult]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
     (
       convertCountryOfDispatch(transitAccompanyingDocument.countryOfDispatch, countries),
       convertCountryOfDestination(transitAccompanyingDocument.countryOfDestination, countries),
@@ -67,7 +68,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
           guaranteeDetails = transitAccompanyingDocument.guaranteeDetails.toList,
           seals = transitAccompanyingDocument.seals,
           returnCopiesCustomsOffice = returnCopiesCustomsOffice,
-          controlResult = transitAccompanyingDocument.controlResult,
+          controlResult = controlResult,
           goodsItems = goodsItems
       )
     )

@@ -47,6 +47,7 @@ import models.GuaranteeReference
 import models.PreviousAdministrativeReference
 import models.TransitAccompanyingDocument
 import models.reference.AdditionalInformation
+import models.reference.ControlResultData
 import models.reference.Country
 import models.reference.CustomsOffice
 import models.reference.DocumentType
@@ -98,6 +99,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
   private val destinationOffice         = CustomsOffice("AB125", Some("Destination Office"), "AB")
   private val transitOffices            = CustomsOffice("AB123", Some("Transit Office"), "AB")
   private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
+
+  private val controlResult = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
@@ -185,6 +188,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
             when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
             when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
             when(referenceDataService.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
+            when(referenceDataService.controlResultByCode(any())(any(), any())) thenReturn Future.successful(controlResult.get.controlResultData)
 
             when(referenceDataService.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
               CustomsOffice("AB123", Some("Transit Office"), "AB"))
@@ -216,6 +220,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               principal = transitAccompanyingDocument.principal,
               consignor = transitAccompanyingDocument.consignor,
               consignee = transitAccompanyingDocument.consignee,
+              controlResult = transitAccompanyingDocument.controlResult,
               returnCopiesCustomsOffice = transitAccompanyingDocument.returnCopiesCustomsOffice,
               seals = transitAccompanyingDocument.seals
             )
@@ -270,7 +275,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               returnCopiesCustomsOffice = transitAccompanyingDocument.returnCopiesCustomsOffice.map(office =>
                 viewmodels
                   .ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber.shorten(32)("***"), office.postCode, office.city, countriesGen)),
-              controlResult = validModel.controlResult,
+              controlResult = transitAccompanyingDocument.controlResult.flatMap(cr => controlResult.map(_.copy(controlResult = cr))),
               guaranteeDetails = validModel.guaranteeDetails.toList,
               seals = transitAccompanyingDocument.seals,
               goodsItems = NonEmptyList.one(
@@ -453,6 +458,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
 
+      when(referenceDataConnector.controlResultByCode(any())(any(), any())) thenReturn Future.successful(controlResult.get.controlResultData)
+
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
         CustomsOffice("AB123", Some("Transit Office"), "AB"))
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
@@ -482,6 +489,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
       when(referenceDataConnector.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
       when(referenceDataConnector.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
       when(referenceDataConnector.previousDocumentTypes()(any(), any())) thenReturn Future.successful(Valid(previousDocumentTypes))
+
+      when(referenceDataConnector.controlResultByCode(any())(any(), any())) thenReturn Future.successful(controlResult.get.controlResultData)
 
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
         CustomsOffice("AB123", Some("Transit Office"), "AB"))

@@ -25,6 +25,7 @@ import models.GuaranteeReference
 import models.PreviousAdministrativeReference
 import models.SensitiveGoodsInformation
 import models.reference.AdditionalInformation
+import models.reference.ControlResultData
 import models.reference.Country
 import models.reference.CustomsOffice
 import models.reference.DocumentType
@@ -344,6 +345,13 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     } yield ControlResult(code, date)
   }
 
+  implicit lazy val arbitraryControlResultViewModel: Arbitrary[viewmodels.ControlResult] = Arbitrary {
+    for {
+      result <- arbitrary[ControlResult]
+      data   <- arbitrary[ControlResultData]
+    } yield viewmodels.ControlResult(data, result)
+  }
+
   implicit lazy val arbitraryReturnCopiesCustomsOffice: Arbitrary[ReturnCopiesCustomsOffice] =
     Arbitrary {
       for {
@@ -381,7 +389,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         guaranteeDetails          <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeDetails])
         seals                     <- listWithMaxSize(9, stringWithMaxLength(20))
         returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
-        controlResult             <- Gen.option(arbitrary[ControlResult])
+        controlResult             <- Gen.option(arbitrary[viewmodels.ControlResult])
         goodsItems                <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
       } yield
         TransitAccompanyingDocumentPDF(
