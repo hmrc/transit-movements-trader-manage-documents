@@ -29,8 +29,8 @@ import scala.concurrent.Future
 
 class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataConnector) {
 
-  def toViewModel(transitAccompanyingDocument: models.ReleaseForTransit,
-  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitAccompanyingDocumentPDF]] = {
+  def toViewModel(releaseForTransit: models.ReleaseForTransit,
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF]] = {
 
     val countriesFuture             = referenceData.countries()
     val additionalInfoFuture        = referenceData.additionalInformation()
@@ -38,19 +38,19 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
     val documentTypesFuture         = referenceData.documentTypes()
     val previousDocumentTypesFuture = referenceData.previousDocumentTypes()
 
-    lazy val controlResultFuture = Future.sequence(transitAccompanyingDocument.controlResult.toList.map(code =>
+    lazy val controlResultFuture = Future.sequence(releaseForTransit.controlResult.toList.map(code =>
       referenceData.controlResultByCode(code.conResCodERS16).map(crd => viewmodels.ControlResult(crd, code))))
 
     lazy val departureOfficeFuture = referenceData
-      .customsOfficeSearch(transitAccompanyingDocument.departureOffice)
+      .customsOfficeSearch(releaseForTransit.departureOffice)
       .map(office => CustomsOfficeWithOptionalDate(office, None))
 
     lazy val destinationOfficeFuture = referenceData
-      .customsOfficeSearch(transitAccompanyingDocument.destinationOffice)
+      .customsOfficeSearch(releaseForTransit.destinationOffice)
       .map(office => CustomsOfficeWithOptionalDate(office, None))
 
     lazy val transitOfficeFuture = Future.sequence(
-      transitAccompanyingDocument.customsOfficeOfTransit.map(
+      releaseForTransit.customsOfficeOfTransit.map(
         office =>
           referenceData
             .customsOfficeSearch(office.reference)
@@ -77,8 +77,8 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
         previousDocumentResult,
       ).mapN(
           (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes) =>
-            TransitAccompanyingDocumentConverter.toViewModel(
-              transitAccompanyingDocument,
+            TransitSecurityAccompanyingDocumentConverter.toViewModel(
+              releaseForTransit,
               countries,
               additionalInfo,
               kindsOfPackage,

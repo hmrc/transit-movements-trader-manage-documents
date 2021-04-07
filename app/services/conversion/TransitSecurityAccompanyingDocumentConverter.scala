@@ -33,7 +33,7 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
                   destinationOffice: CustomsOfficeWithOptionalDate,
                   transitOffices: Seq[CustomsOfficeWithOptionalDate],
                   previousDocumentTypes: Seq[PreviousDocumentTypes],
-                  controlResult: Option[viewmodels.ControlResult]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
+                  controlResult: Option[viewmodels.ControlResult]): ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] =
     (
       convertCountryOfDispatch(transitAccompanyingDocument.countryOfDispatch, countries),
       convertCountryOfDestination(transitAccompanyingDocument.countryOfDestination, countries),
@@ -45,7 +45,7 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
       convertReturnCopiesCustomsOffice(transitAccompanyingDocument.returnCopiesCustomsOffice, countries),
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee, returnCopiesCustomsOffice) =>
-        viewmodels.TransitAccompanyingDocumentPDF(
+        viewmodels.TransitSecurityAccompanyingDocumentPDF(
           movementReferenceNumber = transitAccompanyingDocument.movementReferenceNumber,
           declarationType = transitAccompanyingDocument.declarationType,
           singleCountryOfDispatch = dispatch,
