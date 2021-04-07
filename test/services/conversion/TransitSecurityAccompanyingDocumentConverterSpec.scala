@@ -125,7 +125,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         )
       )
 
-      val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
+      val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),

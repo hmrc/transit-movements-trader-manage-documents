@@ -211,7 +211,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               seals = transitAccompanyingDocument.seals
             )
 
-            val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
+            val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
               movementReferenceNumber = validModelUpdated.movementReferenceNumber,
               declarationType = transitAccompanyingDocument.declarationType,
               singleCountryOfDispatch = Some(countriesGen),
@@ -301,7 +301,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
 
             val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataService)
 
-            val result: ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue
+            val result: ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue
 
             result.valid.value mustEqual expectedResult
         }
@@ -352,7 +352,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               seals = Nil
             )
 
-            val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
+            val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
               movementReferenceNumber = validModel.movementReferenceNumber,
               declarationType = transitAccompanyingDocument.declarationType,
               singleCountryOfDispatch = None,
@@ -419,7 +419,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               )
             )
 
-            val result: ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue
+            val result: ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue
 
             result.valid.value mustEqual expectedResult
         }
