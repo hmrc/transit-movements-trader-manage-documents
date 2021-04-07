@@ -40,7 +40,7 @@ class TransitAccompanyingDocumentController @Inject()(
 
   def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
-      XMLToTransitAccompanyingDocument.convert(request.body) match {
+      XMLToReleaseForTransit.convert(request.body) match {
         case ParseSuccess(transitAccompanyingDocument) =>
           conversionService.toViewModel(transitAccompanyingDocument).map {
             case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))

@@ -22,7 +22,7 @@ import models.ReleaseForTransit
 
 import scala.xml.NodeSeq
 
-object XMLToTransitAccompanyingDocument {
+object XMLToReleaseForTransit {
 
   def convert(xml: NodeSeq): ParseResult[ReleaseForTransit] =
     XmlReader.of[ReleaseForTransit].read(xml)
