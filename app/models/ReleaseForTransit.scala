@@ -27,7 +27,7 @@ import utils.BinaryToBooleanXMLReader._
 import java.time.LocalDate
 import scala.xml.NodeSeq
 
-final case class TransitAccompanyingDocument(
+final case class ReleaseForTransit(
   movementReferenceNumber: String,
   declarationType: DeclarationType,
   countryOfDispatch: Option[String],
@@ -54,9 +54,9 @@ final case class TransitAccompanyingDocument(
   goodsItems: NonEmptyList[GoodsItem]
 )
 
-object TransitAccompanyingDocument {
+object ReleaseForTransit {
 
-  implicit val xmlReader1: XmlReader[TransitAccompanyingDocument] = (xml: NodeSeq) => {
+  implicit val xmlReader1: XmlReader[ReleaseForTransit] = (xml: NodeSeq) => {
     for {
       mrn                       <- (__ \ "HEAHEA" \ "DocNumHEA5").read[String].read(xml)
       decType                   <- (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType].read(xml)
@@ -83,7 +83,7 @@ object TransitAccompanyingDocument {
       seals                     <- (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]).read(xml)
       goodsItems                <- (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem]).read(xml)
     } yield
-      TransitAccompanyingDocument(
+      ReleaseForTransit(
         mrn,
         decType,
         countryOfDispatch,

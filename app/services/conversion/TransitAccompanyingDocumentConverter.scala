@@ -24,7 +24,7 @@ import viewmodels.CustomsOfficeWithOptionalDate
 
 object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 
-  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
+  def toViewModel(transitAccompanyingDocument: models.ReleaseForTransit,
                   countries: Seq[Country],
                   additionalInfo: Seq[AdditionalInformation],
                   kindsOfPackage: Seq[KindOfPackage],

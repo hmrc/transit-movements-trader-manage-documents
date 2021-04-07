@@ -68,7 +68,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
 
     "must return a view model when all of the necessary reference data can be found" in {
 
-      val model = models.TransitAccompanyingDocument(
+      val model = models.ReleaseForTransit(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         countryOfDispatch = Some(countries.head.code),
@@ -227,7 +227,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
 
     "must return errors when codes cannot be found in the reference data" in {
 
-      val model = models.TransitAccompanyingDocument(
+      val model = models.ReleaseForTransit(
         movementReferenceNumber = "mrn",
         declarationType = DeclarationType.T1,
         countryOfDispatch = Some(invalidCode),

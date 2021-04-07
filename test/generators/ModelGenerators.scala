@@ -290,7 +290,7 @@ trait ModelGenerators extends GeneratorHelpers {
     } yield ControlResult(code, date)
   }
 
-  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
+  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[ReleaseForTransit] =
     Arbitrary {
       for {
         mrn                       <- stringWithMaxLength(22)
@@ -318,7 +318,7 @@ trait ModelGenerators extends GeneratorHelpers {
         seals                     <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems                <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
-        TransitAccompanyingDocument(
+        ReleaseForTransit(
           mrn,
           declarationType,
           countryOfDispatch,

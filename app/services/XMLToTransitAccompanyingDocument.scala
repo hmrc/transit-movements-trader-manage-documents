@@ -18,12 +18,12 @@ package services
 
 import com.lucidchart.open.xtract.ParseResult
 import com.lucidchart.open.xtract.XmlReader
-import models.TransitAccompanyingDocument
+import models.ReleaseForTransit
 
 import scala.xml.NodeSeq
 
 object XMLToTransitAccompanyingDocument {
 
-  def convert(xml: NodeSeq): ParseResult[TransitAccompanyingDocument] =
-    XmlReader.of[TransitAccompanyingDocument].read(xml)
+  def convert(xml: NodeSeq): ParseResult[ReleaseForTransit] =
+    XmlReader.of[ReleaseForTransit].read(xml)
 }

@@ -45,7 +45,7 @@ import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.PreviousAdministrativeReference
-import models.TransitAccompanyingDocument
+import models.ReleaseForTransit
 import models.reference.AdditionalInformation
 import models.reference.ControlResultData
 import models.reference.Country
@@ -111,7 +111,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
   private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
   private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
-  val validModel = models.TransitAccompanyingDocument(
+  val validModel = models.ReleaseForTransit(
     movementReferenceNumber = "mrn",
     declarationType = DeclarationType.T1,
     countryOfDispatch = Some(countries.head.code),
@@ -180,7 +180,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       "all data exists" in {
 
-        forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
+        forAll(arbitrary[Country], arbitrary[ReleaseForTransit], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
           (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn) =>
             val referenceDataService = mock[ReferenceDataConnector]
             when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
@@ -323,7 +323,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       "mandatory data exists" in {
 
-        forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], stringWithMaxLength(17)) {
+        forAll(arbitrary[Country], arbitrary[ReleaseForTransit], stringWithMaxLength(17)) {
           (countriesGen, transitAccompanyingDocumentGen, mrn) =>
             val referenceDataConnector = mock[ReferenceDataConnector]
             when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
