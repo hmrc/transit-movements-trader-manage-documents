@@ -62,6 +62,7 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           authId = releaseForTransit.authId,
           copyType = releaseForTransit.returnCopy,
           circumstanceIndicator = circumstanceIndicator,
+          security = releaseForTransit.security,
           principal = principal,
           consignor = consignor,
           consignee = consignee,

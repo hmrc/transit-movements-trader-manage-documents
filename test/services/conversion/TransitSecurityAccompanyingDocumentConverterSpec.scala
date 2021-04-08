@@ -73,6 +73,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         authId = Some("AuthId"),
         returnCopy = false,
         circumstanceIndicator = Some(circumstanceIndicators.head.code),
+        security = Some(1),
         principal = models.Principal("Principal name",
                                      "Principal street",
                                      "Principal postCode",
@@ -142,6 +143,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         authId = Some("AuthId"),
         copyType = false,
         circumstanceIndicator = Some(circumstanceIndicators.head.code),
+        security = Some(1),
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",
                                          "Principal street",
@@ -237,6 +239,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         authId = Some("SomeId"),
         returnCopy = false,
         circumstanceIndicator = None,
+        security = None,
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         consignor = None,

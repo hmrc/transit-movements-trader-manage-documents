@@ -439,6 +439,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         authId                    <- Gen.option(stringWithMaxLength(12))
         copyType                  <- arbitrary[Boolean]
         circumstanceIndicator     <- Gen.option(stringWithMaxLength(1))
+        security                  <- Gen.option(1)
         principal                 <- arbitrary[Principal]
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
@@ -466,6 +467,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           authId,
           copyType,
           circumstanceIndicator,
+          security,
           principal,
           consignor,
           consignee,

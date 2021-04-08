@@ -20,7 +20,8 @@
         transportIdentity: Option[String],
         transportCountry: Option[models.reference.Country],
         returnCopiesCustomsOffice: Option[viewmodels.ReturnCopiesCustomsOffice],
-        circumstanceIndicator: Option[String]
+        circumstanceIndicator: Option[String],
+        security: Option[Int]
 )
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
@@ -37,7 +38,7 @@
   <fo:table-body>
     @row_1(movementReferenceNumber)
 
-    @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems, circumstanceIndicator)
+    @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems, circumstanceIndicator, security)
 
     @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title, boldHeading)
 

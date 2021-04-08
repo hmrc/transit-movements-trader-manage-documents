@@ -113,6 +113,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
     authId = Some("AuthId"),
     returnCopy = false,
     circumstanceIndicator = None,
+    security = None,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
@@ -195,6 +196,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                 consignor = consignorGenUpdated,
                 consignee = consigneeGenUpdated,
                 circumstanceIndicator = Some(circumstanceIndicators.head.code),
+                security = releaseForTransitGen.security,
                 returnCopiesCustomsOffice = releaseForTransitGen.returnCopiesCustomsOffice.map(_.copy(countryCode = countriesGen.code))
               )
 
@@ -213,7 +215,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               controlResult = releaseForTransit.controlResult,
               returnCopiesCustomsOffice = releaseForTransit.returnCopiesCustomsOffice,
               seals = releaseForTransit.seals,
-              circumstanceIndicator = releaseForTransit.circumstanceIndicator
+              circumstanceIndicator = releaseForTransit.circumstanceIndicator,
+              security = releaseForTransit.security
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -231,6 +234,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               authId = validModel.authId,
               copyType = validModel.returnCopy,
               circumstanceIndicator = validModelUpdated.circumstanceIndicator,
+              security = validModelUpdated.security,
               principal = viewmodels.Principal(
                 releaseForTransit.principal.name,
                 releaseForTransit.principal.streetAndNumber,
@@ -315,7 +319,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
       "mandatory data exists" in {
 
         forAll(arbitrary[Country], arbitrary[ReleaseForTransit], stringWithMaxLength(17)) {
-          (countriesGen, transitAccompanyingDocumentGen, mrn) =>
+          (countriesGen, releaseForTransit, mrn) =>
             val referenceDataConnector = mock[ReferenceDataConnector]
             when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
             when(referenceDataConnector.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
@@ -331,23 +335,23 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
 
             val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataConnector)
 
-            val transitAccompanyingDocument =
-              transitAccompanyingDocumentGen.copy(principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code))
+            val transitSecurityAccompanyingDocument =
+              releaseForTransit.copy(principal = releaseForTransit.principal.copy(countryCode = countriesGen.code))
 
             val validModelUpdated = validModel.copy(
-              declarationType = transitAccompanyingDocument.declarationType,
+              declarationType = transitSecurityAccompanyingDocument.declarationType,
               countryOfDispatch = None,
               countryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
-              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              numberOfItems = transitSecurityAccompanyingDocument.numberOfItems,
               numberOfPackages = None,
-              grossMass = transitAccompanyingDocument.grossMass,
-              printBindingItinerary = transitAccompanyingDocument.printBindingItinerary,
+              grossMass = transitSecurityAccompanyingDocument.grossMass,
+              printBindingItinerary = transitSecurityAccompanyingDocument.printBindingItinerary,
               authId = None,
-              returnCopy = transitAccompanyingDocument.returnCopy,
+              returnCopy = transitSecurityAccompanyingDocument.returnCopy,
               circumstanceIndicator = None,
-              principal = transitAccompanyingDocument.principal,
+              principal = transitSecurityAccompanyingDocument.principal,
               consignor = None,
               consignee = None,
               customsOfficeOfTransit = Nil,
@@ -361,28 +365,29 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
               movementReferenceNumber = validModel.movementReferenceNumber,
-              declarationType = transitAccompanyingDocument.declarationType,
+              declarationType = transitSecurityAccompanyingDocument.declarationType,
               singleCountryOfDispatch = None,
               singleCountryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
               acceptanceDate = Some(FormattedDate(validModel.acceptanceDate)),
-              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              numberOfItems = transitSecurityAccompanyingDocument.numberOfItems,
               numberOfPackages = None,
-              grossMass = transitAccompanyingDocument.grossMass,
+              grossMass = transitSecurityAccompanyingDocument.grossMass,
               authId = None,
-              copyType = transitAccompanyingDocument.returnCopy,
+              copyType = transitSecurityAccompanyingDocument.returnCopy,
               circumstanceIndicator = None,
-              printBindingItinerary = transitAccompanyingDocument.printBindingItinerary,
+              security = None,
+              printBindingItinerary = transitSecurityAccompanyingDocument.printBindingItinerary,
               principal = viewmodels.Principal(
-                transitAccompanyingDocument.principal.name,
-                transitAccompanyingDocument.principal.streetAndNumber,
-                transitAccompanyingDocument.principal.streetAndNumber.shorten(32)("***"),
-                transitAccompanyingDocument.principal.postCode,
-                transitAccompanyingDocument.principal.city,
+                transitSecurityAccompanyingDocument.principal.name,
+                transitSecurityAccompanyingDocument.principal.streetAndNumber,
+                transitSecurityAccompanyingDocument.principal.streetAndNumber.shorten(32)("***"),
+                transitSecurityAccompanyingDocument.principal.postCode,
+                transitSecurityAccompanyingDocument.principal.city,
                 countriesGen,
-                transitAccompanyingDocument.principal.eori,
-                transitAccompanyingDocument.principal.tir
+                transitSecurityAccompanyingDocument.principal.eori,
+                transitSecurityAccompanyingDocument.principal.tir
               ),
               consignor = None,
               consignee = None,

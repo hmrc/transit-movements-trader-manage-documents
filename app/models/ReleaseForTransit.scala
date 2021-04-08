@@ -42,6 +42,7 @@ final case class ReleaseForTransit(
   authId: Option[String],
   returnCopy: Boolean,
   circumstanceIndicator: Option[String],
+  security: Option[Int],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
@@ -73,6 +74,7 @@ object ReleaseForTransit {
       authId                    <- (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional.read(xml)
       returnCopy                <- (__ \ "HEAHEA" \ "NCTRetCopHEA104").read[Boolean](xmlBinaryToBooleanReads).read(xml)
       circumstanceIndicator     <- (__ \ "HEAHEA" \ "SpeCirIndHEA1").read[String].optional.read(xml)
+      security                  <- (__ \ "HEAHEA" \ "SecHEA358").read[Int].optional.read(xml)
       principal                 <- (__ \ "TRAPRIPC1").read[Principal].read(xml)
       consignor                 <- (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional.read(xml)
       consignee                 <- (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional.read(xml)
@@ -100,6 +102,7 @@ object ReleaseForTransit {
         authId,
         returnCopy,
         circumstanceIndicator,
+        security,
         principal,
         consignor,
         consignee,

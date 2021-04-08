@@ -48,7 +48,8 @@
         transportIdentity = tadModel.transportIdentity,
         transportCountry = tadModel.transportCountry,
         returnCopiesCustomsOffice = tadModel.returnCopiesCustomsOffice,
-        circumstanceIndicator = tadModel.circumstanceIndicator
+        circumstanceIndicator = tadModel.circumstanceIndicator,
+        security = tadModel.security
     )
 
     <!--packages/goods description/docs/certs-->

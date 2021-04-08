@@ -83,6 +83,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         authId = Some("AuthId"),
         returnCopy = false,
         circumstanceIndicator = None,
+        security = None,
         principal = models.Principal("Principal name",
                                      "Principal street",
                                      "Principal postCode",
@@ -243,6 +244,7 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         authId = Some("SomeId"),
         returnCopy = false,
         circumstanceIndicator = None,
+        security = None,
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         consignor = None,

@@ -1,11 +1,11 @@
 @import views.xml.securityComponents.table_1.consignor
 @import views.xml.securityComponents.table_1.declaration_type
 @import views.xml.securityComponents.table_1.forms
-@import views.xml.securityComponents.table_1.loading_lists
+@import views.xml.securityComponents.table_1.secDecl
 
 @import views.xml.securityComponents.barcode
 
-@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean, circumstanceIndicator: Option[String])
+@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean, circumstanceIndicator: Option[String], security: Option[Int])
 
 <fo:table-row height="16mm">
   <fo:table-cell>
@@ -37,7 +37,7 @@
                     <fo:table-row height="9mm">
 
                       @forms(printListOfItems)
-                      @loading_lists()
+                      @secDecl(security)
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>

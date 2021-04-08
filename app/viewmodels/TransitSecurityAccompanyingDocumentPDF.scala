@@ -38,6 +38,7 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   authId: Option[String],
   copyType: Boolean,
   circumstanceIndicator: Option[String],
+  security: Option[Int],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
