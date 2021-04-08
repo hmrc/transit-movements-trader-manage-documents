@@ -1,0 +1,29 @@
+@import viewmodels.CustomsOfficeWithOptionalDate
+
+@import views.xml.securityComponents.customs_office
+@(transitOffices: Seq[CustomsOfficeWithOptionalDate] = Nil)
+<fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">
+    <fo:block>
+        <fo:table width="100%" table-layout="fixed">
+            <fo:table-column column-width="30.66mm"/>
+            <fo:table-column column-width="30.66mm"/>
+            <fo:table-column column-width="30.66mm"/>
+            <fo:table-column column-width="30.66mm"/>
+            <fo:table-column column-width="30.66mm"/>
+            <fo:table-column column-width="30.66mm"/>
+            <fo:table-body>
+                <fo:table-row height="7.5mm">
+                @for(i <- 0 to 5){
+                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="2mm">
+                    @if(transitOffices.isDefinedAt(i)) {
+                        @customs_office(transitOffices(i))
+                    } else {
+                        <fo:block/>
+                    }
+                    </fo:table-cell>
+                }
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </fo:block>
+</fo:table-cell>

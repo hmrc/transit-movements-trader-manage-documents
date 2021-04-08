@@ -19,6 +19,7 @@ package viewmodels
 import cats.data.NonEmptyList
 import models.DeclarationType
 import models.GuaranteeDetails
+import models.reference.CircumstanceIndicator
 import models.reference.Country
 import utils.FormattedDate
 
@@ -36,6 +37,7 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   printBindingItinerary: Boolean,
   authId: Option[String],
   copyType: Boolean,
+  circumstanceIndicator: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],

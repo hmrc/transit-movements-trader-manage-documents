@@ -98,4 +98,12 @@ trait ReferenceModelGenerators extends GeneratorHelpers {
         description <- stringWithMaxLength(50)
       } yield SensitiveGoodsCode(code.toString, description)
     }
+
+  implicit lazy val arbitraryCircumstanceIndicator: Arbitrary[CircumstanceIndicator] =
+    Arbitrary {
+      for {
+        code        <- stringWithMaxLength(1)
+        description <- stringWithMaxLength(50)
+      } yield CircumstanceIndicator(code, description)
+    }
 }

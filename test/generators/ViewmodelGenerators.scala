@@ -25,6 +25,7 @@ import models.GuaranteeReference
 import models.PreviousAdministrativeReference
 import models.SensitiveGoodsInformation
 import models.reference.AdditionalInformation
+import models.reference.CircumstanceIndicator
 import models.reference.ControlResultData
 import models.reference.Country
 import models.reference.CustomsOffice
@@ -437,6 +438,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         printBindingItinerary     <- arbitrary[Boolean]
         authId                    <- Gen.option(stringWithMaxLength(12))
         copyType                  <- arbitrary[Boolean]
+        circumstanceIndicator     <- Gen.option(stringWithMaxLength(1))
         principal                 <- arbitrary[Principal]
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
@@ -463,6 +465,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           printBindingItinerary,
           authId,
           copyType,
+          circumstanceIndicator,
           principal,
           consignor,
           consignee,

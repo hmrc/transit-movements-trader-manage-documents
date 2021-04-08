@@ -1,0 +1,57 @@
+@import views.xml.securityComponents.table_1.consignor
+@import views.xml.securityComponents.table_1.declaration_type
+@import views.xml.securityComponents.table_1.forms
+@import views.xml.securityComponents.table_1.loading_lists
+
+@import views.xml.securityComponents.barcode
+
+@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean, circumstanceIndicator: Option[String])
+
+<fo:table-row height="16mm">
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+  <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+    <fo:block/>
+  </fo:table-cell>
+
+  @consignor(printVariousConsignors, consignorOne)
+
+  <fo:table-cell>
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column/>
+
+        <fo:table-body>
+
+          @declaration_type(declarationType, circumstanceIndicator)
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>
+                <fo:table width="100%" table-layout="fixed">
+                  <fo:table-column column-width="16mm"/>
+                  <fo:table-column column-width="16mm"/>
+
+                  <fo:table-body>
+                    <fo:table-row height="9mm">
+
+                      @forms(printListOfItems)
+                      @loading_lists()
+                    </fo:table-row>
+                  </fo:table-body>
+                </fo:table>
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
+    <fo:block>
+      @barcode(movementReferenceNumber)
+    </fo:block>
+  </fo:table-cell>
+</fo:table-row>

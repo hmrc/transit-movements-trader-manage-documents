@@ -1,0 +1,34 @@
+@(consignor: Option[viewmodels.Consignor])
+
+<fo:table-row height="5.33mm">
+  <fo:table-cell display-align="center" padding-left="2mm">
+    <fo:block>Consignor/Exporter (2)</fo:block>
+  </fo:table-cell>
+  <fo:table-cell display-align="center" padding-left="2mm">
+    <fo:block>No</fo:block>
+  </fo:table-cell>
+  <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
+    <fo:block>
+      @consignor.map(c => c.eori)
+    </fo:block>
+  </fo:table-cell>
+</fo:table-row>
+<fo:table-row height="5.33mm">
+<fo:table-cell number-columns-spanned="3" display-align="center" padding-left="2mm" font-weight="bold">
+  <fo:block>
+    @consignor.map(c => c.name).getOrElse("---")
+  </fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row height="5.33mm">
+<fo:table-cell display-align="center" padding-left="2mm" number-columns-spanned="2" font-weight="bold">
+  <fo:block>
+    @consignor.map(c => c.streetAndNumberTrimmed)
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
+  <fo:block>
+    @consignor.map(c => c.postCode)
+  </fo:block>
+</fo:table-cell>
+</fo:table-row>

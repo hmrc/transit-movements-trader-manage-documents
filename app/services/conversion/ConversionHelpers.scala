@@ -19,6 +19,7 @@ package services.conversion
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import models.reference.AdditionalInformation
+import models.reference.CircumstanceIndicator
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
@@ -68,6 +69,13 @@ trait ConversionHelpers {
     maybeCountryOfDestination match {
       case Some(countryOfDestination) => findReferenceData(countryOfDestination, countries, s"countryOfDestination").map(x => Some(x))
       case None                       => Valid(None)
+    }
+
+  def convertCircumstanceIndicator(maybeCircumstanceIndicator: Option[String],
+                                   circumstanceIndicators: Seq[CircumstanceIndicator]): ValidationResult[Option[String]] =
+    maybeCircumstanceIndicator match {
+      case Some(circumstanceIndicator) => findReferenceData(circumstanceIndicator, circumstanceIndicators, s"circumstanceIndicators").map(x => Some(x.code))
+      case None                        => Valid(None)
     }
 
   def convertGoodsItems(items: NonEmptyList[models.GoodsItem],

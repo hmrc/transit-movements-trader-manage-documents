@@ -42,9 +42,10 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
   private val destinationOffice         = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office"), "AB"), None)
   private val transitOffices = Seq(
     CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0))))
-  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
-  private val invalidCode           = "non-existent code"
-  private val controlResult         = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
+  private val previousDocumentTypes  = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
+  private val invalidCode            = "non-existent code"
+  private val controlResult          = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
+  private val circumstanceIndicators = Seq(CircumstanceIndicator("E", "indicator 1"), CircumstanceIndicator("D", "indicator 2"))
 
   "toViewModel" - {
 
@@ -71,6 +72,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         printBindingItinerary = true,
         authId = Some("AuthId"),
         returnCopy = false,
+        circumstanceIndicator = Some(circumstanceIndicators.head.code),
         principal = models.Principal("Principal name",
                                      "Principal street",
                                      "Principal postCode",
@@ -139,6 +141,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         printBindingItinerary = true,
         authId = Some("AuthId"),
         copyType = false,
+        circumstanceIndicator = Some(circumstanceIndicators.head.code),
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",
                                          "Principal street",
@@ -200,16 +203,19 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         )
       )
 
-      val result = TransitSecurityAccompanyingDocumentConverter.toViewModel(model,
-                                                                            countries,
-                                                                            additionalInfo,
-                                                                            kindsOfPackage,
-                                                                            documentTypes,
-                                                                            departureOffice,
-                                                                            destinationOffice,
-                                                                            transitOffices,
-                                                                            previousDocumentTypes,
-                                                                            controlResult)
+      val result = TransitSecurityAccompanyingDocumentConverter.toViewModel(
+        model,
+        countries,
+        additionalInfo,
+        kindsOfPackage,
+        documentTypes,
+        departureOffice,
+        destinationOffice,
+        transitOffices,
+        previousDocumentTypes,
+        controlResult,
+        circumstanceIndicators
+      )
 
       result.valid.value mustEqual expectedResult
     }
@@ -230,6 +236,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         printBindingItinerary = true,
         authId = Some("SomeId"),
         returnCopy = false,
+        circumstanceIndicator = None,
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         consignor = None,
@@ -280,16 +287,19 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         )
       )
 
-      val result = TransitSecurityAccompanyingDocumentConverter.toViewModel(model,
-                                                                            countries,
-                                                                            additionalInfo,
-                                                                            kindsOfPackage,
-                                                                            documentTypes,
-                                                                            departureOffice,
-                                                                            destinationOffice,
-                                                                            transitOffices,
-                                                                            previousDocumentTypes,
-                                                                            controlResult)
+      val result = TransitSecurityAccompanyingDocumentConverter.toViewModel(
+        model,
+        countries,
+        additionalInfo,
+        kindsOfPackage,
+        documentTypes,
+        departureOffice,
+        destinationOffice,
+        transitOffices,
+        previousDocumentTypes,
+        controlResult,
+        circumstanceIndicators
+      )
 
       val expectedErrors = Seq(
         ReferenceDataNotFound("countryOfDispatch", invalidCode),

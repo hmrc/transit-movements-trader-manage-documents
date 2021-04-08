@@ -32,11 +32,12 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
   def toViewModel(releaseForTransit: models.ReleaseForTransit,
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF]] = {
 
-    val countriesFuture             = referenceData.countries()
-    val additionalInfoFuture        = referenceData.additionalInformation()
-    val kindsOfPackageFuture        = referenceData.kindsOfPackage()
-    val documentTypesFuture         = referenceData.documentTypes()
-    val previousDocumentTypesFuture = referenceData.previousDocumentTypes()
+    val countriesFuture              = referenceData.countries()
+    val additionalInfoFuture         = referenceData.additionalInformation()
+    val kindsOfPackageFuture         = referenceData.kindsOfPackage()
+    val documentTypesFuture          = referenceData.documentTypes()
+    val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
+    val circumstanceIndicatorsFuture = referenceData.circumstanceIndicators()
 
     lazy val controlResultFuture = Future.sequence(releaseForTransit.controlResult.toList.map(code =>
       referenceData.controlResultByCode(code.conResCodERS16).map(crd => viewmodels.ControlResult(crd, code))))
@@ -59,15 +60,16 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
     )
 
     for {
-      countriesResult        <- countriesFuture
-      additionalInfoResult   <- additionalInfoFuture
-      kindsOfPackageResult   <- kindsOfPackageFuture
-      documentTypesResult    <- documentTypesFuture
-      previousDocumentResult <- previousDocumentTypesFuture
-      departureOffice        <- departureOfficeFuture
-      destinationOffice      <- destinationOfficeFuture
-      transitOffice          <- transitOfficeFuture
-      controlResult          <- controlResultFuture
+      countriesResult              <- countriesFuture
+      additionalInfoResult         <- additionalInfoFuture
+      kindsOfPackageResult         <- kindsOfPackageFuture
+      documentTypesResult          <- documentTypesFuture
+      previousDocumentResult       <- previousDocumentTypesFuture
+      departureOffice              <- departureOfficeFuture
+      destinationOffice            <- destinationOfficeFuture
+      transitOffice                <- transitOfficeFuture
+      controlResult                <- controlResultFuture
+      circumstanceIndicatorsResult <- circumstanceIndicatorsFuture
     } yield {
       (
         countriesResult,
@@ -75,8 +77,9 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
         kindsOfPackageResult,
         documentTypesResult,
         previousDocumentResult,
+        circumstanceIndicatorsResult
       ).mapN(
-          (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes) =>
+          (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes, circumstanceIndicators) =>
             TransitSecurityAccompanyingDocumentConverter.toViewModel(
               releaseForTransit,
               countries,
@@ -87,7 +90,8 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
               destinationOffice,
               transitOffice,
               previousDocumentTypes,
-              controlResult.headOption
+              controlResult.headOption,
+              circumstanceIndicators
           )
         )
         .fold(

@@ -41,6 +41,7 @@ final case class ReleaseForTransit(
   printBindingItinerary: Boolean,
   authId: Option[String],
   returnCopy: Boolean,
+  circumstanceIndicator: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
@@ -71,6 +72,7 @@ object ReleaseForTransit {
       printBindingItinerary     <- (__ \ "HEAHEA" \ "BinItiHEA246").read[Boolean](xmlBinaryToBooleanReads).read(xml)
       authId                    <- (__ \ "HEAHEA" \ "AutIdHEA380").read[String].optional.read(xml)
       returnCopy                <- (__ \ "HEAHEA" \ "NCTRetCopHEA104").read[Boolean](xmlBinaryToBooleanReads).read(xml)
+      circumstanceIndicator     <- (__ \ "HEAHEA" \ "SpeCirIndHEA1").read[String].optional.read(xml)
       principal                 <- (__ \ "TRAPRIPC1").read[Principal].read(xml)
       consignor                 <- (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional.read(xml)
       consignee                 <- (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional.read(xml)
@@ -97,6 +99,7 @@ object ReleaseForTransit {
         printBindingItinerary,
         authId,
         returnCopy,
+        circumstanceIndicator,
         principal,
         consignor,
         consignee,

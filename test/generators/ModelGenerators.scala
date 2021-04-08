@@ -306,6 +306,7 @@ trait ModelGenerators extends GeneratorHelpers {
         bindingItinerary          <- arbitrary[Boolean]
         authId                    <- Gen.option(stringWithMaxLength(25))
         returnCopy                <- arbitrary[Boolean]
+        circumstanceIndicator     <- Gen.option(stringWithMaxLength(1))
         principal                 <- arbitrary[Principal]
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
@@ -332,6 +333,7 @@ trait ModelGenerators extends GeneratorHelpers {
           bindingItinerary,
           authId,
           returnCopy,
+          circumstanceIndicator,
           principal,
           consignor,
           consignee,
