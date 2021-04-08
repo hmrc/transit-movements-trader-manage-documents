@@ -74,6 +74,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         returnCopy = false,
         circumstanceIndicator = Some(circumstanceIndicators.head.code),
         security = Some(1),
+        commercialReferenceNumber = Some("number"),
         principal = models.Principal("Principal name",
                                      "Principal street",
                                      "Principal postCode",
@@ -144,6 +145,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         copyType = false,
         circumstanceIndicator = Some(circumstanceIndicators.head.code),
         security = Some(1),
+        commercialReferenceNumber = Some("number"),
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",
                                          "Principal street",
@@ -240,6 +242,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         returnCopy = false,
         circumstanceIndicator = None,
         security = None,
+        commercialReferenceNumber = None,
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         consignor = None,

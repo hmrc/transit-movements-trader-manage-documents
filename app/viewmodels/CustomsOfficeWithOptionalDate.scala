@@ -32,5 +32,5 @@ case class CustomsOfficeWithOptionalDate(office: CustomsOffice, date: Option[Loc
       .shorten(maxLength)(trimmed)
 
   def dateTimeFormatted: Option[String] =
-    date.map(_.format(DateFormatter.arrivalDateTimeFormatter))
+    date.map(_.format(DateFormatter.dateTimeFormatter))
 }

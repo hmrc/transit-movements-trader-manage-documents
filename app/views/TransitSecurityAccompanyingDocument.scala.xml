@@ -49,7 +49,10 @@
         transportCountry = tadModel.transportCountry,
         returnCopiesCustomsOffice = tadModel.returnCopiesCustomsOffice,
         circumstanceIndicator = tadModel.circumstanceIndicator,
-        security = tadModel.security
+        security = tadModel.security,
+        grossMass = tadModel.grossMass,
+        commercialReferenceNumber = tadModel.commercialReferenceNumber,
+        tadModel.firstCustomsOfficeOfTransitArrivalTime
     )
 
     <!--packages/goods description/docs/certs-->

@@ -68,7 +68,7 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
   private lazy val service: TADPdfGenerator = app.injector.instanceOf[TADPdfGenerator]
   val env: Environment                      = app.injector.instanceOf[Environment]
 
-  "UnloadingPermissionPdfGenerator" - {
+  "TransitSecurityAccompanyingDocumentPDFGenerator" - {
 
     "return pdf" in {
 

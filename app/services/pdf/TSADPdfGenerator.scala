@@ -29,9 +29,9 @@ class TSADPdfGenerator @Inject()(
   document: TransitSecurityAccompanyingDocument
 ) {
 
-  def generate(permission: TransitSecurityAccompanyingDocumentPDF): Array[Byte] = {
+  def generate(documentPDF: TransitSecurityAccompanyingDocumentPDF): Array[Byte] = {
 
-    val renderedDocument = document.render(permission)
+    val renderedDocument = document.render(documentPDF)
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }

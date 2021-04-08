@@ -114,6 +114,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
     returnCopy = false,
     circumstanceIndicator = None,
     security = None,
+    commercialReferenceNumber = None,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
@@ -216,7 +217,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               returnCopiesCustomsOffice = releaseForTransit.returnCopiesCustomsOffice,
               seals = releaseForTransit.seals,
               circumstanceIndicator = releaseForTransit.circumstanceIndicator,
-              security = releaseForTransit.security
+              security = releaseForTransit.security,
+              commercialReferenceNumber = releaseForTransit.commercialReferenceNumber
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -235,6 +237,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               copyType = validModel.returnCopy,
               circumstanceIndicator = validModelUpdated.circumstanceIndicator,
               security = validModelUpdated.security,
+              commercialReferenceNumber = validModelUpdated.commercialReferenceNumber,
               principal = viewmodels.Principal(
                 releaseForTransit.principal.name,
                 releaseForTransit.principal.streetAndNumber,
@@ -378,6 +381,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               copyType = transitSecurityAccompanyingDocument.returnCopy,
               circumstanceIndicator = None,
               security = None,
+              commercialReferenceNumber = None,
               printBindingItinerary = transitSecurityAccompanyingDocument.printBindingItinerary,
               principal = viewmodels.Principal(
                 transitSecurityAccompanyingDocument.principal.name,

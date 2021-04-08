@@ -21,7 +21,10 @@
         transportCountry: Option[models.reference.Country],
         returnCopiesCustomsOffice: Option[viewmodels.ReturnCopiesCustomsOffice],
         circumstanceIndicator: Option[String],
-        security: Option[Int]
+        security: Option[Int],
+        grossMass: BigDecimal,
+        commercialReferenceNumber: Option[String],
+        firstCustomsOfficeOfTransitArrivalTime: String
 )
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
@@ -40,11 +43,11 @@
 
     @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems, circumstanceIndicator, security)
 
-    @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title, boldHeading)
+    @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title, boldHeading, grossMass)
 
-    @row_4(printVariousConsignees, consigneeOne, returnCopiesCustomsOffice)
+    @row_4(printVariousConsignees, consigneeOne, returnCopiesCustomsOffice, commercialReferenceNumber)
 
-    @row_5(singleCountryOfDispatch)
+    @row_5(singleCountryOfDispatch, firstCustomsOfficeOfTransitArrivalTime, singleCountryOfDestination)
 
     @row_6(singleCountryOfDestination)
 

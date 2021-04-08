@@ -63,6 +63,7 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           copyType = releaseForTransit.returnCopy,
           circumstanceIndicator = circumstanceIndicator,
           security = releaseForTransit.security,
+          commercialReferenceNumber = releaseForTransit.commercialReferenceNumber,
           principal = principal,
           consignor = consignor,
           consignee = consignee,

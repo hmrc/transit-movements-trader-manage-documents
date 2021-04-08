@@ -19,7 +19,6 @@ package viewmodels
 import cats.data.NonEmptyList
 import models.DeclarationType
 import models.GuaranteeDetails
-import models.reference.CircumstanceIndicator
 import models.reference.Country
 import utils.FormattedDate
 
@@ -39,6 +38,7 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   copyType: Boolean,
   circumstanceIndicator: Option[String],
   security: Option[Int],
+  commercialReferenceNumber: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
@@ -73,4 +73,6 @@ final case class TransitSecurityAccompanyingDocumentPDF(
       goodsItems.toList.flatMap(_.consignor).nonEmpty
 
   val totalNumberOfPackages: String = numberOfPackages.fold("")(_.toString)
+
+  val firstCustomsOfficeOfTransitArrivalTime: String = customsOfficeOfTransit.headOption.flatMap(_.dateTimeFormatted).getOrElse("---")
 }

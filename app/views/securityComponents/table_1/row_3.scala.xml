@@ -1,4 +1,4 @@
-@(printVariousConsignors: Boolean, consignor: Option[viewmodels.Consignor], numberOfItems: Int, totalNumberOfPackages: String, formName: String, boldHeading: Boolean)
+@(printVariousConsignors: Boolean, consignor: Option[viewmodels.Consignor], numberOfItems: Int, totalNumberOfPackages: String, formName: String, boldHeading: Boolean, grossMass: BigDecimal)
 
 <fo:table-row height="8mm">
   <fo:table-cell>
@@ -48,10 +48,10 @@
         <fo:table-body>
           <fo:table-row height="4mm">
             <fo:table-cell display-align="center" text-align="center">
-              <fo:block>5 Items</fo:block>
+              <fo:block>Items (5)</fo:block>
             </fo:table-cell>
             <fo:table-cell padding-left="2mm" text-align="left" display-align="center">
-              <fo:block>6 Total packages</fo:block>
+              <fo:block>Total packages (6)</fo:block>
             </fo:table-cell>
           </fo:table-row>
           <fo:table-row height="4mm">
@@ -70,10 +70,25 @@
       </fo:table>
     </fo:block>
   </fo:table-cell>
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+  <fo:table-cell number-columns-spanned="2">
+  <fo:block>
+    <fo:table width="100%">
+      <fo:table-column border-left-width="1pt" border-left-style="solid" border-left-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"/>
+      <fo:table-body>
+        <fo:table-row height="4mm">
+          <fo:table-cell padding-left="2mm" text-align="left" display-align="center">
+            <fo:block>Gross mass (kg) (35)</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="4mm">
+          <fo:table-cell text-align="center" display-align="center" font-weight="bold">
+            <fo:block>
+              @grossMass
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+ </fo:table-cell>
 </fo:table-row>

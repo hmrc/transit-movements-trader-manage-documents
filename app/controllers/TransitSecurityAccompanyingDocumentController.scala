@@ -48,18 +48,18 @@ class TransitSecurityAccompanyingDocumentController @Inject()(
           conversionService.toViewModel(releaseForTransit).map {
             case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
             case Validated.Invalid(errors) =>
-              logger.info(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
+              logger.info(s"Failed to convert to TransitSecurityAccompanyingDocument with following errors: $errors")
               InternalServerError
           } recover {
             case e =>
-              logger.info(s"Exception thrown while converting to TransitAccompanyingDocumentViewModel: ${e.getMessage}")
+              logger.info(s"Exception thrown while converting to TransitSecurityAccompanyingDocument: ${e.getMessage}")
               BadGateway
           }
         case PartialParseSuccess(result, errors) =>
-          logger.info(s"Partially failed to parse xml to TransitAccompanyingDocument with the following errors: $errors and result $result")
+          logger.info(s"Partially failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors and result $result")
           Future.successful(BadRequest)
         case ParseFailure(errors) =>
-          logger.info(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors")
+          logger.info(s"Failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors")
           Future.successful(BadRequest)
       }
   }
