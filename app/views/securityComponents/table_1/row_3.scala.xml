@@ -4,7 +4,7 @@
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
-  <fo:table-cell number-rows-spanned="5" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" padding-top="-10mm">
+  <fo:table-cell number-rows-spanned="8" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" padding-top="-10mm">
     <fo:block-container
           font-family="sans-serif" font-size="8"
         @if(boldHeading){font-weight="bold"}

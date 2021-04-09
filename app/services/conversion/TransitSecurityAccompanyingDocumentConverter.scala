@@ -65,6 +65,8 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           security = releaseForTransit.security,
           commercialReferenceNumber = releaseForTransit.commercialReferenceNumber,
           methodOfPayment = releaseForTransit.methodOfPayment,
+          identityOfTransportAtBorder = releaseForTransit.identityOfTransportAtBorder,
+          nationalityOfTransportAtBorder = releaseForTransit.nationalityOfTransportAtBorder,
           principal = principal,
           consignor = consignor,
           consignee = consignee,

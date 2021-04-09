@@ -1,4 +1,3 @@
-@(identityOfTransportAtBorder: Option[String], nationalityOfTransportAtBorder: Option[String])
 <fo:table-row height="8mm">
   <fo:table-cell>
     <fo:block/>
@@ -17,12 +16,22 @@
           <fo:table-row height="4mm">
             <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" padding-left="2mm" font-weight="bold">
               <fo:block>
-                  @identityOfTransportAtBorder
+<!--                <xsl:choose>-->
+<!--                  <xsl:when test="string-length(*/HEAHEA/IdeOfMeaOfTraCroHEA85) > 0">-->
+<!--                    <xsl:value-of select="*/HEAHEA/IdeOfMeaOfTraCroHEA85"/>-->
+<!--                  </xsl:when>-->
+<!--                  <xsl:otherwise>-&#45;&#45;</xsl:otherwise>-->
+<!--                </xsl:choose>-->
               </fo:block>
             </fo:table-cell>
             <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" text-align="center" font-weight="bold">
               <fo:block>
-                  @nationalityOfTransportAtBorder
+                <!--<xsl:choose>
+                  <xsl:when test="string-length(*/HEAHEA/NatOfMeaOfTraCroHEA87) > 0">
+                    <xsl:value-of select="*/HEAHEA/NatOfMeaOfTraCroHEA87"/>
+                  </xsl:when>
+                  <xsl:otherwise>-&#45;&#45;</xsl:otherwise>
+                </xsl:choose>-->
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

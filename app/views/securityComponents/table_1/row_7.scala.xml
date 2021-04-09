@@ -1,34 +1,34 @@
 @(transportIdentity: Option[String], transportCountry: Option[models.reference.Country])
 
 <fo:table-row height="8mm">
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
-  <fo:table-cell border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt" number-rows-spanned="1">
-    <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column column-width="68mm"/>
-        <fo:table-column column-width="10mm"/>
-        <fo:table-body>
-          <fo:table-row height="4mm">
-            <fo:table-cell alignment-adjust="auto" border-top-style="solid" border-top-width="1pt" border-top-color="black" number-columns-spanned="2" padding-start="2mm" display-align="center" border-right-style="solid" border-right-width="1pt" border-right-color="black">
-              <fo:block>Identity and nationality of means of transport at departure (18)</fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-          <fo:table-row height="4mm">
-            <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" padding-left="2mm" font-weight="bold">
-              <fo:block>
-                @transportIdentity.getOrElse("---")
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" text-align="center" font-weight="bold">
-              <fo:block>
-                @transportCountry.map(country => country.code).getOrElse("---")
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-        </fo:table-body>
-      </fo:table>
-    </fo:block>
-  </fo:table-cell>
+<fo:table-cell>
+  <fo:block/>
+</fo:table-cell>
+<fo:table-cell border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt" number-rows-spanned="1">
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column column-width="68mm"/>
+      <fo:table-column column-width="10mm"/>
+      <fo:table-body>
+        <fo:table-row height="4mm">
+          <fo:table-cell alignment-adjust="auto" border-top-style="solid" border-top-width="1pt" border-top-color="black" number-columns-spanned="2" padding-start="2mm" display-align="center" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+            <fo:block>Identity and nationality of means of transport at departure (18)</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="4mm">
+          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" padding-left="2mm" font-weight="bold">
+            <fo:block>
+              @transportIdentity.getOrElse("---")
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" text-align="center" font-weight="bold">
+            <fo:block>
+              @transportCountry.map(country => country.code).getOrElse("---")
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>
 </fo:table-row>

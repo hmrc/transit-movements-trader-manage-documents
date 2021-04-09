@@ -32,7 +32,7 @@
     <!--main header-->
     @mainHeader(
         title = "TRANSIT/SECURITY - ACCOMPANYING DOCUMENT",
-        boldHeading = true,
+        boldHeading = false,
         tadModel = tadModel
     )
 

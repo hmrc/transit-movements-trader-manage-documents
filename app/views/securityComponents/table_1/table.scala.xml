@@ -34,7 +34,11 @@
 
     @row_7(tadModel.transportIdentity, tadModel.transportCountry)
 
-    @row_8()
+    @row_8(tadModel.identityOfTransportAtBorder, tadModel.nationalityOfTransportAtBorder)
+
+    @row_9()
+
+    @row_10()
 
   </fo:table-body>
 </fo:table>
