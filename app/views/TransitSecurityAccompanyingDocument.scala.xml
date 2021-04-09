@@ -33,26 +33,7 @@
     @mainHeader(
         title = "TRANSIT/SECURITY - ACCOMPANYING DOCUMENT",
         boldHeading = true,
-        movementReferenceNumber = tadModel.movementReferenceNumber,
-        printVariousConsignors = tadModel.printVariousConsignors,
-        consignorOne = tadModel.consignorOne,
-        declarationType = tadModel.declarationType,
-        printListOfItems = tadModel.printListOfItems,
-        consignor = tadModel.consignor,
-        numberOfItems = tadModel.numberOfItems,
-        totalNumberOfPackages = tadModel.totalNumberOfPackages,
-        printVariousConsignees = tadModel.printVariousConsignees,
-        consigneeOne = tadModel.consigneeOne,
-        singleCountryOfDispatch = tadModel.singleCountryOfDispatch,
-        singleCountryOfDestination = tadModel.singleCountryOfDestination,
-        transportIdentity = tadModel.transportIdentity,
-        transportCountry = tadModel.transportCountry,
-        returnCopiesCustomsOffice = tadModel.returnCopiesCustomsOffice,
-        circumstanceIndicator = tadModel.circumstanceIndicator,
-        security = tadModel.security,
-        grossMass = tadModel.grossMass,
-        commercialReferenceNumber = tadModel.commercialReferenceNumber,
-        tadModel.firstCustomsOfficeOfTransitArrivalTime
+        tadModel = tadModel
     )
 
     <!--packages/goods description/docs/certs-->

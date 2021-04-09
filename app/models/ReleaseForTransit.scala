@@ -44,6 +44,7 @@ final case class ReleaseForTransit(
   circumstanceIndicator: Option[String],
   security: Option[Int],
   commercialReferenceNumber: Option[String],
+  methodOfPayment: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
@@ -77,6 +78,7 @@ object ReleaseForTransit {
       circumstanceIndicator     <- (__ \ "HEAHEA" \ "SpeCirIndHEA1").read[String].optional.read(xml)
       security                  <- (__ \ "HEAHEA" \ "SecHEA358").read[Int].optional.read(xml)
       commercialReferenceNumber <- (__ \ "HEAHEA" \ "ComRefNumHEA").read[String].optional.read(xml)
+      methodOfPayment           <- (__ \ "HEAHEA" \ "TraChaMetOfPayHEA1").read[String].optional.read(xml)
       principal                 <- (__ \ "TRAPRIPC1").read[Principal].read(xml)
       consignor                 <- (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional.read(xml)
       consignee                 <- (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional.read(xml)
@@ -106,6 +108,7 @@ object ReleaseForTransit {
         circumstanceIndicator,
         security,
         commercialReferenceNumber,
+        methodOfPayment,
         principal,
         consignor,
         consignee,

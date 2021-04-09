@@ -40,6 +40,7 @@ import play.api.test.Helpers._
 import services.ReferenceDataRetrievalError
 import services.conversion.TransitSecurityAccompanyingDocumentConversionService
 import services.pdf.TADPdfGenerator
+import services.pdf.TSADPdfGenerator
 
 import scala.concurrent.Future
 
@@ -64,12 +65,12 @@ class TransitSecurityAccompanyingDocumentControllerSpec
 
     "must return OK and PDF" in {
 
-      val mockPDFGenerator: TADPdfGenerator                                           = mock[TADPdfGenerator]
+      val mockPDFGenerator: TSADPdfGenerator                                          = mock[TSADPdfGenerator]
       val mockConversionService: TransitSecurityAccompanyingDocumentConversionService = mock[TransitSecurityAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
         .overrides {
-          bind[TADPdfGenerator].toInstance(mockPDFGenerator)
+          bind[TSADPdfGenerator].toInstance(mockPDFGenerator)
           bind[TransitSecurityAccompanyingDocumentConversionService].toInstance(mockConversionService)
         }
         .build()

@@ -115,6 +115,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
     circumstanceIndicator = None,
     security = None,
     commercialReferenceNumber = None,
+    methodOfPayment = None,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
@@ -218,7 +219,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               seals = releaseForTransit.seals,
               circumstanceIndicator = releaseForTransit.circumstanceIndicator,
               security = releaseForTransit.security,
-              commercialReferenceNumber = releaseForTransit.commercialReferenceNumber
+              commercialReferenceNumber = releaseForTransit.commercialReferenceNumber,
+              methodOfPayment = releaseForTransit.methodOfPayment
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -238,6 +240,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               circumstanceIndicator = validModelUpdated.circumstanceIndicator,
               security = validModelUpdated.security,
               commercialReferenceNumber = validModelUpdated.commercialReferenceNumber,
+              methodOfPayment = validModelUpdated.methodOfPayment,
               principal = viewmodels.Principal(
                 releaseForTransit.principal.name,
                 releaseForTransit.principal.streetAndNumber,
@@ -382,6 +385,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               circumstanceIndicator = None,
               security = None,
               commercialReferenceNumber = None,
+              methodOfPayment = None,
               printBindingItinerary = transitSecurityAccompanyingDocument.printBindingItinerary,
               principal = viewmodels.Principal(
                 transitSecurityAccompanyingDocument.principal.name,

@@ -5,26 +5,7 @@
 @(
         title: String,
         boldHeading: Boolean,
-        movementReferenceNumber: String,
-        printVariousConsignors: Boolean,
-        consignorOne: Option[viewmodels.Consignor],
-        declarationType: DeclarationType,
-        printListOfItems: Boolean,
-        consignor: Option[viewmodels.Consignor],
-        numberOfItems: Int,
-        totalNumberOfPackages: String,
-        printVariousConsignees: Boolean,
-        consigneeOne: Option[viewmodels.Consignee],
-        singleCountryOfDispatch: Option[models.reference.Country],
-        singleCountryOfDestination: Option[models.reference.Country],
-        transportIdentity: Option[String],
-        transportCountry: Option[models.reference.Country],
-        returnCopiesCustomsOffice: Option[viewmodels.ReturnCopiesCustomsOffice],
-        circumstanceIndicator: Option[String],
-        security: Option[Int],
-        grossMass: BigDecimal,
-        commercialReferenceNumber: Option[String],
-        firstCustomsOfficeOfTransitArrivalTime: String
+        tadModel: viewmodels.TransitSecurityAccompanyingDocumentPDF
 )
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
@@ -39,19 +20,19 @@
   <fo:table-column column-number="8" column-width="46mm"/>
 
   <fo:table-body>
-    @row_1(movementReferenceNumber)
+    @row_1(tadModel.movementReferenceNumber)
 
-    @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems, circumstanceIndicator, security)
+    @row_2(tadModel.printVariousConsignors, tadModel.consignorOne, tadModel.declarationType, tadModel.movementReferenceNumber, tadModel.printListOfItems, tadModel.circumstanceIndicator, tadModel.security)
 
-    @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title, boldHeading, grossMass)
+    @row_3(tadModel.printVariousConsignors, tadModel.consignor, tadModel.numberOfItems, tadModel.totalNumberOfPackages, title, boldHeading, tadModel.grossMass)
 
-    @row_4(printVariousConsignees, consigneeOne, returnCopiesCustomsOffice, commercialReferenceNumber)
+    @row_4(tadModel.printVariousConsignees, tadModel.consigneeOne, tadModel.returnCopiesCustomsOffice,  tadModel.commercialReferenceNumber)
 
-    @row_5(singleCountryOfDispatch, firstCustomsOfficeOfTransitArrivalTime, singleCountryOfDestination)
+    @row_5(tadModel.singleCountryOfDispatch, tadModel.firstCustomsOfficeOfTransitArrivalTime, tadModel.singleCountryOfDestination)
 
-    @row_6(singleCountryOfDestination)
+    @row_6(tadModel.methodOfPayment)
 
-    @row_7(transportIdentity, transportCountry)
+    @row_7(tadModel.transportIdentity, tadModel.transportCountry)
 
     @row_8()
 

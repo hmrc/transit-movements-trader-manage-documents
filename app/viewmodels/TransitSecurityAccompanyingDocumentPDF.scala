@@ -39,6 +39,7 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   circumstanceIndicator: Option[String],
   security: Option[Int],
   commercialReferenceNumber: Option[String],
+  methodOfPayment: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],

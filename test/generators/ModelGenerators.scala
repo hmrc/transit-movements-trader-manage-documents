@@ -308,6 +308,7 @@ trait ModelGenerators extends GeneratorHelpers {
         returnCopy                <- arbitrary[Boolean]
         circumstanceIndicator     <- Gen.option(stringWithMaxLength(1))
         commercialReferenceNumber <- Gen.option(stringWithMaxLength(12))
+        methodOfPayment           <- Gen.option(stringWithMaxLength(1))
         security                  <- Gen.option(1)
         principal                 <- arbitrary[Principal]
         consignor                 <- Gen.option(arbitrary[Consignor])
@@ -338,6 +339,7 @@ trait ModelGenerators extends GeneratorHelpers {
           circumstanceIndicator,
           security,
           commercialReferenceNumber,
+          methodOfPayment,
           principal,
           consignor,
           consignee,

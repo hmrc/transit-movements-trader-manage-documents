@@ -25,7 +25,6 @@ import models.GuaranteeReference
 import models.PreviousAdministrativeReference
 import models.SensitiveGoodsInformation
 import models.reference.AdditionalInformation
-import models.reference.CircumstanceIndicator
 import models.reference.ControlResultData
 import models.reference.Country
 import models.reference.CustomsOffice
@@ -439,6 +438,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         authId                    <- Gen.option(stringWithMaxLength(12))
         copyType                  <- arbitrary[Boolean]
         circumstanceIndicator     <- Gen.option(stringWithMaxLength(1))
+        methodOfPayment           <- Gen.option(stringWithMaxLength(1))
         security                  <- Gen.option(1)
         commercialReferenceNumber <- Gen.option(stringWithMaxLength(12))
         principal                 <- arbitrary[Principal]
@@ -470,6 +470,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           circumstanceIndicator,
           security,
           commercialReferenceNumber,
+          methodOfPayment,
           principal,
           consignor,
           consignee,
