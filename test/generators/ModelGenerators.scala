@@ -290,7 +290,7 @@ trait ModelGenerators extends GeneratorHelpers {
     } yield ControlResult(code, date)
   }
 
-  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[ReleaseForTransit] =
+  implicit lazy val arbitraryHeader: Arbitrary[Header] =
     Arbitrary {
       for {
         mrn                               <- stringWithMaxLength(22)
@@ -314,19 +314,8 @@ trait ModelGenerators extends GeneratorHelpers {
         transportModeAtBorder             <- Gen.option(stringWithMaxLength(2))
         agreedLocationOfGoodsCode         <- Gen.option(stringWithMaxLength(17))
         security                          <- Gen.option(1)
-        principal                         <- arbitrary[Principal]
-        consignor                         <- Gen.option(arbitrary[Consignor])
-        consignee                         <- Gen.option(arbitrary[Consignee])
-        customsOffOfTransit               <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
-        guaranteeDetails                  <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
-        departureOffice                   <- stringWithMaxLength(8)
-        destinationOffice                 <- stringWithMaxLength(8)
-        returnCopiesCustomsOffice         <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
-        controlResult                     <- Gen.option(arbitrary[ControlResult])
-        seals                             <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems                        <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
       } yield
-        ReleaseForTransit(
+        Header(
           mrn,
           declarationType,
           countryOfDispatch,
@@ -347,7 +336,29 @@ trait ModelGenerators extends GeneratorHelpers {
           identityOfTransportCrossingBorder,
           nationalityOfTransportAtBorder,
           transportModeAtBorder,
-          agreedLocationOfGoodsCode,
+          agreedLocationOfGoodsCode
+        )
+    }
+
+  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[ReleaseForTransit] =
+    Arbitrary {
+      for {
+        header                    <- arbitrary[Header]
+        security                  <- Gen.option(1)
+        principal                 <- arbitrary[Principal]
+        consignor                 <- Gen.option(arbitrary[Consignor])
+        consignee                 <- Gen.option(arbitrary[Consignee])
+        customsOffOfTransit       <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
+        guaranteeDetails          <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
+        departureOffice           <- stringWithMaxLength(8)
+        destinationOffice         <- stringWithMaxLength(8)
+        returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
+        controlResult             <- Gen.option(arbitrary[ControlResult])
+        seals                     <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems                <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+      } yield
+        ReleaseForTransit(
+          header,
           principal,
           consignor,
           consignee,

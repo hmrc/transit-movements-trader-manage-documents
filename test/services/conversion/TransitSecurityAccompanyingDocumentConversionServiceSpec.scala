@@ -99,27 +99,29 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
   private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
   val validModel = models.ReleaseForTransit(
-    movementReferenceNumber = "mrn",
-    declarationType = DeclarationType.T1,
-    countryOfDispatch = Some(countries.head.code),
-    countryOfDestination = Some(countries.head.code),
-    transportIdentity = Some("identity"),
-    transportCountry = Some(countries.head.code),
-    acceptanceDate = LocalDate.of(2020, 1, 1),
-    numberOfItems = 1,
-    numberOfPackages = Some(3),
-    grossMass = 1.0,
-    printBindingItinerary = true,
-    authId = Some("AuthId"),
-    returnCopy = false,
-    circumstanceIndicator = None,
-    security = None,
-    commercialReferenceNumber = None,
-    methodOfPayment = None,
-    identityOfTransportAtBorder = None,
-    nationalityOfTransportAtBorder = None,
-    transportModeAtBorder = None,
-    agreedLocationOfGoodsCode = None,
+    Header(
+      movementReferenceNumber = "mrn",
+      declarationType = DeclarationType.T1,
+      countryOfDispatch = Some(countries.head.code),
+      countryOfDestination = Some(countries.head.code),
+      transportIdentity = Some("identity"),
+      transportCountry = Some(countries.head.code),
+      acceptanceDate = LocalDate.of(2020, 1, 1),
+      numberOfItems = 1,
+      numberOfPackages = Some(3),
+      grossMass = 1.0,
+      printBindingItinerary = true,
+      authId = Some("AuthId"),
+      returnCopy = false,
+      circumstanceIndicator = None,
+      security = None,
+      commercialReferenceNumber = None,
+      methodOfPayment = None,
+      identityOfTransportAtBorder = None,
+      nationalityOfTransportAtBorder = None,
+      transportModeAtBorder = None,
+      agreedLocationOfGoodsCode = None
+    ),
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
@@ -201,58 +203,60 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                 principal = releaseForTransitGen.principal.copy(countryCode = countriesGen.code),
                 consignor = consignorGenUpdated,
                 consignee = consigneeGenUpdated,
-                circumstanceIndicator = Some(circumstanceIndicators.head.code),
-                security = releaseForTransitGen.security,
                 returnCopiesCustomsOffice = releaseForTransitGen.returnCopiesCustomsOffice.map(_.copy(countryCode = countriesGen.code))
               )
 
-            val validModelUpdated = validModel.copy(
-              declarationType = releaseForTransit.declarationType,
+            val header = validModel.header.copy(
+              declarationType = releaseForTransit.header.declarationType,
               countryOfDispatch = Some(countriesGen.code),
               countryOfDestination = Some(countriesGen.code),
-              transportIdentity = releaseForTransit.transportIdentity,
+              transportIdentity = releaseForTransit.header.transportIdentity,
               transportCountry = Some(countriesGen.code),
-              numberOfItems = releaseForTransit.numberOfItems,
-              numberOfPackages = releaseForTransit.numberOfPackages,
-              grossMass = releaseForTransit.grossMass,
+              numberOfItems = releaseForTransit.header.numberOfItems,
+              numberOfPackages = releaseForTransit.header.numberOfPackages,
+              grossMass = releaseForTransit.header.grossMass,
+              circumstanceIndicator = Some(circumstanceIndicators.head.code),
+              security = releaseForTransitGen.header.security,
+              commercialReferenceNumber = releaseForTransit.header.commercialReferenceNumber,
+              methodOfPayment = releaseForTransit.header.methodOfPayment,
+              identityOfTransportAtBorder = releaseForTransit.header.identityOfTransportAtBorder,
+              nationalityOfTransportAtBorder = releaseForTransit.header.nationalityOfTransportAtBorder,
+              transportModeAtBorder = releaseForTransit.header.transportModeAtBorder,
+              agreedLocationOfGoodsCode = releaseForTransit.header.agreedLocationOfGoodsCode,
+            )
+
+            val validModelUpdated = validModel.copy(
+              header = header,
               principal = releaseForTransit.principal,
               consignor = releaseForTransit.consignor,
               consignee = releaseForTransit.consignee,
               controlResult = releaseForTransit.controlResult,
               returnCopiesCustomsOffice = releaseForTransit.returnCopiesCustomsOffice,
               seals = releaseForTransit.seals,
-              circumstanceIndicator = releaseForTransit.circumstanceIndicator,
-              security = releaseForTransit.security,
-              commercialReferenceNumber = releaseForTransit.commercialReferenceNumber,
-              methodOfPayment = releaseForTransit.methodOfPayment,
-              identityOfTransportAtBorder = releaseForTransit.identityOfTransportAtBorder,
-              nationalityOfTransportAtBorder = releaseForTransit.nationalityOfTransportAtBorder,
-              transportModeAtBorder = releaseForTransit.transportModeAtBorder,
-              agreedLocationOfGoodsCode = releaseForTransit.agreedLocationOfGoodsCode,
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
-              movementReferenceNumber = validModelUpdated.movementReferenceNumber,
-              declarationType = releaseForTransit.declarationType,
+              movementReferenceNumber = validModelUpdated.header.movementReferenceNumber,
+              declarationType = releaseForTransit.header.declarationType,
               singleCountryOfDispatch = Some(countriesGen),
               singleCountryOfDestination = Some(countriesGen),
-              transportIdentity = releaseForTransit.transportIdentity,
+              transportIdentity = releaseForTransit.header.transportIdentity,
               transportCountry = Some(countriesGen),
-              acceptanceDate = Some(FormattedDate(validModel.acceptanceDate)),
-              numberOfItems = releaseForTransit.numberOfItems,
-              numberOfPackages = releaseForTransit.numberOfPackages,
-              grossMass = releaseForTransit.grossMass,
-              printBindingItinerary = validModel.printBindingItinerary,
-              authId = validModel.authId,
-              copyType = validModel.returnCopy,
-              circumstanceIndicator = validModelUpdated.circumstanceIndicator,
-              security = validModelUpdated.security,
-              commercialReferenceNumber = validModelUpdated.commercialReferenceNumber,
-              methodOfPayment = validModelUpdated.methodOfPayment,
-              identityOfTransportAtBorder = validModelUpdated.identityOfTransportAtBorder,
-              nationalityOfTransportAtBorder = validModelUpdated.nationalityOfTransportAtBorder,
-              transportModeAtBorder = validModelUpdated.transportModeAtBorder,
-              agreedLocationOfGoodsCode = validModelUpdated.agreedLocationOfGoodsCode,
+              acceptanceDate = Some(FormattedDate(validModel.header.acceptanceDate)),
+              numberOfItems = releaseForTransit.header.numberOfItems,
+              numberOfPackages = releaseForTransit.header.numberOfPackages,
+              grossMass = releaseForTransit.header.grossMass,
+              printBindingItinerary = validModel.header.printBindingItinerary,
+              authId = validModel.header.authId,
+              copyType = validModel.header.returnCopy,
+              circumstanceIndicator = validModelUpdated.header.circumstanceIndicator,
+              security = validModelUpdated.header.security,
+              commercialReferenceNumber = validModelUpdated.header.commercialReferenceNumber,
+              methodOfPayment = validModelUpdated.header.methodOfPayment,
+              identityOfTransportAtBorder = validModelUpdated.header.identityOfTransportAtBorder,
+              nationalityOfTransportAtBorder = validModelUpdated.header.nationalityOfTransportAtBorder,
+              transportModeAtBorder = validModelUpdated.header.transportModeAtBorder,
+              agreedLocationOfGoodsCode = validModelUpdated.header.agreedLocationOfGoodsCode,
               principal = viewmodels.Principal(
                 releaseForTransit.principal.name,
                 releaseForTransit.principal.streetAndNumber,
@@ -356,19 +360,22 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
             val transitSecurityAccompanyingDocument =
               releaseForTransit.copy(principal = releaseForTransit.principal.copy(countryCode = countriesGen.code))
 
-            val validModelUpdated = validModel.copy(
-              declarationType = transitSecurityAccompanyingDocument.declarationType,
+            val header = validModel.header.copy(
+              declarationType = transitSecurityAccompanyingDocument.header.declarationType,
               countryOfDispatch = None,
               countryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
-              numberOfItems = transitSecurityAccompanyingDocument.numberOfItems,
+              numberOfItems = transitSecurityAccompanyingDocument.header.numberOfItems,
               numberOfPackages = None,
-              grossMass = transitSecurityAccompanyingDocument.grossMass,
-              printBindingItinerary = transitSecurityAccompanyingDocument.printBindingItinerary,
+              grossMass = transitSecurityAccompanyingDocument.header.grossMass,
+              printBindingItinerary = transitSecurityAccompanyingDocument.header.printBindingItinerary,
               authId = None,
-              returnCopy = transitSecurityAccompanyingDocument.returnCopy,
-              circumstanceIndicator = None,
+              returnCopy = transitSecurityAccompanyingDocument.header.returnCopy,
+              circumstanceIndicator = None
+            )
+            val validModelUpdated = validModel.copy(
+              header = header,
               principal = transitSecurityAccompanyingDocument.principal,
               consignor = None,
               consignee = None,
@@ -382,18 +389,18 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
-              movementReferenceNumber = validModel.movementReferenceNumber,
-              declarationType = transitSecurityAccompanyingDocument.declarationType,
+              movementReferenceNumber = validModel.header.movementReferenceNumber,
+              declarationType = transitSecurityAccompanyingDocument.header.declarationType,
               singleCountryOfDispatch = None,
               singleCountryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
-              acceptanceDate = Some(FormattedDate(validModel.acceptanceDate)),
-              numberOfItems = transitSecurityAccompanyingDocument.numberOfItems,
+              acceptanceDate = Some(FormattedDate(validModel.header.acceptanceDate)),
+              numberOfItems = transitSecurityAccompanyingDocument.header.numberOfItems,
               numberOfPackages = None,
-              grossMass = transitSecurityAccompanyingDocument.grossMass,
+              grossMass = transitSecurityAccompanyingDocument.header.grossMass,
               authId = None,
-              copyType = transitSecurityAccompanyingDocument.returnCopy,
+              copyType = transitSecurityAccompanyingDocument.header.returnCopy,
               circumstanceIndicator = None,
               security = None,
               commercialReferenceNumber = None,
@@ -402,7 +409,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               nationalityOfTransportAtBorder = None,
               transportModeAtBorder = None,
               agreedLocationOfGoodsCode = None,
-              printBindingItinerary = transitSecurityAccompanyingDocument.printBindingItinerary,
+              printBindingItinerary = transitSecurityAccompanyingDocument.header.printBindingItinerary,
               principal = viewmodels.Principal(
                 transitSecurityAccompanyingDocument.principal.name,
                 transitSecurityAccompanyingDocument.principal.streetAndNumber,
@@ -525,8 +532,9 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
         CustomsOffice("AB125", Some("Destination Office"), "AB"))
 
       val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataConnector)
+      val header  = validModel.header.copy(countryOfDispatch = Some("non-existent code"))
 
-      val invalidRefData = validModel copy (countryOfDispatch = Some("non-existent code"))
+      val invalidRefData = validModel copy (header = header)
 
       val result = service.toViewModel(invalidRefData).futureValue
 
