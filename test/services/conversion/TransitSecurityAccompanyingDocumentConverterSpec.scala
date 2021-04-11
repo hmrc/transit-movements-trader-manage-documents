@@ -80,7 +80,10 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
           identityOfTransportAtBorder = Some("id"),
           nationalityOfTransportAtBorder = Some("GB"),
           transportModeAtBorder = Some("30"),
-          agreedLocationOfGoodsCode = Some("location")
+          agreedLocationOfGoodsCode = Some("location"),
+          placeOfLoadingCode = Some("place"),
+          placeOfUnloadingCode = Some("place1"),
+          conveyanceReferenceNumber = Some("cNumber")
         ),
         principal = models.Principal("Principal name",
                                      "Principal street",
@@ -133,7 +136,8 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation
           )
-        )
+        ),
+        itineraries = Seq(Itinerary("GB"))
       )
 
       val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -158,6 +162,9 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         nationalityOfTransportAtBorder = Some("GB"),
         transportModeAtBorder = Some("30"),
         agreedLocationOfGoodsCode = Some("location"),
+        placeOfLoadingCode = Some("place"),
+        placeOfUnloadingCode = Some("place1"),
+        conveyanceReferenceNumber = Some("cNumber"),
         principal = viewmodels.Principal("Principal name",
                                          "Principal street",
                                          "Principal street",
@@ -216,7 +223,8 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation
           )
-        )
+        ),
+        itineraries = Seq(Itinerary("GB"))
       )
 
       val result = TransitSecurityAccompanyingDocumentConverter.toViewModel(
@@ -260,7 +268,10 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
           identityOfTransportAtBorder = None,
           nationalityOfTransportAtBorder = None,
           transportModeAtBorder = None,
-          agreedLocationOfGoodsCode = None
+          agreedLocationOfGoodsCode = None,
+          placeOfLoadingCode = None,
+          placeOfUnloadingCode = None,
+          conveyanceReferenceNumber = None
         ),
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
@@ -309,7 +320,8 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation
           )
-        )
+        ),
+        itineraries = Seq(Itinerary("GB"))
       )
 
       val result = TransitSecurityAccompanyingDocumentConverter.toViewModel(

@@ -24,6 +24,7 @@ import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.Header
+import models.Itinerary
 import models.PreviousAdministrativeReference
 import models.ReturnCopiesCustomsOffice
 import models.reference.AdditionalInformation
@@ -91,7 +92,10 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           identityOfTransportAtBorder = None,
           nationalityOfTransportAtBorder = None,
           transportModeAtBorder = None,
-          agreedLocationOfGoodsCode = None
+          agreedLocationOfGoodsCode = None,
+          placeOfLoadingCode = None,
+          placeOfUnloadingCode = None,
+          conveyanceReferenceNumber = None
         ),
         principal = models.Principal("Principal name",
                                      "Principal street",
@@ -144,7 +148,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation
           )
-        )
+        ),
+        itineraries = Seq(Itinerary("GB"))
       )
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
@@ -260,7 +265,10 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
           identityOfTransportAtBorder = None,
           nationalityOfTransportAtBorder = None,
           transportModeAtBorder = None,
-          agreedLocationOfGoodsCode = None
+          agreedLocationOfGoodsCode = None,
+          placeOfLoadingCode = None,
+          placeOfUnloadingCode = None,
+          conveyanceReferenceNumber = None
         ),
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
@@ -309,7 +317,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation
           )
-        )
+        ),
+        itineraries = Seq.empty
       )
 
       val result = TransitAccompanyingDocumentConverter.toViewModel(model,

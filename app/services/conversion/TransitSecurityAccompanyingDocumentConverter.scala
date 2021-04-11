@@ -69,6 +69,9 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           nationalityOfTransportAtBorder = releaseForTransit.header.nationalityOfTransportAtBorder,
           transportModeAtBorder = releaseForTransit.header.transportModeAtBorder,
           agreedLocationOfGoodsCode = releaseForTransit.header.agreedLocationOfGoodsCode,
+          placeOfLoadingCode = releaseForTransit.header.placeOfLoadingCode,
+          placeOfUnloadingCode = releaseForTransit.header.placeOfUnloadingCode,
+          conveyanceReferenceNumber = releaseForTransit.header.conveyanceReferenceNumber,
           principal = principal,
           consignor = consignor,
           consignee = consignee,
@@ -79,7 +82,8 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           seals = releaseForTransit.seals,
           returnCopiesCustomsOffice = returnCopiesCustomsOffice,
           controlResult = controlResult,
-          goodsItems = goodsItems
+          goodsItems = goodsItems,
+          itineraries = releaseForTransit.itineraries
       )
     )
 

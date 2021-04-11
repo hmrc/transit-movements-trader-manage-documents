@@ -36,7 +36,8 @@ final case class ReleaseForTransit(
   returnCopiesCustomsOffice: Option[ReturnCopiesCustomsOffice],
   controlResult: Option[ControlResult],
   seals: Seq[String],
-  goodsItems: NonEmptyList[GoodsItem]
+  goodsItems: NonEmptyList[GoodsItem],
+  itineraries: Seq[Itinerary],
 )
 
 object ReleaseForTransit {
@@ -55,6 +56,7 @@ object ReleaseForTransit {
       controlResult             <- (__ \ "CONRESERS").read[ControlResult].optional.read(xml)
       seals                     <- (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]).read(xml)
       goodsItems                <- (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem]).read(xml)
+      itineraries               <- (__ \ "ITI").read(strictReadSeq[Itinerary]).read(xml)
     } yield
       ReleaseForTransit(
         header,
@@ -68,7 +70,8 @@ object ReleaseForTransit {
         returnCopiesCustomsOffice,
         controlResult,
         seals,
-        goodsItems
+        goodsItems,
+        itineraries
       )
   }
 }

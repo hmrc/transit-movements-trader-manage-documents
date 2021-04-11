@@ -47,6 +47,9 @@ final case class Header(
   nationalityOfTransportAtBorder: Option[String],
   transportModeAtBorder: Option[String],
   agreedLocationOfGoodsCode: Option[String],
+  placeOfLoadingCode: Option[String],
+  placeOfUnloadingCode: Option[String],
+  conveyanceReferenceNumber: Option[String]
 )
 
 object Header {
@@ -74,6 +77,9 @@ object Header {
       nationalityOfTransportAtBorder <- (__ \ "NatOfMeaOfTraCroHEA87").read[String].optional.read(xml)
       transportModeAtBorder          <- (__ \ "TraModAtBorHEA76").read[String].optional.read(xml)
       agreedLocationOfGoodsCode      <- (__ \ "AgrLocOfGooCodHEA38").read[String].optional.read(xml)
+      placeOfLoadingCode             <- (__ \ "PlaOfLoaCodHEA46").read[String].optional.read(xml)
+      placeOfUnloadingCode           <- (__ \ "CodPlUnHEA357").read[String].optional.read(xml)
+      conveyanceReferenceNumber      <- (__ \ "ConRefNumHEA").read[String].optional.read(xml)
     } yield
       Header(
         mrn,
@@ -96,7 +102,10 @@ object Header {
         identityOfTransportAtBorder,
         nationalityOfTransportAtBorder,
         transportModeAtBorder,
-        agreedLocationOfGoodsCode
+        agreedLocationOfGoodsCode,
+        placeOfLoadingCode,
+        placeOfUnloadingCode,
+        conveyanceReferenceNumber
       )
   }
 }

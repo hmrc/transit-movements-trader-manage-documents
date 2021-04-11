@@ -313,6 +313,9 @@ trait ModelGenerators extends GeneratorHelpers {
         nationalityOfTransportAtBorder    <- Gen.option(stringWithMaxLength(27))
         transportModeAtBorder             <- Gen.option(stringWithMaxLength(2))
         agreedLocationOfGoodsCode         <- Gen.option(stringWithMaxLength(17))
+        placeOfLoadingCode                <- Gen.option(stringWithMaxLength(17))
+        placeOfUnloadingCode              <- Gen.option(stringWithMaxLength(17))
+        conveyanceReferenceNumber         <- Gen.option(stringWithMaxLength(17))
         security                          <- Gen.option(1)
       } yield
         Header(
@@ -336,15 +339,25 @@ trait ModelGenerators extends GeneratorHelpers {
           identityOfTransportCrossingBorder,
           nationalityOfTransportAtBorder,
           transportModeAtBorder,
-          agreedLocationOfGoodsCode
+          agreedLocationOfGoodsCode,
+          placeOfLoadingCode,
+          placeOfUnloadingCode,
+          conveyanceReferenceNumber
         )
     }
+
+  implicit lazy val arbitraryItinerary: Arbitrary[Itinerary] = {
+    Arbitrary {
+      for {
+        country <- Gen.pick(2, 'A' to 'Z')
+      } yield Itinerary(country.mkString)
+    }
+  }
 
   implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[ReleaseForTransit] =
     Arbitrary {
       for {
         header                    <- arbitrary[Header]
-        security                  <- Gen.option(1)
         principal                 <- arbitrary[Principal]
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
@@ -356,6 +369,7 @@ trait ModelGenerators extends GeneratorHelpers {
         controlResult             <- Gen.option(arbitrary[ControlResult])
         seals                     <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems                <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+        itineraries               <- listWithMaxSize(9, arbitrary[Itinerary])
       } yield
         ReleaseForTransit(
           header,
@@ -369,7 +383,8 @@ trait ModelGenerators extends GeneratorHelpers {
           returnCopiesCustomsOffice,
           controlResult,
           seals,
-          goodsItems
+          goodsItems,
+          itineraries
         )
     }
 

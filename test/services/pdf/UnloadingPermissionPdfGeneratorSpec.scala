@@ -16,29 +16,29 @@
 
 package services.pdf
 
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.time.LocalDate
-
 import cats.data.NonEmptyList
 import generators.ViewmodelGenerators
+import models.DeclarationType
+import models.SensitiveGoodsInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
-import models.DeclarationType
-import models.SensitiveGoodsInformation
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Environment
 import services.pdf.UnloadingPermissionPdfGeneratorConstants.permissionToUnloadViewModel
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels._
+
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.time.LocalDate
 
 class UnloadingPermissionPdfGeneratorSpec
     extends FreeSpec

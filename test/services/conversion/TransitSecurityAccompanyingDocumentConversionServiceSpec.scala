@@ -120,7 +120,10 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
       identityOfTransportAtBorder = None,
       nationalityOfTransportAtBorder = None,
       transportModeAtBorder = None,
-      agreedLocationOfGoodsCode = None
+      agreedLocationOfGoodsCode = None,
+      placeOfLoadingCode = None,
+      placeOfUnloadingCode = None,
+      conveyanceReferenceNumber = None
     ),
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
@@ -168,7 +171,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
         ),
         sensitiveGoodsInformation = sensitiveGoodsInformation
       )
-    )
+    ),
+    itineraries = Nil
   )
 
   "toViewModel" - {
@@ -223,6 +227,9 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               nationalityOfTransportAtBorder = releaseForTransit.header.nationalityOfTransportAtBorder,
               transportModeAtBorder = releaseForTransit.header.transportModeAtBorder,
               agreedLocationOfGoodsCode = releaseForTransit.header.agreedLocationOfGoodsCode,
+              placeOfLoadingCode = releaseForTransit.header.placeOfLoadingCode,
+              placeOfUnloadingCode = releaseForTransit.header.placeOfUnloadingCode,
+              conveyanceReferenceNumber = releaseForTransit.header.conveyanceReferenceNumber,
             )
 
             val validModelUpdated = validModel.copy(
@@ -233,6 +240,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               controlResult = releaseForTransit.controlResult,
               returnCopiesCustomsOffice = releaseForTransit.returnCopiesCustomsOffice,
               seals = releaseForTransit.seals,
+              itineraries = releaseForTransit.itineraries
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -257,6 +265,9 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               nationalityOfTransportAtBorder = validModelUpdated.header.nationalityOfTransportAtBorder,
               transportModeAtBorder = validModelUpdated.header.transportModeAtBorder,
               agreedLocationOfGoodsCode = validModelUpdated.header.agreedLocationOfGoodsCode,
+              placeOfLoadingCode = validModelUpdated.header.placeOfLoadingCode,
+              placeOfUnloadingCode = validModelUpdated.header.placeOfUnloadingCode,
+              conveyanceReferenceNumber = validModelUpdated.header.conveyanceReferenceNumber,
               principal = viewmodels.Principal(
                 releaseForTransit.principal.name,
                 releaseForTransit.principal.streetAndNumber,
@@ -328,7 +339,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                   ),
                   sensitiveGoodsInformation = sensitiveGoodsInformation
                 )
-              )
+              ),
+              itineraries = releaseForTransit.itineraries
             )
 
             val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataService)
@@ -385,7 +397,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               controlResult = None,
               goodsItems = validModel.goodsItems
                 .map(_.copy(previousAdminRef = Nil)),
-              seals = Nil
+              seals = Nil,
+              itineraries = Nil
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -409,6 +422,9 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               nationalityOfTransportAtBorder = None,
               transportModeAtBorder = None,
               agreedLocationOfGoodsCode = None,
+              placeOfLoadingCode = None,
+              placeOfUnloadingCode = None,
+              conveyanceReferenceNumber = None,
               printBindingItinerary = transitSecurityAccompanyingDocument.header.printBindingItinerary,
               principal = viewmodels.Principal(
                 transitSecurityAccompanyingDocument.principal.name,
@@ -460,7 +476,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                   ),
                   sensitiveGoodsInformation = sensitiveGoodsInformation
                 )
-              )
+              ),
+              itineraries = Nil
             )
 
             val result: ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue

@@ -22,6 +22,7 @@ import models.ControlResult
 import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
+import models.Itinerary
 import models.PreviousAdministrativeReference
 import models.SensitiveGoodsInformation
 import models.reference.AdditionalInformation
@@ -420,6 +421,14 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         )
     }
 
+  implicit lazy val arbitraryItinerary: Arbitrary[Itinerary] = {
+    Arbitrary {
+      for {
+        country <- Gen.pick(2, 'A' to 'Z')
+      } yield Itinerary(country.mkString)
+    }
+  }
+
   implicit lazy val arbitraryTransitSecurityAccompanyingDocument: Arbitrary[TransitSecurityAccompanyingDocumentPDF] =
     Arbitrary {
 
@@ -443,6 +452,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         nationalityOfTransportAtBorder    <- Gen.option(stringWithMaxLength(2))
         transportModeAtBorder             <- Gen.option(stringWithMaxLength(2))
         agreedLocationOfGoodsCode         <- Gen.option(stringWithMaxLength(17))
+        placeOfLoadingCode                <- Gen.option(stringWithMaxLength(17))
+        placeOfUnLoadingCode              <- Gen.option(stringWithMaxLength(17))
+        conveyanceReferenceNumber         <- Gen.option(stringWithMaxLength(17))
         security                          <- Gen.option(1)
         commercialReferenceNumber         <- Gen.option(stringWithMaxLength(12))
         principal                         <- arbitrary[Principal]
@@ -456,6 +468,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         returnCopiesCustomsOffice         <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
         controlResult                     <- Gen.option(arbitrary[viewmodels.ControlResult])
         goodsItems                        <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        itineraries                       <- listWithMaxSize(9, arbitrary[Itinerary])
       } yield
         TransitSecurityAccompanyingDocumentPDF(
           mrn,
@@ -479,6 +492,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           nationalityOfTransportAtBorder,
           transportModeAtBorder,
           agreedLocationOfGoodsCode,
+          placeOfLoadingCode,
+          placeOfUnLoadingCode,
+          conveyanceReferenceNumber,
           principal,
           consignor,
           consignee,
@@ -489,7 +505,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           seals,
           returnCopiesCustomsOffice,
           controlResult,
-          goodsItems
+          goodsItems,
+          itineraries
         )
     }
 }

@@ -45,6 +45,7 @@ import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.Header
+import models.Itinerary
 import models.PreviousAdministrativeReference
 import models.ReleaseForTransit
 import models.reference.AdditionalInformation
@@ -134,7 +135,10 @@ class TransitAccompanyingDocumentConversionServiceSpec
       identityOfTransportAtBorder = None,
       nationalityOfTransportAtBorder = None,
       transportModeAtBorder = None,
-      agreedLocationOfGoodsCode = None
+      agreedLocationOfGoodsCode = None,
+      placeOfLoadingCode = None,
+      placeOfUnloadingCode = None,
+      conveyanceReferenceNumber = None
     ),
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
@@ -182,7 +186,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
         ),
         sensitiveGoodsInformation = sensitiveGoodsInformation
       )
-    )
+    ),
+    itineraries = Seq.empty
   )
 
   "toViewModel" - {

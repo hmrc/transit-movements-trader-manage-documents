@@ -38,7 +38,9 @@
 
     @row_9(tadModel.transportModeAtBorder, tadModel.agreedLocationOfGoodsCode)
 
-    @row_10()
+    @row_10(tadModel.placeOfLoadingCode, tadModel.placeOfUnloadingCode, tadModel.displayItineraries)
+
+    @row_11(tadModel.conveyanceReferenceNumber)
 
   </fo:table-body>
 </fo:table>

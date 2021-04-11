@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
@@ -24,38 +23,17 @@ import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import utils.NonEmptyListXMLReader._
 
-import scala.xml.NodeSeq
+class ItinerarySpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
-class NonEmptyListXMLReaderSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
-
-  "NonEmptyListXMLReader" - {
-
-    "must deserialize" in {
-
-      forAll(arbitrary[List[String]].suchThat(_.nonEmpty)) {
-        list =>
-          val xml = {
-            list.map {
-              value =>
-                <testChild>{value}</testChild>
-            }
-          }
-
-          val result = XmlReader.of(xmlNonEmptyListReads[String]).read(xml).toOption.value
-
-          result.toList mustBe list
+  "ItinerarySpec" - {
+    "must deserialize Itinerary from xml" in {
+      forAll(arbitrary[Itinerary]) {
+        data =>
+          val xml    = <ITI><CouOfRouCodITI1>{data.countryCode}</CouOfRouCodITI1></ITI>
+          val result = XmlReader.of[Itinerary].read(xml).toOption.value
+          result mustBe data
       }
-    }
-
-    "must fail to deserialise if empty" in {
-
-      val xml = NodeSeq.Empty
-
-      val result = XmlReader.of(xmlNonEmptyListReads[String]).read(xml)
-
-      result mustBe an[ParseFailure]
     }
   }
 

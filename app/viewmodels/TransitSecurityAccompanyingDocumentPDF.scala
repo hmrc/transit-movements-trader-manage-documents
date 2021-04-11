@@ -19,6 +19,7 @@ package viewmodels
 import cats.data.NonEmptyList
 import models.DeclarationType
 import models.GuaranteeDetails
+import models.Itinerary
 import models.reference.Country
 import utils.FormattedDate
 
@@ -44,6 +45,9 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   nationalityOfTransportAtBorder: Option[String],
   transportModeAtBorder: Option[String],
   agreedLocationOfGoodsCode: Option[String],
+  placeOfLoadingCode: Option[String],
+  placeOfUnloadingCode: Option[String],
+  conveyanceReferenceNumber: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
@@ -54,7 +58,8 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   seals: Seq[String],
   returnCopiesCustomsOffice: Option[ReturnCopiesCustomsOffice],
   controlResult: Option[ControlResult],
-  goodsItems: NonEmptyList[GoodsItem]
+  goodsItems: NonEmptyList[GoodsItem],
+  itineraries: Seq[Itinerary]
 ) {
 
   val consignorOne: Option[Consignor] = Helpers.consignorOne(goodsItems, consignor)
@@ -80,4 +85,6 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   val totalNumberOfPackages: String = numberOfPackages.fold("")(_.toString)
 
   val firstCustomsOfficeOfTransitArrivalTime: String = customsOfficeOfTransit.headOption.flatMap(_.dateTimeFormatted).getOrElse("---")
+
+  val displayItineraries: String = if (itineraries.nonEmpty) itineraries.map(_.countryCode).mkString(" ,") else ""
 }
