@@ -441,6 +441,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         methodOfPayment                   <- Gen.option(stringWithMaxLength(1))
         identityOfTransportCrossingBorder <- Gen.option(stringWithMaxLength(27))
         nationalityOfTransportAtBorder    <- Gen.option(stringWithMaxLength(2))
+        transportModeAtBorder             <- Gen.option(stringWithMaxLength(2))
+        agreedLocationOfGoodsCode         <- Gen.option(stringWithMaxLength(17))
         security                          <- Gen.option(1)
         commercialReferenceNumber         <- Gen.option(stringWithMaxLength(12))
         principal                         <- arbitrary[Principal]
@@ -475,6 +477,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           methodOfPayment,
           identityOfTransportCrossingBorder,
           nationalityOfTransportAtBorder,
+          transportModeAtBorder,
+          agreedLocationOfGoodsCode,
           principal,
           consignor,
           consignee,

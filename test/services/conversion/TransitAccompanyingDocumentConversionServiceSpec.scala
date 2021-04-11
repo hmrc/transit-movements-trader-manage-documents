@@ -131,6 +131,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
     methodOfPayment = None,
     identityOfTransportAtBorder = None,
     nationalityOfTransportAtBorder = None,
+    transportModeAtBorder = None,
+    agreedLocationOfGoodsCode = None,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),

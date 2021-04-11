@@ -88,6 +88,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         methodOfPayment = None,
         identityOfTransportAtBorder = None,
         nationalityOfTransportAtBorder = None,
+        transportModeAtBorder = None,
+        agreedLocationOfGoodsCode = None,
         principal = models.Principal("Principal name",
                                      "Principal street",
                                      "Principal postCode",
@@ -253,6 +255,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
         methodOfPayment = None,
         identityOfTransportAtBorder = None,
         nationalityOfTransportAtBorder = None,
+        transportModeAtBorder = None,
+        agreedLocationOfGoodsCode = None,
         principal =
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         consignor = None,

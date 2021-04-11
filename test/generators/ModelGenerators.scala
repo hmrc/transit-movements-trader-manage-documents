@@ -311,6 +311,8 @@ trait ModelGenerators extends GeneratorHelpers {
         methodOfPayment                   <- Gen.option(stringWithMaxLength(1))
         identityOfTransportCrossingBorder <- Gen.option(stringWithMaxLength(27))
         nationalityOfTransportAtBorder    <- Gen.option(stringWithMaxLength(27))
+        transportModeAtBorder             <- Gen.option(stringWithMaxLength(2))
+        agreedLocationOfGoodsCode         <- Gen.option(stringWithMaxLength(17))
         security                          <- Gen.option(1)
         principal                         <- arbitrary[Principal]
         consignor                         <- Gen.option(arbitrary[Consignor])
@@ -344,6 +346,8 @@ trait ModelGenerators extends GeneratorHelpers {
           methodOfPayment,
           identityOfTransportCrossingBorder,
           nationalityOfTransportAtBorder,
+          transportModeAtBorder,
+          agreedLocationOfGoodsCode,
           principal,
           consignor,
           consignee,

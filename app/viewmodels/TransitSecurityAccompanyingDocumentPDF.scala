@@ -42,6 +42,8 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   methodOfPayment: Option[String],
   identityOfTransportAtBorder: Option[String],
   nationalityOfTransportAtBorder: Option[String],
+  transportModeAtBorder: Option[String],
+  agreedLocationOfGoodsCode: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],

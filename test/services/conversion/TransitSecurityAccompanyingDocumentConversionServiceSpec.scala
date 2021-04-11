@@ -118,6 +118,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
     methodOfPayment = None,
     identityOfTransportAtBorder = None,
     nationalityOfTransportAtBorder = None,
+    transportModeAtBorder = None,
+    agreedLocationOfGoodsCode = None,
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
@@ -224,7 +226,9 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               commercialReferenceNumber = releaseForTransit.commercialReferenceNumber,
               methodOfPayment = releaseForTransit.methodOfPayment,
               identityOfTransportAtBorder = releaseForTransit.identityOfTransportAtBorder,
-              nationalityOfTransportAtBorder = releaseForTransit.nationalityOfTransportAtBorder
+              nationalityOfTransportAtBorder = releaseForTransit.nationalityOfTransportAtBorder,
+              transportModeAtBorder = releaseForTransit.transportModeAtBorder,
+              agreedLocationOfGoodsCode = releaseForTransit.agreedLocationOfGoodsCode,
             )
 
             val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -247,6 +251,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               methodOfPayment = validModelUpdated.methodOfPayment,
               identityOfTransportAtBorder = validModelUpdated.identityOfTransportAtBorder,
               nationalityOfTransportAtBorder = validModelUpdated.nationalityOfTransportAtBorder,
+              transportModeAtBorder = validModelUpdated.transportModeAtBorder,
+              agreedLocationOfGoodsCode = validModelUpdated.agreedLocationOfGoodsCode,
               principal = viewmodels.Principal(
                 releaseForTransit.principal.name,
                 releaseForTransit.principal.streetAndNumber,
@@ -394,6 +400,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               methodOfPayment = None,
               identityOfTransportAtBorder = None,
               nationalityOfTransportAtBorder = None,
+              transportModeAtBorder = None,
+              agreedLocationOfGoodsCode = None,
               printBindingItinerary = transitSecurityAccompanyingDocument.printBindingItinerary,
               principal = viewmodels.Principal(
                 transitSecurityAccompanyingDocument.principal.name,

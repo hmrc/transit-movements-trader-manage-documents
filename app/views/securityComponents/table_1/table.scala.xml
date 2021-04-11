@@ -36,7 +36,7 @@
 
     @row_8(tadModel.identityOfTransportAtBorder, tadModel.nationalityOfTransportAtBorder)
 
-    @row_9()
+    @row_9(tadModel.transportModeAtBorder, tadModel.agreedLocationOfGoodsCode)
 
     @row_10()
 

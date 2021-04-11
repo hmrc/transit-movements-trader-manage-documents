@@ -47,6 +47,8 @@ final case class ReleaseForTransit(
   methodOfPayment: Option[String],
   identityOfTransportAtBorder: Option[String],
   nationalityOfTransportAtBorder: Option[String],
+  transportModeAtBorder: Option[String],
+  agreedLocationOfGoodsCode: Option[String],
   principal: Principal,
   consignor: Option[Consignor],
   consignee: Option[Consignee],
@@ -83,6 +85,8 @@ object ReleaseForTransit {
       methodOfPayment                <- (__ \ "HEAHEA" \ "TraChaMetOfPayHEA1").read[String].optional.read(xml)
       identityOfTransportAtBorder    <- (__ \ "HEAHEA" \ "IdeOfMeaOfTraCroHEA85").read[String].optional.read(xml)
       nationalityOfTransportAtBorder <- (__ \ "HEAHEA" \ "NatOfMeaOfTraCroHEA87").read[String].optional.read(xml)
+      transportModeAtBorder          <- (__ \ "HEAHEA" \ "TraModAtBorHEA76").read[String].optional.read(xml)
+      agreedLocationOfGoodsCode      <- (__ \ "HEAHEA" \ "AgrLocOfGooCodHEA38").read[String].optional.read(xml)
       principal                      <- (__ \ "TRAPRIPC1").read[Principal].read(xml)
       consignor                      <- (__ \ "TRACONCO1").read[Consignor](Consignor.xmlReaderRootLevel).optional.read(xml)
       consignee                      <- (__ \ "TRACONCE1").read[Consignee](Consignee.xmlReaderRootLevel).optional.read(xml)
@@ -115,6 +119,8 @@ object ReleaseForTransit {
         methodOfPayment,
         identityOfTransportAtBorder,
         nationalityOfTransportAtBorder,
+        transportModeAtBorder,
+        agreedLocationOfGoodsCode,
         principal,
         consignor,
         consignee,
