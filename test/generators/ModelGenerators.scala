@@ -122,6 +122,20 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield Consignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
 
+  implicit lazy val arbitraryGoodsItemSecurityConsignee: Arbitrary[SecurityConsignee] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+    }
+
   implicit lazy val arbitraryConsignor: Arbitrary[Consignor] =
     Arbitrary {
 
@@ -134,6 +148,34 @@ trait ModelGenerators extends GeneratorHelpers {
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield Consignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+    }
+
+  implicit lazy val arbitraryGoodsItemSecurityConsignor: Arbitrary[SecurityConsignor] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+    }
+
+  implicit lazy val arbitrarySecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
 
   implicit lazy val arbitraryPrincipal: Arbitrary[Principal] =
@@ -183,6 +225,8 @@ trait ModelGenerators extends GeneratorHelpers {
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))
         packages                  <- nonEmptyListWithMaxSize(2, arbitrary[Package])
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
+        securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
       } yield
         GoodsItem(
           itemNumber,
@@ -200,7 +244,9 @@ trait ModelGenerators extends GeneratorHelpers {
           consignee,
           containers,
           packages,
-          sensitiveGoodsInformation
+          sensitiveGoodsInformation,
+          securityConsignor,
+          securityConsignee
         )
     }
 
@@ -357,19 +403,22 @@ trait ModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[ReleaseForTransit] =
     Arbitrary {
       for {
-        header                    <- arbitrary[Header]
-        principal                 <- arbitrary[Principal]
-        consignor                 <- Gen.option(arbitrary[Consignor])
-        consignee                 <- Gen.option(arbitrary[Consignee])
-        customsOffOfTransit       <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
-        guaranteeDetails          <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
-        departureOffice           <- stringWithMaxLength(8)
-        destinationOffice         <- stringWithMaxLength(8)
-        returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
-        controlResult             <- Gen.option(arbitrary[ControlResult])
-        seals                     <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems                <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
-        itineraries               <- listWithMaxSize(9, arbitrary[Itinerary])
+        header                     <- arbitrary[Header]
+        principal                  <- arbitrary[Principal]
+        consignor                  <- Gen.option(arbitrary[Consignor])
+        consignee                  <- Gen.option(arbitrary[Consignee])
+        customsOffOfTransit        <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
+        guaranteeDetails           <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
+        departureOffice            <- stringWithMaxLength(8)
+        destinationOffice          <- stringWithMaxLength(8)
+        returnCopiesCustomsOffice  <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
+        controlResult              <- Gen.option(arbitrary[ControlResult])
+        seals                      <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems                 <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+        itineraries                <- listWithMaxSize(9, arbitrary[Itinerary])
+        safetyAndSecurityCarrier   <- Gen.option(arbitrary[SafetyAndSecurityCarrier])
+        safetyAndSecurityConsignor <- Gen.option(arbitrary[SecurityConsignor])
+        safetyAndSecurityConsignee <- Gen.option(arbitrary[SecurityConsignee])
       } yield
         ReleaseForTransit(
           header,
@@ -384,7 +433,10 @@ trait ModelGenerators extends GeneratorHelpers {
           controlResult,
           seals,
           goodsItems,
-          itineraries
+          itineraries,
+          safetyAndSecurityCarrier,
+          safetyAndSecurityConsignor,
+          safetyAndSecurityConsignee
         )
     }
 
@@ -600,6 +652,8 @@ trait ModelGenerators extends GeneratorHelpers {
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))
         packages                  <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
+        securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
       } yield
         viewmodels.GoodsItem(
           itemNumber,
@@ -617,7 +671,9 @@ trait ModelGenerators extends GeneratorHelpers {
           consignee,
           containers,
           packages,
-          sensitiveGoodsInformation
+          sensitiveGoodsInformation,
+          securityConsignor,
+          securityConsignee
         )
     }
   }

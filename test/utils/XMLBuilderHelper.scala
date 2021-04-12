@@ -23,6 +23,8 @@ import models.GoodsItem
 import models.Package
 import models.ProducedDocument
 import models.RegularPackage
+import models.SecurityConsignee
+import models.SecurityConsignor
 import models.SpecialMention
 import models.TraderAtDestination
 import models.TraderAtDestinationWithEori
@@ -99,7 +101,9 @@ object XMLBuilderHelper {
                 }
               }
             </PREADMREFAR2>
-        )
+        ) ++
+        goodsItem.securityConsignor.map(securityConsignorXML) ++
+        goodsItem.securityConsignee.map(securityConsigneeXML)
       }
     </GOOITEGDS>
 
@@ -248,6 +252,40 @@ object XMLBuilderHelper {
         }
       }
     </TRACONCE1>
+
+  def securityConsignorXML(consignor: SecurityConsignor): NodeSeq =
+    <TRACORSECGOO021>
+      <NamTRACORSECGOO025>{consignor.name}</NamTRACORSECGOO025>
+      <StrNumTRACORSECGOO027>{consignor.streetAndNumber}</StrNumTRACORSECGOO027>
+      <PosCodTRACORSECGOO026>{consignor.postCode}</PosCodTRACORSECGOO026>
+      <CitTRACORSECGOO022>{consignor.city}</CitTRACORSECGOO022>
+      <CouCodTRACORSECGOO023>{consignor.countryCode}</CouCodTRACORSECGOO023>
+      {
+      consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+        <TRACORSECGOO021LNG>{nadLangCode}</TRACORSECGOO021LNG>
+      } ++
+        consignor.eori.fold(NodeSeq.Empty) { eori =>
+          <TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028>
+        }
+      }
+    </TRACORSECGOO021>
+
+  def securityConsigneeXML(consignee: SecurityConsignee): NodeSeq =
+    <TRACONSECGOO013>
+      <NamTRACONSECGOO017>{consignee.name}</NamTRACONSECGOO017>
+      <StrNumTRACONSECGOO019>{consignee.streetAndNumber}</StrNumTRACONSECGOO019>
+      <PosCodTRACONSECGOO018>{consignee.postCode}</PosCodTRACONSECGOO018>
+      <CityTRACONSECGOO014>{consignee.city}</CityTRACONSECGOO014>
+      <CouCodTRACONSECGOO015>{consignee.countryCode}</CouCodTRACONSECGOO015>
+      {
+      consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+        <TRACONSECGOO013LNG>{nadLangCode}</TRACONSECGOO013LNG>
+      } ++
+        consignee.eori.fold(NodeSeq.Empty) { eori =>
+          <TINTRACONSECGOO020>{eori}</TINTRACONSECGOO020>
+        }
+      }
+    </TRACONSECGOO013>
 
   def packageToXML(packageModel: Package): NodeSeq =
     packageModel match {

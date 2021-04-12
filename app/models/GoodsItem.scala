@@ -43,7 +43,9 @@ final case class GoodsItem(
   consignee: Option[Consignee],
   containers: Seq[String],
   packages: NonEmptyList[Package],
-  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation]
+  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation],
+  securityConsignor: Option[SecurityConsignor],
+  securityConsignee: Option[SecurityConsignee]
 )
 
 object GoodsItem {
@@ -67,6 +69,8 @@ object GoodsItem {
       (__ \ "TRACONCE2").read[Consignee](Consignee.xmlReaderGoodsLevel).optional,
       (__ \ "CONNR2" \ "ConNumNR21").read(strictReadSeq[String]),
       (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
-      (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
+      (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation]),
+      (__ \ "TRACORSECGOO021").read[SecurityConsignor](SecurityConsignor.xmlReader).optional,
+      (__ \ "TRACONSECGOO013").read[SecurityConsignee](SecurityConsignee.xmlReader).optional,
     ).mapN(apply)
 }

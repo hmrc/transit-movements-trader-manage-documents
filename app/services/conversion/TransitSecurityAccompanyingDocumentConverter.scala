@@ -83,7 +83,10 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           returnCopiesCustomsOffice = returnCopiesCustomsOffice,
           controlResult = controlResult,
           goodsItems = goodsItems,
-          itineraries = releaseForTransit.itineraries
+          itineraries = releaseForTransit.itineraries,
+          safetyAndSecurityCarrier = releaseForTransit.safetyAndSecurityCarrier,
+          safetyAndSecurityConsignor = releaseForTransit.safetyAndSecurityConsignor,
+          safetyAndSecurityConsignee = releaseForTransit.safetyAndSecurityConsignee
       )
     )
 

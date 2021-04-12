@@ -103,7 +103,9 @@ object UnloadingPermissionPdfGeneratorConstants {
     consignee = None,
     containers = List("container 1", "container 2"),
     packages = NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 1, "Ref.")),
-    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1))
+    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1)),
+    securityConsignor = None,
+    securityConsignee = None
   )
 
   private val goodsItem1 = GoodsItem(
@@ -136,7 +138,9 @@ object UnloadingPermissionPdfGeneratorConstants {
                 Some("AB123"))),
     containers = List("container 3", "container 4"),
     packages = NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 10, "Ref.")),
-    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1))
+    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1)),
+    securityConsignor = None,
+    securityConsignee = None
   )
 
   val permissionToUnloadViewModel: PermissionToStartUnloading = PermissionToStartUnloading(

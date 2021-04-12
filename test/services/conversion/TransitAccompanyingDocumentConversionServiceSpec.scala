@@ -36,50 +36,33 @@ import cats.data.Validated.Valid
 import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
+import connectors.ReferenceDataConnector
 import generators.ModelGenerators
-import models.Consignee
-import models.Consignor
-import models.ControlResult
-import models.CustomsOfficeOfTransit
-import models.DeclarationType
-import models.GuaranteeDetails
-import models.GuaranteeReference
-import models.Header
-import models.Itinerary
-import models.PreviousAdministrativeReference
-import models.ReleaseForTransit
-import models.reference.AdditionalInformation
-import models.reference.ControlResultData
-import models.reference.Country
-import models.reference.CustomsOffice
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
+import models._
+import models.reference._
 import org.mockito.Matchers.any
 import org.mockito.Matchers.{eq => eqTo}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import services.ReferenceDataNotFound
 import services.ReferenceDataRetrievalError
-import connectors.ReferenceDataConnector
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.FormattedDate
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import utils.StringTransformer._
 import viewmodels.CustomsOfficeWithOptionalDate
 import viewmodels.PreviousDocumentType
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class TransitAccompanyingDocumentConversionServiceSpec
     extends FreeSpec
@@ -184,10 +167,15 @@ class TransitAccompanyingDocumentConversionServiceSpec
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = None,
+        securityConsignee = None
       )
     ),
-    itineraries = Seq.empty
+    itineraries = Seq.empty,
+    safetyAndSecurityCarrier = None,
+    safetyAndSecurityConsignee = None,
+    safetyAndSecurityConsignor = None
   )
 
   "toViewModel" - {
@@ -327,7 +315,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                       viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
                     )
                   ),
-                  sensitiveGoodsInformation = sensitiveGoodsInformation
+                  sensitiveGoodsInformation = sensitiveGoodsInformation,
+                  securityConsignor = None,
+                  securityConsignee = None
                 )
               )
             )
@@ -450,7 +440,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                       viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
                     )
                   ),
-                  sensitiveGoodsInformation = sensitiveGoodsInformation
+                  sensitiveGoodsInformation = sensitiveGoodsInformation,
+                  securityConsignor = None,
+                  securityConsignee = None
                 )
               )
             )

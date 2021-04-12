@@ -20,6 +20,9 @@ import cats.data.NonEmptyList
 import models.DeclarationType
 import models.GuaranteeDetails
 import models.Itinerary
+import models.SafetyAndSecurityCarrier
+import models.SecurityConsignee
+import models.SecurityConsignor
 import models.reference.Country
 import utils.FormattedDate
 
@@ -59,12 +62,19 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   returnCopiesCustomsOffice: Option[ReturnCopiesCustomsOffice],
   controlResult: Option[ControlResult],
   goodsItems: NonEmptyList[GoodsItem],
-  itineraries: Seq[Itinerary]
+  itineraries: Seq[Itinerary],
+  safetyAndSecurityCarrier: Option[SafetyAndSecurityCarrier],
+  safetyAndSecurityConsignor: Option[SecurityConsignor],
+  safetyAndSecurityConsignee: Option[SecurityConsignee]
 ) {
 
   val consignorOne: Option[Consignor] = Helpers.consignorOne(goodsItems, consignor)
 
   val consigneeOne: Option[Consignee] = Helpers.consigneeOne(goodsItems, consignee)
+
+  val securityConsignorOne: Option[SecurityConsignor] = Helpers.securityConsignorOne(goodsItems, safetyAndSecurityConsignor)
+
+  val securityConsigneeOne: Option[SecurityConsignee] = Helpers.securityConsigneeOne(goodsItems, safetyAndSecurityConsignee)
 
   val countryOfDispatch: Option[Country] = Helpers.countryOfDispatch(goodsItems)
 
@@ -87,4 +97,14 @@ final case class TransitSecurityAccompanyingDocumentPDF(
   val firstCustomsOfficeOfTransitArrivalTime: String = customsOfficeOfTransit.headOption.flatMap(_.dateTimeFormatted).getOrElse("---")
 
   val displayItineraries: String = if (itineraries.nonEmpty) itineraries.map(_.countryCode).mkString(" ,") else ""
+
+  val printVariousSecurityConsignees: Boolean =
+    printListOfItems &&
+      securityConsigneeOne.isEmpty &&
+      goodsItems.toList.flatMap(_.consignee).nonEmpty
+
+  val printVariousSecurityConsignors: Boolean =
+    printListOfItems &&
+      securityConsignorOne.isEmpty &&
+      goodsItems.toList.flatMap(_.consignor).nonEmpty
 }

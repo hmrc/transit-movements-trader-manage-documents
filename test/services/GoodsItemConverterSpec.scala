@@ -25,6 +25,8 @@ import models.reference.DocumentType
 import models.reference.KindOfPackage
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import viewmodels.Consignee
+import viewmodels.Consignor
 
 class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
@@ -75,7 +77,11 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = Some(
+          models.SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
+        securityConsignee = Some(
+          models.SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
       )
 
       val expectedViewModel = viewmodels.GoodsItem(
@@ -106,7 +112,11 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
             viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = Some(
+          models.SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
+        securityConsignee = Some(
+          models.SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
       )
 
       val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)
@@ -142,7 +152,11 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
             models.RegularPackage(invalidCode, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = Some(
+          models.SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
+        securityConsignee = Some(
+          models.SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
       )
 
       val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)

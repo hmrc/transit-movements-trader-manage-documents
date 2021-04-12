@@ -16,27 +16,25 @@
 
 package generators
 
-import java.time.LocalDate
-import java.time.LocalDateTime
+import models.reference._
 import models.ControlResult
 import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.Itinerary
 import models.PreviousAdministrativeReference
+import models.SafetyAndSecurityCarrier
+import models.SecurityConsignee
+import models.SecurityConsignor
 import models.SensitiveGoodsInformation
-import models.reference.AdditionalInformation
-import models.reference.ControlResultData
-import models.reference.Country
-import models.reference.CustomsOffice
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
-import org.scalacheck.Arbitrary.arbitrary
 import utils.FormattedDate
 import viewmodels._
+
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators {
 
@@ -228,6 +226,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         containers                <- listWithMaxSize(9, stringWithMaxLength(17))
         packages                  <- nonEmptyListWithMaxSize(9, arbitrary[Package])
         sensitiveGoodsInformation <- listWithMaxSize(9, arbitrary[SensitiveGoodsInformation])
+        securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
+        securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
       } yield
         GoodsItem(
           itemNumber,
@@ -246,6 +246,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           containers,
           packages,
           sensitiveGoodsInformation,
+          securityConsignor,
+          securityConsignee
         )
     }
 
@@ -429,6 +431,48 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     }
   }
 
+  implicit lazy val arbitraryGoodsItemSecurityConsignee: Arbitrary[SecurityConsignee] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+    }
+
+  implicit lazy val arbitraryGoodsItemSecurityConsignor: Arbitrary[SecurityConsignor] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+    }
+
+  implicit lazy val arbitrarySafetyAndSecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
+    Arbitrary {
+
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+    }
+
   implicit lazy val arbitraryTransitSecurityAccompanyingDocument: Arbitrary[TransitSecurityAccompanyingDocumentPDF] =
     Arbitrary {
 
@@ -469,6 +513,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         controlResult                     <- Gen.option(arbitrary[viewmodels.ControlResult])
         goodsItems                        <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
         itineraries                       <- listWithMaxSize(9, arbitrary[Itinerary])
+        safetyAndSecurityCarrier          <- Gen.option(arbitrary[SafetyAndSecurityCarrier])
+        safetyAndSecurityConsignor        <- Gen.option(arbitrary[SecurityConsignor])
+        safetyAndSecurityConsignee        <- Gen.option(arbitrary[SecurityConsignee])
       } yield
         TransitSecurityAccompanyingDocumentPDF(
           mrn,
@@ -506,7 +553,10 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           returnCopiesCustomsOffice,
           controlResult,
           goodsItems,
-          itineraries
+          itineraries,
+          safetyAndSecurityCarrier,
+          safetyAndSecurityConsignor,
+          safetyAndSecurityConsignee
         )
     }
 }

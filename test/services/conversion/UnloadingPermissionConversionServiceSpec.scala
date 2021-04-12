@@ -116,7 +116,9 @@ class UnloadingPermissionConversionServiceSpec
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation //TODO: Pass in data here
+        sensitiveGoodsInformation = sensitiveGoodsInformation, //TODO: Pass in data here
+        securityConsignor = None,
+        securityConsignee = None
       )
     )
   )
@@ -191,7 +193,9 @@ class UnloadingPermissionConversionServiceSpec
                 viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
               )
             ),
-            sensitiveGoodsInformation = sensitiveGoodsInformation
+            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            securityConsignor = None,
+            securityConsignee = None
           )
         )
       )

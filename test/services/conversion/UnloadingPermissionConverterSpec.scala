@@ -104,7 +104,9 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
                 models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
               )
             ),
-            sensitiveGoodsInformation = sensitiveGoodsInformation
+            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            securityConsignor = None,
+            securityConsignee = None
           )
         )
       )
@@ -167,7 +169,9 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
                 viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
               )
             ),
-            sensitiveGoodsInformation = sensitiveGoodsInformation
+            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            securityConsignor = None,
+            securityConsignee = None
           )
         )
       )
@@ -225,7 +229,9 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
                 models.RegularPackage(invalidCode, 1, "marks and numbers")
               )
             ),
-            sensitiveGoodsInformation = sensitiveGoodsInformation
+            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            securityConsignor = None,
+            securityConsignee = None
           )
         )
       )
