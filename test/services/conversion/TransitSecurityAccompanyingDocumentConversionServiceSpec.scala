@@ -39,6 +39,7 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import connectors.ReferenceDataConnector
 import generators.ModelGenerators
+import models.SafetyAndSecurityCarrier
 import models._
 import models.reference._
 import org.mockito.Matchers.any
@@ -97,6 +98,30 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
   private val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
   private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
   private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
+  private val securityConsignee = Some(
+    SecurityConsignee(Some("security consignee name"),
+                      Some("consignee street"),
+                      Some("consignee postCode"),
+                      Some("consignee city"),
+                      Some(countries.head.code),
+                      None,
+                      None))
+  private val securityConsignor = Some(
+    SecurityConsignor(Some("security consignor name"),
+                      Some("consignor street"),
+                      Some("consignor postCode"),
+                      Some("consignor city"),
+                      Some(countries.head.code),
+                      None,
+                      None))
+  private val safetyAndSecurityCarrier = Some(
+    SafetyAndSecurityCarrier(Some("security carrier name"),
+                             Some("carrier street"),
+                             Some("carrier postCode"),
+                             Some("carrier city"),
+                             Some(countries.head.code),
+                             None,
+                             None))
 
   val validModel = models.ReleaseForTransit(
     Header(
@@ -170,19 +195,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
           )
         ),
         sensitiveGoodsInformation = sensitiveGoodsInformation,
-        securityConsignor =
-          Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        securityConsignee =
-          Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        securityConsignor = securityConsignor,
+        securityConsignee = securityConsignee
       )
     ),
     itineraries = Nil,
-    safetyAndSecurityCarrier =
-      Some(SafetyAndSecurityCarrier("security carrier name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-    safetyAndSecurityConsignor =
-      Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-    safetyAndSecurityConsignee =
-      Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+    safetyAndSecurityCarrier = safetyAndSecurityCarrier,
+    safetyAndSecurityConsignor = securityConsignor,
+    safetyAndSecurityConsignee = securityConsignee
   )
 
   "toViewModel" - {
@@ -348,19 +368,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                     )
                   ),
                   sensitiveGoodsInformation = sensitiveGoodsInformation,
-                  securityConsignor = Some(
-                    SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-                  securityConsignee = Some(
-                    SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+                  securityConsignor = securityConsignor,
+                  securityConsignee = securityConsignee
                 )
               ),
               itineraries = releaseForTransit.itineraries,
-              safetyAndSecurityCarrier = Some(
-                SafetyAndSecurityCarrier("security carrier name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-              safetyAndSecurityConsignor =
-                Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-              safetyAndSecurityConsignee =
-                Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+              safetyAndSecurityCarrier = safetyAndSecurityCarrier,
+              safetyAndSecurityConsignor = securityConsignor,
+              safetyAndSecurityConsignee = securityConsignee
             )
 
             val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataService)
@@ -495,19 +510,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                     )
                   ),
                   sensitiveGoodsInformation = sensitiveGoodsInformation,
-                  securityConsignor = Some(
-                    SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-                  securityConsignee = Some(
-                    SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+                  securityConsignor = securityConsignor,
+                  securityConsignee = securityConsignee
                 )
               ),
               itineraries = Nil,
-              safetyAndSecurityCarrier = Some(
-                SafetyAndSecurityCarrier("security carrier name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-              safetyAndSecurityConsignor =
-                Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-              safetyAndSecurityConsignee =
-                Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+              safetyAndSecurityCarrier = safetyAndSecurityCarrier,
+              safetyAndSecurityConsignor = securityConsignor,
+              safetyAndSecurityConsignee = securityConsignee
             )
 
             val result: ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue

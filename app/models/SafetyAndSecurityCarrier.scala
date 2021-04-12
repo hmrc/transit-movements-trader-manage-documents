@@ -19,25 +19,28 @@ package models
 import cats.syntax.all._
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
+import utils.StringTransformer.StringFormatter
 
 final case class SafetyAndSecurityCarrier(
-  name: String,
-  streetAndNumber: String,
-  postCode: String,
-  city: String,
-  countryCode: String,
+  name: Option[String],
+  streetAndNumber: Option[String],
+  postCode: Option[String],
+  city: Option[String],
+  countryCode: Option[String],
   nadLanguageCode: Option[String],
   eori: Option[String]
-)
+) {
+  val streetAndNumberTrimmed: Option[String] = streetAndNumber.map(_.shorten(32)("***"))
+}
 
 object SafetyAndSecurityCarrier {
 
   implicit val xmlReader: XmlReader[SafetyAndSecurityCarrier] = (
-    (__ \ "NamCARTRA121").read[String],
-    (__ \ "StrAndNumCARTRA254").read[String],
-    (__ \ "PosCodCARTRA121").read[String],
-    (__ \ "CitCARTRA789").read[String],
-    (__ \ "CouCodCARTRA587").read[String],
+    (__ \ "NamCARTRA121").read[String].optional,
+    (__ \ "StrAndNumCARTRA254").read[String].optional,
+    (__ \ "PosCodCARTRA121").read[String].optional,
+    (__ \ "CitCARTRA789").read[String].optional,
+    (__ \ "CouCodCARTRA587").read[String].optional,
     (__ \ "NADCARTRA121").read[String].optional,
     (__ \ "TINCARTRA254").read[String].optional
   ).mapN(apply)

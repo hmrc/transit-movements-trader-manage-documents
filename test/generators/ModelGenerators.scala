@@ -126,14 +126,14 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+        eori            <- stringWithMaxLength(17)
+      } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, Some(eori))
     }
 
   implicit lazy val arbitraryConsignor: Arbitrary[Consignor] =
@@ -154,28 +154,28 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+        eori            <- stringWithMaxLength(17)
+      } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, Some(eori))
     }
 
   implicit lazy val arbitrarySecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
-        eori            <- Gen.option(stringWithMaxLength(17))
-      } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+        eori            <- stringWithMaxLength(17)
+      } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, nadLanguageCode, Some(eori))
     }
 
   implicit lazy val arbitraryPrincipal: Arbitrary[Principal] =
@@ -225,8 +225,8 @@ trait ModelGenerators extends GeneratorHelpers {
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))
         packages                  <- nonEmptyListWithMaxSize(2, arbitrary[Package])
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
-        securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
-        securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
+        securityConsignor         <- arbitrary[SecurityConsignor]
+        securityConsignee         <- arbitrary[SecurityConsignee]
       } yield
         GoodsItem(
           itemNumber,
@@ -245,8 +245,8 @@ trait ModelGenerators extends GeneratorHelpers {
           containers,
           packages,
           sensitiveGoodsInformation,
-          securityConsignor,
-          securityConsignee
+          Some(securityConsignor),
+          Some(securityConsignee)
         )
     }
 

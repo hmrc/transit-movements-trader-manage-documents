@@ -22,10 +22,10 @@
                         <fo:table-body>
                             <fo:table-row height="2mm">
                                 <fo:table-cell display-align="center">
-                                    <fo:block>D</fo:block>
+                                    <fo:block/>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="4" display-align="center">
-                                    <fo:block>CONTROL BY OFFICE OF DEPARTURE</fo:block>
+                                    <fo:block>CONTROL BY OFFICE OF DEPARTURE (D)</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="2mm">
@@ -115,7 +115,7 @@
                         <fo:table-body>
                             <fo:table-row height="2mm">
                                 <fo:table-cell padding-top="1mm" padding-left="3mm">
-                                    <fo:block>I CONTROL BY OFFICE OF DESTINATION</fo:block>
+                                    <fo:block>CONTROL BY OFFICE OF DESTINATION (I)</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="16mm">

@@ -435,11 +435,11 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
@@ -449,11 +449,11 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
@@ -463,11 +463,11 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     Arbitrary {
 
       for {
-        name            <- stringWithMaxLength(35)
-        streetAndNumber <- stringWithMaxLength(35)
-        postCode        <- stringWithMaxLength(9)
-        city            <- stringWithMaxLength(35)
-        country         <- stringWithMaxLength(2)
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)

@@ -35,38 +35,39 @@ class SecurityConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPr
       "must deserialise" in {
 
         forAll(arbitrary[SecurityConsignee]) {
-          consignor =>
+          consignee =>
             val xml = {
               <TRACONSECGOO013>
-                <NamTRACONSECGOO017>{consignor.name}</NamTRACONSECGOO017>
-                <StrNumTRACONSECGOO019>{consignor.streetAndNumber}</StrNumTRACONSECGOO019>
-                <PosCodTRACONSECGOO018>{consignor.postCode}</PosCodTRACONSECGOO018>
-                <CityTRACONSECGOO014>{consignor.city}</CityTRACONSECGOO014>
-                <CouCodTRACONSECGOO015>{consignor.countryCode}</CouCodTRACONSECGOO015>
                 {
-                consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+                consignee.name.fold(NodeSeq.Empty) { name =>
+                <NamTRACONSECGOO017>{name}</NamTRACONSECGOO017>
+                } ++
+                consignee.streetAndNumber.fold(NodeSeq.Empty) { streetAndNumber =>
+                  <StrNumTRACONSECGOO019>{streetAndNumber}</StrNumTRACONSECGOO019>
+                } ++
+                consignee.postCode.fold(NodeSeq.Empty) { postCode =>
+                  <PosCodTRACONSECGOO018>{postCode}</PosCodTRACONSECGOO018>
+                } ++
+                consignee.city.fold(NodeSeq.Empty) { city =>
+                  <CityTRACONSECGOO014>{city}</CityTRACONSECGOO014>
+                } ++
+                consignee.countryCode.fold(NodeSeq.Empty) { countryCode =>
+                  <CouCodTRACONSECGOO015>{countryCode}</CouCodTRACONSECGOO015>
+                } ++
+                consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
                   <TRACONSECGOO013LNG>{nadLangCode}</TRACONSECGOO013LNG>
                 } ++
-                  consignor.eori.fold(NodeSeq.Empty) { eori =>
-                    <TINTRACONSECGOO020>{eori}</TINTRACONSECGOO020>
-                  }
+                consignee.eori.fold(NodeSeq.Empty) { eori =>
+                  <TINTRACONSECGOO020>{eori}</TINTRACONSECGOO020>
+                }
                 }
               </TRACONSECGOO013>
             }
 
             val result = XmlReader.of[SecurityConsignee](SecurityConsignee.xmlReader).read(xml).toOption.value
 
-            result mustBe consignor
+            result mustBe consignee
         }
-      }
-
-      "must fail to deserialise" in {
-
-        val xml = <TRACONSECGOO013></TRACONSECGOO013>
-
-        val result = XmlReader.of[SecurityConsignee](SecurityConsignee.xmlReader).read(xml).toOption
-
-        result mustBe None
       }
     }
 
@@ -78,19 +79,28 @@ class SecurityConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPr
           consignee =>
             val xml = {
               <TRACONSEC029>
-                <NameTRACONSEC033>{consignee.name}</NameTRACONSEC033>
-                <StrNumTRACONSEC035>{consignee.streetAndNumber}</StrNumTRACONSEC035>
-                <PosCodTRACONSEC034>{consignee.postCode}</PosCodTRACONSEC034>
-                <CitTRACONSEC030>{consignee.city}</CitTRACONSEC030>
-                <CouCodTRACONSEC031>{consignee.countryCode}</CouCodTRACONSEC031>
-                {
+                {consignee.name.fold(NodeSeq.Empty) { name =>
+                <NameTRACONSEC033>{name}</NameTRACONSEC033>
+              } ++
+                consignee.streetAndNumber.fold(NodeSeq.Empty) { streetAndNumber =>
+                  <StrNumTRACONSEC035>{streetAndNumber}</StrNumTRACONSEC035>
+                } ++
+                consignee.postCode.fold(NodeSeq.Empty) { postCode =>
+                  <PosCodTRACONSEC034>{postCode}</PosCodTRACONSEC034>
+                } ++
+                consignee.city.fold(NodeSeq.Empty) { city =>
+                  <CitTRACONSEC030>{city}</CitTRACONSEC030>
+                } ++
+                consignee.countryCode.fold(NodeSeq.Empty) { countryCode =>
+                  <CouCodTRACONSEC031>{countryCode}</CouCodTRACONSEC031>
+                } ++
                 consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
                   <TRACONSEC029LNG>{nadLangCode}</TRACONSEC029LNG>
                 } ++
                   consignee.eori.fold(NodeSeq.Empty) { eori =>
                     <TINTRACONSEC036>{eori}</TINTRACONSEC036>
                   }
-                }
+              }
               </TRACONSEC029>
             }
 
@@ -98,15 +108,6 @@ class SecurityConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPr
 
             result mustBe consignee
         }
-      }
-
-      "must fail to deserialise" in {
-
-        val xml = <TRACONSEC029></TRACONSEC029>
-
-        val result = XmlReader.of[SecurityConsignee](SecurityConsignee.xmlReaderRootLevel).read(xml).toOption
-
-        result mustBe None
       }
     }
   }

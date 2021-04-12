@@ -4,20 +4,7 @@
 @import views.xml.securityComponents.customs_office
 @(guaranteeDetails: Seq[GuaranteeDetails] = Nil, destination: Option[CustomsOfficeWithOptionalDate] = None)
 <fo:table-cell>
-    <fo:block>
-        <fo:list-block>
-            <fo:list-item>
-                <fo:list-item-label>
-                    <fo:block>
-                        52
-                    </fo:block>
-                </fo:list-item-label>
-                <fo:list-item-body start-indent="3mm" end-indent="0mm">
-                    <fo:block wrap-option="wrap">Guarantee not valid for</fo:block>
-                </fo:list-item-body>
-            </fo:list-item>
-        </fo:list-block>
-    </fo:block>
+    <fo:block wrap-option="wrap">Guarantee not valid for (52)</fo:block>
 </fo:table-cell>
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
     <fo:table width="100%" table-layout="fixed">
@@ -72,7 +59,7 @@
             <fo:table-body>
                 <fo:table-row height="2mm">
                     <fo:table-cell padding-left="2mm" display-align="center">
-                        <fo:block>53 Office of destination (and country)</fo:block>
+                        <fo:block>Office of destination (and country) (53)</fo:block>
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row height="2mm">

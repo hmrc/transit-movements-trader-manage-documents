@@ -21,37 +21,40 @@ import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
+import utils.StringTransformer.StringFormatter
 
 final case class SecurityConsignor(
-  name: String,
-  streetAndNumber: String,
-  postCode: String,
-  city: String,
-  countryCode: String,
+  name: Option[String],
+  streetAndNumber: Option[String],
+  postCode: Option[String],
+  city: Option[String],
+  countryCode: Option[String],
   nadLanguageCode: Option[String],
   eori: Option[String]
-)
+) {
+  val streetAndNumberTrimmed: Option[String] = streetAndNumber.map(_.shorten(32)("***"))
+}
 
 object SecurityConsignor {
 
   implicit lazy val format: OFormat[SecurityConsignor] = Json.format[SecurityConsignor]
 
   implicit val xmlReader: XmlReader[SecurityConsignor] = (
-    (__ \ "NamTRACORSECGOO025").read[String],
-    (__ \ "StrNumTRACORSECGOO027").read[String],
-    (__ \ "PosCodTRACORSECGOO026").read[String],
-    (__ \ "CitTRACORSECGOO022").read[String],
-    (__ \ "CouCodTRACORSECGOO023").read[String],
+    (__ \ "NamTRACORSECGOO025").read[String].optional,
+    (__ \ "StrNumTRACORSECGOO027").read[String].optional,
+    (__ \ "PosCodTRACORSECGOO026").read[String].optional,
+    (__ \ "CitTRACORSECGOO022").read[String].optional,
+    (__ \ "CouCodTRACORSECGOO023").read[String].optional,
     (__ \ "TRACORSECGOO021LNG").read[String].optional,
     (__ \ "TINTRACORSECGOO028").read[String].optional,
   ).mapN(apply)
 
   implicit val xmlReaderRootLevel: XmlReader[SecurityConsignor] = (
-    (__ \ "NamTRACORSEC041").read[String],
-    (__ \ "StrNumTRACORSEC043").read[String],
-    (__ \ "PosCodTRACORSEC042").read[String],
-    (__ \ "CitTRACORSEC038").read[String],
-    (__ \ "CouCodTRACORSEC039").read[String],
+    (__ \ "NamTRACORSEC041").read[String].optional,
+    (__ \ "StrNumTRACORSEC043").read[String].optional,
+    (__ \ "PosCodTRACORSEC042").read[String].optional,
+    (__ \ "CitTRACORSEC038").read[String].optional,
+    (__ \ "CouCodTRACORSEC039").read[String].optional,
     (__ \ "TRACORSEC037LNG").read[String].optional,
     (__ \ "TINTRACORSEC044").read[String].optional,
   ).mapN(apply)

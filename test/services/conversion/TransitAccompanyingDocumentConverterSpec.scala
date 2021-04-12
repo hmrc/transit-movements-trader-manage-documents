@@ -150,19 +150,14 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
               )
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation,
-            securityConsignor =
-              Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-            securityConsignee =
-              Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+            securityConsignor = None,
+            securityConsignee = None
           )
         ),
         itineraries = Seq(Itinerary("GB")),
-        safetyAndSecurityCarrier =
-          Some(SafetyAndSecurityCarrier("security carrier name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        safetyAndSecurityConsignor =
-          Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        safetyAndSecurityConsignee =
-          Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        safetyAndSecurityCarrier = None,
+        safetyAndSecurityConsignor = None,
+        safetyAndSecurityConsignee = None
       )
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
@@ -236,10 +231,8 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
               )
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation,
-            securityConsignor =
-              Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-            securityConsignee =
-              Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+            securityConsignor = None,
+            securityConsignee = None
           )
         )
       )
@@ -333,19 +326,14 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
               )
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation,
-            securityConsignor =
-              Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-            securityConsignee =
-              Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+            securityConsignor = None,
+            securityConsignee = None
           )
         ),
         itineraries = Seq.empty,
-        safetyAndSecurityCarrier =
-          Some(SafetyAndSecurityCarrier("security carrier name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        safetyAndSecurityConsignor =
-          Some(SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        safetyAndSecurityConsignee =
-          Some(SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        safetyAndSecurityCarrier = None,
+        safetyAndSecurityConsignor = None,
+        safetyAndSecurityConsignee = None
       )
 
       val result = TransitAccompanyingDocumentConverter.toViewModel(model,

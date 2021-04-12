@@ -96,15 +96,16 @@ final case class TransitSecurityAccompanyingDocumentPDF(
 
   val firstCustomsOfficeOfTransitArrivalTime: String = customsOfficeOfTransit.headOption.flatMap(_.dateTimeFormatted).getOrElse("---")
 
-  val displayItineraries: String = if (itineraries.nonEmpty) itineraries.map(_.countryCode).mkString(" ,") else ""
+  val displayItineraries: String = if (itineraries.nonEmpty) itineraries.map(_.countryCode).mkString(" , ") else ""
 
   val printVariousSecurityConsignees: Boolean =
     printListOfItems &&
-      securityConsigneeOne.isEmpty &&
-      goodsItems.toList.flatMap(_.consignee).nonEmpty
+      goodsItems.toList.flatMap(_.securityConsignee).nonEmpty
 
   val printVariousSecurityConsignors: Boolean =
     printListOfItems &&
-      securityConsignorOne.isEmpty &&
-      goodsItems.toList.flatMap(_.consignor).nonEmpty
+      goodsItems.toList.flatMap(_.securityConsignor).nonEmpty
+
+  val secCarrierFlg: Boolean = safetyAndSecurityCarrier.isEmpty
+
 }

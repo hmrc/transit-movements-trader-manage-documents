@@ -36,11 +36,13 @@
         tadModel = tadModel
     )
 
-    <!--packages/goods description/docs/certs-->
-    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
-
-    <!--transhipment/certification-->
-    @table3()
+    @table2(tadModel.printVariousSecurityConsignees,
+        tadModel.securityConsigneeOne,
+        tadModel.printVariousSecurityConsignors,
+        tadModel.securityConsignorOne,
+        tadModel.secCarrierFlg,
+        tadModel.safetyAndSecurityCarrier
+        )
 
     <!--Principal/TIR Holder/Office of departure-->
     @table4(

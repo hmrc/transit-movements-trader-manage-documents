@@ -44,18 +44,18 @@ object Helpers {
       consignee
     }
 
-  def securityConsignorOne(goodsItems: NonEmptyList[GoodsItem], consignor: Option[SecurityConsignor]): Option[SecurityConsignor] =
-    if (goodsItems.toList.flatMap(_.consignor).nonEmpty) {
+  def securityConsignorOne(goodsItems: NonEmptyList[GoodsItem], headerSafetyAndSecurityConsignor: Option[SecurityConsignor]): Option[SecurityConsignor] =
+    if (goodsItems.toList.flatMap(_.securityConsignor).nonEmpty) {
       singleValue(goodsItems.toList.flatMap(_.securityConsignor), goodsItems)
     } else {
-      consignor
+      headerSafetyAndSecurityConsignor
     }
 
-  def securityConsigneeOne(goodsItems: NonEmptyList[GoodsItem], consignee: Option[SecurityConsignee]): Option[SecurityConsignee] =
-    if (goodsItems.toList.flatMap(_.consignee).nonEmpty) {
+  def securityConsigneeOne(goodsItems: NonEmptyList[GoodsItem], headerSafetyAndSecurityConsignee: Option[SecurityConsignee]): Option[SecurityConsignee] =
+    if (goodsItems.toList.flatMap(_.securityConsignee).nonEmpty) {
       singleValue(goodsItems.toList.flatMap(_.securityConsignee), goodsItems)
     } else {
-      consignee
+      headerSafetyAndSecurityConsignee
     }
 
   def countryOfDispatch(goodsItems: NonEmptyList[GoodsItem]): Option[Country] =

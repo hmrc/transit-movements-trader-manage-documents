@@ -47,6 +47,22 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
     val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
     val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
     val specialMentionCal                = models.SpecialMention(Some("Should be filtered"), models.SpecialMention.calCode, None, None)
+    val securityConsignor = Some(
+      models.SecurityConsignor(Some("security consignor name"),
+                               Some("consignor street"),
+                               Some("consignor postCode"),
+                               Some("consignor city"),
+                               Some(countries.head.code),
+                               None,
+                               None))
+    val securityConsignee = Some(
+      models.SecurityConsignee(Some("security consignee name"),
+                               Some("consignee street"),
+                               Some("consignee postCode"),
+                               Some("consignee city"),
+                               Some(countries.head.code),
+                               None,
+                               None))
 
     "must return a view model when all of the necessary reference data can be found filtering out all CAL Special mentions" in {
 
@@ -78,10 +94,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
           )
         ),
         sensitiveGoodsInformation = sensitiveGoodsInformation,
-        securityConsignor = Some(
-          models.SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        securityConsignee = Some(
-          models.SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        securityConsignor = securityConsignor,
+        securityConsignee = securityConsignee
       )
 
       val expectedViewModel = viewmodels.GoodsItem(
@@ -113,10 +127,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
           )
         ),
         sensitiveGoodsInformation = sensitiveGoodsInformation,
-        securityConsignor = Some(
-          models.SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        securityConsignee = Some(
-          models.SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        securityConsignor = securityConsignor,
+        securityConsignee = securityConsignee
       )
 
       val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)
@@ -153,10 +165,8 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
           )
         ),
         sensitiveGoodsInformation = sensitiveGoodsInformation,
-        securityConsignor = Some(
-          models.SecurityConsignor("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
-        securityConsignee = Some(
-          models.SecurityConsignee("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
+        securityConsignor = securityConsignor,
+        securityConsignee = securityConsignee
       )
 
       val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)
