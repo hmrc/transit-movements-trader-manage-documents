@@ -24,6 +24,7 @@ sealed trait Package {
   val marksAndNumbersValue: Option[String]
   val packageAndNumber: Option[String]
   val numberOfPiecesValue: Int
+  val countPackageAndMarks: Option[String]
 
   val validateString: Option[String] => Option[String] = _.filter(x => x.trim.nonEmpty)
 
@@ -40,11 +41,11 @@ sealed trait Package {
         Some(s"1 - $description")
       } else None
 
-  val validateCountPackageAndMarks: Int => String => String=> Option[String] =
+  val validateCountPackageAndMarks: Int => KindOfPackage => Option[String] =
     count =>
-      description =>
-        if (count > 0 && description.nonEmpty) {
-          Some(s"$count - $description")
+      kindOfPackage =>
+        if (count > 0 && kindOfPackage.description.nonEmpty) {
+          Some(s"$count - ${kindOfPackage.code} (${kindOfPackage.description})")
         } else None
 }
 
@@ -58,6 +59,8 @@ final case class BulkPackage(
   override val packageAndNumber: Option[String] = validatePackage(kindOfPackage.description)
 
   override val numberOfPiecesValue: Int = 0
+
+  override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(0)(kindOfPackage)
 }
 
 final case class UnpackedPackage(
@@ -69,6 +72,8 @@ final case class UnpackedPackage(
   override val marksAndNumbersValue: Option[String] = validateString(marksAndNumbers)
 
   override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPieces)(kindOfPackage.description)
+
+  override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(0)(kindOfPackage)
 
   override val numberOfPiecesValue: Int = numberOfPieces
 }
@@ -82,6 +87,8 @@ final case class RegularPackage(
   override val marksAndNumbersValue: Option[String] = validateString(Some(marksAndNumbers))
 
   override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPackages)(kindOfPackage.description)
+
+  override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(numberOfPackages)(kindOfPackage)
 
   override val numberOfPiecesValue: Int = 0
 }

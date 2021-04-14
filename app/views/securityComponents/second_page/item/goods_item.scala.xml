@@ -1,5 +1,5 @@
-@import views.xml.components.second_page.item._
-@import views.xml.components.{item => componentItem}
+@import views.xml.securityComponents.second_page.item._
+@import views.xml.securityComponents.{item => componentItem}
 
 @(goodsItem: viewmodels.GoodsItem, declarationType: DeclarationType)
 <fo:table width="100%" table-layout="fixed">
@@ -17,10 +17,10 @@
                 <fo:table-cell border-style="solid" border-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
                     <fo:block>@goodsItem.itemNumber</fo:block>
                 </fo:table-cell>
-                <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:table-cell border-style="solid" border-bottom-style="dotted" border-width="1pt" border-top-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     @goodsItem.packages.toList.map(x => package_item(x))
                 </fo:table-cell>
-                <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="dotted" border-width="1pt" border-top-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     <fo:block>
                         @goodsItem.description
                     </fo:block>
@@ -91,7 +91,7 @@
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5" number-rows-spanned="1">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5" number-rows-spanned="2">
                     @if(goodsItem.producedDocuments.nonEmpty) {
                         @goodsItem.producedDocuments.map(producedDocument => produced_document(producedDocument))
                     } else {
@@ -100,13 +100,20 @@
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     @if(goodsItem.previousDocumentTypes.nonEmpty){
-                        <fo:block>@goodsItem.previousDocumentTypes.map(_.display)</fo:block>
+                        <fo:block>@goodsItem.previousDocumentTypes.map(_.display) </fo:block>
                     } else {
                         <fo:block>--</fo:block>
                     }
                 </fo:table-cell>
             </fo:table-row>
-
-
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    @if(goodsItem.specialMentions.nonEmpty) {
+                       @goodsItem.specialMentions.map(x => componentItem.special_mentions(x))
+                    } else {
+                        <fo:block>--</fo:block>
+                    }
+                </fo:table-cell>
+            </fo:table-row>
         </fo:table-body>
 </fo:table>

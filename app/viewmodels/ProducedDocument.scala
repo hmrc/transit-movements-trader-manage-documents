@@ -24,10 +24,17 @@ final case class ProducedDocument(
   complementOfInformation: Option[String]
 ) {
 
+  val documentCodeOrDes: String = if (documentType.description.isEmpty) {
+    documentType.code
+  } else {
+    documentType.description
+  }
+
   val display: String =
     Seq(
-      Some(documentType.description),
+      Some(documentCodeOrDes),
       reference,
       complementOfInformation
     ).flatten.mkString(" - ")
+
 }
