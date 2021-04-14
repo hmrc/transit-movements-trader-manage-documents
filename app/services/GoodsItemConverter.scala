@@ -118,24 +118,27 @@ object GoodsItemConverter extends Converter {
     ).mapN(
       (dispatch, destination, docs, mentions, packages, consignor, consignee, previousDocs) =>
         viewmodels.GoodsItem(
-          goodsItem.itemNumber,
-          goodsItem.commodityCode,
-          goodsItem.declarationType,
-          goodsItem.description,
-          goodsItem.grossMass,
-          goodsItem.netMass,
-          dispatch,
-          destination,
-          docs,
-          previousDocs,
-          mentions,
-          consignor,
-          consignee,
-          goodsItem.containers,
-          packages,
-          goodsItem.sensitiveGoodsInformation,
-          goodsItem.securityConsignor,
-          goodsItem.securityConsignee
+          itemNumber = goodsItem.itemNumber,
+          commodityCode = goodsItem.commodityCode,
+          declarationType = goodsItem.declarationType,
+          description = goodsItem.description,
+          grossMass = goodsItem.grossMass,
+          netMass = goodsItem.netMass,
+          countryOfDispatch = dispatch,
+          countryOfDestination = destination,
+          methodOfPayment = goodsItem.methodOfPayment,
+          commercialReferenceNumber = goodsItem.commercialReferenceNumber,
+          unDangerGoodsCode = goodsItem.unDangerGoodsCode,
+          producedDocuments = docs,
+          previousDocumentTypes = previousDocs,
+          specialMentions = mentions,
+          consignor = consignor,
+          consignee = consignee,
+          containers = goodsItem.containers,
+          packages = packages,
+          sensitiveGoodsInformation = goodsItem.sensitiveGoodsInformation,
+          securityConsignor = goodsItem.securityConsignor,
+          securityConsignee = goodsItem.securityConsignee
       )
     )
   }

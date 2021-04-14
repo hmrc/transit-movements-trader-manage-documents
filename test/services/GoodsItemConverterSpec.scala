@@ -75,6 +75,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        methodOfPayment = Some("A"),
+        commercialReferenceNumber = Some("ref"),
+        unDangerGoodsCode = Some("AA11"),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         previousAdminRef = Nil,
         specialMentions = Seq(
@@ -107,6 +110,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head),
         countryOfDestination = Some(countries.head),
+        methodOfPayment = Some("A"),
+        commercialReferenceNumber = Some("ref"),
+        unDangerGoodsCode = Some("AA11"),
         producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
         previousDocumentTypes = Nil,
         specialMentions = Seq(
@@ -147,6 +153,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(invalidCode),
         countryOfDestination = Some(invalidCode),
+        methodOfPayment = None,
+        commercialReferenceNumber = None,
+        unDangerGoodsCode = None,
         producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
         previousAdminRef = Nil,
         specialMentions = Seq(

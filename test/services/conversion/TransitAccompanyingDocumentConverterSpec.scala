@@ -130,6 +130,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head.code),
             countryOfDestination = Some(countries.head.code),
+            methodOfPayment = None,
+            commercialReferenceNumber = None,
+            unDangerGoodsCode = None,
             previousAdminRef = Seq(
               PreviousAdministrativeReference("123", "ABABA", None)
             ),
@@ -206,6 +209,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
+            methodOfPayment = None,
+            commercialReferenceNumber = None,
+            unDangerGoodsCode = None,
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             previousDocumentTypes = Seq(
               PreviousDocumentType(
@@ -306,6 +312,9 @@ class TransitAccompanyingDocumentConverterSpec extends FreeSpec with MustMatcher
             netMass = Some(0.9),
             countryOfDispatch = Some(invalidCode),
             countryOfDestination = Some(invalidCode),
+            methodOfPayment = None,
+            commercialReferenceNumber = None,
+            unDangerGoodsCode = None,
             previousAdminRef = Seq(
               PreviousAdministrativeReference(invalidCode, "ABASD", Some("Something"))
             ),

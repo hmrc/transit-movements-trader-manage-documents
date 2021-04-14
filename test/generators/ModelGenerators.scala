@@ -217,6 +217,9 @@ trait ModelGenerators extends GeneratorHelpers {
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
         countryOfDestination      <- Gen.option(stringWithMaxLength(2))
+        methodOfPayment           <- Gen.option(stringWithMaxLength(1))
+        commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
+        unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
         producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
         previousAdminRef          <- listWithMaxSize(2, arbitrary[PreviousAdministrativeReference])
         specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
@@ -237,6 +240,9 @@ trait ModelGenerators extends GeneratorHelpers {
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          methodOfPayment,
+          commercialReferenceNumber,
+          unDangerGoodsCode,
           previousAdminRef,
           producedDocuments,
           specialMentions,
@@ -644,6 +650,9 @@ trait ModelGenerators extends GeneratorHelpers {
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         countryOfDispatch         <- Gen.option(arbitrary[Country])
         countryOfDestination      <- Gen.option(arbitrary[Country])
+        methodOfPayment           <- Gen.option(stringWithMaxLength(1))
+        commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
+        unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
         producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
         previousDocTypes          <- listWithMaxSize(2, arbitrary[viewmodels.PreviousDocumentType])
         specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
@@ -664,6 +673,9 @@ trait ModelGenerators extends GeneratorHelpers {
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          methodOfPayment,
+          commercialReferenceNumber,
+          unDangerGoodsCode,
           producedDocuments,
           previousDocTypes,
           specialMentions,

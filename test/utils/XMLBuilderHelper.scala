@@ -68,6 +68,21 @@ object XMLBuilderHelper {
         }
       }
       {
+        goodsItem.methodOfPayment.fold(NodeSeq.Empty) { methodOfPayment =>
+          <MetOfPayGDI12>{methodOfPayment}</MetOfPayGDI12>
+        }
+      }
+      {
+        goodsItem.commercialReferenceNumber.fold(NodeSeq.Empty) { commercialReferenceNumber =>
+          <ComRefNumGIM1>{commercialReferenceNumber}</ComRefNumGIM1>
+        }
+      }
+      {
+        goodsItem.unDangerGoodsCode.fold(NodeSeq.Empty) { unDangerGoodsCode =>
+          <UNDanGooCodGDI1>{unDangerGoodsCode}</UNDanGooCodGDI1>
+        }
+      }
+      {
       goodsItem.producedDocuments.map(producedDocumentXML) ++
         goodsItem.specialMentions.map(specialMentionXML) ++
         goodsItem.consignor.map(consignorXML) ++

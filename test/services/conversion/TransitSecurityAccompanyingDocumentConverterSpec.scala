@@ -139,6 +139,9 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head.code),
             countryOfDestination = Some(countries.head.code),
+            methodOfPayment = Some("E"),
+            commercialReferenceNumber = Some("ref"),
+            unDangerGoodsCode = Some("AA11"),
             previousAdminRef = Seq(
               PreviousAdministrativeReference("123", "ABABA", None)
             ),
@@ -226,6 +229,9 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
+            methodOfPayment = Some("E"),
+            commercialReferenceNumber = Some("ref"),
+            unDangerGoodsCode = Some("AA11"),
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             previousDocumentTypes = Seq(
               PreviousDocumentType(
@@ -333,6 +339,9 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
             netMass = Some(0.9),
             countryOfDispatch = Some(invalidCode),
             countryOfDestination = Some(invalidCode),
+            methodOfPayment = None,
+            commercialReferenceNumber = None,
+            unDangerGoodsCode = None,
             previousAdminRef = Seq(
               PreviousAdministrativeReference(invalidCode, "ABASD", Some("Something"))
             ),

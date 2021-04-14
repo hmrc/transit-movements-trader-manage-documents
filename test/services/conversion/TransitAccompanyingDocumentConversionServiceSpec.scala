@@ -148,6 +148,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        methodOfPayment = None,
+        commercialReferenceNumber = None,
+        unDangerGoodsCode = None,
         previousAdminRef = Seq(
           PreviousAdministrativeReference("123", "ABABA", None)
         ),
@@ -295,6 +298,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   netMass = Some(0.9),
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
+                  methodOfPayment = None,
+                  commercialReferenceNumber = None,
+                  unDangerGoodsCode = None,
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   previousDocumentTypes =
                     validModel.goodsItems.head.previousAdminRef.map(ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)),
@@ -421,6 +427,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   netMass = Some(0.9),
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
+                  methodOfPayment = None,
+                  commercialReferenceNumber = None,
+                  unDangerGoodsCode = None,
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   previousDocumentTypes = Nil,
                   specialMentions = Seq(

@@ -23,7 +23,8 @@
             tadModel.movementReferenceNumber,
             tadModel.acceptanceDate.map(_.formattedDate),
             tadModel.goodsItems,
-            tadModel.declarationType
+            tadModel.declarationType,
+            tadModel.placeOfUnloadingCode
         ))
     } else None
 )

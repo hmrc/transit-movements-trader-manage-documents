@@ -218,6 +218,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         countryOfDispatch         <- Gen.option(arbitrary[Country])
         countryOfDestination      <- Gen.option(arbitrary[Country])
+        methodOfPayment           <- Gen.option(stringWithMaxLength(1))
+        commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
+        unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
         producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
         previousDocuments         <- listWithMaxSize(9, arbitrary[PreviousDocumentType])
         specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
@@ -238,6 +241,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          methodOfPayment,
+          commercialReferenceNumber,
+          unDangerGoodsCode,
           producedDocuments,
           previousDocuments,
           specialMentions,
