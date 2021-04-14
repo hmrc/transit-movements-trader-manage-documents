@@ -9,7 +9,7 @@
   </fo:table-cell>
   <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
     <fo:block>
-      @consignor.map(c => c.eori)
+      @consignor.map(c => c.eori.getOrElse(""))
     </fo:block>
   </fo:table-cell>
 </fo:table-row>
@@ -23,24 +23,24 @@
 <fo:table-row height="6.25mm">
 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.streetAndNumberTrimmed)
+    @consignor.map(c => c.streetAndNumberTrimmed.getOrElse(""))
   </fo:block>
 </fo:table-cell>
 <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.postCode)
+    @consignor.map(c => c.postCode.getOrElse(""))
   </fo:block>
 </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="6.25mm">
 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.city)
+    @consignor.map(c => c.city.getOrElse(""))
   </fo:block>
 </fo:table-cell>
 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.countryCode)
+    @consignor.map(c => c.countryCode.getOrElse(""))
   </fo:block>
 </fo:table-cell>
 </fo:table-row>

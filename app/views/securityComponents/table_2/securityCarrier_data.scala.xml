@@ -9,7 +9,7 @@
   </fo:table-cell>
   <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
     <fo:block>
-      @securityCarrier.map(c => c.eori)
+      @securityCarrier.map(c => c.eori.getOrElse(""))
     </fo:block>
   </fo:table-cell>
 </fo:table-row>

@@ -39,6 +39,13 @@ sealed trait Package {
       if (description.nonEmpty) {
         Some(s"1 - $description")
       } else None
+
+  val validateCountPackageAndMarks: Int => String => String=> Option[String] =
+    count =>
+      description =>
+        if (count > 0 && description.nonEmpty) {
+          Some(s"$count - $description")
+        } else None
 }
 
 final case class BulkPackage(
