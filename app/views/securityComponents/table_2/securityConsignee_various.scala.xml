@@ -6,8 +6,7 @@
   <fo:block>No</fo:block>
 </fo:table-cell>
 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
-  <fo:block>
-  </fo:block>
+  <fo:block/>
 </fo:table-cell>
 </fo:table-row>
 <fo:table-row>

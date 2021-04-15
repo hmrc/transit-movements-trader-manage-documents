@@ -17,24 +17,24 @@
                 <fo:table-cell border-style="solid" border-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
                     <fo:block>@goodsItem.itemNumber</fo:block>
                 </fo:table-cell>
-                <fo:table-cell border-style="solid" border-bottom-style="dotted" border-width="1pt" border-top-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                <fo:table-cell border-style="solid" border-bottom-style="solid" border-width="1pt" border-top-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     @goodsItem.packages.toList.map(x => package_item(x))
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="dotted" border-width="1pt" border-top-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-top-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     <fo:block>
                         @goodsItem.description
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                 <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                 <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
                     @if(goodsItem.consignor.nonEmpty) {
                         @goodsItem.consignor.map(x => consignor(x))
                     } else {
                         <fo:block>---</fo:block>
                     }
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     @if(goodsItem.consignee.nonEmpty) {
                       @goodsItem.consignee.map(x => consignee(x))
                     } else {
@@ -75,7 +75,7 @@
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="dashed" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
                     <!-- Consignor (security) (S04) -->
                     @if(goodsItem.securityConsignor.nonEmpty) {
                         @goodsItem.securityConsignor.map(x => securityConsignor(x))
@@ -83,7 +83,7 @@
                         <fo:block>--</fo:block>
                     }
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="dashed" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     <!-- Consignee (security) (S06) -->
                     @if(goodsItem.securityConsignee.nonEmpty) {
                         @goodsItem.securityConsignee.map(x => securityConsignee(x))
@@ -93,14 +93,14 @@
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5" number-rows-spanned="2">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5" number-rows-spanned="2">
                     @if(goodsItem.producedDocuments.nonEmpty) {
                         @goodsItem.producedDocuments.map(producedDocument => produced_document(producedDocument))
                     } else {
                         <fo:block>--</fo:block>
                     }
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     @if(goodsItem.previousDocumentTypes.nonEmpty){
                         <fo:block>@goodsItem.previousDocumentTypes.map(_.display) </fo:block>
                     } else {
@@ -109,7 +109,7 @@
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     @if(goodsItem.specialMentions.nonEmpty) {
                        @goodsItem.specialMentions.map(x => componentItem.special_mentions(x))
                     } else {
@@ -118,39 +118,39 @@
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="dashed" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
                     <fo:block>
                     </fo:block>
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="dashed" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                    <fo:block> @goodsItem.commercialReferenceNumber.getOrElse("---") </fo:block>
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
                     <fo:block>
                         &#160;&#160;&#160;
                     </fo:block>
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="3">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="3">
                     @if(goodsItem.containers.nonEmpty) {
                         @goodsItem.containers.map(x => block(x))
                     } else {
                         <fo:block>--</fo:block>
                     }
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
+                <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
                     <fo:block>---</fo:block>
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
                     <fo:block> @placeOfUnloadingCode.getOrElse("---") </fo:block>
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="3">
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="3">
                      <fo:block> @goodsItem.commodityCode.getOrElse("---") </fo:block>
                 </fo:table-cell>
-                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="dotted" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
+                <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
                     <fo:block> @goodsItem.grossMass.getOrElse("---") </fo:block>
                 </fo:table-cell>
            </fo:table-row>

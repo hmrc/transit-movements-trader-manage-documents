@@ -1,6 +1,6 @@
 @(consignor: Option[SecurityConsignor])
 
-<fo:table-row height="5.33mm">
+<fo:table-row height="6.25mm">
   <fo:table-cell display-align="center" padding-left="2mm">
     <fo:block>Consignor (security) (S04)</fo:block>
   </fo:table-cell>

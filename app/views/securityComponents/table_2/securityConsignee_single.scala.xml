@@ -15,7 +15,7 @@
 <fo:table-row height="6.25mm">
 <fo:table-cell padding-left="2mm" number-columns-spanned="3" font-weight="bold" display-align="center">
   <fo:block>
-    @consignee.map(c => c.name).getOrElse("---")
+    @consignee.map(c => c.name.getOrElse("---"))
   </fo:block>
 </fo:table-cell>
 </fo:table-row>

@@ -55,7 +55,7 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
         office =>
           referenceData
             .customsOfficeSearch(office.reference)
-            .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 18))
+            .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 32))
       )
     )
 

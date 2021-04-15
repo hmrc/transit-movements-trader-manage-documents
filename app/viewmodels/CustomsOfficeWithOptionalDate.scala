@@ -33,4 +33,7 @@ case class CustomsOfficeWithOptionalDate(office: CustomsOffice, date: Option[Loc
 
   def dateTimeFormatted: Option[String] =
     date.map(_.format(DateFormatter.dateTimeFormatter))
+
+  def arrivalDateTimeFormatted: Option[String] =
+    date.map(_.format(DateFormatter.arrivalDateTimeFormatter))
 }

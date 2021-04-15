@@ -7,7 +7,7 @@
 </fo:block>
 <fo:block>
     <fo:inline font-style="italic">
-    @customsOffice.dateTimeFormatted.getOrElse{
+    @customsOffice.arrivalDateTimeFormatted.getOrElse{
         &#160;
     }
     </fo:inline>
