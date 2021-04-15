@@ -14,9 +14,7 @@
   <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block/>
   </fo:table-cell>
-
   @consignor(printVariousConsignors, consignorOne)
-
   <fo:table-cell>
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
@@ -29,14 +27,12 @@
                 <fo:table width="100%" table-layout="fixed">
                   <fo:table-column column-width="16mm"/>
                   <fo:table-column column-width="16mm"/>
-
-                  <fo:table-body>
-                    <fo:table-row height="9mm">
-
-                      @forms(printListOfItems)
-                      @secDecl(security)
-                    </fo:table-row>
-                  </fo:table-body>
+                    <fo:table-body>
+                      <fo:table-row height="9mm">
+                        @forms(printListOfItems)
+                        @secDecl(security)
+                      </fo:table-row>
+                    </fo:table-body>
                 </fo:table>
               </fo:block>
             </fo:table-cell>

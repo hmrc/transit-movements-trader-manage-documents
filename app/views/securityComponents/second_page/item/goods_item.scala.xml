@@ -31,7 +31,7 @@
                     @if(goodsItem.consignor.nonEmpty) {
                         @goodsItem.consignor.map(x => consignor(x))
                     } else {
-                        <fo:block>---</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
@@ -80,7 +80,7 @@
                     @if(goodsItem.securityConsignor.nonEmpty) {
                         @goodsItem.securityConsignor.map(x => securityConsignor(x))
                     } else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
@@ -88,7 +88,7 @@
                     @if(goodsItem.securityConsignee.nonEmpty) {
                         @goodsItem.securityConsignee.map(x => securityConsignee(x))
                     }  else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
             </fo:table-row>
@@ -97,14 +97,14 @@
                     @if(goodsItem.producedDocuments.nonEmpty) {
                         @goodsItem.producedDocuments.map(producedDocument => produced_document(producedDocument))
                     } else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                     @if(goodsItem.previousDocumentTypes.nonEmpty){
                         <fo:block>@goodsItem.previousDocumentTypes.map(_.display) </fo:block>
                     } else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
             </fo:table-row>
@@ -113,14 +113,13 @@
                     @if(goodsItem.specialMentions.nonEmpty) {
                        @goodsItem.specialMentions.map(x => componentItem.special_mentions(x))
                     } else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row>
                 <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
-                    <fo:block>
-                    </fo:block>
+                    <fo:block>--- &#160;&#160;&#160; ---</fo:block>
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
                    <fo:block> @goodsItem.commercialReferenceNumber.getOrElse("---") </fo:block>
@@ -128,15 +127,13 @@
             </fo:table-row>
             <fo:table-row>
                 <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
-                    <fo:block>
-                        &#160;&#160;&#160;
-                    </fo:block>
+                    <fo:block>--- &#160;&#160;&#160; ---</fo:block>
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="3">
                     @if(goodsItem.containers.nonEmpty) {
                         @goodsItem.containers.map(x => block(x))
                     } else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
@@ -162,14 +159,14 @@
                     @if(goodsItem.sensitiveGoodsInformation.nonEmpty) {
                         @goodsItem.sensitiveGoodsInformation.map(x => block(x.quantity.toString))
                     } else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
                     @if(goodsItem.sensitiveGoodsInformation.nonEmpty) {
                         @goodsItem.sensitiveGoodsInformation.map(x => block(x.goodsCode.getOrElse("---")))
                     } else {
-                        <fo:block>--</fo:block>
+                        <fo:block></fo:block>
                     }
                 </fo:table-cell>
                 <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="dotted" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">

@@ -12,7 +12,7 @@
           inline-progression-dimension.minimum="8mm"
           inline-progression-dimension.optimum="80mm"
           inline-progression-dimension.maximum="auto">
-      <fo:block hyphenate="true">@formName</fo:block>
+      <fo:block hyphenate="false">@formName</fo:block>
     </fo:block-container>
   </fo:table-cell>
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">

@@ -13,9 +13,7 @@
         </fo:table-row>
         <fo:table-row height="4.5mm">
           <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
-            <fo:block>
-              1
-            </fo:block>
+            <fo:block>1</fo:block>
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
             <fo:block>

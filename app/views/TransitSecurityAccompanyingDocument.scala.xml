@@ -1,4 +1,3 @@
-@import views.xml.DocumentTemplate
 @import views.xml.securityComponents._
 @import views.xml.PageOne
 @import views.xml.securityComponents.second_page
@@ -31,7 +30,7 @@
 @pageOneBody = {
     <!--main header-->
     @mainHeader(
-        title = "TRANSIT/SECURITY - ACCOMPANYING DOCUMENT",
+        title = "TRANSIT / SECURITY – ACCOMPANYING DOCUMENT",
         boldHeading = false,
         tadModel = tadModel
     )
