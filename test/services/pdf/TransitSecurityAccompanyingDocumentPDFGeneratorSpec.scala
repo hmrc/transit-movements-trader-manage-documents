@@ -33,8 +33,8 @@ import play.api.Application
 import play.api.Environment
 import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
-import viewmodels.TransitAccompanyingDocumentPDF
-import views.xml.components._
+import viewmodels.TransitSecurityAccompanyingDocumentPDF
+import views.xml.securityComponents._
 
 class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
     extends FreeSpec
@@ -65,48 +65,33 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
     )
     .build()
 
-  private lazy val service: TADPdfGenerator = app.injector.instanceOf[TADPdfGenerator]
-  val env: Environment                      = app.injector.instanceOf[Environment]
+  private lazy val service: TSADPdfGenerator = app.injector.instanceOf[TSADPdfGenerator]
+  val env: Environment                       = app.injector.instanceOf[Environment]
 
   "TransitSecurityAccompanyingDocumentPDFGenerator" - {
 
     "return pdf" in {
 
-      forAll(arb[TransitAccompanyingDocumentPDF]) {
+      forAll(arb[TransitSecurityAccompanyingDocumentPDF]) {
         tad =>
           service.generate(tad) mustBe an[Array[Byte]]
 
           verify(spiedTable1, times(1))
             .apply(
-              "TRANSIT - ACCOMPANYING DOCUMENT",
-              true,
-              tad.movementReferenceNumber,
-              tad.printVariousConsignors,
-              tad.consignorOne,
-              tad.declarationType,
-              tad.printListOfItems,
-              tad.consignor,
-              tad.numberOfItems,
-              tad.totalNumberOfPackages,
-              tad.printVariousConsignees,
-              tad.consigneeOne,
-              tad.singleCountryOfDispatch,
-              tad.singleCountryOfDestination,
-              tad.transportIdentity,
-              tad.transportCountry,
-              tad.returnCopiesCustomsOffice
+              "TRANSIT/SECURITY - ACCOMPANYING DOCUMENT",
+              false,
+              tad
             )
 
           verify(spiedTable2, times(1))
             .apply(
-              tad.printListOfItems,
-              tad.numberOfItems,
-              tad.goodsItems,
-              tad.grossMass,
-              tad.printBindingItinerary
+              tad.printVariousSecurityConsignors,
+              tad.securityConsigneeOne,
+              tad.printVariousSecurityConsignors,
+              tad.securityConsignorOne,
+              tad.secCarrierFlg,
+              tad.safetyAndSecurityCarrier
             )
-
-          verify(spiedTable3, times(1)).apply()
 
           verify(spiedTable4, times(1))
             .apply(
@@ -133,7 +118,8 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
               tad.movementReferenceNumber,
               tad.acceptanceDate.map(_.formattedDate),
               tad.goodsItems,
-              tad.declarationType
+              tad.declarationType,
+              tad.placeOfUnloadingCode
             )
 
           reset(spiedTable1, spiedTable2, spiedTable3, spiedTable4, spiedTable5)
