@@ -19,6 +19,7 @@ package controllers
 import cats.data.Validated
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
+import logging.Logging
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._
@@ -36,7 +37,8 @@ class TransitAccompanyingDocumentController @Inject()(
   pdf: TADPdfGenerator,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
-    extends BackendController(cc) {
+    extends BackendController(cc)
+    with Logging {
 
   def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
@@ -45,9 +47,12 @@ class TransitAccompanyingDocumentController @Inject()(
           conversionService.toViewModel(transitAccompanyingDocument).map {
             case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
             case Validated.Invalid(errors) =>
-              InternalServerError(s"Failed to convert to TransitAccompanyingDocumentViewModel with following errors: $errors")
+              logger.info(s"Failed to convert to TransitAccompanyingDocumentController with following errors: $errors")
+              InternalServerError
           } recover {
-            case e => BadGateway
+            case e =>
+              logger.info(s"Exception thrown while converting to TransitAccompanyingDocumentController: ${e.getMessage}")
+              BadGateway
           }
         case ParseFailure(errors) =>
           Future.successful(BadRequest(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors"))

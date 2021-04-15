@@ -8,7 +8,6 @@
         table2: table_2.table,
         table3: table_3.table,
         table4: table_4.table,
-        table5: table_5.table,
         template: DocumentTemplate,
         pageOne: PageOne,
         pageTwo: second_page.table
@@ -46,9 +45,9 @@
         )
 
     <!--Principal/TIR Holder/Office of departure-->
-    @table4(
+    @table3(
         tadModel.principal,
-        tadModel.departureOffice.reference,
+        tadModel.departureOffice.referenceWithOfficeId,
         tadModel.acceptanceDate.map(_.formattedDate),
         tadModel.customsOfficeOfTransit,
         tadModel.guaranteeDetails,
@@ -58,5 +57,5 @@
     )
 
     <!--control by office of departure/destination-->
-    @table5(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult)
+    @table4(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult)
 }

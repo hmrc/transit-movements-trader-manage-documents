@@ -51,7 +51,6 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
   lazy val spiedTable2: table_2.table    = Mockito.spy(new table_2.table())
   lazy val spiedTable3: table_3.table    = Mockito.spy(new table_3.table())
   lazy val spiedTable4: table_4.table    = Mockito.spy(new table_4.table())
-  lazy val spiedTable5: table_5.table    = Mockito.spy(new table_5.table())
   lazy val spiedPage2: second_page.table = Mockito.spy(new second_page.table())
 
   implicit override lazy val app: Application = GuiceApplicationBuilder()
@@ -60,7 +59,6 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
       inject.bind(classOf[table_2.table]).toInstance(spiedTable2),
       inject.bind(classOf[table_3.table]).toInstance(spiedTable3),
       inject.bind(classOf[table_4.table]).toInstance(spiedTable4),
-      inject.bind(classOf[table_5.table]).toInstance(spiedTable5),
       inject.bind(classOf[second_page.table]).toInstance(spiedPage2)
     )
     .build()
@@ -93,10 +91,10 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
               tad.safetyAndSecurityCarrier
             )
 
-          verify(spiedTable4, times(1))
+          verify(spiedTable3, times(1))
             .apply(
               tad.principal,
-              tad.departureOffice.reference,
+              tad.departureOffice.referenceWithOfficeId,
               tad.acceptanceDate.map(_.formattedDate),
               tad.customsOfficeOfTransit,
               tad.guaranteeDetails,
@@ -105,7 +103,7 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
               tad.controlResult
             )
 
-          verify(spiedTable5, times(1))
+          verify(spiedTable4, times(1))
             .apply(
               tad.seals,
               tad.printBindingItinerary,
@@ -122,7 +120,7 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
               tad.placeOfUnloadingCode
             )
 
-          reset(spiedTable1, spiedTable2, spiedTable3, spiedTable4, spiedTable5)
+          reset(spiedTable1, spiedTable2, spiedTable3, spiedTable4)
       }
     }
   }
