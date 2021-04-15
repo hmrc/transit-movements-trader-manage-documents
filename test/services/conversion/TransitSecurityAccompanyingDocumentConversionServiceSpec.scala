@@ -333,7 +333,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                 )),
               departureOffice = CustomsOfficeWithOptionalDate(departureOffice, None),
               destinationOffice = CustomsOfficeWithOptionalDate(destinationOffice, None),
-              customsOfficeOfTransit = validModel.customsOfficeOfTransit.map(transit => CustomsOfficeWithOptionalDate(transitOffices, transit.arrivalTime, 18)),
+              customsOfficeOfTransit = validModel.customsOfficeOfTransit.map(transit => CustomsOfficeWithOptionalDate(transitOffices, transit.arrivalTime, 32)),
               returnCopiesCustomsOffice = releaseForTransit.returnCopiesCustomsOffice.map(office =>
                 viewmodels
                   .ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber.shorten(32)("***"), office.postCode, office.city, countriesGen)),
