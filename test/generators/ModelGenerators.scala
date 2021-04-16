@@ -122,7 +122,30 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield Consignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
 
-  implicit lazy val arbitraryGoodsItemSecurityConsignee: Arbitrary[SecurityConsignee] =
+  implicit lazy val arbitrarySecurityConsignee: Arbitrary[SecurityConsignee] =
+    Arbitrary {
+      Gen.oneOf(arbitrary[SecurityConsigneeWithEori], arbitrary[SecurityConsigneeWithoutEori])
+    }
+
+  implicit lazy val arbitrarySecurityConsigneeWithEori: Arbitrary[SecurityConsigneeWithEori] =
+    Arbitrary {
+      for {
+        eori <- stringWithMaxLength(17)
+      } yield SecurityConsigneeWithEori(eori)
+    }
+
+  implicit lazy val arbitrarySecurityConsigneeWithoutEori: Arbitrary[SecurityConsigneeWithoutEori] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+      } yield SecurityConsigneeWithoutEori(name, streetAndNumber, postCode, city, country)
+    }
+
+  implicit lazy val arbitrarySecurityConsigneeVM: Arbitrary[viewmodels.SecurityConsignee] =
     Arbitrary {
 
       for {
@@ -131,9 +154,8 @@ trait ModelGenerators extends GeneratorHelpers {
         postCode        <- Gen.option(stringWithMaxLength(9))
         city            <- Gen.option(stringWithMaxLength(35))
         country         <- Gen.option(stringWithMaxLength(2))
-        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- stringWithMaxLength(17)
-      } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, Some(eori))
+      } yield viewmodels.SecurityConsignee(name, streetAndNumber, postCode, city, country, Some(eori))
     }
 
   implicit lazy val arbitraryConsignor: Arbitrary[Consignor] =
@@ -149,22 +171,53 @@ trait ModelGenerators extends GeneratorHelpers {
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield Consignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
-
-  implicit lazy val arbitraryGoodsItemSecurityConsignor: Arbitrary[SecurityConsignor] =
+  implicit lazy val arbitrarySafetyAndSecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
     Arbitrary {
-
-      for {
-        name            <- Gen.option(stringWithMaxLength(35))
-        streetAndNumber <- Gen.option(stringWithMaxLength(35))
-        postCode        <- Gen.option(stringWithMaxLength(9))
-        city            <- Gen.option(stringWithMaxLength(35))
-        country         <- Gen.option(stringWithMaxLength(2))
-        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
-        eori            <- stringWithMaxLength(17)
-      } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, Some(eori))
+      Gen.oneOf(arbitrary[SafetyAndSecurityCarrierWithEori], arbitrary[SafetyAndSecurityCarrierWithoutEori])
     }
 
-  implicit lazy val arbitrarySecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
+  implicit lazy val arbitrarySafetyAndSecurityCarrierWithEori: Arbitrary[SafetyAndSecurityCarrierWithEori] =
+    Arbitrary {
+      for {
+        eori <- stringWithMaxLength(17)
+      } yield SafetyAndSecurityCarrierWithEori(eori)
+    }
+
+  implicit lazy val arbitrarySafetyAndSecurityCarrierWithoutEori: Arbitrary[SafetyAndSecurityCarrierWithoutEori] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+      } yield SafetyAndSecurityCarrierWithoutEori(name, streetAndNumber, postCode, city, country)
+    }
+
+  implicit lazy val arbitrarySecurityConsignor: Arbitrary[SecurityConsignor] =
+    Arbitrary {
+      Gen.oneOf(arbitrary[SecurityConsignorWithEori], arbitrary[SecurityConsignorWithoutEori])
+    }
+
+  implicit lazy val arbitrarySecurityConsignorWithEori: Arbitrary[SecurityConsignorWithEori] =
+    Arbitrary {
+      for {
+        eori <- stringWithMaxLength(17)
+      } yield SecurityConsignorWithEori(eori)
+    }
+
+  implicit lazy val arbitrarySecurityConsignorWithoutEori: Arbitrary[SecurityConsignorWithoutEori] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+      } yield SecurityConsignorWithoutEori(name, streetAndNumber, postCode, city, country)
+    }
+
+  implicit lazy val arbitrarySecurityCarrierVM: Arbitrary[viewmodels.SafetyAndSecurityCarrier] =
     Arbitrary {
 
       for {
@@ -173,9 +226,8 @@ trait ModelGenerators extends GeneratorHelpers {
         postCode        <- Gen.option(stringWithMaxLength(9))
         city            <- Gen.option(stringWithMaxLength(35))
         country         <- Gen.option(stringWithMaxLength(2))
-        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
-        eori            <- stringWithMaxLength(17)
-      } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, nadLanguageCode, Some(eori))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield viewmodels.SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryPrincipal: Arbitrary[Principal] =
@@ -555,6 +607,19 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield viewmodels.Consignee(name, streetAndNumber, streetAndNumberTrimmed, postCode, city, country, eori)
     }
 
+  implicit lazy val arbitrarySecurityConsignorVM: Arbitrary[viewmodels.SecurityConsignor] =
+    Arbitrary {
+
+      for {
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield viewmodels.SecurityConsignor(name, streetAndNumber, postCode, city, country, eori)
+    }
+
   implicit lazy val arbitraryConsignorViewModel: Arbitrary[viewmodels.Consignor] =
     Arbitrary {
 
@@ -661,8 +726,8 @@ trait ModelGenerators extends GeneratorHelpers {
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))
         packages                  <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
-        securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
-        securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
+        securityConsignor         <- Gen.option(arbitrary[viewmodels.SecurityConsignor])
+        securityConsignee         <- Gen.option(arbitrary[viewmodels.SecurityConsignee])
       } yield
         viewmodels.GoodsItem(
           itemNumber,

@@ -76,7 +76,7 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
 
           verify(spiedTable1, times(1))
             .apply(
-              "TRANSIT/SECURITY - ACCOMPANYING DOCUMENT",
+              "TRANSIT / SECURITY – ACCOMPANYING DOCUMENT",
               false,
               tad
             )

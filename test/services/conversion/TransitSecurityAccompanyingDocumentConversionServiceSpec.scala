@@ -39,7 +39,6 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import connectors.ReferenceDataConnector
 import generators.ModelGenerators
-import models.SafetyAndSecurityCarrier
 import models._
 import models.reference._
 import org.mockito.Matchers.any
@@ -99,29 +98,35 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
   private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
   private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
   private val securityConsignee = Some(
-    SecurityConsignee(Some("security consignee name"),
-                      Some("consignee street"),
-                      Some("consignee postCode"),
-                      Some("consignee city"),
-                      Some(countries.head.code),
-                      None,
-                      None))
+    SecurityConsigneeWithoutEori("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code))
+
+  private val securityConsigneeVM = Some(
+    viewmodels.SecurityConsignee(Some("security consignee name"),
+                                 Some("consignee street"),
+                                 Some("consignee postCode"),
+                                 Some("consignee city"),
+                                 Some(countries.head.code),
+                                 None))
   private val securityConsignor = Some(
-    SecurityConsignor(Some("security consignor name"),
-                      Some("consignor street"),
-                      Some("consignor postCode"),
-                      Some("consignor city"),
-                      Some(countries.head.code),
-                      None,
-                      None))
+    SecurityConsignorWithoutEori("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code))
+
+  private val securityConsignorVM = Some(
+    viewmodels.SecurityConsignor(Some("security consignor name"),
+                                 Some("consignor street"),
+                                 Some("consignor postCode"),
+                                 Some("consignor city"),
+                                 Some(countries.head.code),
+                                 None))
   private val safetyAndSecurityCarrier = Some(
-    SafetyAndSecurityCarrier(Some("security carrier name"),
-                             Some("carrier street"),
-                             Some("carrier postCode"),
-                             Some("carrier city"),
-                             Some(countries.head.code),
-                             None,
-                             None))
+    SafetyAndSecurityCarrierWithoutEori("security carrier name", "carrier street", "carrier postCode", "carrier city", countries.head.code))
+
+  private val safetyAndSecurityCarrierVM = Some(
+    viewmodels.SafetyAndSecurityCarrier(Some("security carrier name"),
+                                        Some("carrier street"),
+                                        Some("carrier postCode"),
+                                        Some("carrier city"),
+                                        Some(countries.head.code),
+                                        None))
 
   val validModel = models.ReleaseForTransit(
     Header(
@@ -374,14 +379,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                     )
                   ),
                   sensitiveGoodsInformation = sensitiveGoodsInformation,
-                  securityConsignor = securityConsignor,
-                  securityConsignee = securityConsignee
+                  securityConsignor = securityConsignorVM,
+                  securityConsignee = securityConsigneeVM
                 )
               ),
               itineraries = releaseForTransit.itineraries,
-              safetyAndSecurityCarrier = safetyAndSecurityCarrier,
-              safetyAndSecurityConsignor = securityConsignor,
-              safetyAndSecurityConsignee = securityConsignee
+              safetyAndSecurityCarrier = safetyAndSecurityCarrierVM,
+              safetyAndSecurityConsignor = securityConsignorVM,
+              safetyAndSecurityConsignee = securityConsigneeVM
             )
 
             val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataService)
@@ -519,14 +524,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                     )
                   ),
                   sensitiveGoodsInformation = sensitiveGoodsInformation,
-                  securityConsignor = securityConsignor,
-                  securityConsignee = securityConsignee
+                  securityConsignor = securityConsignorVM,
+                  securityConsignee = securityConsigneeVM
                 )
               ),
               itineraries = Nil,
-              safetyAndSecurityCarrier = safetyAndSecurityCarrier,
-              safetyAndSecurityConsignor = securityConsignor,
-              safetyAndSecurityConsignee = securityConsignee
+              safetyAndSecurityCarrier = safetyAndSecurityCarrierVM,
+              safetyAndSecurityConsignor = securityConsignorVM,
+              safetyAndSecurityConsignee = securityConsigneeVM
             )
 
             val result: ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] = service.toViewModel(validModelUpdated).futureValue

@@ -1,4 +1,4 @@
-@(consignee: SecurityConsignee)
+@(consignee: viewmodels.SecurityConsignee)
 
 <fo:block>
   <fo:table width="100%" table-layout="fixed">

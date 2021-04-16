@@ -20,11 +20,7 @@ import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
 import models.PreviousAdministrativeReference
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
+import models.reference._
 
 object GoodsItemConverter extends Converter {
 
@@ -137,8 +133,8 @@ object GoodsItemConverter extends Converter {
           containers = goodsItem.containers,
           packages = packages,
           sensitiveGoodsInformation = goodsItem.sensitiveGoodsInformation,
-          securityConsignor = goodsItem.securityConsignor,
-          securityConsignee = goodsItem.securityConsignee
+          securityConsignor = goodsItem.securityConsignor.map(SecurityConsignorConverter.convertToSecurityConsignorVM),
+          securityConsignee = goodsItem.securityConsignee.map(SecurityConsigneeConverter.convertToSecurityConsigneeVM)
       )
     )
   }

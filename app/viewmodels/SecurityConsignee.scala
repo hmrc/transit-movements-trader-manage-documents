@@ -14,25 +14,16 @@
  * limitations under the License.
  */
 
-package services.pdf
+package viewmodels
+import utils.StringTransformer.StringFormatter
 
-import com.dmanchester.playfop.sapi.PlayFop
-import org.apache.xmlgraphics.util.MimeConstants
-import viewmodels.TransitSecurityAccompanyingDocumentPDF
-import views.xml.TransitSecurityAccompanyingDocument
-
-import javax.inject.Inject
-
-class TSADPdfGenerator @Inject()(
-  fop: PlayFop,
-  document: TransitSecurityAccompanyingDocument
+final case class SecurityConsignee(
+  name: Option[String],
+  streetAndNumber: Option[String],
+  postCode: Option[String],
+  city: Option[String],
+  countryCode: Option[String],
+  eori: Option[String]
 ) {
-
-  def generate(documentPDF: TransitSecurityAccompanyingDocumentPDF): Array[Byte] = {
-
-    val renderedDocument = document.render(documentPDF)
-
-    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
-  }
-
+  val streetAndNumberTrimmed: Option[String] = streetAndNumber.map(_.shorten(32)("***"))
 }

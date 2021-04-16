@@ -1,4 +1,4 @@
-@(consignor: Option[SecurityConsignor])
+@(consignor: Option[viewmodels.SecurityConsignor])
 
 <fo:table-row height="6.25mm">
   <fo:table-cell display-align="center" padding-left="2mm">
@@ -16,7 +16,7 @@
 <fo:table-row height="6.25mm">
 <fo:table-cell padding-left="2mm" number-columns-spanned="3" font-weight="bold" display-align="center">
   <fo:block>
-    @consignor.map(c => c.name).getOrElse("---")
+    @consignor.map(c => c.name.getOrElse("---"))
   </fo:block>
 </fo:table-cell>
 </fo:table-row>

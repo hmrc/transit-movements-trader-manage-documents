@@ -1,4 +1,4 @@
-@(securityCarrier: Option[SafetyAndSecurityCarrier])
+@(securityCarrier: Option[viewmodels.SafetyAndSecurityCarrier])
 
 <fo:table-row height="6.25mm">
   <fo:table-cell display-align="center" padding-left="2mm">

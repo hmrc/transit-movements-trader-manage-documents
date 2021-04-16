@@ -27,6 +27,9 @@ import services.ReferenceDataNotFound
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
 import viewmodels.PreviousDocumentType
+import viewmodels.SecurityConsignor
+import viewmodels.SecurityConsignee
+import viewmodels.SafetyAndSecurityCarrier
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -47,28 +50,31 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
   private val controlResult          = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
   private val circumstanceIndicators = Seq(CircumstanceIndicator("E", "indicator 1"), CircumstanceIndicator("D", "indicator 2"))
   private val securityConsignee = Some(
+    SecurityConsigneeWithoutEori("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code))
+  private val securityConsigneeVM = Some(
     SecurityConsignee(Some("security consignee name"),
                       Some("consignee street"),
                       Some("consignee postCode"),
                       Some("consignee city"),
                       Some(countries.head.code),
-                      None,
                       None))
   private val securityConsignor = Some(
+    SecurityConsignorWithoutEori("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code))
+  private val securityConsignorVM = Some(
     SecurityConsignor(Some("security consignor name"),
                       Some("consignor street"),
                       Some("consignor postCode"),
                       Some("consignor city"),
                       Some(countries.head.code),
-                      None,
                       None))
   private val safetyAndSecurityCarrier = Some(
+    SafetyAndSecurityCarrierWithoutEori("security carrier name", "carrier street", "carrier postCode", "carrier city", countries.head.code))
+  private val safetyAndSecurityCarrierVM = Some(
     SafetyAndSecurityCarrier(Some("security carrier name"),
                              Some("carrier street"),
                              Some("carrier postCode"),
                              Some("carrier city"),
                              Some(countries.head.code),
-                             None,
                              None))
 
   "toViewModel" - {
@@ -257,14 +263,14 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
               )
             ),
             sensitiveGoodsInformation = sensitiveGoodsInformation,
-            securityConsignor = securityConsignor,
-            securityConsignee = securityConsignee
+            securityConsignor = securityConsignorVM,
+            securityConsignee = securityConsigneeVM
           )
         ),
         itineraries = Seq(Itinerary("GB")),
-        safetyAndSecurityCarrier = safetyAndSecurityCarrier,
-        safetyAndSecurityConsignor = securityConsignor,
-        safetyAndSecurityConsignee = securityConsignee
+        safetyAndSecurityCarrier = safetyAndSecurityCarrierVM,
+        safetyAndSecurityConsignor = securityConsignorVM,
+        safetyAndSecurityConsignee = securityConsigneeVM
       )
 
       val result = TransitSecurityAccompanyingDocumentConverter.toViewModel(

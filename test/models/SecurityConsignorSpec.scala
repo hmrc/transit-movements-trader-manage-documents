@@ -32,35 +32,17 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
 
     "at GoodsItem level" - {
 
-      "must deserialise" in {
+      "must deserialise ConsignorWithoutEori" in {
 
-        forAll(arbitrary[SecurityConsignor]) {
+        forAll(arbitrary[SecurityConsignorWithoutEori]) {
           consignor =>
             val xml = {
               <TRACORSECGOO021>
-                {
-                consignor.name.fold(NodeSeq.Empty) { name =>
-                  <NamTRACORSECGOO025>{name}</NamTRACORSECGOO025>
-                } ++
-                  consignor.streetAndNumber.fold(NodeSeq.Empty) { streetAndNumber =>
-                    <StrNumTRACORSECGOO027>{streetAndNumber}</StrNumTRACORSECGOO027>
-                  } ++
-                  consignor.postCode.fold(NodeSeq.Empty) { postCode =>
-                    <PosCodTRACORSECGOO026>{postCode}</PosCodTRACORSECGOO026>
-                  } ++
-                  consignor.city.fold(NodeSeq.Empty) { city =>
-                    <CitTRACORSECGOO022>{city}</CitTRACORSECGOO022>
-                  } ++
-                  consignor.countryCode.fold(NodeSeq.Empty) { countryCode =>
-                    <CouCodTRACORSECGOO023>{countryCode}</CouCodTRACORSECGOO023>
-                  } ++
-                  consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-                    <TRACORSECGOO021LNG>{nadLangCode}</TRACORSECGOO021LNG>
-                  } ++
-                  consignor.eori.fold(NodeSeq.Empty) { eori =>
-                    <TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028>
-                  }
-                }
+                <NamTRACORSECGOO025>{consignor.name}</NamTRACORSECGOO025>
+                <StrNumTRACORSECGOO027>{consignor.streetAndNumber}</StrNumTRACORSECGOO027>
+                <PosCodTRACORSECGOO026>{consignor.postCode}</PosCodTRACORSECGOO026>
+                <CitTRACORSECGOO022>{consignor.city}</CitTRACORSECGOO022>
+                <CouCodTRACORSECGOO023>{consignor.countryCode}</CouCodTRACORSECGOO023>
               </TRACORSECGOO021>
             }
 
@@ -69,46 +51,55 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
             result mustBe consignor
         }
       }
+
+      "must deserialise ConsignorWithEori" in {
+        val eori = nonEmptyString.sample.value
+        val xml = {
+          <TRACORSECGOO021>
+                <TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028>
+              </TRACORSECGOO021>
+        }
+
+        val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReader).read(xml).toOption.value
+
+        result mustBe SecurityConsignorWithEori(eori)
+      }
+    }
+  }
+
+  "at root level" - {
+
+    "must deserialise" in {
+
+      forAll(arbitrary[SecurityConsignorWithoutEori]) {
+        consignor =>
+          val xml = {
+            <TRACORSEC037>
+                <NamTRACORSEC041>{consignor.name}</NamTRACORSEC041>
+                <StrNumTRACORSEC043>{consignor.streetAndNumber}</StrNumTRACORSEC043>
+                <PosCodTRACORSEC042>{consignor.postCode}</PosCodTRACORSEC042>
+                <CitTRACORSEC038>{consignor.city}</CitTRACORSEC038>
+                <CouCodTRACORSEC039>{consignor.countryCode}</CouCodTRACORSEC039>
+              </TRACORSEC037>
+          }
+
+          val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReaderRootLevel).read(xml).toOption.value
+
+          result mustBe consignor
+      }
     }
 
-    "at root level" - {
-
-      "must deserialise" in {
-
-        forAll(arbitrary[SecurityConsignor]) {
-          consignor =>
-            val xml = {
-              <TRACORSEC037>{
-                consignor.name.fold(NodeSeq.Empty) { name =>
-                  <NamTRACORSEC041>{name}</NamTRACORSEC041>
-                } ++
-                consignor.streetAndNumber.fold(NodeSeq.Empty) { streetAndNumber =>
-                  <StrNumTRACORSEC043>{streetAndNumber}</StrNumTRACORSEC043>
-                } ++
-                consignor.postCode.fold(NodeSeq.Empty) { postCode =>
-                  <PosCodTRACORSEC042>{postCode}</PosCodTRACORSEC042>
-                } ++
-                consignor.city.fold(NodeSeq.Empty) { city =>
-                  <CitTRACORSEC038>{city}</CitTRACORSEC038>
-                } ++
-                consignor.countryCode.fold(NodeSeq.Empty) { countryCode =>
-                  <CouCodTRACORSEC039>{countryCode}</CouCodTRACORSEC039>
-                } ++
-                consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-                  <TRACORSEC037LNG>{nadLangCode}</TRACORSEC037LNG>
-                } ++
-                  consignor.eori.fold(NodeSeq.Empty) { eori =>
-                    <TINTRACORSEC044>{eori}</TINTRACORSEC044>
-                  }
-                }
-              </TRACORSEC037>
-            }
-
-            val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReaderRootLevel).read(xml).toOption.value
-
-            result mustBe consignor
-        }
+    "must deserialise ConsignorWithEori" in {
+      val eori = nonEmptyString.sample.value
+      val xml = {
+        <TRACORSEC037>
+            <TINTRACORSEC044>{eori}</TINTRACORSEC044>
+          </TRACORSEC037>
       }
+
+      val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReaderRootLevel).read(xml).toOption.value
+
+      result mustBe SecurityConsignorWithEori(eori)
     }
   }
 }

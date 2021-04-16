@@ -23,9 +23,6 @@ import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.Itinerary
 import models.PreviousAdministrativeReference
-import models.SafetyAndSecurityCarrier
-import models.SecurityConsignee
-import models.SecurityConsignor
 import models.SensitiveGoodsInformation
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
@@ -446,9 +443,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         postCode        <- Gen.option(stringWithMaxLength(9))
         city            <- Gen.option(stringWithMaxLength(35))
         country         <- Gen.option(stringWithMaxLength(2))
-        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
-      } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+      } yield SecurityConsignee(name, streetAndNumber, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryGoodsItemSecurityConsignor: Arbitrary[SecurityConsignor] =
@@ -460,9 +456,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         postCode        <- Gen.option(stringWithMaxLength(9))
         city            <- Gen.option(stringWithMaxLength(35))
         country         <- Gen.option(stringWithMaxLength(2))
-        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
-      } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+      } yield SecurityConsignor(name, streetAndNumber, postCode, city, country, eori)
     }
 
   implicit lazy val arbitrarySafetyAndSecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
@@ -474,9 +469,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         postCode        <- Gen.option(stringWithMaxLength(9))
         city            <- Gen.option(stringWithMaxLength(35))
         country         <- Gen.option(stringWithMaxLength(2))
-        nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
-      } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+      } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryTransitSecurityAccompanyingDocument: Arbitrary[TransitSecurityAccompanyingDocumentPDF] =

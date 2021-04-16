@@ -1,4 +1,4 @@
-@(secCarrierFlg: Boolean, securityCarrier: Option[SafetyAndSecurityCarrier])
+@(secCarrierFlg: Boolean, securityCarrier: Option[viewmodels.SafetyAndSecurityCarrier])
 
 <fo:table-row>
   <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">

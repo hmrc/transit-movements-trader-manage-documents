@@ -19,30 +19,70 @@ package models
 import cats.syntax.all._
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
-import utils.StringTransformer.StringFormatter
+import play.api.libs.json.Json
+import play.api.libs.json.Reads
+import play.api.libs.json.Writes
 
-final case class SafetyAndSecurityCarrier(
-  name: Option[String],
-  streetAndNumber: Option[String],
-  postCode: Option[String],
-  city: Option[String],
-  countryCode: Option[String],
-  nadLanguageCode: Option[String],
-  eori: Option[String]
-) {
-  val streetAndNumberTrimmed: Option[String] = streetAndNumber.map(_.shorten(32)("***"))
-}
+trait SafetyAndSecurityCarrier
 
 object SafetyAndSecurityCarrier {
 
-  implicit val xmlReader: XmlReader[SafetyAndSecurityCarrier] = (
-    (__ \ "NamCARTRA121").read[String].optional,
-    (__ \ "StrAndNumCARTRA254").read[String].optional,
-    (__ \ "PosCodCARTRA121").read[String].optional,
-    (__ \ "CitCARTRA789").read[String].optional,
-    (__ \ "CouCodCARTRA587").read[String].optional,
-    (__ \ "NADCARTRA121").read[String].optional,
-    (__ \ "TINCARTRA254").read[String].optional
-  ).mapN(apply)
+  implicit lazy val reads: Reads[SafetyAndSecurityCarrier] = {
 
+    implicit class ReadsWithContravariantOr[A](a: Reads[A]) {
+
+      def or[B >: A](b: Reads[B]): Reads[B] =
+        a.map[B](identity).orElse(b)
+    }
+
+    implicit def convertToSupertype[A, B >: A](a: Reads[A]): Reads[B] =
+      a.map(identity)
+
+    SafetyAndSecurityCarrierWithEori.reads or
+      SafetyAndSecurityCarrierWithoutEori.reads
+  }
+
+  implicit lazy val writes: Writes[SafetyAndSecurityCarrier] = Writes {
+    case t: SafetyAndSecurityCarrierWithEori    => Json.toJson(t)(SafetyAndSecurityCarrierWithEori.writes)
+    case t: SafetyAndSecurityCarrierWithoutEori => Json.toJson(t)(SafetyAndSecurityCarrierWithoutEori.writes)
+  }
+
+  implicit val xmlReader: XmlReader[SafetyAndSecurityCarrier] =
+    SafetyAndSecurityCarrierWithEori.xmlReader
+      .or(SafetyAndSecurityCarrierWithoutEori.xmlReader)
+}
+
+final case class SafetyAndSecurityCarrierWithEori(eori: String) extends SafetyAndSecurityCarrier
+
+object SafetyAndSecurityCarrierWithEori {
+
+  implicit lazy val reads: Reads[SafetyAndSecurityCarrierWithEori] = Json.reads[SafetyAndSecurityCarrierWithEori]
+
+  implicit lazy val writes: Writes[SafetyAndSecurityCarrierWithEori] = Json.writes[SafetyAndSecurityCarrierWithEori]
+
+  implicit val xmlReader: XmlReader[SafetyAndSecurityCarrierWithEori] = (__ \ "TINCARTRA254").read[String].map(apply)
+}
+
+final case class SafetyAndSecurityCarrierWithoutEori(
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String
+) extends SafetyAndSecurityCarrier
+
+object SafetyAndSecurityCarrierWithoutEori {
+  implicit lazy val reads: Reads[SafetyAndSecurityCarrierWithoutEori] =
+    Json.reads[SafetyAndSecurityCarrierWithoutEori]
+
+  implicit lazy val writes: Writes[SafetyAndSecurityCarrierWithoutEori] =
+    Json.writes[SafetyAndSecurityCarrierWithoutEori]
+
+  implicit val xmlReader: XmlReader[SafetyAndSecurityCarrierWithoutEori] = (
+    (__ \ "NamCARTRA121").read[String],
+    (__ \ "StrAndNumCARTRA254").read[String],
+    (__ \ "PosCodCARTRA121").read[String],
+    (__ \ "CitCARTRA789").read[String],
+    (__ \ "CouCodCARTRA587").read[String],
+  ).mapN(apply)
 }

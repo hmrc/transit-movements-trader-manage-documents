@@ -84,9 +84,9 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           controlResult = controlResult,
           goodsItems = goodsItems,
           itineraries = releaseForTransit.itineraries,
-          safetyAndSecurityCarrier = releaseForTransit.safetyAndSecurityCarrier,
-          safetyAndSecurityConsignor = releaseForTransit.safetyAndSecurityConsignor,
-          safetyAndSecurityConsignee = releaseForTransit.safetyAndSecurityConsignee
+          safetyAndSecurityCarrier = releaseForTransit.safetyAndSecurityCarrier.map(SecurityCarrierConverter.convertToSafetyAndSecurityCarrierVM),
+          safetyAndSecurityConsignor = releaseForTransit.safetyAndSecurityConsignor.map(SecurityConsignorConverter.convertToSecurityConsignorVM),
+          safetyAndSecurityConsignee = releaseForTransit.safetyAndSecurityConsignee.map(SecurityConsigneeConverter.convertToSecurityConsigneeVM)
       )
     )
 

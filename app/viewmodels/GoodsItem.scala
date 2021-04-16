@@ -18,8 +18,6 @@ package viewmodels
 
 import cats.data.NonEmptyList
 import models.DeclarationType
-import models.SecurityConsignee
-import models.SecurityConsignor
 import models.SensitiveGoodsInformation
 import models.reference.Country
 

@@ -20,9 +20,6 @@ import cats.data.NonEmptyList
 import models.DeclarationType
 import models.GuaranteeDetails
 import models.Itinerary
-import models.SafetyAndSecurityCarrier
-import models.SecurityConsignee
-import models.SecurityConsignor
 import models.reference.Country
 import utils.FormattedDate
 

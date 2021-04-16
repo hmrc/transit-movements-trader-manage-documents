@@ -3,11 +3,11 @@
 @this()
 
 @(printVariousSecurityConsignees: Boolean,
-        securityConsigneeOne: Option[SecurityConsignee],
+        securityConsigneeOne: Option[viewmodels.SecurityConsignee],
         printVariousSecurityConsignors: Boolean,
-        securityConsignorOne: Option[SecurityConsignor],
+        securityConsignorOne: Option[viewmodels.SecurityConsignor],
         secCarrierFlg: Boolean,
-        safetyAndSecurityCarrier: Option[SafetyAndSecurityCarrier])
+        safetyAndSecurityCarrier: Option[viewmodels.SafetyAndSecurityCarrier])
 
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="16mm"/>

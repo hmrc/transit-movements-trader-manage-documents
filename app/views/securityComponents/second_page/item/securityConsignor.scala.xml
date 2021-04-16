@@ -1,4 +1,4 @@
-@(consignor: SecurityConsignor)
+@(consignor: viewmodels.SecurityConsignor)
 
 <fo:block>
   <fo:table width="100%" table-layout="fixed">

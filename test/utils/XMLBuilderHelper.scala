@@ -24,7 +24,11 @@ import models.Package
 import models.ProducedDocument
 import models.RegularPackage
 import models.SecurityConsignee
+import models.SecurityConsigneeWithEori
+import models.SecurityConsigneeWithoutEori
 import models.SecurityConsignor
+import models.SecurityConsignorWithEori
+import models.SecurityConsignorWithoutEori
 import models.SpecialMention
 import models.TraderAtDestination
 import models.TraderAtDestinationWithEori
@@ -269,58 +273,30 @@ object XMLBuilderHelper {
     </TRACONCE1>
 
   def securityConsignorXML(consignor: SecurityConsignor): NodeSeq =
-    <TRACORSECGOO021>
-      {
-      consignor.name.fold(NodeSeq.Empty) { name =>
-        <NamTRACORSECGOO025>{name}</NamTRACORSECGOO025>
-      } ++
-        consignor.streetAndNumber.fold(NodeSeq.Empty) { streetAndNumber =>
+    consignor match {
+      case SecurityConsignorWithEori(eori) => <TRACORSECGOO021><TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028></TRACORSECGOO021>
+      case SecurityConsignorWithoutEori(name, streetAndNumber, postCode, city, countryCode) =>
+        <TRACORSECGOO021>
+          <NamTRACORSECGOO025>{name}</NamTRACORSECGOO025>
           <StrNumTRACORSECGOO027>{streetAndNumber}</StrNumTRACORSECGOO027>
-        } ++
-        consignor.postCode.fold(NodeSeq.Empty) { postCode =>
           <PosCodTRACORSECGOO026>{postCode}</PosCodTRACORSECGOO026>
-        } ++
-        consignor.city.fold(NodeSeq.Empty) { city =>
           <CitTRACORSECGOO022>{city}</CitTRACORSECGOO022>
-        } ++
-        consignor.countryCode.fold(NodeSeq.Empty) { countryCode =>
           <CouCodTRACORSECGOO023>{countryCode}</CouCodTRACORSECGOO023>
-        } ++
-        consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-          <TRACORSECGOO021LNG>{nadLangCode}</TRACORSECGOO021LNG>
-        } ++
-        consignor.eori.fold(NodeSeq.Empty) { eori =>
-          <TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028>
-        }
-      }
-    </TRACORSECGOO021>
+        </TRACORSECGOO021>
+    }
 
-  def securityConsigneeXML(consignee: SecurityConsignee): NodeSeq =
-    <TRACONSECGOO013>
-      {
-      consignee.name.fold(NodeSeq.Empty) { name =>
-        <NamTRACONSECGOO017>{name}</NamTRACONSECGOO017>
-      } ++
-        consignee.streetAndNumber.fold(NodeSeq.Empty) { streetAndNumber =>
+  def securityConsigneeXML(consignor: SecurityConsignee): NodeSeq =
+    consignor match {
+      case SecurityConsigneeWithEori(eori) => <TRACONSECGOO013><TINTRACONSECGOO020>{eori}</TINTRACONSECGOO020></TRACONSECGOO013>
+      case SecurityConsigneeWithoutEori(name, streetAndNumber, postCode, city, countryCode) =>
+        <TRACONSECGOO013>
+          <NamTRACONSECGOO017>{name}</NamTRACONSECGOO017>
           <StrNumTRACONSECGOO019>{streetAndNumber}</StrNumTRACONSECGOO019>
-        } ++
-        consignee.postCode.fold(NodeSeq.Empty) { postCode =>
           <PosCodTRACONSECGOO018>{postCode}</PosCodTRACONSECGOO018>
-        } ++
-        consignee.city.fold(NodeSeq.Empty) { city =>
           <CityTRACONSECGOO014>{city}</CityTRACONSECGOO014>
-        } ++
-        consignee.countryCode.fold(NodeSeq.Empty) { countryCode =>
           <CouCodTRACONSECGOO015>{countryCode}</CouCodTRACONSECGOO015>
-        } ++
-        consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-          <TRACONSECGOO013LNG>{nadLangCode}</TRACONSECGOO013LNG>
-        } ++
-        consignee.eori.fold(NodeSeq.Empty) { eori =>
-          <TINTRACONSECGOO020>{eori}</TINTRACONSECGOO020>
-        }
-      }
-    </TRACONSECGOO013>
+        </TRACONSECGOO013>
+    }
 
   def packageToXML(packageModel: Package): NodeSeq =
     packageModel match {

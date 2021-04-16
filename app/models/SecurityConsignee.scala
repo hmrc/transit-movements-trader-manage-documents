@@ -16,47 +16,88 @@
 
 package models
 
-import cats.implicits.catsSyntaxTuple7Semigroupal
+import cats.implicits.catsSyntaxTuple5Semigroupal
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
-import play.api.libs.json.OFormat
-import utils.StringTransformer.StringFormatter
+import play.api.libs.json._
 
-final case class SecurityConsignee(
-  name: Option[String],
-  streetAndNumber: Option[String],
-  postCode: Option[String],
-  city: Option[String],
-  countryCode: Option[String],
-  nadLanguageCode: Option[String],
-  eori: Option[String]
-) {
-  val streetAndNumberTrimmed: Option[String] = streetAndNumber.map(_.shorten(32)("***"))
-}
+trait SecurityConsignee
 
 object SecurityConsignee {
 
-  implicit lazy val format: OFormat[SecurityConsignee] = Json.format[SecurityConsignee]
+  implicit lazy val reads: Reads[SecurityConsignee] = {
 
-  implicit val xmlReader: XmlReader[SecurityConsignee] = (
-    (__ \ "NamTRACONSECGOO017").read[String].optional,
-    (__ \ "StrNumTRACONSECGOO019").read[String].optional,
-    (__ \ "PosCodTRACONSECGOO018").read[String].optional,
-    (__ \ "CityTRACONSECGOO014").read[String].optional,
-    (__ \ "CouCodTRACONSECGOO015").read[String].optional,
-    (__ \ "TRACONSECGOO013LNG").read[String].optional,
-    (__ \ "TINTRACONSECGOO020").read[String].optional
+    implicit class ReadsWithContravariantOr[A](a: Reads[A]) {
+
+      def or[B >: A](b: Reads[B]): Reads[B] =
+        a.map[B](identity).orElse(b)
+    }
+
+    implicit def convertToSupertype[A, B >: A](a: Reads[A]): Reads[B] =
+      a.map(identity)
+
+    SecurityConsigneeWithEori.reads or
+      SecurityConsigneeWithoutEori.reads
+  }
+
+  implicit lazy val writes: Writes[SecurityConsignee] = Writes {
+    case t: SecurityConsigneeWithEori    => Json.toJson(t)(SecurityConsigneeWithEori.writes)
+    case t: SecurityConsigneeWithoutEori => Json.toJson(t)(SecurityConsigneeWithoutEori.writes)
+  }
+
+  implicit val xmlReader: XmlReader[SecurityConsignee] =
+    SecurityConsigneeWithEori.xmlReader
+      .or(SecurityConsigneeWithoutEori.xmlReader)
+
+  implicit val xmlReaderRootLevel: XmlReader[SecurityConsignee] =
+    SecurityConsigneeWithEori.xmlRootLevelReader
+      .or(SecurityConsigneeWithoutEori.xmlRootLevelReader)
+}
+
+final case class SecurityConsigneeWithEori(eori: String) extends SecurityConsignee
+
+object SecurityConsigneeWithEori {
+
+  implicit lazy val reads: Reads[SecurityConsigneeWithEori] = Json.reads[SecurityConsigneeWithEori]
+
+  implicit lazy val writes: Writes[SecurityConsigneeWithEori] = Json.writes[SecurityConsigneeWithEori]
+
+  implicit val xmlReader: XmlReader[SecurityConsigneeWithEori] = (__ \ "TINTRACONSECGOO020").read[String].map(apply)
+
+  implicit val xmlRootLevelReader: XmlReader[SecurityConsigneeWithEori] = (__ \ "TINTRACONSEC036").read[String].map(apply)
+
+}
+
+final case class SecurityConsigneeWithoutEori(
+  name: String,
+  streetAndNumber: String,
+  postCode: String,
+  city: String,
+  countryCode: String
+) extends SecurityConsignee
+
+object SecurityConsigneeWithoutEori {
+  implicit lazy val reads: Reads[SecurityConsigneeWithoutEori] =
+    Json.reads[SecurityConsigneeWithoutEori]
+
+  implicit lazy val writes: Writes[SecurityConsigneeWithoutEori] =
+    Json.writes[SecurityConsigneeWithoutEori]
+
+  implicit val xmlReader: XmlReader[SecurityConsigneeWithoutEori] = (
+    (__ \ "NamTRACONSECGOO017").read[String],
+    (__ \ "StrNumTRACONSECGOO019").read[String],
+    (__ \ "PosCodTRACONSECGOO018").read[String],
+    (__ \ "CityTRACONSECGOO014").read[String],
+    (__ \ "CouCodTRACONSECGOO015").read[String],
   ).mapN(apply)
 
-  implicit val xmlReaderRootLevel: XmlReader[SecurityConsignee] = (
-    (__ \ "NameTRACONSEC033").read[String].optional,
-    (__ \ "StrNumTRACONSEC035").read[String].optional,
-    (__ \ "PosCodTRACONSEC034").read[String].optional,
-    (__ \ "CitTRACONSEC030").read[String].optional,
-    (__ \ "CouCodTRACONSEC031").read[String].optional,
-    (__ \ "TRACONSEC029LNG").read[String].optional,
-    (__ \ "TINTRACONSEC036").read[String].optional,
+  implicit val xmlRootLevelReader: XmlReader[SecurityConsigneeWithoutEori] = (
+    (__ \ "NameTRACONSEC033").read[String],
+    (__ \ "StrNumTRACONSEC035").read[String],
+    (__ \ "PosCodTRACONSEC034").read[String],
+    (__ \ "CitTRACONSEC030").read[String],
+    (__ \ "CouCodTRACONSEC031").read[String],
   ).mapN(apply)
 
 }
