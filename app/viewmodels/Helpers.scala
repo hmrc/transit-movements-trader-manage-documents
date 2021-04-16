@@ -17,6 +17,8 @@
 package viewmodels
 
 import cats.data.NonEmptyList
+import models.SecurityConsignee
+import models.SecurityConsignor
 import models.reference.Country
 
 object Helpers {
@@ -40,6 +42,20 @@ object Helpers {
       singleValue(goodsItems.toList.flatMap(_.consignee), goodsItems)
     } else {
       consignee
+    }
+
+  def securityConsignorOne(goodsItems: NonEmptyList[GoodsItem], headerSafetyAndSecurityConsignor: Option[SecurityConsignor]): Option[SecurityConsignor] =
+    if (goodsItems.toList.flatMap(_.securityConsignor).nonEmpty) {
+      singleValue(goodsItems.toList.flatMap(_.securityConsignor), goodsItems)
+    } else {
+      headerSafetyAndSecurityConsignor
+    }
+
+  def securityConsigneeOne(goodsItems: NonEmptyList[GoodsItem], headerSafetyAndSecurityConsignee: Option[SecurityConsignee]): Option[SecurityConsignee] =
+    if (goodsItems.toList.flatMap(_.securityConsignee).nonEmpty) {
+      singleValue(goodsItems.toList.flatMap(_.securityConsignee), goodsItems)
+    } else {
+      headerSafetyAndSecurityConsignee
     }
 
   def countryOfDispatch(goodsItems: NonEmptyList[GoodsItem]): Option[Country] =

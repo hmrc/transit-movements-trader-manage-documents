@@ -1,0 +1,14 @@
+@import viewmodels.CustomsOfficeWithOptionalDate
+@(customsOffice: CustomsOfficeWithOptionalDate)
+<fo:block>
+    <fo:inline font-style="italic">
+        @customsOffice.reference
+    </fo:inline>
+</fo:block>
+<fo:block>
+    <fo:inline font-style="italic">
+    @customsOffice.arrivalDateTimeFormatted.getOrElse{
+        &#160;
+    }
+    </fo:inline>
+</fo:block>

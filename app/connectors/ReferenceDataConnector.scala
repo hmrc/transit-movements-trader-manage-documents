@@ -18,6 +18,7 @@ package connectors
 
 import cats.implicits._
 import config.ReferenceDataConfig
+import models.reference.CircumstanceIndicator
 import models.reference._
 import play.api.Logger
 import play.api.http.Status
@@ -131,5 +132,10 @@ class ReferenceDataConnector @Inject()(
     httpClient.GET[CustomsOffice](
       config.customsOfficeUrl + customsOfficeId
     )(individualItemReads(s"CustomsOffice $customsOfficeId"), implicitly, implicitly)
+
+  def circumstanceIndicators()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[CircumstanceIndicator]]] = {
+    val reads = referenceDataReads[CircumstanceIndicator]("circumstanceIndicators")
+    httpClient.GET[ValidationResult[Seq[CircumstanceIndicator]]](config.circumstanceIndicatorsUrl)(reads, implicitly, implicitly)
+  }
 
 }

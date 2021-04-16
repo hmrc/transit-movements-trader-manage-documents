@@ -1,0 +1,19 @@
+@this(
+    layoutMasterSet: layout_master_set
+)
+
+@(
+    pageOne: Xml,
+    pageTwo: Option[Xml] = None
+)
+<?xml version='1.0' encoding='utf-8'?>
+
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="sans-serif" font-size="7pt" text-align="left">
+
+  @layoutMasterSet()
+
+  @pageOne
+
+  @pageTwo
+
+</fo:root>

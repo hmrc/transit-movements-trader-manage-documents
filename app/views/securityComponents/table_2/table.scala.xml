@@ -1,0 +1,31 @@
+@import views.xml.securityComponents.table_2._
+
+@this()
+
+@(printVariousSecurityConsignees: Boolean,
+        securityConsigneeOne: Option[viewmodels.SecurityConsignee],
+        printVariousSecurityConsignors: Boolean,
+        securityConsignorOne: Option[viewmodels.SecurityConsignor],
+        secCarrierFlg: Boolean,
+        safetyAndSecurityCarrier: Option[viewmodels.SafetyAndSecurityCarrier])
+
+<fo:table width="100%" table-layout="fixed">
+    <fo:table-column column-width="16mm"/>
+    <fo:table-column column-width="92mm"/>
+    <fo:table-column column-width="92mm"/>
+    <fo:table-body>
+        <fo:table-row>
+            <fo:table-cell>
+                <fo:block/>
+            </fo:table-cell>
+            <!-- Add Consignee (sec)/Consignor (sec) -->
+            @securityConsignee(printVariousSecurityConsignees, securityConsigneeOne)
+            @securityConsignor(printVariousSecurityConsignors, securityConsignorOne)
+        </fo:table-row>
+        <!-- Add SecConor -->
+        @securityCarrier(secCarrierFlg, safetyAndSecurityCarrier)
+        @transhipment()
+        @certification()
+     </fo:table-body>
+</fo:table>
+

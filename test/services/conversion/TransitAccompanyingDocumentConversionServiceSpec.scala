@@ -36,48 +36,33 @@ import cats.data.Validated.Valid
 import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
+import connectors.ReferenceDataConnector
 import generators.ModelGenerators
-import models.Consignee
-import models.Consignor
-import models.ControlResult
-import models.CustomsOfficeOfTransit
-import models.DeclarationType
-import models.GuaranteeDetails
-import models.GuaranteeReference
-import models.PreviousAdministrativeReference
-import models.TransitAccompanyingDocument
-import models.reference.AdditionalInformation
-import models.reference.ControlResultData
-import models.reference.Country
-import models.reference.CustomsOffice
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
+import models._
+import models.reference._
 import org.mockito.Matchers.any
 import org.mockito.Matchers.{eq => eqTo}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import services.ReferenceDataNotFound
 import services.ReferenceDataRetrievalError
-import connectors.ReferenceDataConnector
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.FormattedDate
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import utils.StringTransformer._
 import viewmodels.CustomsOfficeWithOptionalDate
 import viewmodels.PreviousDocumentType
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class TransitAccompanyingDocumentConversionServiceSpec
     extends FreeSpec
@@ -111,20 +96,33 @@ class TransitAccompanyingDocumentConversionServiceSpec
   private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
   private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
-  val validModel = models.TransitAccompanyingDocument(
-    movementReferenceNumber = "mrn",
-    declarationType = DeclarationType.T1,
-    countryOfDispatch = Some(countries.head.code),
-    countryOfDestination = Some(countries.head.code),
-    transportIdentity = Some("identity"),
-    transportCountry = Some(countries.head.code),
-    acceptanceDate = LocalDate.of(2020, 1, 1),
-    numberOfItems = 1,
-    numberOfPackages = Some(3),
-    grossMass = 1.0,
-    printBindingItinerary = true,
-    authId = Some("AuthId"),
-    returnCopy = false,
+  val validModel = models.ReleaseForTransit(
+    Header(
+      movementReferenceNumber = "mrn",
+      declarationType = DeclarationType.T1,
+      countryOfDispatch = Some(countries.head.code),
+      countryOfDestination = Some(countries.head.code),
+      transportIdentity = Some("identity"),
+      transportCountry = Some(countries.head.code),
+      acceptanceDate = LocalDate.of(2020, 1, 1),
+      numberOfItems = 1,
+      numberOfPackages = Some(3),
+      grossMass = 1.0,
+      printBindingItinerary = true,
+      authId = Some("AuthId"),
+      returnCopy = false,
+      circumstanceIndicator = None,
+      security = None,
+      commercialReferenceNumber = None,
+      methodOfPayment = None,
+      identityOfTransportAtBorder = None,
+      nationalityOfTransportAtBorder = None,
+      transportModeAtBorder = None,
+      agreedLocationOfGoodsCode = None,
+      placeOfLoadingCode = None,
+      placeOfUnloadingCode = None,
+      conveyanceReferenceNumber = None
+    ),
     principal =
       models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
     consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
@@ -150,6 +148,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        methodOfPayment = None,
+        commercialReferenceNumber = None,
+        unDangerGoodsCode = None,
         previousAdminRef = Seq(
           PreviousAdministrativeReference("123", "ABABA", None)
         ),
@@ -169,9 +170,15 @@ class TransitAccompanyingDocumentConversionServiceSpec
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = None,
+        securityConsignee = None
       )
-    )
+    ),
+    itineraries = Seq.empty,
+    safetyAndSecurityCarrier = None,
+    safetyAndSecurityConsignee = None,
+    safetyAndSecurityConsignor = None
   )
 
   "toViewModel" - {
@@ -180,7 +187,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       "all data exists" in {
 
-        forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
+        forAll(arbitrary[Country], arbitrary[ReleaseForTransit], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
           (countriesGen, transitAccompanyingDocumentGen, consignorGen, consigneeGen, mrn) =>
             val referenceDataService = mock[ReferenceDataConnector]
             when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
@@ -208,15 +215,18 @@ class TransitAccompanyingDocumentConversionServiceSpec
                 returnCopiesCustomsOffice = transitAccompanyingDocumentGen.returnCopiesCustomsOffice.map(_.copy(countryCode = countriesGen.code))
               )
 
-            val validModelUpdated = validModel.copy(
-              declarationType = transitAccompanyingDocument.declarationType,
+            val header = validModel.header.copy(
+              declarationType = transitAccompanyingDocument.header.declarationType,
               countryOfDispatch = Some(countriesGen.code),
               countryOfDestination = Some(countriesGen.code),
-              transportIdentity = transitAccompanyingDocument.transportIdentity,
+              transportIdentity = transitAccompanyingDocument.header.transportIdentity,
               transportCountry = Some(countriesGen.code),
-              numberOfItems = transitAccompanyingDocument.numberOfItems,
-              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
-              grossMass = transitAccompanyingDocument.grossMass,
+              numberOfItems = transitAccompanyingDocument.header.numberOfItems,
+              numberOfPackages = transitAccompanyingDocument.header.numberOfPackages,
+              grossMass = transitAccompanyingDocument.header.grossMass
+            )
+            val validModelUpdated = validModel.copy(
+              header = header,
               principal = transitAccompanyingDocument.principal,
               consignor = transitAccompanyingDocument.consignor,
               consignee = transitAccompanyingDocument.consignee,
@@ -226,19 +236,19 @@ class TransitAccompanyingDocumentConversionServiceSpec
             )
 
             val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
-              movementReferenceNumber = validModelUpdated.movementReferenceNumber,
-              declarationType = transitAccompanyingDocument.declarationType,
+              movementReferenceNumber = validModelUpdated.header.movementReferenceNumber,
+              declarationType = transitAccompanyingDocument.header.declarationType,
               singleCountryOfDispatch = Some(countriesGen),
               singleCountryOfDestination = Some(countriesGen),
-              transportIdentity = transitAccompanyingDocument.transportIdentity,
+              transportIdentity = transitAccompanyingDocument.header.transportIdentity,
               transportCountry = Some(countriesGen),
-              acceptanceDate = Some(FormattedDate(validModel.acceptanceDate)),
-              numberOfItems = transitAccompanyingDocument.numberOfItems,
-              numberOfPackages = transitAccompanyingDocument.numberOfPackages,
-              grossMass = transitAccompanyingDocument.grossMass,
-              printBindingItinerary = validModel.printBindingItinerary,
-              authId = validModel.authId,
-              copyType = validModel.returnCopy,
+              acceptanceDate = Some(FormattedDate(validModel.header.acceptanceDate)),
+              numberOfItems = transitAccompanyingDocument.header.numberOfItems,
+              numberOfPackages = transitAccompanyingDocument.header.numberOfPackages,
+              grossMass = transitAccompanyingDocument.header.grossMass,
+              printBindingItinerary = validModel.header.printBindingItinerary,
+              authId = validModel.header.authId,
+              copyType = validModel.header.returnCopy,
               principal = viewmodels.Principal(
                 transitAccompanyingDocument.principal.name,
                 transitAccompanyingDocument.principal.streetAndNumber,
@@ -288,6 +298,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   netMass = Some(0.9),
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
+                  methodOfPayment = None,
+                  commercialReferenceNumber = None,
+                  unDangerGoodsCode = None,
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   previousDocumentTypes =
                     validModel.goodsItems.head.previousAdminRef.map(ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)),
@@ -308,7 +321,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                       viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
                     )
                   ),
-                  sensitiveGoodsInformation = sensitiveGoodsInformation
+                  sensitiveGoodsInformation = sensitiveGoodsInformation,
+                  securityConsignor = None,
+                  securityConsignee = None
                 )
               )
             )
@@ -323,7 +338,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       "mandatory data exists" in {
 
-        forAll(arbitrary[Country], arbitrary[TransitAccompanyingDocument], stringWithMaxLength(17)) {
+        forAll(arbitrary[Country], arbitrary[ReleaseForTransit], stringWithMaxLength(17)) {
           (countriesGen, transitAccompanyingDocumentGen, mrn) =>
             val referenceDataConnector = mock[ReferenceDataConnector]
             when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
@@ -342,18 +357,21 @@ class TransitAccompanyingDocumentConversionServiceSpec
             val transitAccompanyingDocument =
               transitAccompanyingDocumentGen.copy(principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code))
 
-            val validModelUpdated = validModel.copy(
-              declarationType = transitAccompanyingDocument.declarationType,
+            val header = validModel.header.copy(
+              declarationType = transitAccompanyingDocument.header.declarationType,
               countryOfDispatch = None,
               countryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
-              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              numberOfItems = transitAccompanyingDocument.header.numberOfItems,
               numberOfPackages = None,
-              grossMass = transitAccompanyingDocument.grossMass,
-              printBindingItinerary = transitAccompanyingDocument.printBindingItinerary,
+              grossMass = transitAccompanyingDocument.header.grossMass,
+              printBindingItinerary = transitAccompanyingDocument.header.printBindingItinerary,
               authId = None,
-              returnCopy = transitAccompanyingDocument.returnCopy,
+              returnCopy = transitAccompanyingDocument.header.returnCopy
+            )
+            val validModelUpdated = validModel.copy(
+              header = header,
               principal = transitAccompanyingDocument.principal,
               consignor = None,
               consignee = None,
@@ -367,19 +385,19 @@ class TransitAccompanyingDocumentConversionServiceSpec
             )
 
             val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
-              movementReferenceNumber = validModel.movementReferenceNumber,
-              declarationType = transitAccompanyingDocument.declarationType,
+              movementReferenceNumber = validModel.header.movementReferenceNumber,
+              declarationType = transitAccompanyingDocument.header.declarationType,
               singleCountryOfDispatch = None,
               singleCountryOfDestination = None,
               transportIdentity = None,
               transportCountry = None,
-              acceptanceDate = Some(FormattedDate(validModel.acceptanceDate)),
-              numberOfItems = transitAccompanyingDocument.numberOfItems,
+              acceptanceDate = Some(FormattedDate(validModel.header.acceptanceDate)),
+              numberOfItems = transitAccompanyingDocument.header.numberOfItems,
               numberOfPackages = None,
-              grossMass = transitAccompanyingDocument.grossMass,
+              grossMass = transitAccompanyingDocument.header.grossMass,
               authId = None,
-              copyType = transitAccompanyingDocument.returnCopy,
-              printBindingItinerary = transitAccompanyingDocument.printBindingItinerary,
+              copyType = transitAccompanyingDocument.header.returnCopy,
+              printBindingItinerary = transitAccompanyingDocument.header.printBindingItinerary,
               principal = viewmodels.Principal(
                 transitAccompanyingDocument.principal.name,
                 transitAccompanyingDocument.principal.streetAndNumber,
@@ -409,6 +427,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   netMass = Some(0.9),
                   countryOfDispatch = Some(countries.head),
                   countryOfDestination = Some(countries.head),
+                  methodOfPayment = None,
+                  commercialReferenceNumber = None,
+                  unDangerGoodsCode = None,
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   previousDocumentTypes = Nil,
                   specialMentions = Seq(
@@ -428,7 +449,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
                       viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
                     )
                   ),
-                  sensitiveGoodsInformation = sensitiveGoodsInformation
+                  sensitiveGoodsInformation = sensitiveGoodsInformation,
+                  securityConsignor = None,
+                  securityConsignee = None
                 )
               )
             )
@@ -501,9 +524,9 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
       val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
 
-      val invalidRefData = validModel copy (countryOfDispatch = Some("non-existent code"))
-
-      val result = service.toViewModel(invalidRefData).futureValue
+      val header         = validModel.header.copy(countryOfDispatch = Some("non-existent code"))
+      val invalidRefData = validModel copy (header = header)
+      val result         = service.toViewModel(invalidRefData).futureValue
 
       result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("countryOfDispatch", "non-existent code"))
     }

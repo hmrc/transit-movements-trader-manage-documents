@@ -36,6 +36,9 @@ final case class GoodsItem(
   netMass: Option[BigDecimal],
   countryOfDispatch: Option[String],
   countryOfDestination: Option[String],
+  methodOfPayment: Option[String],
+  commercialReferenceNumber: Option[String],
+  unDangerGoodsCode: Option[String],
   previousAdminRef: Seq[PreviousAdministrativeReference],
   producedDocuments: Seq[ProducedDocument],
   specialMentions: Seq[SpecialMention],
@@ -43,7 +46,9 @@ final case class GoodsItem(
   consignee: Option[Consignee],
   containers: Seq[String],
   packages: NonEmptyList[Package],
-  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation]
+  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation],
+  securityConsignor: Option[SecurityConsignor],
+  securityConsignee: Option[SecurityConsignee]
 )
 
 object GoodsItem {
@@ -60,6 +65,9 @@ object GoodsItem {
       (__ \ "NetMasGDS48").read[BigDecimal].optional,
       (__ \ "CouOfDisGDS58").read[String].optional,
       (__ \ "CouOfDesGDS59").read[String].optional,
+      (__ \ "MetOfPayGDI12").read[String].optional,
+      (__ \ "ComRefNumGIM1").read[String].optional,
+      (__ \ "UNDanGooCodGDI1").read[String].optional,
       (__ \ "PREADMREFAR2").read(strictReadSeq[PreviousAdministrativeReference]),
       (__ \ "PRODOCDC2").read(strictReadSeq[ProducedDocument]),
       (__ \ "SPEMENMT2").read(strictReadSeq[SpecialMention]),
@@ -67,6 +75,8 @@ object GoodsItem {
       (__ \ "TRACONCE2").read[Consignee](Consignee.xmlReaderGoodsLevel).optional,
       (__ \ "CONNR2" \ "ConNumNR21").read(strictReadSeq[String]),
       (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
-      (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation])
+      (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation]),
+      (__ \ "TRACORSECGOO021").read[SecurityConsignor](SecurityConsignor.xmlReader).optional,
+      (__ \ "TRACONSECGOO013").read[SecurityConsignee](SecurityConsignee.xmlReader).optional,
     ).mapN(apply)
 }

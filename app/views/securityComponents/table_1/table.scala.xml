@@ -1,0 +1,46 @@
+@import views.xml.securityComponents.table_1._
+
+@this()
+
+@(
+        title: String,
+        boldHeading: Boolean,
+        tadModel: viewmodels.TransitSecurityAccompanyingDocumentPDF
+)
+
+<fo:table width="100%" table-layout="fixed" id="table-1">
+
+  <fo:table-column column-number="1" column-width="8mm"/>
+  <fo:table-column column-number="2" column-width="8mm"/>
+  <fo:table-column column-number="3" column-width="92mm"/>
+  <fo:table-column column-number="4" column-width="32mm"/>
+  <fo:table-column column-number="5" column-width="5mm"/>
+  <fo:table-column column-number="6" column-width="5mm"/>
+  <fo:table-column column-number="7" column-width="4mm"/>
+  <fo:table-column column-number="8" column-width="46mm"/>
+
+  <fo:table-body>
+    @row_1(tadModel.movementReferenceNumber)
+
+    @row_2(tadModel.printVariousConsignors, tadModel.consignorOne, tadModel.declarationType, tadModel.movementReferenceNumber, tadModel.printListOfItems, tadModel.circumstanceIndicator, tadModel.security)
+
+    @row_3(tadModel.printVariousConsignors, tadModel.consignor, tadModel.numberOfItems, tadModel.totalNumberOfPackages, title, boldHeading, tadModel.grossMass)
+
+    @row_4(tadModel.printVariousConsignees, tadModel.consigneeOne, tadModel.returnCopiesCustomsOffice,  tadModel.commercialReferenceNumber)
+
+    @row_5(tadModel.singleCountryOfDispatch, tadModel.firstCustomsOfficeOfTransitArrivalTime, tadModel.singleCountryOfDestination)
+
+    @row_6(tadModel.methodOfPayment)
+
+    @row_7(tadModel.transportIdentity, tadModel.transportCountry)
+
+    @row_8(tadModel.identityOfTransportAtBorder, tadModel.nationalityOfTransportAtBorder)
+
+    @row_9(tadModel.transportModeAtBorder, tadModel.agreedLocationOfGoodsCode)
+
+    @row_10(tadModel.placeOfLoadingCode, tadModel.placeOfUnloadingCode, tadModel.displayItineraries)
+
+    @row_11(tadModel.conveyanceReferenceNumber)
+
+  </fo:table-body>
+</fo:table>

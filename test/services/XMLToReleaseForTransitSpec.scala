@@ -25,7 +25,7 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class XMLToTransitAccompanyingDocumentSpec
+class XMLToReleaseForTransitSpec
     extends FreeSpec
     with MustMatchers
     with MockitoSugar
@@ -39,21 +39,21 @@ class XMLToTransitAccompanyingDocumentSpec
 
     "must return a ParseSuccess with TransitAccompanyingDocument when given a full XML" in {
 
-      val result = XMLToTransitAccompanyingDocument.convert(declarationXmlFull)
+      val result = XMLToReleaseForTransit.convert(declarationXmlFull)
 
       result.isSuccessful mustBe true
     }
 
     "must return a ParseSuccess with TransitAccompanyingDocument when given a minimum XML" in {
 
-      val result = XMLToTransitAccompanyingDocument.convert(declarationXmlMinimum)
+      val result = XMLToReleaseForTransit.convert(declarationXmlMinimum)
 
       result.isSuccessful mustBe true
     }
 
     "must return a ParseFailure when given an invalid XML" in {
 
-      val result = XMLToTransitAccompanyingDocument.convert(<invalid></invalid>)
+      val result = XMLToReleaseForTransit.convert(<invalid></invalid>)
 
       result.isSuccessful mustBe false
     }

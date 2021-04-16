@@ -16,7 +16,6 @@
 
 package utils
 
-import cats.data.NonEmptyList
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators

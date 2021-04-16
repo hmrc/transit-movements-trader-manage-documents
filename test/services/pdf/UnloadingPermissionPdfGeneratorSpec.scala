@@ -16,29 +16,29 @@
 
 package services.pdf
 
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.time.LocalDate
-
 import cats.data.NonEmptyList
 import generators.ViewmodelGenerators
+import models.DeclarationType
+import models.SensitiveGoodsInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
-import models.DeclarationType
-import models.SensitiveGoodsInformation
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Environment
 import services.pdf.UnloadingPermissionPdfGeneratorConstants.permissionToUnloadViewModel
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels._
+
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.time.LocalDate
 
 class UnloadingPermissionPdfGeneratorSpec
     extends FreeSpec
@@ -96,6 +96,9 @@ object UnloadingPermissionPdfGeneratorConstants {
     netMass = Some(999),
     countryOfDispatch = Some(Country("valid", "GB", "United Kingdom")),
     countryOfDestination = Some(Country("valid", "GB", "United Kingdom")),
+    methodOfPayment = None,
+    commercialReferenceNumber = None,
+    unDangerGoodsCode = None,
     producedDocuments = List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
     previousDocumentTypes = List(),
     specialMentions = List(),
@@ -103,7 +106,9 @@ object UnloadingPermissionPdfGeneratorConstants {
     consignee = None,
     containers = List("container 1", "container 2"),
     packages = NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 1, "Ref.")),
-    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1))
+    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1)),
+    securityConsignor = None,
+    securityConsignee = None
   )
 
   private val goodsItem1 = GoodsItem(
@@ -115,6 +120,9 @@ object UnloadingPermissionPdfGeneratorConstants {
     netMass = Some(9999),
     countryOfDispatch = Some(Country("valid", "GB", "United Kingdom")),
     countryOfDestination = Some(Country("valid", "GB", "United Kingdom")),
+    methodOfPayment = None,
+    commercialReferenceNumber = None,
+    unDangerGoodsCode = None,
     producedDocuments = List(ProducedDocument(DocumentType("18", "Movement certificate A.TR.1", false), Some("Ref."), None)),
     previousDocumentTypes = Nil,
     specialMentions = List(),
@@ -136,7 +144,9 @@ object UnloadingPermissionPdfGeneratorConstants {
                 Some("AB123"))),
     containers = List("container 3", "container 4"),
     packages = NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 10, "Ref.")),
-    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1))
+    sensitiveGoodsInformation = Vector(SensitiveGoodsInformation(Some("1"), 1)),
+    securityConsignor = None,
+    securityConsignee = None
   )
 
   val permissionToUnloadViewModel: PermissionToStartUnloading = PermissionToStartUnloading(

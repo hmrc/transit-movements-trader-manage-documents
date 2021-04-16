@@ -1,0 +1,27 @@
+@(security: Option[Int])
+
+<fo:table-cell>
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column/>
+      <fo:table-body>
+        <fo:table-row height="4.5mm">
+          <fo:table-cell text-align="center" display-align="center" font-size="6pt">
+            <fo:block>Sec. Decl. (S00)</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="4.5mm">
+          <fo:table-cell text-align="center" display-align="center" font-weight="bold">
+            <fo:block>
+              @if(security) {
+                 1
+              } else {
+                 0
+              }
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>

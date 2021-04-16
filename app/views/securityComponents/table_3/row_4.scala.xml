@@ -1,0 +1,77 @@
+@import views.xml.components.table_4.guaranteeReference
+
+@import viewmodels.CustomsOfficeWithOptionalDate
+@import views.xml.securityComponents.customs_office
+@(guaranteeDetails: Seq[GuaranteeDetails] = Nil, destination: Option[CustomsOfficeWithOptionalDate] = None)
+<fo:table-cell>
+    <fo:block wrap-option="wrap">Guarantee not valid for (52)</fo:block>
+</fo:table-cell>
+<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+    <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-width="114.64mm"/>
+        <fo:table-column column-width="8mm"/>
+        <fo:table-body>
+            <fo:table-row height="2mm">
+                <fo:table-cell number-rows-spanned="2">
+                    <fo:block>
+                        <fo:table width="100%" table-layout="fixed">
+                            <fo:table-column column-width="38.213mm"/>
+                            <fo:table-column column-width="38.213mm"/>
+                            <fo:table-column column-width="38.213mm"/>
+                            <fo:table-body>
+                                <fo:table-row height="2mm">
+                                    @guaranteeReference(guaranteeDetails)
+                                </fo:table-row>
+                                <fo:table-row height="2mm">
+                                    <fo:table-cell>
+                                        <fo:block/>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell text-align="center" display-align="center">
+                    <fo:block>Code</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row height="2mm">
+                <fo:table-cell display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center">
+                    <fo:block>
+                        @for(i <- 0 to 2) {
+                            @if(guaranteeDetails.isDefinedAt(i)){
+                                @if(i != 0){
+                                    <fo:inline>,</fo:inline>
+                                }
+                                @guaranteeDetails(i).guaranteeType
+                            }
+                        }
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-body>
+    </fo:table>
+</fo:table-cell>
+<fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black">
+    <fo:block>
+        <fo:table width="100%" table-layout="fixed">
+            <fo:table-column/>
+            <fo:table-body>
+                <fo:table-row height="2mm">
+                    <fo:table-cell padding-left="2mm" display-align="center">
+                        <fo:block>Office of destination (and country) (53)</fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row height="2mm">
+                    <fo:table-cell text-align="center" display-align="center" font-weight="bold">
+                        @destination.map{ des =>
+                            @customs_office(des)
+                        }.getOrElse(
+                            <fo:block />
+                        )
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </fo:block>
+</fo:table-cell>

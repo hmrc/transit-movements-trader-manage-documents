@@ -599,6 +599,73 @@ class ReferenceDataConnectorSpec
     }
   }
 
+  "circumstanceIndicator" - {
+
+    val endpoint = "/transit-movements-trader-reference-data/circumstance-indicators"
+
+    "must return a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier], arbitrary[Seq[CircumstanceIndicator]]) {
+        (hc, data) =>
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(Json.toJson(data).toString)
+              )
+          )
+
+          whenReady(service.circumstanceIndicators()(implicitly, hc)) {
+            result =>
+              result.valid.value mustEqual data
+          }
+      }
+    }
+
+    "must return a Reference Data Retrieval Error" - {
+
+      "when the server returns a 4xx or 5xx status" in {
+
+        forAll(arbitrary[HeaderCarrier], errorStatuses) {
+          (hc, returnStatus) =>
+            server.stubFor(
+              get(urlEqualTo(endpoint))
+                .willReturn(
+                  status(returnStatus).withBody("body")
+                )
+            )
+
+            whenReady(service.circumstanceIndicators()(implicitly, hc)) {
+              result =>
+                result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
+                  ReferenceDataRetrievalError("circumstanceIndicators", returnStatus, "body"))
+            }
+        }
+      }
+    }
+
+    "when the server returns data that cannot be read as a sequence" in {
+
+      forAll(arbitrary[HeaderCarrier]) {
+        hc =>
+          val invalidJson = Json.obj("foo" -> "bar")
+
+          server.stubFor(
+            get(urlEqualTo(endpoint))
+              .willReturn(
+                ok(invalidJson.toString)
+              )
+          )
+
+          whenReady(service.circumstanceIndicators()(implicitly, hc)) {
+            result =>
+              val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
+
+              result.invalidValue.toChain.toList must contain theSameElementsAs Seq(JsonError("circumstanceIndicators", Seq(expectedError)))
+          }
+      }
+    }
+  }
+
   "Customs office" - {
     def newRequestId: RequestId = RequestId(UUID.randomUUID().toString)
     val endpoint                = "/transit-movements-trader-reference-data/customs-office/2345"

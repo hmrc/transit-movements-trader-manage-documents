@@ -31,6 +31,15 @@ case class CustomsOfficeWithOptionalDate(office: CustomsOffice, date: Option[Loc
       .getOrElse(office.id)
       .shorten(maxLength)(trimmed)
 
+  def referenceWithOfficeId: String =
+    office.name
+      .map(name => s"${office.id} ($name)")
+      .getOrElse(office.id)
+      .shorten(maxLength)(trimmed)
+
   def dateTimeFormatted: Option[String] =
+    date.map(_.format(DateFormatter.dateTimeFormatter))
+
+  def arrivalDateTimeFormatted: Option[String] =
     date.map(_.format(DateFormatter.arrivalDateTimeFormatter))
 }

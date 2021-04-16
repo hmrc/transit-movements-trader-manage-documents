@@ -1,0 +1,40 @@
+@(transportModeAtBorder: Option[String], agreedLocationOfGoodsCode: Option[String])
+<fo:table-row height="8mm">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+    <fo:table-cell border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt" number-rows-spanned="1">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-width="7mm"/>
+                <fo:table-column column-width="18mm"/>
+                <fo:table-column/>
+                <fo:table-body>
+                    <fo:table-row height="4mm">
+                        <fo:table-cell alignment-adjust="auto" border-top-style="solid" border-top-width="1pt" border-top-color="black" number-columns-spanned="2" padding-start="0.2mm" display-align="center" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                            <fo:block>Mode of transport (25)</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell alignment-adjust="auto" border-top-style="solid" border-top-width="1pt" border-top-color="black" padding-start="2mm" display-align="center" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                            <fo:block>Location of goods (30)</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row height="4mm">
+                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" padding-left="2mm" font-weight="bold">
+                            <fo:block>
+                               @transportModeAtBorder.getOrElse("---")
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="1mm" padding-left="2mm">
+                            <fo:block>at the border</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" padding-left="2mm" display-align="center" font-weight="bold">
+                            <fo:block>
+                                @agreedLocationOfGoodsCode.getOrElse("---")
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+</fo:table-row>

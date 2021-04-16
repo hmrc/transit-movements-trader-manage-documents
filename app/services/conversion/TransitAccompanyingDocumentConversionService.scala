@@ -35,7 +35,7 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
    * One view model can hold all the required data which can be used to build a document
    * Let each Converter handle what goes in the view model
    */
-  def toViewModel(transitAccompanyingDocument: models.TransitAccompanyingDocument,
+  def toViewModel(transitAccompanyingDocument: models.ReleaseForTransit,
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitAccompanyingDocumentPDF]] = {
 
     val countriesFuture             = referenceData.countries()

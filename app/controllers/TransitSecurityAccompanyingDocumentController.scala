@@ -16,25 +16,51 @@
 
 package controllers
 
+import cats.data.Validated
+import com.lucidchart.open.xtract.ParseFailure
+import com.lucidchart.open.xtract.ParseSuccess
+import com.lucidchart.open.xtract.PartialParseSuccess
+import logging.Logging
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
+import services.XMLToReleaseForTransit
+import services.conversion.TransitSecurityAccompanyingDocumentConversionService
+import services.pdf.TSADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
 import javax.inject.Inject
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 import scala.xml.NodeSeq
 
 class TransitSecurityAccompanyingDocumentController @Inject()(
+  conversionService: TransitSecurityAccompanyingDocumentConversionService,
+  pdf: TSADPdfGenerator,
   cc: ControllerComponents
-) extends BackendController(cc) {
+)(implicit ec: ExecutionContext)
+    extends BackendController(cc)
+    with Logging {
 
-  def get(): Action[NodeSeq] = Action(parse.xml) {
+  def get(): Action[NodeSeq] = Action.async(parse.xml) {
     implicit request =>
-      lazy val path: Path            = Paths.get(getClass.getResource("/files/EmptyTAD.pdf").toURI)
-      lazy val blankPdf: Array[Byte] = Files.readAllBytes(path)
-
-      Ok(blankPdf)
+      XMLToReleaseForTransit.convert(request.body) match {
+        case ParseSuccess(releaseForTransit) =>
+          conversionService.toViewModel(releaseForTransit).map {
+            case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
+            case Validated.Invalid(errors) =>
+              logger.info(s"Failed to convert to TransitSecurityAccompanyingDocument with following errors: $errors")
+              InternalServerError
+          } recover {
+            case e =>
+              logger.info(s"Exception thrown while converting to TransitSecurityAccompanyingDocument: ${e.getMessage}")
+              BadGateway
+          }
+        case PartialParseSuccess(result, errors) =>
+          logger.info(s"Partially failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors and result $result")
+          Future.successful(BadRequest)
+        case ParseFailure(errors) =>
+          logger.info(s"Failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors")
+          Future.successful(BadRequest)
+      }
   }
 }

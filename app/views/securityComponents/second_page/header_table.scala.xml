@@ -1,0 +1,209 @@
+@import views.xml.securityComponents.barcode_small
+@import views.xml.securityComponents.barcode
+@(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: Option[String])
+<fo:block>
+    <fo:table width="100%" table-layout="fixed" font-size="12pt" font-weight="bold">
+        <fo:table-column column-number="1" column-width="95mm"/>
+        <fo:table-column column-number="2" column-width="10mm"/>
+        <fo:table-column column-number="3" column-width="10mm"/>
+        <fo:table-column column-number="4" column-width="14mm"/>
+        <fo:table-column column-number="5" column-width="61mm"/>
+        <!-- LISAp2 -->
+        <fo:table-body>
+            <fo:table-row height="11mm">
+                <fo:table-cell number-columns-spanned="5">
+                    <fo:block/>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="4">
+                    <fo:block/>
+                </fo:table-cell>
+                <fo:table-cell number-rows-spanned="5">
+                    <fo:block>
+                        <fo:table>
+                            <fo:table-column column-width="5mm"/>
+                            <fo:table-column column-width="5mm"/>
+                            <fo:table-column column-width="4mm"/>
+                            <fo:table-column column-width="46mm"/>
+                            <fo:table-body>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell number-columns-spanned="2" padding-left="3mm" display-align="center" font-weight="bold">
+                                        <fo:block font-size="11pt">MRN</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell number-columns-spanned="2" padding-left="3mm" display-align="center" font-weight="normal">
+                                        <fo:block font-size="11pt">
+                                            @movementReferenceNumber
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="16mm">
+                                    <fo:table-cell number-columns-spanned="4" padding-top="-1mm" padding-left="1mm">
+                                        <fo:block>
+                                            @barcode(movementReferenceNumber)
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row height="7mm">
+                <fo:table-cell number-columns-spanned="4">
+                    <fo:block/>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row height="5mm">
+                <fo:table-cell border-left-style="solid" border-left-width="1pt"  border-top-style="solid" border-top-width="1pt"  border-right-style="solid" border-right-width="1pt" display-align="center" text-align="center">
+                    <fo:block/>
+                </fo:table-cell>
+                <fo:table-cell number-columns-spanned="3">
+                    <fo:block/>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-left-width="1pt"  border-right-style="solid" border-right-width="1pt" display-align="center" text-align="center">
+                    <fo:block font-size="10pt">TRANSIT/SECURITY LIST OF ITEMS</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-left-width="1pt"  border-top-style="solid" border-top-width="1pt" >
+                    <fo:block font-size="6pt">Forms (3)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-top-style="solid" border-top-width="1pt"  border-right-style="solid" border-right-width="1pt">
+                    <fo:block>
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                    <fo:block/>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+            <fo:table-cell border-left-style="solid" border-left-width="1pt"  border-bottom-style="solid" border-bottom-width="1pt"  border-right-style="solid" border-right-width="1pt" display-align="center" text-align="center">
+                <fo:block/>
+            </fo:table-cell>
+            <fo:table-cell border-left-style="solid" border-left-width="1pt"  border-bottom-style="solid" border-bottom-width="1pt"  border-right-style="solid" border-right-width="1pt">
+                <fo:block display-align="center" text-align="center" font-size="6pt">
+                    <fo:page-number/>
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-left-style="solid" border-left-width="1pt"  border-bottom-style="solid" border-bottom-width="1pt"  border-right-style="solid" border-right-width="1pt">
+                <fo:block display-align="center" text-align="center" font-size="6pt">
+                    <fo:page-number-citation ref-id="A-last-page"/>
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+                <fo:block/>
+            </fo:table-cell>
+        </fo:table-row>
+    </fo:table-body>
+ </fo:table>
+ <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-width="11.4mm"/>
+        <fo:table-column column-width="3.7mm"/>
+        <fo:table-column column-width="27.2mm"/>
+        <fo:table-column column-width="24mm"/>
+        <fo:table-column column-width="28.7mm"/>
+        <fo:table-column column-width="22.8mm"/>
+        <fo:table-column column-width="23.9mm"/>
+        <fo:table-column column-width="20.4mm"/>
+        <fo:table-column column-width="27.9mm"/>
+        <fo:table-body>
+            <fo:table-row>
+                <fo:table-cell border-style="solid" border-width="2pt" border-color="black" padding-left="1mm">
+                    <fo:block>Item No (32)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-style="solid" border-bottom-style="solid" border-width="1pt" border-top-width="2pt" border-bottom-width="0.5pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    <fo:block>Number and kind of packages, pieces, marks and numbers of pkgs (31/1)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-top-width="2pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    <fo:block>Description of goods (31/2)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-width="0.5pt" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                    <fo:block>Consignor/Exporter (2)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    <fo:block>Consignee (8)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                    <fo:block>Consignor (security) (S04)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    <fo:block>Consignee (security) (S06)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5" number-rows-spanned="2">
+                    <fo:block>Produced documents / certificates (44/1)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="dashed" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    <fo:block>Summary declaration/Previous document (40)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    <fo:block>Special mentions (44/2)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="dashed" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                    <fo:block>Identity and nationality of means of transport at departure (18)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="4">
+                    <fo:block>Unique consignment reference number (7)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                    <fo:block>Identity and nationality of active means of transport crossing the border (21)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="3">
+                    <fo:block>Container numbers (31/3)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>Seal Number (S28)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="5">
+                    <fo:block>Place of unloading (S18)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="3">
+                    <fo:block>Commodity Code (33)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>Gross mass (kg) (35)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="0.2mm" padding-top="1mm" padding-bottom="1mm" number-columns-spanned="2">
+                    <fo:block>UNDG (44/4)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="0.2mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>Sensitive quantity (31/5)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="0.2mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>Sensitive code (31/4)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="0.2mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>Tpt.Ch.M.Pay.code (S29)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="0.5mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>Declaration type (1)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="0.2mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>C.disp/exp.Code (15)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-right-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="0.2mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>C.Dest.Code (17)</fo:block>
+                </fo:table-cell>
+                <fo:table-cell border-left-style="solid" border-top-style="solid" border-bottom-style="solid" border-width="1pt" border-color="black" padding-left="1mm" padding-top="1mm" padding-bottom="1mm">
+                    <fo:block>Net mass (kg) (38)</fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-body>
+    </fo:table>
+</fo:block>

@@ -1,0 +1,18 @@
+@(printVariousSecurityConsignors: Boolean, securityConsignorOne: Option[viewmodels.SecurityConsignor])
+
+<fo:table-cell alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" column-number="3">
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column column-number="1" column-width="44mm"/>
+      <fo:table-column column-number="2" column-width="8mm"/>
+      <fo:table-column column-number="3" column-width="37mm"/>
+      <fo:table-body>
+        @if(printVariousSecurityConsignors) {
+          @securityConsignor_various()
+        } else {
+          @securityConsignor_single(securityConsignorOne)
+        }
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>

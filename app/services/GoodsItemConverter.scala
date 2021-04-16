@@ -20,11 +20,7 @@ import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
 import models.PreviousAdministrativeReference
-import models.reference.AdditionalInformation
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
+import models.reference._
 
 object GoodsItemConverter extends Converter {
 
@@ -118,22 +114,27 @@ object GoodsItemConverter extends Converter {
     ).mapN(
       (dispatch, destination, docs, mentions, packages, consignor, consignee, previousDocs) =>
         viewmodels.GoodsItem(
-          goodsItem.itemNumber,
-          goodsItem.commodityCode,
-          goodsItem.declarationType,
-          goodsItem.description,
-          goodsItem.grossMass,
-          goodsItem.netMass,
-          dispatch,
-          destination,
-          docs,
-          previousDocs,
-          mentions,
-          consignor,
-          consignee,
-          goodsItem.containers,
-          packages,
-          goodsItem.sensitiveGoodsInformation
+          itemNumber = goodsItem.itemNumber,
+          commodityCode = goodsItem.commodityCode,
+          declarationType = goodsItem.declarationType,
+          description = goodsItem.description,
+          grossMass = goodsItem.grossMass,
+          netMass = goodsItem.netMass,
+          countryOfDispatch = dispatch,
+          countryOfDestination = destination,
+          methodOfPayment = goodsItem.methodOfPayment,
+          commercialReferenceNumber = goodsItem.commercialReferenceNumber,
+          unDangerGoodsCode = goodsItem.unDangerGoodsCode,
+          producedDocuments = docs,
+          previousDocumentTypes = previousDocs,
+          specialMentions = mentions,
+          consignor = consignor,
+          consignee = consignee,
+          containers = goodsItem.containers,
+          packages = packages,
+          sensitiveGoodsInformation = goodsItem.sensitiveGoodsInformation,
+          securityConsignor = goodsItem.securityConsignor.map(SecurityConsignorConverter.convertToSecurityConsignorVM),
+          securityConsignee = goodsItem.securityConsignee.map(SecurityConsigneeConverter.convertToSecurityConsigneeVM)
       )
     )
   }

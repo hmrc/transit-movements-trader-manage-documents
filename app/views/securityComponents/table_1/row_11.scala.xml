@@ -1,0 +1,32 @@
+@(conveyanceReferenceNumber: Option[String])
+
+<fo:table-row height="8mm">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+    <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black">
+        <fo:block/>
+    </fo:table-cell>
+    <!-- Conveyance reference number -->
+    <fo:table-cell border-style="solid" border-width="1pt" border-color="black">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column/>
+                <fo:table-body>
+                    <fo:table-row height="4mm">
+                        <fo:table-cell display-align="center" padding-left="2mm">
+                            <fo:block>Conveyance reference number (S10)</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row height="4mm">
+                        <fo:table-cell font-weight="bold" padding-left="2mm">
+                            <fo:block>
+                                @conveyanceReferenceNumber.getOrElse("---")
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+</fo:table-row>

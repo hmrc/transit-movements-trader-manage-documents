@@ -122,6 +122,42 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield Consignee(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
 
+  implicit lazy val arbitrarySecurityConsignee: Arbitrary[SecurityConsignee] =
+    Arbitrary {
+      Gen.oneOf(arbitrary[SecurityConsigneeWithEori], arbitrary[SecurityConsigneeWithoutEori])
+    }
+
+  implicit lazy val arbitrarySecurityConsigneeWithEori: Arbitrary[SecurityConsigneeWithEori] =
+    Arbitrary {
+      for {
+        eori <- stringWithMaxLength(17)
+      } yield SecurityConsigneeWithEori(eori)
+    }
+
+  implicit lazy val arbitrarySecurityConsigneeWithoutEori: Arbitrary[SecurityConsigneeWithoutEori] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+      } yield SecurityConsigneeWithoutEori(name, streetAndNumber, postCode, city, country)
+    }
+
+  implicit lazy val arbitrarySecurityConsigneeVM: Arbitrary[viewmodels.SecurityConsignee] =
+    Arbitrary {
+
+      for {
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
+        eori            <- stringWithMaxLength(17)
+      } yield viewmodels.SecurityConsignee(name, streetAndNumber, postCode, city, country, Some(eori))
+    }
+
   implicit lazy val arbitraryConsignor: Arbitrary[Consignor] =
     Arbitrary {
 
@@ -134,6 +170,64 @@ trait ModelGenerators extends GeneratorHelpers {
         nadLanguageCode <- Gen.option(stringWithMaxLength(2))
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield Consignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
+    }
+  implicit lazy val arbitrarySafetyAndSecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
+    Arbitrary {
+      Gen.oneOf(arbitrary[SafetyAndSecurityCarrierWithEori], arbitrary[SafetyAndSecurityCarrierWithoutEori])
+    }
+
+  implicit lazy val arbitrarySafetyAndSecurityCarrierWithEori: Arbitrary[SafetyAndSecurityCarrierWithEori] =
+    Arbitrary {
+      for {
+        eori <- stringWithMaxLength(17)
+      } yield SafetyAndSecurityCarrierWithEori(eori)
+    }
+
+  implicit lazy val arbitrarySafetyAndSecurityCarrierWithoutEori: Arbitrary[SafetyAndSecurityCarrierWithoutEori] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+      } yield SafetyAndSecurityCarrierWithoutEori(name, streetAndNumber, postCode, city, country)
+    }
+
+  implicit lazy val arbitrarySecurityConsignor: Arbitrary[SecurityConsignor] =
+    Arbitrary {
+      Gen.oneOf(arbitrary[SecurityConsignorWithEori], arbitrary[SecurityConsignorWithoutEori])
+    }
+
+  implicit lazy val arbitrarySecurityConsignorWithEori: Arbitrary[SecurityConsignorWithEori] =
+    Arbitrary {
+      for {
+        eori <- stringWithMaxLength(17)
+      } yield SecurityConsignorWithEori(eori)
+    }
+
+  implicit lazy val arbitrarySecurityConsignorWithoutEori: Arbitrary[SecurityConsignorWithoutEori] =
+    Arbitrary {
+      for {
+        name            <- stringWithMaxLength(35)
+        streetAndNumber <- stringWithMaxLength(35)
+        postCode        <- stringWithMaxLength(9)
+        city            <- stringWithMaxLength(35)
+        country         <- stringWithMaxLength(2)
+      } yield SecurityConsignorWithoutEori(name, streetAndNumber, postCode, city, country)
+    }
+
+  implicit lazy val arbitrarySecurityCarrierVM: Arbitrary[viewmodels.SafetyAndSecurityCarrier] =
+    Arbitrary {
+
+      for {
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield viewmodels.SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, eori)
     }
 
   implicit lazy val arbitraryPrincipal: Arbitrary[Principal] =
@@ -175,6 +269,9 @@ trait ModelGenerators extends GeneratorHelpers {
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
         countryOfDestination      <- Gen.option(stringWithMaxLength(2))
+        methodOfPayment           <- Gen.option(stringWithMaxLength(1))
+        commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
+        unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
         producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
         previousAdminRef          <- listWithMaxSize(2, arbitrary[PreviousAdministrativeReference])
         specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
@@ -183,6 +280,8 @@ trait ModelGenerators extends GeneratorHelpers {
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))
         packages                  <- nonEmptyListWithMaxSize(2, arbitrary[Package])
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        securityConsignor         <- arbitrary[SecurityConsignor]
+        securityConsignee         <- arbitrary[SecurityConsignee]
       } yield
         GoodsItem(
           itemNumber,
@@ -193,6 +292,9 @@ trait ModelGenerators extends GeneratorHelpers {
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          methodOfPayment,
+          commercialReferenceNumber,
+          unDangerGoodsCode,
           previousAdminRef,
           producedDocuments,
           specialMentions,
@@ -200,7 +302,9 @@ trait ModelGenerators extends GeneratorHelpers {
           consignee,
           containers,
           packages,
-          sensitiveGoodsInformation
+          sensitiveGoodsInformation,
+          Some(securityConsignor),
+          Some(securityConsignee)
         )
     }
 
@@ -290,35 +394,35 @@ trait ModelGenerators extends GeneratorHelpers {
     } yield ControlResult(code, date)
   }
 
-  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocument] =
+  implicit lazy val arbitraryHeader: Arbitrary[Header] =
     Arbitrary {
       for {
-        mrn                       <- stringWithMaxLength(22)
-        declarationType           <- arbitrary[DeclarationType]
-        countryOfDispatch         <- Gen.option(stringWithMaxLength(2))
-        countryOfDestination      <- Gen.option(stringWithMaxLength(2))
-        transportId               <- Gen.option(stringWithMaxLength(27))
-        transportCountry          <- Gen.option(stringWithMaxLength(2))
-        acceptanceDate            <- datesBetween(LocalDate.of(1970, 1, 1), LocalDate.now())
-        numberOfItems             <- Gen.choose(1, 99999)
-        numberOfPackages          <- Gen.option(Gen.choose(1, 9999999))
-        grossMass                 <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        bindingItinerary          <- arbitrary[Boolean]
-        authId                    <- Gen.option(stringWithMaxLength(25))
-        returnCopy                <- arbitrary[Boolean]
-        principal                 <- arbitrary[Principal]
-        consignor                 <- Gen.option(arbitrary[Consignor])
-        consignee                 <- Gen.option(arbitrary[Consignee])
-        customsOffOfTransit       <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
-        guaranteeDetails          <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
-        departureOffice           <- stringWithMaxLength(8)
-        destinationOffice         <- stringWithMaxLength(8)
-        returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
-        controlResult             <- Gen.option(arbitrary[ControlResult])
-        seals                     <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems                <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+        mrn                               <- stringWithMaxLength(22)
+        declarationType                   <- arbitrary[DeclarationType]
+        countryOfDispatch                 <- Gen.option(stringWithMaxLength(2))
+        countryOfDestination              <- Gen.option(stringWithMaxLength(2))
+        transportId                       <- Gen.option(stringWithMaxLength(27))
+        transportCountry                  <- Gen.option(stringWithMaxLength(2))
+        acceptanceDate                    <- datesBetween(LocalDate.of(1970, 1, 1), LocalDate.now())
+        numberOfItems                     <- Gen.choose(1, 99999)
+        numberOfPackages                  <- Gen.option(Gen.choose(1, 9999999))
+        grossMass                         <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        bindingItinerary                  <- arbitrary[Boolean]
+        authId                            <- Gen.option(stringWithMaxLength(25))
+        returnCopy                        <- arbitrary[Boolean]
+        circumstanceIndicator             <- Gen.option(stringWithMaxLength(1))
+        commercialReferenceNumber         <- Gen.option(stringWithMaxLength(12))
+        methodOfPayment                   <- Gen.option(stringWithMaxLength(1))
+        identityOfTransportCrossingBorder <- Gen.option(stringWithMaxLength(27))
+        nationalityOfTransportAtBorder    <- Gen.option(stringWithMaxLength(27))
+        transportModeAtBorder             <- Gen.option(stringWithMaxLength(2))
+        agreedLocationOfGoodsCode         <- Gen.option(stringWithMaxLength(17))
+        placeOfLoadingCode                <- Gen.option(stringWithMaxLength(17))
+        placeOfUnloadingCode              <- Gen.option(stringWithMaxLength(17))
+        conveyanceReferenceNumber         <- Gen.option(stringWithMaxLength(17))
+        security                          <- Gen.option(1)
       } yield
-        TransitAccompanyingDocument(
+        Header(
           mrn,
           declarationType,
           countryOfDispatch,
@@ -332,6 +436,50 @@ trait ModelGenerators extends GeneratorHelpers {
           bindingItinerary,
           authId,
           returnCopy,
+          circumstanceIndicator,
+          security,
+          commercialReferenceNumber,
+          methodOfPayment,
+          identityOfTransportCrossingBorder,
+          nationalityOfTransportAtBorder,
+          transportModeAtBorder,
+          agreedLocationOfGoodsCode,
+          placeOfLoadingCode,
+          placeOfUnloadingCode,
+          conveyanceReferenceNumber
+        )
+    }
+
+  implicit lazy val arbitraryItinerary: Arbitrary[Itinerary] = {
+    Arbitrary {
+      for {
+        country <- Gen.pick(2, 'A' to 'Z')
+      } yield Itinerary(country.mkString)
+    }
+  }
+
+  implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[ReleaseForTransit] =
+    Arbitrary {
+      for {
+        header                     <- arbitrary[Header]
+        principal                  <- arbitrary[Principal]
+        consignor                  <- Gen.option(arbitrary[Consignor])
+        consignee                  <- Gen.option(arbitrary[Consignee])
+        customsOffOfTransit        <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
+        guaranteeDetails           <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
+        departureOffice            <- stringWithMaxLength(8)
+        destinationOffice          <- stringWithMaxLength(8)
+        returnCopiesCustomsOffice  <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
+        controlResult              <- Gen.option(arbitrary[ControlResult])
+        seals                      <- listWithMaxSize(2, stringWithMaxLength(20))
+        goodsItems                 <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+        itineraries                <- listWithMaxSize(9, arbitrary[Itinerary])
+        safetyAndSecurityCarrier   <- Gen.option(arbitrary[SafetyAndSecurityCarrier])
+        safetyAndSecurityConsignor <- Gen.option(arbitrary[SecurityConsignor])
+        safetyAndSecurityConsignee <- Gen.option(arbitrary[SecurityConsignee])
+      } yield
+        ReleaseForTransit(
+          header,
           principal,
           consignor,
           consignee,
@@ -342,7 +490,11 @@ trait ModelGenerators extends GeneratorHelpers {
           returnCopiesCustomsOffice,
           controlResult,
           seals,
-          goodsItems
+          goodsItems,
+          itineraries,
+          safetyAndSecurityCarrier,
+          safetyAndSecurityConsignor,
+          safetyAndSecurityConsignee
         )
     }
 
@@ -455,6 +607,19 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield viewmodels.Consignee(name, streetAndNumber, streetAndNumberTrimmed, postCode, city, country, eori)
     }
 
+  implicit lazy val arbitrarySecurityConsignorVM: Arbitrary[viewmodels.SecurityConsignor] =
+    Arbitrary {
+
+      for {
+        name            <- Gen.option(stringWithMaxLength(35))
+        streetAndNumber <- Gen.option(stringWithMaxLength(35))
+        postCode        <- Gen.option(stringWithMaxLength(9))
+        city            <- Gen.option(stringWithMaxLength(35))
+        country         <- Gen.option(stringWithMaxLength(2))
+        eori            <- Gen.option(stringWithMaxLength(17))
+      } yield viewmodels.SecurityConsignor(name, streetAndNumber, postCode, city, country, eori)
+    }
+
   implicit lazy val arbitraryConsignorViewModel: Arbitrary[viewmodels.Consignor] =
     Arbitrary {
 
@@ -550,6 +715,9 @@ trait ModelGenerators extends GeneratorHelpers {
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         countryOfDispatch         <- Gen.option(arbitrary[Country])
         countryOfDestination      <- Gen.option(arbitrary[Country])
+        methodOfPayment           <- Gen.option(stringWithMaxLength(1))
+        commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
+        unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
         producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
         previousDocTypes          <- listWithMaxSize(2, arbitrary[viewmodels.PreviousDocumentType])
         specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
@@ -558,6 +726,8 @@ trait ModelGenerators extends GeneratorHelpers {
         containers                <- listWithMaxSize(2, stringWithMaxLength(17))
         packages                  <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        securityConsignor         <- Gen.option(arbitrary[viewmodels.SecurityConsignor])
+        securityConsignee         <- Gen.option(arbitrary[viewmodels.SecurityConsignee])
       } yield
         viewmodels.GoodsItem(
           itemNumber,
@@ -568,6 +738,9 @@ trait ModelGenerators extends GeneratorHelpers {
           netMass,
           countryOfDispatch,
           countryOfDestination,
+          methodOfPayment,
+          commercialReferenceNumber,
+          unDangerGoodsCode,
           producedDocuments,
           previousDocTypes,
           specialMentions,
@@ -575,7 +748,9 @@ trait ModelGenerators extends GeneratorHelpers {
           consignee,
           containers,
           packages,
-          sensitiveGoodsInformation
+          sensitiveGoodsInformation,
+          securityConsignor,
+          securityConsignee
         )
     }
   }

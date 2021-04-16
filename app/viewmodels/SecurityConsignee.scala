@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package services
+package viewmodels
+import utils.StringTransformer.StringFormatter
 
-import com.lucidchart.open.xtract.ParseResult
-import com.lucidchart.open.xtract.XmlReader
-import models.TransitAccompanyingDocument
-
-import scala.xml.NodeSeq
-
-object XMLToTransitAccompanyingDocument {
-
-  def convert(xml: NodeSeq): ParseResult[TransitAccompanyingDocument] =
-    XmlReader.of[TransitAccompanyingDocument].read(xml)
+final case class SecurityConsignee(
+  name: Option[String],
+  streetAndNumber: Option[String],
+  postCode: Option[String],
+  city: Option[String],
+  countryCode: Option[String],
+  eori: Option[String]
+) {
+  val streetAndNumberTrimmed: Option[String] = streetAndNumber.map(_.shorten(32)("***"))
 }

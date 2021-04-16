@@ -25,6 +25,8 @@ import models.reference.DocumentType
 import models.reference.KindOfPackage
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
+import viewmodels.Consignee
+import viewmodels.Consignor
 
 class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
@@ -45,6 +47,10 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
     val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
     val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
     val specialMentionCal                = models.SpecialMention(Some("Should be filtered"), models.SpecialMention.calCode, None, None)
+    val securityConsignor                = Some(models.SecurityConsignorWithEori("eori"))
+    val securityConsignorVM              = Some(viewmodels.SecurityConsignor(None, None, None, None, None, Some("eori")))
+    val securityConsignee                = Some(models.SecurityConsigneeWithEori("eori"))
+    val securityConsigneeVM              = Some(viewmodels.SecurityConsignee(None, None, None, None, None, Some("eori")))
 
     "must return a view model when all of the necessary reference data can be found filtering out all CAL Special mentions" in {
 
@@ -57,6 +63,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        methodOfPayment = Some("A"),
+        commercialReferenceNumber = Some("ref"),
+        unDangerGoodsCode = Some("AA11"),
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         previousAdminRef = Nil,
         specialMentions = Seq(
@@ -75,7 +84,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = securityConsignor,
+        securityConsignee = securityConsignee
       )
 
       val expectedViewModel = viewmodels.GoodsItem(
@@ -87,6 +98,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head),
         countryOfDestination = Some(countries.head),
+        methodOfPayment = Some("A"),
+        commercialReferenceNumber = Some("ref"),
+        unDangerGoodsCode = Some("AA11"),
         producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
         previousDocumentTypes = Nil,
         specialMentions = Seq(
@@ -106,7 +120,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
             viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = securityConsignorVM,
+        securityConsignee = securityConsigneeVM
       )
 
       val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)
@@ -125,6 +141,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
         netMass = Some(0.9),
         countryOfDispatch = Some(invalidCode),
         countryOfDestination = Some(invalidCode),
+        methodOfPayment = None,
+        commercialReferenceNumber = None,
+        unDangerGoodsCode = None,
         producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
         previousAdminRef = Nil,
         specialMentions = Seq(
@@ -142,7 +161,9 @@ class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
             models.RegularPackage(invalidCode, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation
+        sensitiveGoodsInformation = sensitiveGoodsInformation,
+        securityConsignor = securityConsignor,
+        securityConsignee = securityConsignee
       )
 
       val result = GoodsItemConverter.toViewModel(goodsItem, "path", countries, additionalInfo, kindsOfPackage, documentTypes)

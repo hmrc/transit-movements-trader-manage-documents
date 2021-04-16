@@ -99,6 +99,9 @@ class UnloadingPermissionConversionServiceSpec
         netMass = Some(0.9),
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
+        methodOfPayment = None,
+        commercialReferenceNumber = None,
+        unDangerGoodsCode = None,
         producedDocuments = Seq(models.ProducedDocument(documentTypes.head.code, None, None)),
         previousAdminRef = Nil,
         specialMentions = Seq(
@@ -116,7 +119,9 @@ class UnloadingPermissionConversionServiceSpec
             models.RegularPackage(kindsOfPackage.head.code, 1, "marks and numbers")
           )
         ),
-        sensitiveGoodsInformation = sensitiveGoodsInformation //TODO: Pass in data here
+        sensitiveGoodsInformation = sensitiveGoodsInformation, //TODO: Pass in data here
+        securityConsignor = None,
+        securityConsignee = None
       )
     )
   )
@@ -172,6 +177,9 @@ class UnloadingPermissionConversionServiceSpec
             netMass = Some(0.9),
             countryOfDispatch = Some(countries.head),
             countryOfDestination = Some(countries.head),
+            methodOfPayment = None,
+            commercialReferenceNumber = None,
+            unDangerGoodsCode = None,
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             previousDocumentTypes = Nil,
             specialMentions = Seq(
@@ -191,7 +199,9 @@ class UnloadingPermissionConversionServiceSpec
                 viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
               )
             ),
-            sensitiveGoodsInformation = sensitiveGoodsInformation
+            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            securityConsignor = None,
+            securityConsignee = None
           )
         )
       )

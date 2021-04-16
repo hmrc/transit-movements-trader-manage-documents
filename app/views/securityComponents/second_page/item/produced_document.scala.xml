@@ -1,0 +1,18 @@
+@(producedDocument: viewmodels.ProducedDocument)
+@if(producedDocument.documentType.description.isEmpty) {
+    <fo:block>
+        <fo:inline font-style="italic">
+            <fo:inline margin-left="3mm">
+                @producedDocument.display
+            </fo:inline>
+        </fo:inline>
+    </fo:block>
+} else {
+    <fo:block>
+    <fo:inline>
+        <fo:inline margin-left="3mm">
+            @producedDocument.display
+        </fo:inline>
+    </fo:inline>
+    </fo:block>
+}

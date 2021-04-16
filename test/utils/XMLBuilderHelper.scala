@@ -23,6 +23,12 @@ import models.GoodsItem
 import models.Package
 import models.ProducedDocument
 import models.RegularPackage
+import models.SecurityConsignee
+import models.SecurityConsigneeWithEori
+import models.SecurityConsigneeWithoutEori
+import models.SecurityConsignor
+import models.SecurityConsignorWithEori
+import models.SecurityConsignorWithoutEori
 import models.SpecialMention
 import models.TraderAtDestination
 import models.TraderAtDestinationWithEori
@@ -66,6 +72,21 @@ object XMLBuilderHelper {
         }
       }
       {
+        goodsItem.methodOfPayment.fold(NodeSeq.Empty) { methodOfPayment =>
+          <MetOfPayGDI12>{methodOfPayment}</MetOfPayGDI12>
+        }
+      }
+      {
+        goodsItem.commercialReferenceNumber.fold(NodeSeq.Empty) { commercialReferenceNumber =>
+          <ComRefNumGIM1>{commercialReferenceNumber}</ComRefNumGIM1>
+        }
+      }
+      {
+        goodsItem.unDangerGoodsCode.fold(NodeSeq.Empty) { unDangerGoodsCode =>
+          <UNDanGooCodGDI1>{unDangerGoodsCode}</UNDanGooCodGDI1>
+        }
+      }
+      {
       goodsItem.producedDocuments.map(producedDocumentXML) ++
         goodsItem.specialMentions.map(specialMentionXML) ++
         goodsItem.consignor.map(consignorXML) ++
@@ -99,7 +120,9 @@ object XMLBuilderHelper {
                 }
               }
             </PREADMREFAR2>
-        )
+        ) ++
+        goodsItem.securityConsignor.map(securityConsignorXML) ++
+        goodsItem.securityConsignee.map(securityConsigneeXML)
       }
     </GOOITEGDS>
 
@@ -248,6 +271,32 @@ object XMLBuilderHelper {
         }
       }
     </TRACONCE1>
+
+  def securityConsignorXML(consignor: SecurityConsignor): NodeSeq =
+    consignor match {
+      case SecurityConsignorWithEori(eori) => <TRACORSECGOO021><TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028></TRACORSECGOO021>
+      case SecurityConsignorWithoutEori(name, streetAndNumber, postCode, city, countryCode) =>
+        <TRACORSECGOO021>
+          <NamTRACORSECGOO025>{name}</NamTRACORSECGOO025>
+          <StrNumTRACORSECGOO027>{streetAndNumber}</StrNumTRACORSECGOO027>
+          <PosCodTRACORSECGOO026>{postCode}</PosCodTRACORSECGOO026>
+          <CitTRACORSECGOO022>{city}</CitTRACORSECGOO022>
+          <CouCodTRACORSECGOO023>{countryCode}</CouCodTRACORSECGOO023>
+        </TRACORSECGOO021>
+    }
+
+  def securityConsigneeXML(consignor: SecurityConsignee): NodeSeq =
+    consignor match {
+      case SecurityConsigneeWithEori(eori) => <TRACONSECGOO013><TINTRACONSECGOO020>{eori}</TINTRACONSECGOO020></TRACONSECGOO013>
+      case SecurityConsigneeWithoutEori(name, streetAndNumber, postCode, city, countryCode) =>
+        <TRACONSECGOO013>
+          <NamTRACONSECGOO017>{name}</NamTRACONSECGOO017>
+          <StrNumTRACONSECGOO019>{streetAndNumber}</StrNumTRACONSECGOO019>
+          <PosCodTRACONSECGOO018>{postCode}</PosCodTRACONSECGOO018>
+          <CityTRACONSECGOO014>{city}</CityTRACONSECGOO014>
+          <CouCodTRACONSECGOO015>{countryCode}</CouCodTRACONSECGOO015>
+        </TRACONSECGOO013>
+    }
 
   def packageToXML(packageModel: Package): NodeSeq =
     packageModel match {
