@@ -22,7 +22,7 @@ import com.lucidchart.open.xtract.__
 import play.api.libs.json.Json
 import play.api.libs.json._
 
-trait SecurityConsignee
+sealed trait SecurityConsignee
 
 object SecurityConsignee {
 

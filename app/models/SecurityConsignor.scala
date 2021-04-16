@@ -21,7 +21,7 @@ import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
 import play.api.libs.json._
 
-trait SecurityConsignor
+sealed trait SecurityConsignor
 
 object SecurityConsignor {
 
