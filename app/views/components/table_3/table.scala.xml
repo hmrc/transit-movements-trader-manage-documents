@@ -7,7 +7,7 @@
     <fo:table-column column-width="92mm"/>
     <fo:table-column column-width="92mm"/>
     <fo:table-body>
-        <fo:table-row height="17mm"> <!-- S1 T3 ROW 1 -->
+        <fo:table-row> <!-- S1 T3 ROW 1 -->
             <fo:table-cell wrap-option="wrap" padding-top="1mm">
                 <fo:block>
                     <fo:list-block>
@@ -66,7 +66,7 @@
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row>
-                                <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" padding-left="2mm">
+                                <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" padding-left="2mm" padding-top="1mm">
                                     <fo:block space-before="1mm">(1) Enter 1 if YES or 0 if NO.</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -116,7 +116,7 @@
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row>
-                                <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" padding-left="2mm">
+                                <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" padding-left="2mm" padding-top="1mm">
                                     <fo:block space-before="1mm">(1) Enter 1 if YES or 0 if NO.</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
