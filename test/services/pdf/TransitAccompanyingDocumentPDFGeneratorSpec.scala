@@ -16,7 +16,21 @@
 
 package services.pdf
 
+import cats.data.NonEmptyList
 import generators.ViewmodelGenerators
+import models.DeclarationType
+import models.GuaranteeDetails
+import models.GuaranteeReference
+import models.PreviousAdministrativeReference
+import models.reference.AdditionalInformation
+import models.reference.ControlResultData
+import models.reference.Country
+import models.reference.CustomsOffice
+import models.reference.DocumentType
+import models.reference.KindOfPackage
+import models.reference.PreviousDocumentTypes
+import org.apache.pdfbox.pdmodel.PDDocument
+import org.apache.pdfbox.text.PDFTextStripper
 import org.mockito.Mockito
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
@@ -33,8 +47,26 @@ import play.api.Application
 import play.api.Environment
 import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
+import services.pdf.TransitAccompanyingDocumentPDFGeneratorSpec.transitAccompanyingDocumentPDF
+import utils.FormattedDate
+import viewmodels.Consignee
+import viewmodels.Consignor
+import viewmodels.ControlResult
+import viewmodels.CustomsOfficeWithOptionalDate
+import viewmodels.GoodsItem
+import viewmodels.PreviousDocumentType
+import viewmodels.Principal
+import viewmodels.ProducedDocument
+import viewmodels.RegularPackage
+import viewmodels.ReturnCopiesCustomsOffice
+import viewmodels.SpecialMention
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.components._
+
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class TransitAccompanyingDocumentPDFGeneratorSpec
     extends FreeSpec
@@ -68,7 +100,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
   private lazy val service: TADPdfGenerator = app.injector.instanceOf[TADPdfGenerator]
   val env: Environment                      = app.injector.instanceOf[Environment]
 
-  "UnloadingPermissionPdfGenerator" - {
+  "TransitAccompanyingDocumentPDFGenerator" - {
 
     "return pdf" in {
 
@@ -79,16 +111,16 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
           verify(spiedTable1, times(1))
             .apply(
               "TRANSIT - ACCOMPANYING DOCUMENT",
-              true,
+              boldHeading = true,
               tad.movementReferenceNumber,
-              tad.printVariousConsignors,
+              printVariousConsignors = tad.printVariousConsignors,
               tad.consignorOne,
               tad.declarationType,
-              tad.printListOfItems,
+              printListOfItems = tad.printListOfItems,
               tad.consignor,
               tad.numberOfItems,
               tad.totalNumberOfPackages,
-              tad.printVariousConsignees,
+              printVariousConsignees = tad.printVariousConsignees,
               tad.consigneeOne,
               tad.singleCountryOfDispatch,
               tad.singleCountryOfDestination,
@@ -139,5 +171,182 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
           reset(spiedTable1, spiedTable2, spiedTable3, spiedTable4, spiedTable5)
       }
     }
+
+    "must match with the 'Transit Accompanying Document' template" in {
+
+      val pdfPath          = Paths.get("test/resources/transit-accompanying-document-pdf")
+      val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
+
+      val pdfDocument: PDDocument         = PDDocument.load(service.generate(transitAccompanyingDocumentPDF))
+      val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
+
+      try {
+        val pdfData         = new PDFTextStripper().getText(pdfDocument)
+        val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
+        pdfData mustBe expectedPdfData
+      } finally {
+        pdfDocument.close()
+        expectedPdfDocument.close()
+      }
+    }
   }
+}
+
+object TransitAccompanyingDocumentPDFGeneratorSpec {
+
+  val transitAccompanyingDocumentPDF: TransitAccompanyingDocumentPDF = TransitAccompanyingDocumentPDF(
+    "21GB00006010025BD1",
+    DeclarationType.TMinus,
+    Some(Country("valid", "GB", "United Kingdom")),
+    Some(Country("valid", "IT", "Italy")),
+    Some("TAD ID Departure"),
+    Some(Country("valid", "GB", "United Kingdom")),
+    Some(FormattedDate(LocalDate.parse("2021-03-12"))),
+    3,
+    Some(12),
+    12000,
+    printBindingItinerary = false,
+    None,
+    copyType = false,
+    Principal(
+      "CITY WATCH SHIPPING",
+      "125 Psuedopolis Yard",
+      "125 Psuedopolis Yard",
+      "SS99 1AA",
+      "Ank-Morpork",
+      Country("valid", "GB", "United Kingdom"),
+      Some("GB652420267000"),
+      None
+    ),
+    None,
+    None,
+    CustomsOfficeWithOptionalDate(CustomsOffice("GB000061", Some("DUNDEE 1"), "GB"), None),
+    CustomsOfficeWithOptionalDate(CustomsOffice("IEDUB919", Some("Dublin Mail Centre"), "IE"), None, 45),
+    List(
+      CustomsOfficeWithOptionalDate(CustomsOffice("FR001260", Some("Dunkerque port bureau"), "FR"), Some(LocalDateTime.parse("2021-03-13T10:00")), 18),
+      CustomsOfficeWithOptionalDate(CustomsOffice("IT277100", Some("MILANO 1"), "IT"), Some(LocalDateTime.parse("2021-03-14T11:00")), 18)
+    ),
+    List(GuaranteeDetails("3", List(GuaranteeReference(None, Some("TAD001"), None, List())))),
+    List("TAD_Seals_001", "TAD_Seals_002", "TAD_Seals_003"),
+    Some(
+      ReturnCopiesCustomsOffice("Central Community Transit Office",
+                                "BT-CCTO, HM Revenue and Customs",
+                                "BX9 1EH",
+                                "SALFORD",
+                                Country("valid", "GB", "United Kingdom"))),
+    Some(ControlResult(ControlResultData("A2", "Considered satisfactory"), models.ControlResult("A2", LocalDate.parse("2021-03-14")))),
+    NonEmptyList.of(
+      GoodsItem(
+        1,
+        None,
+        Some(DeclarationType.T1),
+        "Snow sports",
+        Some(4000),
+        Some(3996),
+        None,
+        None,
+        None,
+        None,
+        None,
+        List(ProducedDocument(DocumentType("235", "Container list", transportDocument = true), Some("TAD001"), None)),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(SpecialMention(AdditionalInformation("DG1", "Export subject to duties"), models.SpecialMention(Some("TAD001"), "DG1", None, Some("GB")))),
+        Some(
+          Consignor("QUIRM ENGINEERING",
+                    "125 Psuedopolis",
+                    "125 Psuedopolis",
+                    "SS99 1AA",
+                    "Ank-Morpork",
+                    Country("valid", "GB", "United Kingdom"),
+                    Some("GB60207001070000"))),
+        Some(
+          Consignee("DROFYL POTTERY",
+                    "125 Psuedopolis",
+                    "125 Psuedopolis",
+                    "SS99 1AA",
+                    "Ank-Morpork",
+                    Country("valid", "GB", "United Kingdom"),
+                    Some("GB658120050000"))),
+        List(),
+        NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 4, "RedBull snow sports")),
+        Vector(),
+        None,
+        None
+      ),
+      GoodsItem(
+        2,
+        None,
+        Some(DeclarationType.T2),
+        "Snow Sports",
+        Some(4000),
+        Some(3996),
+        None,
+        None,
+        None,
+        None,
+        None,
+        List(ProducedDocument(DocumentType("235", "Container list", transportDocument = true), Some("TAD001"), None)),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(),
+        Some(
+          Consignor("QUIRM ENGINEERING",
+                    "125 Psuedopolis",
+                    "125 Psuedopolis",
+                    "SS99 1AA",
+                    "Ank-Morpork",
+                    Country("valid", "GB", "United Kingdom"),
+                    Some("GB60207001070000"))),
+        Some(
+          Consignee("DROFYL POTTERY",
+                    "125 Psuedopolis",
+                    "125 Psuedopolis",
+                    "SS99 1AA",
+                    "Ank-Morpork",
+                    Country("valid", "GB", "United Kingdom"),
+                    Some("GB658120050000"))),
+        List(),
+        NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 4, "RedBull snow sports")),
+        Vector(),
+        None,
+        None
+      ),
+      GoodsItem(
+        3,
+        None,
+        Some(DeclarationType.T2),
+        "Snow Sports",
+        Some(4000),
+        Some(3996),
+        None,
+        None,
+        None,
+        None,
+        None,
+        List(ProducedDocument(DocumentType("730", "Road consignment note", transportDocument = true), Some("TAD001"), None)),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(),
+        Some(
+          Consignor("DROFYL POTTERY",
+                    "125 Psuedopolis",
+                    "125 Psuedopolis",
+                    "SS99 1AA",
+                    "Ank-Morpork",
+                    Country("valid", "GB", "United Kingdom"),
+                    Some("GB658120050000"))),
+        Some(
+          Consignee("QUIRM ENGINEERING",
+                    "125 Psuedopolis",
+                    "125 Psuedopolis",
+                    "SS99 1AA",
+                    "Ank-Morpork",
+                    Country("valid", "GB", "United Kingdom"),
+                    Some("GB60207001070000"))),
+        List(),
+        NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 4, "RedBull snow sports")),
+        Vector(),
+        None,
+        None
+      )
+    )
+  )
 }
