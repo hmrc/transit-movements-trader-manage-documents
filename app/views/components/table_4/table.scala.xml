@@ -151,10 +151,10 @@
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
-        <fo:table-row height="8mm"> <!-- S1 T4 ROW 3 -->
+        <fo:table-row> <!-- S1 T4 ROW 3 -->
             @row_3(transitOffices)
         </fo:table-row>
-        <fo:table-row height="8mm"> <!-- S1 T4 ROW 4 -->
+        <fo:table-row> <!-- S1 T4 ROW 4 -->
             @row_4(guaranteeDetails, destinationOffice)
         </fo:table-row>
     </fo:table-body>
