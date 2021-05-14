@@ -6,16 +6,16 @@
       <fo:table-column column-width="16mm"/>
       <fo:table-column column-width="16mm"/>
       <fo:table-body>
-        <fo:table-row height="3.5mm">
-          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" font-size="6pt">
+        <fo:table-row>
+          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" font-size="6pt" padding-bottom="1mm">
             <fo:block>Other SCI (S32)</fo:block>
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="after" padding-bottom="1mm">
             <fo:block />
           </fo:table-cell>
         </fo:table-row>
-        <fo:table-row height="3.5mm">
-          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" font-size="6pt">
+        <fo:table-row>
+          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" font-size="6pt" padding-bottom="1mm">
             <fo:block text-align="center">@circumstanceIndicator</fo:block>
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="after" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" padding-bottom="1mm">

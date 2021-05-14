@@ -24,7 +24,7 @@
         <fo:table-column column-width="114.64mm"/>
         <fo:table-column column-width="8mm"/>
         <fo:table-body>
-            <fo:table-row height="2mm">
+            <fo:table-row>
                 <fo:table-cell number-rows-spanned="2">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
@@ -35,7 +35,7 @@
                                 <fo:table-row height="2mm">
                                     @guaranteeReference(guaranteeDetails)
                                 </fo:table-row>
-                                <fo:table-row height="2mm">
+                                <fo:table-row>
                                     <fo:table-cell>
                                         <fo:block/>
                                     </fo:table-cell>
@@ -48,7 +48,7 @@
                     <fo:block>Code</fo:block>
                 </fo:table-cell>
             </fo:table-row>
-            <fo:table-row height="2mm">
+            <fo:table-row>
                 <fo:table-cell display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center">
                     <fo:block>
                         @for(i <- 0 to 2) {
