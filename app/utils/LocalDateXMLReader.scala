@@ -20,7 +20,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import com.lucidchart.open.xtract.ParseError
 import com.lucidchart.open.xtract.ParseFailure
-import com.lucidchart.open.xtract.ParseResult
 import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.XmlReader
 import utils.DateFormatter.dateFormatter

@@ -33,7 +33,6 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Environment
 import services.pdf.UnloadingPermissionPdfGeneratorConstants.permissionToUnloadViewModel
-import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels._
 
 import java.nio.file.Files
@@ -49,7 +48,6 @@ class UnloadingPermissionPdfGeneratorSpec
     with ScalaFutures {
 
   private lazy val service: UnloadingPermissionPdfGenerator = app.injector.instanceOf[UnloadingPermissionPdfGenerator]
-  implicit private val hc: HeaderCarrier                    = HeaderCarrier()
   val env: Environment                                      = app.injector.instanceOf[Environment]
 
   "UnloadingPermissionPdfGenerator" - {

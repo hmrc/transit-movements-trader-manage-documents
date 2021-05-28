@@ -16,7 +16,6 @@
 
 import cats.data.NonEmptyList
 import play.api.libs.json._
-import play.api.libs.functional.syntax._
 
 package object json {
 

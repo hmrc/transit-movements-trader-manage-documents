@@ -21,8 +21,6 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 
-import java.time.LocalDate
-
 trait ReferenceModelGenerators extends GeneratorHelpers {
 
   implicit lazy val arbitraryCountry: Arbitrary[Country] =

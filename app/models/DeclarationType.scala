@@ -18,7 +18,6 @@ package models
 
 import com.lucidchart.open.xtract.ParseError
 import com.lucidchart.open.xtract.ParseFailure
-import com.lucidchart.open.xtract.ParseResult
 import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.XmlReader
 
