@@ -18,7 +18,6 @@ package services
 
 import models.reference.AdditionalInformation
 
-
 object SpecialMentionConverter extends Converter {
 
   def toViewModel(

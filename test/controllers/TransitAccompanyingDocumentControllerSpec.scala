@@ -42,6 +42,7 @@ import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.UnloadingPermissionPdfGenerator
 
 import scala.concurrent.Future
+import play.api.http.MimeTypes
 
 class TransitAccompanyingDocumentControllerSpec
     extends FreeSpec
@@ -89,6 +90,8 @@ class TransitAccompanyingDocumentControllerSpec
             val result = route(application, request).value
 
             status(result) mustEqual OK
+            headers(result).get(CONTENT_TYPE).value mustEqual "application/pdf"
+            headers(result).get(CONTENT_DISPOSITION).value mustEqual """attachment; filename="TAD_MRNVALUE.pdf""""
         }
       }
     }

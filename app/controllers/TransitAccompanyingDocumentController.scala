@@ -31,6 +31,7 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.NodeSeq
+import utils.FileNameSanitizer
 
 class TransitAccompanyingDocumentController @Inject()(
   conversionService: TransitAccompanyingDocumentConversionService,
@@ -45,7 +46,13 @@ class TransitAccompanyingDocumentController @Inject()(
       XMLToReleaseForTransit.convert(request.body) match {
         case ParseSuccess(transitAccompanyingDocument) =>
           conversionService.toViewModel(transitAccompanyingDocument).map {
-            case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
+            case Validated.Valid(viewModel) =>
+              val fileName = s"TAD_${FileNameSanitizer(transitAccompanyingDocument.header.movementReferenceNumber)}.pdf"
+              Ok(pdf.generate(viewModel))
+                .withHeaders(
+                  CONTENT_TYPE        -> "application/pdf",
+                  CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+                )
             case Validated.Invalid(errors) =>
               logger.info(s"Failed to convert to TransitAccompanyingDocumentController with following errors: $errors")
               InternalServerError
