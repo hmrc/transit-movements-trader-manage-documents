@@ -14,24 +14,11 @@
  * limitations under the License.
  */
 
-package models
+package base
 
-import cats.syntax.all._
-import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
-import utils.LocalDateXMLReader._
+import org.scalatest.FreeSpec
+import org.scalatest.MustMatchers
+import org.scalatest.OptionValues
+import org.scalatestplus.mockito.MockitoSugar
 
-import java.time.LocalDate
-
-case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate)
-
-object ControlResult {
-
-  object Constants {
-    val controlResultCodeLength = 2
-  }
-
-  implicit val xmlReader: XmlReader[ControlResult] =
-    ((__ \ "ConResCodERS16").read[String], (__ \ "DatLimERS69").read[LocalDate])
-      .mapN(apply)
-}
+trait SpecBase extends FreeSpec with MustMatchers with OptionValues with MockitoSugar

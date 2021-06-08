@@ -17,7 +17,6 @@
 package models
 
 import cats.implicits.catsSyntaxTuple2Semigroupal
-import cats.implicits.catsSyntaxTuple5Semigroupal
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.XmlReader.strictReadSeq
 import com.lucidchart.open.xtract.__

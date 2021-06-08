@@ -17,8 +17,6 @@
 package viewmodels
 
 import cats.data.NonEmptyList
-import models.SecurityConsignee
-import models.SecurityConsignor
 import models.reference.Country
 
 object Helpers {

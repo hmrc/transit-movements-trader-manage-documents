@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-package models
+package utils
 
-import cats.syntax.all._
-import com.lucidchart.open.xtract.XmlReader
-import com.lucidchart.open.xtract.__
-import utils.LocalDateXMLReader._
+import scala.util.matching.Regex
 
-import java.time.LocalDate
+object FileNameSanitizer extends (String => String) {
 
-case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate)
+  val InvalidFileNameCharacters: Regex = "[^a-zA-Z0-9]".r
 
-object ControlResult {
+  override def apply(v1: String): String =
+    InvalidFileNameCharacters.replaceAllIn(v1, "x")
 
-  object Constants {
-    val controlResultCodeLength = 2
-  }
-
-  implicit val xmlReader: XmlReader[ControlResult] =
-    ((__ \ "ConResCodERS16").read[String], (__ \ "DatLimERS69").read[LocalDate])
-      .mapN(apply)
 }

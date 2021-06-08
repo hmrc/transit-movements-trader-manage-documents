@@ -24,8 +24,6 @@ import org.scalatest.MustMatchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-import scala.xml.NodeSeq
-
 class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators with OptionValues {
 
   "SecurityConsignor XML" - {

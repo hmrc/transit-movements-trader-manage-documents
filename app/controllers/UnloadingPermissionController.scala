@@ -31,6 +31,7 @@ import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.NodeSeq
+import utils.FileNameSanitizer
 
 class UnloadingPermissionController @Inject()(
   conversionService: UnloadingPermissionConversionService,
@@ -45,7 +46,13 @@ class UnloadingPermissionController @Inject()(
       XMLToPermissionToStartUnloading.convert(request.body) match {
         case ParseSuccess(unloadingPermission) =>
           conversionService.toViewModel(unloadingPermission).map {
-            case Validated.Valid(viewModel) => Ok(pdf.generate(viewModel))
+            case Validated.Valid(viewModel) =>
+              val fileName = s"UnloadingPermission_${FileNameSanitizer(unloadingPermission.movementReferenceNumber)}.pdf"
+              Ok(pdf.generate(viewModel))
+                .withHeaders(
+                  CONTENT_TYPE        -> "application/pdf",
+                  CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+                )
             case Validated.Invalid(errors) =>
               logger.error(s"Failed to convert to UnloadingPermissionViewModel with following errors: $errors")
 

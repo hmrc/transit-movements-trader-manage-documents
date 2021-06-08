@@ -40,7 +40,7 @@ object DateFormatter {
       try {
         date.format(DateTimeFormatter.ofPattern(pattern))
       } catch {
-        case _ => date.toString
+        case _: Throwable => date.toString
       }
   }
 }

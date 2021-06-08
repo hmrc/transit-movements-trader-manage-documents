@@ -16,10 +16,7 @@
 
 package services
 
-import cats.data.Validated._
-import cats.implicits._
 import models.reference.AdditionalInformation
-import models.reference.Country
 
 object SpecialMentionConverter extends Converter {
 

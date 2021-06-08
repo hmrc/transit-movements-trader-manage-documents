@@ -89,6 +89,8 @@ class UnloadingPermissionControllerSpec
             val result = route(application, request).value
 
             status(result) mustEqual OK
+            headers(result).get(CONTENT_TYPE).value mustEqual "application/pdf"
+            headers(result).get(CONTENT_DISPOSITION).value mustEqual """attachment; filename="UnloadingPermission_99IT9876AB88901209.pdf""""
         }
       }
     }

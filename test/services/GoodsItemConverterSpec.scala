@@ -25,8 +25,6 @@ import models.reference.DocumentType
 import models.reference.KindOfPackage
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers
-import viewmodels.Consignee
-import viewmodels.Consignor
 
 class GoodsItemConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
