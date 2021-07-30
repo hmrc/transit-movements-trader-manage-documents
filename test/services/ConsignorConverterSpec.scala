@@ -24,7 +24,7 @@ import org.scalatest.MustMatchers
 
 class ConsignorConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
-  private val countries = Seq(Country("valid", "a", "country 1"), Country("valid", "b", "country 2"))
+  private val countries = Seq(Country("a", "country 1"), Country("b", "country 2"))
 
   "toViewModel" - {
 
@@ -34,13 +34,15 @@ class ConsignorConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
 
       val result = ConsignorConverter.toViewModel(consignor, "path", countries)
 
-      result.valid.value mustEqual viewmodels.Consignor("name",
-                                                        "street longer than 32 characters...",
-                                                        "street longer than 32 charact***",
-                                                        "postCode",
-                                                        "city",
-                                                        countries.head,
-                                                        Some("EORI"))
+      result.valid.value mustEqual viewmodels.Consignor(
+        "name",
+        "street longer than 32 characters...",
+        "street longer than 32 charact***",
+        "postCode",
+        "city",
+        countries.head,
+        Some("EORI")
+      )
     }
 
     "must return Data Not Found when the country code cannot be found in the reference data" in {

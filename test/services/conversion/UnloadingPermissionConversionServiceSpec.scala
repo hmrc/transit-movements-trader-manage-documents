@@ -53,7 +53,7 @@ class UnloadingPermissionConversionServiceSpec
     with ScalaFutures
     with IntegrationPatience {
 
-  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val countries                 = Seq(Country("AA", "Country A"), Country("BB", "Country B"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
@@ -150,14 +150,16 @@ class UnloadingPermissionConversionServiceSpec
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 1.0,
-        principal = viewmodels.Principal("Principal name",
-                                         "Principal street",
-                                         "Principal street",
-                                         "Principal postCode",
-                                         "Principal city",
-                                         countries.head,
-                                         Some("Principal EORI"),
-                                         Some("tir")),
+        principal = viewmodels.Principal(
+          "Principal name",
+          "Principal street",
+          "Principal street",
+          "Principal postCode",
+          "Principal city",
+          countries.head,
+          Some("Principal EORI"),
+          Some("tir")
+        ),
         consignor =
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
@@ -188,9 +190,11 @@ class UnloadingPermissionConversionServiceSpec
               specialMentionNoCountryViewModel
             ),
             consignor = Some(
-              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)
+            ),
             consignee = Some(
-              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)
+            ),
             containers = Seq("container 1"),
             packages = NonEmptyList(
               viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),

@@ -76,7 +76,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
     with ModelGenerators
     with ScalaCheckPropertyChecks {
 
-  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val countries                 = Seq(Country("AA", "Country A"), Country("BB", "Country B"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
@@ -97,36 +97,51 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
   private val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
   private val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
   private val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
+
   private val securityConsignee = Some(
-    SecurityConsigneeWithoutEori("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code))
+    SecurityConsigneeWithoutEori("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code)
+  )
 
   private val securityConsigneeVM = Some(
-    viewmodels.SecurityConsignee(Some("security consignee name"),
-                                 Some("consignee street"),
-                                 Some("consignee postCode"),
-                                 Some("consignee city"),
-                                 Some(countries.head.code),
-                                 None))
+    viewmodels.SecurityConsignee(
+      Some("security consignee name"),
+      Some("consignee street"),
+      Some("consignee postCode"),
+      Some("consignee city"),
+      Some(countries.head.code),
+      None
+    )
+  )
+
   private val securityConsignor = Some(
-    SecurityConsignorWithoutEori("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code))
+    SecurityConsignorWithoutEori("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code)
+  )
 
   private val securityConsignorVM = Some(
-    viewmodels.SecurityConsignor(Some("security consignor name"),
-                                 Some("consignor street"),
-                                 Some("consignor postCode"),
-                                 Some("consignor city"),
-                                 Some(countries.head.code),
-                                 None))
+    viewmodels.SecurityConsignor(
+      Some("security consignor name"),
+      Some("consignor street"),
+      Some("consignor postCode"),
+      Some("consignor city"),
+      Some(countries.head.code),
+      None
+    )
+  )
+
   private val safetyAndSecurityCarrier = Some(
-    SafetyAndSecurityCarrierWithoutEori("security carrier name", "carrier street", "carrier postCode", "carrier city", countries.head.code))
+    SafetyAndSecurityCarrierWithoutEori("security carrier name", "carrier street", "carrier postCode", "carrier city", countries.head.code)
+  )
 
   private val safetyAndSecurityCarrierVM = Some(
-    viewmodels.SafetyAndSecurityCarrier(Some("security carrier name"),
-                                        Some("carrier street"),
-                                        Some("carrier postCode"),
-                                        Some("carrier city"),
-                                        Some(countries.head.code),
-                                        None))
+    viewmodels.SafetyAndSecurityCarrier(
+      Some("security carrier name"),
+      Some("carrier street"),
+      Some("carrier postCode"),
+      Some("carrier city"),
+      Some(countries.head.code),
+      None
+    )
+  )
 
   val validModel = models.ReleaseForTransit(
     Header(
@@ -222,7 +237,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
         forAll(arbitrary[Country], arbitrary[ReleaseForTransit], arbitrary[Consignor], arbitrary[Consignee], stringWithMaxLength(17)) {
           (countriesGen, releaseForTransitGen, consignorGen, consigneeGen, mrn) =>
             val referenceDataService = mock[ReferenceDataConnector]
-            when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
+            when(referenceDataService.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("AA", "Country A"))))
             when(referenceDataService.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
             when(referenceDataService.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
             when(referenceDataService.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
@@ -231,11 +246,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
             when(referenceDataService.circumstanceIndicators()(any(), any())) thenReturn Future.successful(Valid(circumstanceIndicators))
 
             when(referenceDataService.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB123", Some("Transit Office"), "AB"))
+              CustomsOffice("AB123", Some("Transit Office"), "AB")
+            )
             when(referenceDataService.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB124", Some("Departure Office"), "AB"))
+              CustomsOffice("AB124", Some("Departure Office"), "AB")
+            )
             when(referenceDataService.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB125", Some("Destination Office"), "AB"))
+              CustomsOffice("AB125", Some("Destination Office"), "AB")
+            )
 
             val consignorGenUpdated = Some(consignorGen.copy(countryCode = "AA"))
             val consigneeGenUpdated = Some(consigneeGen.copy(countryCode = "AA"))
@@ -267,7 +285,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
               agreedLocationOfGoodsCode = releaseForTransit.header.agreedLocationOfGoodsCode,
               placeOfLoadingCode = releaseForTransit.header.placeOfLoadingCode,
               placeOfUnloadingCode = releaseForTransit.header.placeOfUnloadingCode,
-              conveyanceReferenceNumber = releaseForTransit.header.conveyanceReferenceNumber,
+              conveyanceReferenceNumber = releaseForTransit.header.conveyanceReferenceNumber
             )
 
             val validModelUpdated = validModel.copy(
@@ -325,7 +343,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                   releaseForTransit.consignor.get.city,
                   countries.head,
                   releaseForTransit.consignor.get.eori
-                )),
+                )
+              ),
               consignee = Some(
                 viewmodels.Consignee(
                   releaseForTransit.consignee.get.name,
@@ -335,14 +354,21 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                   releaseForTransit.consignee.get.city,
                   countries.head,
                   releaseForTransit.consignee.get.eori
-                )),
+                )
+              ),
               departureOffice = CustomsOfficeWithOptionalDate(departureOffice, None),
               destinationOffice = CustomsOfficeWithOptionalDate(destinationOffice, None),
-              customsOfficeOfTransit = validModel.customsOfficeOfTransit.map(transit => CustomsOfficeWithOptionalDate(transitOffices, transit.arrivalTime, 32)),
-              returnCopiesCustomsOffice = releaseForTransit.returnCopiesCustomsOffice.map(office =>
-                viewmodels
-                  .ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber.shorten(32)("***"), office.postCode, office.city, countriesGen)),
-              controlResult = releaseForTransit.controlResult.flatMap(cr => controlResult.map(_.copy(controlResult = cr))),
+              customsOfficeOfTransit = validModel.customsOfficeOfTransit.map(
+                transit => CustomsOfficeWithOptionalDate(transitOffices, transit.arrivalTime, 32)
+              ),
+              returnCopiesCustomsOffice = releaseForTransit.returnCopiesCustomsOffice.map(
+                office =>
+                  viewmodels
+                    .ReturnCopiesCustomsOffice(office.customsOfficeName, office.streetAndNumber.shorten(32)("***"), office.postCode, office.city, countriesGen)
+              ),
+              controlResult = releaseForTransit.controlResult.flatMap(
+                cr => controlResult.map(_.copy(controlResult = cr))
+              ),
               guaranteeDetails = validModel.guaranteeDetails.toList,
               seals = releaseForTransit.seals,
               goodsItems = NonEmptyList.one(
@@ -359,17 +385,22 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                   commercialReferenceNumber = Some("ref"),
                   unDangerGoodsCode = Some("AA11"),
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
-                  previousDocumentTypes =
-                    validModel.goodsItems.head.previousAdminRef.map(ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)),
+                  previousDocumentTypes = validModel.goodsItems.head.previousAdminRef.map(
+                    ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)
+                  ),
                   specialMentions = Seq(
                     specialMentionEcViewModel,
                     specialMentionNonEcViewModel,
                     specialMentionNoCountryViewModel
                   ),
-                  consignor = Some(viewmodels
-                    .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-                  consignee = Some(viewmodels
-                    .Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+                  consignor = Some(
+                    viewmodels
+                      .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)
+                  ),
+                  consignee = Some(
+                    viewmodels
+                      .Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)
+                  ),
                   containers = Seq("container 1"),
                   packages = NonEmptyList(
                     viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
@@ -401,7 +432,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
         forAll(arbitrary[Country], arbitrary[ReleaseForTransit], stringWithMaxLength(17)) {
           (countriesGen, releaseForTransit, mrn) =>
             val referenceDataConnector = mock[ReferenceDataConnector]
-            when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("valid", "AA", "Country A"))))
+            when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("AA", "Country A"))))
             when(referenceDataConnector.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
             when(referenceDataConnector.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
             when(referenceDataConnector.additionalInformation()(any(), any())) thenReturn Future.successful(Valid(additionalInfo))
@@ -409,9 +440,11 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
             when(referenceDataConnector.circumstanceIndicators()(any(), any())) thenReturn Future.successful(Valid(circumstanceIndicators))
 
             when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB124", Some("Departure Office"), "AB"))
+              CustomsOffice("AB124", Some("Departure Office"), "AB")
+            )
             when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-              CustomsOffice("AB125", Some("Destination Office"), "AB"))
+              CustomsOffice("AB125", Some("Destination Office"), "AB")
+            )
 
             val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataConnector)
 
@@ -511,10 +544,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                     specialMentionNonEcViewModel,
                     specialMentionNoCountryViewModel
                   ),
-                  consignor = Some(viewmodels
-                    .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
-                  consignee = Some(viewmodels
-                    .Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+                  consignor = Some(
+                    viewmodels
+                      .Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)
+                  ),
+                  consignee = Some(
+                    viewmodels
+                      .Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)
+                  ),
                   containers = Seq("container 1"),
                   packages = NonEmptyList(
                     viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
@@ -563,11 +600,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
       when(referenceDataConnector.controlResultByCode(any())(any(), any())) thenReturn Future.successful(controlResult.get.controlResultData)
 
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB123", Some("Transit Office"), "AB"))
+        CustomsOffice("AB123", Some("Transit Office"), "AB")
+      )
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB124", Some("Departure Office"), "AB"))
+        CustomsOffice("AB124", Some("Departure Office"), "AB")
+      )
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB125", Some("Destination Office"), "AB"))
+        CustomsOffice("AB125", Some("Destination Office"), "AB")
+      )
 
       val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataConnector)
 
@@ -596,11 +636,14 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
       when(referenceDataConnector.controlResultByCode(any())(any(), any())) thenReturn Future.successful(controlResult.get.controlResultData)
 
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB123"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB123", Some("Transit Office"), "AB"))
+        CustomsOffice("AB123", Some("Transit Office"), "AB")
+      )
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB124"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB124", Some("Departure Office"), "AB"))
+        CustomsOffice("AB124", Some("Departure Office"), "AB")
+      )
       when(referenceDataConnector.customsOfficeSearch(eqTo("AB125"))(any(), any())) thenReturn Future.successful(
-        CustomsOffice("AB125", Some("Destination Office"), "AB"))
+        CustomsOffice("AB125", Some("Destination Office"), "AB")
+      )
 
       val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataConnector)
       val header  = validModel.header.copy(countryOfDispatch = Some("non-existent code"))

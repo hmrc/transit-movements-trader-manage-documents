@@ -36,46 +36,66 @@ import java.time.LocalDateTime
 
 class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
-  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val countries                 = Seq(Country("AA", "Country A"), Country("BB", "Country B"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
   private val sensitiveGoodsInformation = Nil
   private val departureOffice           = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office"), "AB"), None)
   private val destinationOffice         = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office"), "AB"), None)
+
   private val transitOffices = Seq(
-    CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0))))
+    CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))
+  )
   private val previousDocumentTypes  = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
   private val invalidCode            = "non-existent code"
   private val controlResult          = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
   private val circumstanceIndicators = Seq(CircumstanceIndicator("E", "indicator 1"), CircumstanceIndicator("D", "indicator 2"))
+
   private val securityConsignee = Some(
-    SecurityConsigneeWithoutEori("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code))
+    SecurityConsigneeWithoutEori("security consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code)
+  )
+
   private val securityConsigneeVM = Some(
-    SecurityConsignee(Some("security consignee name"),
-                      Some("consignee street"),
-                      Some("consignee postCode"),
-                      Some("consignee city"),
-                      Some(countries.head.code),
-                      None))
+    SecurityConsignee(
+      Some("security consignee name"),
+      Some("consignee street"),
+      Some("consignee postCode"),
+      Some("consignee city"),
+      Some(countries.head.code),
+      None
+    )
+  )
+
   private val securityConsignor = Some(
-    SecurityConsignorWithoutEori("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code))
+    SecurityConsignorWithoutEori("security consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code)
+  )
+
   private val securityConsignorVM = Some(
-    SecurityConsignor(Some("security consignor name"),
-                      Some("consignor street"),
-                      Some("consignor postCode"),
-                      Some("consignor city"),
-                      Some(countries.head.code),
-                      None))
+    SecurityConsignor(
+      Some("security consignor name"),
+      Some("consignor street"),
+      Some("consignor postCode"),
+      Some("consignor city"),
+      Some(countries.head.code),
+      None
+    )
+  )
+
   private val safetyAndSecurityCarrier = Some(
-    SafetyAndSecurityCarrierWithoutEori("security carrier name", "carrier street", "carrier postCode", "carrier city", countries.head.code))
+    SafetyAndSecurityCarrierWithoutEori("security carrier name", "carrier street", "carrier postCode", "carrier city", countries.head.code)
+  )
+
   private val safetyAndSecurityCarrierVM = Some(
-    SafetyAndSecurityCarrier(Some("security carrier name"),
-                             Some("carrier street"),
-                             Some("carrier postCode"),
-                             Some("carrier city"),
-                             Some(countries.head.code),
-                             None))
+    SafetyAndSecurityCarrier(
+      Some("security carrier name"),
+      Some("carrier street"),
+      Some("carrier postCode"),
+      Some("carrier city"),
+      Some(countries.head.code),
+      None
+    )
+  )
 
   "toViewModel" - {
 
@@ -115,13 +135,8 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
           placeOfUnloadingCode = Some("place1"),
           conveyanceReferenceNumber = Some("cNumber")
         ),
-        principal = models.Principal("Principal name",
-                                     "Principal street",
-                                     "Principal postCode",
-                                     "Principal city",
-                                     countries.head.code,
-                                     Some("Principal EORI"),
-                                     Some("tir")),
+        principal = models
+          .Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
         customsOfficeOfTransit = Seq(
@@ -203,14 +218,16 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
         placeOfLoadingCode = Some("place"),
         placeOfUnloadingCode = Some("place1"),
         conveyanceReferenceNumber = Some("cNumber"),
-        principal = viewmodels.Principal("Principal name",
-                                         "Principal street",
-                                         "Principal street",
-                                         "Principal postCode",
-                                         "Principal city",
-                                         countries.head,
-                                         Some("Principal EORI"),
-                                         Some("tir")),
+        principal = viewmodels.Principal(
+          "Principal name",
+          "Principal street",
+          "Principal street",
+          "Principal postCode",
+          "Principal city",
+          countries.head,
+          Some("Principal EORI"),
+          Some("tir")
+        ),
         consignor =
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
@@ -251,9 +268,11 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with Mus
               specialMentionNoCountryViewModel
             ),
             consignor = Some(
-              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)
+            ),
             consignee = Some(
-              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)
+            ),
             containers = Seq("container 1"),
             packages = NonEmptyList(
               viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),

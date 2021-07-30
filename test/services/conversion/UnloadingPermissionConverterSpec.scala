@@ -32,7 +32,7 @@ import services.ReferenceDataNotFound
 
 class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
-  private val countries                 = Seq(Country("valid", "AA", "Country A"), Country("valid", "BB", "Country B"))
+  private val countries                 = Seq(Country("AA", "Country A"), Country("BB", "Country B"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
@@ -64,13 +64,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 1.0,
-        principal = models.Principal("Principal name",
-                                     "Principal street",
-                                     "Principal postCode",
-                                     "Principal city",
-                                     countries.head.code,
-                                     Some("Principal EORI"),
-                                     Some("tir")),
+        principal = models
+          .Principal("Principal name", "Principal street", "Principal postCode", "Principal city", countries.head.code, Some("Principal EORI"), Some("tir")),
         consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", countries.head.code, None, None)),
         consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", countries.head.code, None, None)),
         traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", None, None, None, None, None),
@@ -126,14 +121,16 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 1.0,
-        principal = viewmodels.Principal("Principal name",
-                                         "Principal street",
-                                         "Principal street",
-                                         "Principal postCode",
-                                         "Principal city",
-                                         countries.head,
-                                         Some("Principal EORI"),
-                                         Some("tir")),
+        principal = viewmodels.Principal(
+          "Principal name",
+          "Principal street",
+          "Principal street",
+          "Principal postCode",
+          "Principal city",
+          countries.head,
+          Some("Principal EORI"),
+          Some("tir")
+        ),
         consignor =
           Some(viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
         consignee =
@@ -164,9 +161,11 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
               specialMentionNoCountryViewModel
             ),
             consignor = Some(
-              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)),
+              viewmodels.Consignor("consignor name", "consignor street", "consignor street", "consignor postCode", "consignor city", countries.head, None)
+            ),
             consignee = Some(
-              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)),
+              viewmodels.Consignee("consignee name", "consignee street", "consignee street", "consignee postCode", "consignee city", countries.head, None)
+            ),
             containers = Seq("container 1"),
             packages = NonEmptyList(
               viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
@@ -204,7 +203,8 @@ class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with V
           models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
         consignor = None,
         consignee = None,
-        traderAtDestination = models.TraderAtDestinationWithEori("Trader EORI", Some("name"), Some("street"), Some("postCode"), Some("city"), Some(invalidCode)),
+        traderAtDestination =
+          models.TraderAtDestinationWithEori("Trader EORI", Some("name"), Some("street"), Some("postCode"), Some("city"), Some(invalidCode)),
         departureOffice = "Departure office",
         presentationOffice = "Presentation office",
         seals = Seq("seal 1"),

@@ -19,7 +19,7 @@ package models.reference
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class Country(state: String, code: String, description: String) extends CodedReferenceData
+case class Country(code: String, description: String) extends CodedReferenceData
 
 object Country {
 

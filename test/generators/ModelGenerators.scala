@@ -51,7 +51,9 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
 
       for {
-        kindOfPackage    <- stringWithMaxLength(3).suchThat(x => !BulkPackage.validCodes.contains(x) && !UnpackedPackage.validCodes.contains(x))
+        kindOfPackage <- stringWithMaxLength(3).suchThat(
+          x => !BulkPackage.validCodes.contains(x) && !UnpackedPackage.validCodes.contains(x)
+        )
         numberOfPackages <- Gen.choose(0, 99999)
         marksAndNumbers  <- stringWithMaxLength(42)
       } yield RegularPackage(kindOfPackage, numberOfPackages, marksAndNumbers)
@@ -171,6 +173,7 @@ trait ModelGenerators extends GeneratorHelpers {
         eori            <- Gen.option(stringWithMaxLength(17))
       } yield Consignor(name, streetAndNumber, postCode, city, country, nadLanguageCode, eori)
     }
+
   implicit lazy val arbitrarySafetyAndSecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
     Arbitrary {
       Gen.oneOf(arbitrary[SafetyAndSecurityCarrierWithEori], arbitrary[SafetyAndSecurityCarrierWithoutEori])
@@ -282,30 +285,29 @@ trait ModelGenerators extends GeneratorHelpers {
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
         securityConsignor         <- arbitrary[SecurityConsignor]
         securityConsignee         <- arbitrary[SecurityConsignee]
-      } yield
-        GoodsItem(
-          itemNumber,
-          commodityCode,
-          declarationType,
-          description,
-          grossMass,
-          netMass,
-          countryOfDispatch,
-          countryOfDestination,
-          methodOfPayment,
-          commercialReferenceNumber,
-          unDangerGoodsCode,
-          previousAdminRef,
-          producedDocuments,
-          specialMentions,
-          consignor,
-          consignee,
-          containers,
-          packages,
-          sensitiveGoodsInformation,
-          Some(securityConsignor),
-          Some(securityConsignee)
-        )
+      } yield GoodsItem(
+        itemNumber,
+        commodityCode,
+        declarationType,
+        description,
+        grossMass,
+        netMass,
+        countryOfDispatch,
+        countryOfDestination,
+        methodOfPayment,
+        commercialReferenceNumber,
+        unDangerGoodsCode,
+        previousAdminRef,
+        producedDocuments,
+        specialMentions,
+        consignor,
+        consignee,
+        containers,
+        packages,
+        sensitiveGoodsInformation,
+        Some(securityConsignor),
+        Some(securityConsignee)
+      )
     }
 
   implicit lazy val arbitraryPermissionToContinueUnloading: Arbitrary[PermissionToContinueUnloading] =
@@ -341,27 +343,26 @@ trait ModelGenerators extends GeneratorHelpers {
         presentationOffice   <- stringWithMaxLength(8)
         seals                <- listWithMaxSize(2, stringWithMaxLength(20))
         goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
-      } yield
-        PermissionToStartUnloading(
-          mrn,
-          declarationType,
-          countryOfDispatch,
-          countryOfDestination,
-          transportId,
-          transportCountry,
-          acceptanceDate,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          principal,
-          consignor,
-          consignee,
-          traderAtDestination,
-          departureOffice,
-          presentationOffice,
-          seals,
-          goodsItems
-        )
+      } yield PermissionToStartUnloading(
+        mrn,
+        declarationType,
+        countryOfDispatch,
+        countryOfDestination,
+        transportId,
+        transportCountry,
+        acceptanceDate,
+        numberOfItems,
+        numberOfPackages,
+        grossMass,
+        principal,
+        consignor,
+        consignee,
+        traderAtDestination,
+        departureOffice,
+        presentationOffice,
+        seals,
+        goodsItems
+      )
     }
 
   implicit lazy val arbitraryCustomsOfficeOfTransit: Arbitrary[CustomsOfficeOfTransit] = Arbitrary {
@@ -421,42 +422,40 @@ trait ModelGenerators extends GeneratorHelpers {
         placeOfUnloadingCode              <- Gen.option(stringWithMaxLength(17))
         conveyanceReferenceNumber         <- Gen.option(stringWithMaxLength(17))
         security                          <- Gen.option(1)
-      } yield
-        Header(
-          mrn,
-          declarationType,
-          countryOfDispatch,
-          countryOfDestination,
-          transportId,
-          transportCountry,
-          acceptanceDate,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          bindingItinerary,
-          authId,
-          returnCopy,
-          circumstanceIndicator,
-          security,
-          commercialReferenceNumber,
-          methodOfPayment,
-          identityOfTransportCrossingBorder,
-          nationalityOfTransportAtBorder,
-          transportModeAtBorder,
-          agreedLocationOfGoodsCode,
-          placeOfLoadingCode,
-          placeOfUnloadingCode,
-          conveyanceReferenceNumber
-        )
+      } yield Header(
+        mrn,
+        declarationType,
+        countryOfDispatch,
+        countryOfDestination,
+        transportId,
+        transportCountry,
+        acceptanceDate,
+        numberOfItems,
+        numberOfPackages,
+        grossMass,
+        bindingItinerary,
+        authId,
+        returnCopy,
+        circumstanceIndicator,
+        security,
+        commercialReferenceNumber,
+        methodOfPayment,
+        identityOfTransportCrossingBorder,
+        nationalityOfTransportAtBorder,
+        transportModeAtBorder,
+        agreedLocationOfGoodsCode,
+        placeOfLoadingCode,
+        placeOfUnloadingCode,
+        conveyanceReferenceNumber
+      )
     }
 
-  implicit lazy val arbitraryItinerary: Arbitrary[Itinerary] = {
+  implicit lazy val arbitraryItinerary: Arbitrary[Itinerary] =
     Arbitrary {
       for {
         country <- Gen.pick(2, 'A' to 'Z')
       } yield Itinerary(country.mkString)
     }
-  }
 
   implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[ReleaseForTransit] =
     Arbitrary {
@@ -477,38 +476,35 @@ trait ModelGenerators extends GeneratorHelpers {
         safetyAndSecurityCarrier   <- Gen.option(arbitrary[SafetyAndSecurityCarrier])
         safetyAndSecurityConsignor <- Gen.option(arbitrary[SecurityConsignor])
         safetyAndSecurityConsignee <- Gen.option(arbitrary[SecurityConsignee])
-      } yield
-        ReleaseForTransit(
-          header,
-          principal,
-          consignor,
-          consignee,
-          customsOffOfTransit,
-          guaranteeDetails,
-          departureOffice,
-          destinationOffice,
-          returnCopiesCustomsOffice,
-          controlResult,
-          seals,
-          goodsItems,
-          itineraries,
-          safetyAndSecurityCarrier,
-          safetyAndSecurityConsignor,
-          safetyAndSecurityConsignee
-        )
+      } yield ReleaseForTransit(
+        header,
+        principal,
+        consignor,
+        consignee,
+        customsOffOfTransit,
+        guaranteeDetails,
+        departureOffice,
+        destinationOffice,
+        returnCopiesCustomsOffice,
+        controlResult,
+        seals,
+        goodsItems,
+        itineraries,
+        safetyAndSecurityCarrier,
+        safetyAndSecurityConsignor,
+        safetyAndSecurityConsignee
+      )
     }
 
-  implicit lazy val arbitraryCountry: Arbitrary[Country] = {
+  implicit lazy val arbitraryCountry: Arbitrary[Country] =
     Arbitrary {
       for {
-        state       <- arbitrary[String]
         code        <- Gen.pick(2, 'A' to 'Z')
         description <- arbitrary[String]
-      } yield Country(state, code.mkString, description)
+      } yield Country(code.mkString, description)
     }
-  }
 
-  implicit lazy val arbitraryTraderAtDestinationWithEoriViewModel: Arbitrary[viewmodels.TraderAtDestinationWithEori] = {
+  implicit lazy val arbitraryTraderAtDestinationWithEoriViewModel: Arbitrary[viewmodels.TraderAtDestinationWithEori] =
     Arbitrary {
       for {
         eori            <- stringWithMaxLength(17)
@@ -519,9 +515,8 @@ trait ModelGenerators extends GeneratorHelpers {
         countryCode     <- Gen.option(arbitrary[Country])
       } yield viewmodels.TraderAtDestinationWithEori(eori, name, streetAndNumber, postCode, city, countryCode)
     }
-  }
 
-  implicit lazy val arbitraryTraderAtDestinationWithoutEoriViewModel: Arbitrary[viewmodels.TraderAtDestinationWithoutEori] = {
+  implicit lazy val arbitraryTraderAtDestinationWithoutEoriViewModel: Arbitrary[viewmodels.TraderAtDestinationWithoutEori] =
     Arbitrary {
 
       for {
@@ -532,18 +527,16 @@ trait ModelGenerators extends GeneratorHelpers {
         country         <- arbitrary[Country]
       } yield viewmodels.TraderAtDestinationWithoutEori(name, streetAndNumber, postCode, city, country)
     }
-  }
 
-  implicit lazy val arbitraryTraderAtDestinationViewModel: Arbitrary[viewmodels.TraderAtDestination] = {
+  implicit lazy val arbitraryTraderAtDestinationViewModel: Arbitrary[viewmodels.TraderAtDestination] =
     Arbitrary {
       Gen.oneOf[viewmodels.TraderAtDestination](
         arbitrary[viewmodels.TraderAtDestinationWithEori],
         arbitrary[viewmodels.TraderAtDestinationWithoutEori]
       )
     }
-  }
 
-  implicit lazy val arbitraryDocumentType: Arbitrary[DocumentType] = {
+  implicit lazy val arbitraryDocumentType: Arbitrary[DocumentType] =
     Arbitrary {
       for {
         code              <- arbitrary[String]
@@ -551,9 +544,8 @@ trait ModelGenerators extends GeneratorHelpers {
         transportDocument <- arbitrary[Boolean]
       } yield DocumentType(code, description, transportDocument)
     }
-  }
 
-  implicit lazy val arbitraryProducedDocumentViewModel: Arbitrary[viewmodels.ProducedDocument] = {
+  implicit lazy val arbitraryProducedDocumentViewModel: Arbitrary[viewmodels.ProducedDocument] =
     Arbitrary {
 
       for {
@@ -562,18 +554,16 @@ trait ModelGenerators extends GeneratorHelpers {
         complement   <- Gen.option(stringWithMaxLength(26))
       } yield viewmodels.ProducedDocument(documentType, reference, complement)
     }
-  }
 
-  implicit lazy val arbitraryAdditionalInformationViewModel: Arbitrary[AdditionalInformation] = {
+  implicit lazy val arbitraryAdditionalInformationViewModel: Arbitrary[AdditionalInformation] =
     Arbitrary {
       for {
         code        <- arbitrary[String]
         description <- arbitrary[String]
       } yield AdditionalInformation(code, description)
     }
-  }
 
-  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] = {
+  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] =
     Arbitrary {
       for {
         additionalInformation      <- Gen.option(stringWithMaxLength(10))
@@ -582,7 +572,6 @@ trait ModelGenerators extends GeneratorHelpers {
         exportFromCountry          <- Gen.option(stringWithMaxLength(2))
       } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
-  }
 
   implicit lazy val arbitraryTADSpecialMention: Arbitrary[viewmodels.SpecialMention] =
     Arbitrary {
@@ -634,14 +623,13 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield viewmodels.Consignor(name, streetAndNumber, streetAndNumberTrimmed, postCode, city, country, eori)
     }
 
-  implicit lazy val arbitraryKindOfPackage: Arbitrary[KindOfPackage] = {
+  implicit lazy val arbitraryKindOfPackage: Arbitrary[KindOfPackage] =
     Arbitrary {
       for {
         code        <- arbitrary[String]
         description <- arbitrary[String]
       } yield KindOfPackage(code, description)
     }
-  }
 
   implicit lazy val arbitraryBulkPackageViewModel: Arbitrary[viewmodels.BulkPackage] =
     Arbitrary {
@@ -685,7 +673,7 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield PreviousDocumentTypes(code, description)
     }
 
-  implicit lazy val arbitraryPreviousAdministrativeReference: Arbitrary[PreviousAdministrativeReference] = {
+  implicit lazy val arbitraryPreviousAdministrativeReference: Arbitrary[PreviousAdministrativeReference] =
     Arbitrary {
       for {
         docType <- Gen.alphaNumStr
@@ -693,7 +681,6 @@ trait ModelGenerators extends GeneratorHelpers {
         comInf  <- Gen.option(Gen.alphaNumStr)
       } yield PreviousAdministrativeReference(documentType = docType, documentReference = docRef, complimentOfInfo = comInf)
     }
-  }
 
   implicit lazy val arbitraryPreviousDocumentType: Arbitrary[PreviousDocumentType] =
     Arbitrary {
@@ -703,7 +690,7 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield PreviousDocumentType(prevDocTypes, prevAdminRef)
     }
 
-  implicit lazy val arbitraryGoodsItemViewModel: Arbitrary[viewmodels.GoodsItem] = {
+  implicit lazy val arbitraryGoodsItemViewModel: Arbitrary[viewmodels.GoodsItem] =
     Arbitrary {
 
       for {
@@ -728,32 +715,30 @@ trait ModelGenerators extends GeneratorHelpers {
         sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
         securityConsignor         <- Gen.option(arbitrary[viewmodels.SecurityConsignor])
         securityConsignee         <- Gen.option(arbitrary[viewmodels.SecurityConsignee])
-      } yield
-        viewmodels.GoodsItem(
-          itemNumber,
-          commodityCode,
-          declarationType,
-          description,
-          grossMass,
-          netMass,
-          countryOfDispatch,
-          countryOfDestination,
-          methodOfPayment,
-          commercialReferenceNumber,
-          unDangerGoodsCode,
-          producedDocuments,
-          previousDocTypes,
-          specialMentions,
-          consignor,
-          consignee,
-          containers,
-          packages,
-          sensitiveGoodsInformation,
-          securityConsignor,
-          securityConsignee
-        )
+      } yield viewmodels.GoodsItem(
+        itemNumber,
+        commodityCode,
+        declarationType,
+        description,
+        grossMass,
+        netMass,
+        countryOfDispatch,
+        countryOfDestination,
+        methodOfPayment,
+        commercialReferenceNumber,
+        unDangerGoodsCode,
+        producedDocuments,
+        previousDocTypes,
+        specialMentions,
+        consignor,
+        consignee,
+        containers,
+        packages,
+        sensitiveGoodsInformation,
+        securityConsignor,
+        securityConsignee
+      )
     }
-  }
 
   implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
     datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))

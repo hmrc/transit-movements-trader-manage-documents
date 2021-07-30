@@ -197,10 +197,10 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
   val transitAccompanyingDocumentPDF: TransitAccompanyingDocumentPDF = TransitAccompanyingDocumentPDF(
     "21GB00006010025BD1",
     DeclarationType.TMinus,
-    Some(Country("valid", "GB", "United Kingdom")),
-    Some(Country("valid", "IT", "Italy")),
+    Some(Country("GB", "United Kingdom")),
+    Some(Country("IT", "Italy")),
     Some("TAD ID Departure"),
-    Some(Country("valid", "GB", "United Kingdom")),
+    Some(Country("GB", "United Kingdom")),
     Some(FormattedDate(LocalDate.parse("2021-03-12"))),
     3,
     Some(12),
@@ -214,7 +214,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
       "125 Psuedopolis Yard",
       "SS99 1AA",
       "Ank-Morpork",
-      Country("valid", "GB", "United Kingdom"),
+      Country("GB", "United Kingdom"),
       Some("GB652420267000"),
       None
     ),
@@ -229,11 +229,8 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
     List(GuaranteeDetails("3", List(GuaranteeReference(None, Some("TAD001"), None, List())))),
     List("TAD_Seals_001", "TAD_Seals_002", "TAD_Seals_003"),
     Some(
-      ReturnCopiesCustomsOffice("Central Community Transit Office",
-                                "BT-CCTO, HM Revenue and Customs",
-                                "BX9 1EH",
-                                "SALFORD",
-                                Country("valid", "GB", "United Kingdom"))),
+      ReturnCopiesCustomsOffice("Central Community Transit Office", "BT-CCTO, HM Revenue and Customs", "BX9 1EH", "SALFORD", Country("GB", "United Kingdom"))
+    ),
     Some(ControlResult(ControlResultData("A2", "Considered satisfactory"), models.ControlResult("A2", LocalDate.parse("2021-03-14")))),
     NonEmptyList.of(
       GoodsItem(
@@ -252,21 +249,19 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(SpecialMention(AdditionalInformation("DG1", "Export subject to duties"), models.SpecialMention(Some("TAD001"), "DG1", None, Some("GB")))),
         Some(
-          Consignor("QUIRM ENGINEERING",
-                    "125 Psuedopolis",
-                    "125 Psuedopolis",
-                    "SS99 1AA",
-                    "Ank-Morpork",
-                    Country("valid", "GB", "United Kingdom"),
-                    Some("GB60207001070000"))),
+          Consignor(
+            "QUIRM ENGINEERING",
+            "125 Psuedopolis",
+            "125 Psuedopolis",
+            "SS99 1AA",
+            "Ank-Morpork",
+            Country("GB", "United Kingdom"),
+            Some("GB60207001070000")
+          )
+        ),
         Some(
-          Consignee("DROFYL POTTERY",
-                    "125 Psuedopolis",
-                    "125 Psuedopolis",
-                    "SS99 1AA",
-                    "Ank-Morpork",
-                    Country("valid", "GB", "United Kingdom"),
-                    Some("GB658120050000"))),
+          Consignee("DROFYL POTTERY", "125 Psuedopolis", "125 Psuedopolis", "SS99 1AA", "Ank-Morpork", Country("GB", "United Kingdom"), Some("GB658120050000"))
+        ),
         List(),
         NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 4, "RedBull snow sports")),
         Vector(),
@@ -289,21 +284,19 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(),
         Some(
-          Consignor("QUIRM ENGINEERING",
-                    "125 Psuedopolis",
-                    "125 Psuedopolis",
-                    "SS99 1AA",
-                    "Ank-Morpork",
-                    Country("valid", "GB", "United Kingdom"),
-                    Some("GB60207001070000"))),
+          Consignor(
+            "QUIRM ENGINEERING",
+            "125 Psuedopolis",
+            "125 Psuedopolis",
+            "SS99 1AA",
+            "Ank-Morpork",
+            Country("GB", "United Kingdom"),
+            Some("GB60207001070000")
+          )
+        ),
         Some(
-          Consignee("DROFYL POTTERY",
-                    "125 Psuedopolis",
-                    "125 Psuedopolis",
-                    "SS99 1AA",
-                    "Ank-Morpork",
-                    Country("valid", "GB", "United Kingdom"),
-                    Some("GB658120050000"))),
+          Consignee("DROFYL POTTERY", "125 Psuedopolis", "125 Psuedopolis", "SS99 1AA", "Ank-Morpork", Country("GB", "United Kingdom"), Some("GB658120050000"))
+        ),
         List(),
         NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 4, "RedBull snow sports")),
         Vector(),
@@ -326,21 +319,19 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(),
         Some(
-          Consignor("DROFYL POTTERY",
-                    "125 Psuedopolis",
-                    "125 Psuedopolis",
-                    "SS99 1AA",
-                    "Ank-Morpork",
-                    Country("valid", "GB", "United Kingdom"),
-                    Some("GB658120050000"))),
+          Consignor("DROFYL POTTERY", "125 Psuedopolis", "125 Psuedopolis", "SS99 1AA", "Ank-Morpork", Country("GB", "United Kingdom"), Some("GB658120050000"))
+        ),
         Some(
-          Consignee("QUIRM ENGINEERING",
-                    "125 Psuedopolis",
-                    "125 Psuedopolis",
-                    "SS99 1AA",
-                    "Ank-Morpork",
-                    Country("valid", "GB", "United Kingdom"),
-                    Some("GB60207001070000"))),
+          Consignee(
+            "QUIRM ENGINEERING",
+            "125 Psuedopolis",
+            "125 Psuedopolis",
+            "SS99 1AA",
+            "Ank-Morpork",
+            Country("GB", "United Kingdom"),
+            Some("GB60207001070000")
+          )
+        ),
         List(),
         NonEmptyList.of(RegularPackage(KindOfPackage("BX", "Box"), 4, "RedBull snow sports")),
         Vector(),
