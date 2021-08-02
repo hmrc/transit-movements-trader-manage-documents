@@ -27,10 +27,11 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class UnloadingPermissionConversionService @Inject()(referenceData: ReferenceDataConnector) {
+class UnloadingPermissionConversionService @Inject() (referenceData: ReferenceDataConnector) {
 
-  def toViewModel(permission: models.PermissionToStartUnloading)(implicit ec: ExecutionContext,
-                                                                 hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
+  def toViewModel(
+    permission: models.PermissionToStartUnloading
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.PermissionToStartUnloading]] = {
 
     val countriesFuture      = referenceData.countries()
     val additionalInfoFuture = referenceData.additionalInformation()
@@ -42,20 +43,17 @@ class UnloadingPermissionConversionService @Inject()(referenceData: ReferenceDat
       additionalInfoResult <- additionalInfoFuture
       kindsOfPackageResult <- kindsOfPackageFuture
       documentTypesResult  <- documentTypesFuture
-    } yield {
-      (
-        countriesResult,
-        additionalInfoResult,
-        kindsOfPackageResult,
-        documentTypesResult
-      ).mapN(
-          (countries, additionalInfo, kindsOfPackage, documentTypes) =>
-            UnloadingPermissionConverter.toViewModel(permission, countries, additionalInfo, kindsOfPackage, documentTypes)
-        )
-        .fold(
-          errors => Invalid(errors),
-          result => result
-        )
-    }
+    } yield (
+      countriesResult,
+      additionalInfoResult,
+      kindsOfPackageResult,
+      documentTypesResult
+    ).mapN(
+      (countries, additionalInfo, kindsOfPackage, documentTypes) =>
+        UnloadingPermissionConverter.toViewModel(permission, countries, additionalInfo, kindsOfPackage, documentTypes)
+    ).fold(
+      errors => Invalid(errors),
+      result => result
+    )
   }
 }

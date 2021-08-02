@@ -32,6 +32,6 @@ object PreviousAdministrativeReference {
     (
       (__ \ "PreDocTypAR21").read[String],
       (__ \ "PreDocRefAR26").read[String],
-      (__ \ "ComOfInfAR29").read[String].optional,
+      (__ \ "ComOfInfAR29").read[String].optional
     ).mapN(apply)
 }

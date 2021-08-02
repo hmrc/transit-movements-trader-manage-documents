@@ -100,7 +100,8 @@ class TraderAtDestinationSpec extends FreeSpec with MustMatchers with ScalaCheck
             )
 
             Json.toJson(
-              TraderAtDestinationWithEori(eori, Some(name), Some(streetAndNumber), Some(postCode), Some(city), Some(countryCode)): TraderAtDestination) mustEqual json
+              TraderAtDestinationWithEori(eori, Some(name), Some(streetAndNumber), Some(postCode), Some(city), Some(countryCode)): TraderAtDestination
+            ) mustEqual json
         }
       }
 
@@ -130,22 +131,27 @@ class TraderAtDestinationSpec extends FreeSpec with MustMatchers with ScalaCheck
             val xml =
               <TRADESTRD>
             {
-              trader.name.fold(NodeSeq.Empty) { name =>
-                <NamTRD7>{name}</NamTRD7>
-              } ++
-              trader.streetAndNumber.fold(NodeSeq.Empty) { streetNumber =>
-                <StrAndNumTRD22>{streetNumber}</StrAndNumTRD22>
-              } ++
-              trader.postCode.fold(NodeSeq.Empty) { postcode =>
-                <PosCodTRD23>{postcode}</PosCodTRD23>
-              } ++
-              trader.city.fold(NodeSeq.Empty) { city =>
-                <CitTRD24>{city}</CitTRD24>
-              } ++
-              trader.countryCode.fold(NodeSeq.Empty) { countryCode =>
-                <CouTRD25>{countryCode}</CouTRD25>
+                trader.name.fold(NodeSeq.Empty) {
+                  name =>
+                    <NamTRD7>{name}</NamTRD7>
+                } ++
+                  trader.streetAndNumber.fold(NodeSeq.Empty) {
+                    streetNumber =>
+                      <StrAndNumTRD22>{streetNumber}</StrAndNumTRD22>
+                  } ++
+                  trader.postCode.fold(NodeSeq.Empty) {
+                    postcode =>
+                      <PosCodTRD23>{postcode}</PosCodTRD23>
+                  } ++
+                  trader.city.fold(NodeSeq.Empty) {
+                    city =>
+                      <CitTRD24>{city}</CitTRD24>
+                  } ++
+                  trader.countryCode.fold(NodeSeq.Empty) {
+                    countryCode =>
+                      <CouTRD25>{countryCode}</CouTRD25>
+                  }
               }
-            }
             <TINTRD59>{trader.eori}</TINTRD59>
           </TRADESTRD>
 

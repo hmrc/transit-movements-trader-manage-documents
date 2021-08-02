@@ -24,7 +24,7 @@ import views.xml.TransitAccompanyingDocument
 import javax.inject.Inject
 
 //TODO refactor this into one with unloading permission
-class TADPdfGenerator @Inject()(
+class TADPdfGenerator @Inject() (
   fop: PlayFop,
   document: TransitAccompanyingDocument
 ) {

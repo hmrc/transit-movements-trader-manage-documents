@@ -26,7 +26,9 @@ sealed trait Package {
   val numberOfPiecesValue: Int
   val countPackageAndMarks: Option[String]
 
-  val validateString: Option[String] => Option[String] = _.filter(x => x.trim.nonEmpty)
+  val validateString: Option[String] => Option[String] = _.filter(
+    x => x.trim.nonEmpty
+  )
 
   val validateCountAndPackage: Int => String => Option[String] =
     count =>

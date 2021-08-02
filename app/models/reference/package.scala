@@ -15,6 +15,7 @@
  */
 
 package models
+
 import play.api.libs.json.JsonValidationError
 import play.api.libs.json.Reads
 
@@ -24,7 +25,9 @@ import scala.util.Try
 package object reference {
 
   private val readStringFromInt: Reads[String] = implicitly[Reads[Int]]
-    .map(x => Try(x.toString))
+    .map(
+      x => Try(x.toString)
+    )
     .collect(JsonValidationError(Seq("Parsing error"))) {
       case Success(a) => a
     }

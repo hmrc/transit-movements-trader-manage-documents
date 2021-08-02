@@ -36,7 +36,7 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
         forAll(arbitrary[Consignor]) {
           consignor =>
-            val xml = {
+            val xml =
               <TRACONCO2>
                 <NamCO27>{consignor.name}</NamCO27>
                 <StrAndNumCO222>{consignor.streetAndNumber}</StrAndNumCO222>
@@ -44,15 +44,16 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
                 <CitCO224>{consignor.city}</CitCO224>
                 <CouCO225>{consignor.countryCode}</CouCO225>
                 {
-                  consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+                consignor.nadLanguageCode.fold(NodeSeq.Empty) {
+                  nadLangCode =>
                     <NADLNGGTCO>{nadLangCode}</NADLNGGTCO>
-                  } ++
-                  consignor.eori.fold(NodeSeq.Empty) { eori =>
-                    <TINCO259>{eori}</TINCO259>
+                } ++
+                  consignor.eori.fold(NodeSeq.Empty) {
+                    eori =>
+                      <TINCO259>{eori}</TINCO259>
                   }
-                }
+              }
               </TRACONCO2>
-            }
 
             val result = XmlReader.of[Consignor](Consignor.xmlReaderGoodsLevel).read(xml).toOption.value
 
@@ -76,7 +77,7 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
         forAll(arbitrary[Consignor]) {
           consignor =>
-            val xml = {
+            val xml =
               <TRACONCO1>
                 <NamCO17>{consignor.name}</NamCO17>
                 <StrAndNumCO122>{consignor.streetAndNumber}</StrAndNumCO122>
@@ -84,15 +85,16 @@ class ConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
                 <CitCO124>{consignor.city}</CitCO124>
                 <CouCO125>{consignor.countryCode}</CouCO125>
                 {
-                consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-                  <NADLNGCO>{nadLangCode}</NADLNGCO>
+                consignor.nadLanguageCode.fold(NodeSeq.Empty) {
+                  nadLangCode =>
+                    <NADLNGCO>{nadLangCode}</NADLNGCO>
                 } ++
-                  consignor.eori.fold(NodeSeq.Empty) { eori =>
-                    <TINCO159>{eori}</TINCO159>
+                  consignor.eori.fold(NodeSeq.Empty) {
+                    eori =>
+                      <TINCO159>{eori}</TINCO159>
                   }
-                }
+              }
               </TRACONCO1>
-            }
 
             val result = XmlReader.of[Consignor](Consignor.xmlReaderRootLevel).read(xml).toOption.value
 

@@ -99,22 +99,24 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
 
       forAll(arbitrary[SpecialMention]) {
         specialMention =>
-          val xml = {
+          val xml =
             <SPEMENMT2>
                 {
-                  specialMention.additionalInformation.fold(NodeSeq.Empty) { ai =>
-                    <AddInfMT21>{ai}</AddInfMT21>
-                  } ++
-                  NodeSeq.fromSeq(Seq(<AddInfCodMT23>{specialMention.additionalInformationCoded}</AddInfCodMT23>)) ++
-                  specialMention.exportFromEC.fold(NodeSeq.Empty) { efec =>
-                    <ExpFroECMT24>{if(efec) 1 else 0}</ExpFroECMT24>
-                  } ++
-                  specialMention.exportFromCountry.fold(NodeSeq.Empty) { efc =>
+              specialMention.additionalInformation.fold(NodeSeq.Empty) {
+                ai =>
+                  <AddInfMT21>{ai}</AddInfMT21>
+              } ++
+                NodeSeq.fromSeq(Seq(<AddInfCodMT23>{specialMention.additionalInformationCoded}</AddInfCodMT23>)) ++
+                specialMention.exportFromEC.fold(NodeSeq.Empty) {
+                  efec =>
+                    <ExpFroECMT24>{if (efec) 1 else 0}</ExpFroECMT24>
+                } ++
+                specialMention.exportFromCountry.fold(NodeSeq.Empty) {
+                  efc =>
                     <ExpFroCouMT25>{efc}</ExpFroCouMT25>
-                  }
                 }
+            }
               </SPEMENMT2>
-          }
 
           val result = XmlReader.of[SpecialMention].read(xml).toOption.value
 
@@ -122,23 +124,21 @@ class SpecialMentionSpec extends FreeSpec with MustMatchers with ScalaCheckPrope
       }
     }
     "must fail to deserialize if a field is invalid" in {
-      val xml = {
+      val xml =
         <SPEMENT2>
           <AddInfCodMT23>12345</AddInfCodMT23>
           <ExpFroECMT24>Invalid Value</ExpFroECMT24>
         </SPEMENT2>
-      }
 
       val result = XmlReader.of[SpecialMention].read(xml).toOption
 
       result mustBe None
     }
     "must fail to deserialize if no additionalInformationCoded is present" in {
-      val xml = {
+      val xml =
         <SPEMENT2>
           <ExpFroECMT24>1</ExpFroECMT24>
         </SPEMENT2>
-      }
 
       val result = XmlReader.of[SpecialMention].read(xml).toOption
 

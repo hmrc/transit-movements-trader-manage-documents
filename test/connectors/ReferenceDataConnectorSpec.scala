@@ -314,7 +314,8 @@ class ReferenceDataConnectorSpec
             whenReady(service.additionalInformation()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
-                  ReferenceDataRetrievalError("additionalInformation", returnStatus, "body"))
+                  ReferenceDataRetrievalError("additionalInformation", returnStatus, "body")
+                )
             }
         }
       }
@@ -504,7 +505,8 @@ class ReferenceDataConnectorSpec
             whenReady(service.previousDocumentTypes()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
-                  ReferenceDataRetrievalError("previousDocumentTypes", returnStatus, "body"))
+                  ReferenceDataRetrievalError("previousDocumentTypes", returnStatus, "body")
+                )
             }
         }
       }
@@ -637,7 +639,8 @@ class ReferenceDataConnectorSpec
             whenReady(service.circumstanceIndicators()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
-                  ReferenceDataRetrievalError("circumstanceIndicators", returnStatus, "body"))
+                  ReferenceDataRetrievalError("circumstanceIndicators", returnStatus, "body")
+                )
             }
         }
       }

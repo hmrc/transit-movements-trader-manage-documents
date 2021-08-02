@@ -143,10 +143,11 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
             val xml =
               <PACGS2>
                 {
-                  bulkPackage.marksAndNumbers.fold(NodeSeq.Empty) { markAndNumbers =>
+                bulkPackage.marksAndNumbers.fold(NodeSeq.Empty) {
+                  markAndNumbers =>
                     <MarNumOfPacGS21>{markAndNumbers}</MarNumOfPacGS21>
-                  }
                 }
+              }
                 <KinOfPacGS23>{bulkPackage.kindOfPackage}</KinOfPacGS23>
               </PACGS2>
 
@@ -164,10 +165,11 @@ class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChec
             val xml =
               <PACGS2>
                 {
-                  unpackedPackage.marksAndNumbers.fold(NodeSeq.Empty) { markAndNumbers =>
+                unpackedPackage.marksAndNumbers.fold(NodeSeq.Empty) {
+                  markAndNumbers =>
                     <MarNumOfPacGS21>{markAndNumbers}</MarNumOfPacGS21>
-                  }
                 }
+              }
                 <KinOfPacGS23>{unpackedPackage.kindOfPackage}</KinOfPacGS23>
                 <NumOfPieGS25>{unpackedPackage.numberOfPieces}</NumOfPieGS25>
               </PACGS2>

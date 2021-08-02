@@ -15,6 +15,7 @@
  */
 
 package utils
+
 import generators.GeneratorHelpers
 import org.scalatest.FreeSpec
 import org.scalatest.MustMatchers

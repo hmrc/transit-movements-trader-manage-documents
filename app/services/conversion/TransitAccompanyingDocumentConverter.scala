@@ -24,16 +24,18 @@ import viewmodels.CustomsOfficeWithOptionalDate
 
 object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 
-  def toViewModel(transitAccompanyingDocument: models.ReleaseForTransit,
-                  countries: Seq[Country],
-                  additionalInfo: Seq[AdditionalInformation],
-                  kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType],
-                  departureOffice: CustomsOfficeWithOptionalDate,
-                  destinationOffice: CustomsOfficeWithOptionalDate,
-                  transitOffices: Seq[CustomsOfficeWithOptionalDate],
-                  previousDocumentTypes: Seq[PreviousDocumentTypes],
-                  controlResult: Option[viewmodels.ControlResult]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
+  def toViewModel(
+    transitAccompanyingDocument: models.ReleaseForTransit,
+    countries: Seq[Country],
+    additionalInfo: Seq[AdditionalInformation],
+    kindsOfPackage: Seq[KindOfPackage],
+    documentTypes: Seq[DocumentType],
+    departureOffice: CustomsOfficeWithOptionalDate,
+    destinationOffice: CustomsOfficeWithOptionalDate,
+    transitOffices: Seq[CustomsOfficeWithOptionalDate],
+    previousDocumentTypes: Seq[PreviousDocumentTypes],
+    controlResult: Option[viewmodels.ControlResult]
+  ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] =
     (
       convertCountryOfDispatch(transitAccompanyingDocument.header.countryOfDispatch, countries),
       convertCountryOfDestination(transitAccompanyingDocument.header.countryOfDestination, countries),
@@ -42,7 +44,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
       convertGoodsItems(transitAccompanyingDocument.goodsItems, countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes),
       convertConsignor(transitAccompanyingDocument.consignor, countries),
       convertConsignee(transitAccompanyingDocument.consignee, countries),
-      convertReturnCopiesCustomsOffice(transitAccompanyingDocument.returnCopiesCustomsOffice, countries),
+      convertReturnCopiesCustomsOffice(transitAccompanyingDocument.returnCopiesCustomsOffice, countries)
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee, returnCopiesCustomsOffice) =>
         viewmodels.TransitAccompanyingDocumentPDF(
@@ -70,7 +72,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
           returnCopiesCustomsOffice = returnCopiesCustomsOffice,
           controlResult = controlResult,
           goodsItems = goodsItems
-      )
+        )
     )
 
 }

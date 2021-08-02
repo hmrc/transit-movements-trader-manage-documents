@@ -45,7 +45,9 @@ object Enumerable {
       }
 
     implicit def writes[A](implicit ev: Enumerable[A]): Writes[A] =
-      Writes(value => JsString(value.toString))
+      Writes(
+        value => JsString(value.toString)
+      )
 
     implicit def pathBindable[A](implicit ev: Enumerable[A]): PathBindable[A] =
       new PathBindable[A] {

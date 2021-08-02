@@ -15,6 +15,7 @@
  */
 
 package models.reference
+
 import generators.ReferenceModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.FreeSpec

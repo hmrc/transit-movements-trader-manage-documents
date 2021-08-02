@@ -77,6 +77,7 @@ final case class SecurityConsignorWithoutEori(
 ) extends SecurityConsignor
 
 object SecurityConsignorWithoutEori {
+
   implicit lazy val reads: Reads[SecurityConsignorWithoutEori] =
     Json.reads[SecurityConsignorWithoutEori]
 
@@ -96,7 +97,7 @@ object SecurityConsignorWithoutEori {
     (__ \ "StrNumTRACORSEC043").read[String],
     (__ \ "PosCodTRACORSEC042").read[String],
     (__ \ "CitTRACORSEC038").read[String],
-    (__ \ "CouCodTRACORSEC039").read[String],
+    (__ \ "CouCodTRACORSEC039").read[String]
   ).mapN(apply)
 
 }

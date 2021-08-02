@@ -72,6 +72,7 @@ final case class SafetyAndSecurityCarrierWithoutEori(
 ) extends SafetyAndSecurityCarrier
 
 object SafetyAndSecurityCarrierWithoutEori {
+
   implicit lazy val reads: Reads[SafetyAndSecurityCarrierWithoutEori] =
     Json.reads[SafetyAndSecurityCarrierWithoutEori]
 
@@ -83,6 +84,6 @@ object SafetyAndSecurityCarrierWithoutEori {
     (__ \ "StrAndNumCARTRA254").read[String],
     (__ \ "PosCodCARTRA121").read[String],
     (__ \ "CitCARTRA789").read[String],
-    (__ \ "CouCodCARTRA587").read[String],
+    (__ \ "CouCodCARTRA587").read[String]
   ).mapN(apply)
 }

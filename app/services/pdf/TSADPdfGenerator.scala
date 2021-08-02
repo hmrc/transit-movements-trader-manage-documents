@@ -23,7 +23,7 @@ import views.xml.TransitSecurityAccompanyingDocument
 
 import javax.inject.Inject
 
-class TSADPdfGenerator @Inject()(
+class TSADPdfGenerator @Inject() (
   fop: PlayFop,
   document: TransitSecurityAccompanyingDocument
 ) {

@@ -33,7 +33,7 @@ import scala.concurrent.Future
 import scala.xml.NodeSeq
 import utils.FileNameSanitizer
 
-class UnloadingPermissionController @Inject()(
+class UnloadingPermissionController @Inject() (
   conversionService: UnloadingPermissionConversionService,
   pdf: UnloadingPermissionPdfGenerator,
   cc: ControllerComponents

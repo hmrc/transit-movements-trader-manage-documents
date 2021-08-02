@@ -36,12 +36,11 @@ class NonEmptyListXMLReaderSpec extends FreeSpec with MustMatchers with ScalaChe
 
       forAll(arbitrary[List[String]].suchThat(_.nonEmpty)) {
         list =>
-          val xml = {
+          val xml =
             list.map {
               value =>
                 <testChild>{value}</testChild>
             }
-          }
 
           val result = XmlReader.of(xmlNonEmptyListReads[String]).read(xml).toOption.value
 

@@ -31,10 +31,9 @@ object SensitiveGoodsInformation {
 
   implicit lazy val format: OFormat[SensitiveGoodsInformation] = Json.format[SensitiveGoodsInformation]
 
-  implicit val xmlReader: XmlReader[SensitiveGoodsInformation] = {
+  implicit val xmlReader: XmlReader[SensitiveGoodsInformation] =
     (
       (__ \ "SenGooCodSD22").read[String].optional,
       (__ \ "SenQuaSD23").read[Int]
     ).mapN(apply)
-  }
 }

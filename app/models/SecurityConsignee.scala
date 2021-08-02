@@ -78,6 +78,7 @@ final case class SecurityConsigneeWithoutEori(
 ) extends SecurityConsignee
 
 object SecurityConsigneeWithoutEori {
+
   implicit lazy val reads: Reads[SecurityConsigneeWithoutEori] =
     Json.reads[SecurityConsigneeWithoutEori]
 
@@ -89,7 +90,7 @@ object SecurityConsigneeWithoutEori {
     (__ \ "StrNumTRACONSECGOO019").read[String],
     (__ \ "PosCodTRACONSECGOO018").read[String],
     (__ \ "CityTRACONSECGOO014").read[String],
-    (__ \ "CouCodTRACONSECGOO015").read[String],
+    (__ \ "CouCodTRACONSECGOO015").read[String]
   ).mapN(apply)
 
   implicit val xmlRootLevelReader: XmlReader[SecurityConsigneeWithoutEori] = (
@@ -97,7 +98,7 @@ object SecurityConsigneeWithoutEori {
     (__ \ "StrNumTRACONSEC035").read[String],
     (__ \ "PosCodTRACONSEC034").read[String],
     (__ \ "CitTRACONSEC030").read[String],
-    (__ \ "CouCodTRACONSEC031").read[String],
+    (__ \ "CouCodTRACONSEC031").read[String]
   ).mapN(apply)
 
 }

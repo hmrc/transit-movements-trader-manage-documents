@@ -24,17 +24,19 @@ import viewmodels.CustomsOfficeWithOptionalDate
 
 object TransitSecurityAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 
-  def toViewModel(releaseForTransit: models.ReleaseForTransit,
-                  countries: Seq[Country],
-                  additionalInfo: Seq[AdditionalInformation],
-                  kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType],
-                  departureOffice: CustomsOfficeWithOptionalDate,
-                  destinationOffice: CustomsOfficeWithOptionalDate,
-                  transitOffices: Seq[CustomsOfficeWithOptionalDate],
-                  previousDocumentTypes: Seq[PreviousDocumentTypes],
-                  controlResult: Option[viewmodels.ControlResult],
-                  circumstanceIndicators: Seq[CircumstanceIndicator]): ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] =
+  def toViewModel(
+    releaseForTransit: models.ReleaseForTransit,
+    countries: Seq[Country],
+    additionalInfo: Seq[AdditionalInformation],
+    kindsOfPackage: Seq[KindOfPackage],
+    documentTypes: Seq[DocumentType],
+    departureOffice: CustomsOfficeWithOptionalDate,
+    destinationOffice: CustomsOfficeWithOptionalDate,
+    transitOffices: Seq[CustomsOfficeWithOptionalDate],
+    previousDocumentTypes: Seq[PreviousDocumentTypes],
+    controlResult: Option[viewmodels.ControlResult],
+    circumstanceIndicators: Seq[CircumstanceIndicator]
+  ): ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF] =
     (
       convertCountryOfDispatch(releaseForTransit.header.countryOfDispatch, countries),
       convertCountryOfDestination(releaseForTransit.header.countryOfDestination, countries),
@@ -44,7 +46,7 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
       convertConsignor(releaseForTransit.consignor, countries),
       convertConsignee(releaseForTransit.consignee, countries),
       convertReturnCopiesCustomsOffice(releaseForTransit.returnCopiesCustomsOffice, countries),
-      convertCircumstanceIndicator(releaseForTransit.header.circumstanceIndicator, circumstanceIndicators),
+      convertCircumstanceIndicator(releaseForTransit.header.circumstanceIndicator, circumstanceIndicators)
     ).mapN(
       (dispatch, destination, principal, transportCountry, goodsItems, consignor, consignee, returnCopiesCustomsOffice, circumstanceIndicator) =>
         viewmodels.TransitSecurityAccompanyingDocumentPDF(
@@ -87,7 +89,7 @@ object TransitSecurityAccompanyingDocumentConverter extends Converter with Conve
           safetyAndSecurityCarrier = releaseForTransit.safetyAndSecurityCarrier.map(SecurityCarrierConverter.convertToSafetyAndSecurityCarrierVM),
           safetyAndSecurityConsignor = releaseForTransit.safetyAndSecurityConsignor.map(SecurityConsignorConverter.convertToSecurityConsignorVM),
           safetyAndSecurityConsignee = releaseForTransit.safetyAndSecurityConsignee.map(SecurityConsigneeConverter.convertToSecurityConsigneeVM)
-      )
+        )
     )
 
 }

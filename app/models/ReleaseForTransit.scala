@@ -63,24 +63,23 @@ object ReleaseForTransit {
       carrier                    <- (__ \ "CARTRA100").read[SafetyAndSecurityCarrier].optional.read(xml)
       safetyAndSecurityConsignor <- (__ \ "TRACORSEC037").read[SecurityConsignor](SecurityConsignor.xmlReaderRootLevel).optional.read(xml)
       safetyAndSecurityConsignee <- (__ \ "TRACONSEC029").read[SecurityConsignee](SecurityConsignee.xmlReaderRootLevel).optional.read(xml)
-    } yield
-      ReleaseForTransit(
-        header,
-        principal,
-        consignor,
-        consignee,
-        customsOfficeOfTransit,
-        guaranteeDetails,
-        departureOffice,
-        destinationOffice,
-        returnCopiesCustomsOffice,
-        controlResult,
-        seals,
-        goodsItems,
-        itineraries,
-        carrier,
-        safetyAndSecurityConsignor,
-        safetyAndSecurityConsignee
-      )
+    } yield ReleaseForTransit(
+      header,
+      principal,
+      consignor,
+      consignee,
+      customsOfficeOfTransit,
+      guaranteeDetails,
+      departureOffice,
+      destinationOffice,
+      returnCopiesCustomsOffice,
+      controlResult,
+      seals,
+      goodsItems,
+      itineraries,
+      carrier,
+      safetyAndSecurityConsignor,
+      safetyAndSecurityConsignee
+    )
   }
 }

@@ -56,7 +56,8 @@ class ReturnCopiesCustomsOfficeSpec extends FreeSpec with ScalaCheckPropertyChec
       </CUSOFFRETCOPOCP>
 
       XmlReader.of[ReturnCopiesCustomsOffice].read(trim(inputXml)) mustBe ParseFailure(
-        List(EmptyError(XPath \ "StrAndNumOCP3"), EmptyError(XPath \ "PosCodOCP6")))
+        List(EmptyError(XPath \ "StrAndNumOCP3"), EmptyError(XPath \ "PosCodOCP6"))
+      )
     }
   }
 

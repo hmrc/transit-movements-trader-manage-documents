@@ -38,6 +38,6 @@ object ReturnCopiesCustomsOffice {
     (__ \ "StrAndNumOCP3").read[String],
     (__ \ "PosCodOCP6").read[String],
     (__ \ "CitOCP7").read[String],
-    (__ \ "CouOCP4").read[String],
+    (__ \ "CouOCP4").read[String]
   ).mapN(ReturnCopiesCustomsOffice.apply)
 }

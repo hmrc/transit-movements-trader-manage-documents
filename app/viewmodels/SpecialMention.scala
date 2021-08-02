@@ -26,11 +26,15 @@ case class SpecialMention(
   val countryCodeToPrint: Option[String] = {
     if (specialMention.exportFromEC.contains(true)) {
       specialMention.exportFromCountry
-        .map(countyCode => s"EU $countyCode")
+        .map(
+          countyCode => s"EU $countyCode"
+        )
         .orElse(Some("EU"))
     } else {
       specialMention.exportFromCountry
-        .map(countyCode => s"$countyCode")
+        .map(
+          countyCode => s"$countyCode"
+        )
     }
   }
 }

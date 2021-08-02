@@ -27,9 +27,10 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataConnector) {
+class TransitSecurityAccompanyingDocumentConversionService @Inject() (referenceData: ReferenceDataConnector) {
 
-  def toViewModel(releaseForTransit: models.ReleaseForTransit,
+  def toViewModel(
+    releaseForTransit: models.ReleaseForTransit
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitSecurityAccompanyingDocumentPDF]] = {
 
     val countriesFuture              = referenceData.countries()
@@ -39,23 +40,37 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
     val previousDocumentTypesFuture  = referenceData.previousDocumentTypes()
     val circumstanceIndicatorsFuture = referenceData.circumstanceIndicators()
 
-    lazy val controlResultFuture = Future.sequence(releaseForTransit.controlResult.toList.map(code =>
-      referenceData.controlResultByCode(code.conResCodERS16).map(crd => viewmodels.ControlResult(crd, code))))
+    lazy val controlResultFuture = Future.sequence(
+      releaseForTransit.controlResult.toList.map(
+        code =>
+          referenceData
+            .controlResultByCode(code.conResCodERS16)
+            .map(
+              crd => viewmodels.ControlResult(crd, code)
+            )
+      )
+    )
 
     lazy val departureOfficeFuture = referenceData
       .customsOfficeSearch(releaseForTransit.departureOffice)
-      .map(office => CustomsOfficeWithOptionalDate(office, None))
+      .map(
+        office => CustomsOfficeWithOptionalDate(office, None)
+      )
 
     lazy val destinationOfficeFuture = referenceData
       .customsOfficeSearch(releaseForTransit.destinationOffice)
-      .map(office => CustomsOfficeWithOptionalDate(office, None))
+      .map(
+        office => CustomsOfficeWithOptionalDate(office, None)
+      )
 
     lazy val transitOfficeFuture = Future.sequence(
       releaseForTransit.customsOfficeOfTransit.map(
         office =>
           referenceData
             .customsOfficeSearch(office.reference)
-            .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 32))
+            .map(
+              customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 32)
+            )
       )
     )
 
@@ -70,34 +85,31 @@ class TransitSecurityAccompanyingDocumentConversionService @Inject()(referenceDa
       transitOffice                <- transitOfficeFuture
       controlResult                <- controlResultFuture
       circumstanceIndicatorsResult <- circumstanceIndicatorsFuture
-    } yield {
-      (
-        countriesResult,
-        additionalInfoResult,
-        kindsOfPackageResult,
-        documentTypesResult,
-        previousDocumentResult,
-        circumstanceIndicatorsResult
-      ).mapN(
-          (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes, circumstanceIndicators) =>
-            TransitSecurityAccompanyingDocumentConverter.toViewModel(
-              releaseForTransit,
-              countries,
-              additionalInfo,
-              kindsOfPackage,
-              documentTypes,
-              departureOffice,
-              destinationOffice,
-              transitOffice,
-              previousDocumentTypes,
-              controlResult.headOption,
-              circumstanceIndicators
-          )
+    } yield (
+      countriesResult,
+      additionalInfoResult,
+      kindsOfPackageResult,
+      documentTypesResult,
+      previousDocumentResult,
+      circumstanceIndicatorsResult
+    ).mapN(
+      (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes, circumstanceIndicators) =>
+        TransitSecurityAccompanyingDocumentConverter.toViewModel(
+          releaseForTransit,
+          countries,
+          additionalInfo,
+          kindsOfPackage,
+          documentTypes,
+          departureOffice,
+          destinationOffice,
+          transitOffice,
+          previousDocumentTypes,
+          controlResult.headOption,
+          circumstanceIndicators
         )
-        .fold(
-          errors => Invalid(errors),
-          result => result
-        )
-    }
+    ).fold(
+      errors => Invalid(errors),
+      result => result
+    )
   }
 }

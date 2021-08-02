@@ -15,6 +15,7 @@
  */
 
 package models.reference
+
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 

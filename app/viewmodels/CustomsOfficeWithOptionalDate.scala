@@ -27,13 +27,17 @@ case class CustomsOfficeWithOptionalDate(office: CustomsOffice, date: Option[Loc
 
   def reference: String =
     office.name
-      .map(name => s"$name (${office.countryId})")
+      .map(
+        name => s"$name (${office.countryId})"
+      )
       .getOrElse(office.id)
       .shorten(maxLength)(trimmed)
 
   def referenceWithOfficeId: String =
     office.name
-      .map(name => s"${office.id} ($name)")
+      .map(
+        name => s"${office.id} ($name)"
+      )
       .getOrElse(office.id)
       .shorten(maxLength)(trimmed)
 

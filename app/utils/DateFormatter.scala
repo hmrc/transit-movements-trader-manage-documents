@@ -37,9 +37,8 @@ object DateFormatter {
 
   def dateFormatted(dateOption: Option[LocalDate], pattern: String): Option[String] = dateOption.map {
     date =>
-      try {
-        date.format(DateTimeFormatter.ofPattern(pattern))
-      } catch {
+      try date.format(DateTimeFormatter.ofPattern(pattern))
+      catch {
         case _: Throwable => date.toString
       }
   }

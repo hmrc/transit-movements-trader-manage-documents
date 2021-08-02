@@ -28,11 +28,13 @@ import utils.StringTransformer._
 
 object UnloadingPermissionConverter extends Converter with ConversionHelpers {
 
-  def toViewModel(permission: models.PermissionToStartUnloading,
-                  countries: Seq[Country],
-                  additionalInfo: Seq[AdditionalInformation],
-                  kindsOfPackage: Seq[KindOfPackage],
-                  documentTypes: Seq[DocumentType]): ValidationResult[viewmodels.PermissionToStartUnloading] = {
+  def toViewModel(
+    permission: models.PermissionToStartUnloading,
+    countries: Seq[Country],
+    additionalInfo: Seq[AdditionalInformation],
+    kindsOfPackage: Seq[KindOfPackage],
+    documentTypes: Seq[DocumentType]
+  ): ValidationResult[viewmodels.PermissionToStartUnloading] = {
 
     def convertGoodsItems(items: NonEmptyList[models.GoodsItem]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
@@ -83,7 +85,7 @@ object UnloadingPermissionConverter extends Converter with ConversionHelpers {
           Some(permission.presentationOffice),
           permission.seals,
           goodsItems
-      )
+        )
     )
   }
 }

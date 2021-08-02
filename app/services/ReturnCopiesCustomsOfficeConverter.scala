@@ -21,9 +21,11 @@ import utils.StringTransformer._
 
 object ReturnCopiesCustomsOfficeConverter extends Converter {
 
-  def toViewModel(returnCopiesCustomsOffice: models.ReturnCopiesCustomsOffice,
-                  path: String,
-                  countries: Seq[Country]): ValidationResult[viewmodels.ReturnCopiesCustomsOffice] =
+  def toViewModel(
+    returnCopiesCustomsOffice: models.ReturnCopiesCustomsOffice,
+    path: String,
+    countries: Seq[Country]
+  ): ValidationResult[viewmodels.ReturnCopiesCustomsOffice] =
     findReferenceData(returnCopiesCustomsOffice.countryCode, countries, s"$path.countryCode")
       .map {
         country =>

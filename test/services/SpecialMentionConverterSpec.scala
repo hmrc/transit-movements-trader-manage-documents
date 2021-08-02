@@ -58,7 +58,7 @@ class SpecialMentionConverterSpec extends FreeSpec with MustMatchers with Valida
       )
 
       val expectedErrors = Seq(
-        ReferenceDataNotFound("somePath.additionalInformationCoded", "x"),
+        ReferenceDataNotFound("somePath.additionalInformationCoded", "x")
       )
 
       result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors

@@ -36,19 +36,20 @@ class ProducedDocumentSpec extends FreeSpec with MustMatchers with ScalaCheckPro
 
         forAll(arbitrary[ProducedDocument]) {
           producedDocument =>
-            val xml = {
+            val xml =
               <PRODOCDC2>
                 <DocTypDC21>{producedDocument.documentType}</DocTypDC21>
                 {
-                  producedDocument.reference.fold(NodeSeq.Empty) { reference =>
+                producedDocument.reference.fold(NodeSeq.Empty) {
+                  reference =>
                     <DocRefDC23>{reference}</DocRefDC23>
-                  } ++
-                  producedDocument.complementOfInformation.fold(NodeSeq.Empty) { information =>
-                    <ComOfInfDC25>{information}</ComOfInfDC25>
+                } ++
+                  producedDocument.complementOfInformation.fold(NodeSeq.Empty) {
+                    information =>
+                      <ComOfInfDC25>{information}</ComOfInfDC25>
                   }
-                }
+              }
               </PRODOCDC2>
-            }
 
             val result = XmlReader.of[ProducedDocument].read(xml).toOption.value
 
