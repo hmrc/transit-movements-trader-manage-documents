@@ -36,16 +36,16 @@ class SensitiveGoodsInformationSpec extends FreeSpec with MustMatchers with Scal
 
         forAll(arbitrary[SensitiveGoodsInformation]) {
           sensitiveGoodsInformation =>
-            val xml = {
+            val xml =
               <SGICODSD2>
                 {
-                  sensitiveGoodsInformation.goodsCode.fold(NodeSeq.Empty) { goodsCode =>
+                sensitiveGoodsInformation.goodsCode.fold(NodeSeq.Empty) {
+                  goodsCode =>
                     <SenGooCodSD22>{goodsCode}</SenGooCodSD22>
-                  }
                 }
+              }
                 <SenQuaSD23>{sensitiveGoodsInformation.quantity}</SenQuaSD23>
               </SGICODSD2>
-            }
 
             val result = XmlReader.of[SensitiveGoodsInformation].read(xml).toOption.value
 

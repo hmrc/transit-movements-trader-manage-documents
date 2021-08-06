@@ -24,7 +24,7 @@ import org.scalatest.MustMatchers
 
 class TraderConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
-  private val countries   = Seq(Country("valid", "a", "country 1"), Country("valid", "b", "country 2"))
+  private val countries   = Seq(Country("a", "country 1"), Country("b", "country 2"))
   private val invalidCode = "invalid code"
 
   "toViewModel" - {

@@ -80,32 +80,31 @@ object Header {
       placeOfLoadingCode             <- (__ \ "PlaOfLoaCodHEA46").read[String].optional.read(xml)
       placeOfUnloadingCode           <- (__ \ "CodPlUnHEA357").read[String].optional.read(xml)
       conveyanceReferenceNumber      <- (__ \ "ConRefNumHEA").read[String].optional.read(xml)
-    } yield
-      Header(
-        mrn,
-        decType,
-        countryOfDispatch,
-        countryOfDestination,
-        transportIdentity,
-        transportCountry,
-        acceptanceDate,
-        numberOfItems,
-        numberOfPackages,
-        grossMass,
-        printBindingItinerary,
-        authId,
-        returnCopy,
-        circumstanceIndicator,
-        security,
-        commercialReferenceNumber,
-        methodOfPayment,
-        identityOfTransportAtBorder,
-        nationalityOfTransportAtBorder,
-        transportModeAtBorder,
-        agreedLocationOfGoodsCode,
-        placeOfLoadingCode,
-        placeOfUnloadingCode,
-        conveyanceReferenceNumber
-      )
+    } yield Header(
+      mrn,
+      decType,
+      countryOfDispatch,
+      countryOfDestination,
+      transportIdentity,
+      transportCountry,
+      acceptanceDate,
+      numberOfItems,
+      numberOfPackages,
+      grossMass,
+      printBindingItinerary,
+      authId,
+      returnCopy,
+      circumstanceIndicator,
+      security,
+      commercialReferenceNumber,
+      methodOfPayment,
+      identityOfTransportAtBorder,
+      nationalityOfTransportAtBorder,
+      transportModeAtBorder,
+      agreedLocationOfGoodsCode,
+      placeOfLoadingCode,
+      placeOfUnloadingCode,
+      conveyanceReferenceNumber
+    )
   }
 }

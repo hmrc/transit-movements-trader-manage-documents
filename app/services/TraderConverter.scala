@@ -21,20 +21,26 @@ import models.reference.Country
 
 object TraderConverter extends Converter {
 
-  private def traderWithEoriToViewModel(trader: models.TraderAtDestinationWithEori,
-                                        path: String,
-                                        countries: Seq[Country]): ValidationResult[viewmodels.TraderAtDestinationWithEori] =
+  private def traderWithEoriToViewModel(
+    trader: models.TraderAtDestinationWithEori,
+    path: String,
+    countries: Seq[Country]
+  ): ValidationResult[viewmodels.TraderAtDestinationWithEori] =
     trader.countryCode match {
       case Some(countryCode) =>
         findReferenceData(countryCode, countries, s"$path.countryCode")
-          .map(country => viewmodels.TraderAtDestinationWithEori(trader.eori, trader.name, trader.streetAndNumber, trader.postCode, trader.city, Some(country)))
+          .map(
+            country => viewmodels.TraderAtDestinationWithEori(trader.eori, trader.name, trader.streetAndNumber, trader.postCode, trader.city, Some(country))
+          )
       case None =>
         viewmodels.TraderAtDestinationWithEori(trader.eori, trader.name, trader.streetAndNumber, trader.postCode, trader.city, None).validNec
     }
 
-  private def traderWithoutEoriToViewModel(trader: models.TraderAtDestinationWithoutEori,
-                                           path: String,
-                                           countries: Seq[Country]): ValidationResult[viewmodels.TraderAtDestinationWithoutEori] =
+  private def traderWithoutEoriToViewModel(
+    trader: models.TraderAtDestinationWithoutEori,
+    path: String,
+    countries: Seq[Country]
+  ): ValidationResult[viewmodels.TraderAtDestinationWithoutEori] =
     findReferenceData(trader.countryCode, countries, s"$path.countryCode")
       .map(viewmodels.TraderAtDestinationWithoutEori(trader.name, trader.streetAndNumber, trader.postCode, trader.city, _))
 

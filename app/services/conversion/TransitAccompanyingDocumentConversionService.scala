@@ -27,7 +27,7 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class TransitAccompanyingDocumentConversionService @Inject()(referenceData: ReferenceDataConnector) {
+class TransitAccompanyingDocumentConversionService @Inject() (referenceData: ReferenceDataConnector) {
 
   /*
    * The TAD/UL xsd files are identical, both documents share same structure
@@ -35,7 +35,8 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
    * One view model can hold all the required data which can be used to build a document
    * Let each Converter handle what goes in the view model
    */
-  def toViewModel(transitAccompanyingDocument: models.ReleaseForTransit,
+  def toViewModel(
+    transitAccompanyingDocument: models.ReleaseForTransit
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[viewmodels.TransitAccompanyingDocumentPDF]] = {
 
     val countriesFuture             = referenceData.countries()
@@ -44,23 +45,37 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
     val documentTypesFuture         = referenceData.documentTypes()
     val previousDocumentTypesFuture = referenceData.previousDocumentTypes()
 
-    lazy val controlResultFuture = Future.sequence(transitAccompanyingDocument.controlResult.toList.map(code =>
-      referenceData.controlResultByCode(code.conResCodERS16).map(crd => viewmodels.ControlResult(crd, code))))
+    lazy val controlResultFuture = Future.sequence(
+      transitAccompanyingDocument.controlResult.toList.map(
+        code =>
+          referenceData
+            .controlResultByCode(code.conResCodERS16)
+            .map(
+              crd => viewmodels.ControlResult(crd, code)
+            )
+      )
+    )
 
     lazy val departureOfficeFuture = referenceData
       .customsOfficeSearch(transitAccompanyingDocument.departureOffice)
-      .map(office => CustomsOfficeWithOptionalDate(office, None))
+      .map(
+        office => CustomsOfficeWithOptionalDate(office, None)
+      )
 
     lazy val destinationOfficeFuture = referenceData
       .customsOfficeSearch(transitAccompanyingDocument.destinationOffice)
-      .map(office => CustomsOfficeWithOptionalDate(office, None))
+      .map(
+        office => CustomsOfficeWithOptionalDate(office, None)
+      )
 
     lazy val transitOfficeFuture = Future.sequence(
       transitAccompanyingDocument.customsOfficeOfTransit.map(
         office =>
           referenceData
             .customsOfficeSearch(office.reference)
-            .map(customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 18))
+            .map(
+              customsOffice => CustomsOfficeWithOptionalDate(customsOffice, office.arrivalTime, maxLength = 18)
+            )
       )
     )
 
@@ -74,32 +89,29 @@ class TransitAccompanyingDocumentConversionService @Inject()(referenceData: Refe
       destinationOffice      <- destinationOfficeFuture
       transitOffice          <- transitOfficeFuture
       controlResult          <- controlResultFuture
-    } yield {
-      (
-        countriesResult,
-        additionalInfoResult,
-        kindsOfPackageResult,
-        documentTypesResult,
-        previousDocumentResult,
-      ).mapN(
-          (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes) =>
-            TransitAccompanyingDocumentConverter.toViewModel(
-              transitAccompanyingDocument,
-              countries,
-              additionalInfo,
-              kindsOfPackage,
-              documentTypes,
-              departureOffice,
-              destinationOffice,
-              transitOffice,
-              previousDocumentTypes,
-              controlResult.headOption
-          )
+    } yield (
+      countriesResult,
+      additionalInfoResult,
+      kindsOfPackageResult,
+      documentTypesResult,
+      previousDocumentResult
+    ).mapN(
+      (countries, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes) =>
+        TransitAccompanyingDocumentConverter.toViewModel(
+          transitAccompanyingDocument,
+          countries,
+          additionalInfo,
+          kindsOfPackage,
+          documentTypes,
+          departureOffice,
+          destinationOffice,
+          transitOffice,
+          previousDocumentTypes,
+          controlResult.headOption
         )
-        .fold(
-          errors => Invalid(errors),
-          result => result
-        )
-    }
+    ).fold(
+      errors => Invalid(errors),
+      result => result
+    )
   }
 }

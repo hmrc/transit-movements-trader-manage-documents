@@ -20,7 +20,7 @@ import javax.inject.Inject
 import models.Service
 import play.api.Configuration
 
-class ReferenceDataConfig @Inject()(config: Configuration) {
+class ReferenceDataConfig @Inject() (config: Configuration) {
 
   private val service = config.get[Service]("microservice.services.transit-movements-trader-reference-data")
 

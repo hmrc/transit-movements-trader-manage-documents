@@ -31,15 +31,19 @@ object PackageConverter extends Converter {
     findReferenceData(pkg.kindOfPackage, kindsOfPackage, s"$path.kindOfPackage")
       .map(viewmodels.BulkPackage(_, pkg.marksAndNumbers))
 
-  private def unpackedPackageToViewModel(pkg: models.UnpackedPackage,
-                                         path: String,
-                                         kindsOfPackage: Seq[KindOfPackage]): ValidationResult[viewmodels.UnpackedPackage] =
+  private def unpackedPackageToViewModel(
+    pkg: models.UnpackedPackage,
+    path: String,
+    kindsOfPackage: Seq[KindOfPackage]
+  ): ValidationResult[viewmodels.UnpackedPackage] =
     findReferenceData(pkg.kindOfPackage, kindsOfPackage, s"$path.kindOfPackage")
       .map(viewmodels.UnpackedPackage(_, pkg.numberOfPieces, pkg.marksAndNumbers))
 
-  private def regularPackageToViewModel(pkg: models.RegularPackage,
-                                        path: String,
-                                        kindsOfPackage: Seq[KindOfPackage]): ValidationResult[viewmodels.RegularPackage] =
+  private def regularPackageToViewModel(
+    pkg: models.RegularPackage,
+    path: String,
+    kindsOfPackage: Seq[KindOfPackage]
+  ): ValidationResult[viewmodels.RegularPackage] =
     findReferenceData(pkg.kindOfPackage, kindsOfPackage, s"$path.kindOfPackage")
       .map(viewmodels.RegularPackage(_, pkg.numberOfPackages, pkg.marksAndNumbers))
 }

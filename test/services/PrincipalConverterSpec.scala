@@ -24,7 +24,7 @@ import org.scalatest.MustMatchers
 
 class PrincipalConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
 
-  private val countries = Seq(Country("valid", "a", "country 1"), Country("valid", "b", "country 2"))
+  private val countries = Seq(Country("a", "country 1"), Country("b", "country 2"))
 
   "toViewModel" - {
 
@@ -34,14 +34,16 @@ class PrincipalConverterSpec extends FreeSpec with MustMatchers with ValidatedMa
 
       val result = PrincipalConverter.toViewModel(principal, "path", countries)
 
-      result.valid.value mustBe viewmodels.Principal("name",
-                                                     "street longer than 32 characters...",
-                                                     "street longer than 32 charact***",
-                                                     "postCode",
-                                                     "city",
-                                                     countries.head,
-                                                     Some("EORI"),
-                                                     Some("tir"))
+      result.valid.value mustBe viewmodels.Principal(
+        "name",
+        "street longer than 32 characters...",
+        "street longer than 32 charact***",
+        "postCode",
+        "city",
+        countries.head,
+        Some("EORI"),
+        Some("tir")
+      )
     }
 
     "must return Invalid when the country code cannot be found in reference data" in {

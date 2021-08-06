@@ -34,7 +34,7 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
 
         forAll(arbitrary[SecurityConsignorWithoutEori]) {
           consignor =>
-            val xml = {
+            val xml =
               <TRACORSECGOO021>
                 <NamTRACORSECGOO025>{consignor.name}</NamTRACORSECGOO025>
                 <StrNumTRACORSECGOO027>{consignor.streetAndNumber}</StrNumTRACORSECGOO027>
@@ -42,7 +42,6 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
                 <CitTRACORSECGOO022>{consignor.city}</CitTRACORSECGOO022>
                 <CouCodTRACORSECGOO023>{consignor.countryCode}</CouCodTRACORSECGOO023>
               </TRACORSECGOO021>
-            }
 
             val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReader).read(xml).toOption.value
 
@@ -52,11 +51,10 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
 
       "must deserialise ConsignorWithEori" in {
         val eori = nonEmptyString.sample.value
-        val xml = {
+        val xml =
           <TRACORSECGOO021>
                 <TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028>
               </TRACORSECGOO021>
-        }
 
         val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReader).read(xml).toOption.value
 
@@ -71,7 +69,7 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
 
       forAll(arbitrary[SecurityConsignorWithoutEori]) {
         consignor =>
-          val xml = {
+          val xml =
             <TRACORSEC037>
                 <NamTRACORSEC041>{consignor.name}</NamTRACORSEC041>
                 <StrNumTRACORSEC043>{consignor.streetAndNumber}</StrNumTRACORSEC043>
@@ -79,7 +77,6 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
                 <CitTRACORSEC038>{consignor.city}</CitTRACORSEC038>
                 <CouCodTRACORSEC039>{consignor.countryCode}</CouCodTRACORSEC039>
               </TRACORSEC037>
-          }
 
           val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReaderRootLevel).read(xml).toOption.value
 
@@ -89,11 +86,10 @@ class SecurityConsignorSpec extends FreeSpec with MustMatchers with ScalaCheckPr
 
     "must deserialise ConsignorWithEori" in {
       val eori = nonEmptyString.sample.value
-      val xml = {
+      val xml =
         <TRACORSEC037>
             <TINTRACORSEC044>{eori}</TINTRACORSEC044>
           </TRACORSEC037>
-      }
 
       val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReaderRootLevel).read(xml).toOption.value
 

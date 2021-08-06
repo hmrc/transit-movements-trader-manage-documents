@@ -21,7 +21,7 @@ import models.reference.PreviousDocumentTypes
 
 final case class PreviousDocumentType(
   documentType: PreviousDocumentTypes,
-  previousAdminReference: PreviousAdministrativeReference,
+  previousAdminReference: PreviousAdministrativeReference
 ) {
 
   val display: String = if (documentType.description.nonEmpty) {

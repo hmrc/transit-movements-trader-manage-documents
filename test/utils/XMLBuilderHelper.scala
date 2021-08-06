@@ -44,48 +44,57 @@ object XMLBuilderHelper {
       <IteNumGDS7>{goodsItem.itemNumber}</IteNumGDS7>
       {
       {
-        goodsItem.commodityCode.fold(NodeSeq.Empty) { commodityCode =>
-          <ComCodTarCodGDS10>{commodityCode}</ComCodTarCodGDS10>
+        goodsItem.commodityCode.fold(NodeSeq.Empty) {
+          commodityCode =>
+            <ComCodTarCodGDS10>{commodityCode}</ComCodTarCodGDS10>
         } ++
-          goodsItem.declarationType.fold(NodeSeq.Empty) { declarationType =>
-            <DecTypGDS15>{declarationType.toString}</DecTypGDS15>
+          goodsItem.declarationType.fold(NodeSeq.Empty) {
+            declarationType =>
+              <DecTypGDS15>{declarationType.toString}</DecTypGDS15>
           }
       }
-      }
+    }
       <GooDesGDS23>{goodsItem.description}</GooDesGDS23>
       {
-      goodsItem.grossMass.fold(NodeSeq.Empty) { grossMass =>
-        <GroMasGDS46>{grossMass}</GroMasGDS46>
+      goodsItem.grossMass.fold(NodeSeq.Empty) {
+        grossMass =>
+          <GroMasGDS46>{grossMass}</GroMasGDS46>
       } ++
-        goodsItem.netMass.fold(NodeSeq.Empty) { netMass =>
-          <NetMasGDS48>{netMass}</NetMasGDS48>
+        goodsItem.netMass.fold(NodeSeq.Empty) {
+          netMass =>
+            <NetMasGDS48>{netMass}</NetMasGDS48>
         }
-      }
+    }
       {
-        goodsItem.countryOfDispatch.fold(NodeSeq.Empty) { countryOfDispatch =>
+      goodsItem.countryOfDispatch.fold(NodeSeq.Empty) {
+        countryOfDispatch =>
           <CouOfDisGDS58>{countryOfDispatch}</CouOfDisGDS58>
-        }
       }
+    }
       {
-        goodsItem.countryOfDestination.fold(NodeSeq.Empty) { countryOfDestination =>
+      goodsItem.countryOfDestination.fold(NodeSeq.Empty) {
+        countryOfDestination =>
           <CouOfDesGDS59>{countryOfDestination}</CouOfDesGDS59>
-        }
       }
+    }
       {
-        goodsItem.methodOfPayment.fold(NodeSeq.Empty) { methodOfPayment =>
+      goodsItem.methodOfPayment.fold(NodeSeq.Empty) {
+        methodOfPayment =>
           <MetOfPayGDI12>{methodOfPayment}</MetOfPayGDI12>
-        }
       }
+    }
       {
-        goodsItem.commercialReferenceNumber.fold(NodeSeq.Empty) { commercialReferenceNumber =>
+      goodsItem.commercialReferenceNumber.fold(NodeSeq.Empty) {
+        commercialReferenceNumber =>
           <ComRefNumGIM1>{commercialReferenceNumber}</ComRefNumGIM1>
-        }
       }
+    }
       {
-        goodsItem.unDangerGoodsCode.fold(NodeSeq.Empty) { unDangerGoodsCode =>
+      goodsItem.unDangerGoodsCode.fold(NodeSeq.Empty) {
+        unDangerGoodsCode =>
           <UNDanGooCodGDI1>{unDangerGoodsCode}</UNDanGooCodGDI1>
-        }
       }
+    }
       {
       goodsItem.producedDocuments.map(producedDocumentXML) ++
         goodsItem.specialMentions.map(specialMentionXML) ++
@@ -102,10 +111,11 @@ object XMLBuilderHelper {
           sensitiveInformation =>
             <SGICODSD2>
               {
-              sensitiveInformation.goodsCode.fold(NodeSeq.Empty) { goodsCode =>
-                <SenGooCodSD22>{goodsCode}</SenGooCodSD22>
+              sensitiveInformation.goodsCode.fold(NodeSeq.Empty) {
+                goodsCode =>
+                  <SenGooCodSD22>{goodsCode}</SenGooCodSD22>
               }
-              }
+            }
               <SenQuaSD23>{sensitiveInformation.quantity}</SenQuaSD23>
             </SGICODSD2>
         } ++
@@ -115,15 +125,16 @@ object XMLBuilderHelper {
               <PreDocTypAR21>{prevAdminRef.documentType}</PreDocTypAR21>
               <PreDocRefAR26>{prevAdminRef.documentReference}</PreDocRefAR26>
               {
-                prevAdminRef.complimentOfInfo.fold(NodeSeq.Empty){ compliment =>
+              prevAdminRef.complimentOfInfo.fold(NodeSeq.Empty) {
+                compliment =>
                   <ComOfInfAR29>{compliment}</ComOfInfAR29>
-                }
               }
+            }
             </PREADMREFAR2>
         ) ++
         goodsItem.securityConsignor.map(securityConsignorXML) ++
         goodsItem.securityConsignee.map(securityConsigneeXML)
-      }
+    }
     </GOOITEGDS>
 
   def traderAtDestinationToXml(traderAtDestination: TraderAtDestination): NodeSeq =
@@ -170,7 +181,7 @@ object XMLBuilderHelper {
                 <SeaIdeSID1>{sealId}</SeaIdeSID1>
               </SEAIDSID>
           }
-          }
+        }
         </SEAINFSLI>
       case _ => NodeSeq.Empty
     }
@@ -179,29 +190,34 @@ object XMLBuilderHelper {
     <PRODOCDC2>
       <DocTypDC21>{producedDocument.documentType}</DocTypDC21>
       {
-      producedDocument.reference.fold(NodeSeq.Empty) { reference =>
-        <DocRefDC23>{reference}</DocRefDC23>
+      producedDocument.reference.fold(NodeSeq.Empty) {
+        reference =>
+          <DocRefDC23>{reference}</DocRefDC23>
       } ++
-        producedDocument.complementOfInformation.fold(NodeSeq.Empty) { information =>
-          <ComOfInfDC25>{information}</ComOfInfDC25>
+        producedDocument.complementOfInformation.fold(NodeSeq.Empty) {
+          information =>
+            <ComOfInfDC25>{information}</ComOfInfDC25>
         }
-      }
+    }
     </PRODOCDC2>
 
   def specialMentionXML(specialMention: SpecialMention): NodeSeq =
     <SPEMENMT2>
       {
-        specialMention.additionalInformation.fold(NodeSeq.Empty) { ai =>
+      specialMention.additionalInformation.fold(NodeSeq.Empty) {
+        ai =>
           <AddInfMT21>{ai}</AddInfMT21>
-        } ++
+      } ++
         NodeSeq.fromSeq(Seq(<AddInfCodMT23>{specialMention.additionalInformationCoded}</AddInfCodMT23>)) ++
-        specialMention.exportFromEC.fold(NodeSeq.Empty) { efec =>
-          <ExpFroECMT24>{if(efec) 1 else 0}</ExpFroECMT24>
+        specialMention.exportFromEC.fold(NodeSeq.Empty) {
+          efec =>
+            <ExpFroECMT24>{if (efec) 1 else 0}</ExpFroECMT24>
         } ++
-        specialMention.exportFromCountry.fold(NodeSeq.Empty) { efc =>
-          <ExpFroCouMT25>{efc}</ExpFroCouMT25>
+        specialMention.exportFromCountry.fold(NodeSeq.Empty) {
+          efc =>
+            <ExpFroCouMT25>{efc}</ExpFroCouMT25>
         }
-      }
+    }
     </SPEMENMT2>
 
   def consignorXML(consignor: Consignor): NodeSeq =
@@ -212,12 +228,14 @@ object XMLBuilderHelper {
     <CitCO224>{consignor.city}</CitCO224>
     <CouCO225>{consignor.countryCode}</CouCO225>
     {
-    consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-      <NADLNGGTCO>{nadLangCode}</NADLNGGTCO>
-    } ++
-      consignor.eori.fold(NodeSeq.Empty) { eori =>
-        <TINCO259>{eori}</TINCO259>
-      }
+      consignor.nadLanguageCode.fold(NodeSeq.Empty) {
+        nadLangCode =>
+          <NADLNGGTCO>{nadLangCode}</NADLNGGTCO>
+      } ++
+        consignor.eori.fold(NodeSeq.Empty) {
+          eori =>
+            <TINCO259>{eori}</TINCO259>
+        }
     }
   </TRACONCO2>
 
@@ -229,13 +247,15 @@ object XMLBuilderHelper {
       <CitCE224>{consignee.city}</CitCE224>
       <CouCE225>{consignee.countryCode}</CouCE225>
       {
-      consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-        <NADLNGGICE>{nadLangCode}</NADLNGGICE>
+      consignee.nadLanguageCode.fold(NodeSeq.Empty) {
+        nadLangCode =>
+          <NADLNGGICE>{nadLangCode}</NADLNGGICE>
       } ++
-        consignee.eori.fold(NodeSeq.Empty) { eori =>
-          <TINCE259>{eori}</TINCE259>
+        consignee.eori.fold(NodeSeq.Empty) {
+          eori =>
+            <TINCE259>{eori}</TINCE259>
         }
-      }
+    }
     </TRACONCE2>
 
   def consignorHeaderXML(consignor: Consignor): NodeSeq =
@@ -246,13 +266,15 @@ object XMLBuilderHelper {
       <CitCO124>{consignor.city}</CitCO124>
       <CouCO125>{consignor.countryCode}</CouCO125>
       {
-      consignor.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-        <NADLNGCO>{nadLangCode}</NADLNGCO>
+      consignor.nadLanguageCode.fold(NodeSeq.Empty) {
+        nadLangCode =>
+          <NADLNGCO>{nadLangCode}</NADLNGCO>
       } ++
-        consignor.eori.fold(NodeSeq.Empty) { eori =>
-          <TINCO159>{eori}</TINCO159>
+        consignor.eori.fold(NodeSeq.Empty) {
+          eori =>
+            <TINCO159>{eori}</TINCO159>
         }
-      }
+    }
     </TRACONCO1>
 
   def consigneeHeaderXML(consignee: Consignee): NodeSeq =
@@ -263,13 +285,15 @@ object XMLBuilderHelper {
       <CitCE124>{consignee.city}</CitCE124>
       <CouCE125>{consignee.countryCode}</CouCE125>
       {
-      consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-        <NADLNGCE>{nadLangCode}</NADLNGCE>
+      consignee.nadLanguageCode.fold(NodeSeq.Empty) {
+        nadLangCode =>
+          <NADLNGCE>{nadLangCode}</NADLNGCE>
       } ++
-        consignee.eori.fold(NodeSeq.Empty) { eori =>
-          <TINCE159>{eori}</TINCE159>
+        consignee.eori.fold(NodeSeq.Empty) {
+          eori =>
+            <TINCE159>{eori}</TINCE159>
         }
-      }
+    }
     </TRACONCE1>
 
   def securityConsignorXML(consignor: SecurityConsignor): NodeSeq =
@@ -305,10 +329,11 @@ object XMLBuilderHelper {
           <KinOfPacGS23>{value.kindOfPackage}</KinOfPacGS23>
           <NumOfPieGS25>{value.numberOfPieces}</NumOfPieGS25>
             {
-            value.marksAndNumbers.fold(NodeSeq.Empty) { marksAndNumbers =>
+          value.marksAndNumbers.fold(NodeSeq.Empty) {
+            marksAndNumbers =>
               <MarNumOfPacGS21>{marksAndNumbers}</MarNumOfPacGS21>
-            }
           }
+        }
         </PACGS2>
       case value: RegularPackage =>
         <PACGS2>
@@ -320,10 +345,11 @@ object XMLBuilderHelper {
         <PACGS2>
           <KinOfPacGS23>{value.kindOfPackage}</KinOfPacGS23>
             {
-            value.marksAndNumbers.fold(NodeSeq.Empty) { marksAndNumbers =>
+          value.marksAndNumbers.fold(NodeSeq.Empty) {
+            marksAndNumbers =>
               <MarNumOfPacGS21>{marksAndNumbers}</MarNumOfPacGS21>
-            }
           }
+        }
         </PACGS2>
     }
 

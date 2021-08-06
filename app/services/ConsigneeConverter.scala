@@ -25,12 +25,14 @@ object ConsigneeConverter extends Converter {
     findReferenceData(consignee.countryCode, countries, s"$path.countryCode")
       .map {
         country =>
-          viewmodels.Consignee(consignee.name,
-                               consignee.streetAndNumber,
-                               consignee.streetAndNumber.shorten(32)("***"),
-                               consignee.postCode,
-                               consignee.city,
-                               country,
-                               consignee.eori)
+          viewmodels.Consignee(
+            consignee.name,
+            consignee.streetAndNumber,
+            consignee.streetAndNumber.shorten(32)("***"),
+            consignee.postCode,
+            consignee.city,
+            country,
+            consignee.eori
+          )
       }
 }

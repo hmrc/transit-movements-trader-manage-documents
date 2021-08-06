@@ -80,7 +80,7 @@ object PermissionToStartUnloading {
   implicit lazy val format: OFormat[PermissionToStartUnloading] =
     Json.format[PermissionToStartUnloading]
 
-  implicit val xmlReader: XmlReader[PermissionToStartUnloading] = {
+  implicit val xmlReader: XmlReader[PermissionToStartUnloading] =
     (
       (__ \ "HEAHEA" \ "DocNumHEA5").read[String],
       (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
@@ -101,7 +101,6 @@ object PermissionToStartUnloading {
       (__ \ "SEAINFSLI" \ "SEAIDSID" \ "SeaIdeSID1").read(strictReadSeq[String]),
       (__ \ "GOOITEGDS").read(xmlNonEmptyListReads[GoodsItem])
     ).mapN(apply)
-  }
 }
 
 final case class PermissionToContinueUnloading(

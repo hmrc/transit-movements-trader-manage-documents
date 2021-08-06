@@ -166,10 +166,10 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
   val transitSecurityAccompanyingDocumentPDF: TransitSecurityAccompanyingDocumentPDF = TransitSecurityAccompanyingDocumentPDF(
     "21GB00006010025BE0",
     DeclarationType.TMinus,
-    Some(Country("valid", "GB", "United Kingdom")),
-    Some(Country("valid", "IT", "Italy")),
+    Some(Country("GB", "United Kingdom")),
+    Some(Country("IT", "Italy")),
     Some("TSAD ID Departure"),
-    Some(Country("valid", "GB", "United Kingdom")),
+    Some(Country("GB", "United Kingdom")),
     Some(FormattedDate(LocalDate.parse("2021-03-12"))),
     3,
     Some(12),
@@ -194,7 +194,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
       "125 Psuedopolis Yard",
       "SS99 1AA",
       "Ank-Morpork",
-      Country("valid", "GB", "United Kingdom"),
+      Country("GB", "United Kingdom"),
       Some("GB652420267000"),
       None
     ),
@@ -205,17 +205,21 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
         "125 Psuedopolis Yard",
         "SS99 1AA",
         "Ank-Morpork",
-        Country("valid", "GB", "United Kingdom"),
+        Country("GB", "United Kingdom"),
         Some("GB602070107000")
-      )),
+      )
+    ),
     Some(
-      Consignee("DROFL POTTERY",
-                "125 Psuedopolis Yard",
-                "125 Psuedopolis Yard",
-                "SS99 1AA",
-                "Ank-Morpork",
-                Country("valid", "GB", "United Kingdom"),
-                Some("GB658120050000"))),
+      Consignee(
+        "DROFL POTTERY",
+        "125 Psuedopolis Yard",
+        "125 Psuedopolis Yard",
+        "SS99 1AA",
+        "Ank-Morpork",
+        Country("GB", "United Kingdom"),
+        Some("GB658120050000")
+      )
+    ),
     CustomsOfficeWithOptionalDate(CustomsOffice("GB000061", Some("DUNDEE 1"), "GB"), None),
     CustomsOfficeWithOptionalDate(CustomsOffice("IEDUB804", Some("Dun Laoghaire-Rathdown"), "IE"), None),
     List(
@@ -225,11 +229,8 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
     List(GuaranteeDetails("3", List(GuaranteeReference(None, Some("TSAD001"), None, List())))),
     List("TSAD_Seals_001", "TSAD_Seals_002", "TSAD_Seals_003", "TSAD_Seals_004", "TSAD_Seals_005", "TSAD_Seals_006"),
     Some(
-      ReturnCopiesCustomsOffice("Central Community Transit Office",
-                                "BT-CCTO, HM Revenue and Customs",
-                                "BX9 1EH",
-                                "SALFORD",
-                                Country("valid", "GB", "United Kingdom"))),
+      ReturnCopiesCustomsOffice("Central Community Transit Office", "BT-CCTO, HM Revenue and Customs", "BX9 1EH", "SALFORD", Country("GB", "United Kingdom"))
+    ),
     Some(ControlResult(ControlResultData("A2", "Considered satisfactory"), models.ControlResult("A2", LocalDate.parse("2021-03-14")))),
     NonEmptyList.of(
       GoodsItem(

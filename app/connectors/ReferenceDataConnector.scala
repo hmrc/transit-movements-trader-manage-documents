@@ -38,7 +38,7 @@ import scala.concurrent.Future
 case class MalformedReferenceDataException(message: String)                         extends Exception(message)
 case class InvalidReferenceDataStatusException(statusCode: Int, typeOfData: String) extends Exception(s"received $statusCode while retrieving $typeOfData")
 
-class ReferenceDataConnector @Inject()(
+class ReferenceDataConnector @Inject() (
   config: ReferenceDataConfig,
   httpClient: HttpClient
 ) {
@@ -56,7 +56,7 @@ class ReferenceDataConnector @Inject()(
               result => result.validNec
             )
         case _ => ReferenceDataRetrievalError(typeOfData, response.status, response.body).invalidNec
-    }
+      }
 
   private def individualItemReads[T](typeOfData: String)(implicit reads: Reads[T]): HttpReads[T] =
     (_: String, _: String, response: HttpResponse) =>
@@ -74,7 +74,7 @@ class ReferenceDataConnector @Inject()(
         case status =>
           logger.error(s"received invalid status $status when retrieving $typeOfData from the reference data service")
           throw InvalidReferenceDataStatusException(status, typeOfData)
-    }
+      }
 
   def countries()(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[Seq[Country]]] = {
 

@@ -26,5 +26,7 @@ object SpecialMentionConverter extends Converter {
     additionalInfo: Seq[AdditionalInformation]
   ): ValidationResult[viewmodels.SpecialMention] =
     findReferenceData(specialMention.additionalInformationCoded, additionalInfo, s"$path.additionalInformationCoded")
-      .map(addInfo => viewmodels.SpecialMention(addInfo, specialMention))
+      .map(
+        addInfo => viewmodels.SpecialMention(addInfo, specialMention)
+      )
 }

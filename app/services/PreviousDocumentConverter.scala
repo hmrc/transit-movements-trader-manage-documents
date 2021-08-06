@@ -20,9 +20,11 @@ import models.reference.PreviousDocumentTypes
 
 object PreviousDocumentConverter extends Converter {
 
-  def toViewModel(previousAdministrativeReference: models.PreviousAdministrativeReference,
-                  path: String,
-                  previousDocumentTypes: Seq[PreviousDocumentTypes]): ValidationResult[viewmodels.PreviousDocumentType] =
+  def toViewModel(
+    previousAdministrativeReference: models.PreviousAdministrativeReference,
+    path: String,
+    previousDocumentTypes: Seq[PreviousDocumentTypes]
+  ): ValidationResult[viewmodels.PreviousDocumentType] =
     findReferenceData(previousAdministrativeReference.documentType, previousDocumentTypes, s"$path.previousDocumentTypes")
       .map {
         previousDocumentTypes =>

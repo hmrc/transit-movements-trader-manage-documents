@@ -36,7 +36,7 @@ class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
         forAll(arbitrary[Consignee]) {
           consignee =>
-            val xml = {
+            val xml =
               <TRACONCE2>
                 <NamCE27>{consignee.name}</NamCE27>
                 <StrAndNumCE222>{consignee.streetAndNumber}</StrAndNumCE222>
@@ -44,15 +44,16 @@ class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
                 <CitCE224>{consignee.city}</CitCE224>
                 <CouCE225>{consignee.countryCode}</CouCE225>
                 {
-                  consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
+                consignee.nadLanguageCode.fold(NodeSeq.Empty) {
+                  nadLangCode =>
                     <NADLNGGICE>{nadLangCode}</NADLNGGICE>
-                  } ++
-                  consignee.eori.fold(NodeSeq.Empty) { eori =>
-                    <TINCE259>{eori}</TINCE259>
+                } ++
+                  consignee.eori.fold(NodeSeq.Empty) {
+                    eori =>
+                      <TINCE259>{eori}</TINCE259>
                   }
-                }
+              }
               </TRACONCE2>
-            }
 
             val result = XmlReader.of[Consignee](Consignee.xmlReaderGoodsLevel).read(xml).toOption.value
 
@@ -76,7 +77,7 @@ class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
 
         forAll(arbitrary[Consignee]) {
           consignee =>
-            val xml = {
+            val xml =
               <TRACONCE1>
                 <NamCE17>{consignee.name}</NamCE17>
                 <StrAndNumCE122>{consignee.streetAndNumber}</StrAndNumCE122>
@@ -84,15 +85,16 @@ class ConsigneeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyCh
                 <CitCE124>{consignee.city}</CitCE124>
                 <CouCE125>{consignee.countryCode}</CouCE125>
                 {
-                consignee.nadLanguageCode.fold(NodeSeq.Empty) { nadLangCode =>
-                  <NADLNGCE>{nadLangCode}</NADLNGCE>
+                consignee.nadLanguageCode.fold(NodeSeq.Empty) {
+                  nadLangCode =>
+                    <NADLNGCE>{nadLangCode}</NADLNGCE>
                 } ++
-                  consignee.eori.fold(NodeSeq.Empty) { eori =>
-                    <TINCE159>{eori}</TINCE159>
+                  consignee.eori.fold(NodeSeq.Empty) {
+                    eori =>
+                      <TINCE159>{eori}</TINCE159>
                   }
-                }
+              }
               </TRACONCE1>
-            }
 
             val result = XmlReader.of[Consignee](Consignee.xmlReaderRootLevel).read(xml).toOption.value
 

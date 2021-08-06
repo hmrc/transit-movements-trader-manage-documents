@@ -80,7 +80,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield ProducedDocument(documentType, reference, complement)
     }
 
-  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] = {
+  implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] =
     Arbitrary {
       for {
         additionalInformation      <- arbitrary[Option[String]]
@@ -89,7 +89,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         exportFromCountry          <- arbitrary[Option[String]]
       } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
-  }
 
   implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
     Arbitrary {
@@ -186,7 +185,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield SensitiveGoodsInformation(goodsCode, quantity)
     }
 
-  implicit lazy val arbitraryPreviousAdministrativeReference: Arbitrary[PreviousAdministrativeReference] = {
+  implicit lazy val arbitraryPreviousAdministrativeReference: Arbitrary[PreviousAdministrativeReference] =
     Arbitrary {
       for {
         docType <- Gen.alphaNumStr
@@ -194,7 +193,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         comInf  <- Gen.option(Gen.alphaNumStr)
       } yield PreviousAdministrativeReference(documentType = docType, documentReference = docRef, complimentOfInfo = comInf)
     }
-  }
 
   implicit lazy val arbitraryPreviousDocumentType: Arbitrary[PreviousDocumentType] =
     Arbitrary {
@@ -228,30 +226,29 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         sensitiveGoodsInformation <- listWithMaxSize(9, arbitrary[SensitiveGoodsInformation])
         securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
         securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
-      } yield
-        GoodsItem(
-          itemNumber,
-          commodityCode,
-          declarationType,
-          description,
-          grossMass,
-          netMass,
-          countryOfDispatch,
-          countryOfDestination,
-          methodOfPayment,
-          commercialReferenceNumber,
-          unDangerGoodsCode,
-          producedDocuments,
-          previousDocuments,
-          specialMentions,
-          consignor,
-          consignee,
-          containers,
-          packages,
-          sensitiveGoodsInformation,
-          securityConsignor,
-          securityConsignee
-        )
+      } yield GoodsItem(
+        itemNumber,
+        commodityCode,
+        declarationType,
+        description,
+        grossMass,
+        netMass,
+        countryOfDispatch,
+        countryOfDestination,
+        methodOfPayment,
+        commercialReferenceNumber,
+        unDangerGoodsCode,
+        producedDocuments,
+        previousDocuments,
+        specialMentions,
+        consignor,
+        consignee,
+        containers,
+        packages,
+        sensitiveGoodsInformation,
+        securityConsignor,
+        securityConsignee
+      )
     }
 
   implicit lazy val arbitraryPermissionToStartUnloading: Arbitrary[PermissionToStartUnloading] =
@@ -277,29 +274,28 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         presentationOffice    <- Gen.option(stringWithMaxLength(8))
         seals                 <- listWithMaxSize(9, stringWithMaxLength(20))
         goodsItems            <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
-      } yield
-        PermissionToStartUnloading(
-          mrn,
-          declarationType,
-          countryOfDispatch,
-          countryOfDestination,
-          transportId,
-          transportCountry,
-          acceptanceDate,
-          acceptanceDateTrimmed,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          principal,
-          consignor,
-          consignee,
-          traderAtDestination,
-          departureOffice,
-          departureOffice,
-          presentationOffice,
-          seals,
-          goodsItems
-        )
+      } yield PermissionToStartUnloading(
+        mrn,
+        declarationType,
+        countryOfDispatch,
+        countryOfDestination,
+        transportId,
+        transportCountry,
+        acceptanceDate,
+        acceptanceDateTrimmed,
+        numberOfItems,
+        numberOfPackages,
+        grossMass,
+        principal,
+        consignor,
+        consignee,
+        traderAtDestination,
+        departureOffice,
+        departureOffice,
+        presentationOffice,
+        seals,
+        goodsItems
+      )
     }
 
   implicit lazy val arbitraryFormattedDate: Arbitrary[FormattedDate] = Arbitrary {
@@ -315,6 +311,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       countryId   <- nonEmptyString
     } yield CustomsOffice(id, description, countryId)
   }
+
   implicit lazy val arbitraryCustomsOfficeWithOptionalDate: Arbitrary[CustomsOfficeWithOptionalDate] = Arbitrary {
     for {
       officeCode   <- arbitrary[CustomsOffice]
@@ -397,42 +394,40 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
         controlResult             <- Gen.option(arbitrary[viewmodels.ControlResult])
         goodsItems                <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
-      } yield
-        TransitAccompanyingDocumentPDF(
-          mrn,
-          declarationType,
-          countryOfDispatch,
-          countryOfDestination,
-          transportId,
-          transportCountry,
-          acceptanceDate,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          printBindingItinerary,
-          authId,
-          copyType,
-          principal,
-          consignor,
-          consignee,
-          departureOffice,
-          destinationOffice,
-          cusOfficesOfTransit,
-          guaranteeDetails.toList,
-          seals,
-          returnCopiesCustomsOffice,
-          controlResult,
-          goodsItems
-        )
+      } yield TransitAccompanyingDocumentPDF(
+        mrn,
+        declarationType,
+        countryOfDispatch,
+        countryOfDestination,
+        transportId,
+        transportCountry,
+        acceptanceDate,
+        numberOfItems,
+        numberOfPackages,
+        grossMass,
+        printBindingItinerary,
+        authId,
+        copyType,
+        principal,
+        consignor,
+        consignee,
+        departureOffice,
+        destinationOffice,
+        cusOfficesOfTransit,
+        guaranteeDetails.toList,
+        seals,
+        returnCopiesCustomsOffice,
+        controlResult,
+        goodsItems
+      )
     }
 
-  implicit lazy val arbitraryItinerary: Arbitrary[Itinerary] = {
+  implicit lazy val arbitraryItinerary: Arbitrary[Itinerary] =
     Arbitrary {
       for {
         country <- Gen.pick(2, 'A' to 'Z')
       } yield Itinerary(country.mkString)
     }
-  }
 
   implicit lazy val arbitraryGoodsItemSecurityConsignee: Arbitrary[SecurityConsignee] =
     Arbitrary {
@@ -516,47 +511,46 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         safetyAndSecurityCarrier          <- Gen.option(arbitrary[SafetyAndSecurityCarrier])
         safetyAndSecurityConsignor        <- Gen.option(arbitrary[SecurityConsignor])
         safetyAndSecurityConsignee        <- Gen.option(arbitrary[SecurityConsignee])
-      } yield
-        TransitSecurityAccompanyingDocumentPDF(
-          mrn,
-          declarationType,
-          countryOfDispatch,
-          countryOfDestination,
-          transportId,
-          transportCountry,
-          acceptanceDate,
-          numberOfItems,
-          numberOfPackages,
-          grossMass,
-          printBindingItinerary,
-          authId,
-          copyType,
-          circumstanceIndicator,
-          security,
-          commercialReferenceNumber,
-          methodOfPayment,
-          identityOfTransportCrossingBorder,
-          nationalityOfTransportAtBorder,
-          transportModeAtBorder,
-          agreedLocationOfGoodsCode,
-          placeOfLoadingCode,
-          placeOfUnLoadingCode,
-          conveyanceReferenceNumber,
-          principal,
-          consignor,
-          consignee,
-          departureOffice,
-          destinationOffice,
-          cusOfficesOfTransit,
-          guaranteeDetails.toList,
-          seals,
-          returnCopiesCustomsOffice,
-          controlResult,
-          goodsItems,
-          itineraries,
-          safetyAndSecurityCarrier,
-          safetyAndSecurityConsignor,
-          safetyAndSecurityConsignee
-        )
+      } yield TransitSecurityAccompanyingDocumentPDF(
+        mrn,
+        declarationType,
+        countryOfDispatch,
+        countryOfDestination,
+        transportId,
+        transportCountry,
+        acceptanceDate,
+        numberOfItems,
+        numberOfPackages,
+        grossMass,
+        printBindingItinerary,
+        authId,
+        copyType,
+        circumstanceIndicator,
+        security,
+        commercialReferenceNumber,
+        methodOfPayment,
+        identityOfTransportCrossingBorder,
+        nationalityOfTransportAtBorder,
+        transportModeAtBorder,
+        agreedLocationOfGoodsCode,
+        placeOfLoadingCode,
+        placeOfUnLoadingCode,
+        conveyanceReferenceNumber,
+        principal,
+        consignor,
+        consignee,
+        departureOffice,
+        destinationOffice,
+        cusOfficesOfTransit,
+        guaranteeDetails.toList,
+        seals,
+        returnCopiesCustomsOffice,
+        controlResult,
+        goodsItems,
+        itineraries,
+        safetyAndSecurityCarrier,
+        safetyAndSecurityConsignor,
+        safetyAndSecurityConsignee
+      )
     }
 }

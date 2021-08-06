@@ -23,12 +23,14 @@ object SecurityConsigneeConverter {
       case c: models.SecurityConsigneeWithEori =>
         viewmodels.SecurityConsignee(name = None, streetAndNumber = None, postCode = None, city = None, countryCode = None, eori = Some(c.eori))
       case c: models.SecurityConsigneeWithoutEori =>
-        viewmodels.SecurityConsignee(name = Some(c.name),
-                                     streetAndNumber = Some(c.streetAndNumber),
-                                     postCode = Some(c.postCode),
-                                     city = Some(c.city),
-                                     countryCode = Some(c.countryCode),
-                                     eori = None)
+        viewmodels.SecurityConsignee(
+          name = Some(c.name),
+          streetAndNumber = Some(c.streetAndNumber),
+          postCode = Some(c.postCode),
+          city = Some(c.city),
+          countryCode = Some(c.countryCode),
+          eori = None
+        )
     }
 
 }

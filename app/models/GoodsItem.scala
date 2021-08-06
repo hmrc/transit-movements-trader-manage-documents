@@ -77,6 +77,6 @@ object GoodsItem {
       (__ \ "PACGS2").read(xmlNonEmptyListReads[Package]),
       (__ \ "SGICODSD2").read(seq[SensitiveGoodsInformation]),
       (__ \ "TRACORSECGOO021").read[SecurityConsignor](SecurityConsignor.xmlReader).optional,
-      (__ \ "TRACONSECGOO013").read[SecurityConsignee](SecurityConsignee.xmlReader).optional,
+      (__ \ "TRACONSECGOO013").read[SecurityConsignee](SecurityConsignee.xmlReader).optional
     ).mapN(apply)
 }

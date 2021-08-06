@@ -32,7 +32,7 @@ class SafetyAndSecurityCarrierSpec extends FreeSpec with MustMatchers with Scala
 
       forAll(arbitrary[SafetyAndSecurityCarrierWithoutEori]) {
         consignee =>
-          val xml = {
+          val xml =
             <CARTRA100>
                 <NamCARTRA121>{consignee.name}</NamCARTRA121>
                 <StrAndNumCARTRA254>{consignee.streetAndNumber}</StrAndNumCARTRA254>
@@ -40,7 +40,6 @@ class SafetyAndSecurityCarrierSpec extends FreeSpec with MustMatchers with Scala
                 <CitCARTRA789>{consignee.city}</CitCARTRA789>
                 <CouCodCARTRA587>{consignee.countryCode}</CouCodCARTRA587>
               </CARTRA100>
-          }
 
           val result = XmlReader.of[SafetyAndSecurityCarrier](SafetyAndSecurityCarrier.xmlReader).read(xml).toOption.value
 
@@ -50,11 +49,10 @@ class SafetyAndSecurityCarrierSpec extends FreeSpec with MustMatchers with Scala
 
     "must deserialise SafetyAndSecurityCarrierWithEori" in {
       val eori = nonEmptyString.sample.value
-      val xml = {
+      val xml =
         <CARTRA100>
             <TINCARTRA254>{eori}</TINCARTRA254>
           </CARTRA100>
-      }
 
       val result = XmlReader.of[SafetyAndSecurityCarrier](SafetyAndSecurityCarrier.xmlReader).read(xml).toOption.value
 

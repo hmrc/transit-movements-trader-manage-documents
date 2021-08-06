@@ -33,7 +33,7 @@ import scala.concurrent.Future
 import scala.xml.NodeSeq
 import utils.FileNameSanitizer
 
-class TransitAccompanyingDocumentController @Inject()(
+class TransitAccompanyingDocumentController @Inject() (
   conversionService: TransitAccompanyingDocumentConversionService,
   pdf: TADPdfGenerator,
   cc: ControllerComponents

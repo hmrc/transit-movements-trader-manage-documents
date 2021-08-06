@@ -26,10 +26,9 @@ trait ReferenceModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryCountry: Arbitrary[Country] =
     Arbitrary {
       for {
-        state       <- Gen.oneOf(Gen.const("valid"), Gen.const("invalid"))
         code        <- stringWithMaxLength(2).map(_.toUpperCase)
         description <- stringWithMaxLength(50)
-      } yield Country(state, code, description)
+      } yield Country(code, description)
     }
 
   implicit lazy val arbitraryKindOfPackage: Arbitrary[KindOfPackage] =

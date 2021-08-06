@@ -23,12 +23,14 @@ object SecurityCarrierConverter {
       case c: models.SafetyAndSecurityCarrierWithEori =>
         viewmodels.SafetyAndSecurityCarrier(name = None, streetAndNumber = None, postCode = None, city = None, countryCode = None, eori = Some(c.eori))
       case c: models.SafetyAndSecurityCarrierWithoutEori =>
-        viewmodels.SafetyAndSecurityCarrier(name = Some(c.name),
-                                            streetAndNumber = Some(c.streetAndNumber),
-                                            postCode = Some(c.postCode),
-                                            city = Some(c.city),
-                                            countryCode = Some(c.countryCode),
-                                            eori = None)
+        viewmodels.SafetyAndSecurityCarrier(
+          name = Some(c.name),
+          streetAndNumber = Some(c.streetAndNumber),
+          postCode = Some(c.postCode),
+          city = Some(c.city),
+          countryCode = Some(c.countryCode),
+          eori = None
+        )
     }
 
 }

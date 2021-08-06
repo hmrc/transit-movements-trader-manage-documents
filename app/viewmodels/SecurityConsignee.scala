@@ -15,6 +15,7 @@
  */
 
 package viewmodels
+
 import utils.StringTransformer.StringFormatter
 
 final case class SecurityConsignee(

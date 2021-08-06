@@ -179,32 +179,39 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
 
         forAll(arbitrary[PermissionToStartUnloading]) {
           unloadingPermission =>
-            val xml = {
+            val xml =
               <CC043A>
             <HEAHEA>
               <DocNumHEA5>{unloadingPermission.movementReferenceNumber}</DocNumHEA5>
               <TypOfDecHEA24>{unloadingPermission.declarationType.toString}</TypOfDecHEA24>
               {
-                unloadingPermission.countryOfDispatch.fold(NodeSeq.Empty) { countryOfDispatch =>
-                  <CouOfDisCodHEA55>{countryOfDispatch}</CouOfDisCodHEA55>
+                unloadingPermission.countryOfDispatch.fold(NodeSeq.Empty) {
+                  countryOfDispatch =>
+                    <CouOfDisCodHEA55>{countryOfDispatch}</CouOfDisCodHEA55>
                 } ++
-                unloadingPermission.countryOfDestination.fold(NodeSeq.Empty) { countryOfDestination =>
-                  <CouOfDesCodHEA30>{countryOfDestination}</CouOfDesCodHEA30>
-                }
+                  unloadingPermission.countryOfDestination.fold(NodeSeq.Empty) {
+                    countryOfDestination =>
+                      <CouOfDesCodHEA30>{countryOfDestination}</CouOfDesCodHEA30>
+                  }
               }
               {
-                unloadingPermission.transportIdentity.fold(NodeSeq.Empty) { transportIdentity =>
-                  <IdeOfMeaOfTraAtDHEA78>{transportIdentity}</IdeOfMeaOfTraAtDHEA78>
+                unloadingPermission.transportIdentity.fold(NodeSeq.Empty) {
+                  transportIdentity =>
+                    <IdeOfMeaOfTraAtDHEA78>{transportIdentity}</IdeOfMeaOfTraAtDHEA78>
                 } ++
-                unloadingPermission.transportCountry.fold(NodeSeq.Empty) { transportCountry =>
-                  <NatOfMeaOfTraAtDHEA80>{transportCountry}</NatOfMeaOfTraAtDHEA80>
-                }
+                  unloadingPermission.transportCountry.fold(NodeSeq.Empty) {
+                    transportCountry =>
+                      <NatOfMeaOfTraAtDHEA80>{transportCountry}</NatOfMeaOfTraAtDHEA80>
+                  }
               }
               <AccDatHEA158>{dateFormatted(unloadingPermission.acceptanceDate)}</AccDatHEA158>
               <TotNumOfIteHEA305>{unloadingPermission.numberOfItems}</TotNumOfIteHEA305>
-              {unloadingPermission.numberOfPackages.fold(NodeSeq.Empty) { numberOfPackages =>
-                <TotNumOfPacHEA306>{numberOfPackages}</TotNumOfPacHEA306>
-               }}
+              {
+                unloadingPermission.numberOfPackages.fold(NodeSeq.Empty) {
+                  numberOfPackages =>
+                    <TotNumOfPacHEA306>{numberOfPackages}</TotNumOfPacHEA306>
+                }
+              }
               <TotGroMasHEA307>{unloadingPermission.grossMass}</TotGroMasHEA307>
             </HEAHEA>
             <TRAPRIPC1>
@@ -214,22 +221,24 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               <CitPC124>{unloadingPermission.principal.city}</CitPC124>
               <CouPC125>{unloadingPermission.principal.countryCode}</CouPC125>
               {
-                unloadingPermission.principal.eori.fold(NodeSeq.Empty) { eori =>
-                  <TINPC159>{eori}</TINPC159>
+                unloadingPermission.principal.eori.fold(NodeSeq.Empty) {
+                  eori =>
+                    <TINPC159>{eori}</TINPC159>
                 } ++
-                unloadingPermission.principal.tir.fold(NodeSeq.Empty) { tir =>
-                  <HITPC126>{tir}</HITPC126>
-                }
+                  unloadingPermission.principal.tir.fold(NodeSeq.Empty) {
+                    tir =>
+                      <HITPC126>{tir}</HITPC126>
+                  }
               }
             </TRAPRIPC1>
             {
-              unloadingPermission.consignor.map(XMLBuilderHelper.consignorHeaderXML) ++
-              unloadingPermission.consignee.map(XMLBuilderHelper.consigneeHeaderXML)
-            }
+                unloadingPermission.consignor.map(XMLBuilderHelper.consignorHeaderXML) ++
+                  unloadingPermission.consignee.map(XMLBuilderHelper.consigneeHeaderXML)
+              }
             <TRADESTRD>
             {
-              XMLBuilderHelper.traderAtDestinationToXml(unloadingPermission.traderAtDestination)
-            }
+                XMLBuilderHelper.traderAtDestinationToXml(unloadingPermission.traderAtDestination)
+              }
             </TRADESTRD>
             <CUSOFFDEPEPT>
               <RefNumEPT1>{unloadingPermission.departureOffice}</RefNumEPT1>
@@ -238,11 +247,10 @@ class UnloadingPermissionSpec extends FreeSpec with MustMatchers with ScalaCheck
               <RefNumRES1>{unloadingPermission.presentationOffice}</RefNumRES1>
             </CUSOFFPREOFFRES>
             {
-              XMLBuilderHelper.sealsToXml(unloadingPermission.seals) ++
-              unloadingPermission.goodsItems.toList.map(XMLBuilderHelper.goodsItemToXml)
-            }
+                XMLBuilderHelper.sealsToXml(unloadingPermission.seals) ++
+                  unloadingPermission.goodsItems.toList.map(XMLBuilderHelper.goodsItemToXml)
+              }
             </CC043A>
-            }
 
             val result = XmlReader.of[PermissionToStartUnloading].read(xml).toOption.value
 

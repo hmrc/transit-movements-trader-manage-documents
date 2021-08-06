@@ -36,65 +36,100 @@ trait ConversionHelpers {
 
   def convertTransportCountry(maybeCountry: Option[String], countries: Seq[Country]): ValidationResult[Option[Country]] =
     maybeCountry match {
-      case Some(country) => findReferenceData[Country](country, countries, s"transportCountry").map(x => Some(x))
-      case None          => Valid(None)
+      case Some(country) =>
+        findReferenceData[Country](country, countries, s"transportCountry").map(
+          x => Some(x)
+        )
+      case None => Valid(None)
     }
 
   def convertConsignor(maybeConsignor: Option[models.Consignor], countries: Seq[Country]): ValidationResult[Option[viewmodels.Consignor]] =
     maybeConsignor match {
-      case Some(consignor) => ConsignorConverter.toViewModel(consignor, s"consignor", countries).map(x => Some(x))
-      case None            => Valid(None)
+      case Some(consignor) =>
+        ConsignorConverter
+          .toViewModel(consignor, s"consignor", countries)
+          .map(
+            x => Some(x)
+          )
+      case None => Valid(None)
     }
 
   def convertConsignee(maybeConsignee: Option[models.Consignee], countries: Seq[Country]): ValidationResult[Option[viewmodels.Consignee]] =
     maybeConsignee match {
-      case Some(consignee) => ConsigneeConverter.toViewModel(consignee, s"consignee", countries).map(x => Some(x))
-      case None            => Valid(None)
+      case Some(consignee) =>
+        ConsigneeConverter
+          .toViewModel(consignee, s"consignee", countries)
+          .map(
+            x => Some(x)
+          )
+      case None => Valid(None)
     }
 
-  def convertReturnCopiesCustomsOffice(maybeReturnCopiesCustomsOffice: Option[models.ReturnCopiesCustomsOffice],
-                                       countries: Seq[Country]): ValidationResult[Option[viewmodels.ReturnCopiesCustomsOffice]] =
+  def convertReturnCopiesCustomsOffice(
+    maybeReturnCopiesCustomsOffice: Option[models.ReturnCopiesCustomsOffice],
+    countries: Seq[Country]
+  ): ValidationResult[Option[viewmodels.ReturnCopiesCustomsOffice]] =
     maybeReturnCopiesCustomsOffice match {
-      case Some(customsOffice) => ReturnCopiesCustomsOfficeConverter.toViewModel(customsOffice, s"returnCopiesCustomsOffice", countries).map(x => Some(x))
-      case None                => Valid(None)
+      case Some(customsOffice) =>
+        ReturnCopiesCustomsOfficeConverter
+          .toViewModel(customsOffice, s"returnCopiesCustomsOffice", countries)
+          .map(
+            x => Some(x)
+          )
+      case None => Valid(None)
     }
 
   def convertCountryOfDispatch(maybeCountryOfDispatch: Option[String], countries: Seq[Country]): ValidationResult[Option[Country]] =
     maybeCountryOfDispatch match {
-      case Some(countryOfDispatch) => findReferenceData(countryOfDispatch, countries, s"countryOfDispatch").map(x => Some(x))
-      case None                    => Valid(None)
+      case Some(countryOfDispatch) =>
+        findReferenceData(countryOfDispatch, countries, s"countryOfDispatch").map(
+          x => Some(x)
+        )
+      case None => Valid(None)
     }
 
   def convertCountryOfDestination(maybeCountryOfDestination: Option[String], countries: Seq[Country]): ValidationResult[Option[Country]] =
     maybeCountryOfDestination match {
-      case Some(countryOfDestination) => findReferenceData(countryOfDestination, countries, s"countryOfDestination").map(x => Some(x))
-      case None                       => Valid(None)
+      case Some(countryOfDestination) =>
+        findReferenceData(countryOfDestination, countries, s"countryOfDestination").map(
+          x => Some(x)
+        )
+      case None => Valid(None)
     }
 
-  def convertCircumstanceIndicator(maybeCircumstanceIndicator: Option[String],
-                                   circumstanceIndicators: Seq[CircumstanceIndicator]): ValidationResult[Option[String]] =
+  def convertCircumstanceIndicator(
+    maybeCircumstanceIndicator: Option[String],
+    circumstanceIndicators: Seq[CircumstanceIndicator]
+  ): ValidationResult[Option[String]] =
     maybeCircumstanceIndicator match {
-      case Some(circumstanceIndicator) => findReferenceData(circumstanceIndicator, circumstanceIndicators, s"circumstanceIndicators").map(x => Some(x.code))
-      case None                        => Valid(None)
+      case Some(circumstanceIndicator) =>
+        findReferenceData(circumstanceIndicator, circumstanceIndicators, s"circumstanceIndicators").map(
+          x => Some(x.code)
+        )
+      case None => Valid(None)
     }
 
-  def convertGoodsItems(items: NonEmptyList[models.GoodsItem],
-                        countries: Seq[Country],
-                        additionalInfo: Seq[AdditionalInformation],
-                        kindsOfPackage: Seq[KindOfPackage],
-                        documentTypes: Seq[DocumentType],
-                        previousDocumentTypes: Seq[PreviousDocumentTypes]): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
+  def convertGoodsItems(
+    items: NonEmptyList[models.GoodsItem],
+    countries: Seq[Country],
+    additionalInfo: Seq[AdditionalInformation],
+    kindsOfPackage: Seq[KindOfPackage],
+    documentTypes: Seq[DocumentType],
+    previousDocumentTypes: Seq[PreviousDocumentTypes]
+  ): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
 
     val head :: tail = items.toList.zipWithIndex.map {
       case (item, index) =>
-        GoodsItemConverter.toViewModel(item,
-                                       s"goodsItems[$index]",
-                                       countries,
-                                       additionalInfo,
-                                       kindsOfPackage,
-                                       documentTypes,
-                                       previousDocumentTypes,
-                                       item.previousAdminRef)
+        GoodsItemConverter.toViewModel(
+          item,
+          s"goodsItems[$index]",
+          countries,
+          additionalInfo,
+          kindsOfPackage,
+          documentTypes,
+          previousDocumentTypes,
+          item.previousAdminRef
+        )
     }
 
     (

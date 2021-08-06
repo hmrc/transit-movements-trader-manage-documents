@@ -23,7 +23,7 @@ import views.xml.UnloadingPermissionDocument
 
 import javax.inject.Inject
 
-class UnloadingPermissionPdfGenerator @Inject()(
+class UnloadingPermissionPdfGenerator @Inject() (
   fop: PlayFop,
   document: UnloadingPermissionDocument
 ) {

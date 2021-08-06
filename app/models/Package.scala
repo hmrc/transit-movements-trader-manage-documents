@@ -66,7 +66,7 @@ object BulkPackage {
 
     (
       (__ \ "KinOfPacGS23").read[String],
-      (__ \ "MarNumOfPacGS21").read[String].optional,
+      (__ \ "MarNumOfPacGS21").read[String].optional
     ).mapN(apply)
   }
 
@@ -81,9 +81,13 @@ object BulkPackage {
       .flatMap[String] {
         kind =>
           if (validCodes.contains(kind)) {
-            Reads(_ => JsSuccess(kind))
+            Reads(
+              _ => JsSuccess(kind)
+            )
           } else {
-            Reads(_ => JsError("kindOfPackage must indicate BULK"))
+            Reads(
+              _ => JsError("kindOfPackage must indicate BULK")
+            )
           }
       }
       .andKeep(
@@ -113,7 +117,7 @@ object UnpackedPackage {
     (
       (__ \ "KinOfPacGS23").read[String],
       (__ \ "NumOfPieGS25").read[Int],
-      (__ \ "MarNumOfPacGS21").read[String].optional,
+      (__ \ "MarNumOfPacGS21").read[String].optional
     ).mapN(apply)
   }
 
@@ -128,9 +132,13 @@ object UnpackedPackage {
       .flatMap[String] {
         kind =>
           if (validCodes.contains(kind)) {
-            Reads(_ => JsSuccess(kind))
+            Reads(
+              _ => JsSuccess(kind)
+            )
           } else {
-            Reads(_ => JsError("kindOfPackage must indicate UNPACKED"))
+            Reads(
+              _ => JsError("kindOfPackage must indicate UNPACKED")
+            )
           }
       }
       .andKeep(
@@ -161,7 +169,7 @@ object RegularPackage {
     (
       (__ \ "KinOfPacGS23").read[String],
       (__ \ "NumOfPacGS24").read[Int],
-      (__ \ "MarNumOfPacGS21").read[String],
+      (__ \ "MarNumOfPacGS21").read[String]
     ).mapN(apply)
   }
 
@@ -174,9 +182,13 @@ object RegularPackage {
       .flatMap[String] {
         kind =>
           if (BulkPackage.validCodes.contains(kind) || UnpackedPackage.validCodes.contains(kind)) {
-            Reads(_ => JsError("kindOfPackage must not indicate BULK or UNPACKED"))
+            Reads(
+              _ => JsError("kindOfPackage must not indicate BULK or UNPACKED")
+            )
           } else {
-            Reads(_ => JsSuccess(kind))
+            Reads(
+              _ => JsSuccess(kind)
+            )
           }
       }
       .andKeep(

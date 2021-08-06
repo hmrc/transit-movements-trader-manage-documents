@@ -37,7 +37,11 @@ object DeclarationType extends Enumerable.Implicits {
   val values: Set[DeclarationType] = Set(TMinus, T1, T2, T2F, T2SM, TIR)
 
   implicit val enumerable: Enumerable[DeclarationType] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    Enumerable(
+      values.toSeq.map(
+        v => v.toString -> v
+      ): _*
+    )
 
   implicit lazy val xmlReader: XmlReader[DeclarationType] =
     (xml: NodeSeq) => {
