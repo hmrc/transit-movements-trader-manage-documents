@@ -41,7 +41,7 @@ import play.api.test.FutureAwaits
 import services.JsonError
 import services.ReferenceDataRetrievalError
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.logging.RequestId
+import uk.gov.hmrc.http.RequestId
 import utils.WireMockHelper
 
 import java.util.UUID

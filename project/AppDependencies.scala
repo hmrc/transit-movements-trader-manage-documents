@@ -4,7 +4,7 @@ import sbt._
 object AppDependencies {
 
   val compile = Seq(
-    "uk.gov.hmrc"             %% "bootstrap-backend-play-27"  % "3.2.0",
+    "uk.gov.hmrc"             %% "bootstrap-backend-play-27"  % "5.12.0",
     "org.typelevel"           %% "cats-core"                  % "1.6.1",
     "com.dmanchester"         %% "playfop"                    % "1.0",
     "net.sf.barcode4j"        %  "barcode4j"                  % "2.1",
@@ -19,10 +19,10 @@ object AppDependencies {
     "org.scalatestplus.play"  %% "scalatestplus-play"       % "3.1.2",
     "org.scalacheck"          %% "scalacheck"               % "1.14.1",
     "org.mockito"             %  "mockito-all"              % "1.10.19",
-    "com.github.tomakehurst"  %  "wiremock-standalone"      % "2.17.0",
-    "com.ironcorelabs"        %% "cats-scalatest"           % "2.4.0" ,
-    "org.apache.pdfbox"       %  "pdfbox"                   % "2.0.21",
-    "org.jsoup"               % "jsoup"                     % "1.13.1"
+    "com.github.tomakehurst"  %  "wiremock-standalone"      % "2.27.2",
+    "com.ironcorelabs"        %% "cats-scalatest"           % "2.4.1" ,
+    "org.apache.pdfbox"       %  "pdfbox"                   % "2.0.24",
+    "org.jsoup"               % "jsoup"                     % "1.14.2"
 
   ).map(_ % "test")
 }
