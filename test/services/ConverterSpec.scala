@@ -19,14 +19,14 @@ package services
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.reference.CodedReferenceData
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 
 case class ReferenceData(override val code: String) extends CodedReferenceData
 
 class TestConverter extends Converter
 
-class ConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class ConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
   private val data = Seq(ReferenceData("a"), ReferenceData("b"))
 

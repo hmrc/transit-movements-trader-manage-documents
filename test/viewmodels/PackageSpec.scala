@@ -19,11 +19,12 @@ package viewmodels
 import generators.ViewmodelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
+
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class PackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ViewmodelGenerators {
+class PackageSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ViewmodelGenerators {
 
   "marksAndNumbersValue" - {
 

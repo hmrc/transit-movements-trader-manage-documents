@@ -20,10 +20,10 @@ import cats.data.Validated.Valid
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.reference.AdditionalInformation
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 
-class SpecialMentionConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class SpecialMentionConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
   private val additionalInfo = Seq(AdditionalInformation("a", "info 1"), AdditionalInformation("b", "info 2"))
 

@@ -16,9 +16,9 @@
 
 package base
 
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatestplus.mockito.MockitoSugar
 
-trait SpecBase extends FreeSpec with MustMatchers with OptionValues with MockitoSugar
+trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar

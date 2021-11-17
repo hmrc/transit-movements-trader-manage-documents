@@ -16,7 +16,6 @@
 
 package services.conversion
 
-import java.time.LocalDate
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
 import cats.implicits._
@@ -28,10 +27,7 @@ import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
-import org.mockito.Matchers._
 import org.mockito.Mockito._
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
@@ -40,13 +36,16 @@ import services.ReferenceDataRetrievalError
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.PermissionToStartUnloading
-
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
+import java.time.LocalDate
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import org.mockito.ArgumentMatchers.any
 
 class UnloadingPermissionConversionServiceSpec
-    extends FreeSpec
-    with MustMatchers
+    extends AnyFreeSpec
+    with Matchers
     with MockitoSugar
     with ValidatedMatchers
     with ValidatedValues

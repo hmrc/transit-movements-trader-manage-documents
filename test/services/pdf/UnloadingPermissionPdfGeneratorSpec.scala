@@ -26,8 +26,8 @@ import models.reference.KindOfPackage
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -40,8 +40,8 @@ import java.nio.file.Paths
 import java.time.LocalDate
 
 class UnloadingPermissionPdfGeneratorSpec
-    extends FreeSpec
-    with MustMatchers
+    extends AnyFreeSpec
+    with Matchers
     with GuiceOneAppPerSuite
     with ViewmodelGenerators
     with OptionValues

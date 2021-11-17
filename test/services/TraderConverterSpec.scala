@@ -19,10 +19,10 @@ package services
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.reference.Country
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 
-class TraderConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class TraderConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
   private val countries   = Seq(Country("a", "country 1"), Country("b", "country 2"))
   private val invalidCode = "invalid code"

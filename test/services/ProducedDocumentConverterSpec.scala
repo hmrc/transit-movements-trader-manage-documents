@@ -19,10 +19,10 @@ package services
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.reference.DocumentType
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 
-class ProducedDocumentConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class ProducedDocumentConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
   private val documentTypes = Seq(DocumentType("a", "doc 1", true), DocumentType("b", "doc 2", true))
 

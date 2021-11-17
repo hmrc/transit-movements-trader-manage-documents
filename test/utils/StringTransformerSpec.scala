@@ -17,11 +17,11 @@
 package utils
 
 import generators.GeneratorHelpers
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class StringTransformerSpec extends FreeSpec with MustMatchers with GeneratorHelpers with ScalaCheckPropertyChecks {
+class StringTransformerSpec extends AnyFreeSpec with Matchers with GeneratorHelpers with ScalaCheckPropertyChecks {
 
   import utils.StringTransformer._
 

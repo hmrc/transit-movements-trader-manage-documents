@@ -17,12 +17,12 @@
 package viewmodels
 
 import models.reference.ControlResultData
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 
 import java.time.LocalDate
 
-class ControlResultSpec extends FreeSpec with MustMatchers {
+class ControlResultSpec extends AnyFreeSpec with Matchers {
 
   "displayName" - {
     "return the code if the description is empty" in {

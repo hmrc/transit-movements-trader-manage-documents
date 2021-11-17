@@ -17,14 +17,14 @@
 package json
 
 import cats.data.NonEmptyList
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import play.api.libs.json.JsError
 import play.api.libs.json.JsSuccess
 import play.api.libs.json.Json
 import json.NonEmptyListOps._
 
-class NonEmptyListOpsSpec extends FreeSpec with MustMatchers {
+class NonEmptyListOpsSpec extends AnyFreeSpec with Matchers {
 
   "ops" - {
 

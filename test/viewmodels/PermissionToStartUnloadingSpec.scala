@@ -22,12 +22,12 @@ import models.reference.Country
 import models.SensitiveGoodsInformation
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class PermissionToStartUnloadingSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ViewmodelGenerators with OptionValues {
+class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ViewmodelGenerators with OptionValues {
 
   private val genPermissionWithoutListOfItems = for {
     permission                <- arbitrary[PermissionToStartUnloading]

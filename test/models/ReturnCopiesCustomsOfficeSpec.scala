@@ -22,14 +22,14 @@ import com.lucidchart.open.xtract.XPath
 import com.lucidchart.open.xtract.XmlReader
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 import scala.xml.Utility.trim
 
-class ReturnCopiesCustomsOfficeSpec extends FreeSpec with ScalaCheckPropertyChecks with ModelGenerators with MustMatchers with OptionValues {
+class ReturnCopiesCustomsOfficeSpec extends AnyFreeSpec with ScalaCheckPropertyChecks with ModelGenerators with Matchers with OptionValues {
 
   "ReturnCopiesCustomsOffice" - {
     "must read xml as ReturnCopiesCustomsOffice model" in {

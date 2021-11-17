@@ -26,11 +26,11 @@ import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import services.ReferenceDataNotFound
 
-class UnloadingPermissionConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class UnloadingPermissionConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
   private val countries                 = Seq(Country("AA", "Country A"), Country("BB", "Country B"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))

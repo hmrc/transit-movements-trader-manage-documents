@@ -21,8 +21,8 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models._
 import models.reference._
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import services.ReferenceDataNotFound
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
@@ -34,7 +34,7 @@ import viewmodels.SafetyAndSecurityCarrier
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class TransitSecurityAccompanyingDocumentConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class TransitSecurityAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
   private val countries                 = Seq(Country("AA", "Country A"), Country("BB", "Country B"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
