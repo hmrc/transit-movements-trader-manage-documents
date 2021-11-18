@@ -92,7 +92,10 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
 
   implicit lazy val arbitrarySpecialMention: Arbitrary[SpecialMention] =
     Arbitrary {
-      SpecialMention(AdditionalInformation("id", "descritpion"), models.SpecialMention(Some("id"), "info", Some(true), Some("export")))
+      for {
+        additionalInformation <- arbitrary[AdditionalInformation]
+        specialMentions       <- arbitrary[models.SpecialMention]
+      } yield SpecialMention(additionalInformation, specialMentions)
     }
 
   implicit lazy val arbitraryTraderAtDestinationWithEori: Arbitrary[TraderAtDestinationWithEori] =
@@ -305,19 +308,22 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
     for {
       id          <- stringWithMaxLength(6)
       description <- Gen.option(stringWithMaxLength(23))
-      countryId   <- Gen.oneOf("test1", "test2")
+      countryId   <- nonEmptyString
     } yield CustomsOffice(id, description, countryId)
   }
 
   implicit lazy val arbitraryCustomsOfficeWithOptionalDate: Arbitrary[CustomsOfficeWithOptionalDate] = Arbitrary {
     for {
+      officeCode   <- arbitrary[CustomsOffice]
       optionalDate <- Gen.some(dateTimeBetween(LocalDateTime.of(1900, 1, 1, 0, 0), LocalDateTime.now))
-    } yield CustomsOfficeWithOptionalDate(CustomsOffice("id", Some("name"), "countryId"), optionalDate)
+    } yield CustomsOfficeWithOptionalDate(officeCode, optionalDate)
   }
 
   lazy val arbitraryCustomsOfficeWithoutOptionalDate: Arbitrary[CustomsOfficeWithOptionalDate] = Arbitrary {
-
-    CustomsOfficeWithOptionalDate(CustomsOffice("id", Some("name"), "countryId"), None)
+    for {
+      officeCode   <- arbitrary[CustomsOffice]
+      optionalDate <- Gen.some(dateTimeBetween(LocalDateTime.of(1900, 1, 1, 0, 0), LocalDateTime.now))
+    } yield CustomsOfficeWithOptionalDate(officeCode, optionalDate)
   }
 
   implicit lazy val arbitraryGuaranteeReference: Arbitrary[GuaranteeReference] = Arbitrary {
