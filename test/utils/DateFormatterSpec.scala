@@ -19,14 +19,14 @@ package utils
 import java.time.LocalDate
 
 import generators.ModelGenerators
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class DateFormatterSpec extends FreeSpec with MustMatchers with GuiceOneAppPerSuite with OptionValues with ModelGenerators with ScalaCheckPropertyChecks {
+class DateFormatterSpec extends AnyFreeSpec with Matchers with GuiceOneAppPerSuite with OptionValues with ModelGenerators with ScalaCheckPropertyChecks {
 
   "DateFormatted" - {
 

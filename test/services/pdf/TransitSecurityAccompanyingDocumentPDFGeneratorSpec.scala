@@ -33,8 +33,8 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -54,8 +54,8 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
-    extends FreeSpec
-    with MustMatchers
+    extends AnyFreeSpec
+    with Matchers
     with GuiceOneAppPerSuite
     with ViewmodelGenerators
     with OptionValues

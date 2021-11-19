@@ -18,14 +18,15 @@ package models
 
 import generators.ModelGenerators
 import org.scalacheck.Gen
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.JsError
 import play.api.libs.json.JsSuccess
+
 import play.api.libs.json.Json
 
-class UnpackedPackageSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ModelGenerators {
+class UnpackedPackageSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ModelGenerators {
 
   "Unpacked package" - {
 

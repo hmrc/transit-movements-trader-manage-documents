@@ -321,8 +321,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
 
   lazy val arbitraryCustomsOfficeWithoutOptionalDate: Arbitrary[CustomsOfficeWithOptionalDate] = Arbitrary {
     for {
-      officeCode <- arbitrary[CustomsOffice]
-    } yield CustomsOfficeWithOptionalDate(officeCode, None)
+      officeCode   <- arbitrary[CustomsOffice]
+      optionalDate <- Gen.some(dateTimeBetween(LocalDateTime.of(1900, 1, 1, 0, 0), LocalDateTime.now))
+    } yield CustomsOfficeWithOptionalDate(officeCode, optionalDate)
   }
 
   implicit lazy val arbitraryGuaranteeReference: Arbitrary[GuaranteeReference] = Arbitrary {

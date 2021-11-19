@@ -17,11 +17,11 @@
 package viewmodels
 
 import models.reference.AdditionalInformation
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 
-class SpecialMentionSpec extends FreeSpec with MustMatchers with OptionValues {
+class SpecialMentionSpec extends AnyFreeSpec with Matchers with OptionValues {
 
   "countryCodeToPrint" - {
     "return EU if only exportFromEC is set to true" in {

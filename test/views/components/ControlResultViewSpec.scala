@@ -19,14 +19,14 @@ package views.components
 import models.reference.ControlResultData
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import viewmodels.ControlResult
 import views.xml.components.table_5.control_results
 
 import java.time.LocalDate
 
-class ControlResultViewSpec extends FreeSpec with MustMatchers {
+class ControlResultViewSpec extends AnyFreeSpec with Matchers {
 
   "control_result" - {
     "render the code if description is empty exists" in {

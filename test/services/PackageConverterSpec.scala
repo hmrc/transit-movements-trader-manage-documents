@@ -19,10 +19,10 @@ package services
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.reference.KindOfPackage
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 
-class PackageConverterSpec extends FreeSpec with MustMatchers with ValidatedMatchers with ValidatedValues {
+class PackageConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
   private val kindsOfPackage = Seq(KindOfPackage("a", "package 1"), KindOfPackage("b", "package 2"))
 

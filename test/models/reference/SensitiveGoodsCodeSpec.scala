@@ -18,13 +18,13 @@ package models.reference
 
 import generators.ReferenceModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.JsSuccess
 import play.api.libs.json.Json
 
-class SensitiveGoodsCodeSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with ReferenceModelGenerators {
+class SensitiveGoodsCodeSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ReferenceModelGenerators {
 
   "SensitiveGoodsCode" - {
 

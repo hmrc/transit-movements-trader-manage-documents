@@ -19,14 +19,14 @@ package views.components
 import models.reference.AdditionalInformation
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
-import org.scalatest.FreeSpec
-import org.scalatest.MustMatchers
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import viewmodels.SpecialMention
 import views.xml.components.item.special_mentions
 
 import scala.collection.JavaConverters.asScalaIterator
 
-class SpecialMentionsViewSpec extends FreeSpec with MustMatchers {
+class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
 
   "special_mentions" - {
     "render only the additional information description if the description is less than 7 characters" in {
