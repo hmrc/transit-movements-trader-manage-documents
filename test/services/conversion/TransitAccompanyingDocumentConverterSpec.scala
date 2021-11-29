@@ -21,6 +21,7 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models._
 import models.reference._
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import services.ReferenceDataNotFound
@@ -44,7 +45,8 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
   private val transitOffices = Seq(
     CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))
   )
-  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", Some("Description")), PreviousDocumentTypes("124", Some("Description2")))
+  private val arbitraryDescription  = arbitrary[Option[String]].sample.get
+  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", arbitraryDescription), PreviousDocumentTypes("124", Some("Description2")))
   private val invalidCode           = "non-existent code"
   private val controlResult         = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
 
@@ -198,7 +200,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             previousDocumentTypes = Seq(
               PreviousDocumentType(
-                PreviousDocumentTypes("123", Some("Description")),
+                PreviousDocumentTypes("123", arbitraryDescription),
                 PreviousAdministrativeReference("123", "ABABA", None)
               )
             ),
