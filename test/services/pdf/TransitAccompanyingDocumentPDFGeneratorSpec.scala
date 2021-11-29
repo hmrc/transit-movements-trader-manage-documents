@@ -29,7 +29,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
-import org.scalacheck.Arbitrary
+import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
@@ -58,8 +58,6 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
     with ViewmodelGenerators
     with OptionValues
     with ScalaFutures {
-
-  def arb[A: Arbitrary]: Gen[A] = Arbitrary.arbitrary[A]
 
   // Spying on the tables to ensure the right values are passed in
   lazy val spiedTable1: table_1.table    = Mockito.spy(new table_1.table())
@@ -177,6 +175,8 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
 
 object TransitAccompanyingDocumentPDFGeneratorSpec {
 
+  private lazy val arbitraryDescription = Gen.oneOf(None, Some("T2")).sample.get
+
   val transitAccompanyingDocumentPDF: TransitAccompanyingDocumentPDF = TransitAccompanyingDocumentPDF(
     "21GB00006010025BD1",
     DeclarationType.TMinus,
@@ -229,7 +229,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("235", "Container list", transportDocument = true), Some("TAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", arbitraryDescription), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(SpecialMention(AdditionalInformation("DG1", "Export subject to duties"), models.SpecialMention(Some("TAD001"), "DG1", None, Some("GB")))),
         Some(
           Consignor(
@@ -264,7 +264,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("235", "Container list", transportDocument = true), Some("TAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", arbitraryDescription), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(),
         Some(
           Consignor(
@@ -299,7 +299,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("730", "Road consignment note", transportDocument = true), Some("TAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", arbitraryDescription), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(),
         Some(
           Consignor("DROFYL POTTERY", "125 Psuedopolis", "125 Psuedopolis", "SS99 1AA", "Ank-Morpork", Country("GB", "United Kingdom"), Some("GB658120050000"))

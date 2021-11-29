@@ -161,7 +161,7 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
 
 object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
 
-  private val arbitraryDescription = Gen.oneOf(None, Some("T2")).sample.get
+  private lazy val arbitraryDescription = Gen.oneOf(None, Some("T2")).sample.get
 
   val transitSecurityAccompanyingDocumentPDF: TransitSecurityAccompanyingDocumentPDF = TransitSecurityAccompanyingDocumentPDF(
     "21GB00006010025BE0",
