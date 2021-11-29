@@ -24,9 +24,9 @@ final case class PreviousDocumentType(
   previousAdminReference: PreviousAdministrativeReference
 ) {
 
-  val display: String = if (documentType.description.nonEmpty) {
+  val display: String = if (documentType.description.exists(_.nonEmpty)) {
     Seq(
-      Some(documentType.description),
+      documentType.description,
       Some(previousAdminReference.documentReference),
       previousAdminReference.complimentOfInfo
     ).flatten.mkString(" - ")

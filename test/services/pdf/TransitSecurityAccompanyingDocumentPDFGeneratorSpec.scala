@@ -33,10 +33,10 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks.forAll
 import play.api.Application
@@ -246,7 +246,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("235", "Container list", true), Some("TSAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TSAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TSAD001", None))),
         List(SpecialMention(AdditionalInformation("DG1", "Export subject to duties"), models.SpecialMention(Some("TSAD001"), "DG1", None, Some("GB")))),
         None,
         None,
@@ -269,7 +269,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("730", "Road consignment note", true), Some("TSAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TSAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TSAD001", None))),
         List(),
         None,
         None,
@@ -292,7 +292,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("730", "Road consignment note", true), Some("TSAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TSAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TSAD001", None))),
         List(),
         None,
         None,

@@ -84,7 +84,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
   private val departureOffice           = CustomsOffice("AB124", Some("Departure Office"), "AB")
   private val destinationOffice         = CustomsOffice("AB125", Some("Destination Office"), "AB")
   private val transitOffices            = CustomsOffice("AB123", Some("Transit Office"), "AB")
-  private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
+  private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", Some("Description")), PreviousDocumentTypes("124", Some("Description2")))
 
   private val controlResult = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
 
@@ -315,7 +315,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
                   unDangerGoodsCode = None,
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   previousDocumentTypes = validModel.goodsItems.head.previousAdminRef.map(
-                    ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)
+                    ref => PreviousDocumentType(PreviousDocumentTypes("123", Some("Description")), ref)
                   ),
                   specialMentions = Seq(
                     specialMentionEcViewModel,

@@ -22,13 +22,7 @@ import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.PreviousAdministrativeReference
-import models.reference.AdditionalInformation
-import models.reference.ControlResultData
-import models.reference.Country
-import models.reference.CustomsOffice
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
+import models.reference._
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.mockito.Mockito
@@ -37,10 +31,10 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks.forAll
 import play.api.Application
@@ -49,18 +43,7 @@ import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
 import services.pdf.TransitAccompanyingDocumentPDFGeneratorSpec.transitAccompanyingDocumentPDF
 import utils.FormattedDate
-import viewmodels.Consignee
-import viewmodels.Consignor
-import viewmodels.ControlResult
-import viewmodels.CustomsOfficeWithOptionalDate
-import viewmodels.GoodsItem
-import viewmodels.PreviousDocumentType
-import viewmodels.Principal
-import viewmodels.ProducedDocument
-import viewmodels.RegularPackage
-import viewmodels.ReturnCopiesCustomsOffice
-import viewmodels.SpecialMention
-import viewmodels.TransitAccompanyingDocumentPDF
+import viewmodels._
 import views.xml.components._
 
 import java.nio.file.Files
@@ -246,7 +229,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("235", "Container list", transportDocument = true), Some("TAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(SpecialMention(AdditionalInformation("DG1", "Export subject to duties"), models.SpecialMention(Some("TAD001"), "DG1", None, Some("GB")))),
         Some(
           Consignor(
@@ -281,7 +264,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("235", "Container list", transportDocument = true), Some("TAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(),
         Some(
           Consignor(
@@ -316,7 +299,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None,
         None,
         List(ProducedDocument(DocumentType("730", "Road consignment note", transportDocument = true), Some("TAD001"), None)),
-        List(PreviousDocumentType(PreviousDocumentTypes("T2", "T2"), PreviousAdministrativeReference("T2", "TAD001", None))),
+        List(PreviousDocumentType(PreviousDocumentTypes("T2", Some("T2")), PreviousAdministrativeReference("T2", "TAD001", None))),
         List(),
         Some(
           Consignor("DROFYL POTTERY", "125 Psuedopolis", "125 Psuedopolis", "SS99 1AA", "Ank-Morpork", Country("GB", "United Kingdom"), Some("GB658120050000"))

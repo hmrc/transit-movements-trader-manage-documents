@@ -76,7 +76,7 @@ trait ReferenceModelGenerators extends GeneratorHelpers {
     Arbitrary {
       for {
         code        <- stringWithMaxLength(6)
-        description <- stringWithMaxLength(50)
+        description <- Gen.option(stringWithMaxLength(50))
       } yield PreviousDocumentTypes(code, description)
     }
 
