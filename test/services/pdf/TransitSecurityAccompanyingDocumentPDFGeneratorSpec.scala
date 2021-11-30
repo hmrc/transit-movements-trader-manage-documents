@@ -98,7 +98,7 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
 
           verify(spiedTable2, times(1))
             .apply(
-              tad.printVariousSecurityConsignors,
+              tad.printVariousSecurityConsignees,
               tad.securityConsigneeOne,
               tad.printVariousSecurityConsignors,
               tad.securityConsignorOne,
