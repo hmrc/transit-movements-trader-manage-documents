@@ -83,10 +83,10 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
   implicit lazy val arbitraryTADSpecialMentions: Arbitrary[models.SpecialMention] =
     Arbitrary {
       for {
-        additionalInformation      <- arbitrary[Option[String]]
+        additionalInformation      <- Gen.option(string)
         additionalInformationCoded <- stringWithMaxLength(5)
         exportFromEC               <- arbitrary[Option[Boolean]]
-        exportFromCountry          <- arbitrary[Option[String]]
+        exportFromCountry          <- Gen.option(string)
       } yield models.SpecialMention(additionalInformation, additionalInformationCoded, exportFromEC, exportFromCountry)
     }
 

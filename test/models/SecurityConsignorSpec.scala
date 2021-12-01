@@ -50,15 +50,17 @@ class SecurityConsignorSpec extends AnyFreeSpec with Matchers with ScalaCheckPro
       }
 
       "must deserialise ConsignorWithEori" in {
-        val eori = nonEmptyString.sample.value
-        val xml =
-          <TRACORSECGOO021>
+        forAll(nonEmptyString) {
+          eori =>
+            val xml =
+              <TRACORSECGOO021>
                 <TINTRACORSECGOO028>{eori}</TINTRACORSECGOO028>
               </TRACORSECGOO021>
 
-        val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReader).read(xml).toOption.value
+            val result = XmlReader.of[SecurityConsignor](SecurityConsignor.xmlReader).read(xml).toOption.value
 
-        result mustBe SecurityConsignorWithEori(eori)
+            result mustBe SecurityConsignorWithEori(eori)
+        }
       }
     }
   }

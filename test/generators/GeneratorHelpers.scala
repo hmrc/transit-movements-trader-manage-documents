@@ -16,18 +16,21 @@
 
 package generators
 
+import cats.data.NonEmptyList
+import org.scalacheck.Gen
+import org.scalacheck.Shrink
+
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import cats.data.NonEmptyList
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.Gen
-import org.scalacheck.Shrink
 
 trait GeneratorHelpers {
 
   implicit def dontShrink[A]: Shrink[A] = Shrink.shrinkAny
+
+  // Certain characters are not valid XML. This ensures only alpha-numeric strings are generated.
+  def string: Gen[String] = Gen.alphaNumStr
 
   def stringWithMaxLength(maxLength: Int): Gen[String] =
     for {
@@ -36,7 +39,7 @@ trait GeneratorHelpers {
     } yield chars.mkString
 
   def nonEmptyString: Gen[String] =
-    arbitrary[String] suchThat (_.nonEmpty)
+    string suchThat (_.nonEmpty)
 
   def listWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[Seq[T]] =
     for {

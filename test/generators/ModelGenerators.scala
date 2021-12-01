@@ -558,8 +558,8 @@ trait ModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryAdditionalInformationViewModel: Arbitrary[AdditionalInformation] =
     Arbitrary {
       for {
-        code        <- arbitrary[String]
-        description <- arbitrary[String]
+        code        <- string
+        description <- string
       } yield AdditionalInformation(code, description)
     }
 
@@ -669,7 +669,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
       for {
         code        <- stringWithMaxLength(6)
-        description <- stringWithMaxLength(50)
+        description <- Gen.option(stringWithMaxLength(50))
       } yield PreviousDocumentTypes(code, description)
     }
 

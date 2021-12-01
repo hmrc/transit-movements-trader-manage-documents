@@ -41,6 +41,8 @@ import connectors.ReferenceDataConnector
 import generators.ModelGenerators
 import models._
 import models.reference._
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.{eq => eqTo}
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.concurrent.IntegrationPatience
@@ -57,8 +59,7 @@ import utils.FormattedDate
 import utils.StringTransformer._
 import viewmodels.CustomsOfficeWithOptionalDate
 import viewmodels.PreviousDocumentType
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.{eq => eqTo}
+
 import java.time.LocalDate
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -83,7 +84,8 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
   private val departureOffice           = CustomsOffice("AB124", Some("Departure Office"), "AB")
   private val destinationOffice         = CustomsOffice("AB125", Some("Destination Office"), "AB")
   private val transitOffices            = CustomsOffice("AB123", Some("Transit Office"), "AB")
-  private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
+  private val arbitraryDescription      = arbitrary[Option[String]].sample.get
+  private val previousDocumentTypes     = Seq(PreviousDocumentTypes("123", arbitraryDescription), PreviousDocumentTypes("124", Some("Description2")))
   private val circumstanceIndicators    = Seq(CircumstanceIndicator("E", "indicator 1"), CircumstanceIndicator("D", "indicator 2"))
 
   private val controlResult = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
@@ -385,7 +387,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
                   unDangerGoodsCode = Some("AA11"),
                   producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
                   previousDocumentTypes = validModel.goodsItems.head.previousAdminRef.map(
-                    ref => PreviousDocumentType(PreviousDocumentTypes("123", "Some Description"), ref)
+                    ref => PreviousDocumentType(PreviousDocumentTypes("123", arbitraryDescription), ref)
                   ),
                   specialMentions = Seq(
                     specialMentionEcViewModel,

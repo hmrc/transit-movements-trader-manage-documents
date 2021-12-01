@@ -19,22 +19,9 @@ package services.conversion
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.ControlResult
-import models.CustomsOfficeOfTransit
-import models.DeclarationType
-import models.GuaranteeDetails
-import models.GuaranteeReference
-import models.Header
-import models.Itinerary
-import models.PreviousAdministrativeReference
-import models.ReturnCopiesCustomsOffice
-import models.reference.AdditionalInformation
-import models.reference.ControlResultData
-import models.reference.Country
-import models.reference.CustomsOffice
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
+import models._
+import models.reference._
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import services.ReferenceDataNotFound
@@ -58,7 +45,8 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
   private val transitOffices = Seq(
     CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))
   )
-  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", "Some Description"), PreviousDocumentTypes("124", "Some Description2"))
+  private val arbitraryDescription  = arbitrary[Option[String]].sample.get
+  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", arbitraryDescription), PreviousDocumentTypes("124", Some("Description2")))
   private val invalidCode           = "non-existent code"
   private val controlResult         = Some(viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3))))
 
@@ -212,7 +200,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
             producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
             previousDocumentTypes = Seq(
               PreviousDocumentType(
-                PreviousDocumentTypes("123", "Some Description"),
+                PreviousDocumentTypes("123", arbitraryDescription),
                 PreviousAdministrativeReference("123", "ABABA", None)
               )
             ),

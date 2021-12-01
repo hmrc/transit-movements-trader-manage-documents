@@ -44,7 +44,7 @@ object Enumerable {
           JsError("error.invalid")
       }
 
-    implicit def writes[A](implicit ev: Enumerable[A]): Writes[A] =
+    implicit def writes[A]: Writes[A] =
       Writes(
         value => JsString(value.toString)
       )
