@@ -56,7 +56,7 @@ class TransitSecurityAccompanyingDocumentController @Inject() (
                   CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
                 )
             case Validated.Invalid(errors) =>
-              logger.info(s"Failed to convert to TransitSecurityAccompanyingDocument with following errors: $errors")
+              logger.error(s"Failed to convert to TransitSecurityAccompanyingDocument with following errors: $errors")
               InternalServerError
           } recover {
             case NonFatal(e) =>
@@ -64,10 +64,10 @@ class TransitSecurityAccompanyingDocumentController @Inject() (
               BadGateway
           }
         case PartialParseSuccess(result, errors) =>
-          logger.info(s"Partially failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors and result $result")
+          logger.error(s"Partially failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors and result $result")
           Future.successful(BadRequest)
         case ParseFailure(errors) =>
-          logger.info(s"Failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors")
+          logger.error(s"Failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors")
           Future.successful(BadRequest)
       }
   }
