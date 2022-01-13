@@ -26,12 +26,13 @@ import services._
 import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.TADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
+import utils.FileNameSanitizer
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.util.control.NonFatal
 import scala.xml.NodeSeq
-import utils.FileNameSanitizer
 
 class TransitAccompanyingDocumentController @Inject() (
   conversionService: TransitAccompanyingDocumentConversionService,
@@ -57,8 +58,8 @@ class TransitAccompanyingDocumentController @Inject() (
               logger.info(s"Failed to convert to TransitAccompanyingDocumentController with following errors: $errors")
               InternalServerError
           } recover {
-            case e =>
-              logger.info(s"Exception thrown while converting to TransitAccompanyingDocumentController: ${e.getMessage}")
+            case NonFatal(e) =>
+              logger.error("Exception thrown while converting to TransitAccompanyingDocument", e)
               BadGateway
           }
         case ParseFailure(errors) =>

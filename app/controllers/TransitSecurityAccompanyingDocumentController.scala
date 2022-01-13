@@ -27,12 +27,13 @@ import services.XMLToReleaseForTransit
 import services.conversion.TransitSecurityAccompanyingDocumentConversionService
 import services.pdf.TSADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
+import utils.FileNameSanitizer
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.util.control.NonFatal
 import scala.xml.NodeSeq
-import utils.FileNameSanitizer
 
 class TransitSecurityAccompanyingDocumentController @Inject() (
   conversionService: TransitSecurityAccompanyingDocumentConversionService,
@@ -58,8 +59,8 @@ class TransitSecurityAccompanyingDocumentController @Inject() (
               logger.info(s"Failed to convert to TransitSecurityAccompanyingDocument with following errors: $errors")
               InternalServerError
           } recover {
-            case e =>
-              logger.info(s"Exception thrown while converting to TransitSecurityAccompanyingDocument: ${e.getMessage}")
+            case NonFatal(e) =>
+              logger.error("Exception thrown while converting to TransitSecurityAccompanyingDocument", e)
               BadGateway
           }
         case PartialParseSuccess(result, errors) =>
