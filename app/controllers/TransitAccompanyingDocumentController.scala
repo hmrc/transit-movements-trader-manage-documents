@@ -67,7 +67,7 @@ class TransitAccompanyingDocumentController @Inject() (
                 BadGateway
             }
         case PartialParseSuccess(result, errors) =>
-          logger.warn(s"Partially failed to parse xml to TransitAccompanyingDocument with the following errors: $errors and result $result")
+          logger.error(s"Partially failed to parse xml to TransitAccompanyingDocument with the following errors: $errors and result $result")
           Future.successful(BadRequest)
         case ParseFailure(errors) =>
           logger.error(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors")
