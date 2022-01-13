@@ -27,12 +27,13 @@ import services.XMLToReleaseForTransit
 import services.conversion.TransitSecurityAccompanyingDocumentConversionService
 import services.pdf.TSADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
+import utils.FileNameSanitizer
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.util.control.NonFatal
 import scala.xml.NodeSeq
-import utils.FileNameSanitizer
 
 class TransitSecurityAccompanyingDocumentController @Inject() (
   conversionService: TransitSecurityAccompanyingDocumentConversionService,
@@ -55,18 +56,18 @@ class TransitSecurityAccompanyingDocumentController @Inject() (
                   CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
                 )
             case Validated.Invalid(errors) =>
-              logger.info(s"Failed to convert to TransitSecurityAccompanyingDocument with following errors: $errors")
+              logger.error(s"Failed to convert to TransitSecurityAccompanyingDocument with following errors: $errors")
               InternalServerError
           } recover {
-            case e =>
-              logger.info(s"Exception thrown while converting to TransitSecurityAccompanyingDocument: ${e.getMessage}")
+            case NonFatal(e) =>
+              logger.error("Exception thrown while converting to TransitSecurityAccompanyingDocument", e)
               BadGateway
           }
         case PartialParseSuccess(result, errors) =>
-          logger.info(s"Partially failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors and result $result")
+          logger.error(s"Partially failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors and result $result")
           Future.successful(BadRequest)
         case ParseFailure(errors) =>
-          logger.info(s"Failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors")
+          logger.error(s"Failed to parse xml to TransitSecurityAccompanyingDocument with the following errors: $errors")
           Future.successful(BadRequest)
       }
   }

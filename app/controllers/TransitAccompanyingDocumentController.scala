@@ -19,6 +19,7 @@ package controllers
 import cats.data.Validated
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
+import com.lucidchart.open.xtract.PartialParseSuccess
 import logging.Logging
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
@@ -26,12 +27,13 @@ import services._
 import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.TADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
+import utils.FileNameSanitizer
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.util.control.NonFatal
 import scala.xml.NodeSeq
-import utils.FileNameSanitizer
 
 class TransitAccompanyingDocumentController @Inject() (
   conversionService: TransitAccompanyingDocumentConversionService,
@@ -45,23 +47,30 @@ class TransitAccompanyingDocumentController @Inject() (
     implicit request =>
       XMLToReleaseForTransit.convert(request.body) match {
         case ParseSuccess(transitAccompanyingDocument) =>
-          conversionService.toViewModel(transitAccompanyingDocument).map {
-            case Validated.Valid(viewModel) =>
-              val fileName = s"TAD_${FileNameSanitizer(transitAccompanyingDocument.header.movementReferenceNumber)}.pdf"
-              Ok(pdf.generate(viewModel))
-                .withHeaders(
-                  CONTENT_TYPE        -> "application/pdf",
-                  CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
-                )
-            case Validated.Invalid(errors) =>
-              logger.info(s"Failed to convert to TransitAccompanyingDocumentController with following errors: $errors")
-              InternalServerError
-          } recover {
-            case e =>
-              logger.info(s"Exception thrown while converting to TransitAccompanyingDocumentController: ${e.getMessage}")
-              BadGateway
-          }
+          conversionService
+            .toViewModel(transitAccompanyingDocument)
+            .map {
+              case Validated.Valid(viewModel) =>
+                val fileName = s"TAD_${FileNameSanitizer(transitAccompanyingDocument.header.movementReferenceNumber)}.pdf"
+                Ok(pdf.generate(viewModel))
+                  .withHeaders(
+                    CONTENT_TYPE        -> "application/pdf",
+                    CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+                  )
+              case Validated.Invalid(errors) =>
+                logger.error(s"Failed to convert to TransitAccompanyingDocumentController with following errors: $errors")
+                InternalServerError
+            }
+            .recover {
+              case NonFatal(e) =>
+                logger.error("Exception thrown while converting to TransitAccompanyingDocument", e)
+                BadGateway
+            }
+        case PartialParseSuccess(result, errors) =>
+          logger.error(s"Partially failed to parse xml to TransitAccompanyingDocument with the following errors: $errors and result $result")
+          Future.successful(BadRequest)
         case ParseFailure(errors) =>
+          logger.error(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors")
           Future.successful(BadRequest(s"Failed to parse xml to TransitAccompanyingDocument with the following errors: $errors"))
       }
   }
