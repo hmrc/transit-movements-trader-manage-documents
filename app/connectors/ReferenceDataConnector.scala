@@ -18,9 +18,8 @@ package connectors
 
 import cats.implicits._
 import config.ReferenceDataConfig
-import models.reference.CircumstanceIndicator
 import models.reference._
-import play.api.Logger
+import play.api.Logging
 import play.api.http.Status
 import play.api.libs.json.Reads
 import services.JsonError
@@ -41,9 +40,7 @@ case class InvalidReferenceDataStatusException(statusCode: Int, typeOfData: Stri
 class ReferenceDataConnector @Inject() (
   config: ReferenceDataConfig,
   httpClient: HttpClient
-) {
-
-  val logger: Logger = Logger(s"application.${getClass.getCanonicalName}")
+) extends Logging {
 
   private def referenceDataReads[A](typeOfData: String)(implicit ev: Reads[A]): HttpReads[ValidationResult[Seq[A]]] =
     (_, _, response: HttpResponse) =>

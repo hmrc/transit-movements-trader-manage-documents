@@ -26,7 +26,7 @@ class ReferenceDataConfig @Inject() (config: Configuration) {
 
   private val baseUrl = s"$service/transit-movements-trader-reference-data"
 
-  val countriesUrl: String             = s"$baseUrl/countries-full-list"
+  val countriesUrl: String             = s"$baseUrl/countries"
   val kindsOfPackageUrl: String        = s"$baseUrl/kinds-of-package"
   val documentTypesUrl: String         = s"$baseUrl/document-types"
   val additionalInformationUrl: String = s"$baseUrl/additional-information"
