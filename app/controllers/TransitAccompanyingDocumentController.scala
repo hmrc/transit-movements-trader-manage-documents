@@ -20,7 +20,7 @@ import cats.data.Validated
 import com.lucidchart.open.xtract.ParseFailure
 import com.lucidchart.open.xtract.ParseSuccess
 import com.lucidchart.open.xtract.PartialParseSuccess
-import logging.Logging
+import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.ControllerComponents
 import services._

@@ -76,7 +76,7 @@ class ReferenceDataConnectorSpec
 
   "countries" - {
 
-    val countriesUrl = "/transit-movements-trader-reference-data/countries-full-list"
+    val countriesUrl = "/transit-movements-trader-reference-data/countries"
 
     "must return a sequence of countries" in {
 
