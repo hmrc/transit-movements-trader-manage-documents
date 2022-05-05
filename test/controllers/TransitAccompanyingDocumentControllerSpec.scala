@@ -52,7 +52,7 @@ class TransitAccompanyingDocumentControllerSpec
 
   def onwardRoute: Call = Call("GET", "/foo")
 
-  lazy val controllerRoute: String = routes.TransitAccompanyingDocumentController.get().url
+  lazy val controllerRoute: String = routes.TransitAccompanyingDocumentController.get.url
 
   "get" - {
 
