@@ -52,7 +52,7 @@ class UnloadingPermissionControllerSpec
 
   def onwardRoute: Call = Call("GET", "/foo")
 
-  lazy val unloadingPermissionControllerRoute: String = routes.UnloadingPermissionController.get().url
+  lazy val unloadingPermissionControllerRoute: String = routes.UnloadingPermissionController.get.url
 
   "get" - {
 
