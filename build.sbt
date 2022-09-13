@@ -3,7 +3,7 @@ import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
 import scoverage.ScoverageKeys
 
 val appName         = "transit-movements-trader-manage-documents"
-val silencerVersion = "1.7.1"
+val silencerVersion = "1.7.9"
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory)
@@ -11,16 +11,16 @@ lazy val microservice = Project(appName, file("."))
   .settings(
     majorVersion := 0,
     libraryDependencies ++= AppDependencies.compile ++ AppDependencies.test,
-    scalafmtOnCompile in ThisBuild := true,
+    ThisBuild / scalafmtOnCompile := true,
     ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*handlers.*;.*repositories.*;" +
       ".*BuildInfo.*;.*javascript.*;.*Routes.*;.*GuiceInjector;" +
       ".*ControllerConfiguration;.*LanguageSwitchController",
-    ScoverageKeys.coverageMinimum := 75,
+    ScoverageKeys.coverageMinimumStmtTotal := 75,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true
   )
   .settings(publishingSettings: _*)
-  .settings(scalaVersion := "2.12.12")
+  .settings(scalaVersion := "2.12.15")
   .settings(resolvers += Resolver.jcenterRepo)
   .settings(inConfig(Test)(testSettings): _*)
   .settings(PlayKeys.playDefaultPort := 9484)
