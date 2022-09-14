@@ -3,10 +3,12 @@ import sbt._
 
 object AppDependencies {
 
+  private val catsVersion = "2.8.0"
+
   val compile: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"             %% "bootstrap-backend-play-28"  % "7.3.0",
     "com.dmanchester"         %% "playfop"                    % "1.0",
-    "com.lucidchart"          %% "xtract"                     % "2.2.1"
+    "com.lucidchart"          %% "xtract"                     % "2.0.1"
   )
 
   val test: Seq[ModuleID] = Seq(
@@ -23,4 +25,9 @@ object AppDependencies {
     "org.jsoup"               %  "jsoup"                    % "1.15.3",
     "com.vladsch.flexmark"    %  "flexmark-all"             % "0.62.2"
   ).map(_ % "test")
+
+  val overrides: Seq[ModuleID] = Seq(
+    "org.typelevel" %% "cats-core" % catsVersion,
+    "org.typelevel" %% "cats-kernel" % catsVersion
+  )
 }
