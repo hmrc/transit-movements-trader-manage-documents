@@ -16,15 +16,16 @@
 
 package config
 
-import javax.inject.Inject
 import models.Service
 import play.api.Configuration
+
+import javax.inject.Inject
 
 class ReferenceDataConfig @Inject() (config: Configuration) {
 
   private val service = config.get[Service]("microservice.services.transit-movements-trader-reference-data")
 
-  private val baseUrl = s"$service/transit-movements-trader-reference-data"
+  private val baseUrl = service.fullServiceUrl
 
   val countriesUrl: String             = s"$baseUrl/countries"
   val kindsOfPackageUrl: String        = s"$baseUrl/kinds-of-package"
