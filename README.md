@@ -1,7 +1,10 @@
 
 # transit-movements-trader-manage-documents
 
-This is a placeholder README.md for a new repository
+This is a service for generating PDFs for the following documents:
+* TAD (Transit Accompanying Document)
+* TSAD (Transit and Safety and Security Declaration)
+* Unloading permission
 
 ### License
 
