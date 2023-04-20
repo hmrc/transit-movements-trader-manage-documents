@@ -20,18 +20,28 @@ import com.dmanchester.playfop.sapi.PlayFop
 import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
+import views.xml.TransitAccompanyingDocumentP5
 
 import javax.inject.Inject
 
 //TODO refactor this into one with unloading permission
 class TADPdfGenerator @Inject() (
   fop: PlayFop,
-  document: TransitAccompanyingDocument
+  document: TransitAccompanyingDocument,
+  documentP5: TransitAccompanyingDocumentP5
 ) {
 
   def generate(permission: TransitAccompanyingDocumentPDF): Array[Byte] = {
 
     val renderedDocument = document.render(permission)
+
+    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
+  }
+
+  // TODO take in P5 model
+  def generateP5(): Array[Byte] = {
+
+    val renderedDocument = documentP5.render()
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }

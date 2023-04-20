@@ -1,0 +1,19 @@
+@import views.xml.DocumentTemplate
+@import views.xml.componentsP5._
+@import views.xml.PageOne
+@import views.xml.components.second_page
+
+@this(
+        mainHeader: table_1.table,
+        template: DocumentTemplate,
+        pageOne: PageOne
+)
+
+@()
+@template(
+    pageOne = pageOne(pageOneBody)
+)
+
+@pageOneBody = {
+        @mainHeader()
+}
