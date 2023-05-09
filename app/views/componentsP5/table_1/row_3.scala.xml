@@ -1,0 +1,18 @@
+@import views.xml.components.table_1.consignee
+
+@import views.xml.components.barcode
+
+@()
+
+<fo:table-row height="16mm">
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+  <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+    <fo:block/>
+
+  </fo:table-cell>
+
+  @consignee()
+
+</fo:table-row>

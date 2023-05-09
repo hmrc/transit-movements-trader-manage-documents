@@ -1,4 +1,5 @@
 @import views.xml.components.table_1.consignor
+@import views.xml.components.table_1.consignee
 
 @import views.xml.components.barcode
 

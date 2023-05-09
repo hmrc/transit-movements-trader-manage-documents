@@ -18,5 +18,6 @@
   <fo:table-body>
     @row_1()
     @row_2()
+    @row_3()
   </fo:table-body>
 </fo:table>
