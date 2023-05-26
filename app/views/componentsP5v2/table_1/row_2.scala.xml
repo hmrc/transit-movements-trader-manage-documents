@@ -1,5 +1,4 @@
-@import views.xml.componentsP5.table_1.consignor
-@import views.xml.componentsP5.table_1.consignee
+@import views.xml.componentsP5v2.table_1.consignor
 
 @import views.xml.components.barcode
 
@@ -9,9 +8,9 @@
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
+
   <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block/>
-
   </fo:table-cell>
 
   @consignor()
@@ -52,7 +51,6 @@
 
                   <fo:table-body>
                     <fo:table-row height="9mm">
-
                       @forms()
                       @sci()
                     </fo:table-row>
@@ -67,7 +65,7 @@
     </fo:block>
   </fo:table-cell>
 
-  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-top="-1mm" padding-left="1mm">
     <fo:block>
       @barcode("testMRN12345678")
     </fo:block>

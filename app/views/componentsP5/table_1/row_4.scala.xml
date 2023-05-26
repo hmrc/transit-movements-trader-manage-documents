@@ -1,18 +1,15 @@
-@import views.xml.componentsP5.table_1.consignee
-
-@import views.xml.componentsP5.barcode
+@import views.xml.componentsP5.table_1.holder_of_transit_procedure
 
 @()
 
-<fo:table-row height="8mm">
+<fo:table-row height="16mm">
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
   <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block/>
-
   </fo:table-cell>
 
-  @consignee()
+  @holder_of_transit_procedure()
 
 </fo:table-row>

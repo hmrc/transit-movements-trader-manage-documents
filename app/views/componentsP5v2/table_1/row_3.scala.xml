@@ -1,0 +1,54 @@
+@import views.xml.componentsP5v2.table_1.consignee
+@import views.xml.componentsP5v2.table_1.total_gross_mass
+
+@import views.xml.componentsP5.barcode
+
+@()
+
+<fo:table-row height="8mm">
+
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+
+  <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+    <fo:block/>
+  </fo:table-cell>
+
+  @consignee()
+
+  <fo:table-cell>
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column/>
+
+        <fo:table-body>
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>
+                <fo:table width="100%" table-layout="fixed">
+                  <fo:table-column column-width="16mm"/>
+                  <fo:table-column column-width="22mm"/>
+                  <fo:table-column column-width="28.5mm"/>
+                  <fo:table-column column-width="28.5mm"/>
+
+                  <fo:table-body>
+                    <fo:table-row height="9mm">
+                      @total_items()
+                      @total_packages()
+                      @total_gross_mass()
+                      @security()
+                    </fo:table-row>
+                  </fo:table-body>
+                </fo:table>
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+
+
+</fo:table-row>

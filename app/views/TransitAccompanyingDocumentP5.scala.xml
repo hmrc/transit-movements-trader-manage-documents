@@ -1,10 +1,10 @@
 @import views.xml.DocumentTemplate
-@import views.xml.componentsP5._
+@import views.xml.componentsP5v2._
 @import views.xml.PageOne
 @import views.xml.components.second_page
 
 @this(
-        mainHeader: table_1.table,
+        table1: table_1.table,
         template: DocumentTemplate,
         pageOne: PageOne
 )
@@ -15,5 +15,5 @@
 )
 
 @pageOneBody = {
-        @mainHeader()
+        @table1()
 }

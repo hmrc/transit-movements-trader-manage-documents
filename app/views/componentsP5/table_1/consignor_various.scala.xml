@@ -18,8 +18,10 @@
 <fo:table-row height="5.33mm">
 <fo:table-cell padding-left="2mm" padding-top="4mm" font-weight="bold">
   <fo:block>
-      Consignor Name
+      ...
   </fo:block>
 </fo:table-cell>
 
 </fo:table-row>
+
+
