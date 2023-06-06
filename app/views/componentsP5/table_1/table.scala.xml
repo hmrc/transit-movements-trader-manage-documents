@@ -1,4 +1,4 @@
-@import views.xml.components.table_1._
+@import views.xml.componentsP5.table_1._
 
 @this()
 
@@ -6,7 +6,7 @@
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
 
-  <fo:table-column column-number="1" column-width="8mm"/>
+  <fo:table-column column-number="1" column-width="8mm" />
   <fo:table-column column-number="2" column-width="8mm"/>
   <fo:table-column column-number="3" column-width="89mm"/>
   <fo:table-column column-number="4" column-width="32mm"/>
@@ -19,6 +19,11 @@
     @row_1()
     @row_2()
     @row_3()
-<!--    @row_4()-->
+    @row_4()
+<!--    @row_5() -->
+    @row_6()
+<!--    @row_7()-->
+<!--    @row_8()-->
+<!--    @row_9()-->
   </fo:table-body>
 </fo:table>

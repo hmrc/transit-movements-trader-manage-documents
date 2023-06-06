@@ -1,5 +1,5 @@
-<fo:table-row height="5.33mm">
-  <fo:table-cell display-align="center" padding-left="2mm">
+<fo:table-row height="4.5mm">
+  <fo:table-cell display-align="center" padding-left="1mm">
     <fo:block>Consignor [13 02]</fo:block>
   </fo:table-cell>
 
@@ -10,18 +10,26 @@
   <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
     <fo:block />
   </fo:table-cell>
-
-
 </fo:table-row>
 
-
-<fo:table-row height="5.33mm">
-<fo:table-cell padding-left="2mm" padding-top="4mm" font-weight="bold">
+<fo:table-row height="2.25mm">
+<fo:table-cell padding-left="1mm" font-weight="bold">
   <fo:block>
-      ...
+      Joe Blogs // todo font
   </fo:block>
 </fo:table-cell>
 
 </fo:table-row>
+
+<fo:table-row height="2.25mm">
+<fo:table-cell padding-left="1mm" padding-top="6mm">
+  <fo:block>
+    Contact person [13 02 074]
+  </fo:block>
+</fo:table-cell>
+
+</fo:table-row>
+
+
 
 

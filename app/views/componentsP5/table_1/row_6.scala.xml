@@ -1,6 +1,4 @@
-@import views.xml.componentsP5v2.table_1.carrier
-
-        @import views.xml.componentsP5.barcode
+@import views.xml.componentsP5.table_1.carrier
 
         @()
 

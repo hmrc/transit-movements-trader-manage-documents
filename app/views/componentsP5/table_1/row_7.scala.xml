@@ -1,6 +1,4 @@
-@import views.xml.componentsP5v2.table_1.representative
-
-@import views.xml.componentsP5.barcode
+@import views.xml.componentsP5.table_1.additional_supply_chain_actor
 
 @()
 
@@ -13,6 +11,6 @@
     <fo:block/>
   </fo:table-cell>
 
-  @representative()
+  @additional_supply_chain_actor()
 
 </fo:table-row>

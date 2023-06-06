@@ -1,5 +1,5 @@
 @import views.xml.DocumentTemplate
-@import views.xml.componentsP5v2._
+@import views.xml.componentsP5._
 @import views.xml.PageOne
 @import views.xml.components.second_page
 

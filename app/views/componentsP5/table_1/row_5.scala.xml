@@ -1,4 +1,4 @@
-@import views.xml.componentsP5v2.table_1.departure_transport_means
+@import views.xml.componentsP5.table_1.representative
 
 @()
 
@@ -11,6 +11,6 @@
     <fo:block/>
   </fo:table-cell>
 
-  @departure_transport_means()
+  @representative()
 
 </fo:table-row>

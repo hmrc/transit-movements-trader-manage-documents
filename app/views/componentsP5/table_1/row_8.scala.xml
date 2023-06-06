@@ -1,6 +1,4 @@
-@import views.xml.componentsP5v2.table_1.additional_supply_chain_actor
-
-@import views.xml.componentsP5.barcode
+@import views.xml.componentsP5.table_1.departure_transport_means
 
 @()
 
@@ -13,6 +11,6 @@
     <fo:block/>
   </fo:table-cell>
 
-  @additional_supply_chain_actor()
+  @departure_transport_means()
 
 </fo:table-row>
