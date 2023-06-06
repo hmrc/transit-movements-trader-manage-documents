@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package config
+package controllers.actions
 
-import play.api.Configuration
+import models.requests.AuthenticatedRequest
+import play.api.mvc.ActionBuilder
+import play.api.mvc.AnyContent
+import play.api.mvc.DefaultActionBuilder
 
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AppConfig @Inject() (config: Configuration) {
+trait AuthenticateActionProvider {
+  def apply(): ActionBuilder[AuthenticatedRequest, AnyContent]
+}
 
-  val auditingEnabled: Boolean = config.get[Boolean]("auditing.enabled")
-  val graphiteHost: String     = config.get[String]("microservice.metrics.graphite.host")
+object AuthenticateActionProvider {
 
-  val enrolmentKey: String        = config.get[String]("enrolment.key")
-  val enrolmentIdentifier: String = config.get[String]("enrolment.identifier")
+  class AuthenticateActionProviderImpl @Inject() (
+    authenticate: AuthenticateAction,
+    buildDefault: DefaultActionBuilder
+  ) extends AuthenticateActionProvider {
 
-  lazy val commonTransitConventionTradersUrl: String = config.get[Service]("microservice.services.common-transit-convention-traders").fullServiceUrl
+    override def apply(): ActionBuilder[AuthenticatedRequest, AnyContent] =
+      buildDefault andThen authenticate
+  }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models
+package config
 
 import play.api.ConfigLoader
 import play.api.Configuration
@@ -29,6 +29,7 @@ final case class Service(host: String, port: String, protocol: String, startUrl:
 
   override def toString: String =
     fullServiceUrl
+
 }
 
 object Service {

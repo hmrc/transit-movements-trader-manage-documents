@@ -11,3 +11,5 @@
 
 # Add all the application routes to the prod.routes file
 ->         /                          prod.Routes
+
+GET        /transit-movements-trader-manage-documents/test-only/:departureId/transit-accompanying-document/:messageId      controllers.TransitAccompanyingDocumentP5Controller.get(departureId, messageId)

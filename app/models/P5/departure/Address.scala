@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package config
+package models.P5.departure
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-class Module extends AbstractModule {
+case class Address(
+  streetAndNumber: String,
+  postcode: Option[String],
+  city: String,
+  country: String
+)
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
-
+object Address {
+  implicit val formats: OFormat[Address] = Json.format[Address]
 }

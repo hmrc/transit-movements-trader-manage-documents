@@ -17,6 +17,8 @@
 package services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
+import models.P5.departure.DepartureNotificationMessage
+import models.P5.departure.IE015Data
 import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
@@ -38,10 +40,9 @@ class TADPdfGenerator @Inject() (
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
 
-  // TODO take in P5 model
-  def generateP5(): Array[Byte] = {
+  def generateP5TAD(ie015Data: IE015Data): Array[Byte] = {
 
-    val renderedDocument = documentP5.render()
+    val renderedDocument = documentP5.render(ie015Data)
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }

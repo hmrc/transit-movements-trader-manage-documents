@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package config
+package models
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Json
 
-class Module extends AbstractModule {
+case class QueryGroupsEnrolmentsResponseModel(enrolments: Seq[Service])
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
+case class Service(service: String)
 
+object QueryGroupsEnrolmentsResponseModel {
+  implicit val enrolmentReads             = Json.format[Service]
+  implicit val queryGroupsEnrolmentsReads = Json.format[QueryGroupsEnrolmentsResponseModel]
 }

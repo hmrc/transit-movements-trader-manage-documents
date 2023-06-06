@@ -16,11 +16,16 @@
 
 package controllers
 
+import connectors.DepartureMovementP5Connector
+import controllers.actions.AuthenticateActionProvider
 import play.api.Logging
+import play.api.libs.ws.WSResponse
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
+import services.P5.DepartureMessageP5Service
 import services.pdf.TADPdfGenerator
+import uk.gov.hmrc.http.HttpResponse
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
 
@@ -29,18 +34,35 @@ import scala.concurrent.ExecutionContext
 
 class TransitAccompanyingDocumentP5Controller @Inject() (
   pdf: TADPdfGenerator,
+  service: DepartureMessageP5Service,
+  authenticate: AuthenticateActionProvider,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
-  def get(): Action[AnyContent] = Action {
+  def get(departureId: String, messageId: String): Action[AnyContent] = authenticate().async {
     implicit request =>
-      val fileName = s"TAD_${FileNameSanitizer("testMRN")}.pdf"
-      Ok(pdf.generateP5())
-        .withHeaders(
-          CONTENT_TYPE        -> "application/pdf",
-          CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
-        )
+      service.getDepartureNotificationMessage(departureId, messageId).map {
+        departureNotificationMessage =>
+          val fileName = s"TAD_${FileNameSanitizer(departureNotificationMessage.movementReferenceNumber.value)}.pdf"
+
+          Ok(pdf.generateP5TAD(departureNotificationMessage.data))
+            .withHeaders(
+              CONTENT_TYPE        -> "application/pdf",
+              CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+            )
+      }
   }
+
+//  def get(departureId: String, messageId: String): Action[AnyContent] = Action {
+//    implicit request =>
+//      val fileName = s"TAD_${FileNameSanitizer("TESTMRN")}.pdf"
+//
+//      Ok(pdf.generateP5())
+//        .withHeaders(
+//          CONTENT_TYPE        -> "application/pdf",
+//          CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+//        )
+//  }
 }

@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package config
+package models.P5.departure
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Json
+import play.api.libs.json.OWrites
+import play.api.libs.json.Reads
+import play.api.libs.json.__
 
-class Module extends AbstractModule {
+case class IE015Data(data: DepartureMessageData)
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
-
+object IE015Data {
+  implicit val reads: Reads[IE015Data]    = (__ \ "body" \ "n1:CC015C").read[DepartureMessageData].map(IE015Data.apply)
+  implicit val writes: OWrites[IE015Data] = Json.writes[IE015Data]
 }

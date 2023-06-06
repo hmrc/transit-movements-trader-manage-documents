@@ -5,6 +5,3 @@ POST         /unloading-permission                   controllers.UnloadingPermis
 POST         /transit-accompanying-document          controllers.TransitAccompanyingDocumentController.get
 
 POST         /transit-security-accompanying-document controllers.TransitSecurityAccompanyingDocumentController.get()
-
-#GET for testing, needs to be POST
-GET         /transit-accompanying-document-p5       controllers.TransitAccompanyingDocumentP5Controller.get()

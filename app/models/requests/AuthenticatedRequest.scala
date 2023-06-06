@@ -14,17 +14,9 @@
  * limitations under the License.
  */
 
-package config
+package models.requests
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.mvc.Request
+import play.api.mvc.WrappedRequest
 
-class Module extends AbstractModule {
-
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
-
-}
+case class AuthenticatedRequest[A](request: Request[A], eoriNumber: String) extends WrappedRequest[A](request)

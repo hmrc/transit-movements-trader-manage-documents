@@ -6,7 +6,7 @@ object AppDependencies {
   private val catsVersion = "2.8.0"
 
   val compile: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc"             %% "bootstrap-backend-play-28"  % "7.3.0",
+    "uk.gov.hmrc"             %% "bootstrap-backend-play-28"  % "7.15.0",
     "com.dmanchester"         %% "playfop"                    % "1.0",
     "net.sf.barcode4j"        %  "barcode4j"                  % "2.1",
     "net.sf.barcode4j"        %  "barcode4j-fop-ext"          % "2.1",
