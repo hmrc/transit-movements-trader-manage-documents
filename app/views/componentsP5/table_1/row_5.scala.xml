@@ -16,7 +16,7 @@
 
 
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"   >
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="44mm"/>
@@ -121,7 +121,7 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="2mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                    <fo:table-row height="2mm">
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block>
                                 Conveyance reference number [19 02]
