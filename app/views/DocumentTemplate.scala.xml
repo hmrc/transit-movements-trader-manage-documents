@@ -10,7 +10,7 @@
 )
 <?xml version='1.0' encoding='utf-8'?>
 
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="arial-narrow" font-size="5pt" text-align="left">
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="sans-serif" font-size="7pt" text-align="left">
 
   @layoutMasterSet()
 
