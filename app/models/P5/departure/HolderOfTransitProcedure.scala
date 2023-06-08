@@ -25,10 +25,14 @@ case class HolderOfTransitProcedure(
   name: Option[String],
   Address: Option[Address],
   ContactPerson: Option[ContactPerson]
-)
+) {
+
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(identificationNumber, TIRHolderIdentificationNumber, name, Address.map(_.toString))
+    stringList.flatten.mkString(", ")
+  }
+}
 
 object HolderOfTransitProcedure {
   implicit val formats: OFormat[HolderOfTransitProcedure] = Json.format[HolderOfTransitProcedure]
 }
-
-case class ContactPersonType05(name: String, phoneNumber: String, eMailAddress: Option[String] = None)

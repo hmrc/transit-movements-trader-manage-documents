@@ -19,13 +19,20 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class DepartureMessageData(
-  TransitOperation: TransitOperation,
-  HolderOfTheTransitProcedure: HolderOfTransitProcedure,
-  Representative: Representative,
-  Consignment: Consignment
-)
+case class ActiveBorderTransportMeans(
+  customsOfficeAtBorderReferenceNumber: String,
+  typeOfIdentification: String,
+  identificationNumber: String,
+  nationality: String,
+  conveyanceReferenceNumber: Option[String]
+) {
 
-object DepartureMessageData {
-  implicit val formats: OFormat[DepartureMessageData] = Json.format[DepartureMessageData]
+  override def toString: String = {
+    val stringList: Seq[String] = List(customsOfficeAtBorderReferenceNumber, typeOfIdentification, identificationNumber, nationality)
+    stringList.mkString(", ")
+  }
+}
+
+object ActiveBorderTransportMeans {
+  implicit val formats: OFormat[ActiveBorderTransportMeans] = Json.format[ActiveBorderTransportMeans]
 }

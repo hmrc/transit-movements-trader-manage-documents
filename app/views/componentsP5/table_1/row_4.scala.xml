@@ -1,6 +1,6 @@
 @import views.xml.componentsP5.table_1.local_reference_number
 
-@()
+@(ie029Data: models.P5.departure.IE029Data)
 
 <fo:table-row height="24mm">
   <fo:table-cell>
@@ -11,7 +11,10 @@
     <fo:block/>
   </fo:table-cell>
 
-  @holder_of_transit_procedure()
+  @holder_of_transit_procedure(
+    ie029Data.holderOfTransitProcedure,
+    ie029Data.representative
+  )
 
   <fo:table-cell>
     <fo:block>
@@ -28,9 +31,9 @@
 
                   <fo:table-body>
                     <fo:table-row height="8mm">
-                      @local_reference_number()
-                      @tir()
-                      @ucr()
+                      @local_reference_number(ie029Data.lrn)
+                      @tir(ie029Data.tir)
+                      @ucr(ie029Data.ucr)
                     </fo:table-row>
                     <fo:table-row height="16mm" >
                       @bcp()

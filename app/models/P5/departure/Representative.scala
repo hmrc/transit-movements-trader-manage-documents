@@ -16,4 +16,21 @@
 
 package models.P5.departure
 
-case class DepartureNotificationMessage(movementReferenceNumber: MovementReferenceNumber, data: IE029Data)
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
+
+case class Representative(
+  identificationNumber: Option[String],
+  status: Option[String],
+  contactPerson: Option[ContactPerson]
+) {
+
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(identificationNumber, status)
+    stringList.flatten.mkString(", ")
+  }
+}
+
+object Representative {
+  implicit val formats: OFormat[Representative] = Json.format[Representative]
+}

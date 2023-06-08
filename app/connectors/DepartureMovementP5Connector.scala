@@ -17,7 +17,7 @@
 package connectors
 
 import config.AppConfig
-import models.P5.departure.IE015Data
+import models.P5.departure.IE029Data
 import models.P5.departure.MovementReferenceNumber
 import play.api.Logging
 import uk.gov.hmrc.http.HeaderCarrier
@@ -42,13 +42,13 @@ class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClien
   def getDepartureNotificationMessage(
     departureId: String,
     messageId: String
-  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[IE015Data] = {
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[IE029Data] = {
 
     val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
 
     val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages/$messageId"
 
-    http.GET[IE015Data](serviceUrl)(implicitly, headers, ec)
+    http.GET[IE029Data](serviceUrl)(implicitly, headers, ec)
   }
 
 }

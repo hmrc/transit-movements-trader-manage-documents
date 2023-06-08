@@ -16,4 +16,17 @@
 
 package models.P5.departure
 
-case class DepartureNotificationMessage(movementReferenceNumber: MovementReferenceNumber, data: IE029Data)
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
+
+case class TransitOperation(
+  MRN: String,
+  LRN: String,
+  declarationType: String,
+  additionalDeclarationType: String,
+  TIRCarnetNumber: Option[String]
+)
+
+object TransitOperation {
+  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+}

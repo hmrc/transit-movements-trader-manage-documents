@@ -2,7 +2,7 @@
 
 @import views.xml.components.barcode
 
-@()
+@(ie029Data: models.P5.departure.IE029Data)
 
 <fo:table-row height="16mm">
   <fo:table-cell>
@@ -13,7 +13,7 @@
     <fo:block/>
   </fo:table-cell>
 
-  @consignor()
+  @consignor(ie029Data.consignor)
 
   <fo:table-cell>
     <fo:block>
@@ -31,9 +31,8 @@
 
                   <fo:table-body>
                     <fo:table-row height="9mm">
-
-                      @declaration_type()
-                      @additional_declaration_type()
+                      @declaration_type(ie029Data.declarationType)
+                      @additional_declaration_type(ie029Data.additionalDeclarationType)
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
@@ -67,7 +66,7 @@
 
   <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-top="-1mm" padding-left="1mm">
     <fo:block>
-      @barcode("testMRN12345678")
+      @barcode(ie029Data.mrn)
     </fo:block>
   </fo:table-cell>
 </fo:table-row>

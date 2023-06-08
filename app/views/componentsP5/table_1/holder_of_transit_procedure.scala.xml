@@ -1,4 +1,4 @@
-@()
+@(holderOfTransitProcedure: String, representative: String)
 
 <fo:table-cell height="8mm" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
   <fo:block>
@@ -23,15 +23,15 @@
         </fo:table-row>
 
         <fo:table-row height="2.25mm">
-          <fo:table-cell padding-left="1mm" font-weight="bold">
+          <fo:table-cell padding-left="1mm">
             <fo:block>
-              Jerry Blogs // todo font
+              @holderOfTransitProcedure
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
 
-        <fo:table-row height="2.25mm">
-          <fo:table-cell padding-left="1mm" padding-top="6mm">
+        <fo:table-row height="2.25mm" >
+          <fo:table-cell padding-left="1mm">
             <fo:block>
               Contact person [13 02 074]
             </fo:block>
@@ -53,9 +53,9 @@
         </fo:table-row>
 
         <fo:table-row height="3mm">
-          <fo:table-cell padding-left="1mm" font-weight="bold">
+          <fo:table-cell padding-left="1mm">
             <fo:block>
-              Jerry Blogs // todo font
+              @representative
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

@@ -23,7 +23,13 @@ case class ContactPerson(
   name: String,
   phoneNumber: String,
   eMailAddress: Option[String]
-)
+) {
+
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(Some(name), Some(phoneNumber), eMailAddress)
+    stringList.flatten.mkString(", ")
+  }
+}
 
 object ContactPerson {
   implicit val formats: OFormat[ContactPerson] = Json.format[ContactPerson]

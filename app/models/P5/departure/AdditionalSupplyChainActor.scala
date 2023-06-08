@@ -17,13 +17,20 @@
 package models.P5.departure
 
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
-import play.api.libs.json.Reads
-import play.api.libs.json.__
+import play.api.libs.json.OFormat
 
-case class IE015Data(data: DepartureMessageData)
+case class AdditionalSupplyChainActor(
+  role: String,
+  identificationNumber: String
+) {
 
-object IE015Data {
-  implicit val reads: Reads[IE015Data]    = (__ \ "body" \ "n1:CC015C").read[DepartureMessageData].map(IE015Data.apply)
-  implicit val writes: OWrites[IE015Data] = Json.writes[IE015Data]
+  override def toString: String = {
+    val stringList: Seq[String] = List(identificationNumber, role)
+    stringList.mkString(", ")
+  }
+
+}
+
+object AdditionalSupplyChainActor {
+  implicit val formats: OFormat[AdditionalSupplyChainActor] = Json.format[AdditionalSupplyChainActor]
 }

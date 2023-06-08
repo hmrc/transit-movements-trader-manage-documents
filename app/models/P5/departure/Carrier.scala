@@ -16,4 +16,14 @@
 
 package models.P5.departure
 
-case class DepartureNotificationMessage(movementReferenceNumber: MovementReferenceNumber, data: IE029Data)
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
+
+case class Carrier(
+  identificationNumber: String,
+  ContactPerson: Option[ContactPerson]
+)
+
+object Carrier {
+  implicit val formats: OFormat[Carrier] = Json.format[Carrier]
+}

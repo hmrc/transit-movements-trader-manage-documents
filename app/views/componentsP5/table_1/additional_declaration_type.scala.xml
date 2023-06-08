@@ -1,4 +1,4 @@
-@()
+@(additionalDeclarationType: String)
 <fo:table-cell>
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
@@ -11,9 +11,9 @@
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row number-columns-spanned="2" height="4.5mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" padding-bottom="1mm">
-          <fo:table-cell>
+          <fo:table-cell padding-left="1mm">
             <fo:block>
-
+            @additionalDeclarationType
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

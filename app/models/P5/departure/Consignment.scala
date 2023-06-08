@@ -20,9 +20,31 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class Consignment(
+  inlandModeOfTransport: Option[String],
+  modeOfTransportAtTheBorder: Option[String],
+  referenceNumberUCR: Option[String],
   Consignor: Option[Consignor],
-  Consignee: Option[Consignee]
-)
+  Consignee: Option[Consignee],
+  Carrier: Option[Carrier],
+  AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
+  DepartureTransportMeans: Option[List[DepartureTransportMeans]],
+  ActiveBorderTransportMeans: Option[List[ActiveBorderTransportMeans]],
+  PlaceOfLoading: PlaceOfLoading,
+  PlaceOfUnloading: Option[PlaceOfUnloading]
+) {
+
+  val additionalSupplyChainActors: Option[String] = AdditionalSupplyChainActor.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val departureTransportMeans: Option[String] = DepartureTransportMeans.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val activeBorderTransportMeans: Option[String] = ActiveBorderTransportMeans.map(
+    _.map(_.toString).mkString("; ")
+  )
+}
 
 object Consignment {
   implicit val formats: OFormat[Consignment] = Json.format[Consignment]

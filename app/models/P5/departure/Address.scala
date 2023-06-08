@@ -24,7 +24,13 @@ case class Address(
   postcode: Option[String],
   city: String,
   country: String
-)
+) {
+
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(Some(streetAndNumber), postcode, Some(city), Some(country))
+    stringList.flatten.mkString(", ")
+  }
+}
 
 object Address {
   implicit val formats: OFormat[Address] = Json.format[Address]
