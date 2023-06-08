@@ -7,7 +7,7 @@
     <fo:block/>
   </fo:table-cell>
 
-  <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+  <fo:table-cell text-align="center" vertical-align="top" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block/>
   </fo:table-cell>
 
@@ -35,7 +35,7 @@
                       @tir(ie029Data.tir)
                       @ucr(ie029Data.ucr)
                     </fo:table-row>
-                    <fo:table-row height="16mm" >
+                    <fo:table-row height="16mm">
                       @bcp()
                     </fo:table-row>
                   </fo:table-body>

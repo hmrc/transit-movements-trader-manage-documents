@@ -5,14 +5,15 @@
       <fo:table-column/>
       <fo:table-column/>
       <fo:table-body>
-        <fo:table-row height="4mm">
+        <fo:table-row height="2mm">
           <fo:table-cell number-columns-spanned="2">
-            <fo:block margin-top="0.5mm" margin-left="0.5mm" font-size="5pt">Total items</fo:block>
+            <fo:block margin-top="0.5mm" margin-left="0.5mm">Total items</fo:block>
           </fo:table-cell>
         </fo:table-row>
-        <fo:table-row number-columns-spanned="3" height="4mm">
-          <fo:table-cell>
+        <fo:table-row number-columns-spanned="2" height="6mm">
+          <fo:table-cell margin-left="0.5mm">
             <fo:block>
+              123
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

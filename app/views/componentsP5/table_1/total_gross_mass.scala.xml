@@ -5,14 +5,15 @@
       <fo:table-column/>
       <fo:table-column/>
       <fo:table-body>
-        <fo:table-row height="4.5mm">
+        <fo:table-row height="2mm">
           <fo:table-cell number-columns-spanned="2">
-            <fo:block margin-top="0.5mm" margin-left="0.5mm" font-size="5pt">Total gross mass</fo:block>
+            <fo:block margin-top="0.5mm" margin-left="0.5mm" font-size="5pt">Total gross mass (Kg)</fo:block>
           </fo:table-cell>
         </fo:table-row>
-        <fo:table-row number-columns-spanned="4" height="4.5mm" padding-bottom="1mm">
-          <fo:table-cell>
+        <fo:table-row number-columns-spanned="4" height="6mm">
+          <fo:table-cell margin-left="0.5mm">
             <fo:block>
+              123
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
