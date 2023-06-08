@@ -31,7 +31,13 @@ case class IE029Data(data: DepartureMessageData) {
 
   val tir: String = data.TransitOperation.TIRCarnetNumber.getOrElse("")
 
+  val sci: String = data.TransitOperation.specificCircumstanceIndicator.getOrElse("")
+
   val ucr: String = data.Consignment.referenceNumberUCR.getOrElse("")
+
+  val inlandModeOfTransport: String = data.Consignment.inlandModeOfTransport.getOrElse("")
+
+  val modeOfTransportAtBorder: String = data.Consignment.modeOfTransportAtTheBorder.getOrElse("")
 
   val declarationType: String = data.TransitOperation.declarationType
 
@@ -42,26 +48,48 @@ case class IE029Data(data: DepartureMessageData) {
     case None        => "TODO get multiple consignee"
   }
 
+  val consigneeIdentificationNumber: String = data.Consignment.Consignee match {
+    case Some(Consignee(Some(identificationNumber), _, _, _)) => identificationNumber
+    case None                                                 => "TODO get multiple consignor identification numbers"
+  }
+
   val consignor: String = data.Consignment.Consignor match {
     case Some(value) => value.toString
     case None        => "TODO get multiple consignor"
   }
 
+  val consignorIdentificationNumber: String = data.Consignment.Consignor match {
+    case Some(Consignor(Some(identificationNumber), _, _, _)) => identificationNumber
+    case None                                                 => "TODO get multiple consignor identification numbers"
+  }
+
   val holderOfTransitProcedure: String = data.HolderOfTheTransitProcedure.toString
+
+  val holderOfTransitProcedureIdentificationNumber: String = data.HolderOfTheTransitProcedure.identificationNumber.getOrElse("")
 
   val representative: String = data.Representative.toString
 
-  val carrier: String = data.Consignment.Carrier.map(_.identificationNumber).getOrElse("")
+  val representativeIdentificationNumber: String = data.Representative.identificationNumber.getOrElse("")
 
-  val additionalSupplyChainActor: String = data.Consignment.additionalSupplyChainActors.getOrElse("")
+  val carrierIdentificationNumber: String = data.Consignment.Carrier.map(_.identificationNumber).getOrElse("")
+
+  val additionalSupplyChainActorRoles: String = data.Consignment.additionalSupplyChainActorsRole.getOrElse("")
+
+  val additionalSupplyChainActorIdentificationNumbers: String = data.Consignment.additionalSupplyChainActorIdentificationNumbers.getOrElse("")
 
   val departureTransportMeans: String = data.Consignment.departureTransportMeans.getOrElse("")
 
   val activeBorderTransportMeans: String = data.Consignment.activeBorderTransportMeans.getOrElse("")
 
-  val placeOfLoading: String = data.Consignment.PlaceOfLoading.toString
+  val activeBorderTransportMeansConveyanceNumbers: String = data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse("")
+
+  val placeOfLoading: String = data.Consignment.PlaceOfLoading.map(_.toString).getOrElse("")
 
   val placeOfUnloading: String = data.Consignment.PlaceOfUnloading.map(_.toString).getOrElse("")
+
+  val locationOfGoods: String = data.Consignment.LocationOfGoods.map(_.toString).getOrElse("")
+
+  val locationOfGoodsContactPerson: String = data.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.toString)).getOrElse("")
 }
 
 object IE029Data {

@@ -11,9 +11,12 @@
     <fo:block/>
   </fo:table-cell>
 
+<!--  change name of xml-->
   @holder_of_transit_procedure(
     ie029Data.holderOfTransitProcedure,
-    ie029Data.representative
+    ie029Data.holderOfTransitProcedureIdentificationNumber,
+    ie029Data.representative,
+    ie029Data.representativeIdentificationNumber,
   )
 
   <fo:table-cell>

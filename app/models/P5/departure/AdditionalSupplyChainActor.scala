@@ -25,7 +25,7 @@ case class AdditionalSupplyChainActor(
 ) {
 
   override def toString: String = {
-    val stringList: Seq[String] = List(identificationNumber, role)
+    val stringList: Seq[String] = List(role)
     stringList.mkString(", ")
   }
 

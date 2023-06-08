@@ -13,7 +13,7 @@
     <fo:block/>
   </fo:table-cell>
 
-  @consignee(ie029Data.consignee)
+  @consignee(ie029Data.consignee, ie029Data.consigneeIdentificationNumber)
 
   <fo:table-cell>
     <fo:block>

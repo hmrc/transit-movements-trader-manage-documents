@@ -26,16 +26,21 @@ case class Consignment(
   Consignor: Option[Consignor],
   Consignee: Option[Consignee],
   Carrier: Option[Carrier],
+  LocationOfGoods: Option[LocationOfGoods],
   AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
   DepartureTransportMeans: Option[List[DepartureTransportMeans]],
   ActiveBorderTransportMeans: Option[List[ActiveBorderTransportMeans]],
-  PlaceOfLoading: PlaceOfLoading,
+  PlaceOfLoading: Option[PlaceOfLoading],
   PlaceOfUnloading: Option[PlaceOfUnloading]
 ) {
 
-  val additionalSupplyChainActors: Option[String] = AdditionalSupplyChainActor.map(
+  val additionalSupplyChainActorsRole: Option[String] = AdditionalSupplyChainActor.map(
     _.map(_.toString).mkString("; ")
   )
+
+  val additionalSupplyChainActorIdentificationNumbers: Option[String] = AdditionalSupplyChainActor.map {
+    _.map(_.identificationNumber).mkString("; ")
+  }
 
   val departureTransportMeans: Option[String] = DepartureTransportMeans.map(
     _.map(_.toString).mkString("; ")
@@ -43,6 +48,10 @@ case class Consignment(
 
   val activeBorderTransportMeans: Option[String] = ActiveBorderTransportMeans.map(
     _.map(_.toString).mkString("; ")
+  )
+
+  val activeBorderTransportMeansConveyanceNumbers: Option[String] = ActiveBorderTransportMeans.map(
+    _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
 }
 

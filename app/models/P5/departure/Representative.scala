@@ -26,7 +26,7 @@ case class Representative(
 ) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(identificationNumber, status)
+    val stringList: Seq[Option[String]] = List(status)
     stringList.flatten.mkString(", ")
   }
 }

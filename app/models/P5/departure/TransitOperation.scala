@@ -24,7 +24,8 @@ case class TransitOperation(
   LRN: String,
   declarationType: String,
   additionalDeclarationType: String,
-  TIRCarnetNumber: Option[String]
+  TIRCarnetNumber: Option[String],
+  specificCircumstanceIndicator: Option[String]
 )
 
 object TransitOperation {

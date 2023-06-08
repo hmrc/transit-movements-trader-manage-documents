@@ -1,4 +1,9 @@
-@(holderOfTransitProcedure: String, representative: String)
+@(
+        holderOfTransitProcedure: String,
+        holderOfTransitProcedureIdentificationNumber: String,
+        representative: String,
+        representativeIdentificationNumber: String
+)
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
   <fo:block>
@@ -13,12 +18,8 @@
             <fo:block>Holder of transit procedure [13 07]</fo:block>
           </fo:table-cell>
 
-          <fo:table-cell display-align="center" margin-left="0.5mm">
+          <fo:table-cell display-align="center" margin-left="1mm">
             <fo:block>ID</fo:block>
-          </fo:table-cell>
-
-          <fo:table-cell display-align="center" margin-left="0.5mm">
-            <fo:block />
           </fo:table-cell>
         </fo:table-row>
 
@@ -28,6 +29,12 @@
               @holderOfTransitProcedure
             </fo:block>
           </fo:table-cell>
+          <fo:table-cell number-columns-spanned="2" margin-left="1mm">
+            <fo:block>
+              @holderOfTransitProcedureIdentificationNumber
+            </fo:block>
+          </fo:table-cell>
+
         </fo:table-row>
 
         <fo:table-row height="2mm" >
@@ -43,12 +50,8 @@
             <fo:block>Representative [13 06]</fo:block>
           </fo:table-cell>
 
-          <fo:table-cell display-align="center" margin-left="0.5mm">
+          <fo:table-cell display-align="center" margin-left="1mm">
             <fo:block>ID</fo:block>
-          </fo:table-cell>
-
-          <fo:table-cell display-align="center" margin-left="0.5mm">
-            <fo:block />
           </fo:table-cell>
         </fo:table-row>
 
@@ -56,6 +59,11 @@
           <fo:table-cell margin-left="0.5mm">
             <fo:block>
               @representative
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell number-columns-spanned="2" margin-left="1mm">
+            <fo:block>
+              @representativeIdentificationNumber
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

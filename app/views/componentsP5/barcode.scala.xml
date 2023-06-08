@@ -5,7 +5,7 @@
       message="@movementReferenceNumber">
     <barcode:code128>
       <barcode:height>15mm</barcode:height>
-      <barcode:module-width>0.28mm</barcode:module-width>
+      <barcode:module-width>0.24mm</barcode:module-width>
       <barcode:human-readable>none</barcode:human-readable>
     </barcode:code128>
   </barcode:barcode>

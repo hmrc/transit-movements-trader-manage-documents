@@ -11,7 +11,7 @@
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row number-columns-spanned="2" height="6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-          <fo:table-cell margin-left="0.5mm">
+          <fo:table-cell margin-left="0.5mm" text-align="center" display-align="center">
             <fo:block>
             @additionalDeclarationType
             </fo:block>

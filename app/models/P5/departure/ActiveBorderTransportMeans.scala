@@ -31,6 +31,8 @@ case class ActiveBorderTransportMeans(
     val stringList: Seq[String] = List(customsOfficeAtBorderReferenceNumber, typeOfIdentification, identificationNumber, nationality)
     stringList.mkString(", ")
   }
+
+  val conveyanceReferenceNumberToString: String = conveyanceReferenceNumber.getOrElse("")
 }
 
 object ActiveBorderTransportMeans {

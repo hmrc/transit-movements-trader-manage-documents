@@ -12,7 +12,7 @@
     <fo:block/>
   </fo:table-cell>
 
-  @consignor(ie029Data.consignor)
+  @consignor(ie029Data.consignor, ie029Data.consignorIdentificationNumber)
 
   <fo:table-cell>
     <fo:block>
@@ -45,7 +45,7 @@
                   <fo:table-body>
                     <fo:table-row height="8mm">
                       @forms()
-                      @sci()
+                      @sci(ie029Data.sci)
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
@@ -58,9 +58,12 @@
     </fo:block>
   </fo:table-cell>
 
-  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black"  padding-left="1mm">
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-left="1mm">
     <fo:block>
       @barcode(ie029Data.mrn)
+    </fo:block>
+    <fo:block text-align="center">
+      @ie029Data.mrn
     </fo:block>
   </fo:table-cell>
 </fo:table-row>
