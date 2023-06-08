@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.testOnly
 
-import connectors.DepartureMovementP5Connector
 import controllers.actions.AuthenticateActionProvider
 import play.api.Logging
-import play.api.libs.ws.WSResponse
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
 import services.P5.DepartureMessageP5Service
 import services.pdf.TADPdfGenerator
-import uk.gov.hmrc.http.HttpResponse
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
 
@@ -54,15 +51,4 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
             )
       }
   }
-
-//  def get(departureId: String, messageId: String): Action[AnyContent] = Action {
-//    implicit request =>
-//      val fileName = s"TAD_${FileNameSanitizer("TESTMRN")}.pdf"
-//
-//      Ok(pdf.generateP5())
-//        .withHeaders(
-//          CONTENT_TYPE        -> "application/pdf",
-//          CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
-//        )
-//  }
 }
