@@ -18,17 +18,17 @@
 
         </fo:table-row>
 
-        <fo:table-row height="12mm">
+        <fo:table-row>
           <fo:table-cell margin-left="0.5mm">
-            <fo:block>
-              @consignor
-            </fo:block>
+            <fo:block-container height="12mm" overflow="hidden">
+              <fo:block>@consignor</fo:block>
+            </fo:block-container>
           </fo:table-cell>
 
-          <fo:table-cell number-columns-spanned="2" margin-left="1mm">
-            <fo:block>
-              @identificationNumber
-            </fo:block>
+          <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
+            <fo:block-container height="12mm" overflow="hidden">
+              <fo:block>@identificationNumber</fo:block>
+            </fo:block-container>
           </fo:table-cell>
 
         </fo:table-row>

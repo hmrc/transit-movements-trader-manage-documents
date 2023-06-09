@@ -2,7 +2,7 @@
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
   <fo:block>
-    <fo:table width="100%" table-layout="fixed">
+    <fo:table height="100%" width="100%" table-layout="fixed">
       <fo:table-column column-number="1" column-width="44mm"/>
       <fo:table-column column-number="2" column-width="8mm"/>
       <fo:table-column column-number="3" column-width="37mm"/>
@@ -19,18 +19,18 @@
 
         </fo:table-row>
 
-        <fo:table-row height="6mm">
+        <fo:table-row>
 
           <fo:table-cell margin-left="0.5mm">
-            <fo:block>
-              @consignee
-            </fo:block>
+            <fo:block-container height="6mm" overflow="hidden">
+              <fo:block>@consignee</fo:block>
+            </fo:block-container>
           </fo:table-cell>
 
-          <fo:table-cell number-columns-spanned="2" margin-left="1mm">
-            <fo:block>
-              @identificationNumber
-            </fo:block>
+          <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
+            <fo:block-container height="6mm" overflow="hidden">
+              <fo:block>@identificationNumber</fo:block>
+            </fo:block-container>
           </fo:table-cell>
 
         </fo:table-row>

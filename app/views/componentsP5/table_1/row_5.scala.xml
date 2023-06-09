@@ -40,10 +40,10 @@
                             <fo:block>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell number-columns-spanned="2" margin-left="1mm">
-                            <fo:block>
-                                @ie029Data.carrierIdentificationNumber
-                            </fo:block>
+                        <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
+                            <fo:block-container height="4mm" overflow="hidden">
+                                <fo:block>@ie029Data.carrierIdentificationNumber</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -66,23 +66,20 @@
                         <fo:table-cell display-align="center" margin-left="1mm">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
-
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block/>
-                        </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="6mm">
+                    <fo:table-row>
+
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block>
-                                @ie029Data.additionalSupplyChainActorRoles
-                            </fo:block>
+                            <fo:block-container height="6mm" overflow="hidden">
+                                <fo:block>@ie029Data.additionalSupplyChainActorRoles</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="1mm">
-                            <fo:block>
-                                @ie029Data.additionalSupplyChainActorIdentificationNumbers
-                            </fo:block>
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container height="6mm" overflow="hidden">
+                                <fo:block>@ie029Data.additionalSupplyChainActorIdentificationNumbers</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -92,17 +89,13 @@
                         <fo:table-cell display-align="center" margin-left="0.5mm">
                             <fo:block>Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
-
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block/>
-                        </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="6mm">
+                    <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block>
-                                @ie029Data.departureTransportMeans
-                            </fo:block>
+                            <fo:block-container height="6mm" overflow="hidden">
+                                <fo:block>@ie029Data.departureTransportMeans</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -112,17 +105,13 @@
                         <fo:table-cell display-align="center" margin-left="0.5mm">
                             <fo:block>Active border transport means [19 08]</fo:block>
                         </fo:table-cell>
-
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block/>
-                        </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="4mm">
+                    <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block>
-                                @ie029Data.activeBorderTransportMeans
-                            </fo:block>
+                            <fo:block-container height="4mm" overflow="hidden">
+                                <fo:block>@ie029Data.activeBorderTransportMeans</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -132,11 +121,10 @@
                                 Conveyance reference number [19 02]
                             </fo:block>
                         </fo:table-cell>
-
-                        <fo:table-cell display-align="center" margin-left="1.5mm">
-                            <fo:block>
-                                @ie029Data.activeBorderTransportMeansConveyanceNumbers
-                            </fo:block>
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container height="2mm" overflow="hidden">
+                                <fo:block>@ie029Data.activeBorderTransportMeansConveyanceNumbers</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
