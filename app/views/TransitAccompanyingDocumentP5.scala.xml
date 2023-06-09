@@ -1,11 +1,11 @@
-@import views.xml.DocumentTemplate
+@import views.xml.DocumentTemplateP5
 @import views.xml.componentsP5._
 @import views.xml.PageOne
 @import views.xml.components.second_page
 
 @this(
         table1: table_1.table,
-        template: DocumentTemplate,
+        template: DocumentTemplateP5,
         pageOne: PageOne
 )
 

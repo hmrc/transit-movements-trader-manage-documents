@@ -17,7 +17,7 @@
 package services.P5
 
 import connectors.DepartureMovementP5Connector
-import models.P5.departure.DepartureNotificationMessage
+import models.P5.departure.IE029Data
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
@@ -26,13 +26,9 @@ import scala.concurrent.Future
 
 class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connector) {
 
-  def getDepartureNotificationMessage(departureId: String, messageId: String)(implicit
+  def getReleaseForTransitNotification(departureId: String, messageId: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
-  ): Future[DepartureNotificationMessage] =
-    for {
-      getMRN           <- connector.getMRN(departureId)
-      getDepartureData <- connector.getDepartureNotificationMessage(departureId, messageId)
-    } yield DepartureNotificationMessage(getMRN, getDepartureData)
-
+  ): Future[IE029Data] =
+    connector.getDepartureNotificationMessage(departureId, messageId)
 }

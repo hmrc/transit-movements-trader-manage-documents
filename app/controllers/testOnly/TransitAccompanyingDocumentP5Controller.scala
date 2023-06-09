@@ -40,11 +40,11 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
 
   def get(departureId: String, messageId: String): Action[AnyContent] = authenticate().async {
     implicit request =>
-      service.getDepartureNotificationMessage(departureId, messageId).map {
-        departureNotificationMessage =>
-          val fileName = s"TAD_${FileNameSanitizer(departureNotificationMessage.movementReferenceNumber.value)}.pdf"
+      service.getReleaseForTransitNotification(departureId, messageId).map {
+        ie029 =>
+          val fileName = s"TAD_${FileNameSanitizer(ie029.data.TransitOperation.MRN)}.pdf"
 
-          Ok(pdf.generateP5TAD(departureNotificationMessage.data))
+          Ok(pdf.generateP5TAD(ie029))
             .withHeaders(
               CONTENT_TYPE        -> "application/pdf",
               CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
