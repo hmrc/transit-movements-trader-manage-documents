@@ -19,16 +19,13 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TransitOperation(
-  MRN: String,
-  LRN: String,
-  declarationType: String,
-  additionalDeclarationType: String,
-  security: String,
-  TIRCarnetNumber: Option[String],
-  specificCircumstanceIndicator: Option[String]
-)
+case class ConsignmentItem(Packaging: Seq[Packaging]) {
 
-object TransitOperation {
-  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+  val totalPackages: Int = Packaging.foldLeft(0)(
+    (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
+  )
+}
+
+object ConsignmentItem {
+  implicit val formats: OFormat[ConsignmentItem] = Json.format[ConsignmentItem]
 }

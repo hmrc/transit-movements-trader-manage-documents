@@ -20,6 +20,7 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class Consignment(
+  grossMass: Double,
   inlandModeOfTransport: Option[String],
   modeOfTransportAtTheBorder: Option[String],
   referenceNumberUCR: Option[String],
@@ -31,8 +32,17 @@ case class Consignment(
   DepartureTransportMeans: Option[List[DepartureTransportMeans]],
   ActiveBorderTransportMeans: Option[List[ActiveBorderTransportMeans]],
   PlaceOfLoading: Option[PlaceOfLoading],
-  PlaceOfUnloading: Option[PlaceOfUnloading]
+  PlaceOfUnloading: Option[PlaceOfUnloading],
+  HouseConsignment: Seq[HouseConsignment]
 ) {
+
+  val totalPackages: Int = HouseConsignment.foldLeft(0)(
+    (total, houseConsignments) => total + houseConsignments.totalPackages
+  )
+
+  val totalItems: Int = HouseConsignment.foldLeft(0)(
+    (total, houseConsignments) => total + houseConsignments.totalItems
+  )
 
   val additionalSupplyChainActorsRole: Option[String] = AdditionalSupplyChainActor.map(
     _.map(_.toString).mkString("; ")

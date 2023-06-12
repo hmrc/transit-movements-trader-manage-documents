@@ -33,10 +33,10 @@
 
                   <fo:table-body>
                     <fo:table-row height="8mm">
-                      @total_items()
-                      @total_packages()
-                      @total_gross_mass()
-                      @security()
+                      @total_items(ie029Data.totalItems)
+                      @total_packages(ie029Data.totalPackages)
+                      @total_gross_mass(ie029Data.totalGrossMass)
+                      @security(ie029Data.security)
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>

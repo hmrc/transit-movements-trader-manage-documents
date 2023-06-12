@@ -35,6 +35,14 @@ case class IE029Data(data: DepartureMessageData) {
 
   val ucr: String = data.Consignment.referenceNumberUCR.getOrElse("")
 
+  val totalGrossMass: Double = data.Consignment.grossMass
+
+  val totalPackages: Int = data.Consignment.totalPackages
+
+  val totalItems: Int = data.Consignment.totalItems
+
+  val security: String = data.TransitOperation.security
+
   val inlandModeOfTransport: String = data.Consignment.inlandModeOfTransport.getOrElse("")
 
   val modeOfTransportAtBorder: String = data.Consignment.modeOfTransportAtTheBorder.getOrElse("")

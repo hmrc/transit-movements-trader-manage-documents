@@ -19,16 +19,8 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TransitOperation(
-  MRN: String,
-  LRN: String,
-  declarationType: String,
-  additionalDeclarationType: String,
-  security: String,
-  TIRCarnetNumber: Option[String],
-  specificCircumstanceIndicator: Option[String]
-)
+case class Packaging(numberOfPackages: Option[Int])
 
-object TransitOperation {
-  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+object Packaging {
+  implicit val formats: OFormat[Packaging] = Json.format[Packaging]
 }
