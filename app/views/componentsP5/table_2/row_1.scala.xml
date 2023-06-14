@@ -24,7 +24,9 @@
 
                     <fo:table-row height="2.5mm">
                         <fo:table-cell margin-top="0.5mm" display-align="center" margin-left="0.5mm">
-                            <fo:block>Transport equipment [19 07]</fo:block>
+                            <fo:block>Transport equipment [19 07]
+                                @declaration_type(ie029Data.declarationType)
+                            </fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-bottom="0.5mm" margin-top="0.5mm" display-align="center"
                                        margin-left="0.5mm" border-left-style="solid" border-left-width="1pt"
