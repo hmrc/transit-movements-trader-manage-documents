@@ -1,0 +1,18 @@
+@import views.xml.DocumentTemplateP5
+@import views.xml.unloadingPermissionComponentsP5._
+@import views.xml.PageOne
+
+@this(
+        table1: table_1.table,
+        template: DocumentTemplateP5,
+        pageOne: PageOne
+)
+
+@()
+@template(
+    pageOne = pageOne(pageOneBody)
+)
+
+@pageOneBody = {
+        @table1()
+}
