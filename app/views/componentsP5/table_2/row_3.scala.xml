@@ -82,22 +82,19 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-
-                                        <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
-                                                           padding-left="1mm">
+                                        <fo:table-row height="2.5mm">
+                                            <fo:table-cell margin-top="0.5mm" display-align="center" margin-left="0.5mm">
                                                 <fo:block>Additional information [12 02]</fo:block>
                                             </fo:table-cell>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
-                                                           padding-left="1mm">
-                                                <fo:block border-left-style="solid" border-left-width="1pt"
-                                                          border-left-color="black" border-bottom-style="solid"
-                                                          border-bottom-width="1pt" border-bottom-color="black">
-                                                    Transport charges [14 02]
+                                            <fo:table-cell margin-bottom="0.5mm" margin-top="0.5mm" display-align="center"
+                                                           margin-left="0.5mm" border-left-style="solid" border-left-width="1pt"
+                                                           border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                                           border-bottom-color="black">
+                                                <fo:block>Transport charges [14 02]
                                                 </fo:block>
-
                                             </fo:table-cell>
                                         </fo:table-row>
+
 
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5mm">
