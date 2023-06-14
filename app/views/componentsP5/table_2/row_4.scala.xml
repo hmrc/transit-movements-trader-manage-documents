@@ -3,18 +3,29 @@
 
         @(ie029Data: models.P5.departure.IE029Data)
 
-<fo:table-row height="8mm">
+<fo:table-row height="16mm">
 
-    <fo:table-cell>
-        <fo:block/>
+    <fo:table-cell number-columns-spanned="2">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-body>
+                    <fo:table-row height="12.25mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
+                        <fo:table-cell>
+                            <fo:block/>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row height="4mm">
+                        <fo:table-cell display-align="center" margin-left="2mm">
+                            <fo:block>Guarantee not valid for</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
     </fo:table-cell>
 
-    <fo:table-cell>
-        <fo:block/>
-    </fo:table-cell>
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
 
@@ -27,11 +38,21 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="14mm" overflow="hidden">
+                        <fo:table-cell margin-left="0.5mm"  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                            <fo:block-container height="10mm" overflow="hidden">
                                 <fo:block>asdfasdfads asdfasdfasdfas asdfasdfasdfasdfas asdfasdfasdfasdf
                                     asdfasdfasdfasdfa asdfasdfasdfas asdfasdfasdfasd asdfasdfasdf asdfasdfasdf
                                     asdfasdfasdf asdfasdfas asdfasdfas afsdf
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container height="4mm" overflow="hidden">
+                                <fo:block>
+                                    asdfasdfasdfasdfasdfasdfasdf
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>

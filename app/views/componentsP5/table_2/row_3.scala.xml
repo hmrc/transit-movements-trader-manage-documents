@@ -3,7 +3,7 @@
 
         @(ie029Data: models.P5.departure.IE029Data)
 
-<fo:table-row height="8mm">
+<fo:table-row height="16mm">
 
     <fo:table-cell>
         <fo:block/>
