@@ -1,0 +1,23 @@
+@(lrn: String)
+<fo:table-cell  alignment-adjust="auto" border-style="solid" border-width="1pt" border-color="black">
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column/>
+      <fo:table-column/>
+      <fo:table-body>
+        <fo:table-row height="2mm">
+          <fo:table-cell number-columns-spanned="1">
+            <fo:block margin-left="0.5mm">LRN</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row number-columns-spanned="4" height="6mm">
+          <fo:table-cell margin-left="0.5mm">
+            <fo:block>
+              @lrn
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>

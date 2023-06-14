@@ -14,17 +14,23 @@
  * limitations under the License.
  */
 
-package config
+package models.P5.departure
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-class Module extends AbstractModule {
+case class PlaceOfUnloading(
+  UNLocode: Option[String],
+  country: Option[String],
+  location: Option[String]
+) {
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(UNLocode, country, location)
+    stringList.flatten.mkString(", ")
   }
+}
 
+object PlaceOfUnloading {
+  implicit val formats: OFormat[PlaceOfUnloading] = Json.format[PlaceOfUnloading]
 }

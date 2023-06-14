@@ -1,0 +1,29 @@
+@()
+
+<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column/>
+      <fo:table-column/>
+      <fo:table-body>
+        <fo:table-row height="2mm">
+          <fo:table-cell number-columns-spanned="2" text-align="left" display-align="left">
+            <fo:block margin-top="0.5mm" margin-left="0.5mm">Forms</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row number-columns-spanned="2" height="6mm">
+          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
+            <fo:block>
+              01
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell text-align="center" display-align="center">
+            <fo:block>
+              03
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>

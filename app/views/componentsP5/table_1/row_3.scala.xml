@@ -1,0 +1,52 @@
+@import views.xml.componentsP5.table_1.consignee
+@import views.xml.componentsP5.table_1.total_gross_mass
+
+@(ie029Data: models.P5.departure.IE029Data)
+
+<fo:table-row height="8mm">
+
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+
+  <fo:table-cell text-align="center" vertical-align="top" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+    <fo:block/>
+  </fo:table-cell>
+
+  @consignee(ie029Data.consignee, ie029Data.consigneeIdentificationNumber)
+
+  <fo:table-cell>
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column/>
+
+        <fo:table-body>
+
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>
+                <fo:table width="100%" table-layout="fixed">
+                  <fo:table-column column-width="16mm"/>
+                  <fo:table-column column-width="22mm"/>
+                  <fo:table-column column-width="28.5mm"/>
+                  <fo:table-column column-width="28.5mm"/>
+
+                  <fo:table-body>
+                    <fo:table-row height="8mm">
+                      @total_items(ie029Data.totalItems)
+                      @total_packages(ie029Data.totalPackages)
+                      @total_gross_mass(ie029Data.totalGrossMass)
+                      @security(ie029Data.security)
+                    </fo:table-row>
+                  </fo:table-body>
+                </fo:table>
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+
+
+</fo:table-row>

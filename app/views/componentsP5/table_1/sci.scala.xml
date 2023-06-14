@@ -1,0 +1,23 @@
+@(specificCircumstanceIndicator: String)
+<fo:table-cell>
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column/>
+      <fo:table-column/>
+      <fo:table-body>
+        <fo:table-row height="2mm">
+          <fo:table-cell number-columns-spanned="2">
+            <fo:block margin-top="0.5mm" margin-left="0.5mm" font-size="5pt">SCI [1104]</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row number-columns-spanned="2" height="6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" padding-bottom="1mm">
+          <fo:table-cell margin-left="0.5mm" text-align="center" display-align="center">
+            <fo:block>
+              @specificCircumstanceIndicator
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>

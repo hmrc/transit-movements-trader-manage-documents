@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package config
+package services.P5
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import connectors.DepartureMovementP5Connector
+import models.P5.departure.IE029Data
+import uk.gov.hmrc.http.HeaderCarrier
 
-class Module extends AbstractModule {
+import javax.inject.Inject
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
+class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connector) {
 
+  def getReleaseForTransitNotification(departureId: String, messageId: String)(implicit
+    hc: HeaderCarrier,
+    ec: ExecutionContext
+  ): Future[IE029Data] =
+    connector.getDepartureNotificationMessage(departureId, messageId)
 }

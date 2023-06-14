@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package config
+package models.P5.departure
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-class Module extends AbstractModule {
+case class HouseConsignment(ConsignmentItem: Seq[ConsignmentItem]) {
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
+  val totalPackages: Int = ConsignmentItem.foldLeft(0)(
+    (total, item) => total + item.totalPackages
+  )
 
+  val totalItems: Int = ConsignmentItem.length
+}
+
+object HouseConsignment {
+  implicit val formats: OFormat[HouseConsignment] = Json.format[HouseConsignment]
 }

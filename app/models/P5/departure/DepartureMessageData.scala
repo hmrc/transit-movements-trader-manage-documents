@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package config
+package models.P5.departure
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-class Module extends AbstractModule {
+case class DepartureMessageData(
+  TransitOperation: TransitOperation,
+  HolderOfTheTransitProcedure: HolderOfTransitProcedure,
+  Representative: Representative,
+  Consignment: Consignment
+)
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
-
+object DepartureMessageData {
+  implicit val formats: OFormat[DepartureMessageData] = Json.format[DepartureMessageData]
 }

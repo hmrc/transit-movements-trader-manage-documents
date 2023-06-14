@@ -14,17 +14,23 @@
  * limitations under the License.
  */
 
-package config
+package models.P5.departure
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-class Module extends AbstractModule {
+case class ContactPerson(
+  name: String,
+  phoneNumber: String,
+  eMailAddress: Option[String]
+) {
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(Some(name), Some(phoneNumber), eMailAddress)
+    stringList.flatten.mkString(", ")
   }
+}
 
+object ContactPerson {
+  implicit val formats: OFormat[ContactPerson] = Json.format[ContactPerson]
 }

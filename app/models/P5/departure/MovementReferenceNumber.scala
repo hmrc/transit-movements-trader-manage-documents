@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package config
+package models.P5.departure
 
-import com.google.inject.AbstractModule
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import play.api.libs.json.Reads
+import play.api.libs.json.__
 
-class Module extends AbstractModule {
+case class MovementReferenceNumber(value: String)
 
-  override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
-  }
+object MovementReferenceNumber {
 
+  implicit lazy val reads: Reads[MovementReferenceNumber] =
+    (__ \ "movementReferenceNumber").read[String].map(MovementReferenceNumber(_))
 }

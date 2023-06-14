@@ -1,0 +1,19 @@
+@import views.xml.DocumentTemplateP5
+@import views.xml.componentsP5._
+@import views.xml.PageOne
+@import views.xml.components.second_page
+
+@this(
+        table1: table_1.table,
+        template: DocumentTemplateP5,
+        pageOne: PageOne
+)
+
+@(ie029Data: models.P5.departure.IE029Data)
+@template(
+    pageOne = pageOne(pageOneBody)
+)
+
+@pageOneBody = {
+        @table1(ie029Data)
+}
