@@ -43,19 +43,15 @@
 
     <fo:table-cell number-columns-spanned="5">
         <fo:block>
-
-
             <fo:table width="100%" table-layout="fixed">
-
-                <fo:table-body>
+              <fo:table-column column-number="1" column-width="55mm"/>
+              <fo:table-column column-number="2" column-width="40mm"/>
+              <fo:table-body>
                     <fo:table-row height="16mm">
 
-                        <fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
-
-                                    <fo:table-column column-number="1" column-width="55mm"/>
-                                    <fo:table-column column-number="2" column-width="40mm"/>
 
                                     <fo:table-body border-left-style="solid" border-left-width="1pt"
                                                    border-left-color="black" border-right-style="solid"
@@ -68,15 +64,7 @@
                                                 <fo:block>Additional reference [12 04]</fo:block>
 
                                             </fo:table-cell>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
-                                                           padding-left="1mm">
-                                                <fo:block border-left-style="solid" border-left-width="1pt"
-                                                          border-left-color="black" border-bottom-style="solid"
-                                                          border-bottom-width="1pt" border-bottom-color="black">
-                                                    Transport charges [14 02]
-                                                </fo:block>
 
-                                            </fo:table-cell>
                                         </fo:table-row>
 
                                         <fo:table-row>
@@ -99,6 +87,15 @@
                                             <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
                                                            padding-left="1mm">
                                                 <fo:block>Additional information [12 02]</fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
+                                                           padding-left="1mm">
+                                                <fo:block border-left-style="solid" border-left-width="1pt"
+                                                          border-left-color="black" border-bottom-style="solid"
+                                                          border-bottom-width="1pt" border-bottom-color="black">
+                                                    Transport charges [14 02]
+                                                </fo:block>
+
                                             </fo:table-cell>
                                         </fo:table-row>
 

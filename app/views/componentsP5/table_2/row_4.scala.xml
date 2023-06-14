@@ -1,92 +1,100 @@
 @import views.xml.componentsP5.table_1.consignee
-@import views.xml.componentsP5.table_1.total_gross_mass
+        @import views.xml.componentsP5.table_1.total_gross_mass
 
-@(ie029Data: models.P5.departure.IE029Data)
+        @(ie029Data: models.P5.departure.IE029Data)
 
 <fo:table-row height="8mm">
 
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
 
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
 
-  <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-    <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column column-number="1" column-width="55mm"/>
-        <fo:table-column column-number="2" column-width="40mm"/>
-        <fo:table-body>
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
 
-          <fo:table-row height="2mm">
-            <fo:table-cell margin-top="0.5mm" display-align="center" margin-left="0.5mm">
-              <fo:block>Guarantee [99 02 - 99 03 - 99 04]</fo:block>
-            </fo:table-cell>
-          </fo:table-row>
+                <fo:table-body>
 
-          <fo:table-row>
-            <fo:table-cell margin-left="0.5mm">
-              <fo:block-container height="14mm" overflow="hidden">
-                <fo:block>asdfasdfads asdfasdfasdfas asdfasdfasdfasdfas asdfasdfasdfasdf asdfasdfasdfasdfa asdfasdfasdfas asdfasdfasdfasd asdfasdfasdf asdfasdfasdf asdfasdfasdf asdfasdfas asdfasdfas afsdf</fo:block>
-              </fo:block-container>
-            </fo:table-cell>
-          </fo:table-row>
+                    <fo:table-row height="2mm">
+                        <fo:table-cell margin-top="0.5mm" display-align="center" margin-left="0.5mm">
+                            <fo:block>Guarantee [99 02 - 99 03 - 99 04]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
 
-        </fo:table-body>
-      </fo:table>
-    </fo:block>
-  </fo:table-cell>
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container height="14mm" overflow="hidden">
+                                <fo:block>asdfasdfads asdfasdfasdfas asdfasdfasdfasdfas asdfasdfasdfasdf
+                                    asdfasdfasdfasdfa asdfasdfasdfas asdfasdfasdfasd asdfasdfasdf asdfasdfasdf
+                                    asdfasdfasdf asdfasdfas asdfasdfas afsdf
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
 
-  <fo:table-cell number-columns-spanned="5">
-    <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
-        <fo:table-body>
-          <fo:table-row>
-            <fo:table-cell>
-              <fo:block>
-                <fo:table width="100%" table-layout="fixed">
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
 
-                  <fo:table-body>
+    <fo:table-cell number-columns-spanned="5">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+              <fo:table-column column-number="1" column-width="55mm"/>
+              <fo:table-column column-number="2" column-width="40mm"/>
+                <fo:table-body>
                     <fo:table-row height="16mm">
-                      <fo:table-cell number-columns-spanned="3" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:block>
-                          <fo:table width="100%" table-layout="fixed">
-                            <fo:table-body>
+                        <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
+                                       border-left-color="black" border-right-style="solid" border-right-width="1pt"
+                                       border-right-color="black" border-top-style="solid" border-top-width="1pt"
+                                       border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black">
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-body>
 
-                              <fo:table-row>
-                                <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" padding-left="1mm" >
-                                  <fo:block>Authorisation [12 12]</fo:block>
-                                </fo:table-cell> <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" padding-left="1mm" >
-                                <fo:block>Authorisation [12 12]</fo:block>
-                              </fo:table-cell>
-                              </fo:table-row>
+                                        <fo:table-row>
+                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
+                                                           padding-left="1mm">
+                                                <fo:block>Authorisation [12 12]</fo:block>
+                                            </fo:table-cell>
+                                          <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
+                                                         padding-left="1mm">
+                                            <fo:block border-left-style="solid" border-left-width="1pt"
+                                                      border-left-color="black" border-bottom-style="solid"
+                                                      border-bottom-width="1pt" border-bottom-color="black">
+                                              Reduced dataset [1108]
+                                            </fo:block>
+                                          </fo:table-cell>
+                                        </fo:table-row>
 
-                              <fo:table-row >
-                                <fo:table-cell margin-left="0.5mm">
-                                  <fo:block-container height="14mm" overflow="hidden">
-                                    <fo:block>vjghcjhgcjhgcghcjhgcjhgcjhgcjhgcjghcjghcghcjhgcjhcjhcjhgchgcjhgcjgcjgcjhgcgh jgchgjhgcjghcjh jgvjgvjgvjgh jvjhvjgcj jgfjfjg jgfjvfjv</fo:block>
-                                  </fo:block-container>
-                                </fo:table-cell>
-                              </fo:table-row>
+                                        <fo:table-row>
+                                            <fo:table-cell margin-left="0.5mm">
+                                                <fo:block-container height="14mm" overflow="hidden">
+                                                    <fo:block>
+                                                        vjghcjhgcjhgcghcjhgcjhgcjhgcjhgcjghcjghcghcjhgcjhcjhcjhgchgcjhgcjgcjgcjhgcgh
+                                                        jgchgjhgcjghcjh jgvjgvjgvjgh jvjhvjgcj jgfjfjg jgfjvfjv
+                                                    </fo:block>
+                                                </fo:block-container>
+                                            </fo:table-cell>
+                                        </fo:table-row>
 
 
-                            </fo:table-body>
-                          </fo:table>
-                        </fo:block>
-                      </fo:table-cell>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
 
                     </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-        </fo:table-body>
-      </fo:table>
-    </fo:block>
-  </fo:table-cell>
+                </fo:table-body>
+            </fo:table>
+
+        </fo:block>
+    </fo:table-cell>
 
 </fo:table-row>
