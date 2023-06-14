@@ -20,7 +20,6 @@ import config.AppConfig
 import models.P5.departure.IE029Data
 import models.P5.departure.MovementReferenceNumber
 import play.api.Logging
-import play.api.libs.json.JsObject
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.http.HttpReadsTry
