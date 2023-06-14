@@ -14,20 +14,29 @@
   </fo:table-cell>
 
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+
+
+
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-number="1" column-width="71mm" />
+        <fo:table-column column-number="2" column-width="18mm"/>
+
         <fo:table-body>
 
           <fo:table-row height="2mm">
             <fo:table-cell margin-top="0.5mm" display-align="center" margin-left="0.5mm">
               <fo:block>Transport equipment [19 07]</fo:block>
             </fo:table-cell>
+            <fo:table-cell margin-bottom="0.5mm" margin-top="0.5mm" display-align="center" margin-left="0.5mm" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+              <fo:block>Container [19 01]:</fo:block>
+            </fo:table-cell>
           </fo:table-row>
 
-          <fo:table-row>
-            <fo:table-cell margin-left="0.5mm">
+          <fo:table-row >
+            <fo:table-cell margin-left="0.5mm" number-columns-spanned="2">
               <fo:block-container height="14mm" overflow="hidden">
-                <fo:block>asdfasdfads</fo:block>
+                <fo:block>asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfa  asdfadsasdfasdfadsasdfasd fadsasdfasdfa fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  fadsasdfasdfa  dsasdfasdfadsasdfasdfadsasd fasdfadsasdf fasdfadsasdf fasdfadsasdf fasdfadsasdf fasdfadsasdf fasdfadsasdf asdfadsasdfasdfads</fo:block>
               </fo:block-container>
             </fo:table-cell>
           </fo:table-row>
