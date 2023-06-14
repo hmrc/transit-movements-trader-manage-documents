@@ -54,30 +54,41 @@
                         <fo:block>
                           <fo:table width="100%" table-layout="fixed">
 
-                            <fo:table-column column-number="1" column-width="71mm" />
-                            <fo:table-column column-number="2" column-width="18mm"/>
+                            <fo:table-column column-number="1" column-width="65mm" />
+                            <fo:table-column column-number="2" column-width="30mm"/>
 
-                            <fo:table-body>
+                            <fo:table-body  border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" >
 
-                              <fo:table-row>
-                                <fo:table-cell  height="2mm" margin-top="0.5mm" display-align="center" padding-left="1mm" >
-                                  <fo:block>Additional reference [12 04]</fo:block>
+
+
+
+
+
+                              <fo:table-row >
+                                <fo:table-cell  height="4mm" margin-top="0.5mm" display-align="center" padding-left="1mm" >
+                                  <fo:block >Additional reference [12 04]</fo:block>
 
                                 </fo:table-cell>
-                                <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" padding-left="1mm" >
-                                  <fo:block>Transport charges [14 02]</fo:block>
+                                <fo:table-cell height="4mm" margin-top="0.5mm" display-align="center" padding-left="1mm" >
+                                  <fo:block border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">Transport charges [14 02]</fo:block>
 
                                 </fo:table-cell>
                               </fo:table-row>
 
-                              <fo:table-row border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                              <fo:table-row>
 
-                                <fo:table-cell margin-left="0.5mm">
-                                  <fo:block-container height="8mm" overflow="hidden">
-                                    <fo:block>vjghcjhgcjhgcghcjhgcjhgcjhgcjhgcjghcjghcghcjhgcjhcjhcjhgchgcjhgcjgcjgcjhgcgh jgchgjhgcjghcjh jgvjgvjgvjgh jvjhvjgcj jgfjfjg jgfjvfjv</fo:block>
+                                <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
+                                  <fo:block-container height="4mm" overflow="hidden">
+                                    <fo:block>vjghcjhgcjhgcghcjhgcjhgcjhgcjhgcjghcjghcghcjhgcjhcjhcjhgchgcjhgcjgcjgcjhgcgh jgchgjhgcjghcjh jgvjgvjgvjgh jvjhvjgcj jgfjfjg jgfjvfjv sdfg df sdfg sdfg sdfg sdfg sdfgs dfgsdfg sdfgs dfgsdfg sdfgs dfg sdfgs dfg</fo:block>
                                   </fo:block-container>
                                 </fo:table-cell>
                               </fo:table-row>
+
+
+
+
+
+
 
                               <fo:table-row >
                                 <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" padding-left="1mm" >
