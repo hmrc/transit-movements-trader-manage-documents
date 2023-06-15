@@ -14,8 +14,7 @@
     </fo:table-cell>
 
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
-                   border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="44mm"/>
@@ -25,7 +24,8 @@
 
                     <!--   Consignor row-->
 
-                    <fo:table-row height="2mm">
+                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt"
+                                  border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
                             <fo:block>Consignor [13 02]</fo:block>
                         </fo:table-cell>
@@ -36,8 +36,7 @@
 
                     </fo:table-row>
 
-                    <fo:table-row height="8mm" border-bottom-style="solid" border-bottom-width="1pt"
-                                  border-bottom-color="black">
+                    <fo:table-row height="8mm">
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container overflow="hidden">
                                 <fo:block>TEST CONSIGNOR</fo:block>
@@ -54,7 +53,8 @@
 
                     <!--   Consignee row-->
 
-                    <fo:table-row height="2mm">
+                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt"
+                                  border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
                             <fo:block>Consignee [13 02]</fo:block>
                         </fo:table-cell>
@@ -65,8 +65,7 @@
 
                     </fo:table-row>
 
-                    <fo:table-row height="8mm" border-bottom-style="solid" border-bottom-width="1pt"
-                                  border-bottom-color="black">
+                    <fo:table-row height="8mm">
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container overflow="hidden">
                                 <fo:block>TEST CONSIGNEE</fo:block>
@@ -83,7 +82,8 @@
 
                     <!--  Holder of transit procedure -->
 
-                    <fo:table-row height="2mm">
+                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt"
+                                  border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
                             <fo:block>Holder of transit procedure [13 02]</fo:block>
                         </fo:table-cell>
@@ -94,8 +94,7 @@
 
                     </fo:table-row>
 
-                    <fo:table-row height="8mm" border-bottom-style="solid" border-bottom-width="1pt"
-                                  border-bottom-color="black">
+                    <fo:table-row height="8mm">
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container overflow="hidden">
                                 <fo:block>TEST Holder of transit procedure</fo:block>
@@ -160,14 +159,13 @@
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row >
-                                            <fo:table-cell border-right-style="solid" border-right-width="1pt"
-                                                           border-right-color="black">
+                                        <fo:table-row>
+                                            <fo:table-cell>
                                                 <fo:block>
                                                     <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-column/>
-                                                        <fo:table-column/>
-                                                        <fo:table-body border-bottom-style="solid"
+                                                        <fo:table-body border-right-style="solid" border-right-width="1pt"
+                                                                       border-right-color="black"
+                                                                       border-bottom-style="solid"
                                                                        border-bottom-width="1pt"
                                                                        border-bottom-color="black">
                                                             <fo:table-row height="2mm">
@@ -254,17 +252,17 @@
                                                         <fo:table-column/>
                                                         <fo:table-body border-right-style="solid"
                                                                        border-right-width="1pt"
-                                                                       border-right-color="black">
+                                                                       border-right-color="black"
+                                                                       border-top-style="solid"
+                                                                       border-top-width="1pt"
+                                                                       border-top-color="black">
                                                             <fo:table-row height="2mm">
                                                                 <fo:table-cell number-columns-spanned="2">
                                                                     <fo:block margin-top="0.5mm" margin-left="0.5mm">Total items
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="2" height="5.5mm"
-                                                                          border-bottom-style="solid"
-                                                                          border-bottom-width="1pt"
-                                                                          border-bottom-color="black">
+                                                            <fo:table-row number-columns-spanned="2" height="5.5mm">
                                                                 <fo:table-cell margin-left="0.5mm" text-align="center"
                                                                                display-align="center">
                                                                     <fo:block>
@@ -276,7 +274,6 @@
                                                     </fo:table>
                                                 </fo:block>
                                             </fo:table-cell>
-
 
                                             <fo:table-cell>
                                                 <fo:block>
@@ -293,10 +290,7 @@
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="2" height="5.5mm"
-                                                                          border-bottom-style="solid"
-                                                                          border-bottom-width="1pt"
-                                                                          border-bottom-color="black">
+                                                            <fo:table-row number-columns-spanned="2" height="5.5mm">
                                                                 <fo:table-cell margin-left="0.5mm" text-align="center"
                                                                                display-align="center">
                                                                     <fo:block>
@@ -324,10 +318,7 @@
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="2" height="5.5mm"
-                                                                          border-bottom-style="solid"
-                                                                          border-bottom-width="1pt"
-                                                                          border-bottom-color="black">
+                                                            <fo:table-row number-columns-spanned="2" height="5.5mm">
                                                                 <fo:table-cell margin-left="0.5mm" text-align="center"
                                                                                display-align="center">
                                                                     <fo:block>
@@ -365,17 +356,17 @@
                                                         <fo:table-column/>
                                                         <fo:table-body border-right-style="solid"
                                                                        border-right-width="1pt"
-                                                                       border-right-color="black">
+                                                                       border-right-color="black"
+                                                                       border-top-style="solid"
+                                                                       border-top-width="1pt"
+                                                                       border-top-color="black">
                                                             <fo:table-row height="2mm">
                                                                 <fo:table-cell number-columns-spanned="2">
                                                                     <fo:block margin-top="0.5mm" margin-left="0.5mm">TIR
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="2" height="5.5mm"
-                                                                          border-bottom-style="solid"
-                                                                          border-bottom-width="1pt"
-                                                                          border-bottom-color="black">
+                                                            <fo:table-row number-columns-spanned="2" height="5.5mm">
                                                                 <fo:table-cell margin-left="0.5mm" text-align="center"
                                                                                display-align="center">
                                                                     <fo:block>
@@ -387,7 +378,6 @@
                                                     </fo:table>
                                                 </fo:block>
                                             </fo:table-cell>
-
 
                                             <fo:table-cell>
                                                 <fo:block>
@@ -404,10 +394,7 @@
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="2" height="5.5mm"
-                                                                          border-bottom-style="solid"
-                                                                          border-bottom-width="1pt"
-                                                                          border-bottom-color="black">
+                                                            <fo:table-row number-columns-spanned="2" height="5.5mm">
                                                                 <fo:table-cell margin-left="0.5mm" text-align="center"
                                                                                display-align="center">
                                                                     <fo:block>
@@ -435,10 +422,7 @@
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="2" height="5.5mm"
-                                                                          border-bottom-style="solid"
-                                                                          border-bottom-width="1pt"
-                                                                          border-bottom-color="black">
+                                                            <fo:table-row number-columns-spanned="2" height="5.5mm">
                                                                 <fo:table-cell margin-left="0.5mm" text-align="center"
                                                                                display-align="center">
                                                                     <fo:block>
@@ -459,13 +443,14 @@
                     </fo:table-row>
 
 
+
                 </fo:table-body>
             </fo:table>
         </fo:block>
     </fo:table-cell>
 
 
-    <fo:table-cell number-columns-spanned="4" padding-left="1mm">
+    <fo:table-cell number-columns-spanned="4" padding-left="1mm" >
         <fo:block>
             @barcode("TODO ADD MRN")
         </fo:block>
