@@ -30,7 +30,7 @@ case class Consignment(
   LocationOfGoods: Option[LocationOfGoods],
   AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
   DepartureTransportMeans: Option[List[DepartureTransportMeans]],
-  DepartureTransportEquipment: Option[List[DepartureTransportEquipment]],
+  TransportEquipment: Option[List[TransportEquipment]],
   ActiveBorderTransportMeans: Option[List[ActiveBorderTransportMeans]],
   PlaceOfLoading: Option[PlaceOfLoading],
   PlaceOfUnloading: Option[PlaceOfUnloading],
@@ -56,7 +56,8 @@ case class Consignment(
   val departureTransportMeans: Option[String] = DepartureTransportMeans.map(
     _.map(_.toString).mkString("; ")
   )
-  val departureTransportEquipment: Option[String] = DepartureTransportEquipment.map(
+
+  val transportEquipment: Option[String] = TransportEquipment.map(
     _.map(_.toString).mkString("; ")
   )
 

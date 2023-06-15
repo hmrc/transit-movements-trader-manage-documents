@@ -1,7 +1,12 @@
 @import views.xml.componentsP5.table_1.consignee
-        @import views.xml.componentsP5.table_1.total_gross_mass
+@import views.xml.componentsP5.table_1.total_gross_mass
+@import views.xml.components.table_1.declaration_type
 
-        @(ie029Data: models.P5.departure.IE029Data)
+@import views.xml.componentsP5.table_1._
+@import views.xml.componentsP5.table_2._
+@import views.xml.componentsP5._
+
+@(ie029Data: models.P5.departure.IE029Data)
 
 <fo:table-row height="16mm">
 
@@ -24,9 +29,7 @@
 
                     <fo:table-row height="2.5mm">
                         <fo:table-cell margin-top="0.5mm" display-align="center" margin-left="0.5mm">
-                            <fo:block>Transport equipment [19 07]
-                                @declaration_type(ie029Data.declarationType)
-                            </fo:block>
+                            <fo:block>Transport equipment [19 07]</fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-bottom="0.5mm" margin-top="0.5mm" display-align="center"
                                        margin-left="0.5mm" border-left-style="solid" border-left-width="1pt"
@@ -44,32 +47,8 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm" number-columns-spanned="2">
                             <fo:block-container height="13.5mm" overflow="hidden">
-                                <fo:block>asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa
-                                    asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa
-                                    asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa
-                                    asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa
-                                    asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa asdfa
-                                    asdfa asdfa asdfa asdfa asdfa asdfa asdfadsasdfasdfadsasdfasd fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa fadsasdfasdfa
-                                    dsasdfasdfadsasdfasdfadsasd fasdfadsasdf fasdfadsasdf fasdfadsasdf fasdfadsasdf
-                                    fasdfadsasdf fasdfadsasdf asdfadsasdfasdfads
+                                <fo:block>
+                                    @(ie029Data.transportEquipment)
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>

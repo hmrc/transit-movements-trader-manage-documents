@@ -87,7 +87,7 @@ case class IE029Data(data: DepartureMessageData) {
 
   val departureTransportMeans: String = data.Consignment.departureTransportMeans.getOrElse("")
 
-  val departureTransportEquipment: String = data.Consignment.departureTransportEquipment.getOrElse("")
+  val transportEquipment: String = data.Consignment.transportEquipment.getOrElse("")
 
   val activeBorderTransportMeans: String = data.Consignment.activeBorderTransportMeans.getOrElse("")
 
