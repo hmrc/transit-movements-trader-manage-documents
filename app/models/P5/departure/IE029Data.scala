@@ -90,7 +90,13 @@ case class IE029Data(data: DepartureMessageData) {
   val transportEquipment: String         = data.Consignment.transportEquipment.getOrElse("")
   val seals: String                      = data.Consignment.seals.getOrElse("")
   val previousDocument: String           = data.Consignment.previousDocument.getOrElse("")
+  val supportingDocument: String         = data.Consignment.supportingDocument.getOrElse("")
   val transportDocument: String          = data.Consignment.transportDocument.getOrElse("")
+  val additionalInformation: String      = data.Consignment.additionalInformation.getOrElse("")
+  val additionalReference: String        = data.Consignment.additionalReference.getOrElse("")
+  val transportCharges: String           = data.Consignment.transportCharges.getOrElse("")
+  val guarantee: String                  = data.guarantee.getOrElse("")
+  val authorisation: String              = data.authorisation.getOrElse("")
   val activeBorderTransportMeans: String = data.Consignment.activeBorderTransportMeans.getOrElse("")
 
   val activeBorderTransportMeansConveyanceNumbers: String = data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse("")

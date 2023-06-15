@@ -40,10 +40,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm"  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block-container height="10mm" overflow="hidden">
-                                <fo:block>asdfasdfads asdfasdfasdfas asdfasdfasdfasdfas asdfasdfasdfasdf
-                                    asdfasdfasdfasdfa asdfasdfasdfas asdfasdfasdfasd asdfasdfasdf asdfasdfasdf
-                                    asdfasdfasdf asdfasdfas asdfasdfas afsdf
-                                </fo:block>
+                                <fo:block>@(ie029Data.guarantee)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -101,10 +98,7 @@
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5mm" number-columns-spanned="2">
                                                 <fo:block-container height="14mm" overflow="hidden">
-                                                    <fo:block>
-                                                        vjghcjhgcjhgcghcjhgcjhgcjhgcjhgcj ghcjghcghcjh gcjhcjhcjhg chg cjhgcjgcjgcjhgcgh
-                                                        jgchgjhgcjghcjh jgvjgvjgvjgh jvjhvjgcj jgfjfjg jgfjvfjv fasdf asd fasdf asdfa sdfasdfa sdf asdf asdfa sdfasd fasdf asdfa sfasdfa sd
-                                                    </fo:block>
+                                                    <fo:block>@(ie029Data.authorisation)</fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>

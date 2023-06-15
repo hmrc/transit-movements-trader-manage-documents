@@ -16,7 +16,8 @@
 
 package models.P5.departure
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
 case class AdditionalReference(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String]) {
 
@@ -25,7 +26,7 @@ case class AdditionalReference(sequenceNumber: Option[String], `type`: Option[St
     val stringList: Seq[Option[String]] = List(
       sequenceNumber,
       `type`,
-      referenceNumber,
+      referenceNumber
     )
     stringList.flatten.mkString(", ")
   }

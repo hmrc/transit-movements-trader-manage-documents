@@ -16,17 +16,23 @@
 
 package models.P5.departure
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class SupportingDocument(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String], documentLineItemNumber: Option[Int],  complementOfInformation: Option[String]) {
+case class SupportingDocument(
+  sequenceNumber: Option[String],
+  `type`: Option[String],
+  referenceNumber: Option[String],
+  documentLineItemNumber: Option[Int],
+  complementOfInformation: Option[String]
+) {
 
   override def toString: String = {
-    /// changed it to list Option of Any
-    val stringList: List[Option[Any]] = List(
+    val stringList: List[Option[String]] = List(
       sequenceNumber,
       `type`,
       referenceNumber,
-      documentLineItemNumber,
+      documentLineItemNumber.map(_.toString),
       complementOfInformation
     )
     stringList.flatten.mkString(", ")

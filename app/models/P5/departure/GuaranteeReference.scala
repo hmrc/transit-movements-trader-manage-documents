@@ -19,24 +19,26 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class DepartureMessageData(
-  TransitOperation: TransitOperation,
-  HolderOfTheTransitProcedure: HolderOfTransitProcedure,
-  Representative: Representative,
-  Consignment: Consignment,
-  Guarantee: Option[List[Guarantee]],
-  Authorisation: Option[List[Authorisation]]
+case class GuaranteeReference(
+  sequenceNumber: Option[String],
+  GRN: Option[String],
+  accessCode: Option[String],
+  amountToBeCovered: Option[Double],
+  currency: Option[String]
 ) {
 
-  val guarantee: Option[String] = Guarantee.map(
-    _.map(_.toString).mkString("; ")
-  )
-
-  val authorisation: Option[String] = Authorisation.map(
-    _.map(_.toString).mkString("; ")
-  )
+  override def toString: String = {
+    val stringList: List[Option[String]] = List(
+      sequenceNumber,
+      GRN,
+      accessCode,
+      amountToBeCovered.map(_.toString),
+      currency
+    )
+    stringList.flatten.mkString(", ")
+  }
 }
 
-object DepartureMessageData {
-  implicit val formats: OFormat[DepartureMessageData] = Json.format[DepartureMessageData]
+object GuaranteeReference {
+  implicit val formats: OFormat[GuaranteeReference] = Json.format[GuaranteeReference]
 }
