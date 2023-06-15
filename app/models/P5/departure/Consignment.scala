@@ -35,7 +35,9 @@ case class Consignment(
   ActiveBorderTransportMeans: Option[List[ActiveBorderTransportMeans]],
   PlaceOfLoading: Option[PlaceOfLoading],
   PlaceOfUnloading: Option[PlaceOfUnloading],
-  HouseConsignment: Seq[HouseConsignment]
+  HouseConsignment: Seq[HouseConsignment],
+  PreviousDocument: Option[List[PreviousDocument]],
+  TransportDocument: Option[List[TransportDocument]]
 ) {
 
   val totalPackages: Int = HouseConsignment.foldLeft(0)(
@@ -66,6 +68,14 @@ case class Consignment(
     _.map(
       x => sealToString(x.Seal)
     ).mkString("; ")
+  )
+
+  val previousDocument: Option[String] = PreviousDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val transportDocument: Option[String] = TransportDocument.map(
+    _.map(_.toString).mkString("; ")
   )
 
   val activeBorderTransportMeans: Option[String] = ActiveBorderTransportMeans.map(

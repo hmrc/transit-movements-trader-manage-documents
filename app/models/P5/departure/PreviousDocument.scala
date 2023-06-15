@@ -16,11 +16,24 @@
 
 package models.P5.departure
 
+import models.P5.departure.TransportEquipment.sealToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class GoodsReference(sequenceNumber: Option[String], declarationGoodsItemNumber: Option[Int])
+case class PreviousDocument(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String], complementOfInformation: Option[String]) {
 
-object GoodsReference {
-  implicit val formats: OFormat[GoodsReference] = Json.format[GoodsReference]
+  override def toString: String = {
+
+    val stringList: Seq[Option[String]] = List(
+      sequenceNumber,
+      `type`,
+      referenceNumber,
+      complementOfInformation
+    )
+    stringList.flatten.mkString(", ")
+  }
+}
+
+object PreviousDocument {
+  implicit val formats: OFormat[PreviousDocument] = Json.format[PreviousDocument]
 }
