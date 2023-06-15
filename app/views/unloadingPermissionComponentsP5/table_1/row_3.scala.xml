@@ -1,0 +1,158 @@
+@import views.xml.unloadingPermissionComponentsP5.table_1._
+        @import views.xml.unloadingPermissionComponentsP5._
+
+        @()
+
+<fo:table-row height="30mm">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+
+    <fo:table-cell text-align="center" vertical-align="top"  border-left-style="solid" border-left-width="1pt" border-left-color="red" >
+        <fo:block />
+    </fo:table-cell>
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                   number-columns-spanned="6"
+
+    >
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="32mm"/>
+                <fo:table-column column-number="2" column-width="152mm" />
+                <fo:table-body >
+
+                    <!--   Departure means row-->
+
+                    <fo:table-row height="4mm" margin-left="0.5mm">
+                        <fo:table-cell >
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                <fo:block>
+                                    <fo:inline font-weight="bold">Departure transport means</fo:inline>
+                                    <fo:inline padding-left = "1.8mm">[1302]</fo:inline>
+                                </fo:block>
+
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+
+                    <fo:table-row height="6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                        <fo:table-cell  display-align="after"  number-columns-spanned="2"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    <fo:inline font-weight="bold">Consignee reference number</fo:inline>
+                                    <fo:inline padding-left = "4mm">TESTID12345678</fo:inline>
+
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                    </fo:table-row>
+
+                    <!--   Transport equipment row-->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Transport equipment</fo:inline> [1907]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Container</fo:inline> [1901]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                    </fo:table-row>
+
+                    <!-- Seals row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Seals</fo:inline> [1910]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Previous document row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Previous document</fo:inline> [1201]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Transport document row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Transport document</fo:inline> [1205]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Supporting document row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Supporting document</fo:inline> [1203]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Additional reference row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Additional reference</fo:inline> [1204]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Additional information row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Additional information </fo:inline> [1202]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Customs office of destination row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Customs office of destination</fo:inline> [1705]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Country of destination row -->
+
+                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Country of destination</fo:inline> [1607]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+</fo:table-row>
