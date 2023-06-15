@@ -19,7 +19,16 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class Seal(sequenceNumber: String, identifier: String)
+case class Seal(sequenceNumber: Option[String], identifier: Option[String]) {
+
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(
+      sequenceNumber,
+      identifier
+    )
+    stringList.flatten.mkString(", ")
+  }
+}
 
 object Seal {
   implicit val formats: OFormat[Seal] = Json.format[Seal]

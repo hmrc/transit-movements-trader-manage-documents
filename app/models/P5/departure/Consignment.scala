@@ -16,6 +16,7 @@
 
 package models.P5.departure
 
+import models.P5.departure.TransportEquipment.sealToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -59,6 +60,12 @@ case class Consignment(
 
   val transportEquipment: Option[String] = TransportEquipment.map(
     _.map(_.toString).mkString("; ")
+  )
+
+  val seals: Option[String] = TransportEquipment.map(
+    _.map(
+      x => sealToString(x.Seal)
+    ).mkString("; ")
   )
 
   val activeBorderTransportMeans: Option[String] = ActiveBorderTransportMeans.map(

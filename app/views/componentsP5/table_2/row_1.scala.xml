@@ -89,7 +89,7 @@
                                                             <fo:table-row>
                                                                 <fo:table-cell margin-left="0.5mm">
                                                                     <fo:block-container height="14mm" overflow="hidden">
-                                                                        <fo:block>asdfasdfads</fo:block>
+                                                                        <fo:block>@(ie029Data.seals)</fo:block>
                                                                     </fo:block-container>
                                                                 </fo:table-cell>
                                                             </fo:table-row>

@@ -23,24 +23,42 @@ case class TransportEquipment(
   sequenceNumber: String,
   containerIdentificationNumber: Option[String],
   numberOfSeals: Int,
-  seal: Option[Seal],
-  goodsReference: Option[GoodsReference]
+  Seal: Option[List[Seal]]
+  //GoodsReference: Option[GoodsReference]
 ) {
 
   override def toString: String = {
     val stringList: Seq[Option[String]] = List(
       Some(sequenceNumber),
       containerIdentificationNumber,
-      Some(numberOfSeals.toString),
-      seal.map(_.sequenceNumber),
-      seal.map(_.identifier),
-      goodsReference.map(_.sequenceNumber),
-      goodsReference.map(_.declarationGoodsItemNumber)
+      Some(numberOfSeals.toString)
+      //sealToString()
+      //GoodsReference.map(_.sequenceNumber),
+      //GoodsReference.map(_.declarationGoodsItemNumber)
     )
     stringList.flatten.mkString(", ")
   }
+
+  val seals: Option[String] = Seal.map(
+    _.map(_.toString).mkString("; ")
+  )
+
 }
 
 object TransportEquipment {
+
+  def sealToString(Seal: Option[List[Seal]]): String = {
+
+    val sealString = Seal match {
+      case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.identifier.getOrElse("")}")
+      case Some(firstElem :: tail) =>
+        Some(
+          s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.identifier.getOrElse("")}...${tail.last.sequenceNumber.getOrElse("")}:${tail.last.identifier.getOrElse("")}"
+        )
+      case _ => Some("")
+    }
+    sealString.getOrElse("")
+  }
+
   implicit val formats: OFormat[TransportEquipment] = Json.format[TransportEquipment]
 }
