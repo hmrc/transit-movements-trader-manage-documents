@@ -26,7 +26,7 @@ class IE029DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChe
   val transitOperation: TransitOperation =
     TransitOperation("MRN", "LRN", "T1", "T2F", "sec", Some("TIR"), Some("SCI"))
 
-  val address: Address = Address("Address Line 1", Some("Address Line 2"), "Address Line 3", "Address Line 4")
+  val address: Address             = Address("Address Line 1", Some("Address Line 2"), "Address Line 3", "Address Line 4")
   val contactPerson: ContactPerson = ContactPerson("Contact Person Name", "123456", Some("a@a.com"))
 
   val holderOfTheTransitProcedure: HolderOfTransitProcedure =
@@ -36,17 +36,17 @@ class IE029DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChe
 
   val consignor = Consignor(Some("idnum1"), Some("Consignor Name"), Some(address), Some(contactPerson))
   val consignee = Consignee(Some("idnum1"), Some("Consignee Name"), Some(address), Some(contactPerson))
-  val carrier = Carrier("idnum1", Some(contactPerson))
+  val carrier   = Carrier("idnum1", Some(contactPerson))
 
-  val authorisation: Authorisation = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
+  val authorisation: Authorisation           = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
   val guaranteeReference: GuaranteeReference = GuaranteeReference(Some("SEQNum-1"), Some("GRN-1"), Some("Access-code-1"), Some(123456.1212), Some("GBP"))
-  val guarantee: Guarantee = Guarantee(Some("SEQNum-1"), Some("SomeGuaranteeType"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
-  val postcodeAddress = PostcodeAddress(Some("house1"), "BR", "UK")
-  val economicOperator = EconomicOperator("EconomicOperator-1")
-  val customsOffice = CustomsOffice("Reference1")
-  val gnss = GNSS("1232", "1234")
-  val seal = Seal(Some("1232"), Some("ID10012"))
-  val goodsReference = GoodsReference(Some("1232"), Some(1234))
+  val guarantee: Guarantee                   = Guarantee(Some("SEQNum-1"), Some("SomeGuaranteeType"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
+  val postcodeAddress                        = PostcodeAddress(Some("house1"), "BR", "UK")
+  val economicOperator                       = EconomicOperator("EconomicOperator-1")
+  val customsOffice                          = CustomsOffice("Reference1")
+  val gnss                                   = GNSS("1232", "1234")
+  val seal                                   = Seal(Some("1232"), Some("ID10012"))
+  val goodsReference                         = GoodsReference(Some("1232"), Some(1234))
 
   val locationOfGoods = LocationOfGoods(
     "Warehouse",
@@ -63,17 +63,17 @@ class IE029DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChe
   )
 
   val additionalSupplyChainActor = AdditionalSupplyChainActor("Actor-Role", "ID001")
-  val departureTransportMeans = DepartureTransportMeans("Actor-Role", "ID001", Some("Nationality"))
-  val transportEquipment = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(List(seal)), Some(List(goodsReference)))
+  val departureTransportMeans    = DepartureTransportMeans("Actor-Role", "ID001", Some("Nationality"))
+  val transportEquipment         = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(List(seal)), Some(List(goodsReference)))
   val activeBorderTransportMeans = ActiveBorderTransportMeans("GB0001", "T1", "ID001", "GB", Some("conveyReferenceNumber-1"))
-  val placeOfLoading = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
-  val placeOfUnLoading = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
-  val houseConsignment = HouseConsignment(Seq(ConsignmentItem(Seq(Packaging(Some(5))))))
-  val previousDocument = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
-  val transportDocument = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val additionalReference = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val additionalInformation = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val supportingDocument = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
+  val placeOfLoading             = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
+  val placeOfUnLoading           = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
+  val houseConsignment           = HouseConsignment(Seq(ConsignmentItem(Seq(Packaging(Some(5))))))
+  val previousDocument           = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
+  val transportDocument          = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val additionalReference        = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val additionalInformation      = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val supportingDocument         = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
 
   val consigmment: Consignment = Consignment(
     1.0,

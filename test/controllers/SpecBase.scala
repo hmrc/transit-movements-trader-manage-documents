@@ -16,9 +16,18 @@
 
 package base
 
+import models.P5.departure.MovementReferenceNumber
+import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
-import org.scalatest.OptionValues
 import org.scalatestplus.mockito.MockitoSugar
+import uk.gov.hmrc.http.HeaderCarrier
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar
+trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
+
+  val departureId = "ID1"
+  val mrn = MovementReferenceNumber("MRN")
+  implicit val hc: HeaderCarrier = HeaderCarrier()
+
+
+}
