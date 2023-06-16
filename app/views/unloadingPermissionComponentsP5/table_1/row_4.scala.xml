@@ -22,7 +22,7 @@
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="32mm"/>
-                <fo:table-column column-number="2" column-width="152mm" />
+                <fo:table-column column-number="2" column-width="145mm" />
                 <fo:table-body >
 
                     <!-- Supporting document row -->

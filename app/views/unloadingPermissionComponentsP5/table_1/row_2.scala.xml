@@ -8,9 +8,11 @@
         <fo:block/>
     </fo:table-cell>
 
-    <fo:table-cell text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt"
-                   border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
-        <fo:block/>
+    <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black"
+    >
+        <fo:block font-size="12pt" >
+            A
+        </fo:block>
     </fo:table-cell>
 
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
@@ -232,7 +234,7 @@
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-column column-width="16mm"/>
                                     <fo:table-column column-width="22mm"/>
-                                    <fo:table-column column-width="28.5mm"/>
+                                    <fo:table-column column-width="40mm"/>
                                     <fo:table-column column-width="28.5mm"/>
 
                                     <fo:table-body>
@@ -336,7 +338,7 @@
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-column column-width="16mm"/>
                                     <fo:table-column column-width="22mm"/>
-                                    <fo:table-column column-width="28.5mm"/>
+                                    <fo:table-column column-width="40mm"/>
                                     <fo:table-column column-width="28.5mm"/>
 
                                     <fo:table-body>

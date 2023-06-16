@@ -8,22 +8,55 @@
         <fo:block/>
     </fo:table-cell>
 
-    <fo:table-cell text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt"
-                   border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
-        <fo:block/>
-    </fo:table-cell>
+<!--    <fo:table-cell text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt"-->
+<!--                   border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">-->
+<!--        <fo:block/>-->
+<!--    </fo:table-cell>-->
+
+    <fo:table-cell number-rows-spanned="1"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                   display-align="center" padding-top="-57mm"
+    >
+
+        <fo:block-container
+                font-family="sans-serif" font-size="6"
+                reference-orientation="90" display-align="center"
+                inline-progression-dimension.minimum="8mm"
+                inline-progression-dimension.maximum="auto"
+                inline-progression-dimension.optimum="94mm"
+                margin-bottom = "4mm"
+        >
+        <fo:block hyphenate="true">UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT</fo:block>
+    </fo:block-container >
+        <fo:block-container height = "8mm">
+        <fo:block font-size="12pt"
+                  border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                  text-align = "center"
+                  font-weight = "bold"
+                  line-height = "8mm"
+                  vertical-align="middle"
+
+        >
+            A
+        </fo:block>
+        </fo:block-container>
+
+
+
+</fo:table-cell>
 
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
                    border-top-style="solid" border-top-width="1pt" border-top-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
                    number-columns-spanned="6"
-
     >
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="32mm"/>
-                <fo:table-column column-number="2" column-width="152mm" />
+                <fo:table-column column-number="2" column-width="145mm" />
                 <fo:table-body >
 
                     <!--   Departure means row-->
@@ -73,7 +106,10 @@
 
                     <!-- Seals row -->
 
-                    <fo:table-row height="10mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                    <fo:table-row height="10mm"
+                                  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+
+                    >
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
                                 <fo:block><fo:inline font-weight="bold">Seals</fo:inline> [1910]</fo:block>
