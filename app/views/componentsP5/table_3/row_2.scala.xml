@@ -1,0 +1,201 @@
+@import views.xml.componentsP5.table_1.consignee
+        @import views.xml.componentsP5.table_1.total_gross_mass
+
+        @(ie029Data: models.P5.departure.IE029Data)
+
+<fo:table-row height="16mm">
+
+    <fo:table-cell number-columns-spanned="2">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-body>
+                    <fo:table-row height="35.6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
+                        <fo:table-cell display-align="center" margin-left="2mm">
+                            <fo:block font-weight="bold" font-size="5pt">CERTIFICATE BY COMPETENT AUTHORITIES</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+
+                <fo:table-body border-left-style="solid" border-left-width="1pt"
+                               border-left-color="black" border-right-style="solid"
+                               border-right-width="1pt" border-right-color="black">
+
+                    <fo:table-row>
+                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3" padding-left="1mm">
+                            <fo:block>Newseals Numbers:  </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                       border-bottom-width="1pt" border-bottom-color="black">
+                            <fo:block-container height="4mm" overflow="hidden">
+                                <fo:block>
+                                   data for Newseals Numbers:
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                       padding-left="1mm">
+                            <fo:block>Identity and Nationality newtransport means</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                       border-bottom-width="1pt" border-bottom-color="black">
+                            <fo:block-container height="4mm" overflow="hidden">
+                                <fo:block>
+                                    data for Identity and Nationality newtransport means
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                       padding-left="1mm">
+                            <fo:block>Container ID[19 07]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                       border-bottom-width="1pt" border-bottom-color="black">
+                            <fo:block-container height="4mm" overflow="hidden">
+                                <fo:block>
+                                    data for Container ID[19 07]
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                       padding-left="1mm">
+                            <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                       border-bottom-width="1pt" border-bottom-color="black">
+                            <fo:block-container height="14mm" overflow="hidden">
+                                <fo:block>
+                                    data for Other incidents during carriage / Details and measures taken(text)
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                </fo:table-body>
+
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+    <fo:table-cell >
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="55mm"/>
+                <fo:table-column column-number="2" column-width="40mm"/>
+                <fo:table-body>
+                    <fo:table-row height="16mm">
+                        <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
+                                       border-left-color="black" border-right-style="solid" border-right-width="1pt"
+                                       border-right-color="black" border-top-style="solid" border-top-width="1pt"
+                                       border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black">
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-body>
+
+                                        <fo:table-row>
+                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                                           padding-left="1mm">
+                                                <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                        <fo:table-row>
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                                           border-bottom-width="1pt" border-bottom-color="black">
+                                                <fo:block-container height="4mm" overflow="hidden">
+                                                    <fo:block>
+                                                        data for customs office of incident registration
+                                                    </fo:block>
+                                                </fo:block-container>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+
+                                        <fo:table-row>
+                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                                           padding-left="1mm">
+                                                <fo:block>Identity and Nationality newtransport means</fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                        <fo:table-row>
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                                           border-bottom-width="1pt" border-bottom-color="black">
+                                                <fo:block-container height="4mm" overflow="hidden">
+                                                    <fo:block>
+                                                        data for Identity and Nationality newtransport means
+                                                    </fo:block>
+                                                </fo:block-container>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+
+                                        <fo:table-row>
+                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                                           padding-left="1mm">
+                                                <fo:block>Container ID[19 07]</fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                        <fo:table-row>
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                                           border-bottom-width="1pt" border-bottom-color="black">
+                                                <fo:block-container height="4mm" overflow="hidden">
+                                                    <fo:block>
+                                                        data for Container ID[19 07]
+                                                    </fo:block>
+                                                </fo:block-container>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+
+                                        <fo:table-row>
+                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                                           padding-left="1mm">
+                                                <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                        <fo:table-row>
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                                           border-bottom-width="1pt" border-bottom-color="black">
+                                                <fo:block-container height="14mm" overflow="hidden">
+                                                    <fo:block>
+                                                        data for Other incidents during carriage / Details and measures taken(text)
+                                                    </fo:block>
+                                                </fo:block-container>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+
+
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+
+        </fo:block>
+    </fo:table-cell>
+
+</fo:table-row>
