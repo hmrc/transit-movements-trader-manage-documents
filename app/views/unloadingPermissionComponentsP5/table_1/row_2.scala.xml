@@ -423,12 +423,9 @@
     </fo:table-cell>
 
 
-    <fo:table-cell number-columns-spanned="4" padding-left="1mm" >
-        <fo:block>
+    <fo:table-cell number-columns-spanned="4" padding-left="1mm">
+        <fo:block >
             @barcode("TODO ADD MRN")
-        </fo:block>
-        <fo:block text-align="center">
-            TODO ADD MRN
         </fo:block>
     </fo:table-cell>
 
