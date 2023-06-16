@@ -17,12 +17,15 @@
 package connectors
 
 import base.SpecBase
-import cats.scalatest.{ValidatedMatchers, ValidatedValues}
+import cats.scalatest.ValidatedMatchers
+import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock._
 import generators.ReferenceModelGenerators
 import models.P5.departure.IE029Data
-import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
+import org.scalatest.concurrent.IntegrationPatience
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -30,7 +33,8 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
-import play.api.test.{DefaultAwaitTimeout, FutureAwaits}
+import play.api.test.DefaultAwaitTimeout
+import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.WireMockHelper
 

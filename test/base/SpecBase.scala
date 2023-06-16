@@ -60,10 +60,10 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
 
-  val departureId                = "ID1"
+  val departureId                  = "ID1"
   val mrn: MovementReferenceNumber = MovementReferenceNumber("MRN")
-  implicit val hc: HeaderCarrier = HeaderCarrier()
-  val messageId                  = "6445005176e4e834"
+  implicit val hc: HeaderCarrier   = HeaderCarrier()
+  val messageId                    = "6445005176e4e834"
 
   val transitOperation: TransitOperation =
     TransitOperation("MRN", "LRN", "T1", "T2F", "sec", Some("TIR"), Some("SCI"))
