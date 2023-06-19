@@ -9,7 +9,7 @@
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
-                    <fo:table-row height="22.5mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
+                    <fo:table-row height="27.5mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
                         <fo:table-cell display-align="top" margin-left="2mm">
                             <fo:block font-weight="bold" font-size="5pt">CERTIFICATE BY COMPETENT AUTHORITIES</fo:block>
                         </fo:table-cell>
@@ -18,7 +18,6 @@
             </fo:table>
         </fo:block>
     </fo:table-cell>
-
 
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
@@ -37,7 +36,6 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5mm"
                                        border-bottom-width="1pt" border-bottom-color="black">
@@ -52,7 +50,6 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-
                     <fo:table-row>
                         <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="2" padding-left="1mm">
                             <fo:block>Signature:  </fo:block>
@@ -61,6 +58,7 @@
                             <fo:block>Stamp:  </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
+
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" >
                             <fo:block-container height="4mm" overflow="hidden">
@@ -75,10 +73,10 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="2" padding-left="1mm">
+                        <fo:table-cell height="7mm" margin-top="0.5mm" display-align="center" number-columns-spanned="2" padding-left="1mm">
                             <fo:block>
-                                <fo:inline margin-top="0.5mm" border-style="solid" border-width="0.5pt">
-                                    &#160;&#160;&#160;&#160;
+                                <fo:inline margin-top="0.5mm" border-style="solid" border-width="1pt">
+                                    &#160;
                                 </fo:inline>
                                 Data already recorded into the system
                             </fo:block>
@@ -116,7 +114,6 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-
                                         <fo:table-row>
                                             <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" >
                                                 <fo:block-container height="4mm" overflow="hidden">
@@ -153,10 +150,10 @@
                                         </fo:table-row>
 
                                         <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="2" padding-left="1mm">
+                                            <fo:table-cell height="7mm" margin-top="0.5mm" display-align="center" number-columns-spanned="2" padding-left="1mm">
                                                 <fo:block>
-                                                    <fo:inline margin-top="0.5mm" border-style="solid" border-width="0.5pt">
-                                                        &#160;&#160;&#160;&#160;
+                                                    <fo:inline margin-top="0.5mm" border-style="solid" border-width="1pt">
+                                                        &#160;
                                                     </fo:inline>
                                                     Data already recorded into the system
                                                 </fo:block>
