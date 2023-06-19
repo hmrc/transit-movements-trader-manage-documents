@@ -3,7 +3,7 @@
 
         @()
 
-<fo:table-row height="30mm">
+<fo:table-row height="30mm" >
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>
@@ -44,9 +44,9 @@
 
                     </fo:table-row >
 
-                    <fo:table-row height="6mm" margin-left="0.5mm">
+                    <fo:table-row height="7mm" margin-left="0.5mm">
                         <fo:table-cell display-align="after">
-                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" font-size = "6pt">
                                 <fo:block>Person 1</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -75,9 +75,9 @@
                     </fo:table-row >
 
 
-                    <fo:table-row height="6mm" margin-left="0.5mm">
+                    <fo:table-row height="7mm" margin-left="0.5mm" >
                         <fo:table-cell display-align="after">
-                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" font-size = "6pt">
                                 <fo:block>Person 2</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -104,9 +104,9 @@
                     </fo:table-row >
 
 
-                    <fo:table-row height="6mm" margin-left="0.5mm">
+                    <fo:table-row height="7mm" margin-left="0.5mm">
                         <fo:table-cell display-align="after">
-                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                            <fo:block-container overflow="hidden" margin-bottom = "1.5mm" font-size = "6pt">
                                 <fo:block>Person 3</fo:block>
                             </fo:block-container>
                         </fo:table-cell>

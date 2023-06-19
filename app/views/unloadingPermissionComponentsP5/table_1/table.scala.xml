@@ -15,7 +15,7 @@
   <fo:table-column column-number="7" column-width="4mm"/>
   <fo:table-column column-number="8" column-width="42mm"/>
 
-  <fo:table-body>
+  <fo:table-body font-family="Helvetica">
     @row_1()
     @row_2()
     @row_3()

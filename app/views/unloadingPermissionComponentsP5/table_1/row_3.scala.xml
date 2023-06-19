@@ -3,7 +3,7 @@
 
         @()
 
-<fo:table-row height="30mm">
+<fo:table-row height="30mm" >
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>
