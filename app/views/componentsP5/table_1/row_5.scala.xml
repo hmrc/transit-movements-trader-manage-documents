@@ -21,7 +21,7 @@
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
                 margin-bottom="10mm">
-            <fo:block hyphenate="true">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
+            <fo:block hyphenate="true" margin-left="10mm">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
         </fo:block-container>
     </fo:table-cell>
 
