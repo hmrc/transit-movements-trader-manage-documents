@@ -24,7 +24,7 @@
       <fo:table width="100%" table-layout="fixed">
         <fo:table-column/>
         <fo:table-body>
-          <fo:table-row>
+          <fo:table-row height="24">
             <fo:table-cell>
               <fo:block>
                 <fo:table width="100%" table-layout="fixed">
@@ -38,7 +38,7 @@
                       @tir(ie029Data.tir)
                       @ucr(ie029Data.ucr)
                     </fo:table-row>
-                    <fo:table-row height="16mm">
+                    <fo:table-row height="17mm"> <!-- todo extra 1mm needed from somewhere else -->
                       @bcp()
                     </fo:table-row>
                   </fo:table-body>
