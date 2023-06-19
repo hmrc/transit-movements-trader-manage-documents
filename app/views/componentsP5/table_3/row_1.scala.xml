@@ -10,7 +10,7 @@
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
                     <fo:table-row height="35.6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
-                        <fo:table-cell display-align="center" margin-left="2mm">
+                        <fo:table-cell display-align="top" margin-left="2mm">
                             <fo:block font-weight="bold" font-size="5pt">INCIDENTS DURING TRANSPORT (BCP)</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -85,8 +85,7 @@
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
-                                       border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm">
                             <fo:block-container height="14mm" overflow="hidden">
                                 <fo:block>
                                     data for Other incidents during carriage / Details and measures taken(text)
@@ -175,8 +174,7 @@
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" >
                                                 <fo:block-container height="14mm" overflow="hidden">
                                                     <fo:block>
                                                         data for Other incidents during carriage / Details and measures taken(text)
