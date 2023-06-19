@@ -3,7 +3,7 @@
 
         @()
 
-<fo:table-row height="30mm" >
+<fo:table-row height="30mm" font-size = "5.5pt">
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>
@@ -50,8 +50,8 @@
     >
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="32mm"/>
-                <fo:table-column column-number="2" column-width="145mm" />
+                <fo:table-column column-number="1" column-width="35mm"/>
+                <fo:table-column column-number="2" column-width="142mm" />
                 <fo:table-body >
 
                     <!--   Departure means row-->
