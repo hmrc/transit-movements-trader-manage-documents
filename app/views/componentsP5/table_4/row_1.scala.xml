@@ -40,8 +40,8 @@
                                        border-bottom-color="black">
                             <fo:block margin-left="0.5mm" padding-top="0.5mm"  border-left-style="solid" border-left-width="1pt"
                                       border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
-                                      border-bottom-color="black" padding-left="1mm"> Prescribed Itinerary [16 17]:
-                                <fo:inline margin-top="0.5mm" border-style="solid" border-width="0.5pt">
+                                      border-bottom-color="black" padding-left="1mm" padding-bottom="2mm"> Prescribed Itinerary [16 17]:
+                                <fo:inline margin-top="0.5mm" border-style="solid" border-width="0.5pt" >
                                 &#160;&#160;&#160;&#160;
                             </fo:inline>
                             </fo:block>
