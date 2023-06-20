@@ -22,12 +22,12 @@ import play.api.libs.json.OFormat
 case class HolderOfTransitProcedure(
   identificationNumber: Option[String],
   TIRHolderIdentificationNumber: Option[String],
-  name: Option[String],
+  name: String,
   Address: Option[Address]
 ) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(TIRHolderIdentificationNumber, name, Address.map(_.toString))
+    val stringList: Seq[Option[String]] = List(TIRHolderIdentificationNumber, Some(name), Address.map(_.toString))
     stringList.flatten.mkString(", ")
   }
 }

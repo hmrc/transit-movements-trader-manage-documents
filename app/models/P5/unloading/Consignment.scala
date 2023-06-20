@@ -21,7 +21,7 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class Consignment(
-  countryOfDestination: String,
+  countryOfDestination: Option[String],
   containerIndicator: String,
   inlandModeOfTransport: Option[String],
   grossMass: Option[Double],
@@ -47,6 +47,10 @@ case class Consignment(
 
   val transportEquipment: Option[String] = TransportEquipment.map(
     _.map(_.toString).mkString("; ")
+  )
+
+  val transportEquipmentContainer: Option[String] = TransportEquipment.map(
+    _.map(_.containerIdentificationNumber.getOrElse("")).mkString("; ")
   )
 
   val departureTransportMeans: Option[String] = DepartureTransportMeans.map(
