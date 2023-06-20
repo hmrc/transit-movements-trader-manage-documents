@@ -7,6 +7,7 @@
         table1: table_1.table,
         table2: table_2.table,
         table3: table_3.table,
+        table4: table_4.table,
         template: DocumentTemplateP5,
         pageOne: PageOne
 )
@@ -20,4 +21,5 @@
         @table1(ie029Data)
         @table2(ie029Data)
         @table3(ie029Data)
+        @table4(ie029Data)
 }

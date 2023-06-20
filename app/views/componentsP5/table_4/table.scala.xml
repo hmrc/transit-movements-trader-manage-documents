@@ -1,0 +1,21 @@
+@import views.xml.componentsP5.table_4._
+
+@this()
+
+@(ie029Data: models.P5.departure.IE029Data)
+
+<fo:table width="100%" table-layout="fixed" id="table-4">
+
+  <fo:table-column column-number="1" column-width="8mm" />
+  <fo:table-column column-number="2" column-width="8mm"/>
+  <fo:table-column column-number="3" column-width="89mm"/>
+  <fo:table-column column-number="4" column-width="32mm"/>
+  <fo:table-column column-number="5" column-width="5mm"/>
+  <fo:table-column column-number="6" column-width="5mm"/>
+  <fo:table-column column-number="7" column-width="4mm"/>
+  <fo:table-column column-number="8" column-width="49mm"/>
+
+  <fo:table-body>
+    @row_1(ie029Data)
+  </fo:table-body>
+</fo:table>
