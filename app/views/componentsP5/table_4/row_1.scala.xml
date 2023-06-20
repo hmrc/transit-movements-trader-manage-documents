@@ -9,7 +9,7 @@
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
-                    <fo:table-row height="19mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
+                    <fo:table-row height="35.6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
                         <fo:table-cell display-align="top" margin-left="2mm">
                             <fo:block font-weight="bold" font-size="5pt"></fo:block>
                         </fo:table-cell>
@@ -20,17 +20,48 @@
     </fo:table-cell>
 
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  number-columns-spanned="6">
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%" table-layout="fixed" border-right-style="solid"
+                      border-right-width="1pt" border-right-color="black">
 
                 <fo:table-body border-left-style="solid" border-left-width="1pt"
-                               border-left-color="black" border-right-style="solid"
-                               border-right-width="1pt" border-right-color="black">
+                               border-left-color="black" >
+
+                    <fo:table-row height="7mm">
+                        <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm" number-columns-spanned="4" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black">
+
+
+                            <fo:block>Country routing of consignment [16 12]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-bottom="0.5mm" margin-top="0.5mm" display-align="right"
+                                       margin-left="1.5mm" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black">
+                            <fo:block margin-left="0.5mm" padding-top="0.5mm"  border-left-style="solid" border-left-width="1pt"
+                                      border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                      border-bottom-color="black" padding-left="1mm"> Prescribed Itinerary [16 17]:
+                                <fo:inline margin-top="0.5mm" border-style="solid" border-width="0.5pt">
+                                &#160;&#160;&#160;&#160;
+                            </fo:inline>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
 
                     <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3" padding-left="1mm">
-                            <fo:block>Country of routing of consignment [1612]</fo:block>
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container height="6mm" overflow="hidden">
+                                <fo:block></fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+
+                    <fo:table-row>
+                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
+                                       padding-left="1mm">
+                            <fo:block>CUSTOMS OFFICE OF TRANSIT [17 04]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
@@ -41,9 +72,7 @@
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
                                        padding-left="1mm">
                             <fo:block>CUSTOMS OFFICE OF TRANSIT [17 04]</fo:block>
                         </fo:table-cell>
@@ -57,101 +86,44 @@
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
+
+
                     <fo:table-row>
                         <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                        padding-left="1mm">
-                            <fo:block>CUSTOMS OFFICE OF DEPARTURE [1703]</fo:block>
+                            <fo:block>Container ID[19 07]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                       border-bottom-width="1pt" border-bottom-color="black">
+                            <fo:block-container height="4mm" overflow="hidden">
+                                <fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
+                                       padding-left="1mm">
+                            <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm">
+                            <fo:block-container height="14mm" overflow="hidden">
+                                <fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
                 </fo:table-body>
 
             </fo:table>
         </fo:block>
     </fo:table-cell>
 
-    <fo:table-cell >
-        <fo:block>
-            <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="55mm"/>
-                <fo:table-column column-number="2" column-width="40mm"/>
-                <fo:table-body>
-                    <fo:table-row height="16mm">
-                        <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
-                                       border-left-color="black" border-right-style="solid" border-right-width="1pt"
-                                       border-right-color="black" border-top-style="solid" border-top-width="1pt"
-                                       border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt"
-                                       border-bottom-color="black">
-                            <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
-                                    <fo:table-body>
 
-                                        <fo:table-row height="2.5mm">
-                                            <fo:table-cell margin-top="0.5mm" display-align="center" margin-left="0.5mm">
-                                                <fo:block></fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell margin-bottom="0.5mm" margin-top="0.5mm" display-align="center"
-                                                           margin-left="0.5mm" border-left-style="solid" border-left-width="1pt"
-                                                           border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
-                                                           border-bottom-color="black">
-                                                <fo:block>
-                                                    Container [19 01]:
-                                                    <fo:inline margin-top="0.5mm" border-style="solid" border-width="0.5pt">
-                                                        &#160;&#160;&#160;&#160;
-                                                    </fo:inline>
-                                                </fo:block>
-                                            </fo:table-cell>
-
-                                                <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
-                                                               border-bottom-width="1pt" border-bottom-color="black">
-                                                    <fo:block-container height="4mm" overflow="hidden">
-                                                        <fo:block>
-                                                        </fo:block>
-                                                    </fo:block-container>
-                                                </fo:table-cell>
-                                    </fo:table-row>
-
-
-                                        <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                                           border-top-style="solid" border-top-color="black" border-top-width="1pt"
-                                                           padding-left="1mm">
-                                                <fo:block>CUSTOMS OFFICE OF EXIT FOR TRANSIT [17 06]</fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="4mm" overflow="hidden">
-                                                    <fo:block>
-                                                    </fo:block>
-                                                </fo:block-container>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                                           padding-left="1mm">
-                                                <fo:block>CUSTOMS OFFICE OF DESTINATION [17 05]</fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="4mm" overflow="hidden">
-                                                    <fo:block>
-                                                    </fo:block>
-                                                </fo:block-container>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                    </fo:table-body>
-                                </fo:table>
-                            </fo:block>
-                        </fo:table-cell>
-
-                    </fo:table-row>
-                </fo:table-body>
-            </fo:table>
-
-        </fo:block>
-    </fo:table-cell>
 
 </fo:table-row>
