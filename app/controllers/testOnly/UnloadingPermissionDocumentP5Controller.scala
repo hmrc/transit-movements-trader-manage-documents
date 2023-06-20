@@ -37,10 +37,11 @@ class UnloadingPermissionDocumentP5Controller @Inject() (
   def get(): Action[AnyContent] = Action {
     implicit request =>
       // TODO get message and pass MRN here:
-      val fileName = s"TAD_${FileNameSanitizer("TODOWithMRN")}.pdf"
+      val dummyMrn = "GB123456677899"
+      val fileName = s"TAD_${FileNameSanitizer(dummyMrn)}.pdf"
 
       // TODO get message and pass data here:
-      Ok(pdf.generateP5())
+      Ok(pdf.generateP5(dummyMrn))
         .withHeaders(
           CONTENT_TYPE        -> "application/pdf",
           CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""

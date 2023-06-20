@@ -3,16 +3,18 @@
 @import views.xml.PageOne
 
 @this(
-        table1: table_1.table,
-        template: DocumentTemplateP5,
-        pageOne: PageOne
+    template: DocumentTemplateP5,
+    pageOne: PageOne,
+    table1: table_1.table,
+    pageTwo: items.items
 )
 
-@()
+@(mrn: String)
 @template(
-    pageOne = pageOne(pageOneBody)
+    pageOne = pageOne(pageOneBody),
+    pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4"), mrn = mrn))
 )
 
 @pageOneBody = {
-        @table1()
+    @table1(mrn)
 }

@@ -1,4 +1,4 @@
-@import views.xml.components.layout_master_set
+@import views.xml.componentsP5.layout_master_set
 
 @this(
     layoutMasterSet: layout_master_set

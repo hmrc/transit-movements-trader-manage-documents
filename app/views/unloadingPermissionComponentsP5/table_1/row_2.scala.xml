@@ -1,7 +1,7 @@
 @import views.xml.unloadingPermissionComponentsP5.table_1._
-        @import views.xml.unloadingPermissionComponentsP5._
+@import views.xml.unloadingPermissionComponentsP5._
 
-        @()
+@(mrn: String)
 
 <fo:table-row height="30mm">
     <fo:table-cell>
@@ -425,7 +425,7 @@
 
     <fo:table-cell number-columns-spanned="4" padding-left="1mm">
         <fo:block >
-            @barcode("TODO ADD MRN")
+            @barcode(mrn)
         </fo:block>
     </fo:table-cell>
 

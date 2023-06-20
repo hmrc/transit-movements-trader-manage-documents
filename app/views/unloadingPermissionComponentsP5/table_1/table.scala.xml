@@ -2,7 +2,7 @@
 
 @this()
 
-@()
+@(mrn: String)
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
 
@@ -17,7 +17,7 @@
 
   <fo:table-body>
     @row_1()
-    @row_2()
+    @row_2(mrn)
     @row_3()
     @row_4()
   </fo:table-body>
