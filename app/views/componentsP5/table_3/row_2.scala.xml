@@ -78,6 +78,7 @@
                                 <fo:inline margin-top="0.5mm" border-style="solid" border-width="1pt">
                                     &#160;
                                 </fo:inline>
+                                Data already recorded into the system
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -154,6 +155,7 @@
                                                     <fo:inline margin-top="0.5mm" border-style="solid" border-width="1pt">
                                                         &#160;
                                                     </fo:inline>
+                                                    Data already recorded into the system
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -171,4 +173,3 @@
     </fo:table-cell>
 
 </fo:table-row>
-
