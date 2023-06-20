@@ -3,7 +3,7 @@
 
 @(mrn: String)
 
-<fo:table-row height="30mm">
+<fo:table-row height="30mm" font-size ="5.5pt">
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>
@@ -19,9 +19,9 @@
                    border-right-style="solid" border-right-width="1pt" border-right-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="44mm"/>
-                <fo:table-column column-number="2" column-width="17mm"/>
-                <fo:table-column column-number="3" column-width="28mm"/>
+                <fo:table-column column-number="1" column-width="40mm"/>
+                <fo:table-column column-number="2" column-width="22mm"/>
+                <fo:table-column column-number="3" column-width="27mm"/>
                 <fo:table-body>
 
                     <!--   Consignor/Exporter row-->
@@ -44,9 +44,9 @@
 
                     </fo:table-row >
 
-                    <fo:table-row height="6mm" margin-left="0.5mm">
+                    <fo:table-row height="7mm" margin-left="0.5mm">
                         <fo:table-cell display-align="after">
-                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" font-size = "6pt">
                                 <fo:block>Person 1</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -75,9 +75,9 @@
                     </fo:table-row >
 
 
-                    <fo:table-row height="6mm" margin-left="0.5mm">
+                    <fo:table-row height="7mm" margin-left="0.5mm" >
                         <fo:table-cell display-align="after">
-                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" font-size = "6pt">
                                 <fo:block>Person 2</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -104,9 +104,9 @@
                     </fo:table-row >
 
 
-                    <fo:table-row height="6mm" margin-left="0.5mm">
+                    <fo:table-row height="7mm" margin-left="0.5mm">
                         <fo:table-cell display-align="after">
-                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                            <fo:block-container overflow="hidden" margin-bottom = "1.5mm" font-size = "6pt">
                                 <fo:block>Person 3</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -206,10 +206,8 @@
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="2" height="5.5mm"
-                                                                          border-bottom-style="solid"
-                                                                          border-bottom-width="1pt"
-                                                                          border-bottom-color="black">
+                                                            <fo:table-row number-columns-spanned="2" height="6mm"
+                                                                        >
                                                                 <fo:table-cell margin-left="0.5mm" text-align="center"
                                                                                display-align="center">
                                                                     <fo:block>
