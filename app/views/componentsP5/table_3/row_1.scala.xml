@@ -38,12 +38,10 @@
                                        border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block-container height="4mm" overflow="hidden">
                                 <fo:block>
-                                   data for customs office of incident registration
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
-
                     <fo:table-row>
                         <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                        padding-left="1mm">
@@ -55,12 +53,10 @@
                                        border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block-container height="4mm" overflow="hidden">
                                 <fo:block>
-                                    data for Identity and Nationality newtransport means
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
-
                     <fo:table-row>
                         <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                        padding-left="1mm">
@@ -72,12 +68,10 @@
                                        border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block-container height="4mm" overflow="hidden">
                                 <fo:block>
-                                    data for Container ID[19 07]
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
-
                     <fo:table-row>
                         <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                        padding-left="1mm">
@@ -88,7 +82,6 @@
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5mm">
                             <fo:block-container height="14mm" overflow="hidden">
                                 <fo:block>
-                                    data for Other incidents during carriage / Details and measures taken(text)
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -127,12 +120,10 @@
                                                            border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block-container height="4mm" overflow="hidden">
                                                     <fo:block>
-                                                        data for customs office of incident registration
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
-
                                         <fo:table-row>
                                             <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                                            padding-left="1mm">
@@ -144,12 +135,10 @@
                                                            border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block-container height="4mm" overflow="hidden">
                                                     <fo:block>
-                                                        data for Identity and Nationality newtransport means
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
-
                                         <fo:table-row>
                                             <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                                            padding-left="1mm">
@@ -161,12 +150,10 @@
                                                            border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block-container height="4mm" overflow="hidden">
                                                     <fo:block>
-                                                        data for Container ID[19 07]
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
-
                                         <fo:table-row>
                                             <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                                            padding-left="1mm">
@@ -177,7 +164,6 @@
                                             <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" >
                                                 <fo:block-container height="14mm" overflow="hidden">
                                                     <fo:block>
-                                                        data for Other incidents during carriage / Details and measures taken(text)
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
