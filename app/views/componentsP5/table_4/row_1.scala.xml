@@ -46,7 +46,26 @@
                     </fo:table-row>
 
 
-                    <fo:table-row>
+
+
+                    <fo:table-row >
+
+                        <fo:table-cell margin-top="0mm" display-align="top" number-columns-spanned="3" margin-left="0.5mm" width="100%" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black" border-top-width="1pt">
+                            <fo:block>CUSTOMS OFFICE OF TRANSIT [17 04]</fo:block>
+                            <fo:block-container height="6mm" overflow="hidden">
+                                <fo:block></fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                        <fo:table-cell margin-bottom="0.5mm" display-align="top"
+                                       margin-left="0.5mm" border-left-style="solid"
+                                       border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black" number-columns-spanned="3" >
+                            <fo:block>CUSTOMS OFFICE OF EXIT FOR TRANSIT [17 06]</fo:block>
+                            <fo:block-container height="6mm" overflow="hidden">
+                                <fo:block></fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="6mm" overflow="hidden">
                                 <fo:block></fo:block>
@@ -54,35 +73,6 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-
-                    <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
-                                       padding-left="1mm">
-                            <fo:block>CUSTOMS OFFICE OF TRANSIT [17 04]</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
-                                       border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4mm" overflow="hidden">
-                                <fo:block>
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center"
-                                       padding-left="1mm">
-                            <fo:block>CUSTOMS OFFICE OF TRANSIT [17 04]</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
-                                       border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4mm" overflow="hidden">
-                                <fo:block>
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
 
 
                     <fo:table-row>
