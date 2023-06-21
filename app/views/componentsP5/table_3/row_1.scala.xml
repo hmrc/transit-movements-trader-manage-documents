@@ -24,8 +24,7 @@
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
 
-                <fo:table-body border-left-style="solid" border-left-width="1pt"
-                               border-left-color="black" border-right-style="solid"
+                <fo:table-body border-right-style="solid"
                                border-right-width="1pt" border-right-color="black">
 
                     <fo:table-row>
@@ -45,7 +44,7 @@
                     <fo:table-row>
                         <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
                                        padding-left="1mm">
-                            <fo:block>Identity and Nationality newtransport means</fo:block>
+                            <fo:block>Identity and Nationality new transport means</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
@@ -118,7 +117,7 @@
                                         <fo:table-row>
                                             <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="4mm" overflow="hidden">
+                                                <fo:block-container height="3.85mm" overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
@@ -126,8 +125,8 @@
                                         </fo:table-row>
                                         <fo:table-row>
                                             <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                                           padding-left="1mm">
-                                                <fo:block>Identity and Nationality newtransport means</fo:block>
+                                                           padding-left="1mm" border-top-style="solid" border-top-width="1pt">
+                                                <fo:block>Identity and Nationality new transport means</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>

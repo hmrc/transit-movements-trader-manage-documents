@@ -23,8 +23,7 @@
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
 
-                <fo:table-body border-left-style="solid" border-left-width="1pt"
-                               border-left-color="black" border-right-style="solid"
+                <fo:table-body border-right-style="solid"
                                border-right-width="1pt" border-right-color="black">
 
                     <fo:table-row>

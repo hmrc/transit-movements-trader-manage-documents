@@ -25,8 +25,7 @@
             <fo:table width="100%" table-layout="fixed" border-right-style="solid"
                       border-right-width="1pt" border-right-color="black">
 
-                <fo:table-body border-left-style="solid" border-left-width="1pt"
-                               border-left-color="black">
+                <fo:table-body >
 
                     <fo:table-row height="9mm">
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
@@ -137,10 +136,8 @@
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="3mm"
-                                                      border-right-style="solid" border-right-width="1pt"
-                                                      border-right-color="black" padding-top="2mm">
-                                            <fo:table-cell display-align="top" margin-left="1mm" width="63.5mm"
+                                        <fo:table-row height="3mm" padding-top="2mm">
+                                            <fo:table-cell display-align="top" margin-left="1mm" width="64mm"
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
 
