@@ -17,5 +17,6 @@
 
   <fo:table-body>
     @row_1(ie029Data)
+    @row_2(ie029Data)
   </fo:table-body>
 </fo:table>
