@@ -1,7 +1,5 @@
 @import views.xml.componentsP5.table_1.consignee
-        @import views.xml.componentsP5.table_1.total_gross_mass
 
-        @(ie029Data: models.P5.departure.IE029Data)
 
 <fo:table-row height="16mm">
 
