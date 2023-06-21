@@ -25,6 +25,7 @@ case class Consignment(
   inlandModeOfTransport: Option[String],
   modeOfTransportAtTheBorder: Option[String],
   referenceNumberUCR: Option[String],
+  ccc: Option[String],
   Consignor: Option[Consignor],
   Consignee: Option[Consignee],
   Carrier: Option[Carrier],
@@ -41,7 +42,8 @@ case class Consignment(
   SupportingDocument: Option[List[SupportingDocument]],
   AdditionalInformation: Option[List[AdditionalInformation]],
   AdditionalReference: Option[List[AdditionalReference]],
-  TransportCharges: Option[TransportCharges]
+  TransportCharges: Option[TransportCharges],
+  CountryOfRoutingOfConsignment: Option[List[CountryOfRoutingOfConsignment]]
 ) {
 
   val totalPackages: Int = HouseConsignment.foldLeft(0)(
@@ -100,11 +102,16 @@ case class Consignment(
     _.map(_.toString).mkString("; ")
   )
 
+  val countryOfRoutingOfConsignment: Option[String] = CountryOfRoutingOfConsignment.map(
+    _.map(_.toString).mkString("; ")
+  )
+
   val activeBorderTransportMeansConveyanceNumbers: Option[String] = ActiveBorderTransportMeans.map(
     _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
 }
 
 object Consignment {
-  implicit val formats: OFormat[Consignment] = Json.format[Consignment]
+
+  implicit val formatC: OFormat[Consignment] = Json.format[Consignment]
 }

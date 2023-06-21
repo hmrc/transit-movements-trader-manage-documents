@@ -1,5 +1,8 @@
 @import views.xml.componentsP5.table_1.consignee
 
+@import views.xml.componentsP5.table_1.total_gross_mass
+
+@(ie029Data: models.P5.departure.IE029Data)
 
 <fo:table-row height="16mm">
 
@@ -25,7 +28,7 @@
             <fo:table width="100%" table-layout="fixed" border-right-style="solid"
                       border-right-width="1pt" border-right-color="black">
 
-                <fo:table-body >
+                <fo:table-body>
 
                     <fo:table-row height="9mm">
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
@@ -33,7 +36,8 @@
                                        border-bottom-color="black">
 
 
-                            <fo:block>Country routing of consignment [16 12]</fo:block>
+                            <fo:block>Country of routing of consignment [16 12]</fo:block>
+                            <fo:block> @(ie029Data.countryOfRoutingOfConsignment)</fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-bottom="0.5mm" margin-top="0.5mm" display-align="right"
                                        margin-left="1.5mm" border-bottom-style="solid" border-bottom-width="1pt"
@@ -51,13 +55,7 @@
                     </fo:table-row>
 
 
-                    <fo:table-row>
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="0mm" overflow="hidden">
-                                <fo:block></fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
+
 
 
                     <fo:table-row>
@@ -72,6 +70,7 @@
                                         > <!-- todo where is this extra .25mm -->
                                             <fo:table-cell display-align="top" margin-left="1mm" width="89mm">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF TRANSIT[17 04]</fo:block>
+                                                <fo:block font-size="5pt">@(ie029Data.customsOfficeOfTransitDeclared)</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                     </fo:table-body>
@@ -86,8 +85,8 @@
                                                       border-bottom-width="1pt" border-bottom-color="black"
                                                       padding-top="2mm"> <!-- todo where is this extra .25mm -->
                                             <fo:table-cell display-align="top" margin-left="17mm">
-                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT[17 06]
-                                                </fo:block>
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT[17 06]</fo:block>
+                                                <fo:block font-size="5pt">@(ie029Data.customsOfficeOfExitForTransitDeclared)</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                     </fo:table-body>
@@ -107,6 +106,7 @@
                                         > <!-- todo where is this extra .25mm -->
                                             <fo:table-cell display-align="top" margin-left="1mm" width="89mm">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF DEPARTURE[17 03]</fo:block>
+                                                <fo:block font-size="5pt">@(ie029Data.customsOfficeOfDeparture)</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                     </fo:table-body>
@@ -121,8 +121,8 @@
                                                       border-top-color="black"
                                                       padding-top="2mm"> <!-- todo where is this extra .25mm -->
                                             <fo:table-cell display-align="top" margin-left="17mm">
-                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]
-                                                </fo:block>
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]</fo:block>
+                                                <fo:block font-size="5pt">@(ie029Data.customsOfficeOfDestinationDeclared)</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                     </fo:table-body>
@@ -151,7 +151,7 @@
                                                            border-left-color="black"
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
-                                                <fo:block font-size="5pt">Country of dispatch[16 06]</fo:block>
+                                                <fo:block font-size="5pt">Country of dispatch[16 06] @(ie029Data.countryOfDispatch)</fo:block>
                                             </fo:table-cell>
                                             <fo:table-cell display-align="top" margin-left="1mm" width="60mm"
                                                            border-top-style="solid" border-top-width="1pt"
@@ -160,7 +160,7 @@
                                                            border-left-color="black"
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
-                                                <fo:block font-size="5pt">Country of destination[16 03]</fo:block>
+                                                <fo:block font-size="5pt">Country of destination[16 03]  @(ie029Data.countryOfDestination)</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                     </fo:table-body>
