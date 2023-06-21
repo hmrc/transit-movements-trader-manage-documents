@@ -17,14 +17,10 @@
 package models.P5.departure
 
 import models.P5.departure.TransportEquipment.sealToString
-import play.api.libs.json.{JsObject, Json, OFormat}
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
 
-object Consignment {
-  implicit val format: OFormat[Consignment] = Json.format[Consignment]
-
-}
 //case class Consignment(value: JsObject)
-{
 case class Consignment(
   grossMass: Double,
   inlandModeOfTransport: Option[String],
@@ -42,9 +38,7 @@ case class Consignment(
   PlaceOfLoading: Option[PlaceOfLoading],
   PlaceOfUnloading: Option[PlaceOfUnloading],
   HouseConsignment: Seq[HouseConsignment],
-  PreviousDocument: Option[List[PreviousDocument]],
-  TransportDocument: Option[List[TransportDocument]],
-  SupportingDocument: Option[List[SupportingDocument]],
+  Document: Seq[Document],
   AdditionalInformation: Option[List[AdditionalInformation]],
   AdditionalReference: Option[List[AdditionalReference]],
   TransportCharges: Option[TransportCharges],
@@ -81,23 +75,11 @@ case class Consignment(
     ).mkString("; ")
   )
 
-  val previousDocument: Option[String] = PreviousDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
-
-  val supportingDocument: Option[String] = SupportingDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
-
   val additionalInformation: Option[String] = AdditionalInformation.map(
     _.map(_.toString).mkString("; ")
   )
 
   val additionalReference: Option[String] = AdditionalReference.map(
-    _.map(_.toString).mkString("; ")
-  )
-
-  val transportDocument: Option[String] = TransportDocument.map(
     _.map(_.toString).mkString("; ")
   )
 
@@ -114,4 +96,51 @@ case class Consignment(
   val activeBorderTransportMeansConveyanceNumbers: Option[String] = ActiveBorderTransportMeans.map(
     _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
+}
+
+case class Document(
+  PreviousDocument: Option[List[PreviousDocument]],
+  TransportDocument: Option[List[TransportDocument]],
+  SupportingDocument: Option[List[SupportingDocument]]
+) {
+
+  val previousDocument: Option[String] = PreviousDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val supportingDocument: Option[String] = SupportingDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val transportDocument: Option[String] = TransportDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+}
+
+object Consignment {
+
+  implicit val reads: Reads[Consignment] = (
+    (JsPath \ "grossMass").readNullable[Double] and
+      (JsPath \ "inlandModeOfTransport").readNullable[String] and
+      (JsPath \ "modeOfTransportAtTheBorder").readNullable[String] and
+      (JsPath \ "referenceNumberUCR").readNullable[String] and
+      (JsPath \ "Consignor").readNullable[Consignor] and
+      (JsPath \ "Consignee").readNullable[Consignee] and
+      (JsPath \ "Carrier").readNullable[Carrier] and
+      (JsPath \ "LocationOfGoods").readNullable[LocationOfGoods] and
+      (JsPath \ "AdditionalSupplyChainActor").readNullable[List[AdditionalSupplyChainActor]] and
+      (JsPath \ "DepartureTransportMeans").readNullable[List[DepartureTransportMeans]] and
+      (JsPath \ "TransportEquipment").readNullable[List[TransportEquipment]] and
+      (JsPath \ "ActiveBorderTransportMeans").readNullable[List[ActiveBorderTransportMeans]] and
+      (JsPath \ "PlaceOfLoading").readNullable[PlaceOfLoading] and
+      (JsPath \ "PlaceOfUnloading").readNullable[PlaceOfUnloading] and
+      (JsPath \ "HouseConsignment").readNullable[Seq[HouseConsignment]] and
+      (JsPath \ "DepartureTransportMeans").readNullable[DepartureTransportMeans] and
+      (JsPath \ "PreviousDocument").readNullable[PreviousDocument] and
+      (JsPath \ "SupportingDocument").readNullable[SupportingDocument] and
+      (JsPath \ "TransportDocument").readNullable[TransportDocument] and
+      (JsPath \ "AdditionalInformation").readNullable[AdditionalInformation] and
+      (JsPath \ "AdditionalReference").readNullable[AdditionalReference] and
+      (JsPath \ "TransportCharges").readNullable[TransportCharges]
+  )(Consignment.apply _)
 }
