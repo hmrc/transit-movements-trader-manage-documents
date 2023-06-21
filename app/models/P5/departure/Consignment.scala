@@ -17,15 +17,20 @@
 package models.P5.departure
 
 import models.P5.departure.TransportEquipment.sealToString
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import play.api.libs.json.{JsObject, Json, OFormat}
 
+object Consignment {
+  implicit val format: OFormat[Consignment] = Json.format[Consignment]
+
+}
+//case class Consignment(value: JsObject)
+{
 case class Consignment(
   grossMass: Double,
   inlandModeOfTransport: Option[String],
   modeOfTransportAtTheBorder: Option[String],
+  countryOfDispatch: Option[String],
   referenceNumberUCR: Option[String],
-  ccc: Option[String],
   Consignor: Option[Consignor],
   Consignee: Option[Consignee],
   Carrier: Option[Carrier],
@@ -109,9 +114,4 @@ case class Consignment(
   val activeBorderTransportMeansConveyanceNumbers: Option[String] = ActiveBorderTransportMeans.map(
     _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
-}
-
-object Consignment {
-
-  implicit val formatC: OFormat[Consignment] = Json.format[Consignment]
 }
