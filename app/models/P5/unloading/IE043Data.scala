@@ -22,69 +22,91 @@ import play.api.libs.json.OWrites
 import play.api.libs.json.Reads
 
 case class IE043Data(data: UnloadingMessageData) {
+
   val mrn: String = data.TransitOperation.MRN
 
-  val declarationType: String = data.TransitOperation.declarationType
+  val declarationType: String = data.TransitOperation.declarationType.getOrElse("")
 
   val security: String = data.TransitOperation.security
 
-  val customOfficeOfDestination: String = data.CustomOfficeOfDestinationActual.referenceNumber
+  val customsOfficeOfDestination: String = data.CustomsOfficeOfDestinationActual.referenceNumber
 
   val tir: String = data.HolderOfTheTransitProcedure.TIRHolderIdentificationNumber.getOrElse("")
 
-  val holderOfTransitName: String = data.HolderOfTheTransitProcedure.name
+  val holderOfTransit: String = data.HolderOfTheTransitProcedure.toString
 
   val holderOfTransitID: String = data.HolderOfTheTransitProcedure.identificationNumber.getOrElse("")
 
-  val totalPackages: Int = data.Consignment.totalPackages
+  val totalPackages: Int = data.Consignment
+    .map(
+      _.totalPackages
+    )
+    .getOrElse(0)
 
-  val totalItems: Int = data.Consignment.totalItems
+  val totalItems: Int = data.Consignment
+    .map(
+      _.totalItems
+    )
+    .getOrElse(0)
 
-  val coountryOfDestination: String = data.Consignment.countryOfDestination.getOrElse("")
+  val countryOfDestination: String = data.Consignment.flatMap(_.countryOfDestination).getOrElse("")
 
-  val totalGrossMass: String = data.Consignment.grossMass.map(_.toString).getOrElse("")
+  val totalGrossMass: Double = data.Consignment.flatMap(_.grossMass).getOrElse(0: Double)
 
-  val inlandModeOfTransport: String = data.Consignment.inlandModeOfTransport.getOrElse("")
+  val departureTransportMeans: String = data.Consignment.flatMap(_.departureTransportMeans).getOrElse("")
 
-  val consignorIdentificationNumber: String = data.Consignment.Consignor
+  val inlandModeOfTransport: String = data.Consignment.flatMap(_.inlandModeOfTransport).getOrElse("")
+
+  val consignorIdentificationNumber: String = data.Consignment
     .flatMap(
-      _.identificationNumber
+      _.Consignor
+        .flatMap(
+          _.identificationNumber
+        )
     )
     .getOrElse("")
 
-  val consignorIdentificationName: String = data.Consignment.Consignor
+  val consignor: String = data.Consignment
     .flatMap(
-      _.name
+      _.Consignor.map(_.toString)
     )
     .getOrElse("")
 
-  val consigneeIdentificationNumber: String = data.Consignment.Consignee
+  val consigneeIdentificationNumber: String = data.Consignment
     .flatMap(
-      _.identificationNumber
+      _.Consignee
+        .flatMap(
+          _.identificationNumber
+        )
     )
     .getOrElse("")
 
-  val consigneeIdentificationName: String = data.Consignment.Consignee
+  val consignee: String = data.Consignment
     .flatMap(
-      _.name
+      _.Consignee.map(_.toString)
     )
     .getOrElse("")
 
-  val transportEquipment: String = data.Consignment.transportEquipment.getOrElse("")
+  val transportEquipment: String = data.Consignment
+    .flatMap(
+      _.transportEquipment
+    )
+    .getOrElse("")
 
-  val transportEquipmentContainer: String = data.Consignment.transportEquipmentContainer.getOrElse("")
+  val container: String = data.Consignment.map(_.containerIndicator).getOrElse("")
 
-  val seals: String = data.Consignment.seals.getOrElse("")
+  val seals: String = data.Consignment.flatMap(_.seals).getOrElse("")
 
-  val previousDocument: String = data.Consignment.previousDocument.getOrElse("")
+  val previousDocument: String = data.Consignment.flatMap(_.previousDocument).getOrElse("")
 
-  val supportingDocument: String = data.Consignment.supportingDocument.getOrElse("")
+  val supportingDocument: String = data.Consignment.flatMap(_.supportingDocument).getOrElse("")
 
-  val transportDocument: String = data.Consignment.transportDocument.getOrElse("")
+  val transportDocument: String = data.Consignment.flatMap(_.transportDocument).getOrElse("")
 
-  val additionalInformation: String = data.Consignment.additionalInformation.getOrElse("")
+  val additionalInformation: String = data.Consignment.flatMap(_.additionalInformation).getOrElse("")
 
-  val additionalReference: String = data.Consignment.additionalReference.getOrElse("")
+  val additionalReference: String = data.Consignment.flatMap(_.additionalReference).getOrElse("")
+
 }
 
 object IE043Data {

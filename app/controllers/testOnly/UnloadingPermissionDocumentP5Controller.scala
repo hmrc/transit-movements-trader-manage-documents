@@ -16,34 +16,39 @@
 
 package controllers.testOnly
 
+import controllers.actions.AuthenticateActionProvider
 import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
+import services.P5.UnloadingMessageP5Service
 import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
 class UnloadingPermissionDocumentP5Controller @Inject() (
   pdf: UnloadingPermissionPdfGenerator,
+  service: UnloadingMessageP5Service,
+  authenticate: AuthenticateActionProvider,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
-  def get(): Action[AnyContent] = Action {
+  def get(arrivalId: String, messageId: String): Action[AnyContent] = authenticate().async {
     implicit request =>
-      // TODO get message and pass MRN here:
-      val fileName = s"TAD_${FileNameSanitizer("TODOWithMRN")}.pdf"
-
-      // TODO get message and pass data here:
-      Ok(pdf.generateP5())
-        .withHeaders(
-          CONTENT_TYPE        -> "application/pdf",
-          CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
-        )
+      service.getUnloadingPermissionNotification(arrivalId, messageId).map {
+        ie043 =>
+          val fileName = s"UPD_${FileNameSanitizer(ie043.data.TransitOperation.MRN)}.pdf"
+          Ok(pdf.generateP5(ie043))
+            .withHeaders(
+              CONTENT_TYPE        -> "application/pdf",
+              CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+            )
+      }
   }
 }

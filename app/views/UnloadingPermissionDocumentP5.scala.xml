@@ -8,11 +8,11 @@
         pageOne: PageOne
 )
 
-@()
+@(ie043Data: models.P5.unloading.IE043Data)
 @template(
     pageOne = pageOne(pageOneBody)
 )
 
 @pageOneBody = {
-        @table1()
+        @table1(ie043Data)
 }

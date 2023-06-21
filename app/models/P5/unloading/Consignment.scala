@@ -49,10 +49,6 @@ case class Consignment(
     _.map(_.toString).mkString("; ")
   )
 
-  val transportEquipmentContainer: Option[String] = TransportEquipment.map(
-    _.map(_.containerIdentificationNumber.getOrElse("")).mkString("; ")
-  )
-
   val departureTransportMeans: Option[String] = DepartureTransportMeans.map(
     _.map(_.toString).mkString("; ")
   )

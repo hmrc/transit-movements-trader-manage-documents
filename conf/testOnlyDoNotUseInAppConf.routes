@@ -12,6 +12,6 @@
 # Add all the application routes to the prod.routes file
 
 GET        /transit-movements-trader-manage-documents/test-only/:departureId/transit-accompanying-document/:messageId      controllers.testOnly.TransitAccompanyingDocumentP5Controller.get(departureId, messageId)
-GET        /transit-movements-trader-manage-documents/test-only/unloading-permission-document                                                              controllers.testOnly.UnloadingPermissionDocumentP5Controller.get()
+GET        /transit-movements-trader-manage-documents/test-only/:arrivalId/unloading-permission-document/:messageId        controllers.testOnly.UnloadingPermissionDocumentP5Controller.get(arrivalId, messageId)
 
 ->         /                          prod.Routes

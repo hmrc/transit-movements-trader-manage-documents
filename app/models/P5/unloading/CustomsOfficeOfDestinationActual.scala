@@ -19,13 +19,10 @@ package models.P5.unloading
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class UnloadingMessageData(
-  TransitOperation: TransitOperation,
-  CustomsOfficeOfDestinationActual: CustomsOfficeOfDestinationActual,
-  HolderOfTheTransitProcedure: HolderOfTransitProcedure,
-  Consignment: Option[Consignment]
+case class CustomsOfficeOfDestinationActual(
+  referenceNumber: String
 )
 
-object UnloadingMessageData {
-  implicit val formats: OFormat[UnloadingMessageData] = Json.format[UnloadingMessageData]
+object CustomsOfficeOfDestinationActual {
+  implicit val formats: OFormat[CustomsOfficeOfDestinationActual] = Json.format[CustomsOfficeOfDestinationActual]
 }

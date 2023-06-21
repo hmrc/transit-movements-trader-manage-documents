@@ -45,10 +45,10 @@ object TransportEquipment {
   def sealToString(Seal: Option[List[Seal]]): String = {
 
     val sealString = Seal match {
-      case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber}:${firstElem.identifier}")
+      case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber},[${firstElem.identifier}]")
       case Some(firstElem :: tail) =>
         Some(
-          s"${firstElem.sequenceNumber}:${firstElem.identifier}...${tail.last.sequenceNumber}:${tail.last.identifier}"
+          s"${firstElem.sequenceNumber},[${firstElem.identifier}]...${tail.last.sequenceNumber},[${tail.last.identifier}]"
         )
       case _ => Some("")
     }

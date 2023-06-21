@@ -2,7 +2,7 @@
 
 @this()
 
-@()
+@(ie043Data: models.P5.unloading.IE043Data)
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
 
@@ -16,9 +16,9 @@
   <fo:table-column column-number="8" column-width="42mm"/>
 
   <fo:table-body font-family="Helvetica">
-    @row_1()
-    @row_2()
-    @row_3()
-    @row_4()
+    @row_1(ie043Data)
+    @row_2(ie043Data)
+    @row_3(ie043Data)
+    @row_4(ie043Data)
   </fo:table-body>
 </fo:table>

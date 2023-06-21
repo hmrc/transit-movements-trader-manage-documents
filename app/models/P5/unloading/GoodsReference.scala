@@ -19,12 +19,12 @@ package models.P5.unloading
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class GoodsReference(sequenceNumber: String, declarationGoodsItemNumber: String) {
+case class GoodsReference(sequenceNumber: String, declarationGoodsItemNumber: Int) {
 
   override def toString: String = {
     val stringList: Seq[String] = List(
       sequenceNumber,
-      declarationGoodsItemNumber
+      declarationGoodsItemNumber.toString
     )
     stringList.flatten.mkString(", ")
   }

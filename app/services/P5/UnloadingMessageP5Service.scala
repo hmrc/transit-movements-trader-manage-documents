@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-package models.P5.unloading
+package services.P5
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import connectors.UnloadingP5Connector
+import models.P5.unloading.IE043Data
+import uk.gov.hmrc.http.HeaderCarrier
 
-case class CustomOfficeOfDestinationActual(
-  referenceNumber: String
-)
+import javax.inject.Inject
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
-object CustomOfficeOfDestinationActual {
-  implicit val formats: OFormat[CustomOfficeOfDestinationActual] = Json.format[CustomOfficeOfDestinationActual]
+class UnloadingMessageP5Service @Inject() (connector: UnloadingP5Connector) {
+
+  def getUnloadingPermissionNotification(arrivalId: String, messageId: String)(implicit
+    hc: HeaderCarrier,
+    ec: ExecutionContext
+  ): Future[IE043Data] =
+    connector.getUnloadingNotificationMessage(arrivalId, messageId)
 }

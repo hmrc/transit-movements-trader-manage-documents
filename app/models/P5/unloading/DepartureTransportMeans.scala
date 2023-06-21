@@ -23,7 +23,7 @@ case class DepartureTransportMeans(sequenceNumber: String, typeOfIdentification:
 
   override def toString: String = {
     val stringList: Seq[String] = List(sequenceNumber, typeOfIdentification, identificationNumber, nationality)
-    stringList.flatten.mkString(", ")
+    stringList.mkString(", ")
   }
 }
 

@@ -21,8 +21,8 @@ import play.api.libs.json.OFormat
 
 case class TransitOperation(
   MRN: String,
-  declarationType: String,
-  declarationAcceptanceDate: String,
+  declarationType: Option[String],
+  declarationAcceptanceDate: Option[String],
   security: String,
   reducedDatasetIndicator: String
 )

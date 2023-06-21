@@ -29,7 +29,7 @@ case class TransportDocument(sequenceNumber: String, `type`: String, referenceNu
       referenceNumber
     )
 
-    stringList.flatten.mkString(", ")
+    stringList.mkString(", ")
   }
 }
 

@@ -27,7 +27,7 @@ case class HolderOfTransitProcedure(
 ) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(TIRHolderIdentificationNumber, Some(name), Address.map(_.toString))
+    val stringList: Seq[Option[String]] = List(Some(name), Address.map(_.toString))
     stringList.flatten.mkString(", ")
   }
 }
