@@ -47,31 +47,49 @@
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
+
+                <fo:table-column column-number="1" column-width="68%"/>
+                <fo:table-column column-number="2" column-width="32%"/>
+
                 <fo:table-body>
+
+
                     <fo:table-row height="2mm">
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Previous Document [12 01]</fo:block>
+                        <fo:table-cell number-columns-spanned="2" display-align="center" margin-left="0.5mm">
+                            <fo:block>Transport document [12 05]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5mm">
+                        <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>prev doc 1 1</fo:block>
+                                <fo:block>transport doc 1</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
+
+
                     <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                            <fo:block>UCR [12 08]</fo:block>
+                        </fo:table-cell>
+
                         <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Supporting document [12 03]</fo:block>
+                            <fo:block>Gross mass [18 04]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
+                        <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                            <fo:block-container height="2mm" overflow="hidden">
+                                <fo:block>ucr ref 1</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Supporting document 1</fo:block>
+                                <fo:block>100.0</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

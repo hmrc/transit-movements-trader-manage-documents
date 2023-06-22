@@ -21,6 +21,12 @@
           <fo:table-cell display-align="center" margin-left="1mm">
             <fo:block>ID</fo:block>
           </fo:table-cell>
+
+          <fo:table-cell margin-left="0.5mm">
+            <fo:block-container overflow="hidden">
+              <fo:block>@holderOfTransitProcedureIdentificationNumber</fo:block>
+            </fo:block-container>
+          </fo:table-cell>
         </fo:table-row>
 
         <fo:table-row>
@@ -28,12 +34,6 @@
           <fo:table-cell margin-left="0.5mm">
             <fo:block-container height="12mm" overflow="hidden">
               <fo:block>@holderOfTransitProcedure</fo:block>
-            </fo:block-container>
-          </fo:table-cell>
-
-          <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-            <fo:block-container height="12mm" overflow="hidden">
-              <fo:block>@holderOfTransitProcedureIdentificationNumber</fo:block>
             </fo:block-container>
           </fo:table-cell>
 
@@ -55,18 +55,18 @@
           <fo:table-cell display-align="center" margin-left="1mm">
             <fo:block>ID</fo:block>
           </fo:table-cell>
+
+          <fo:table-cell margin-left="0.5mm">
+            <fo:block-container overflow="hidden">
+              <fo:block>@representativeIdentificationNumber</fo:block>
+            </fo:block-container>
+          </fo:table-cell>
         </fo:table-row>
 
         <fo:table-row>
           <fo:table-cell margin-left="0.5mm">
             <fo:block-container height="4mm" overflow="hidden">
               <fo:block>@representative</fo:block>
-            </fo:block-container>
-          </fo:table-cell>
-
-          <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-            <fo:block-container height="4mm" overflow="hidden">
-              <fo:block>@representativeIdentificationNumber</fo:block>
             </fo:block-container>
           </fo:table-cell>
         </fo:table-row>

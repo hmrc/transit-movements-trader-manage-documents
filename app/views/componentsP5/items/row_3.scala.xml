@@ -49,28 +49,28 @@
                 <fo:table-body>
                     <fo:table-row height="2mm">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Previous Document [12 01]</fo:block>
+                            <fo:block>Additional reference [12 04]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>prev doc 1 1</fo:block>
+                                <fo:block>add ref 1</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Supporting document [12 03]</fo:block>
+                            <fo:block>Additional information [12 02]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Supporting document 1</fo:block>
+                                <fo:block>add info 1</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

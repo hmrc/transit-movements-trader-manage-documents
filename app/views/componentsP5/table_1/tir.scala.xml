@@ -7,7 +7,7 @@
       <fo:table-body>
         <fo:table-row height="2mm">
           <fo:table-cell number-columns-spanned="1">
-            <fo:block margin-left="0.5mm">TIR</fo:block>
+            <fo:block margin-left="0.5mm">TIR [12 06]</fo:block>
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row number-columns-spanned="4" height="6mm">

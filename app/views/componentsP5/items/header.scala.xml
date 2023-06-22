@@ -92,6 +92,9 @@
           <fo:block>
             @barcode(mrn)
           </fo:block>
+          <fo:block font-weight="bold" text-align="center">
+            @mrn
+          </fo:block>
         </fo:table-cell>
       </fo:table-row>
     </fo:table-body>
