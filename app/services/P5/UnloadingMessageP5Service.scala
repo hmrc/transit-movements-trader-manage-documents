@@ -16,7 +16,7 @@
 
 package services.P5
 
-import connectors.UnloadingP5Connector
+import connectors.UnloadingPermissionP5Connector
 import models.P5.unloading.IE043Data
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -24,7 +24,7 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class UnloadingMessageP5Service @Inject() (connector: UnloadingP5Connector) {
+class UnloadingMessageP5Service @Inject() (connector: UnloadingPermissionP5Connector) {
 
   def getUnloadingPermissionNotification(arrivalId: String, messageId: String)(implicit
     hc: HeaderCarrier,

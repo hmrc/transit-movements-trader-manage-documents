@@ -17,19 +17,18 @@
 package connectors
 
 import config.AppConfig
-import models.P5.departure.IE029Data
-import models.P5.departure.MovementReferenceNumber
 import models.P5.unloading.IE043Data
 import play.api.Logging
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.http.HttpReadsTry
+import uk.gov.hmrc.http.HttpReads.Implicits._
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class UnloadingP5Connector @Inject() (config: AppConfig, http: HttpClient)(implicit ec: ExecutionContext) extends HttpReadsTry with Logging {
+class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpClient) extends HttpReadsTry with Logging {
 
   def getUnloadingNotificationMessage(
     arrivalId: String,
