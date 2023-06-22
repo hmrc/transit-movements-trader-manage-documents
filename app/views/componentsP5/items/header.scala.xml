@@ -1,0 +1,101 @@
+@import views.xml.componentsP5.barcode
+
+@(mrn: String)
+
+<fo:block>
+  <fo:table width="100%" table-layout="fixed">
+    <fo:table-column column-width="50%"/>
+    <fo:table-column column-width="12%"/>
+    <fo:table-column column-width="3%"/>
+    <fo:table-column column-width="35%"/>
+    <fo:table-body>
+      <!-- Margin -->
+      <fo:table-row height="11mm">
+        <fo:table-cell number-columns-spanned="3">
+          <fo:block/>
+        </fo:table-cell>
+      </fo:table-row>
+      <fo:table-row height="16mm">
+        @title
+        @forms
+        @formPadding
+        @mrnBarcode(mrn)
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+</fo:block>
+
+@title = {
+  <fo:table-cell text-align="center" display-align="after">
+    <fo:table width="100%">
+      <fo:table-body>
+        <fo:table-row height="2mm">
+          <fo:table-cell>
+            <fo:block/>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="14mm" border-style="solid" border-width="1pt" border-color="black">
+          <fo:table-cell padding-bottom="7mm">
+            <fo:block font-weight="bold" font-size="10pt">TRANSIT LIST OF ITEMS</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:table-cell>
+}
+
+@formPadding = {
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+}
+
+@forms = {
+<fo:table-cell display-align="after" table-layout="fixed">
+<fo:block>
+  <fo:table width="100%">
+    <fo:table-column/>
+    <fo:table-column/>
+    <fo:table-body>
+      <fo:table-row>
+        <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="before" font-size="7pt" border-style="solid" border-width="1pt" border-color="black" border-bottom-style="none" height="4mm">
+          <fo:block>Forms</fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+      <fo:table-row border-style="solid" border-width="1pt" border-color="black" border-top-style="none" border-bottom-style="none" height="8mm">
+        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
+          <fo:block/>
+        </fo:table-cell>
+        <fo:table-cell>
+          <fo:block/>
+        </fo:table-cell>
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+</fo:block>
+</fo:table-cell>
+}
+
+@mrnBarcode(mrn: String) = {
+<fo:table-cell border-style="solid" border-width="1pt" border-color="black">
+<fo:block>
+  <fo:table width="100%" table-layout="fixed">
+    <fo:table-column/>
+    <fo:table-body>
+      <fo:table-row>
+        <fo:table-cell font-size="6pt" font-weight="bold" margin-left="2mm" padding-bottom="3mm">
+          <fo:block>MRN</fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+      <fo:table-row>
+        <fo:table-cell text-align="center">
+          <fo:block>
+            @barcode(mrn)
+          </fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+</fo:block>
+</fo:table-cell>
+}
