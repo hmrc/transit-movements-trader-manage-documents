@@ -401,9 +401,6 @@ class DepartureMovementP5ConnectorSpec
 
       whenReady(service.getDepartureNotificationMessage(departureId, messageId)) {
         result =>
-          println(s"***************** $result")
-          println(s"-------------> $ieo29Data")
-
           result mustEqual ieo29Data
       }
 

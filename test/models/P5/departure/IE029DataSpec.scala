@@ -83,6 +83,10 @@ class IE029DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChe
       IE029Data(departureMessageData).customsOfficeOfDeparture mustBe "Ref001"
       IE029Data(departureMessageData).customsOfficeOfDestinationDeclared mustBe "Ref001"
       IE029Data(departureMessageData).countryOfRoutingOfConsignment mustBe "Seqnum12243, GB"
+
+      val multipleSealsDM = departureMessageData.copy(Consignment = consignmentWithMultipleSeals)
+      IE029Data(multipleSealsDM).seals mustBe "1232:ID10012...456:ID10045"
+
     }
   }
 

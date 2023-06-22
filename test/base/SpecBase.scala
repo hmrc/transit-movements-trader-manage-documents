@@ -100,7 +100,9 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val customsOffice                          = CustomsOffice("Reference1")
   val gnss                                   = GNSS("1232", "1234")
   val seal                                   = Seal(Some("1232"), Some("ID10012"))
+  val seals                                  = List(Seal(Some("1232"), Some("ID10012")), Seal(Some("456"), Some("ID10045")))
   val goodsReference                         = GoodsReference(Some("1232"), Some(1234))
+  val goodsReferences                        = List(GoodsReference(Some("1234"), Some(1234)), GoodsReference(Some("4567"), Some(4567)))
 
   val locationOfGoods = LocationOfGoods(
     "Warehouse",
@@ -119,6 +121,7 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val additionalSupplyChainActor    = AdditionalSupplyChainActor("Actor-Role", "ID001")
   val departureTransportMeans       = DepartureTransportMeans("Actor-Role", "ID001", Some("Nationality"))
   val transportEquipment            = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(List(seal)), Some(List(goodsReference)))
+  val transportEquipments           = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(seals), Some(goodsReferences))
   val activeBorderTransportMeans    = ActiveBorderTransportMeans("GB0001", "T1", "ID001", "GB", Some("conveyReferenceNumber-1"))
   val placeOfLoading                = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
   val placeOfUnLoading              = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
@@ -154,6 +157,8 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
     Some(TransportCharges(Some("payPal"))),
     Some(List(countryOfRoutingOfConsignment))
   )
+
+  val consignmentWithMultipleSeals = consigmment.copy(TransportEquipment = Some(List(transportEquipments)))
 
   val departureMessageData: DepartureMessageData =
     DepartureMessageData(
