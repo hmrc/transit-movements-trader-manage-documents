@@ -16,9 +16,7 @@
 
 package models.P5.departure
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
-import models.P5.departure.Document._
+import play.api.libs.json.{Json, Reads}
 
 case class DepartureMessageData(
   TransitOperation: TransitOperation,
@@ -55,5 +53,5 @@ case class DepartureMessageData(
 }
 
 object DepartureMessageData {
-  implicit val formats: OFormat[DepartureMessageData] = Json.format[DepartureMessageData]
+  implicit val reads: Reads[DepartureMessageData] = Json.reads[DepartureMessageData]
 }
