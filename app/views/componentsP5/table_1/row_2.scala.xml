@@ -1,7 +1,7 @@
 @import views.xml.componentsP5.table_1._
 @import views.xml.componentsP5._
 
-@(ie029Data: models.P5.departure.IE029Data)
+@(ie029Data: models.P5.departure.IE029Data, viewModel: viewmodels.P5.Table1ViewModel)
 
 <fo:table-row height="16mm">
   <fo:table-cell>

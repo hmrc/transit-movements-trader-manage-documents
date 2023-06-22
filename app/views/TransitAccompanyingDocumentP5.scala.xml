@@ -12,13 +12,13 @@
         pageOne: PageOne
 )
 
-@(ie029Data: models.P5.departure.IE029Data)
+@(ie029Data: models.P5.departure.IE029Data, viewModel: viewmodels.P5.Table1ViewModel)
 @template(
     pageOne = pageOne(pageOneBody)
 )
 
 @pageOneBody = {
-        @table1(ie029Data)
+        @table1(ie029Data, viewModel)
         @table2(ie029Data)
         @table3(ie029Data)
         @table4(ie029Data)
