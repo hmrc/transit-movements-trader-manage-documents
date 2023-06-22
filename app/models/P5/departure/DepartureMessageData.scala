@@ -18,6 +18,7 @@ package models.P5.departure
 
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
+import models.P5.departure.Document._
 
 case class DepartureMessageData(
   TransitOperation: TransitOperation,
