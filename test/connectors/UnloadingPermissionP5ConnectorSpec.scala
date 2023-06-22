@@ -89,7 +89,7 @@ class UnloadingPermissionP5ConnectorSpec
           |    "correlationIdentifier": "token",
           |    "TransitOperation": {
           |      "MRN": "38VYQTYFU3T0KUTUM3",
-          |      "declarationType": "3",
+          |      "declarationType": "T1",
           |      "declarationAcceptanceDate": "2014-06-09+01:00",
           |      "security": "4",
           |      "reducedDatasetIndicator": "1"

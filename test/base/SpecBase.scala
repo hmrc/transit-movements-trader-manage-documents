@@ -48,7 +48,7 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val messageId                  = "7443005176c4e834"
 
   val transitOperation: TransitOperation =
-    TransitOperation("38VYQTYFU3T0KUTUM3", Some("3"), Some("2014-06-09+01:00"), "4", "1")
+    TransitOperation("38VYQTYFU3T0KUTUM3", Some("T1"), Some("2014-06-09+01:00"), "4", "1")
 
   val customsOfficeOfDestinationActual: CustomsOfficeOfDestinationActual =
     CustomsOfficeOfDestinationActual("GB000068")

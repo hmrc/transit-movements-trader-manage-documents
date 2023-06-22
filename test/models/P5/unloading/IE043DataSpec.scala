@@ -13,3 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package models.P5.unloading
+
+import base.SpecBase
+import generators.ModelGenerators
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+
+class IE043DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ModelGenerators with SpecBase {
+
+  "IE043Data" - {
+
+    "must be able to return correct UPD Data for each fields" in {
+
+      IE043Data(unloadingPermissionMessageData).mrn mustBe "38VYQTYFU3T0KUTUM3"
+      IE043Data(unloadingPermissionMessageData).tir mustBe "tirId"
+      IE043Data(unloadingPermissionMessageData).customsOfficeOfDestination mustBe "GB000068"
+      IE043Data(unloadingPermissionMessageData).countryOfDestination mustBe "FR"
+      IE043Data(unloadingPermissionMessageData).totalGrossMass mustBe 1000.99
+      IE043Data(unloadingPermissionMessageData).totalPackages mustBe 3
+      IE043Data(unloadingPermissionMessageData).totalItems mustBe 1
+      IE043Data(unloadingPermissionMessageData).container mustBe "1"
+      IE043Data(unloadingPermissionMessageData).security mustBe "4"
+      IE043Data(unloadingPermissionMessageData).inlandModeOfTransport mustBe "2"
+      IE043Data(unloadingPermissionMessageData).declarationType mustBe "T1"
+      IE043Data(
+        unloadingPermissionMessageData
+      ).consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      IE043Data(unloadingPermissionMessageData).consigneeIdentificationNumber mustBe "idnum2"
+      IE043Data(
+        unloadingPermissionMessageData
+      ).consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      IE043Data(unloadingPermissionMessageData).consignorIdentificationNumber mustBe "idnum1"
+      IE043Data(unloadingPermissionMessageData).holderOfTransit mustBe "Travis, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      IE043Data(unloadingPermissionMessageData).holderOfTransitID mustBe "id"
+      IE043Data(unloadingPermissionMessageData).departureTransportMeans mustBe "seq1, type1, id1, NG"
+      IE043Data(unloadingPermissionMessageData).transportEquipment mustBe "te2, cin-2, 35, seq1:5"
+      IE043Data(unloadingPermissionMessageData).seals mustBe "seq1,[sealId]"
+      IE043Data(unloadingPermissionMessageData).previousDocument mustBe "pr1, 768, ref1, 55"
+      IE043Data(unloadingPermissionMessageData).supportingDocument mustBe "sp1, 764, ref2, 45"
+      IE043Data(unloadingPermissionMessageData).transportDocument mustBe "tp1, 767, ref3"
+      IE043Data(unloadingPermissionMessageData).additionalInformation mustBe "adInf1, 32, additional ref text"
+      IE043Data(unloadingPermissionMessageData).additionalReference mustBe "adRef1, 4, ref4"
+    }
+  }
+
+}
