@@ -26,6 +26,7 @@ case class Consignment(
   inlandModeOfTransport: Option[String],
   modeOfTransportAtTheBorder: Option[String],
   countryOfDispatch: Option[String],
+  countryOfDestination: Option[String],
   referenceNumberUCR: Option[String],
   Consignor: Option[Consignor],
   Consignee: Option[Consignee],
@@ -106,11 +107,12 @@ object Consignment {
       (__ \ "inlandModeOfTransport").readNullable[String] and
       (__ \ "modeOfTransportAtTheBorder").readNullable[String] and
       (__ \ "countryOfDispatch").readNullable[String] and
+      (__ \ "countryOfDestination").readNullable[String] and
       (__ \ "referenceNumberUCR").readNullable[String] and
       (__ \ "Consignor").readNullable[Consignor] and
       (__ \ "Consignee").readNullable[Consignee] and
       (__ \ "Carrier").readNullable[Carrier] and
-      ((__.read[Document])) and
+      (__.read[Document]) and
       (__ \ "LocationOfGoods").readNullable[LocationOfGoods] and
       (__ \ "AdditionalSupplyChainActor").readNullable[List[AdditionalSupplyChainActor]] and
       (__ \ "DepartureTransportMeans").readNullable[List[DepartureTransportMeans]] and
@@ -123,6 +125,8 @@ object Consignment {
       (__ \ "AdditionalReference").readNullable[List[AdditionalReference]] and
       (__ \ "TransportCharges").readNullable[TransportCharges] and
       (__ \ "CountryOfRoutingOfConsignment").readNullable[List[CountryOfRoutingOfConsignment]]
-    )(Consignment.apply _)
+  )(Consignment.apply _)
+
+  implicit val writes: Writes[Consignment] = Json.writes[Consignment]
 
 }

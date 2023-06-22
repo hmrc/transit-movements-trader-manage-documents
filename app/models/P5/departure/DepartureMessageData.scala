@@ -16,7 +16,10 @@
 
 package models.P5.departure
 
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.Json
+import play.api.libs.json.OWrites
+import play.api.libs.json.Reads
+import play.api.libs.json.Writes
 
 case class DepartureMessageData(
   TransitOperation: TransitOperation,
@@ -53,5 +56,7 @@ case class DepartureMessageData(
 }
 
 object DepartureMessageData {
-  implicit val reads: Reads[DepartureMessageData] = Json.reads[DepartureMessageData]
+  implicit val reads: Reads[DepartureMessageData]   = Json.reads[DepartureMessageData]
+  implicit val writes: Writes[DepartureMessageData] = Json.writes[DepartureMessageData]
+
 }

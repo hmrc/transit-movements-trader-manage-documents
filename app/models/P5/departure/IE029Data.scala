@@ -113,8 +113,8 @@ case class IE029Data(data: DepartureMessageData) {
   val locationOfGoods: String = data.Consignment.LocationOfGoods.map(_.toString).getOrElse("")
 
   val locationOfGoodsContactPerson: String = data.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.toString)).getOrElse("")
-  val countryOfDispatch: String            = ""
-  val countryOfDestination: String         = ""
+  val countryOfDispatch: String            = data.Consignment.countryOfDispatch.getOrElse("")
+  val countryOfDestination: String         = data.Consignment.countryOfDestination.getOrElse("")
 
 }
 
