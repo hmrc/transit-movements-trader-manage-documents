@@ -38,6 +38,8 @@ import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.WireMockHelper
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class DepartureMovementP5ConnectorSpec
@@ -97,7 +99,7 @@ class DepartureMovementP5ConnectorSpec
       val ieo29Data = IE029Data(departureMessageData)
 
       val json1 =
-        """{
+        s"""{
             "n1:CC029C": {
     
           "TransitOperation": {
@@ -137,6 +139,8 @@ class DepartureMovementP5ConnectorSpec
           "Consignment": {
             "grossMass": 1,
             "inlandModeOfTransport": "T1",
+            "countryOfDispatch": "GER",
+            "countryOfDestination": "GB",
             "modeOfTransportAtTheBorder": "Road",
             "referenceNumberUCR": "UCR001",
             "Consignor": {
@@ -214,6 +218,12 @@ class DepartureMovementP5ConnectorSpec
               {
                 "role": "Actor-Role",
                 "identificationNumber": "ID001"
+              }
+            ],
+            "CountryOfRoutingOfConsignment": [
+              {
+                "sequenceNumber": "Seqnum12243",
+                "country": "GB"
               }
             ],
             "DepartureTransportMeans": [
@@ -338,7 +348,28 @@ class DepartureMovementP5ConnectorSpec
               "type": "Auth-Type",
               "referenceNumber": "Reference-Numb-1"
             }
-          ]
+          ],
+          "CustomsOfficeOfExitForTransitDeclared": [
+          {
+            "sequenceNumber": "seq001",
+            "referenceNumber": "ref001"
+          }
+        ],
+        "CustomsOfficeOfTransitDeclared": [
+        {
+          "sequenceNumber": "seq001",
+          "referenceNumber": "ref001",
+          "arrivalDateAndTimeEstimated": "-999999999-01-01T00:00"
+        }
+      ],
+          "CustomsOfficeOfDeparture":
+          {
+            "referenceNumber": "Ref001"
+          },
+          "CustomsOfficeOfDestinationDeclared":
+          {
+            "referenceNumber": "Ref001"
+          }
         }
   
     }"""
@@ -370,6 +401,9 @@ class DepartureMovementP5ConnectorSpec
 
       whenReady(service.getDepartureNotificationMessage(departureId, messageId)) {
         result =>
+          println(s"***************** $result")
+          println(s"-------------> $ieo29Data")
+
           result mustEqual ieo29Data
       }
 

@@ -28,9 +28,15 @@ import models.P5.departure.Consignment
 import models.P5.departure.ConsignmentItem
 import models.P5.departure.Consignor
 import models.P5.departure.ContactPerson
+import models.P5.departure.CountryOfRoutingOfConsignment
 import models.P5.departure.CustomsOffice
+import models.P5.departure.CustomsOfficeOfDeparture
+import models.P5.departure.CustomsOfficeOfDestinationDeclared
+import models.P5.departure.CustomsOfficeOfExitForTransitDeclared
+import models.P5.departure.CustomsOfficeOfTransitDeclared
 import models.P5.departure.DepartureMessageData
 import models.P5.departure.DepartureTransportMeans
+import models.P5.departure.Document
 import models.P5.departure.EconomicOperator
 import models.P5.departure.GNSS
 import models.P5.departure.GoodsReference
@@ -58,6 +64,8 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.http.HeaderCarrier
 
+import java.time.LocalDateTime
+
 trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
 
   val departureId                  = "ID1"
@@ -81,6 +89,10 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val carrier   = Carrier("idnum1", Some(contactPerson))
 
   val authorisation: Authorisation           = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
+  val customsOfficeOfTransitDeclared         = CustomsOfficeOfTransitDeclared(Some("seq001"), Some("ref001"), Some(LocalDateTime.MIN))
+  val customsOfficeOfExitForTransitDeclared  = CustomsOfficeOfExitForTransitDeclared(Some("seq001"), Some("ref001"))
+  val customsOfficeOfDeparture               = CustomsOfficeOfDeparture(Some("Ref001"))
+  val customsOfficeOfDestinationDeclared     = CustomsOfficeOfDestinationDeclared(Some("Ref001"))
   val guaranteeReference: GuaranteeReference = GuaranteeReference(Some("SEQNum-1"), Some("GRN-1"), Some("Access-code-1"), Some(123456.1212), Some("GBP"))
   val guarantee: Guarantee                   = Guarantee(Some("SEQNum-1"), Some("SomeGuaranteeType"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
   val postcodeAddress                        = PostcodeAddress(Some("house1"), "BR", "UK")
@@ -104,27 +116,31 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
     Some(contactPerson)
   )
 
-  val additionalSupplyChainActor = AdditionalSupplyChainActor("Actor-Role", "ID001")
-  val departureTransportMeans    = DepartureTransportMeans("Actor-Role", "ID001", Some("Nationality"))
-  val transportEquipment         = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(List(seal)), Some(List(goodsReference)))
-  val activeBorderTransportMeans = ActiveBorderTransportMeans("GB0001", "T1", "ID001", "GB", Some("conveyReferenceNumber-1"))
-  val placeOfLoading             = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
-  val placeOfUnLoading           = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
-  val houseConsignment           = HouseConsignment(Seq(ConsignmentItem(Seq(Packaging(Some(5))))))
-  val previousDocument           = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
-  val transportDocument          = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val additionalReference        = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val additionalInformation      = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val supportingDocument         = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
+  val additionalSupplyChainActor    = AdditionalSupplyChainActor("Actor-Role", "ID001")
+  val departureTransportMeans       = DepartureTransportMeans("Actor-Role", "ID001", Some("Nationality"))
+  val transportEquipment            = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(List(seal)), Some(List(goodsReference)))
+  val activeBorderTransportMeans    = ActiveBorderTransportMeans("GB0001", "T1", "ID001", "GB", Some("conveyReferenceNumber-1"))
+  val placeOfLoading                = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
+  val placeOfUnLoading              = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
+  val houseConsignment              = HouseConsignment(Seq(ConsignmentItem(Seq(Packaging(Some(5))))))
+  val previousDocument              = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
+  val transportDocument             = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val supportingDocument            = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
+  val additionalReference           = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val additionalInformation         = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val countryOfRoutingOfConsignment = CountryOfRoutingOfConsignment(Some("Seqnum12243"), Some("GB"))
 
   val consigmment: Consignment = Consignment(
     1.0,
     Some("T1"),
     Some("Road"),
+    Some("GER"),
+    Some("GB"),
     Some("UCR001"),
     Some(consignor),
     Some(consignee),
     Some(carrier),
+    Document(Some(List(previousDocument)), Some(List(transportDocument)), Some(List(supportingDocument))),
     Some(locationOfGoods),
     Some(List(additionalSupplyChainActor)),
     Some(List(departureTransportMeans)),
@@ -133,15 +149,24 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
     Some(placeOfLoading),
     Some(placeOfUnLoading),
     Seq(houseConsignment),
-    Some(List(previousDocument)),
-    Some(List(transportDocument)),
-    Some(List(supportingDocument)),
     Some(List(additionalInformation)),
     Some(List(additionalReference)),
-    Some(TransportCharges(Some("payPal")))
+    Some(TransportCharges(Some("payPal"))),
+    Some(List(countryOfRoutingOfConsignment))
   )
 
   val departureMessageData: DepartureMessageData =
-    DepartureMessageData(transitOperation, holderOfTheTransitProcedure, representative, consigmment, Some(List(guarantee)), Some(List(authorisation)))
+    DepartureMessageData(
+      transitOperation,
+      holderOfTheTransitProcedure,
+      representative,
+      consigmment,
+      Some(List(guarantee)),
+      Some(List(authorisation)),
+      Some(List(customsOfficeOfTransitDeclared)),
+      Some(List(customsOfficeOfExitForTransitDeclared)),
+      customsOfficeOfDeparture,
+      customsOfficeOfDestinationDeclared
+    )
 
 }

@@ -29,7 +29,7 @@ case class DepartureMessageData(
   Guarantee: Option[List[Guarantee]],
   Authorisation: Option[List[Authorisation]],
   CustomsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
-  CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
+  CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
   CustomsOfficeOfDeparture: CustomsOfficeOfDeparture,
   CustomsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared
 ) {

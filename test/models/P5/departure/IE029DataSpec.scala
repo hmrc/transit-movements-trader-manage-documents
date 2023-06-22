@@ -75,6 +75,14 @@ class IE029DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChe
         departureMessageData
       ).locationOfGoods mustBe "Warehouse, qualifierIdentifier-num-1, 1212, LNCODE1, Reference1, 1232, 1234, EconomicOperator-1, Address Line 1, Address Line 2, Address Line 3, Address Line 4, house1, BR, UK"
       IE029Data(departureMessageData).locationOfGoodsContactPerson mustBe "Contact Person Name, 123456, a@a.com"
+
+      IE029Data(departureMessageData).customsOfficeOfTransitDeclared mustBe "seq001, ref001, -999999999-01-01T00:00"
+      IE029Data(departureMessageData).customsOfficeOfExitForTransitDeclared mustBe "seq001, ref001"
+      IE029Data(departureMessageData).countryOfDestination mustBe "GB"
+      IE029Data(departureMessageData).countryOfDispatch mustBe "GER"
+      IE029Data(departureMessageData).customsOfficeOfDeparture mustBe "Ref001"
+      IE029Data(departureMessageData).customsOfficeOfDestinationDeclared mustBe "Ref001"
+      IE029Data(departureMessageData).countryOfRoutingOfConsignment mustBe "Seqnum12243, GB"
     }
   }
 

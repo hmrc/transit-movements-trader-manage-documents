@@ -42,8 +42,8 @@ object Document {
 
   implicit val reads: Reads[Document] = (
     (JsPath \ "PreviousDocument").readNullable[List[PreviousDocument]] and
-      (JsPath \ "SupportingDocument").readNullable[List[TransportDocument]] and
-      (JsPath \ "TransportDocument").readNullable[List[SupportingDocument]]
+      (JsPath \ "TransportDocument").readNullable[List[TransportDocument]] and
+      (JsPath \ "SupportingDocument").readNullable[List[SupportingDocument]]
   )(Document.apply(_, _, _))
   implicit val writes: Writes[Document] = Json.writes[Document]
 
