@@ -1,7 +1,7 @@
 @import views.xml.componentsP5.table_1.consignee
-        @import views.xml.componentsP5.table_1.total_gross_mass
+@import views.xml.componentsP5.table_1.total_gross_mass
 
-        @(ie029Data: models.P5.departure.IE029Data)
+@(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="16mm">
 
@@ -40,7 +40,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm"  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block-container height="10mm" overflow="hidden">
-                                <fo:block>@(ie029Data.guarantee)</fo:block>
+                                <fo:block>@(viewModel.table2ViewModel.guarantee)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -97,7 +97,7 @@
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5mm" number-columns-spanned="2">
                                                 <fo:block-container height="14mm" overflow="hidden">
-                                                    <fo:block>@(ie029Data.authorisation)</fo:block>
+                                                    <fo:block>@(viewModel.table2ViewModel.authorisation)</fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>

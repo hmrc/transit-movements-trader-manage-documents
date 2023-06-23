@@ -96,10 +96,18 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
 
 case class Table2ViewModel(implicit ie029Data: IE029Data) {
 
-  val consignor = ie029Data.data.Consignment.Consignor match {
-    case Some(value) => value.toString
-    case None        => "TODO get multiple consignor"
-  }
+  val data = ie029Data.data
+
+  val transportEquipment: String    = data.Consignment.transportEquipment.getOrElse("")
+  val seals: String                 = data.Consignment.seals.getOrElse("")
+  val previousDocument: String      = data.Consignment.Document.previousDocument.getOrElse("")
+  val supportingDocument: String    = data.Consignment.Document.supportingDocument.getOrElse("")
+  val transportDocument: String     = data.Consignment.Document.transportDocument.getOrElse("")
+  val additionalInformation: String = data.Consignment.additionalInformation.getOrElse("")
+  val additionalReference: String   = data.Consignment.additionalReference.getOrElse("")
+  val transportCharges: String      = data.Consignment.transportCharges.getOrElse("")
+  val guarantee: String             = data.guarantee.getOrElse("")
+  val authorisation: String         = data.authorisation.getOrElse("")
 
 }
 
