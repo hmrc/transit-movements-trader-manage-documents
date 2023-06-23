@@ -5,13 +5,13 @@
       <fo:table-column/>
       <fo:table-column/>
       <fo:table-body>
-        <fo:table-row height="2mm">
+        <fo:table-row height="2%">
           <fo:table-cell number-columns-spanned="1">
-            <fo:block margin-left="0.5mm">LRN</fo:block>
+            <fo:block  margin-top="3%" margin-left="2%">LRN</fo:block>
           </fo:table-cell>
         </fo:table-row>
-        <fo:table-row number-columns-spanned="4" height="6mm">
-          <fo:table-cell margin-left="0.5mm">
+        <fo:table-row number-columns-spanned="4" height="6%">
+          <fo:table-cell margin-left="2%">
             <fo:block>
               @lrn
             </fo:block>
