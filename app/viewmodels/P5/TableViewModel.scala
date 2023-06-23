@@ -30,95 +30,85 @@ case class TableViewModel(implicit ie029Data: IE029Data) {
 }
 
 case class Table1ViewModel(implicit ie029Data: IE029Data) {
-  val data = ie029Data.data
 
   val consignor = ie029Data.data.Consignment.Consignor match {
     case Some(value) => value.toString
     case None        => "TODO get multiple consignor"
   }
 
-  val consignee: String = data.Consignment.Consignee match {
+  val consignee: String = ie029Data.data.Consignment.Consignee match {
     case Some(value) => value.toString
     case None        => "TODO get multiple consignee"
   }
-  val declarationType: String           = data.TransitOperation.declarationType
-  val additionalDeclarationType: String = data.TransitOperation.additionalDeclarationType
-  val sci: String                       = data.TransitOperation.specificCircumstanceIndicator.getOrElse("")
-  val mrn: String                       = data.TransitOperation.MRN
+  val declarationType: String           = ie029Data.data.TransitOperation.declarationType
+  val additionalDeclarationType: String = ie029Data.data.TransitOperation.additionalDeclarationType
+  val sci: String                       = ie029Data.data.TransitOperation.specificCircumstanceIndicator.getOrElse("")
+  val mrn: String                       = ie029Data.data.TransitOperation.MRN
 
-  val consigneeIdentificationNumber: String = data.Consignment.Consignee match {
+  val consigneeIdentificationNumber: String = ie029Data.data.Consignment.Consignee match {
     case Some(Consignee(Some(identificationNumber), _, _, _)) => identificationNumber
     case None                                                 => "TODO get multiple consignor identification numbers"
   }
 
-  val consignorIdentificationNumber: String = data.Consignment.Consignor match {
+  val consignorIdentificationNumber: String = ie029Data.data.Consignment.Consignor match {
     case Some(Consignor(Some(identificationNumber), _, _, _)) => identificationNumber
     case None                                                 => "TODO get multiple consignor identification numbers"
   }
-  val totalItems: Int                                      = data.Consignment.totalItems
-  val totalPackages: Int                                   = data.Consignment.totalPackages
-  val totalGrossMass: Double                               = data.Consignment.grossMass
-  val security: String                                     = data.TransitOperation.security
-  val holderOfTransitProcedure: String                     = data.HolderOfTheTransitProcedure.toString
-  val holderOfTransitProcedureIdentificationNumber: String = data.HolderOfTheTransitProcedure.identificationNumber.getOrElse("")
+  val totalItems: Int                                      = ie029Data.data.Consignment.totalItems
+  val totalPackages: Int                                   = ie029Data.data.Consignment.totalPackages
+  val totalGrossMass: Double                               = ie029Data.data.Consignment.grossMass
+  val security: String                                     = ie029Data.data.TransitOperation.security
+  val holderOfTransitProcedure: String                     = ie029Data.data.HolderOfTheTransitProcedure.toString
+  val holderOfTransitProcedureIdentificationNumber: String = ie029Data.data.HolderOfTheTransitProcedure.identificationNumber.getOrElse("")
 
-  val representative: String = data.Representative.toString
+  val representative: String = ie029Data.data.Representative.toString
 
-  val representativeIdentificationNumber: String = data.Representative.identificationNumber.getOrElse("")
-  val lrn: String                                = data.TransitOperation.LRN
-  val tir: String                                = data.TransitOperation.TIRCarnetNumber.getOrElse("")
+  val representativeIdentificationNumber: String = ie029Data.data.Representative.identificationNumber.getOrElse("")
+  val lrn: String                                = ie029Data.data.TransitOperation.LRN
+  val tir: String                                = ie029Data.data.TransitOperation.TIRCarnetNumber.getOrElse("")
 
-  val carrierIdentificationNumber: String = data.Consignment.Carrier.map(_.identificationNumber).getOrElse("")
+  val carrierIdentificationNumber: String = ie029Data.data.Consignment.Carrier.map(_.identificationNumber).getOrElse("")
 
-  val additionalSupplyChainActorRoles: String = data.Consignment.additionalSupplyChainActorsRole.getOrElse("")
+  val additionalSupplyChainActorRoles: String = ie029Data.data.Consignment.additionalSupplyChainActorsRole.getOrElse("")
 
-  val additionalSupplyChainActorIdentificationNumbers: String = data.Consignment.additionalSupplyChainActorIdentificationNumbers.getOrElse("")
+  val additionalSupplyChainActorIdentificationNumbers: String = ie029Data.data.Consignment.additionalSupplyChainActorIdentificationNumbers.getOrElse("")
 
-  val departureTransportMeans: String    = data.Consignment.departureTransportMeans.getOrElse("")
-  val ucr: String                        = data.Consignment.referenceNumberUCR.getOrElse("")
-  val activeBorderTransportMeans: String = data.Consignment.activeBorderTransportMeans.getOrElse("")
+  val departureTransportMeans: String    = ie029Data.data.Consignment.departureTransportMeans.getOrElse("")
+  val ucr: String                        = ie029Data.data.Consignment.referenceNumberUCR.getOrElse("")
+  val activeBorderTransportMeans: String = ie029Data.data.Consignment.activeBorderTransportMeans.getOrElse("")
 
-  val activeBorderTransportMeansConveyanceNumbers: String = data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse("")
+  val activeBorderTransportMeansConveyanceNumbers: String = ie029Data.data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse("")
 
-  val placeOfLoading: String = data.Consignment.PlaceOfLoading.map(_.toString).getOrElse("")
+  val placeOfLoading: String = ie029Data.data.Consignment.PlaceOfLoading.map(_.toString).getOrElse("")
 
-  val placeOfUnloading: String = data.Consignment.PlaceOfUnloading.map(_.toString).getOrElse("")
+  val placeOfUnloading: String = ie029Data.data.Consignment.PlaceOfUnloading.map(_.toString).getOrElse("")
 
-  val inlandModeOfTransport: String = data.Consignment.inlandModeOfTransport.getOrElse("")
+  val inlandModeOfTransport: String = ie029Data.data.Consignment.inlandModeOfTransport.getOrElse("")
 
-  val modeOfTransportAtBorder: String = data.Consignment.modeOfTransportAtTheBorder.getOrElse("")
+  val modeOfTransportAtBorder: String = ie029Data.data.Consignment.modeOfTransportAtTheBorder.getOrElse("")
 
-  val locationOfGoods: String = data.Consignment.LocationOfGoods.map(_.toString).getOrElse("")
+  val locationOfGoods: String = ie029Data.data.Consignment.LocationOfGoods.map(_.toString).getOrElse("")
 
-  val locationOfGoodsContactPerson: String = data.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.toString)).getOrElse("")
+  val locationOfGoodsContactPerson: String = ie029Data.data.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.toString)).getOrElse("")
 
 }
 
 case class Table2ViewModel(implicit ie029Data: IE029Data) {
 
-  val data = ie029Data.data
-
-  val transportEquipment: String    = data.Consignment.transportEquipment.getOrElse("")
-  val seals: String                 = data.Consignment.seals.getOrElse("")
-  val previousDocument: String      = data.Consignment.Document.previousDocument.getOrElse("")
-  val supportingDocument: String    = data.Consignment.Document.supportingDocument.getOrElse("")
-  val transportDocument: String     = data.Consignment.Document.transportDocument.getOrElse("")
-  val additionalInformation: String = data.Consignment.additionalInformation.getOrElse("")
-  val additionalReference: String   = data.Consignment.additionalReference.getOrElse("")
-  val transportCharges: String      = data.Consignment.transportCharges.getOrElse("")
-  val guarantee: String             = data.guarantee.getOrElse("")
-  val authorisation: String         = data.authorisation.getOrElse("")
+  val transportEquipment: String    = ie029Data.data.Consignment.transportEquipment.getOrElse("")
+  val seals: String                 = ie029Data.data.Consignment.seals.getOrElse("")
+  val previousDocument: String      = ie029Data.data.Consignment.Document.previousDocument.getOrElse("")
+  val supportingDocument: String    = ie029Data.data.Consignment.Document.supportingDocument.getOrElse("")
+  val transportDocument: String     = ie029Data.data.Consignment.Document.transportDocument.getOrElse("")
+  val additionalInformation: String = ie029Data.data.Consignment.additionalInformation.getOrElse("")
+  val additionalReference: String   = ie029Data.data.Consignment.additionalReference.getOrElse("")
+  val transportCharges: String      = ie029Data.data.Consignment.transportCharges.getOrElse("")
+  val guarantee: String             = ie029Data.data.guarantee.getOrElse("")
+  val authorisation: String         = ie029Data.data.authorisation.getOrElse("")
 
 }
 
-case class Table3ViewModel(implicit ie029Data: IE029Data) {
-
-  val consignor = ie029Data.data.Consignment.Consignor match {
-    case Some(value) => value.toString
-    case None        => "TODO get multiple consignor"
-  }
-
-}
+case class Table3ViewModel(implicit ie029Data: IE029Data)
 
 case class Table4ViewModel(implicit ie029Data: IE029Data) {
 
