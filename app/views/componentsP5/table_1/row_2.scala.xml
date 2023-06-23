@@ -1,7 +1,7 @@
 @import views.xml.componentsP5.table_1._
 @import views.xml.componentsP5._
 
-@(ie029Data: models.P5.departure.IE029Data, viewModel: viewmodels.P5.Table1ViewModel)
+@(ie029Data: models.P5.departure.IE029Data, viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="16mm">
   <fo:table-cell>
@@ -12,7 +12,7 @@
     <fo:block/>
   </fo:table-cell>
 
-  @consignor(ie029Data.consignor, ie029Data.consignorIdentificationNumber)
+  @consignor(viewModel.table1ViewModel.consignor, ie029Data.consignorIdentificationNumber)
 
   <fo:table-cell>
     <fo:block>
