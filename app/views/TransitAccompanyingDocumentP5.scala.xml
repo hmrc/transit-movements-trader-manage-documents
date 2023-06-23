@@ -18,8 +18,8 @@
 )
 
 @pageOneBody = {
-        @table1(ie029Data, viewModel)
-        @table2(ie029Data)
+        @table1(viewModel)
+        @table2(viewModel)
         @table3(ie029Data)
         @table4(ie029Data, viewModel)
 }

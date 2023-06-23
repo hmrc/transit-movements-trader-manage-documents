@@ -1,7 +1,7 @@
 @import views.xml.componentsP5.table_1.consignee
         @import views.xml.componentsP5.table_1.total_gross_mass
 
-        @(ie029Data: models.P5.departure.IE029Data)
+@(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="16mm">
 
@@ -28,7 +28,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="14mm" overflow="hidden">
-                                <fo:block>@(ie029Data.supportingDocument)</fo:block>
+                                <fo:block>@(viewModel.table2ViewModel.supportingDocument)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -70,7 +70,7 @@
                                                            border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block-container height="6mm" overflow="hidden">
                                                     <fo:block>
-                                                        @(ie029Data.additionalReference)
+                                                        @(viewModel.table2ViewModel.additionalReference)
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
@@ -84,7 +84,7 @@
                                                            margin-left="0.5mm" border-left-style="solid" border-left-width="1pt"
                                                            border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
-                                                <fo:block>Transport charges [14 02] @(ie029Data.transportCharges)
+                                                <fo:block>Transport charges [14 02] @(viewModel.table2ViewModel.transportCharges)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -93,7 +93,7 @@
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5mm">
                                                 <fo:block-container height="6mm" overflow="hidden">
-                                                    <fo:block>@(ie029Data.additionalInformation)</fo:block>
+                                                    <fo:block>@(viewModel.table2ViewModel.additionalInformation)</fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>

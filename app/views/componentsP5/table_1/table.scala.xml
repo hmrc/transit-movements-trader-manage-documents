@@ -2,7 +2,7 @@
 
 @this()
 
-@(ie029Data: models.P5.departure.IE029Data, viewModel: viewmodels.P5.TableViewModel)
+@(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
 
