@@ -16,6 +16,7 @@
 
 package viewmodels.P5
 
+import models.P5.departure.CustomsOfficeOfDeparture
 import models.P5.departure.Consignee
 import models.P5.departure.Consignor
 import models.P5.departure.IE029Data
@@ -113,8 +114,32 @@ case class Table3ViewModel(implicit ie029Data: IE029Data) {
 
 case class Table4ViewModel(implicit ie029Data: IE029Data) {
 
-  val consignor = ie029Data.data.Consignment.Consignor match {
+  val countryOfRoutingOfConsignment = ie029Data.data.Consignment.CountryOfRoutingOfConsignment match {
     case Some(value) => value.toString
+    case None        => "TODO get multiple consignor"
+  }
+
+  val customsOfficeOfTransitDeclared = ie029Data.data.CustomsOfficeOfTransitDeclared match {
+    case Some(value) => value.toString
+    case None        => "TODO get multiple consignor"
+  }
+
+  val customsOfficeOfExitForTransitDeclared = ie029Data.data.CustomsOfficeOfExitForTransitDeclared match {
+    case Some(value) => value.toString
+    case None        => "TODO get multiple consignor"
+  }
+
+  val customsOfficeOfDeparture = ie029Data.data.CustomsOfficeOfDeparture.toString
+
+  val customsOfficeOfDestinationDeclared = ie029Data.data.CustomsOfficeOfDestinationDeclared.toString
+
+  val countryOfDispatch = ie029Data.data.Consignment.countryOfDispatch match {
+    case Some(value) => value
+    case None        => "TODO get multiple consignor"
+  }
+
+  val countryOfDestination = ie029Data.data.Consignment.countryOfDestination match {
+    case Some(value) => value
     case None        => "TODO get multiple consignor"
   }
 

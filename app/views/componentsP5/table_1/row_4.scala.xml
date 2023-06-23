@@ -38,7 +38,7 @@
                       @tir(viewModel.table1ViewModel.tir)
                       @ucr(viewModel.table1ViewModel.ucr)
                     </fo:table-row>
-                    <fo:table-row height="16mm">
+                    <fo:table-row height="17mm"> <!-- todo extra 1mm needed from somewhere else -->
                       @bcp()
                     </fo:table-row>
                   </fo:table-body>
