@@ -1,6 +1,6 @@
 @import views.xml.componentsP5.table_1._
-
-@(ie029Data: models.P5.departure.IE029Data)
+        
+@(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="32%">
     <fo:table-cell>
@@ -49,7 +49,7 @@
                         </fo:table-cell>
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
                             <fo:block-container height="4%" overflow="hidden">
-                                <fo:block>@ie029Data.carrierIdentificationNumber</fo:block>
+                                <fo:block>@viewModel.table1ViewModel.carrierIdentificationNumber</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -78,13 +78,13 @@
 
                         <fo:table-cell margin-left="0.5%">
                             <fo:block-container height="2%" overflow="hidden">
-                                <fo:block>@ie029Data.additionalSupplyChainActorRoles</fo:block>
+                                <fo:block>@viewModel.table1ViewModel.additionalSupplyChainActorRoles</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" padding-bottom="4%">
                             <fo:block-container height="2%" overflow="hidden">
-                                <fo:block>@ie029Data.additionalSupplyChainActorIdentificationNumbers</fo:block>
+                                <fo:block>@viewModel.table1ViewModel.additionalSupplyChainActorIdentificationNumbers</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -100,7 +100,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-bottom="4%">
                             <fo:block-container height="6%" overflow="hidden">
-                                <fo:block>@ie029Data.departureTransportMeans</fo:block>
+                                <fo:block>@viewModel.table1ViewModel.departureTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -116,7 +116,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
                             <fo:block-container height="4%" overflow="hidden">
-                                <fo:block>@ie029Data.activeBorderTransportMeans</fo:block>
+                                <fo:block>@viewModel.table1ViewModel.activeBorderTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -129,7 +129,7 @@
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" padding-top="4%" >
                             <fo:block-container height="2%" overflow="hidden">
-                                <fo:block>@ie029Data.activeBorderTransportMeansConveyanceNumbers</fo:block>
+                                <fo:block>@viewModel.table1ViewModel.activeBorderTransportMeansConveyanceNumbers</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -167,7 +167,7 @@
                                                             <fo:table-row number-columns-spanned="4" height="10%" padding-bottom="1%">
                                                                 <fo:table-cell margin-left="0.5%">
                                                                     <fo:block padding-bottom="33%">
-                                                                        @ie029Data.placeOfLoading
+                                                                        @viewModel.table1ViewModel.placeOfLoading
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -192,7 +192,7 @@
                                                             <fo:table-row number-columns-spanned="4" height="20%" padding-bottom="1%">
                                                                 <fo:table-cell margin-left="0.5%">
                                                                     <fo:block padding-bottom="33%">
-                                                                        @ie029Data.placeOfUnloading
+                                                                        @viewModel.table1ViewModel.placeOfUnloading
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -213,7 +213,7 @@
                                                                 </fo:table-cell>
                                                                 <fo:table-cell display-align="center" margin-left="0.5" padding-bottom="5.5%">
                                                                     <fo:block>
-                                                                        @ie029Data.modeOfTransportAtBorder
+                                                                        @viewModel.table1ViewModel.modeOfTransportAtBorder
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -234,7 +234,7 @@
                                                                 </fo:table-cell>
                                                                 <fo:table-cell display-align="center" margin-left="0.5" padding-bottom="5.5%">
                                                                     <fo:block>
-                                                                        @ie029Data.inlandModeOfTransport
+                                                                        @viewModel.table1ViewModel.inlandModeOfTransport
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -263,7 +263,7 @@
                                         <fo:table-row height="28%">
                                             <fo:table-cell margin-left="0.5%">
                                                 <fo:block>
-                                                    @ie029Data.locationOfGoods
+                                                    @viewModel.table1ViewModel.locationOfGoods
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -275,7 +275,7 @@
                                         <fo:table-row height="28%" >
                                             <fo:table-cell margin-left="0.5%">
                                                 <fo:block>
-                                                    @ie029Data.locationOfGoodsContactPerson
+                                                    @viewModel.table1ViewModel.locationOfGoodsContactPerson
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>

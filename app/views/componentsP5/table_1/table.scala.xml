@@ -17,9 +17,9 @@
 
   <fo:table-body>
     @row_1()
-    @row_2(ie029Data, viewModel)
-    @row_3(ie029Data)
-    @row_4(ie029Data)
-    @row_5(ie029Data)
+    @row_2(viewModel)
+    @row_3(viewModel)
+    @row_4(viewModel)
+    @row_5(viewModel)
   </fo:table-body>
 </fo:table>

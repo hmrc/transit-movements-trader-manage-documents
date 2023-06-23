@@ -1,7 +1,7 @@
 @import views.xml.componentsP5.table_1.consignee
 @import views.xml.componentsP5.table_1.total_gross_mass
 
-@(ie029Data: models.P5.departure.IE029Data)
+@(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="8mm">
 
@@ -13,7 +13,7 @@
     <fo:block/>
   </fo:table-cell>
 
-  @consignee(ie029Data.consignee, ie029Data.consigneeIdentificationNumber)
+  @consignee(viewModel.table1ViewModel.consignee, viewModel.table1ViewModel.consigneeIdentificationNumber)
 
   <fo:table-cell>
     <fo:block>
@@ -33,10 +33,10 @@
 
                   <fo:table-body>
                     <fo:table-row height="8mm">
-                      @total_items(ie029Data.totalItems)
-                      @total_packages(ie029Data.totalPackages)
-                      @total_gross_mass(ie029Data.totalGrossMass)
-                      @security(ie029Data.security)
+                      @total_items(viewModel.table1ViewModel.totalItems)
+                      @total_packages(viewModel.table1ViewModel.totalPackages)
+                      @total_gross_mass(viewModel.table1ViewModel.totalGrossMass)
+                      @security(viewModel.table1ViewModel.security)
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>

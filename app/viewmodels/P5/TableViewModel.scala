@@ -17,6 +17,8 @@
 package viewmodels.P5
 
 import models.P5.departure.CustomsOfficeOfDeparture
+import models.P5.departure.Consignee
+import models.P5.departure.Consignor
 import models.P5.departure.IE029Data
 
 case class TableViewModel(implicit ie029Data: IE029Data) {
@@ -28,11 +30,67 @@ case class TableViewModel(implicit ie029Data: IE029Data) {
 }
 
 case class Table1ViewModel(implicit ie029Data: IE029Data) {
+  val data = ie029Data.data
 
   val consignor = ie029Data.data.Consignment.Consignor match {
     case Some(value) => value.toString
     case None        => "TODO get multiple consignor"
   }
+
+  val consignee: String = data.Consignment.Consignee match {
+    case Some(value) => value.toString
+    case None        => "TODO get multiple consignee"
+  }
+  val declarationType: String           = data.TransitOperation.declarationType
+  val additionalDeclarationType: String = data.TransitOperation.additionalDeclarationType
+  val sci: String                       = data.TransitOperation.specificCircumstanceIndicator.getOrElse("")
+  val mrn: String                       = data.TransitOperation.MRN
+
+  val consigneeIdentificationNumber: String = data.Consignment.Consignee match {
+    case Some(Consignee(Some(identificationNumber), _, _, _)) => identificationNumber
+    case None                                                 => "TODO get multiple consignor identification numbers"
+  }
+
+  val consignorIdentificationNumber: String = data.Consignment.Consignor match {
+    case Some(Consignor(Some(identificationNumber), _, _, _)) => identificationNumber
+    case None                                                 => "TODO get multiple consignor identification numbers"
+  }
+  val totalItems: Int                                      = data.Consignment.totalItems
+  val totalPackages: Int                                   = data.Consignment.totalPackages
+  val totalGrossMass: Double                               = data.Consignment.grossMass
+  val security: String                                     = data.TransitOperation.security
+  val holderOfTransitProcedure: String                     = data.HolderOfTheTransitProcedure.toString
+  val holderOfTransitProcedureIdentificationNumber: String = data.HolderOfTheTransitProcedure.identificationNumber.getOrElse("")
+
+  val representative: String = data.Representative.toString
+
+  val representativeIdentificationNumber: String = data.Representative.identificationNumber.getOrElse("")
+  val lrn: String                                = data.TransitOperation.LRN
+  val tir: String                                = data.TransitOperation.TIRCarnetNumber.getOrElse("")
+
+  val carrierIdentificationNumber: String = data.Consignment.Carrier.map(_.identificationNumber).getOrElse("")
+
+  val additionalSupplyChainActorRoles: String = data.Consignment.additionalSupplyChainActorsRole.getOrElse("")
+
+  val additionalSupplyChainActorIdentificationNumbers: String = data.Consignment.additionalSupplyChainActorIdentificationNumbers.getOrElse("")
+
+  val departureTransportMeans: String    = data.Consignment.departureTransportMeans.getOrElse("")
+  val ucr: String                        = data.Consignment.referenceNumberUCR.getOrElse("")
+  val activeBorderTransportMeans: String = data.Consignment.activeBorderTransportMeans.getOrElse("")
+
+  val activeBorderTransportMeansConveyanceNumbers: String = data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse("")
+
+  val placeOfLoading: String = data.Consignment.PlaceOfLoading.map(_.toString).getOrElse("")
+
+  val placeOfUnloading: String = data.Consignment.PlaceOfUnloading.map(_.toString).getOrElse("")
+
+  val inlandModeOfTransport: String = data.Consignment.inlandModeOfTransport.getOrElse("")
+
+  val modeOfTransportAtBorder: String = data.Consignment.modeOfTransportAtTheBorder.getOrElse("")
+
+  val locationOfGoods: String = data.Consignment.LocationOfGoods.map(_.toString).getOrElse("")
+
+  val locationOfGoodsContactPerson: String = data.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.toString)).getOrElse("")
 
 }
 
