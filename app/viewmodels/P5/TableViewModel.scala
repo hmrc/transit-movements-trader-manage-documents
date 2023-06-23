@@ -16,7 +16,6 @@
 
 package viewmodels.P5
 
-import models.P5.departure.CustomsOfficeOfDeparture
 import models.P5.departure.Consignee
 import models.P5.departure.Consignor
 import models.P5.departure.IE029Data
@@ -112,33 +111,18 @@ case class Table3ViewModel(implicit ie029Data: IE029Data)
 
 case class Table4ViewModel(implicit ie029Data: IE029Data) {
 
-  val countryOfRoutingOfConsignment = ie029Data.data.Consignment.CountryOfRoutingOfConsignment match {
-    case Some(value) => value.toString
-    case None        => "TODO get multiple consignor"
-  }
+  val countryOfRoutingOfConsignment: String = ie029Data.data.Consignment.countryOfRoutingOfConsignment.getOrElse("")
 
-  val customsOfficeOfTransitDeclared = ie029Data.data.CustomsOfficeOfTransitDeclared match {
-    case Some(value) => value.toString
-    case None        => "TODO get multiple consignor"
-  }
+  val customsOfficeOfTransitDeclared: String = ie029Data.data.customsOfficeOfTransitDeclared.getOrElse("")
 
-  val customsOfficeOfExitForTransitDeclared = ie029Data.data.CustomsOfficeOfExitForTransitDeclared match {
-    case Some(value) => value.toString
-    case None        => "TODO get multiple consignor"
-  }
+  val customsOfficeOfExitForTransitDeclared: String = ie029Data.data.customsOfficeOfExitForTransitDeclared.getOrElse("")
 
-  val customsOfficeOfDeparture = ie029Data.data.CustomsOfficeOfDeparture.toString
+  val customsOfficeOfDeparture: String = ie029Data.data.customsOfficeOfDeparture
 
-  val customsOfficeOfDestinationDeclared = ie029Data.data.CustomsOfficeOfDestinationDeclared.toString
+  val customsOfficeOfDestinationDeclared: String = ie029Data.data.customsOfficeOfDestinationDeclared
 
-  val countryOfDispatch = ie029Data.data.Consignment.countryOfDispatch match {
-    case Some(value) => value
-    case None        => "TODO get multiple consignor"
-  }
+  val countryOfDispatch: String = ie029Data.data.Consignment.countryOfDispatch.getOrElse("")
 
-  val countryOfDestination = ie029Data.data.Consignment.countryOfDestination match {
-    case Some(value) => value
-    case None        => "TODO get multiple consignor"
-  }
+  val countryOfDestination: String = ie029Data.data.Consignment.countryOfDestination.getOrElse("")
 
 }

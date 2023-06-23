@@ -16,7 +16,7 @@
   <fo:table-column column-number="8" column-width="49mm"/>
 
   <fo:table-body>
-    @row_1(ie029Data, viewModel.table4ViewModel)
+    @row_1(viewModel.table4ViewModel)
     @row_2(ie029Data)
   </fo:table-body>
 </fo:table>
