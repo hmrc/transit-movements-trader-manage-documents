@@ -27,7 +27,7 @@
           </fo:table-cell>
 
           <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
-            <fo:block-container height="6mm" overflow="hidden">
+            <fo:block-container height="6%" overflow="hidden">
               <fo:block>@identificationNumber</fo:block>
             </fo:block-container>
           </fo:table-cell>
