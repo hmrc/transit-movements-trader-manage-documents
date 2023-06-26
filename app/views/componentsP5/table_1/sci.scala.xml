@@ -7,7 +7,7 @@
       <fo:table-body>
         <fo:table-row height="2%">
           <fo:table-cell number-columns-spanned="2" padding-bottom="19%">
-            <fo:block margin-top="0.5%" margin-left="0.5%" font-size="5pt">SCI [1104]</fo:block>
+            <fo:block margin-top="0.5%" margin-left="5%" font-size="5pt">SCI [1104]</fo:block>
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row number-columns-spanned="2" height="6%" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" padding-bottom="1%">

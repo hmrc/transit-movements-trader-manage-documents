@@ -8,9 +8,10 @@
     <fo:block/>
   </fo:table-cell>
 
-  <fo:table-cell text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+  <fo:table-cell padding-left="5%" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block/>
-  </fo:table-cell>
+  </fo:table-cell>SCI
+
 
   @consignor(viewModel.table1ViewModel.consignor, viewModel.table1ViewModel.consignorIdentificationNumber)
 
