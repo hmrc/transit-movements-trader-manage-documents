@@ -49,7 +49,7 @@ object TransportEquipment {
       case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.identifier.getOrElse("")}")
       case Some(firstElem :: tail) =>
         Some(
-          s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.identifier.getOrElse("")}...${tail.last.sequenceNumber.getOrElse("")}:${tail.last.identifier.getOrElse("")}"
+          s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.identifier.getOrElse("")}..."
         )
       case _ => Some("")
     }
@@ -62,8 +62,7 @@ object TransportEquipment {
       case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.declarationGoodsItemNumber.getOrElse("")}")
       case Some(firstElem :: tail) =>
         Some(
-          s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.declarationGoodsItemNumber.getOrElse("")}...${tail.last.sequenceNumber
-            .getOrElse("")}:${tail.last.declarationGoodsItemNumber.getOrElse("")}"
+          s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.declarationGoodsItemNumber.getOrElse("")}..."
         )
       case _ => Some("")
     }
