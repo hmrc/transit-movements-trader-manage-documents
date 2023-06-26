@@ -124,7 +124,7 @@
                                                         <fo:table-body>                                                            <fo:table-row height="14%"
                                                                           padding-top="2%"> <!-- todo where is this extra .25% -->
                                                                 <fo:table-cell display-align="top" margin-left=".5" padding-left="8%">
-                                                                    <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17ceOfDestinationDeclared)</fo:block>
+                                                                    <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]</fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
                                                         </fo:table-body>
