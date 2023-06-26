@@ -2,7 +2,7 @@
         
 @(viewModel: viewmodels.P5.TableViewModel)
 
-<fo:table-row height="24mm">
+<fo:table-row height="24%">
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
@@ -28,17 +28,17 @@
             <fo:table-cell>
               <fo:block>
                 <fo:table width="100%" table-layout="fixed">
-                  <fo:table-column column-width="38mm"/>
-                  <fo:table-column column-width="28.5mm"/>
-                  <fo:table-column column-width="28.5mm"/>
+                  <fo:table-column column-width="57.5%"/>
+                  <fo:table-column column-width="57.5%"/>
+                  <fo:table-column column-width="57.5%"/>
 
                   <fo:table-body>
-                    <fo:table-row height="8mm">
+                    <fo:table-row height="8%">
                       @local_reference_number(viewModel.table1ViewModel.lrn)
                       @tir(viewModel.table1ViewModel.tir)
                       @ucr(viewModel.table1ViewModel.ucr)
                     </fo:table-row>
-                    <fo:table-row height="17mm"> <!-- todo extra 1mm needed from somewhere else -->
+                    <fo:table-row height="17%"> <!-- todo extra 1% needed from somewhere else -->
                       @bcp()
                     </fo:table-row>
                   </fo:table-body>

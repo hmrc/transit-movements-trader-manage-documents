@@ -6,7 +6,7 @@
       <fo:table-column/>
       <fo:table-body>
         <fo:table-row height="2%">
-          <fo:table-cell number-columns-spanned="1">
+          <fo:table-cell number-columns-spanned="2">
             <fo:block  margin-top="3%" margin-left="2%">LRN</fo:block>
           </fo:table-cell>
         </fo:table-row>

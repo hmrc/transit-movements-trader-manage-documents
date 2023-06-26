@@ -11,17 +11,17 @@
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
                    border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
-                   display-align="center" padding-top="-70mm">
+                   display-align="center" padding-top="-50%">
 
         <fo:block-container
                 font-weight="bold"
                 font-size="7"
                 reference-orientation="90" display-align="center"
-                inline-progression-dimension.minimum="8mm"
+                inline-progression-dimension.minimum="5%"
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
-                margin-bottom="10mm">
-            <fo:block hyphenate="true" margin-left="10mm">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
+                margin-bottom="10%m">
+            <fo:block hyphenate="true" margin-left="10%">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
         </fo:block-container>
     </fo:table-cell>
 
@@ -251,12 +251,12 @@
 
 
 
-                        <fo:table-cell alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" >
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
                                         <fo:table-row height="4%">
-                                            <fo:table-cell number-columns-spanned="1">
+                                            <fo:table-cell number-columns-spanned="1"  >
                                                 <fo:block margin-top="0.5%" margin-left="0.5%">Location of goods [16 15]</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
