@@ -1,0 +1,20 @@
+@import views.xml.DocumentTemplateP5
+@import views.xml.unloadingPermissionComponentsP5._
+@import views.xml.PageOne
+
+@this(
+    template: DocumentTemplateP5,
+    pageOne: PageOne,
+    table1: table_1.table,
+    pageTwo: items.items
+)
+
+@(mrn: String)
+@template(
+    pageOne = pageOne(pageOneBody),
+    pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4"), mrn = mrn))
+)
+
+@pageOneBody = {
+    @table1(mrn)
+}
