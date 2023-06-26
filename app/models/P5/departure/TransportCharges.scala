@@ -16,12 +16,15 @@
 
 package models.P5.departure
 
-import play.api.libs.json._
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class MovementReferenceNumber(value: String)
+case class TransportCharges(methodOfPayment: Option[String]) {
 
-object MovementReferenceNumber {
+  override def toString: String =
+    methodOfPayment.getOrElse("")
+}
 
-  implicit val formats: OFormat[MovementReferenceNumber] = Json.format[MovementReferenceNumber]
-
+object TransportCharges {
+  implicit val formats: OFormat[TransportCharges] = Json.format[TransportCharges]
 }

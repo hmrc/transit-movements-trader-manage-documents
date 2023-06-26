@@ -16,12 +16,29 @@
 
 package models.P5.departure
 
-import play.api.libs.json._
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class MovementReferenceNumber(value: String)
+case class GuaranteeReference(
+  sequenceNumber: Option[String],
+  GRN: Option[String],
+  accessCode: Option[String],
+  amountToBeCovered: Option[Double],
+  currency: Option[String]
+) {
 
-object MovementReferenceNumber {
+  override def toString: String = {
+    val stringList: List[Option[String]] = List(
+      sequenceNumber,
+      GRN,
+      accessCode,
+      amountToBeCovered.map(_.toString),
+      currency
+    )
+    stringList.flatten.mkString(", ")
+  }
+}
 
-  implicit val formats: OFormat[MovementReferenceNumber] = Json.format[MovementReferenceNumber]
-
+object GuaranteeReference {
+  implicit val formats: OFormat[GuaranteeReference] = Json.format[GuaranteeReference]
 }

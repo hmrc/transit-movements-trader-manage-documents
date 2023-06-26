@@ -1,10 +1,10 @@
-@import views.xml.componentsP5.table_2._
+@import views.xml.componentsP5.table_4._
 
 @this()
 
 @(ie029Data: models.P5.departure.IE029Data)
 
-<fo:table width="100%" table-layout="fixed" id="table-2">
+<fo:table width="100%" table-layout="fixed" id="table-4">
 
   <fo:table-column column-number="1" column-width="8mm" />
   <fo:table-column column-number="2" column-width="8mm"/>
@@ -18,7 +18,5 @@
   <fo:table-body>
     @row_1(ie029Data)
     @row_2(ie029Data)
-    @row_3(ie029Data)
-    @row_4(ie029Data)
   </fo:table-body>
 </fo:table>

@@ -16,12 +16,18 @@
 
 package models.P5.departure
 
-import play.api.libs.json._
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class MovementReferenceNumber(value: String)
+case class CountryOfRoutingOfConsignment(sequenceNumber: Option[String], country: Option[String]) {
 
-object MovementReferenceNumber {
+  override def toString: String = {
 
-  implicit val formats: OFormat[MovementReferenceNumber] = Json.format[MovementReferenceNumber]
+    val stringList: Seq[Option[String]] = List(sequenceNumber, country)
+    stringList.flatten.mkString(", ")
+  }
+}
 
+object CountryOfRoutingOfConsignment {
+  implicit val formats: OFormat[CountryOfRoutingOfConsignment] = Json.format[CountryOfRoutingOfConsignment]
 }

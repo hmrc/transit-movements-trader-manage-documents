@@ -16,12 +16,22 @@
 
 package models.P5.departure
 
-import play.api.libs.json._
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class MovementReferenceNumber(value: String)
+case class TransportDocument(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String]) {
 
-object MovementReferenceNumber {
+  override def toString: String = {
 
-  implicit val formats: OFormat[MovementReferenceNumber] = Json.format[MovementReferenceNumber]
+    val stringList: Seq[Option[String]] = List(
+      sequenceNumber,
+      `type`,
+      referenceNumber
+    )
+    stringList.flatten.mkString(", ")
+  }
+}
 
+object TransportDocument {
+  implicit val formats: OFormat[TransportDocument] = Json.format[TransportDocument]
 }

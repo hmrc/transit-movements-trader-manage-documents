@@ -16,12 +16,11 @@
 
 package models.P5.departure
 
-import play.api.libs.json._
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class MovementReferenceNumber(value: String)
+case class GoodsReference(sequenceNumber: Option[String], declarationGoodsItemNumber: Option[Int])
 
-object MovementReferenceNumber {
-
-  implicit val formats: OFormat[MovementReferenceNumber] = Json.format[MovementReferenceNumber]
-
+object GoodsReference {
+  implicit val formats: OFormat[GoodsReference] = Json.format[GoodsReference]
 }
