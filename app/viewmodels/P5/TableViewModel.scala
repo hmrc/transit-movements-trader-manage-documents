@@ -35,6 +35,11 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
     case None        => "TODO get multiple consignor"
   }
 
+  val consignorContactPerson = ie029Data.data.Consignment.Consignor.flatMap(_.ContactPerson) match {
+    case Some(value) => value.toString
+    case None        => "TODO get multiple consignor"
+  }
+
   val consignee: String = ie029Data.data.Consignment.Consignee match {
     case Some(value) => value.toString
     case None        => "TODO get multiple consignee"

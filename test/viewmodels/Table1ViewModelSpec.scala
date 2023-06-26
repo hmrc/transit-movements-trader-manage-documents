@@ -30,7 +30,11 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
   "Table1ViewModelSpec" - {
 
     "return comma seperated consignor information" in {
-      viewModel.table1ViewModel.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, Contact Person Name, 123456, a@a.com"
+      viewModel.table1ViewModel.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+    }
+
+    "return comma seperated consignor contact person information" in {
+      viewModel.table1ViewModel.consignorContactPerson mustBe "Contact Person Name, 123456, a@a.com"
     }
 
     "return comma seperated consignee information" in {

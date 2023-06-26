@@ -1,4 +1,4 @@
-@(consignor: String, identificationNumber: String)
+@(consignor: String, identificationNumber: String, consignorContactPerson: String)
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black"  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
   <fo:block>
@@ -38,6 +38,12 @@
             <fo:block >
               Contact person [13 02 074]
             </fo:block>
+          </fo:table-cell>
+
+          <fo:table-cell number-columns-spanned="2" margin-left="0.5%" padding-top="11%">
+            <fo:block-container overflow="hidden">
+              <fo:block>@consignorContactPerson</fo:block>
+            </fo:block-container>
           </fo:table-cell>
 
         </fo:table-row>

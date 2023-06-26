@@ -13,7 +13,7 @@
   </fo:table-cell>SCI
 
 
-  @consignor(viewModel.table1ViewModel.consignor, viewModel.table1ViewModel.consignorIdentificationNumber)
+  @consignor(viewModel.table1ViewModel.consignor, viewModel.table1ViewModel.consignorIdentificationNumber, viewModel.table1ViewModel.consignorContactPerson)
 
   <fo:table-cell>
     <fo:block>
