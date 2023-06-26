@@ -19,7 +19,20 @@ package models.P5.unloading
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class ConsignmentItem(Packaging: Seq[Packaging]) {
+case class ConsignmentItem(
+  goodsItemNumber: Int,
+  declarationGoodsItemNumber: Int,
+  declarationType: Option[String],
+  countryOfDestination: Option[String],
+  Consignee: Option[Consignee],
+  Commodity: Commodity,
+  Packaging: Seq[Packaging],
+  PreviousDocument: Option[Seq[PreviousDocument]],
+  SupportingDocument: Option[Seq[SupportingDocument]],
+  TransportDocument: Option[Seq[TransportDocument]],
+  AdditionalReference: Option[Seq[AdditionalReference]],
+  AdditionalInformation: Option[Seq[AdditionalInformation]]
+) {
 
   val totalPackages: Int = Packaging.foldLeft(0)(
     (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)

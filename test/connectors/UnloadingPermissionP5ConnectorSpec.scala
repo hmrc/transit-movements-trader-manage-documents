@@ -201,6 +201,14 @@ class UnloadingPermissionP5ConnectorSpec
           |        {
           |          "ConsignmentItem": [
           |            {
+          |              "goodsItemNumber": 1,
+          |              "declarationGoodsItemNumber": 1,
+          |              "Commodity": {
+          |                "descriptionOfGoods": "commodity desc",
+          |                "GoodsMeasure": {
+          |                  "grossMass": 10.5
+          |                }
+          |              },
           |              "Packaging": [
           |                {
           |                  "numberOfPackages": 3

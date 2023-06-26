@@ -16,26 +16,7 @@
 
 package base
 
-import models.P5.unloading.AdditionalInformation
-import models.P5.unloading.AdditionalReference
-import models.P5.unloading.Address
-import models.P5.unloading.Consignee
-import models.P5.unloading.Consignment
-import models.P5.unloading.ConsignmentItem
-import models.P5.unloading.Consignor
-import models.P5.unloading.CustomsOfficeOfDestinationActual
-import models.P5.unloading.DepartureTransportMeans
-import models.P5.unloading.GoodsReference
-import models.P5.unloading.HolderOfTransitProcedure
-import models.P5.unloading.HouseConsignment
-import models.P5.unloading.Packaging
-import models.P5.unloading.PreviousDocument
-import models.P5.unloading.Seal
-import models.P5.unloading.SupportingDocument
-import models.P5.unloading.TransitOperation
-import models.P5.unloading.TransportDocument
-import models.P5.unloading.TransportEquipment
-import models.P5.unloading.UnloadingMessageData
+import models.P5.unloading._
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
@@ -81,7 +62,12 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
 
   val additionalInformation: List[AdditionalInformation] = List(AdditionalInformation("adInf1", "32", Some("additional ref text")))
 
-  val houseConsignment: Seq[HouseConsignment] = Seq(HouseConsignment(Seq(ConsignmentItem(Seq(Packaging(Some(3)))))))
+  val goodsMeasure: GoodsMeasure = GoodsMeasure(10.5, None)
+  val commodity: Commodity       = Commodity("commodity desc", None, None, None, goodsMeasure)
+
+  val houseConsignment: Seq[HouseConsignment] = Seq(
+    HouseConsignment(Seq(ConsignmentItem(1, 1, None, None, None, commodity, Seq(Packaging(Some(3))), None, None, None, None, None)))
+  )
 
   val consignment: Consignment = Consignment(
     Some("FR"),
