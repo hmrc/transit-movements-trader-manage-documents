@@ -17,6 +17,7 @@
 package services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
+import models.P5.unloading.IE043Data
 import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.PermissionToStartUnloading
 import views.xml.UnloadingPermissionDocument
@@ -37,9 +38,9 @@ class UnloadingPermissionPdfGenerator @Inject() (
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
 
-  def generateP5(mrn: String): Array[Byte] = {
+  def generateP5(ie043Data: IE043Data, mrn: String): Array[Byte] = {
 
-    val renderedDocument = documentP5.render(mrn)
+    val renderedDocument = documentP5.render(ie043Data, mrn)
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }

@@ -9,12 +9,12 @@
     pageTwo: items.items
 )
 
-@(mrn: String)
+@(ie043Data: models.P5.unloading.IE043Data, mrn: String)
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4"), mrn = mrn))
 )
 
 @pageOneBody = {
-    @table1(mrn)
+    @table1(ie043Data, mrn)
 }

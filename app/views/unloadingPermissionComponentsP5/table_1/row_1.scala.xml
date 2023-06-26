@@ -1,4 +1,4 @@
-@()
+@(ie043Data: models.P5.unloading.IE043Data)
 
 <fo:table-row height="4mm">
   <fo:table-cell>
@@ -12,8 +12,8 @@
   </fo:table-cell>
   <fo:table-cell number-columns-spanned="4" number-rows-spanned="1" padding-left="1mm" border-left-style="solid" border-left-width="1pt" border-left-color="black" >
     <fo:block-container margin-right = "4mm">
-      <fo:block text-align="center" font-size = "12">
-        <fo:inline font-weight="bold">MRN</fo:inline> GB123456677899
+      <fo:block text-align="center" font-size = "9">
+        <fo:inline font-weight="bold">MRN</fo:inline> @(ie043Data.mrn)
       </fo:block>
     </fo:block-container>
   </fo:table-cell>
