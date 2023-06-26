@@ -27,7 +27,7 @@ case class Consignor(
 ) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(name, Address.map(_.toString), ContactPerson.map(_.toString))
+    val stringList: Seq[Option[String]] = List(name, Address.map(_.toString))
     stringList.flatten.mkString(", ")
   }
 }
