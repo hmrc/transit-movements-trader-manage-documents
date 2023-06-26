@@ -155,7 +155,7 @@
                                         </fo:table-row>
                                         <fo:table-row>
                                             <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="3"
-                                                           padding-left="1%" padding-bottom="12.5%">
+                                                           padding-left="1%" padding-bottom="13%">
                                                 <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
