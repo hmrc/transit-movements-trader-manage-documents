@@ -3,7 +3,7 @@
 
 @(viewModel: viewmodels.P5.TableViewModel)
 
-<fo:table-row height="16mm">
+<fo:table-row height="16%">
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
@@ -28,7 +28,7 @@
                 <fo:table width="100%" table-layout="fixed">
 
                   <fo:table-body>
-                    <fo:table-row height="8mm">
+                    <fo:table-row height="8%">
                       @declaration_type(viewModel.table1ViewModel.declarationType)
                       @additional_declaration_type(viewModel.table1ViewModel.additionalDeclarationType)
                     </fo:table-row>
@@ -44,7 +44,7 @@
               <fo:block>
                 <fo:table width="100%" table-layout="fixed">
                   <fo:table-body>
-                    <fo:table-row height="8mm">
+                    <fo:table-row height="8%">
                       @forms()
                       @sci(viewModel.table1ViewModel.sci)
                     </fo:table-row>
@@ -59,7 +59,7 @@
     </fo:block>
   </fo:table-cell>
 
-  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-left="1mm">
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-left="1%">
     <fo:block>
       @barcode(viewModel.table1ViewModel.mrn)
     </fo:block>
