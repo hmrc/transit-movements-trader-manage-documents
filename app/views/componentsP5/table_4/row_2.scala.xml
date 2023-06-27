@@ -16,14 +16,14 @@
 
                     <fo:table-row height="4mm">
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
-                                       width="80mm">
+                                       width="80mm" padding-top="1%">
                             <fo:block>CONTROL BY OFFICE OF DEPARTURE</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
                                        border-left-style="solid" border-left-width="1pt"
                                        border-left-color="black"
-                                       width="190px">
+                                       width="190px"  padding-top="1%">
 
 
                             <fo:block>CONTROL BY OFFICE OF DESTINATION</fo:block>
