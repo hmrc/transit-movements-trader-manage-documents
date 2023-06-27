@@ -6,7 +6,6 @@
 
 <fo:table-row height="16%">
 
-
     <fo:table-cell
             number-columns-spanned="8">
         <fo:block>
@@ -16,7 +15,7 @@
 
                     <fo:table-row height="4%">
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%"
-                                       width="190px" padding-top="1%"  border-top-style="solid" border-top-width="1pt"
+                                       width="190px" padding-top="1%" border-top-style="solid" border-top-width="1pt"
                                        border-top-color="black" padding-bottom="1.5%">
                             <fo:block>CONTROL BY OFFICE OF DEPARTURE</fo:block>
                         </fo:table-cell>
@@ -26,22 +25,19 @@
                                        border-left-color="black" padding-bottom="1.5%"
                                        width="190px" padding-top="1%">
 
-
                             <fo:block>CONTROL BY OFFICE OF DESTINATION</fo:block>
                         </fo:table-cell>
-
                     </fo:table-row>
 
                     <fo:table-row height="5%">
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%">
-
-
                             <fo:block>Result:</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%"
                                        border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                                       border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-bottom="1.5%">
+                                       border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                                       padding-bottom="1.5%">
                             <fo:block>Date of arrival:</fo:block>
                         </fo:table-cell>
 
@@ -61,7 +57,8 @@
 
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%"
                                        border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                                       border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-bottom="1.5%">
+                                       border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                                       padding-bottom="1.5%">
                             <fo:block>Examination of seals:</fo:block>
                         </fo:table-cell>
 
@@ -74,8 +71,6 @@
 
                     <fo:table-row height="5%">
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%">
-
-
                             <fo:block>Identity:</fo:block>
                         </fo:table-cell>
 
@@ -101,7 +96,8 @@
 
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%"
                                        border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                                       border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-bottom="1.5%">
+                                       border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                                       padding-bottom="1.5%">
                             <fo:block>Remarks:</fo:block>
                         </fo:table-cell>
 
