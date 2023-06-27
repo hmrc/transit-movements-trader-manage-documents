@@ -16,7 +16,7 @@
 
                     <fo:table-row height="4%">
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%"
-                                       width="80mm" padding-top="1%"  border-top-style="solid" border-top-width="1pt"
+                                       width="190px" padding-top="1%"  border-top-style="solid" border-top-width="1pt"
                                        border-top-color="black" padding-bottom="1.5%">
                             <fo:block>CONTROL BY OFFICE OF DEPARTURE</fo:block>
                         </fo:table-cell>
