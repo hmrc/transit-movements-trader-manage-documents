@@ -95,13 +95,12 @@
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
+                                <fo:table width="121%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="10mm"
+                                        <fo:table-row height="14%"
                                                       border-right-style="solid" border-right-width="1pt"
-                                                      border-right-color="black" padding-top="2mm"
-                                        > <!-- todo where is this extra .25mm -->
-                                            <fo:table-cell display-align="top" margin-left="1mm" width="89mm">
+                                                      border-right-color="black" padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="1%" padding-bottom="11%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF DEPARTURE[17 03]</fo:block>
                                                 <fo:block font-size="5pt">@(viewModel.customsOfficeOfDeparture)
                                                 </fo:block>
@@ -115,10 +114,10 @@
                             <fo:block>
                                 <fo:table width="100%">
                                     <fo:table-body>
-                                        <fo:table-row height="10mm" border-top-style="solid" border-top-width="1pt"
+                                        <fo:table-row height="14%" border-top-style="solid" border-top-width="1pt"
                                                       border-top-color="black"
-                                                      padding-top="2mm"> <!-- todo where is this extra .25mm -->
-                                            <fo:table-cell display-align="top" margin-left="17mm">
+                                                      padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="17%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]
                                                 </fo:block>
                                                 <fo:block font-size="5pt">
@@ -133,25 +132,26 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="5">
+                        <fo:table-cell number-columns-spanned="5" padding-left="34.5%" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
-                                    <fo:table-body>
-                                        <fo:table-row height="3mm" padding-top="2mm">
-                                            <fo:table-cell display-align="top" margin-left="1mm" width="64mm"
+                                    <fo:table-body >
+                                        <fo:table-row height="3%" padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="1mm" width="120%"
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
 
                                                 <fo:block font-size="5pt"></fo:block>
-                                            </fo:table-cell>
+                                            </fo:table-cell >
 
-                                            <fo:table-cell display-align="top" margin-left="1mm" width="60mm"
+                                            <fo:table-cell display-align="top"  width="60mm"
                                                            border-top-style="solid" border-top-width="1pt"
                                                            border-top-color="black"
                                                            border-left-style="solid" border-left-width="1pt"
                                                            border-left-color="black"
                                                            border-bottom-style="solid" border-bottom-width="1pt"
-                                                           border-bottom-color="black">
+                                                           border-bottom-color="black" margin-left="1%">
                                                 <fo:block font-size="5pt">Country of dispatch[16 06]
                                                     @(viewModel.countryOfDispatch)
                                                 </fo:block>
