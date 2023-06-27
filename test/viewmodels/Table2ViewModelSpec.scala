@@ -68,7 +68,7 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
     }
 
     "return comma seperated guarantee information" in {
-      viewModel.table2ViewModel.guarantee mustBe "SEQNum-1, SomeGuaranteeType, otherGuaranteeReference, SEQNum-1, GRN-1, Access-code-1, 123456.1212, GBP"
+      viewModel.table2ViewModel.guarantee mustBe "SEQNum-1, SomeGuaranteeType, otherGuaranteeReference, SEQNum-1, GRN-1, Access-code-1, 123456.1212..."
     }
 
     "return comma seperated authorisation information" in {
