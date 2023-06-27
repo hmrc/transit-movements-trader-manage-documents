@@ -201,7 +201,7 @@ class UnloadingPermissionP5ConnectorSpec
           |        {
           |          "ConsignmentItem": [
           |            {
-          |              "goodsItemNumber": 1,
+          |              "goodsItemNumber": "1",
           |              "declarationGoodsItemNumber": 1,
           |              "Commodity": {
           |                "descriptionOfGoods": "commodity desc",
@@ -211,6 +211,7 @@ class UnloadingPermissionP5ConnectorSpec
           |              },
           |              "Packaging": [
           |                {
+          |                  "typeOfPackages": "package type",
           |                  "numberOfPackages": 3
           |                }
           |              ]
