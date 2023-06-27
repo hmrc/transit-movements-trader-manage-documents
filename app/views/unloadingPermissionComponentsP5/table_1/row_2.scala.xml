@@ -1,10 +1,7 @@
 @import views.xml.unloadingPermissionComponentsP5.table_1._
 @import views.xml.unloadingPermissionComponentsP5._
 
-@(
-    ie043Data: models.P5.unloading.IE043Data,
-    mrn: String
-)
+@(ie043Data: models.P5.unloading.IE043Data)
 
 <fo:table-row height="30mm" font-size ="5.5pt">
     <fo:table-cell>
@@ -455,7 +452,7 @@
 
     <fo:table-cell number-columns-spanned="4" padding-left="1mm">
         <fo:block >
-            @barcode(mrn)
+            @barcode(ie043Data.mrn)
         </fo:block>
     </fo:table-cell>
 

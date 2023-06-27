@@ -22,7 +22,13 @@ import play.api.libs.json.Json
 case class CommodityCode(
   harmonizedSystemSubHeadingCode: String,
   combinedNomenclatureCode: Option[String] = None
-)
+) {
+
+  override def toString: String = Seq(
+    Some(harmonizedSystemSubHeadingCode),
+    combinedNomenclatureCode
+  ).flatten.mkString(", ")
+}
 
 object CommodityCode {
   implicit val format: Format[CommodityCode] = Json.format[CommodityCode]

@@ -38,9 +38,9 @@ class UnloadingPermissionPdfGenerator @Inject() (
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
 
-  def generateP5(ie043Data: IE043Data, mrn: String): Array[Byte] = {
+  def generateP5(ie043Data: IE043Data): Array[Byte] = {
 
-    val renderedDocument = documentP5.render(ie043Data, mrn)
+    val renderedDocument = documentP5.render(ie043Data)
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }

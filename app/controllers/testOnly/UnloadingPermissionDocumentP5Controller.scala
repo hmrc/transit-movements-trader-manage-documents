@@ -28,7 +28,6 @@ import utils.FileNameSanitizer
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
 
 class UnloadingPermissionDocumentP5Controller @Inject() (
   pdf: UnloadingPermissionPdfGenerator,
@@ -43,9 +42,8 @@ class UnloadingPermissionDocumentP5Controller @Inject() (
     implicit request =>
       service.getUnloadingPermissionNotification(arrivalId, messageId).map {
         ie043 =>
-          val dummyMrn = "GB123456677899"
-          val fileName = s"UPD_${FileNameSanitizer(ie043.data.TransitOperation.MRN)}.pdf"
-          Ok(pdf.generateP5(ie043, dummyMrn))
+          val fileName = s"UPD_${FileNameSanitizer(ie043.mrn)}.pdf"
+          Ok(pdf.generateP5(ie043))
             .withHeaders(
               CONTENT_TYPE        -> "application/pdf",
               CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""

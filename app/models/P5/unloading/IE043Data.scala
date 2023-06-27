@@ -107,6 +107,8 @@ case class IE043Data(data: UnloadingMessageData) {
 
   val additionalReference: String = data.Consignment.flatMap(_.additionalReference).getOrElse("")
 
+  val items: Seq[ConsignmentItem] = data.Consignment.fold(Seq.empty[ConsignmentItem])(_.HouseConsignment.flatMap(_.ConsignmentItem))
+
 }
 
 object IE043Data {

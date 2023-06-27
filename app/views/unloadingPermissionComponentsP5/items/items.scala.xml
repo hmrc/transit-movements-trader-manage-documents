@@ -2,15 +2,15 @@
 
 @this()
 
-@(items: Seq[String], mrn: String)
+@(ie043Data: models.P5.unloading.IE043Data)
 
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
     <fo:static-content flow-name="xsl-region-before">
-        @header(mrn)
+        @header(ie043Data.mrn)
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
-            @items.map(item(_))
+            @ie043Data.items.map(item(_))
         </fo:block>
     </fo:flow>
 </fo:page-sequence>

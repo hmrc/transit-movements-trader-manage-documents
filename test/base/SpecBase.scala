@@ -66,7 +66,7 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val commodity: Commodity       = Commodity("commodity desc", None, None, None, goodsMeasure)
 
   val houseConsignment: Seq[HouseConsignment] = Seq(
-    HouseConsignment(Seq(ConsignmentItem(1, 1, None, None, None, commodity, Seq(Packaging(Some(3))), None, None, None, None, None)))
+    HouseConsignment(Seq(ConsignmentItem("1", 1, None, None, None, commodity, Seq(Packaging(Some(3))), None, None, None, None, None)))
   )
 
   val consignment: Consignment = Consignment(

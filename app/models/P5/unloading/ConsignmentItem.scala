@@ -20,7 +20,7 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class ConsignmentItem(
-  goodsItemNumber: Int,
+  goodsItemNumber: String,
   declarationGoodsItemNumber: Int,
   declarationType: Option[String],
   countryOfDestination: Option[String],
@@ -37,6 +37,26 @@ case class ConsignmentItem(
   val totalPackages: Int = Packaging.foldLeft(0)(
     (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
   )
+
+  val consignee: String   = Consignee.map(_.toString).getOrElse("")
+  val consigneeId: String = Consignee.flatMap(_.identificationNumber).getOrElse("")
+
+  val udng: String    = Commodity.DangerousGoods.getOrElse(Nil).map(_.UNNumber).mkString(", ")
+  val cusCode: String = Commodity.cusCode.getOrElse("")
+
+  val previousDocuments: Seq[PreviousDocument]     = PreviousDocument.getOrElse(Nil)
+  val supportingDocuments: Seq[SupportingDocument] = SupportingDocument.getOrElse(Nil)
+  val transportDocuments: Seq[TransportDocument]   = TransportDocument.getOrElse(Nil)
+
+  val additionalReferences: Seq[AdditionalReference]    = AdditionalReference.getOrElse(Nil)
+  val additionalInformation: Seq[AdditionalInformation] = AdditionalInformation.getOrElse(Nil)
+
+  val commodityCode: String = Commodity.CommodityCode.map(_.toString).getOrElse("")
+
+  val grossMass: String = Commodity.GoodsMeasure.grossMass.toString()
+  val netMass: String   = Commodity.GoodsMeasure.netMass.map(_.toString()).getOrElse("")
+
+  val cOfDest: String = countryOfDestination.getOrElse("")
 }
 
 object ConsignmentItem {

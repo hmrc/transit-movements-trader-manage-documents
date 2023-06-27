@@ -19,7 +19,18 @@ package models.P5.unloading
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class Packaging(numberOfPackages: Option[Int])
+case class Packaging(
+  typeOfPackages: String,
+  numberOfPackages: Option[Int],
+  shippingMarks: Option[String]
+) {
+
+  override def toString: String = Seq(
+    Some(typeOfPackages),
+    numberOfPackages.map(_.toString),
+    shippingMarks
+  ).flatten.mkString(", ")
+}
 
 object Packaging {
   implicit val formats: OFormat[Packaging] = Json.format[Packaging]
