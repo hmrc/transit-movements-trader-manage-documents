@@ -38,7 +38,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
     }
 
     "return comma seperated consignee information" in {
-      viewModel.table1ViewModel.consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, Contact Person Name, 123456, a@a.com"
+      viewModel.table1ViewModel.consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, Contact Person Na..."
     }
 
     "return declarationType information" in {
@@ -150,7 +150,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
     }
 
     "return locationOfGoods information" in {
-      viewModel.table1ViewModel.locationOfGoods mustBe "Warehouse, qualifierIdentifier-num-1, 1212, LNCODE1, Reference1, 1232, 1234, EconomicOperator-1, Address Line 1, Address Line 2, Address Line 3, Address Line 4, house1, BR, UK"
+      viewModel.table1ViewModel.locationOfGoods mustBe "Warehouse, qualifierIdentifier-num-1, 1212, LNCODE1, Reference1, 1232, 1234, EconomicOperator-1, ..."
     }
 
     "return  comma seperated locationOfGoodsContactPerson information" in {
