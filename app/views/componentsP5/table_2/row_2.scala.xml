@@ -19,13 +19,13 @@
         <fo:table-body>
 
           <fo:table-row height="2%">
-            <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%" padding-bottom="5%">
-              <fo:block>Previous Document [12 01]</fo:block>
+            <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%">
+              <fo:block>Previous Document [12 01]</fo:block>adding-bottom="5
             </fo:table-cell>
           </fo:table-row>
 
           <fo:table-row>
-            <fo:table-cell margin-left="0.5%">
+            <fo:table-cell margin-left="0.5%"  padding-bottom="10%">
               <fo:block-container height="14%" overflow="hidden">
                 <fo:block>@(viewModel.table2ViewModel.previousDocument)</fo:block>
               </fo:block-container>
@@ -54,13 +54,13 @@
                             <fo:table-body>
 
                               <fo:table-row >
-                                <fo:table-cell margin-top="0.5%" display-align="center" padding-left="1%" padding-bottom="5%">
+                                <fo:table-cell margin-top="0.5%" display-align="center" padding-left="1%" >
                                   <fo:block>Transport document [12 05]</fo:block>
                                 </fo:table-cell>
                               </fo:table-row>
 
                               <fo:table-row>
-                                <fo:table-cell margin-left="0.5%">
+                                <fo:table-cell margin-left="0.5%" padding-bottom="10%">
                                   <fo:block-container height="14%" overflow="hidden">
                                     <fo:block>@(viewModel.table2ViewModel.transportDocument)</fo:block>
                                   </fo:block-container>
