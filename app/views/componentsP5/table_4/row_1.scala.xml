@@ -4,14 +4,14 @@
 
         @(viewModel: viewmodels.P5.Table4ViewModel)
 
-<fo:table-row height="14%">
+<fo:table-row>
 
     <fo:table-cell number-columns-spanned="2">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
-                    <fo:table-row height="34%" border-bottom-style="solid" border-bottom-width="1pt"
-                                  border-bottom-color="black"> <!-- todo where is this extra .25% -->
+                    <fo:table-row border-bottom-style="solid" border-bottom-width="1pt"
+                                  border-bottom-color="black">
                         <fo:table-cell display-align="top" margin-left="2%">
                             <fo:block font-weight="bold" font-size="5pt"></fo:block>
                         </fo:table-cell>
@@ -30,7 +30,7 @@
 
                 <fo:table-body>
 
-                    <fo:table-row height="8%">
+                    <fo:table-row>
                         <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%"
                                        number-columns-spanned="4" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-bottom-color="black" padding-bottom="2%">
@@ -60,9 +60,11 @@
                             <fo:block>
                                 <fo:table width="121%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="14%" border-bottom-style="solid"
-                                                      border-bottom-width="1pt" border-bottom-color="black"
-                                                      border-right-style="solid" padding-top="2%">
+                                        <fo:table-row border-bottom-style="solid" border-bottom-width="1pt"
+                                                      border-bottom-color="black"
+                                                      border-right-style="solid" border-right-width="1pt"
+                                                      border-right-color="black"
+                                                      padding-top="2%">
                                             <fo:table-cell display-align="top" margin-left="1%" padding-bottom="6%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF TRANSIT[17 04]</fo:block>
                                                 <fo:block font-size="5pt">@(viewModel.customsOfficeOfTransitDeclared)
@@ -77,8 +79,8 @@
                             <fo:block>
                                 <fo:table width="100%">
                                     <fo:table-body>
-                                        <fo:table-row height="14%"
-                                                      padding-top="2%"> <!-- todo where is this extra .25% -->
+                                        <fo:table-row
+                                                padding-top="2%"> <!-- todo where is this extra .25% -->
                                             <fo:table-cell display-align="top" margin-left="16%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT[17 06]
                                                 </fo:block>
@@ -131,6 +133,9 @@
                                                                                padding-left="8%">
                                                                     <fo:block font-size="5pt">CUSTOMS OFFICE OF
                                                                         DESTINATION[17 05]
+                                                                    </fo:block>
+                                                                    <fo:block font-size="5pt">
+                                                                        @(viewModel.customsOfficeOfDestinationDeclared)
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
