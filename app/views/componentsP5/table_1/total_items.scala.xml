@@ -11,7 +11,7 @@
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row number-columns-spanned="2" height="6%">
-          <fo:table-cell margin-left="2%">
+          <fo:table-cell margin-left="2%" padding-bottom="15%">
             <fo:block>
               @totalItems
             </fo:block>

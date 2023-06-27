@@ -1,7 +1,7 @@
 @import views.xml.componentsP5.table_1.consignee
         @import views.xml.componentsP5.table_1.total_gross_mass
 
-@(viewModel: viewmodels.P5.TableViewModel)
+        @(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="16%">
 
@@ -26,7 +26,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" padding-bottom="5%">
                             <fo:block-container height="14%" overflow="hidden">
                                 <fo:block>@(viewModel.table2ViewModel.supportingDocument)</fo:block>
                             </fo:block-container>
@@ -41,33 +41,29 @@
     <fo:table-cell number-columns-spanned="5">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-              <fo:table-column column-number="1" column-width="57.9%"/>
-              <fo:table-column column-number="2" column-width="42.1%"/>
-              <fo:table-body>
-                    <fo:table-row height="16%">
+                <fo:table-column column-number="1" column-width="57.9%"/>
+                <fo:table-column column-number="2" column-width="42.1%"/>
+                <fo:table-body>
+                    <fo:table-row height="14%">
 
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
-
                                     <fo:table-body border-left-style="solid" border-left-width="1pt"
                                                    border-left-color="black" border-right-style="solid"
                                                    border-right-width="1pt" border-right-color="black">
-
 
                                         <fo:table-row>
                                             <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
                                                            padding-left="0.5%" padding-top="0.5%">
                                                 <fo:block>Additional reference [12 04]</fo:block>
-
                                             </fo:table-cell>
-
                                         </fo:table-row>
-
                                         <fo:table-row>
-
-                                            <fo:table-cell number-columns-spanned="2" margin-left="0.5%" border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
+                                            <fo:table-cell number-columns-spanned="2" margin-left="0.5%"
+                                                           border-bottom-style="solid"
+                                                           border-bottom-width="1pt" border-bottom-color="black"
+                                                           padding-bottom="4%">
                                                 <fo:block-container height="6%" overflow="hidden">
                                                     <fo:block>
                                                         @(viewModel.table2ViewModel.additionalReference)
@@ -77,14 +73,18 @@
                                         </fo:table-row>
 
                                         <fo:table-row height="2.5%">
-                                            <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%">
+                                            <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%"
+                                                          >
                                                 <fo:block>Additional information [12 02]</fo:block>
                                             </fo:table-cell>
-                                            <fo:table-cell margin-bottom="0.5%" margin-top="0.5%" display-align="center"
-                                                           margin-left="0.5%" border-left-style="solid" border-left-width="1pt"
-                                                           border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                            <fo:table-cell margin-bottom="0.1%" margin-top="0.1%" display-align="center"
+                                                           margin-left="0.2%" border-left-style="solid"
+                                                           border-left-width="1pt"
+                                                           border-left-color="black" border-bottom-style="solid"
+                                                           border-bottom-width="1pt"
                                                            border-bottom-color="black">
-                                                <fo:block>Transport charges [14 02] @(viewModel.table2ViewModel.transportCharges)
+                                                <fo:block>Transport charges [14 02]
+                                                    @(viewModel.table2ViewModel.transportCharges)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -92,8 +92,9 @@
 
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5%">
-                                                <fo:block-container height="6%" overflow="hidden">
-                                                    <fo:block>@(viewModel.table2ViewModel.additionalInformation)</fo:block>
+                                                <fo:block-container height="6%" overflow="hidden" padding-bottom="5%">
+                                                    <fo:block>@(viewModel.table2ViewModel.additionalInformation)
+                                                    </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
