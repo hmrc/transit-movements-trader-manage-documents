@@ -41,7 +41,7 @@ class TADPdfGenerator @Inject() (
 
   def generateP5TAD(ie029Data: IE029Data): Array[Byte] = {
 
-    val renderedDocument = documentP5.render(ie029Data, TableViewModel()(ie029Data))
+    val renderedDocument = documentP5.render(TableViewModel()(ie029Data))
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
