@@ -16,10 +16,10 @@
 
 package models.P5.departure
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class CommodityCode(harmonizedSystemSubHeadingCode: String,
-                         combinedNomenclatureCode: Option[String])
+case class CommodityCode(harmonizedSystemSubHeadingCode: String, combinedNomenclatureCode: Option[String])
 
 object CommodityCode {
   implicit val formats: OFormat[CommodityCode] = Json.format[CommodityCode]

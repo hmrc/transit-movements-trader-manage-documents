@@ -16,10 +16,10 @@
 
 package models.P5.departure
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-case class GoodsMeasure(grossMass: Double,
-                         netMass: Option[Double])
+case class GoodsMeasure(grossMass: Double, netMass: Option[Double])
 
 object GoodsMeasure {
   implicit val formats: OFormat[GoodsMeasure] = Json.format[GoodsMeasure]

@@ -21,15 +21,16 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class PreviousDocument(
-                             sequenceNumber: Option[String],
-                             `type`: Option[String],
-                             referenceNumber: Option[String],
-                             complementOfInformation: Option[String],
-                             goodsItemNumber: Option[String],
-                             typeOfPackages: Option[String],
-                             numberOfPackages: Option[Int],
-                             measurementUnitAndQualifier: Option[String],
-                             quantity: Option[Double]) {
+  sequenceNumber: Option[String],
+  `type`: Option[String],
+  referenceNumber: Option[String],
+  complementOfInformation: Option[String],
+  goodsItemNumber: Option[String],
+  typeOfPackages: Option[String],
+  numberOfPackages: Option[Int],
+  measurementUnitAndQualifier: Option[String],
+  quantity: Option[Double]
+) {
 
   override def toString: String = {
 
