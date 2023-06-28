@@ -2,34 +2,33 @@
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
   <fo:block>
-    <fo:table height="100%" width="100%" table-layout="fixed">
-      <fo:table-column column-number="1" column-width="44mm"/>
-      <fo:table-column column-number="2" column-width="8mm"/>
-      <fo:table-column column-number="3" column-width="37mm"/>
-
+    <fo:table height="60%" width="100%" table-layout="fixed">
+      <fo:table-column column-number="1" column-width="50%"/>
+      <fo:table-column column-number="2" column-width="10%"/>
+      <fo:table-column column-number="3" column-width="40%"/>
       <fo:table-body>
-        <fo:table-row height="2mm">
-          <fo:table-cell display-align="center" margin-left="0.5mm">
+        <fo:table-row height="100%">
+          <fo:table-cell display-align="center" margin-left="0.5%">
             <fo:block>Consignee [13 02]</fo:block>
           </fo:table-cell>
 
-          <fo:table-cell display-align="center" margin-left="1mm">
+          <fo:table-cell display-align="center" margin-left="1%">
             <fo:block>ID</fo:block>
-          </fo:table-cell>
-
-          <fo:table-cell margin-left="0.5mm">
-            <fo:block-container overflow="hidden">
-              <fo:block>@identificationNumber</fo:block>
-            </fo:block-container>
           </fo:table-cell>
 
         </fo:table-row>
 
         <fo:table-row>
 
-          <fo:table-cell margin-left="0.5mm">
-            <fo:block-container height="6mm" overflow="hidden">
+          <fo:table-cell margin-left="0.5%">
+            <fo:block-container height="2%" overflow="hidden">
               <fo:block>@consignee</fo:block>
+            </fo:block-container>
+          </fo:table-cell>
+
+          <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
+            <fo:block-container height="6%" overflow="hidden">
+              <fo:block>@identificationNumber</fo:block>
             </fo:block-container>
           </fo:table-cell>
 

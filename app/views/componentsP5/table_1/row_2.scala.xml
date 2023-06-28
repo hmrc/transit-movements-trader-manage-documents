@@ -1,18 +1,19 @@
 @import views.xml.componentsP5.table_1._
 @import views.xml.componentsP5._
 
-@(ie029Data: models.P5.departure.IE029Data)
+@(viewModel: viewmodels.P5.TableViewModel)
 
-<fo:table-row height="16mm">
+<fo:table-row height="16%">
   <fo:table-cell>
     <fo:block/>
   </fo:table-cell>
 
-  <fo:table-cell text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+  <fo:table-cell padding-left="5%" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block/>
-  </fo:table-cell>
+  </fo:table-cell>SCI
 
-  @consignor(ie029Data.consignor, ie029Data.consignorIdentificationNumber)
+
+  @consignor(viewModel.table1ViewModel.consignor, viewModel.table1ViewModel.consignorIdentificationNumber, viewModel.table1ViewModel.consignorContactPerson)
 
   <fo:table-cell>
     <fo:block>
@@ -27,9 +28,9 @@
                 <fo:table width="100%" table-layout="fixed">
 
                   <fo:table-body>
-                    <fo:table-row height="8mm">
-                      @declaration_type(ie029Data.declarationType)
-                      @additional_declaration_type(ie029Data.additionalDeclarationType)
+                    <fo:table-row height="8%">
+                      @declaration_type(viewModel.table1ViewModel.declarationType)
+                      @additional_declaration_type(viewModel.table1ViewModel.additionalDeclarationType)
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
@@ -43,9 +44,9 @@
               <fo:block>
                 <fo:table width="100%" table-layout="fixed">
                   <fo:table-body>
-                    <fo:table-row height="8mm">
+                    <fo:table-row height="8%">
                       @forms()
-                      @sci(ie029Data.sci)
+                      @sci(viewModel.table1ViewModel.sci)
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
@@ -58,12 +59,12 @@
     </fo:block>
   </fo:table-cell>
 
-  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-left="1mm">
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" padding-left="1%">
     <fo:block>
-      @barcode(ie029Data.mrn)
+      @barcode(viewModel.table1ViewModel.mrn)
     </fo:block>
-    <fo:block font-weight="bold" text-align="center">
-      @ie029Data.mrn
+    <fo:block text-align="center">
+      @viewModel.table1ViewModel.mrn
     </fo:block>
   </fo:table-cell>
 </fo:table-row>

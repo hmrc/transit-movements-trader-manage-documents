@@ -2,7 +2,7 @@
 
 @this()
 
-@(ie029Data: models.P5.departure.IE029Data)
+@(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table width="100%" table-layout="fixed" id="table-2">
 
@@ -16,9 +16,9 @@
   <fo:table-column column-number="8" column-width="49mm"/>
 
   <fo:table-body>
-    @row_1(ie029Data)
-    @row_2(ie029Data)
-    @row_3(ie029Data)
-    @row_4(ie029Data)
+    @row_1(viewModel)
+    @row_2(viewModel)
+    @row_3(viewModel)
+    @row_4(viewModel)
   </fo:table-body>
 </fo:table>

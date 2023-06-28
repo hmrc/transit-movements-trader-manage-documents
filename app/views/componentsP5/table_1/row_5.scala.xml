@@ -1,8 +1,8 @@
 @import views.xml.componentsP5.table_1._
+        
+@(viewModel: viewmodels.P5.TableViewModel)
 
-@(ie029Data: models.P5.departure.IE029Data)
-
-<fo:table-row height="32mm">
+<fo:table-row height="32%">
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>
@@ -11,56 +11,51 @@
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
                    border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
-                   display-align="center" padding-top="-70mm">
+                   display-align="center" padding-top="-50%">
 
         <fo:block-container
                 font-weight="bold"
                 font-size="7"
                 reference-orientation="90" display-align="center"
-                inline-progression-dimension.minimum="8mm"
+                inline-progression-dimension.minimum="5%"
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
-                margin-bottom="10mm">
-            <fo:block hyphenate="true" margin-left="10mm">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
+                margin-bottom="10%m">
+            <fo:block hyphenate="true" margin-left="10%">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
         </fo:block-container>
     </fo:table-cell>
 
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+    <fo:table-cell height="2%" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="44mm"/>
-                <fo:table-column column-number="2" column-width="8mm"/>
-                <fo:table-column column-number="3" column-width="37mm"/>
-                <fo:table-body>
-
-                    <!-- Carrier 8mm -->
-
-                    <fo:table-row height="2mm">
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                <fo:table-column column-number="1" column-width="50%"/>
+                <fo:table-column column-number="2" column-width="10%"/>
+                <fo:table-column column-number="3" column-width="40%"/>
+                <fo:table-body padding-bottom="4%">
+                    <fo:table-row padding-bottom="4%"  >
+                        <fo:table-cell display-align="center" margin-left="0.5%" >
                             <fo:block>Carrier [13 12]</fo:block>
                         </fo:table-cell>
-
-                        <fo:table-cell display-align="center" margin-left="1mm">
+                        <fo:table-cell display-align="center" margin-left="1%">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
+                    </fo:table-row>
 
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>@ie029Data.carrierIdentificationNumber</fo:block>
+                    <fo:table-row height="4%">
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
+                            <fo:block-container height="4%" overflow="hidden">
+                                <fo:block>@viewModel.table1ViewModel.carrierIdentificationNumber</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="4mm">
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block>
-                            </fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <fo:table-row height="2mm">
-                        <fo:table-cell margin-left="0.5mm">
+                    <fo:table-row height="2%">
+                        <fo:table-cell margin-left="0.5%" padding-top="2%">
                             <fo:block>
                                 Contact person [13 06 074]
                             </fo:block>
@@ -68,75 +63,73 @@
 
                     </fo:table-row>
 
-                    <!-- Additional supply chain actor 8mm -->
 
-                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                    <fo:table-row height="4%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5%" height="4%"  >
                             <fo:block>Additional supply chain actor [13 12]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell display-align="center" margin-left="1mm">
+                        <fo:table-cell display-align="center" margin-left="1%" >
                             <fo:block>ID</fo:block>
-                        </fo:table-cell>
-
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>@ie029Data.additionalSupplyChainActorIdentificationNumbers</fo:block>
-                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
 
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>@ie029Data.additionalSupplyChainActorRoles</fo:block>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container height="2%" overflow="hidden">
+                                <fo:block>@viewModel.table1ViewModel.additionalSupplyChainActorRoles</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
+                        <fo:table-cell margin-left="0.5%" padding-bottom="4%">
+                            <fo:block-container height="2%" overflow="hidden">
+                                <fo:block>@viewModel.table1ViewModel.additionalSupplyChainActorIdentificationNumbers</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
                     </fo:table-row>
 
-                    <!-- Departure transport means 8mm -->
+                    <!-- Departure transport means 8% -->
 
-                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                    <fo:table-row height="2%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5%"  >
                             <fo:block>Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>@ie029Data.departureTransportMeans</fo:block>
+                        <fo:table-cell margin-left="0.5%" padding-bottom="4%">
+                            <fo:block-container height="6%" overflow="hidden">
+                                <fo:block>@viewModel.table1ViewModel.departureTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <!-- Active border transport mean 8mm -->
+                    <!-- Active border transport mean 8% -->
 
-                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                    <fo:table-row height="2%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Active border transport means [19 08]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="4mm" overflow="hidden">
-                                <fo:block>@ie029Data.activeBorderTransportMeans</fo:block>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container height="4%" overflow="hidden">
+                                <fo:block>@viewModel.table1ViewModel.activeBorderTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="2mm">
-                        <fo:table-cell margin-left="0.5mm">
+                    <fo:table-row height="2%">
+                        <fo:table-cell margin-left="0.5%" padding-top="4%">
                             <fo:block>
                                 Conveyance reference number [19 02]
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>@ie029Data.activeBorderTransportMeansConveyanceNumbers</fo:block>
+                        <fo:table-cell margin-left="0.5%" padding-top="4%" >
+                            <fo:block-container height="2%" overflow="hidden">
+                                <fo:block>@viewModel.table1ViewModel.activeBorderTransportMeansConveyanceNumbers</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -149,8 +142,8 @@
     <fo:table-cell>
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-width="47.5mm"/>
-                <fo:table-column column-width="47.5mm"/>
+                <fo:table-column column-width="86.15%"/>
+                <fo:table-column column-width="86.15%"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell>
@@ -159,22 +152,22 @@
 
                                     <fo:table-body>
 
-                                        <fo:table-row height="12mm">
+                                        <fo:table-row height="200%">
                                             <fo:table-cell alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block>
                                                     <fo:table width="100%" table-layout="fixed">
                                                         <fo:table-column/>
                                                         <fo:table-column/>
                                                         <fo:table-body>
-                                                            <fo:table-row height="2mm">
-                                                                <fo:table-cell number-columns-spanned="1">
-                                                                    <fo:block margin-top="0.5mm" margin-left="0.5mm">Place of loading [16 13]</fo:block>
+                                                            <fo:table-row height="4%" >
+                                                                <fo:table-cell number-columns-spanned="1" >
+                                                                    <fo:block margin-top="0.5%" margin-left="0.5%">Place of loading [16 13]</fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="4" height="10mm" padding-bottom="1mm">
-                                                                <fo:table-cell margin-left="0.5mm">
-                                                                    <fo:block>
-                                                                        @ie029Data.placeOfLoading
+                                                            <fo:table-row number-columns-spanned="4" height="10%" padding-bottom="1%">
+                                                                <fo:table-cell margin-left="0.5%">
+                                                                    <fo:block padding-bottom="33%">
+                                                                        @viewModel.table1ViewModel.placeOfLoading
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -184,22 +177,22 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-                                        <fo:table-row height="12mm">
+                                        <fo:table-row height="24%">
                                             <fo:table-cell  alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block>
                                                     <fo:table width="100%" table-layout="fixed">
                                                         <fo:table-column/>
                                                         <fo:table-column/>
                                                         <fo:table-body>
-                                                            <fo:table-row height="2mm">
+                                                            <fo:table-row height="4%">
                                                                 <fo:table-cell number-columns-spanned="1">
-                                                                    <fo:block margin-top="0.5mm" margin-left="0.5mm">Place of unloading [16 14]</fo:block>
+                                                                    <fo:block margin-top="0.5%" margin-left="0.5%">Place of unloading [16 14]</fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="4" height="10mm" padding-bottom="1mm">
-                                                                <fo:table-cell margin-left="0.5mm">
-                                                                    <fo:block>
-                                                                        @ie029Data.placeOfUnloading
+                                                            <fo:table-row number-columns-spanned="4" height="20%" padding-bottom="1%">
+                                                                <fo:table-cell margin-left="0.5%">
+                                                                    <fo:block padding-bottom="33%">
+                                                                        @viewModel.table1ViewModel.placeOfUnloading
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -209,18 +202,18 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-                                        <fo:table-row height="4mm">
+                                        <fo:table-row height="8%">
                                             <fo:table-cell  alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black">
                                                 <fo:block>
                                                     <fo:table width="100%" table-layout="fixed">
                                                         <fo:table-body>
                                                             <fo:table-row >
                                                                 <fo:table-cell number-columns-spanned="2">
-                                                                    <fo:block margin-left="0.5mm">Mode of transport at border [19 03]</fo:block>
+                                                                    <fo:block margin-left="0.5%">Mode of transport at border [19 03]</fo:block>
                                                                 </fo:table-cell>
-                                                                <fo:table-cell display-align="center" margin-left="0.5">
+                                                                <fo:table-cell display-align="center" margin-left="0.5" padding-bottom="5.5%">
                                                                     <fo:block>
-                                                                        @ie029Data.modeOfTransportAtBorder
+                                                                        @viewModel.table1ViewModel.modeOfTransportAtBorder
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -230,18 +223,18 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-                                        <fo:table-row height="4mm">
+                                        <fo:table-row height="8%">
                                             <fo:table-cell  alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block>
                                                     <fo:table width="100%" table-layout="fixed">
                                                         <fo:table-body>
                                                             <fo:table-row>
                                                                 <fo:table-cell number-columns-spanned="2">
-                                                                    <fo:block margin-left="0.5mm">Inland mode of transport [19 04]</fo:block>
+                                                                    <fo:block margin-left="0.5%">Inland mode of transport [19 04]</fo:block>
                                                                 </fo:table-cell>
-                                                                <fo:table-cell display-align="center" margin-left="0.5">
+                                                                <fo:table-cell display-align="center" margin-left="0.5" padding-bottom="5.5%">
                                                                     <fo:block>
-                                                                        @ie029Data.inlandModeOfTransport
+                                                                        @viewModel.table1ViewModel.inlandModeOfTransport
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                             </fo:table-row>
@@ -258,31 +251,31 @@
 
 
 
-                        <fo:table-cell alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" >
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="2mm">
-                                            <fo:table-cell number-columns-spanned="1">
-                                                <fo:block margin-top="0.5mm" margin-left="0.5mm">Location of goods [16 15]</fo:block>
+                                        <fo:table-row height="4%">
+                                            <fo:table-cell number-columns-spanned="1"  >
+                                                <fo:block margin-top="0.5%" margin-left="0.5%">Location of goods [16 15]</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
-                                        <fo:table-row height="14mm">
-                                            <fo:table-cell margin-left="0.5mm">
+                                        <fo:table-row height="28%">
+                                            <fo:table-cell margin-left="0.5%">
                                                 <fo:block>
-                                                    @ie029Data.locationOfGoods
+                                                    @viewModel.table1ViewModel.locationOfGoods
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
-                                        <fo:table-row height="2mm">
-                                            <fo:table-cell >
-                                                <fo:block margin-top="0.5mm" margin-left="0.5mm">Contact person [16 15 074]</fo:block>
+                                        <fo:table-row height="4%">
+                                            <fo:table-cell  padding-top="20%">
+                                                <fo:block margin-top="0.5%" margin-left="0.5%">Contact person [16 15 074]</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
-                                        <fo:table-row height="14mm" >
-                                            <fo:table-cell margin-left="0.5mm">
+                                        <fo:table-row height="28%" >
+                                            <fo:table-cell margin-left="0.5%">
                                                 <fo:block>
-                                                    @ie029Data.locationOfGoodsContactPerson
+                                                    @viewModel.table1ViewModel.locationOfGoodsContactPerson
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
