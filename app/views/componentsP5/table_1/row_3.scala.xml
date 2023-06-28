@@ -1,52 +1,53 @@
 @import views.xml.componentsP5.table_1.consignee
-@import views.xml.componentsP5.table_1.total_gross_mass
+        @import views.xml.componentsP5.table_1.total_gross_mass
 
-@(viewModel: viewmodels.P5.TableViewModel)
+        @(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="8%">
 
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
 
-  <fo:table-cell text-align="center" vertical-align="top" border-left-style="solid" border-left-width="1pt" border-left-color="black">
-    <fo:block/>
-  </fo:table-cell>
+    <fo:table-cell text-align="center" vertical-align="top" border-left-style="solid" border-left-width="1pt"
+                   border-left-color="black">
+        <fo:block/>
+    </fo:table-cell>
 
-  @consignee(viewModel.table1ViewModel.consignee, viewModel.table1ViewModel.consigneeIdentificationNumber)
+    @consignee(viewModel.table1ViewModel.consignee, viewModel.table1ViewModel.consigneeIdentificationNumber)
 
-  <fo:table-cell>
-    <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
+    <fo:table-cell>
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column/>
 
-        <fo:table-body>
+                <fo:table-body>
 
-          <fo:table-row>
-            <fo:table-cell>
-              <fo:block>
-                <fo:table width="100%" table-layout="fixed">
-                  <fo:table-column column-width="43.08%"/>
-                  <fo:table-column column-width="43.08%"/>
-                  <fo:table-column column-width="43.08%"/>
-                  <fo:table-column column-width="43.08%"/>
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-column column-width="31.3%"/>
+                                    <fo:table-column column-width="43.08%"/>
+                                    <fo:table-column column-width="43.08%"/>
+                                    <fo:table-column column-width="43.08%"/>
 
-                  <fo:table-body>
-                    <fo:table-row height="8%">
-                      @total_items(viewModel.table1ViewModel.totalItems)
-                      @total_packages(viewModel.table1ViewModel.totalPackages)
-                      @total_gross_mass(viewModel.table1ViewModel.totalGrossMass)
-                      @security(viewModel.table1ViewModel.security)
+                                    <fo:table-body>
+                                        <fo:table-row height="8%">
+                                            @total_items(viewModel.table1ViewModel.totalItems)
+                                            @total_packages(viewModel.table1ViewModel.totalPackages)
+                                            @total_gross_mass(viewModel.table1ViewModel.totalGrossMass)
+                                            @security(viewModel.table1ViewModel.security)
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
                     </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-        </fo:table-body>
-      </fo:table>
-    </fo:block>
-  </fo:table-cell>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
 
 
 </fo:table-row>

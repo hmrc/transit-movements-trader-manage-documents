@@ -73,8 +73,7 @@
                                         </fo:table-row>
 
                                         <fo:table-row height="2.5%">
-                                            <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%"
-                                                          >
+                                            <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%">
                                                 <fo:block>Additional information [12 02]</fo:block>
                                             </fo:table-cell>
                                             <fo:table-cell margin-bottom="0.1%" margin-top="0.1%" display-align="center"

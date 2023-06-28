@@ -1,20 +1,22 @@
 @import views.xml.componentsP5.table_1.consignee
-@import views.xml.componentsP5.table_1.total_gross_mass
+        @import views.xml.componentsP5.table_1.total_gross_mass
 
-@(viewModel: viewmodels.P5.TableViewModel)
+        @(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="16%">
 
-    <fo:table-cell number-columns-spanned="2">
+    <fo:table-cell number-columns-spanned="2" padding-top="4.5%">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
-                    <fo:table-row height="12.25%" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25% -->
+                    <fo:table-row height="12.25%" border-bottom-style="solid" border-bottom-width="1pt"
+                                  border-bottom-color="black"> <!-- todo where is this extra .25% -->
                         <fo:table-cell>
                             <fo:block/>
                         </fo:table-cell>
                     </fo:table-row>
-                    <fo:table-row height="4%" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                    <fo:table-row height="4%" border-bottom-style="solid" border-bottom-width="1pt"
+                                  border-bottom-color="black">
                         <fo:table-cell display-align="center" margin-left="2%">
                             <fo:block>Guarantee not valid for</fo:block>
                         </fo:table-cell>
@@ -25,7 +27,8 @@
     </fo:table-cell>
 
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
 
@@ -38,9 +41,11 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" >
-                            <fo:block-container height="10%" overflow="hidden" padding-bottom="8%">
-                                <fo:block>@(viewModel.table2ViewModel.guarantee)</fo:block>
+                        <fo:table-cell>
+                            <fo:block-container height="10%" overflow="hidden" padding-bottom="5%"
+                                                border-bottom-style="solid" border-bottom-width="1pt"
+                                                border-bottom-color="black">
+                                <fo:block margin-left="1%">@(viewModel.table2ViewModel.guarantee)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -62,8 +67,8 @@
     <fo:table-cell number-columns-spanned="5">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-              <fo:table-column column-number="1" column-width="57.9%"/>
-              <fo:table-column column-number="2" column-width="42.1%"/>
+                <fo:table-column column-number="1" column-width="57.9%"/>
+                <fo:table-column column-number="2" column-width="42.1%"/>
                 <fo:table-body>
                     <fo:table-row height="16%">
                         <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
@@ -74,34 +79,34 @@
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
 
-                                        <fo:table-row height="2.5%">
-                                            <fo:table-cell margin-top="0.5%"  margin-bottom="5%" display-align="center" margin-left="0.5%">
+                                        <fo:table-row height="3.5%">
+                                            <fo:table-cell margin-top="0.5%" margin-bottom="5%" display-align="center"
+                                                           margin-left="0.5%">
                                                 <fo:block>Authorisation [12 12]</fo:block>
                                             </fo:table-cell>
                                             <fo:table-cell margin-bottom="0.5%" margin-top="0.5%" display-align="center"
-                                                           margin-left="0.5%" border-left-style="solid" border-left-width="1pt"
-                                                           border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                                           margin-left="0.5%" border-left-style="solid"
+                                                           border-left-width="1pt"
+                                                           border-left-color="black" border-bottom-style="solid"
+                                                           border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block>
                                                     Container [19 01]:
-                                                    <fo:inline margin-top="0.5%" border-style="solid" border-width="0.5pt">
+                                                    <fo:inline margin-top="0.5%" border-style="solid"
+                                                               border-width="0.5pt">
                                                         &#160;&#160;&#160;&#160;
                                                     </fo:inline>
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
-
-
-
                                         <fo:table-row>
-                                            <fo:table-cell margin-left="0.5%" number-columns-spanned="2" padding-bottom="7%">
+                                            <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                                           padding-bottom="10%">
                                                 <fo:block-container height="14%" overflow="hidden">
                                                     <fo:block>@(viewModel.table2ViewModel.authorisation)</fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
-
-
                                     </fo:table-body>
                                 </fo:table>
                             </fo:block>
