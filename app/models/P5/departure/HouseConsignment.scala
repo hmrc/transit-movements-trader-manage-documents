@@ -19,13 +19,32 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class HouseConsignment(ConsignmentItem: Seq[ConsignmentItem]) {
+case class HouseConsignment(
+  ConsignmentItem: Seq[ConsignmentItem],
+  Consignor: Option[Consignor],
+  Consignee: Option[Consignee],
+  PreviousDocument: Option[List[PreviousDocument]],
+  TransportDocument: Option[List[TransportDocument]],
+  SupportingDocument: Option[List[SupportingDocument]]
+) {
 
   val totalPackages: Int = ConsignmentItem.foldLeft(0)(
     (total, item) => total + item.totalPackages
   )
 
   val totalItems: Int = ConsignmentItem.length
+
+  val previousDocumentInHC: Option[String] = PreviousDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val supportingDocumentInHC: Option[String] = SupportingDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val transportDocumentInHC: Option[String] = TransportDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
 }
 
 object HouseConsignment {

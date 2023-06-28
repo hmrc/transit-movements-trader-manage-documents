@@ -1,7 +1,6 @@
 @import views.xml.DocumentTemplateP5
 @import views.xml.componentsP5._
 @import views.xml.PageOne
-@import views.xml.components.second_page
 
 @this(
         table1: table_1.table,
@@ -9,12 +8,14 @@
         table3: table_3.table,
         table4: table_4.table,
         template: DocumentTemplateP5,
-        pageOne: PageOne
+        pageOne: PageOne,
+        pageTwo: PageTwo
 )
 
 @(viewModel: viewmodels.P5.TableViewModel)
 @template(
-    pageOne = pageOne(pageOneBody)
+    pageOne = pageOne(pageOneBody),
+    pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8"), mrn = viewModel.table1ViewModel.mrn))
 )
 
 @pageOneBody = {
