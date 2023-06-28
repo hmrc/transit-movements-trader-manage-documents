@@ -1,87 +1,92 @@
 @import views.xml.componentsP5.table_1.consignee
-@import views.xml.componentsP5.table_1.total_gross_mass
-        
-@(viewModel: viewmodels.P5.TableViewModel)
+        @import views.xml.componentsP5.table_1.total_gross_mass
+
+        @(viewModel: viewmodels.P5.TableViewModel)
 
 <fo:table-row height="16%">
 
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
 
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
 
-  <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-    <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-body>
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-body>
 
-          <fo:table-row height="2%">
-            <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%">
-              <fo:block>Previous Document [12 01]</fo:block>adding-bottom="5
-            </fo:table-cell>
-          </fo:table-row>
-
-          <fo:table-row>
-            <fo:table-cell margin-left="0.5%"  padding-bottom="10%">
-              <fo:block-container height="14%" overflow="hidden">
-                <fo:block>@(viewModel.table2ViewModel.previousDocument)</fo:block>
-              </fo:block-container>
-            </fo:table-cell>
-          </fo:table-row>
-
-        </fo:table-body>
-      </fo:table>
-    </fo:block>
-  </fo:table-cell>
-
-  <fo:table-cell number-columns-spanned="5">
-    <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
-        <fo:table-body>
-          <fo:table-row>
-            <fo:table-cell>
-              <fo:block>
-                <fo:table width="100%" table-layout="fixed">
-                  <fo:table-body>
-                    <fo:table-row height="16%">
-                      <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:block>
-                          <fo:table width="100%" table-layout="fixed">
-                            <fo:table-body>
-
-                              <fo:table-row >
-                                <fo:table-cell margin-top="0.5%" display-align="center" padding-left="1%" >
-                                  <fo:block>Transport document [12 05]</fo:block>
-                                </fo:table-cell>
-                              </fo:table-row>
-
-                              <fo:table-row>
-                                <fo:table-cell margin-left="0.5%" padding-bottom="10%">
-                                  <fo:block-container height="14%" overflow="hidden">
-                                    <fo:block>@(viewModel.table2ViewModel.transportDocument)</fo:block>
-                                  </fo:block-container>
-                                </fo:table-cell>
-                              </fo:table-row>
-
-
-                            </fo:table-body>
-                          </fo:table>
-                        </fo:block>
-                      </fo:table-cell>
-
+                    <fo:table-row height="2%">
+                        <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%">
+                            <fo:block>Previous Document [12 01]</fo:block>adding-bottom="5
+                        </fo:table-cell>
                     </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-        </fo:table-body>
-      </fo:table>
-    </fo:block>
-  </fo:table-cell>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" padding-bottom="10%">
+                            <fo:block-container height="14%" overflow="hidden">
+                                <fo:block>@(viewModel.table2ViewModel.previousDocument)</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+    <fo:table-cell number-columns-spanned="5">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column/>
+                <fo:table-body>
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-body>
+                                        <fo:table-row height="16%">
+                                            <fo:table-cell border-left-style="solid" border-left-width="1pt"
+                                                           border-left-color="black" border-right-style="solid"
+                                                           border-right-width="1pt" border-right-color="black"
+                                                           border-top-style="solid" border-top-width="1pt"
+                                                           border-top-color="black" border-bottom-style="solid"
+                                                           border-bottom-width="1pt" border-bottom-color="black">
+                                                <fo:block>
+                                                    <fo:table width="100%" table-layout="fixed">
+                                                        <fo:table-body>
+                                                            <fo:table-row>
+                                                                <fo:table-cell margin-top="0.5%" display-align="center"
+                                                                               padding-left="1%">
+                                                                    <fo:block>Transport document [12 05]</fo:block>
+                                                                </fo:table-cell>
+                                                            </fo:table-row>
+                                                            <fo:table-row>
+                                                                <fo:table-cell margin-left="0.5%" padding-bottom="10%">
+                                                                    <fo:block-container height="14%" overflow="hidden">
+                                                                        <fo:block>
+                                                                            @(viewModel.table2ViewModel.transportDocument)
+                                                                        </fo:block>
+                                                                    </fo:block-container>
+                                                                </fo:table-cell>
+                                                            </fo:table-row>
+                                                        </fo:table-body>
+                                                    </fo:table>
+                                                </fo:block>
+                                            </fo:table-cell>
+
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
 
 </fo:table-row>

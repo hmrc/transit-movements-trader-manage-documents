@@ -1,23 +1,23 @@
 @(lrn: String)
-<fo:table-cell  alignment-adjust="auto" border-style="solid" border-width="1pt" border-color="black">
-  <fo:block>
-    <fo:table width="100%" table-layout="fixed">
-      <fo:table-column/>
-      <fo:table-column/>
-      <fo:table-body>
-        <fo:table-row height="2%">
-          <fo:table-cell number-columns-spanned="2">
-            <fo:block  margin-top="3%" margin-left="2%">LRN</fo:block>
-          </fo:table-cell>
-        </fo:table-row>
-        <fo:table-row number-columns-spanned="4" height="6%">
-          <fo:table-cell margin-left="2%"  padding-bottom="10%">
-            <fo:block>
-              @lrn
-            </fo:block>
-          </fo:table-cell>
-        </fo:table-row>
-      </fo:table-body>
-    </fo:table>
-  </fo:block>
+<fo:table-cell alignment-adjust="auto" border-style="solid" border-width="1pt" border-color="black">
+    <fo:block>
+        <fo:table width="100%" table-layout="fixed">
+            <fo:table-column/>
+            <fo:table-column/>
+            <fo:table-body>
+                <fo:table-row height="2%">
+                    <fo:table-cell number-columns-spanned="2">
+                        <fo:block margin-top="3%" margin-left="2%">LRN</fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row number-columns-spanned="4" height="6%">
+                    <fo:table-cell margin-left="2%" padding-bottom="10%">
+                        <fo:block>
+                            @lrn
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </fo:block>
 </fo:table-cell>
