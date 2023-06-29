@@ -36,13 +36,9 @@ case class HouseConsignment(
 
   val previousDocumentInHC: Option[String] = PreviousDocument.map(_.map(_.toString)).map(_.mkString("; "))
 
-  val supportingDocumentInHC: Option[String] = SupportingDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val supportingDocumentInHC: Option[String] = SupportingDocument.map(_.map(_.toString).mkString("; "))
 
-  val transportDocumentInHC: Option[String] = TransportDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val transportDocumentInHC: Option[String] = TransportDocument.map(_.map(_.toString).mkString("; "))
 }
 
 object HouseConsignment {
