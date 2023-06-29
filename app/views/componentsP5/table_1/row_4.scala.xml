@@ -35,8 +35,8 @@
                   <fo:table-body>
                     <fo:table-row height="8mm">
                       @local_reference_number(ie029Data.lrn)
-                      @tir(ie029Data.tir)
                       @ucr(ie029Data.ucr)
+                      @tir(ie029Data.tir)
                     </fo:table-row>
                     <fo:table-row height="17mm"> <!-- todo extra 1mm needed from somewhere else -->
                       @bcp()

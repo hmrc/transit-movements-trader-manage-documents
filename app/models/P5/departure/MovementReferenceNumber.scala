@@ -16,13 +16,12 @@
 
 package models.P5.departure
 
-import play.api.libs.json.Reads
-import play.api.libs.json.__
+import play.api.libs.json._
 
 case class MovementReferenceNumber(value: String)
 
 object MovementReferenceNumber {
 
-  implicit lazy val reads: Reads[MovementReferenceNumber] =
-    (__ \ "movementReferenceNumber").read[String].map(MovementReferenceNumber(_))
+  implicit val formats: OFormat[MovementReferenceNumber] = Json.format[MovementReferenceNumber]
+
 }

@@ -19,7 +19,9 @@ package models.P5.unloading
 import play.api.libs.json.Format
 import play.api.libs.json.Json
 
-case class DangerousGoods(UNNumber: String)
+case class DangerousGoods(UNNumber: String) {
+  override def toString: String = UNNumber
+}
 
 object DangerousGoods {
   implicit val format: Format[DangerousGoods] = Json.format[DangerousGoods]

@@ -17,6 +17,7 @@
 package connectors
 
 import base.SpecBase
+import base.UnloadingData
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -26,8 +27,6 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
@@ -41,8 +40,8 @@ import utils.WireMockHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class UnloadingPermissionP5ConnectorSpec
-    extends AnyFreeSpec
-    with Matchers
+    extends SpecBase
+    with UnloadingData
     with GuiceOneAppPerSuite
     with WireMockHelper
     with ScalaFutures
@@ -52,8 +51,7 @@ class UnloadingPermissionP5ConnectorSpec
     with ValidatedMatchers
     with ValidatedValues
     with FutureAwaits
-    with DefaultAwaitTimeout
-    with SpecBase {
+    with DefaultAwaitTimeout {
 
   implicit lazy val arbitraryHC: Arbitrary[HeaderCarrier] =
     Arbitrary(Gen.const(HeaderCarrier()))
@@ -140,8 +138,12 @@ class UnloadingPermissionP5ConnectorSpec
           |          "numberOfSeals": 35,
           |          "Seal": [
           |            {
-          |              "sequenceNumber": "seq1",
-          |              "identifier": "sealId"
+          |              "sequenceNumber": "1",
+          |              "identifier": "seal1"
+          |            },
+          |            {
+          |              "sequenceNumber": "2",
+          |              "identifier": "seal2"
           |            }
           |          ],
           |          "GoodsReference": [

@@ -14,12 +14,12 @@
         <fo:table-row number-columns-spanned="2" height="6mm">
           <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
             <fo:block>
-              01
+              1
             </fo:block>
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
             <fo:block>
-              03
+              <fo:page-number-citation-last ref-id="tloi-pages"/>
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

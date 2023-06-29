@@ -27,7 +27,7 @@
           <fo:table-row>
             <fo:table-cell margin-left="0.5mm">
               <fo:block-container height="14mm" overflow="hidden">
-                <fo:block>asdfasdfads</fo:block>
+                <fo:block>@(ie029Data.previousDocument)</fo:block>
               </fo:block-container>
             </fo:table-cell>
           </fo:table-row>
@@ -62,7 +62,7 @@
                               <fo:table-row>
                                 <fo:table-cell margin-left="0.5mm">
                                   <fo:block-container height="14mm" overflow="hidden">
-                                    <fo:block>asdfasdfads asdfa sdf asdfa sdfasdf asdf asdfasdfa sdfas dfa sdfa sdfasdfasdfasdf asdf asdf asdf asdf asdf asdfa sdfasdfa sdfasdfa as df sdfa sdf asdfa sfd asdfa sdfa sdf asdf</fo:block>
+                                    <fo:block>@(ie029Data.transportDocument)</fo:block>
                                   </fo:block-container>
                                 </fo:table-cell>
                               </fo:table-row>

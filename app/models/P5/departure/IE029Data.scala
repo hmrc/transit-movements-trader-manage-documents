@@ -87,7 +87,22 @@ case class IE029Data(data: DepartureMessageData) {
 
   val departureTransportMeans: String = data.Consignment.departureTransportMeans.getOrElse("")
 
-  val activeBorderTransportMeans: String = data.Consignment.activeBorderTransportMeans.getOrElse("")
+  val transportEquipment: String                    = data.Consignment.transportEquipment.getOrElse("")
+  val seals: String                                 = data.Consignment.seals.getOrElse("")
+  val previousDocument: String                      = data.Consignment.Document.previousDocument.getOrElse("")
+  val supportingDocument: String                    = data.Consignment.Document.supportingDocument.getOrElse("")
+  val transportDocument: String                     = data.Consignment.Document.transportDocument.getOrElse("")
+  val additionalInformation: String                 = data.Consignment.additionalInformation.getOrElse("")
+  val additionalReference: String                   = data.Consignment.additionalReference.getOrElse("")
+  val transportCharges: String                      = data.Consignment.transportCharges.getOrElse("")
+  val guarantee: String                             = data.guarantee.getOrElse("")
+  val customsOfficeOfTransitDeclared: String        = data.customsOfficeOfTransitDeclared.getOrElse("")
+  val customsOfficeOfExitForTransitDeclared: String = data.customsOfficeOfExitForTransitDeclared.getOrElse("")
+  val customsOfficeOfDeparture: String              = data.customsOfficeOfDeparture
+  val customsOfficeOfDestinationDeclared: String    = data.customsOfficeOfDestinationDeclared
+  val authorisation: String                         = data.authorisation.getOrElse("")
+  val activeBorderTransportMeans: String            = data.Consignment.activeBorderTransportMeans.getOrElse("")
+  val countryOfRoutingOfConsignment: String         = data.Consignment.countryOfRoutingOfConsignment.getOrElse("")
 
   val activeBorderTransportMeansConveyanceNumbers: String = data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse("")
 
@@ -98,6 +113,9 @@ case class IE029Data(data: DepartureMessageData) {
   val locationOfGoods: String = data.Consignment.LocationOfGoods.map(_.toString).getOrElse("")
 
   val locationOfGoodsContactPerson: String = data.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.toString)).getOrElse("")
+  val countryOfDispatch: String            = data.Consignment.countryOfDispatch.getOrElse("")
+  val countryOfDestination: String         = data.Consignment.countryOfDestination.getOrElse("")
+
 }
 
 object IE029Data {

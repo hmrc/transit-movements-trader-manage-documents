@@ -17,12 +17,9 @@
 package models.P5.unloading
 
 import base.SpecBase
-import generators.ModelGenerators
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import base.UnloadingData
 
-class IE043DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ModelGenerators with SpecBase {
+class IE043DataSpec extends SpecBase with UnloadingData {
 
   "IE043Data" - {
 

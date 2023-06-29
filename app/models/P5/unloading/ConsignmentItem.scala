@@ -41,7 +41,7 @@ case class ConsignmentItem(
   val consignee: String   = Consignee.map(_.toString).getOrElse("")
   val consigneeId: String = Consignee.flatMap(_.identificationNumber).getOrElse("")
 
-  val udng: String    = Commodity.DangerousGoods.getOrElse(Nil).map(_.UNNumber).mkString(", ")
+  val udng: String    = Commodity.DangerousGoods.getOrElse(Nil).map(_.toString).mkString(", ")
   val cusCode: String = Commodity.cusCode.getOrElse("")
 
   val previousDocuments: Seq[PreviousDocument]     = PreviousDocument.getOrElse(Nil)

@@ -44,17 +44,18 @@
                         <fo:table-cell display-align="center" margin-left="1mm">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@ie029Data.carrierIdentificationNumber</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row height="4mm">
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block>
                             </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block-container height="4mm" overflow="hidden">
-                                <fo:block>@ie029Data.carrierIdentificationNumber</fo:block>
-                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -77,6 +78,12 @@
                         <fo:table-cell display-align="center" margin-left="1mm">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@ie029Data.additionalSupplyChainActorIdentificationNumbers</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
@@ -87,11 +94,6 @@
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>@ie029Data.additionalSupplyChainActorIdentificationNumbers</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
                     </fo:table-row>
 
                     <!-- Departure transport means 8mm -->

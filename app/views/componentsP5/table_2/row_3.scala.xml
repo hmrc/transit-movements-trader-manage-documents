@@ -28,10 +28,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="14mm" overflow="hidden">
-                                <fo:block>asdfasdfads asdfasdfasdfas asdfasdfasdfasdfas asdfasdfasdfasdf
-                                    asdfasdfasdfasdfa asdfasdfasdfas asdfasdfasdfasd asdfasdfasdf asdfasdfasdf
-                                    asdfasdfasdf asdfasdfas asdfasdfas afsdf
-                                </fo:block>
+                                <fo:block>@(ie029Data.supportingDocument)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -73,10 +70,7 @@
                                                            border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block-container height="6mm" overflow="hidden">
                                                     <fo:block>
-                                                        vjghcjhgcjhgcghcjhgcjhgcjhgcjhgcjghcjghcghcjhgcjhcjhcjhgchgcjhgcjgcjgcjhgcgh
-                                                        jgchgjhgcjghcjh jgvjgvjgvjgh jvjhvjgcj jgfjfjg jgfjvfjv sdfg df
-                                                        sdfg sdfg sdfg sdfg sdfgs dfgsdfg sdfgs dfgsdfg sdfgs dfg sdfgs
-                                                        dfg
+                                                        @(ie029Data.additionalReference)
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
@@ -90,7 +84,7 @@
                                                            margin-left="0.5mm" border-left-style="solid" border-left-width="1pt"
                                                            border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
-                                                <fo:block>Transport charges [14 02]
+                                                <fo:block>Transport charges [14 02] @(ie029Data.transportCharges)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -99,7 +93,7 @@
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5mm">
                                                 <fo:block-container height="6mm" overflow="hidden">
-                                                    <fo:block>asdfasdfads</fo:block>
+                                                    <fo:block>@(ie029Data.additionalInformation)</fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
