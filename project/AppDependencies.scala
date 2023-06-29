@@ -1,16 +1,17 @@
 import play.core.PlayVersion.current
-import sbt._
+import sbt.*
 
 object AppDependencies {
 
   private val catsVersion = "2.8.0"
+  private val bootstrapVersion = "7.17.0"
 
   val compile: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc"             %% "bootstrap-backend-play-28"  % "7.15.0",
+    "uk.gov.hmrc"             %% "bootstrap-backend-play-28"  % bootstrapVersion,
     "com.dmanchester"         %% "playfop"                    % "1.0",
     "net.sf.barcode4j"        %  "barcode4j"                  % "2.1",
     "net.sf.barcode4j"        %  "barcode4j-fop-ext"          % "2.1",
-    "com.lucidchart"          %% "xtract"                     % "2.0.1"
+    "com.lucidchart"       %% "xtract"                         % "2.2.1"
   )
 
   val test: Seq[ModuleID] = Seq(
@@ -25,7 +26,9 @@ object AppDependencies {
     "com.ironcorelabs"        %% "cats-scalatest"           % "3.1.1" ,
     "org.apache.pdfbox"       %  "pdfbox"                   % "2.0.26",
     "org.jsoup"               %  "jsoup"                    % "1.15.3",
-    "com.vladsch.flexmark"    %  "flexmark-all"             % "0.62.2"
+    "com.vladsch.flexmark"    %  "flexmark-all"             % "0.62.2",
+    "uk.gov.hmrc"                %% "bootstrap-test-play-28"   % bootstrapVersion
+
   ).map(_ % "test")
 
   val overrides: Seq[ModuleID] = Seq(

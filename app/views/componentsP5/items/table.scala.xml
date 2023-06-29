@@ -1,0 +1,15 @@
+@(item: String)
+<fo:table width="100%" table-layout="fixed" >
+
+  <fo:table-column column-width="50%"/>
+  <fo:table-column column-width="50%"/>
+
+  <fo:table-body>
+    @row_1()
+    @row_2()
+    @row_3()
+    @row_4()
+    @row_5()
+    @row_6()
+  </fo:table-body>
+</fo:table>

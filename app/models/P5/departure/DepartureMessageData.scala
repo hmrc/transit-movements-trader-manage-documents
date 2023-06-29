@@ -17,15 +17,46 @@
 package models.P5.departure
 
 import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import play.api.libs.json.OWrites
+import play.api.libs.json.Reads
+import play.api.libs.json.Writes
 
 case class DepartureMessageData(
   TransitOperation: TransitOperation,
   HolderOfTheTransitProcedure: HolderOfTransitProcedure,
   Representative: Representative,
-  Consignment: Consignment
-)
+  Consignment: Consignment,
+  Guarantee: Option[List[Guarantee]],
+  Authorisation: Option[List[Authorisation]],
+  CustomsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
+  CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
+  CustomsOfficeOfDeparture: CustomsOfficeOfDeparture,
+  CustomsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared
+) {
+
+  val guarantee: Option[String] = Guarantee.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val authorisation: Option[String] = Authorisation.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val customsOfficeOfTransitDeclared: Option[String] = CustomsOfficeOfTransitDeclared.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val customsOfficeOfExitForTransitDeclared: Option[String] = CustomsOfficeOfExitForTransitDeclared.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val customsOfficeOfDeparture: String           = CustomsOfficeOfDeparture.toString
+  val customsOfficeOfDestinationDeclared: String = CustomsOfficeOfDestinationDeclared.toString
+
+}
 
 object DepartureMessageData {
-  implicit val formats: OFormat[DepartureMessageData] = Json.format[DepartureMessageData]
+  implicit val reads: Reads[DepartureMessageData]   = Json.reads[DepartureMessageData]
+  implicit val writes: Writes[DepartureMessageData] = Json.writes[DepartureMessageData]
+
 }

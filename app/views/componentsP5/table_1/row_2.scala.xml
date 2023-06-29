@@ -62,7 +62,7 @@
     <fo:block>
       @barcode(ie029Data.mrn)
     </fo:block>
-    <fo:block text-align="center">
+    <fo:block font-weight="bold" text-align="center">
       @ie029Data.mrn
     </fo:block>
   </fo:table-cell>
