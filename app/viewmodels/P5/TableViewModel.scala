@@ -51,23 +51,26 @@ case class TableViewModel(implicit ie029Data: IE029Data) {
 
 case class Table1ViewModel(implicit ie029Data: IE029Data) {
 
+  private val consignorContactPersonAtHouseOfConsignment: String =
+    ie029Data.data.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.ContactPerson.map(_.toString))).flatten.mkString("; ")
+
   val consignorContactPerson = ie029Data.data.Consignment.Consignor.flatMap(_.ContactPerson) match {
     case Some(value) => truncate(100, value.toString)
-    case None        => "TODO get multiple consignor"
+    case None        => truncate(100, consignorContactPersonAtHouseOfConsignment)
   }
 
-  val consignorAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignor.getOrElse("")).mkString(";")
+  private val consignorAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignor.getOrElse("")).mkString(";")
 
   val consignor = ie029Data.data.Consignment.Consignor match {
     case Some(value) => truncate(100, value.toString)
-    case None        => consignorAtHouseOfConsignment
+    case None        => truncate(100, consignorAtHouseOfConsignment)
   }
 
-  val consigneeeAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignee.getOrElse("")).mkString(";")
+  private val consigneeeAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignee.getOrElse("")).mkString(";")
 
   val consignee: String = ie029Data.data.Consignment.Consignee match {
     case Some(value) => truncate(100, value.toString)
-    case None        => consigneeeAtHouseOfConsignment
+    case None        => truncate(100, consigneeeAtHouseOfConsignment)
   }
   val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.declarationType)
   val additionalDeclarationType: String = truncate(10, ie029Data.data.TransitOperation.additionalDeclarationType)
