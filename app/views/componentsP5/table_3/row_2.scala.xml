@@ -1,16 +1,16 @@
 @import views.xml.componentsP5.table_1.consignee
         @import views.xml.componentsP5.table_1.total_gross_mass
 
-        @(ie029Data: models.P5.departure.IE029Data)
+        @(viewModel: viewmodels.P5.TableViewModel)
 
-<fo:table-row height="16%">
+<fo:table-row>
 
     <fo:table-cell number-columns-spanned="2">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
-                    <fo:table-row height="27.5%" > <!-- todo where is this extra .25% -->
-                        <fo:table-cell display-align="top" margin-left="2%" padding-bottom="138%" padding-top="5%">
+                    <fo:table-row>
+                        <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" display-align="top" margin-left="2%" padding-bottom="138%" padding-top="5%">
                             <fo:block font-weight="bold" font-size="5pt">CERTIFICATE BY COMPETENT AUTHORITIES</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -19,7 +19,8 @@
         </fo:block>
     </fo:table-cell>
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
 
@@ -27,44 +28,24 @@
                                border-right-width="1pt" border-right-color="black">
 
                     <fo:table-row>
-                        <fo:table-cell height="2%" display-align="top" number-columns-spanned="2" padding-left="1%" padding-bottom="3%">
-                            <fo:block>New seals numbers:  </fo:block>
+                        <fo:table-cell display-align="top" number-columns-spanned="2" padding-left="1%"
+                                       padding-bottom="2%">
+                            <fo:block>New seals numbers:</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell height="2%" margin-top="0.1%" display-align="center" number-columns-spanned="2" padding-left="1%" padding-bottom="5%">
-                            <fo:block>ID:  </fo:block>
+                        <fo:table-cell margin-top="0.1%" display-align="center" number-columns-spanned="2"
+                                       padding-left="1%" padding-bottom="4%">
+                            <fo:block>ID:</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
                                        border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
-                            <fo:block-container height="4%" overflow="hidden">
-                                <fo:block>
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <fo:table-row>
-                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="2" padding-left="1%" padding-top="10">
-                            <fo:block>Signature:  </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="2" padding-left="1%">
-                            <fo:block>Stamp:  </fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%" >
-                            <fo:block-container height="4%" overflow="hidden">
-                                <fo:block>
-                                </fo:block>
-                            </fo:block-container>
-                            <fo:block-container height="4%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
@@ -72,7 +53,32 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell height="7%" margin-top="0.5%" display-align="center" number-columns-spanned="2" padding-left="1%" padding-top="25%">
+                        <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="2"
+                                       padding-left="1%" padding-top="8">
+                            <fo:block>Signature:</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="2"
+                                       padding-left="1%">
+                            <fo:block>Stamp:</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="2"
+                                       padding-left="1%" padding-top="15%">
                             <fo:block>
                                 <fo:inline margin-top="0.5%" border-style="solid" border-width="1pt">
                                     &#160;
@@ -88,13 +94,13 @@
         </fo:block>
     </fo:table-cell>
 
-    <fo:table-cell >
+    <fo:table-cell>
         <fo:block>
             <fo:table width="123.5%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="55%"/>
                 <fo:table-column column-number="2" column-width="100%"/>
                 <fo:table-body>
-                    <fo:table-row height="16%">
+                    <fo:table-row>
                         <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
                                        border-left-color="black" border-right-style="solid" border-right-width="1pt"
                                        border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt"
@@ -104,17 +110,21 @@
                                     <fo:table-body>
 
                                         <fo:table-row>
-                                            <fo:table-cell display-align="top" height="2%" margin-top="0.1%"  number-columns-spanned="2" padding-left="1%" padding-bottom="5%">
-                                                <fo:block>New seals Numbers:  </fo:block>
+                                            <fo:table-cell display-align="top" margin-top="0.1%"
+                                                           number-columns-spanned="2" padding-left="1%"
+                                                           padding-bottom="2%">
+                                                <fo:block>New seals numbers:</fo:block>
                                             </fo:table-cell>
-                                            <fo:table-cell height="2%" margin-top="0.1%" display-align="center" number-columns-spanned="2" padding-left="1%" padding-bottom="15%">
-                                                <fo:block>ID:  </fo:block>
+                                            <fo:table-cell margin-top="0.1%" display-align="center"
+                                                           number-columns-spanned="2" padding-left="1%"
+                                                           padding-bottom="4%">
+                                                <fo:block>ID:</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
 
                                         <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%" >
-                                                <fo:block-container height="4%" overflow="hidden">
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
+                                                <fo:block-container overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
@@ -126,31 +136,36 @@
                                         </fo:table-row>
 
                                         <fo:table-row>
-                                            <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="2" padding-left="1%" padding-top="10">
-                                                <fo:block>Signature:  </fo:block>
+                                            <fo:table-cell margin-top="0.5%" display-align="center"
+                                                           number-columns-spanned="2" padding-left="1%" padding-top="8">
+                                                <fo:block>Signature:</fo:block>
                                             </fo:table-cell>
-                                            <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="2" padding-left="1%">
-                                                <fo:block>Stamp:  </fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-
-                                        <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%" >
-                                                <fo:block-container height="4%" overflow="hidden">
-                                                    <fo:block>
-                                                    </fo:block>
-                                                </fo:block-container>
-                                                <fo:block-container height="4%" overflow="hidden">
-                                                    <fo:block>
-                                                    </fo:block>
-                                                </fo:block-container>
+                                            <fo:table-cell margin-top="0.5%" display-align="center"
+                                                           number-columns-spanned="2" padding-left="1%">
+                                                <fo:block>Stamp:</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
 
                                         <fo:table-row>
-                                            <fo:table-cell height="7%" margin-top="0.5%" display-align="center" number-columns-spanned="2" padding-left="1%" padding-top="15%">
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
+                                                <fo:block-container overflow="hidden">
+                                                    <fo:block>
+                                                    </fo:block>
+                                                </fo:block-container>
+                                                <fo:block-container overflow="hidden">
+                                                    <fo:block>
+                                                    </fo:block>
+                                                </fo:block-container>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+
+                                        <fo:table-row>
+                                            <fo:table-cell margin-top="0.5%" display-align="center"
+                                                           number-columns-spanned="2" padding-left="1%"
+                                                           padding-top="15%" padding-bottom="2%">
                                                 <fo:block>
-                                                    <fo:inline margin-top="0.5%" border-style="solid" border-width="1pt">
+                                                    <fo:inline margin-top="0.5%" border-style="solid"
+                                                               border-width="1pt">
                                                         &#160;
                                                     </fo:inline>
                                                     Data already recorded into the system

@@ -3,7 +3,7 @@
 @import viewmodels.CustomsOfficeWithOptionalDate
 @import views.xml.components.customs_office
 @(guaranteeDetails: Seq[GuaranteeDetails] = Nil, destination: Option[CustomsOfficeWithOptionalDate] = None)
-<fo:table-cell>
+<fo:table-cell >
     <fo:block>
         <fo:list-block>
             <fo:list-item>
@@ -19,7 +19,7 @@
         </fo:list-block>
     </fo:block>
 </fo:table-cell>
-<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" >
     <fo:table width="100%" table-layout="fixed">
         <fo:table-column column-width="114.64mm"/>
         <fo:table-column column-width="8mm"/>

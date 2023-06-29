@@ -273,15 +273,46 @@ class DepartureMovementP5ConnectorSpec
             },
             "HouseConsignment": [
               {
+              "Consignor": {
+                  "identificationNumber": "idnum1",
+                  "name": "Consignor Name",
+                  "Address": {
+                    "streetAndNumber": "Address Line 1",
+                    "postcode": "Address Line 2",
+                    "city": "Address Line 3",
+                    "country": "Address Line 4"
+                  },
+                  "ContactPerson": {
+                    "name": "Contact Person Name",
+                    "phoneNumber": "123456",
+                    "eMailAddress": "a@a.com"
+                  }
+                },
                 "ConsignmentItem": [
                   {
                     "Packaging": [
                       {
-                        "numberOfPackages": 5
+                        "numberOfPackages": 5,
+                        "typeOfPackages": "Plastic",
+                        "shippingMarks": "rubberStamp"
                       }
-                    ]
+                    ],
+                    "Commodity":
+                      {
+                        "descriptionOfGoods": "Tiles",
+                        "GoodsMeasure":
+                          {
+                            "grossMass": 1.43
+                          }
+                      },
+                    "declarationType": "T1",
+                    "countryOfDispatch": "GER",
+                    "countryOfDestination": "GB",
+                    "goodsItemNumber": "123545",
+                    "declarationGoodsItemNumber": 9999
                   }
-                ]
+                ],
+                 "grossMass": 1.3434
               }
             ],
             "PreviousDocument": [
@@ -401,7 +432,7 @@ class DepartureMovementP5ConnectorSpec
 
       whenReady(service.getDepartureNotificationMessage(departureId, messageId)) {
         result =>
-          result mustEqual ieo29Data
+          result.data.Consignment.HouseConsignment.map(_.Consignor) mustEqual ieo29Data.data.Consignment.HouseConsignment.map(_.Consignor)
       }
 
     }

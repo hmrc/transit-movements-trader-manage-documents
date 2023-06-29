@@ -23,6 +23,8 @@ import models.P5.departure.AdditionalSupplyChainActor
 import models.P5.departure.Address
 import models.P5.departure.Authorisation
 import models.P5.departure.Carrier
+import models.P5.departure.Commodity
+import models.P5.departure.CommodityCode
 import models.P5.departure.Consignee
 import models.P5.departure.Consignment
 import models.P5.departure.ConsignmentItem
@@ -39,6 +41,7 @@ import models.P5.departure.DepartureTransportMeans
 import models.P5.departure.Document
 import models.P5.departure.EconomicOperator
 import models.P5.departure.GNSS
+import models.P5.departure.GoodsMeasure
 import models.P5.departure.GoodsReference
 import models.P5.departure.Guarantee
 import models.P5.departure.GuaranteeReference
@@ -88,21 +91,21 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val consignee = Consignee(Some("idnum1"), Some("Consignee Name"), Some(address), Some(contactPerson))
   val carrier   = Carrier("idnum1", Some(contactPerson))
 
-  val authorisation: Authorisation           = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
-  val customsOfficeOfTransitDeclared         = CustomsOfficeOfTransitDeclared(Some("seq001"), Some("ref001"), Some(LocalDateTime.MIN))
-  val customsOfficeOfExitForTransitDeclared  = CustomsOfficeOfExitForTransitDeclared(Some("seq001"), Some("ref001"))
-  val customsOfficeOfDeparture               = CustomsOfficeOfDeparture(Some("Ref001"))
-  val customsOfficeOfDestinationDeclared     = CustomsOfficeOfDestinationDeclared(Some("Ref001"))
-  val guaranteeReference: GuaranteeReference = GuaranteeReference(Some("SEQNum-1"), Some("GRN-1"), Some("Access-code-1"), Some(123456.1212), Some("GBP"))
-  val guarantee: Guarantee                   = Guarantee(Some("SEQNum-1"), Some("SomeGuaranteeType"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
-  val postcodeAddress                        = PostcodeAddress(Some("house1"), "BR", "UK")
-  val economicOperator                       = EconomicOperator("EconomicOperator-1")
-  val customsOffice                          = CustomsOffice("Reference1")
-  val gnss                                   = GNSS("1232", "1234")
-  val seal                                   = Seal(Some("1232"), Some("ID10012"))
-  val seals                                  = List(Seal(Some("1232"), Some("ID10012")), Seal(Some("456"), Some("ID10045")))
-  val goodsReference                         = GoodsReference(Some("1232"), Some(1234))
-  val goodsReferences                        = List(GoodsReference(Some("1234"), Some(1234)), GoodsReference(Some("4567"), Some(4567)))
+  val authorisation: Authorisation                                                 = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
+  val customsOfficeOfTransitDeclared                                               = CustomsOfficeOfTransitDeclared(Some("seq001"), Some("ref001"), Some(LocalDateTime.MIN))
+  val customsOfficeOfExitForTransitDeclared: CustomsOfficeOfExitForTransitDeclared = CustomsOfficeOfExitForTransitDeclared(Some("seq001"), Some("ref001"))
+  val customsOfficeOfDeparture                                                     = CustomsOfficeOfDeparture(Some("Ref001"))
+  val customsOfficeOfDestinationDeclared                                           = CustomsOfficeOfDestinationDeclared(Some("Ref001"))
+  val guaranteeReference: GuaranteeReference                                       = GuaranteeReference(Some("SEQNum-1"), Some("GRN-1"), Some("Access-code-1"), Some(123456.1212), Some("GBP"))
+  val guarantee: Guarantee                                                         = Guarantee(Some("SEQNum-1"), Some("SomeGuaranteeType"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
+  val postcodeAddress                                                              = PostcodeAddress(Some("house1"), "BR", "UK")
+  val economicOperator                                                             = EconomicOperator("EconomicOperator-1")
+  val customsOffice                                                                = CustomsOffice("Reference1")
+  val gnss                                                                         = GNSS("1232", "1234")
+  val seal                                                                         = Seal(Some("1232"), Some("ID10012"))
+  val seals                                                                        = List(Seal(Some("1232"), Some("ID10012")), Seal(Some("456"), Some("ID10045")))
+  val goodsReference                                                               = GoodsReference(Some("1232"), Some(1234))
+  val goodsReferences                                                              = List(GoodsReference(Some("1234"), Some(1234)), GoodsReference(Some("4567"), Some(4567)))
 
   val locationOfGoods = LocationOfGoods(
     "Warehouse",
@@ -125,13 +128,33 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val activeBorderTransportMeans    = ActiveBorderTransportMeans("GB0001", "T1", "ID001", "GB", Some("conveyReferenceNumber-1"))
   val placeOfLoading                = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
   val placeOfUnLoading              = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
-  val houseConsignment              = HouseConsignment(Seq(ConsignmentItem(Seq(Packaging(Some(5))))))
-  val previousDocument              = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
+  val previousDocument              = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"), None, None, None, None, None)
   val transportDocument             = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
   val supportingDocument            = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
   val additionalReference           = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
   val additionalInformation         = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
   val countryOfRoutingOfConsignment = CountryOfRoutingOfConsignment(Some("Seqnum12243"), Some("GB"))
+  val packaging                     = Packaging(Some(5), "Plastic", Some("rubberStamp"))
+  val commodityCode                 = CommodityCode("SHC1", Some("NOMC1"))
+  val goodsMeasure                  = GoodsMeasure(1.2, Some(1.4))
+  val transportCharges              = TransportCharges(Some("payPal"))
+  val commodity                     = Commodity("Tiles", Some(commodityCode), goodsMeasure, Some("Stamp1"), Some(previousDocument), Some("CUSTCODE1"))
+  val consignmentItem               = ConsignmentItem(Some("T1"), Some("GER"), Some("GB"), "123545", 9999, Seq(packaging), commodity, Some("ref1"), Some(transportCharges))
+
+  val houseConsignment = HouseConsignment(
+    Seq(consignmentItem),
+    Some(consignor),
+    Some(consignee),
+    Some(List(previousDocument)),
+    Some(List(transportDocument)),
+    Some(List(supportingDocument)),
+    Some(List(additionalInformation)),
+    Some(List(additionalReference)),
+    Some(transportCharges),
+    1.453,
+    Some("GER"),
+    Some("UCR")
+  )
 
   val consigmment: Consignment = Consignment(
     1.0,

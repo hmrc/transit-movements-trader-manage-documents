@@ -20,7 +20,6 @@ import models.P5.departure.TransportEquipment.sealToString
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-//case class Consignment(value: JsObject)
 case class Consignment(
   grossMass: Double,
   inlandModeOfTransport: Option[String],
