@@ -35,8 +35,8 @@ case class ConsignmentItemViewModel(implicit ie029Data: IE029Data) {
     case None        => "TODO get multiple consignor"
   }
 
-  val tup = declarationGoodsItemNumberString zip goodsItemNumberString zip packagings map {
-    case ((x, y), z) => (x, y, z)
+  val tup: Seq[(String, String, String, String)] = declarationGoodsItemNumberString zip goodsItemNumberString zip packagings zip Seq(consignor) map {
+    case (((x, y), z), w) => (x, y, z, w)
   }
 
   val consignee = ie029Data.data.Consignment.Consignee match {
