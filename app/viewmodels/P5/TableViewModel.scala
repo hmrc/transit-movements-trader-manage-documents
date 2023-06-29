@@ -19,6 +19,7 @@ package viewmodels.P5
 import models.P5.departure.Consignee
 import models.P5.departure.Consignor
 import models.P5.departure.IE029Data
+import viewmodels.P5.TableViewModel.houseConsignmentAppender
 import viewmodels.P5.TableViewModel.truncate
 
 object TableViewModel {
@@ -27,6 +28,15 @@ object TableViewModel {
     if (input.length > maxLength) {
       input.take(maxLength - 3) + "..."
     } else input
+
+  def houseConsignmentAppender(fieldAtConsignment: String, fieldAtHouseConsignment: String, appender: String = "; "): String =
+    if (fieldAtConsignment.isEmpty) {
+      fieldAtHouseConsignment
+    } else if (fieldAtHouseConsignment.isEmpty) {
+      fieldAtConsignment
+    } else {
+      s"$fieldAtConsignment$appender $fieldAtHouseConsignment"
+    }
 
 }
 
@@ -73,9 +83,13 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
     case Some(Consignor(Some(identificationNumber), _, _, _)) => truncate(20, identificationNumber)
     case None                                                 => "TODO get multiple consignor identification numbers"
   }
-  val totalItems: Int                                      = ie029Data.data.Consignment.totalItems
-  val totalPackages: Int                                   = ie029Data.data.Consignment.totalPackages
-  val totalGrossMass: Double                               = ie029Data.data.Consignment.grossMass
+  val totalItems: Int    = ie029Data.data.Consignment.totalItems
+  val totalPackages: Int = ie029Data.data.Consignment.totalPackages
+
+  private val totalGrossMassAtConsignment: String      = ie029Data.data.Consignment.grossMass.toString
+  private val totalGrossMassAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.grossMass.toString).mkString(", ")
+  val totalGrossMass: String                           = s"$totalGrossMassAtConsignment, $totalGrossMassAtHouseConsignment"
+
   val security: String                                     = truncate(20, ie029Data.data.TransitOperation.security)
   val holderOfTransitProcedure: String                     = truncate(150, ie029Data.data.HolderOfTheTransitProcedure.toString)
   val holderOfTransitProcedureIdentificationNumber: String = truncate(20, ie029Data.data.HolderOfTheTransitProcedure.identificationNumber.getOrElse(""))
@@ -114,15 +128,6 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
 }
 
 case class Table2ViewModel(implicit ie029Data: IE029Data) {
-
-  private def houseConsignmentAppender(documentAtConsignment: String, documentAtHouseConsignment: String): String =
-    if (documentAtConsignment.isEmpty) {
-      documentAtHouseConsignment
-    } else if (documentAtHouseConsignment.isEmpty) {
-      documentAtConsignment
-    } else {
-      s"$documentAtConsignment; $documentAtHouseConsignment"
-    }
 
   val transportEquipment: String = truncate(50, ie029Data.data.Consignment.transportEquipment.getOrElse(""))
   val seals: String              = truncate(50, ie029Data.data.Consignment.seals.getOrElse(""))
@@ -170,7 +175,13 @@ case class Table4ViewModel(implicit ie029Data: IE029Data) {
 
   val customsOfficeOfDestinationDeclared: String = truncate(10, ie029Data.data.customsOfficeOfDestinationDeclared)
 
-  val countryOfDispatch: String = truncate(10, ie029Data.data.Consignment.countryOfDispatch.getOrElse(""))
+  private val countryOfDispatchAtConsignment: String      = ie029Data.data.Consignment.countryOfDispatch.getOrElse("")
+  private val countryOfDispatchAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.countryOfDispatch.getOrElse("")).mkString(", ")
+  val countryOfDispatch: String                           = houseConsignmentAppender(countryOfDispatchAtConsignment, countryOfDispatchAtHouseConsignment, ", ")
+
+  private val referenceNumberUCRAtConsignment: String      = ie029Data.data.Consignment.referenceNumberUCR.getOrElse("")
+  private val referenceNumberUCRAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.referenceNumberUCR.getOrElse("")).mkString(", ")
+  val referenceNumberUCR: String                           = houseConsignmentAppender(referenceNumberUCRAtConsignment, referenceNumberUCRAtHouseConsignment)
 
   val countryOfDestination: String = truncate(10, ie029Data.data.Consignment.countryOfDestination.getOrElse(""))
 

@@ -28,7 +28,10 @@ case class HouseConsignment(
   SupportingDocument: Option[List[SupportingDocument]],
   AdditionalInformation: Option[List[AdditionalInformation]],
   AdditionalReference: Option[List[AdditionalReference]],
-  TransportCharges: Option[TransportCharges]
+  TransportCharges: Option[TransportCharges],
+  grossMass: Double,
+  countryOfDispatch: Option[String],
+  referenceNumberUCR: Option[String]
 ) {
 
   val totalPackages: Int = ConsignmentItem.foldLeft(0)(
