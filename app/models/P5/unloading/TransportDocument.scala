@@ -19,18 +19,12 @@ package models.P5.unloading
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TransportDocument(sequenceNumber: String, `type`: String, referenceNumber: String) {
+case class TransportDocument(`type`: String, referenceNumber: String) {
 
-  override def toString: String = {
-
-    val stringList: Seq[String] = List(
-      sequenceNumber,
-      `type`,
-      referenceNumber
-    )
-
-    stringList.mkString(", ")
-  }
+  override def toString: String = Seq(
+    `type`,
+    referenceNumber
+  ).mkString(", ")
 }
 
 object TransportDocument {

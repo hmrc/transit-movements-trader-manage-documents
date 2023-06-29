@@ -21,13 +21,7 @@ import play.api.libs.json.OFormat
 
 case class GoodsReference(sequenceNumber: String, declarationGoodsItemNumber: Int) {
 
-  override def toString: String = {
-    val stringList: Seq[String] = List(
-      sequenceNumber,
-      declarationGoodsItemNumber.toString
-    )
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = s"$sequenceNumber:$declarationGoodsItemNumber"
 }
 
 object GoodsReference {

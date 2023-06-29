@@ -21,13 +21,7 @@ import play.api.libs.json.OFormat
 
 case class Seal(sequenceNumber: String, identifier: String) {
 
-  override def toString: String = {
-    val stringList: Seq[String] = List(
-      sequenceNumber,
-      identifier
-    )
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = s"$sequenceNumber,[$identifier]"
 }
 
 object Seal {

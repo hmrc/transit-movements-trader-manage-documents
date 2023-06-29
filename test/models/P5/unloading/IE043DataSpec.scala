@@ -49,14 +49,14 @@ class IE043DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChe
       IE043Data(unloadingPermissionMessageData).consignorIdentificationNumber mustBe "idnum1"
       IE043Data(unloadingPermissionMessageData).holderOfTransit mustBe "Travis, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
       IE043Data(unloadingPermissionMessageData).holderOfTransitID mustBe "id"
-      IE043Data(unloadingPermissionMessageData).departureTransportMeans mustBe "seq1, type1, id1, NG"
-      IE043Data(unloadingPermissionMessageData).transportEquipment mustBe "te2, cin-2, 35, seq1:5"
-      IE043Data(unloadingPermissionMessageData).seals mustBe "seq1,[sealId]"
-      IE043Data(unloadingPermissionMessageData).previousDocument mustBe "pr1, 768, ref1, 55"
-      IE043Data(unloadingPermissionMessageData).supportingDocument mustBe "sp1, 764, ref2, 45"
-      IE043Data(unloadingPermissionMessageData).transportDocument mustBe "tp1, 767, ref3"
-      IE043Data(unloadingPermissionMessageData).additionalInformation mustBe "adInf1, 32, additional ref text"
-      IE043Data(unloadingPermissionMessageData).additionalReference mustBe "adRef1, 4, ref4"
+      IE043Data(unloadingPermissionMessageData).departureTransportMeans mustBe "type1, id1, NG"
+      IE043Data(unloadingPermissionMessageData).transportEquipment mustBe "cin-2, 35, seq1:5"
+      IE043Data(unloadingPermissionMessageData).seals mustBe "1,[seal1]...2,[seal2]"
+      IE043Data(unloadingPermissionMessageData).previousDocument mustBe "768, ref1, 55"
+      IE043Data(unloadingPermissionMessageData).supportingDocument mustBe "764, ref2, 45"
+      IE043Data(unloadingPermissionMessageData).transportDocument mustBe "767, ref3"
+      IE043Data(unloadingPermissionMessageData).additionalInformation mustBe "32, additional ref text"
+      IE043Data(unloadingPermissionMessageData).additionalReference mustBe "4, ref4"
     }
   }
 

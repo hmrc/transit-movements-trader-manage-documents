@@ -19,12 +19,13 @@ package models.P5.unloading
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class DepartureTransportMeans(sequenceNumber: String, typeOfIdentification: String, identificationNumber: String, nationality: String) {
+case class DepartureTransportMeans(typeOfIdentification: String, identificationNumber: String, nationality: String) {
 
-  override def toString: String = {
-    val stringList: Seq[String] = List(sequenceNumber, typeOfIdentification, identificationNumber, nationality)
-    stringList.mkString(", ")
-  }
+  override def toString: String = Seq(
+    typeOfIdentification,
+    identificationNumber,
+    nationality
+  ).mkString(", ")
 }
 
 object DepartureTransportMeans {

@@ -42,25 +42,25 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val consignor: Consignor = Consignor(Some("idnum1"), Some("Consignor Name"), Some(address))
   val consignee: Consignee = Consignee(Some("idnum2"), Some("Consignee Name"), Some(address))
 
-  val seals: List[Seal] = List(Seal("seq1", "sealId"))
+  val seals: List[Seal] = List(Seal("1", "seal1"), Seal("2", "seal2"))
 
   val goodsReference: List[GoodsReference] = List(GoodsReference("seq1", 5))
 
   val transportEquipment: List[TransportEquipment] =
-    List(TransportEquipment("te2", Some("cin-2"), 35, Some(seals), Some(goodsReference)))
+    List(TransportEquipment(Some("cin-2"), 35, Some(seals), Some(goodsReference)))
 
   val departureTransportMeans: List[DepartureTransportMeans] =
-    List(DepartureTransportMeans("seq1", "type1", "id1", "NG"))
+    List(DepartureTransportMeans("type1", "id1", "NG"))
 
-  val previousDocument: List[PreviousDocument] = List(PreviousDocument("pr1", "768", "ref1", Some("55")))
+  val previousDocument: List[PreviousDocument] = List(PreviousDocument("768", "ref1", None, Some("55")))
 
-  val supportingDocument: List[SupportingDocument] = List(SupportingDocument("sp1", "764", "ref2", Some("45")))
+  val supportingDocument: List[SupportingDocument] = List(SupportingDocument("764", "ref2", Some("45")))
 
-  val transportDocument: List[TransportDocument] = List(TransportDocument("tp1", "767", "ref3"))
+  val transportDocument: List[TransportDocument] = List(TransportDocument("767", "ref3"))
 
-  val additionalReference: List[AdditionalReference] = List(AdditionalReference("adRef1", "4", Some("ref4")))
+  val additionalReference: List[AdditionalReference] = List(AdditionalReference("4", Some("ref4")))
 
-  val additionalInformation: List[AdditionalInformation] = List(AdditionalInformation("adInf1", "32", Some("additional ref text")))
+  val additionalInformation: List[AdditionalInformation] = List(AdditionalInformation("32", Some("additional ref text")))
 
   val goodsMeasure: GoodsMeasure = GoodsMeasure(10.5, None)
   val commodity: Commodity       = Commodity("commodity desc", None, None, None, goodsMeasure)

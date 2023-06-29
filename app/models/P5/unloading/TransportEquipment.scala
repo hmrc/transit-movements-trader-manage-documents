@@ -16,57 +16,37 @@
 
 package models.P5.unloading
 
-import models.P5.unloading.TransportEquipment.goodsReferenceToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class TransportEquipment(
-  sequenceNumber: String,
   containerIdentificationNumber: Option[String],
   numberOfSeals: Int,
   Seal: Option[List[Seal]],
   GoodsReference: Option[List[GoodsReference]]
 ) {
 
-  override def toString: String = {
+  override def toString: String = Seq(
+    containerIdentificationNumber,
+    Some(numberOfSeals.toString),
+    Some(goodsReferences)
+  ).flatten.mkString(", ")
 
-    val stringList: Seq[Option[String]] = List(
-      Some(sequenceNumber),
-      containerIdentificationNumber,
-      Some(numberOfSeals.toString),
-      goodsReferenceToString(GoodsReference)
-    )
-    stringList.flatten.mkString(", ")
+  private def displayFirstAndLast[T](option: Option[List[T]]): String = {
+    val (headOption, lastOption) = option match {
+      case Some(head :: Nil)  => (Some(head), None)
+      case Some(head :: tail) => (Some(head), tail.lastOption)
+      case _                  => (None, None)
+    }
+    Seq(headOption, lastOption).flatten.map(_.toString).mkString("...")
   }
+
+  def seals: String = displayFirstAndLast(Seal)
+
+  def goodsReferences: String = displayFirstAndLast(GoodsReference)
 }
 
 object TransportEquipment {
-
-  def sealToString(Seal: Option[List[Seal]]): String = {
-
-    val sealString = Seal match {
-      case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber},[${firstElem.identifier}]")
-      case Some(firstElem :: tail) =>
-        Some(
-          s"${firstElem.sequenceNumber},[${firstElem.identifier}]...${tail.last.sequenceNumber},[${tail.last.identifier}]"
-        )
-      case _ => Some("")
-    }
-    sealString.getOrElse("")
-  }
-
-  private def goodsReferenceToString(GoodsReference: Option[List[GoodsReference]]): Option[String] = {
-
-    val goodsRefString = GoodsReference match {
-      case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber}:${firstElem.declarationGoodsItemNumber}")
-      case Some(firstElem :: tail) =>
-        Some(
-          s"${firstElem.sequenceNumber}:${firstElem.declarationGoodsItemNumber}...${tail.last.sequenceNumber}:${tail.last.declarationGoodsItemNumber}"
-        )
-      case _ => Some("")
-    }
-    goodsRefString
-  }
 
   implicit val formats: OFormat[TransportEquipment] = Json.format[TransportEquipment]
 }

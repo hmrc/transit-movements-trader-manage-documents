@@ -19,19 +19,19 @@ package models.P5.unloading
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class PreviousDocument(sequenceNumber: String, `type`: String, referenceNumber: String, complementOfInformation: Option[String]) {
+case class PreviousDocument(
+  `type`: String,
+  referenceNumber: String,
+  goodsItemNumber: Option[String],
+  complementOfInformation: Option[String]
+) {
 
-  override def toString: String = {
-
-    val stringList: Seq[Option[String]] = List(
-      Some(sequenceNumber),
-      Some(`type`),
-      Some(referenceNumber),
-      complementOfInformation
-    )
-
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = Seq(
+    Some(`type`),
+    Some(referenceNumber),
+    goodsItemNumber,
+    complementOfInformation
+  ).flatten.mkString(", ")
 }
 
 object PreviousDocument {

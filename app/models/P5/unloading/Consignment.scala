@@ -16,7 +16,6 @@
 
 package models.P5.unloading
 
-import models.P5.unloading.TransportEquipment.sealToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -54,9 +53,7 @@ case class Consignment(
   )
 
   val seals: Option[String] = TransportEquipment.map(
-    _.map(
-      x => sealToString(x.Seal)
-    ).mkString("; ")
+    _.map(_.seals).mkString("; ")
   )
 
   val previousDocument: Option[String] = PreviousDocument.map(
