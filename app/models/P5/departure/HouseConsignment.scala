@@ -34,9 +34,7 @@ case class HouseConsignment(
 
   val totalItems: Int = ConsignmentItem.length
 
-  val previousDocumentInHC: Option[String] = PreviousDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val previousDocumentInHC: Option[String] = PreviousDocument.map(_.map(_.toString)).map(_.mkString("; "))
 
   val supportingDocumentInHC: Option[String] = SupportingDocument.map(
     _.map(_.toString).mkString("; ")
