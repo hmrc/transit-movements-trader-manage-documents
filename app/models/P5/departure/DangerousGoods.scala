@@ -16,7 +16,8 @@
 
 package models.P5.departure
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
 case class DangerousGoods(sequenceNumber: String, UNNumber: Option[String]) {
 

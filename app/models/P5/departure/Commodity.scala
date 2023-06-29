@@ -24,7 +24,6 @@ case class Commodity(
   CommodityCode: Option[CommodityCode],
   GoodsMeasure: GoodsMeasure,
   shippingMarks: Option[String],
-  previousDocument: Option[PreviousDocument],
   cusCode: Option[String],
   dangerousGoods: DangerousGoods
 )
