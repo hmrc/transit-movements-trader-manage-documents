@@ -25,7 +25,10 @@ case class HouseConsignment(
   Consignee: Option[Consignee],
   PreviousDocument: Option[List[PreviousDocument]],
   TransportDocument: Option[List[TransportDocument]],
-  SupportingDocument: Option[List[SupportingDocument]]
+  SupportingDocument: Option[List[SupportingDocument]],
+  AdditionalInformation: Option[List[AdditionalInformation]],
+  AdditionalReference: Option[List[AdditionalReference]],
+  TransportCharges: Option[TransportCharges]
 ) {
 
   val totalPackages: Int = ConsignmentItem.foldLeft(0)(
@@ -39,6 +42,12 @@ case class HouseConsignment(
   val supportingDocumentInHC: Option[String] = SupportingDocument.map(_.map(_.toString).mkString("; "))
 
   val transportDocumentInHC: Option[String] = TransportDocument.map(_.map(_.toString).mkString("; "))
+
+  val additionalInformationInHC: Option[String] = AdditionalInformation.map(_.map(_.toString).mkString("; "))
+
+  val additionalReferenceInHC: Option[String] = AdditionalReference.map(_.map(_.toString).mkString("; "))
+
+  val transportChargesInHC: Option[String] = TransportCharges.map(_.toString)
 }
 
 object HouseConsignment {
