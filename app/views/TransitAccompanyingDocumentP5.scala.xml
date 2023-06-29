@@ -15,7 +15,7 @@
 @(viewModel: viewmodels.P5.TableViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8"), mrn = ie029Data.data.TransitOperation.MRN))
+    pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8"), mrn = viewModel.table1ViewModel.mrn))
 )
 
 @pageOneBody = {

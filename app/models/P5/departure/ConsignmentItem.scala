@@ -28,7 +28,12 @@ case class ConsignmentItem(
   Packaging: Seq[Packaging],
   Commodity: Commodity,
   referenceNumberUCR: Option[String],
-  TransportCharges: Option[TransportCharges]
+  TransportCharges: Option[TransportCharges],
+  previousDocument: Option[List[PreviousDocument]],
+  supportingDocument: Option[List[SupportingDocument]],
+  transportDocument: Option[List[TransportDocument]],
+  additionalReference: Option[List[AdditionalReference]],
+  additionalInformation: Option[List[AdditionalInformation]]
 ) {
 
   val totalPackages: Int = Packaging.foldLeft(0)(

@@ -15,12 +15,12 @@
                 <fo:table-body>
 
                     <fo:table-row height="4mm">
-                        <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
+                        <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm" padding-top="2mm"
                                        width="80mm">
                             <fo:block>CONTROL BY OFFICE OF DEPARTURE</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
+                        <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm" padding-top="2mm"
                                        border-left-style="solid" border-left-width="1pt"
                                        border-left-color="black"
                                        width="190px">

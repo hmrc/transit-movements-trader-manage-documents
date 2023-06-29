@@ -19,15 +19,15 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class CommodityCode(harmonizedSystemSubHeadingCode: String, combinedNomenclatureCode: Option[String]) {
+case class DangerousGoods(sequenceNumber: String, UNNumber: Option[String]) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(Some(harmonizedSystemSubHeadingCode), combinedNomenclatureCode)
+    val stringList: Seq[Option[String]] = List(Some(sequenceNumber), UNNumber)
     stringList.flatten.mkString(", ")
   }
 
 }
 
-object CommodityCode {
-  implicit val formats: OFormat[CommodityCode] = Json.format[CommodityCode]
+object DangerousGoods {
+  implicit val formats: OFormat[DangerousGoods] = Json.format[DangerousGoods]
 }
