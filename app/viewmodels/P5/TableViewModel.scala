@@ -119,7 +119,7 @@ case class Table2ViewModel(implicit ie029Data: IE029Data) {
   val seals: String              = truncate(50, ie029Data.data.Consignment.seals.getOrElse(""))
 
   val previousDocument: String = ie029Data.data.Consignment.Document.previousDocument
-    .getOrElse("") + ie029Data.data.Consignment.HouseConsignment.map(_.previousDocumentInHC)
+    .getOrElse("") + "; " + ie029Data.data.Consignment.HouseConsignment.map(_.previousDocumentInHC)
 
   val supportingDocument: String    = truncate(50, ie029Data.data.Consignment.Document.supportingDocument.getOrElse(""))
   val transportDocument: String     = truncate(50, ie029Data.data.Consignment.Document.transportDocument.getOrElse(""))
