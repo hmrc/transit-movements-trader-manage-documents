@@ -16,10 +16,7 @@
 
 package viewmodels.P5
 
-import models.P5.departure.Commodity
-import models.P5.departure.CommodityCode
-import models.P5.departure.IE029Data
-import models.P5.departure.Packaging
+import models.P5.departure.{Commodity, CommodityCode, ConsignmentItem, IE029Data, Packaging}
 
 case class ConsignmentItemViewModel(implicit ie029Data: IE029Data) {
 
@@ -35,9 +32,7 @@ case class ConsignmentItemViewModel(implicit ie029Data: IE029Data) {
     case None        => "TODO get multiple consignor"
   }
 
-  val tup: Seq[(String, String, String, String)] = declarationGoodsItemNumberString zip goodsItemNumberString zip packagings zip Seq(consignor) map {
-    case (((x, y), z), w) => (x, y, z, w)
-  }
+  val consignmentItems: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
 
   val consignee = ie029Data.data.Consignment.Consignee match {
     case Some(value) => value.toString

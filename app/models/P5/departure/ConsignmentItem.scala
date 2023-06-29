@@ -39,6 +39,67 @@ case class ConsignmentItem(
   val totalPackages: Int = Packaging.foldLeft(0)(
     (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
   )
+
+
+
+
+  val packagings = Packaging.map(_.toString).mkString("; ")
+
+  val consignor = ie029Data.data.Consignment.Consignor match {
+    case Some(value) => value.toString
+    case None => "TODO get multiple consignor"
+  }
+
+  val consignmentItems: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
+
+  val consignee = ie029Data.data.Consignment.Consignee match {
+    case Some(value) => value.toString
+    case None => "TODO get multiple consignor"
+  }
+
+  val referenceNumberUcr = ie029Data.data.Consignment.referenceNumberUCR.getOrElse("")
+
+  val transportCharges = ie029Data.data.Consignment.TransportCharges match {
+    case Some(value) => value.toString
+    case None => "TODO get multiple consignor"
+  }
+
+  val countryOfDispatch: String = ie029Data.data.Consignment.countryOfDispatch.getOrElse("")
+
+  val countryOfDestination: String = ie029Data.data.Consignment.countryOfDestination.getOrElse("")
+
+  val declarationType: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.declarationType))
+
+  val additionalSupplyChainActor = ie029Data.data.Consignment.additionalSupplyChainActorsRole.getOrElse("")
+
+  val commodityCode: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.CommodityCode.toString))
+
+  val departureTransportMeans: String = ie029Data.data.Consignment.departureTransportMeans.getOrElse("")
+
+  val dangerousGoods: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.dangerousGoods.toString))
+
+  val cusCode: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.cusCode.toString))
+
+  val descriptionOfGoods: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.descriptionOfGoods))
+
+  val previousDocument: Seq[String] =
+    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.previousDocument.map(_.toString())))
+
+  val supportingDocument: Seq[String] =
+    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.supportingDocument.map(_.toString())))
+
+  val transportDocument: Seq[String] =
+    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.transportDocument.map(_.toString())))
+
+  val additionalReference: Seq[String] =
+    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.additionalReference.map(_.toString())))
+
+  val additionalInformation: Seq[String] =
+    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.additionalInformation.map(_.toString())))
+
+  val grossMass: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.GoodsMeasure.grossMass.toString))
+
+  val netMass: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.GoodsMeasure.netMass.toString))
 }
 
 object ConsignmentItem {
