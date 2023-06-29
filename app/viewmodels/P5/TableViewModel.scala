@@ -29,7 +29,7 @@ object TableViewModel {
       input.take(maxLength - 3) + "..."
     } else input
 
-  def houseConsignmentAppender(fieldAtConsignment: String, fieldAtHouseConsignment: String, appender: String = "; "): String =
+  def houseConsignmentAppender(fieldAtConsignment: String, fieldAtHouseConsignment: String, appender: String = ";"): String =
     if (fieldAtConsignment.isEmpty) {
       fieldAtHouseConsignment
     } else if (fieldAtHouseConsignment.isEmpty) {
@@ -86,9 +86,7 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
   val totalItems: Int    = ie029Data.data.Consignment.totalItems
   val totalPackages: Int = ie029Data.data.Consignment.totalPackages
 
-  private val totalGrossMassAtConsignment: String      = ie029Data.data.Consignment.grossMass.toString
-  private val totalGrossMassAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.grossMass.toString).mkString(", ")
-  val totalGrossMass: String                           = s"$totalGrossMassAtConsignment, $totalGrossMassAtHouseConsignment"
+  val totalGrossMass = ie029Data.data.Consignment.grossMass
 
   val security: String                                     = truncate(20, ie029Data.data.TransitOperation.security)
   val holderOfTransitProcedure: String                     = truncate(150, ie029Data.data.HolderOfTheTransitProcedure.toString)
@@ -134,27 +132,27 @@ case class Table2ViewModel(implicit ie029Data: IE029Data) {
 
   private val previousDocumentAtConsignment: String      = ie029Data.data.Consignment.Document.previousDocument.getOrElse("")
   private val previousDocumentAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.previousDocumentInHC).mkString("")
-  val previousDocument: String                           = houseConsignmentAppender(previousDocumentAtConsignment, previousDocumentAtHouseConsignment)
+  val previousDocument: String                           = truncate(100, houseConsignmentAppender(previousDocumentAtConsignment, previousDocumentAtHouseConsignment))
 
   private val supportingDocumentAtConsignment: String      = ie029Data.data.Consignment.Document.supportingDocument.getOrElse("")
   private val supportingDocumentAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.supportingDocumentInHC).mkString("")
-  val supportingDocument: String                           = houseConsignmentAppender(supportingDocumentAtConsignment, supportingDocumentAtHouseConsignment)
+  val supportingDocument: String                           = truncate(100, houseConsignmentAppender(supportingDocumentAtConsignment, supportingDocumentAtHouseConsignment))
 
   private val transportDocumentAtConsignment      = ie029Data.data.Consignment.Document.transportDocument.getOrElse("")
   private val transportDocumentAtHouseConsignment = ie029Data.data.Consignment.HouseConsignment.flatMap(_.transportDocumentInHC).mkString("")
-  val transportDocument: String                   = houseConsignmentAppender(transportDocumentAtConsignment, transportDocumentAtHouseConsignment)
+  val transportDocument: String                   = truncate(100, houseConsignmentAppender(transportDocumentAtConsignment, transportDocumentAtHouseConsignment))
 
   private val additionalInformationAtConsignment: String      = ie029Data.data.Consignment.additionalInformation.getOrElse("")
   private val additionalInformationAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.additionalInformationInHC).mkString("")
-  val additionalInformation: String                           = houseConsignmentAppender(additionalInformationAtConsignment, additionalInformationAtHouseConsignment)
+  val additionalInformation: String                           = truncate(100, houseConsignmentAppender(additionalInformationAtConsignment, additionalInformationAtHouseConsignment))
 
   private val additionalReferenceAtConsignment: String      = ie029Data.data.Consignment.additionalReference.getOrElse("")
   private val additionalReferenceAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.additionalReferenceInHC).mkString("")
-  val additionalReference: String                           = houseConsignmentAppender(additionalReferenceAtConsignment, additionalReferenceAtHouseConsignment)
+  val additionalReference: String                           = truncate(100, houseConsignmentAppender(additionalReferenceAtConsignment, additionalReferenceAtHouseConsignment))
 
   private val transportChargesAtConsignment: String      = ie029Data.data.Consignment.transportCharges.getOrElse("")
   private val transportChargesAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.transportChargesInHC).mkString("")
-  val transportCharges: String                           = houseConsignmentAppender(transportChargesAtConsignment, transportChargesAtHouseConsignment)
+  val transportCharges: String                           = truncate(20, houseConsignmentAppender(transportChargesAtConsignment, transportChargesAtHouseConsignment))
 
   val guarantee: String     = truncate(100, ie029Data.data.guarantee.getOrElse(""))
   val authorisation: String = truncate(100, ie029Data.data.authorisation.getOrElse(""))
@@ -175,13 +173,11 @@ case class Table4ViewModel(implicit ie029Data: IE029Data) {
 
   val customsOfficeOfDestinationDeclared: String = truncate(10, ie029Data.data.customsOfficeOfDestinationDeclared)
 
-  private val countryOfDispatchAtConsignment: String      = ie029Data.data.Consignment.countryOfDispatch.getOrElse("")
-  private val countryOfDispatchAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.countryOfDispatch.getOrElse("")).mkString(", ")
-  val countryOfDispatch: String                           = houseConsignmentAppender(countryOfDispatchAtConsignment, countryOfDispatchAtHouseConsignment, ", ")
+  val countryOfDispatch: String = truncate(10, ie029Data.data.Consignment.countryOfDispatch.getOrElse(""))
 
   private val referenceNumberUCRAtConsignment: String      = ie029Data.data.Consignment.referenceNumberUCR.getOrElse("")
-  private val referenceNumberUCRAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.referenceNumberUCR.getOrElse("")).mkString(", ")
-  val referenceNumberUCR: String                           = houseConsignmentAppender(referenceNumberUCRAtConsignment, referenceNumberUCRAtHouseConsignment)
+  private val referenceNumberUCRAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.referenceNumberUCR.getOrElse("")).mkString(",")
+  val referenceNumberUCR: String                           = truncate(20, houseConsignmentAppender(referenceNumberUCRAtConsignment, referenceNumberUCRAtHouseConsignment))
 
   val countryOfDestination: String = truncate(10, ie029Data.data.Consignment.countryOfDestination.getOrElse(""))
 
