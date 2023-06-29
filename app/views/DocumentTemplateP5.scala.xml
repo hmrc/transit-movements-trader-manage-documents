@@ -1,7 +1,7 @@
-@import views.xml.components.layout_master_set
+@import views.xml.componentsP5._
 
 @this(
-    layoutMasterSet: layout_master_set
+    layoutMasterSet: layout_master_set_TAD_P5
 )
 
 @(

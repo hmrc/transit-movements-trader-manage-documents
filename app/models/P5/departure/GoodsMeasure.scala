@@ -19,23 +19,8 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class ConsignmentItem(
-  declarationType: Option[String],
-  countryOfDispatch: Option[String],
-  countryOfDestination: Option[String],
-  goodsItemNumber: String,
-  declarationGoodsItemNumber: Int,
-  Packaging: Seq[Packaging],
-  Commodity: Commodity,
-  referenceNumberUCR: Option[String],
-  TransportCharges: Option[TransportCharges]
-) {
+case class GoodsMeasure(grossMass: Double, netMass: Option[Double])
 
-  val totalPackages: Int = Packaging.foldLeft(0)(
-    (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
-  )
-}
-
-object ConsignmentItem {
-  implicit val formats: OFormat[ConsignmentItem] = Json.format[ConsignmentItem]
+object GoodsMeasure {
+  implicit val formats: OFormat[GoodsMeasure] = Json.format[GoodsMeasure]
 }
