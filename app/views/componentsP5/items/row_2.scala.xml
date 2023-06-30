@@ -20,7 +20,7 @@
                         </fo:table-cell>
 
                         <fo:table-cell display-align="center" margin-left="1mm">
-                            <fo:block>ID</fo:block>
+                            <fo:block>@item.consignorId</fo:block>
                         </fo:table-cell>
 
                     </fo:table-row>
@@ -28,7 +28,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Consignor 1</fo:block>
+                                <fo:block>@item.consignor</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
@@ -59,7 +59,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>prev doc 1 1</fo:block>
+                                <fo:block>@item.previousDocumentString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -73,7 +73,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Supporting document 1</fo:block>
+                                <fo:block>@item.supportingDocumentString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

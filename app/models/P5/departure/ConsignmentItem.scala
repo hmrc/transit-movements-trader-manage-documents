@@ -62,12 +62,18 @@ case class ConsignmentItem(
   val additionalReferenceString: String   = additionalReference.map(_.map(_.toString).mkString("; ")).getOrElse("")
   val additionalInformationString: String = additionalInformation.map(_.map(_.toString).mkString("; ")).getOrElse("")
 
-  val grossMass: String = Commodity.GoodsMeasure.grossMass.toString
-  val netMass: String   = Commodity.GoodsMeasure.netMass.toString
+  val grossMass: String          = Commodity.GoodsMeasure.grossMass.toString
+  val netMass: String            = Commodity.GoodsMeasure.netMass.getOrElse("").toString
+  val consignorId: String        = Consignor.flatMap(_.identificationNumber).getOrElse("")
+  val consigneeId: String        = Consignee.flatMap(_.identificationNumber).getOrElse("")
+  val supplyChainActorId: String = AdditionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
 
   val totalPackages: Int = Packaging.foldLeft(0)(
     (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
   )
+
+  val packagesType = Packaging.map(_.toString).mkString("; ")
+
 }
 
 object ConsignmentItem {

@@ -38,13 +38,13 @@
 
             <fo:table-cell margin-left="0.5mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black">
               <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>Goods it</fo:block>
+                <fo:block>@item.goodsItemNumberString</fo:block>
               </fo:block-container>
             </fo:table-cell>
 
             <fo:table-cell margin-left="0.5mm">
               <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>type of packages, shipping marks etc</fo:block>
+                <fo:block>@item.packagesType</fo:block>
               </fo:block-container>
             </fo:table-cell>
           </fo:table-row>
@@ -69,7 +69,7 @@
           <fo:table-row>
             <fo:table-cell margin-left="0.5mm">
               <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>Desc of goods 1</fo:block>
+                <fo:block>@item.descriptionOfGoods</fo:block>
               </fo:block-container>
             </fo:table-cell>
           </fo:table-row>
