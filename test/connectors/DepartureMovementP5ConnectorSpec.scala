@@ -288,8 +288,8 @@ class DepartureMovementP5ConnectorSpec
                     "eMailAddress": "a@a.com"
                   }
               },
-                "ConsignmentItem": [
-                {
+              "ConsignmentItem": [
+              {
                 "AdditionalSupplyChainActor": [
                       {
                         "role": "Actor-Role",
@@ -361,7 +361,45 @@ class DepartureMovementP5ConnectorSpec
                     "declarationGoodsItemNumber": 9999
                   }
                 ],
-                 "grossMass": 1.3434
+                 "grossMass": 1.3434,
+                 "PreviousDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1",
+                        "complementOfInformation": "C1"
+                      }
+                    ],
+                    "TransportDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1"
+                      }
+                    ],
+                    "SupportingDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1",
+                        "documentLineItemNumber": 5,
+                        "complementOfInformation": "C1"
+                      }
+                    ],
+                    "AdditionalInformation": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "code": "Type-1",
+                        "text": "Reference-1"
+                      }
+                    ],
+                    "AdditionalReference": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1"
+                      }
+                    ]
               }
             ],
             "PreviousDocument": [
@@ -483,7 +521,6 @@ class DepartureMovementP5ConnectorSpec
         result =>
           result.data.Consignment.HouseConsignment.map(_.Consignor) mustEqual ieo29Data.data.Consignment.HouseConsignment.map(_.Consignor)
       }
-
     }
   }
 }
