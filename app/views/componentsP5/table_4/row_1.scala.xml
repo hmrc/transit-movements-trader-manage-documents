@@ -39,7 +39,7 @@
                             <fo:block>@(viewModel.countryOfRoutingOfConsignment)</fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-bottom="0.5%" margin-top="0.5%" display-align="right"
-                                       margin-left="1.5%" border-bottom-style="solid" border-bottom-width="1pt"
+                                       margin-left="0.5%" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-bottom-color="black">
                             <fo:block margin-left="0.5%" padding-top="0.5%" border-left-style="solid"
                                       border-left-width="1pt"
@@ -78,7 +78,7 @@
                                     <fo:table-body>
                                         <fo:table-row height="14%"
                                                       padding-top="2%">
-                                            <fo:table-cell display-align="top" margin-left="17%">
+                                            <fo:table-cell display-align="top" margin-left="15%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT[17 06]
                                                 </fo:block>
                                                 <fo:block font-size="5pt">
@@ -117,7 +117,7 @@
                                         <fo:table-row height="14%" border-top-style="solid" border-top-width="1pt"
                                                       border-top-color="black"
                                                       padding-top="2%">
-                                            <fo:table-cell display-align="top" margin-left="17%">
+                                            <fo:table-cell display-align="top" margin-left="15%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]
                                                 </fo:block>
                                                 <fo:block font-size="5pt">
