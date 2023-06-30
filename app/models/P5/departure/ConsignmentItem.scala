@@ -23,6 +23,8 @@ case class ConsignmentItem(
   declarationType: Option[String],
   countryOfDispatch: Option[String],
   countryOfDestination: Option[String],
+  Consignor: Option[Consignor],
+  Consignee: Option[Consignee],
   goodsItemNumber: String,
   declarationGoodsItemNumber: Int,
   Packaging: Seq[Packaging],
@@ -33,73 +35,39 @@ case class ConsignmentItem(
   supportingDocument: Option[List[SupportingDocument]],
   transportDocument: Option[List[TransportDocument]],
   additionalReference: Option[List[AdditionalReference]],
-  additionalInformation: Option[List[AdditionalInformation]]
+  additionalInformation: Option[List[AdditionalInformation]],
+  AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
+  DepartureTransportMeans: Option[List[DepartureTransportMeans]]
 ) {
+  val declarationTypeString: String            = declarationType.getOrElse("")
+  val countryOfDispatchString: String          = countryOfDispatch.getOrElse("")
+  val countryOfDestinationString: String       = countryOfDestination.getOrElse("")
+  val consignor: String                        = Consignor.map(_.toString).getOrElse("")
+  val consignee: String                        = Consignee.map(_.toString).getOrElse("")
+  val goodsItemNumberString: String            = goodsItemNumber
+  val declarationGoodsItemNumberString: String = declarationGoodsItemNumber.toString
+  val packaging: String                        = Packaging.map(_.toString).mkString("; ")
+  val referenceNumberUCRString: String         = referenceNumberUCR.getOrElse("")
+
+  val transportCharges: String            = TransportCharges.map(_.toString).getOrElse("")
+  val additionalSupplyChainActor: String = AdditionalSupplyChainActor.flatMap(_.map(_.toString)).mkString("; ")
+  val commodityCode: String               = Commodity.CommodityCode.map(_.toString).getOrElse("")
+  val departureTransportMeans: String     = DepartureTransportMeans.flatMap(_.map(_.toString)).mkString("; ")
+  val dangerousGoods: String              = Commodity.dangerousGoods.toString
+  val cusCode: String                     = Commodity.cusCode.getOrElse("")
+  val descriptionOfGoods: String          = Commodity.descriptionOfGoods
+  val previousDocumentString: String      = previousDocument.flatMap(_.map(_.toString)).mkString("; ")
+  val supportingDocumentString: String    = supportingDocument.flatMap(_.map(_.toString)).mkString("; ")
+  val transportDocumentString: String     = transportDocument.flatMap(_.map(_.toString)).mkString("; ")
+  val additionalReferenceString: String   = additionalReference.flatMap(_.map(_.toString)).mkString("; ")
+  val additionalInformationString: String = additionalInformation.flatMap(_.map(_.toString)).mkString("; ")
+
+  val grossMass: String = Commodity.GoodsMeasure.grossMass.toString
+  val netMass: String   = Commodity.GoodsMeasure.netMass.toString
 
   val totalPackages: Int = Packaging.foldLeft(0)(
     (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
   )
-
-
-
-
-  val packagings = Packaging.map(_.toString).mkString("; ")
-
-  val consignor = ie029Data.data.Consignment.Consignor match {
-    case Some(value) => value.toString
-    case None => "TODO get multiple consignor"
-  }
-
-  val consignmentItems: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
-
-  val consignee = ie029Data.data.Consignment.Consignee match {
-    case Some(value) => value.toString
-    case None => "TODO get multiple consignor"
-  }
-
-  val referenceNumberUcr = ie029Data.data.Consignment.referenceNumberUCR.getOrElse("")
-
-  val transportCharges = ie029Data.data.Consignment.TransportCharges match {
-    case Some(value) => value.toString
-    case None => "TODO get multiple consignor"
-  }
-
-  val countryOfDispatch: String = ie029Data.data.Consignment.countryOfDispatch.getOrElse("")
-
-  val countryOfDestination: String = ie029Data.data.Consignment.countryOfDestination.getOrElse("")
-
-  val declarationType: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.declarationType))
-
-  val additionalSupplyChainActor = ie029Data.data.Consignment.additionalSupplyChainActorsRole.getOrElse("")
-
-  val commodityCode: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.CommodityCode.toString))
-
-  val departureTransportMeans: String = ie029Data.data.Consignment.departureTransportMeans.getOrElse("")
-
-  val dangerousGoods: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.dangerousGoods.toString))
-
-  val cusCode: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.cusCode.toString))
-
-  val descriptionOfGoods: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.descriptionOfGoods))
-
-  val previousDocument: Seq[String] =
-    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.previousDocument.map(_.toString())))
-
-  val supportingDocument: Seq[String] =
-    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.supportingDocument.map(_.toString())))
-
-  val transportDocument: Seq[String] =
-    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.transportDocument.map(_.toString())))
-
-  val additionalReference: Seq[String] =
-    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.additionalReference.map(_.toString())))
-
-  val additionalInformation: Seq[String] =
-    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.additionalInformation.map(_.toString())))
-
-  val grossMass: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.GoodsMeasure.grossMass.toString))
-
-  val netMass: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Commodity.GoodsMeasure.netMass.toString))
 }
 
 object ConsignmentItem {

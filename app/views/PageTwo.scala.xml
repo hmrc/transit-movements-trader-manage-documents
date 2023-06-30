@@ -1,8 +1,9 @@
 @import views.xml.componentsP5.items._
+@import models.P5.departure.ConsignmentItem
 
         @this()
 
-        @(items: Seq[String], mrn: String)
+        @(items: Seq[ConsignmentItem], mrn: String)
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
     <fo:static-content flow-name="xsl-region-before">
         @header(mrn)

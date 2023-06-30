@@ -1,5 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
 
+        @(item: models.P5.departure.ConsignmentItem)
 <fo:table-row height="8mm">
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
