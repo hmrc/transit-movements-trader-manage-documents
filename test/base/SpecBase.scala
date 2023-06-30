@@ -36,6 +36,7 @@ import models.P5.departure.CustomsOfficeOfDeparture
 import models.P5.departure.CustomsOfficeOfDestinationDeclared
 import models.P5.departure.CustomsOfficeOfExitForTransitDeclared
 import models.P5.departure.CustomsOfficeOfTransitDeclared
+import models.P5.departure.DangerousGoods
 import models.P5.departure.DepartureMessageData
 import models.P5.departure.DepartureTransportMeans
 import models.P5.departure.Document
@@ -138,8 +139,29 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val commodityCode                 = CommodityCode("SHC1", Some("NOMC1"))
   val goodsMeasure                  = GoodsMeasure(1.2, Some(1.4))
   val transportCharges              = TransportCharges(Some("payPal"))
-  val commodity                     = Commodity("Tiles", Some(commodityCode), goodsMeasure, Some("Stamp1"), Some(previousDocument), Some("CUSTCODE1"))
-  val consignmentItem               = ConsignmentItem(Some("T1"), Some("GER"), Some("GB"), "123545", 9999, Seq(packaging), commodity, Some("ref1"), Some(transportCharges))
+  val dangerousGoods                = DangerousGoods("seq1", Some("UNNumber1"))
+  val commodity                     = Commodity("Tiles", Some(commodityCode), goodsMeasure, Some("shippingMark1"), Some("CUSTCODE1"), List(dangerousGoods))
+
+  val consignmentItem = ConsignmentItem(
+    Some("T1"),
+    Some("GER"),
+    Some("GB"),
+    Some(consignor),
+    Some(consignee),
+    "123545",
+    9999,
+    Seq(packaging),
+    commodity,
+    Some("ref1"),
+    Some(transportCharges),
+    Some(List(previousDocument)),
+    Some(List(supportingDocument)),
+    Some(List(transportDocument)),
+    Some(List(additionalReference)),
+    Some(List(additionalInformation)),
+    Some(List(additionalSupplyChainActor)),
+    Some(List(departureTransportMeans))
+  )
 
   val houseConsignment = HouseConsignment(
     Seq(consignmentItem),
