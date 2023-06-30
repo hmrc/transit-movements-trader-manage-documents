@@ -28,10 +28,10 @@
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
 
-                                    <fo:table-column column-width="31.3%"/>
-                                    <fo:table-column column-width="47%"/>
-                                    <fo:table-column column-width="47%"/>
-                                    <fo:table-column column-width="47%"/>
+                                    <fo:table-column column-width="29.25%"/>
+                                    <fo:table-column column-width="47.65%"/>
+                                    <fo:table-column column-width="47.65%"/>
+                                    <fo:table-column column-width="47.65%"/>
 
                                     <fo:table-body>
                                         <fo:table-row height="8%">

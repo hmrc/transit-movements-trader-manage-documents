@@ -12,14 +12,14 @@
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row number-columns-spanned="2" >
-          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center" padding-bottom="28.5%">
-            <fo:block>
+          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center" padding-bottom="22.5%">
+            <fo:block padding-top="15%">
               1
             </fo:block>
           </fo:table-cell>
-          <fo:table-cell text-align="center" display-align="center" padding-bottom="28.5%">
-            <fo:block>
-              <fo:page-number-citation-last ref-id="tloi-pages"/>
+          <fo:table-cell text-align="center" display-align="center" padding-bottom="22.5%">
+            <fo:block padding-top="15%">
+             3
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
