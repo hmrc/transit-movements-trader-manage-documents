@@ -50,17 +50,17 @@ case class ConsignmentItem(
   val referenceNumberUCRString: String         = referenceNumberUCR.getOrElse("")
 
   val transportCharges: String            = TransportCharges.map(_.toString).getOrElse("")
-  val additionalSupplyChainActor: String = AdditionalSupplyChainActor.flatMap(_.map(_.toString)).mkString("; ")
+  val additionalSupplyChainActor: String  = AdditionalSupplyChainActor.map(_.map(_.toString).mkString("; ")).getOrElse("")
   val commodityCode: String               = Commodity.CommodityCode.map(_.toString).getOrElse("")
-  val departureTransportMeans: String     = DepartureTransportMeans.flatMap(_.map(_.toString)).mkString("; ")
+  val departureTransportMeans: String     = DepartureTransportMeans.map(_.map(_.toString).mkString("; ")).getOrElse("")
   val dangerousGoods: String              = Commodity.dangerousGoods.toString
   val cusCode: String                     = Commodity.cusCode.getOrElse("")
   val descriptionOfGoods: String          = Commodity.descriptionOfGoods
-  val previousDocumentString: String      = previousDocument.flatMap(_.map(_.toString)).mkString("; ")
-  val supportingDocumentString: String    = supportingDocument.flatMap(_.map(_.toString)).mkString("; ")
-  val transportDocumentString: String     = transportDocument.flatMap(_.map(_.toString)).mkString("; ")
-  val additionalReferenceString: String   = additionalReference.flatMap(_.map(_.toString)).mkString("; ")
-  val additionalInformationString: String = additionalInformation.flatMap(_.map(_.toString)).mkString("; ")
+  val previousDocumentString: String      = previousDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val supportingDocumentString: String    = supportingDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val transportDocumentString: String     = transportDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val additionalReferenceString: String   = additionalReference.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val additionalInformationString: String = additionalInformation.map(_.map(_.toString).mkString("; ")).getOrElse("")
 
   val grossMass: String = Commodity.GoodsMeasure.grossMass.toString
   val netMass: String   = Commodity.GoodsMeasure.netMass.toString
