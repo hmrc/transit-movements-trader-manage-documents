@@ -142,14 +142,14 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
   val dangerousGoods                = DangerousGoods("seq1", Some("UNNumber1"))
   val commodity                     = Commodity("Tiles", Some(commodityCode), goodsMeasure, Some("shippingMark1"), Some("CUSTCODE1"), List(dangerousGoods))
 
-  val consignmentItem = ConsignmentItem(
-    Some("T1"),
-    Some("GER"),
-    Some("GB"),
+  val consignmentItem1 = ConsignmentItem(
+    Some("1T1"),
+    Some("GER1"),
+    Some("GB1"),
     Some(consignor),
     Some(consignee),
     "123545",
-    9999,
+    99991,
     Seq(packaging),
     commodity,
     Some("ref1"),
@@ -163,8 +163,29 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
     Some(List(departureTransportMeans))
   )
 
+  val consignmentItem2 = ConsignmentItem(
+    Some("2T1"),
+    Some("GER2"),
+    Some("GB2"),
+    Some(consignor),
+    Some(consignee),
+    "23545",
+    99992,
+    Seq(packaging),
+    commodity,
+    Some("ref2"),
+    Some(transportCharges),
+    Some(List(previousDocument)),
+    Some(List(supportingDocument)),
+    Some(List(transportDocument)),
+    Some(List(additionalReference)),
+    Some(List(additionalInformation)),
+    Some(List(additionalSupplyChainActor)),
+    Some(List(departureTransportMeans))
+  )
+
   val houseConsignment = HouseConsignment(
-    Seq(consignmentItem),
+    Seq(consignmentItem1, consignmentItem2),
     Some(consignor),
     Some(consignee),
     Some(List(previousDocument)),

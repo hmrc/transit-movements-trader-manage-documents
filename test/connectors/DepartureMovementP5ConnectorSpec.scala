@@ -287,9 +287,15 @@ class DepartureMovementP5ConnectorSpec
                     "phoneNumber": "123456",
                     "eMailAddress": "a@a.com"
                   }
-                },
+              },
                 "ConsignmentItem": [
-                  {
+                {
+                "AdditionalSupplyChainActor": [
+                      {
+                        "role": "Actor-Role",
+                        "identificationNumber": "ID001"
+                      }
+                    ],
                     "Packaging": [
                       {
                         "numberOfPackages": 5,
@@ -297,13 +303,56 @@ class DepartureMovementP5ConnectorSpec
                         "shippingMarks": "rubberStamp"
                       }
                     ],
+                    "DepartureTransportMeans": [
+                      {
+                        "typeOfIdentification": "Actor-Role",
+                        "identificationNumber": "ID001",
+                        "nationality": "Nationality"
+                      }
+                    ],
+                    "referenceNumberUCR": "refucr1",
+                    "Consignor": {
+                      "identificationNumber": "idnum1",
+                      "name": "Consignor Name",
+                      "Address": {
+                        "streetAndNumber": "Address Line 1",
+                        "postcode": "Address Line 2",
+                        "city": "Address Line 3",
+                        "country": "Address Line 4"
+                      },
+                      "ContactPerson": {
+                        "name": "Contact Person Name",
+                        "phoneNumber": "123456",
+                        "eMailAddress": "a@a.com"
+                      }
+                    },
+                    "Consignee": {
+                        "identificationNumber": "idnum1",
+                        "name": "Consignor Name",
+                        "Address": {
+                          "streetAndNumber": "Address Line 1",
+                          "postcode": "Address Line 2",
+                          "city": "Address Line 3",
+                          "country": "Address Line 4"
+                        },
+                        "ContactPerson": {
+                          "name": "Contact Person Name",
+                          "phoneNumber": "123456",
+                          "eMailAddress": "a@a.com"
+                        }
+                    },
                     "Commodity":
                       {
                         "descriptionOfGoods": "Tiles",
                         "GoodsMeasure":
                           {
                             "grossMass": 1.43
-                          }
+                          },
+                          "DangerousGoods":[
+                          {
+                            "sequenceNumber": "SHC1",
+                            "UNNumber": "NOMC1"
+                          }]
                       },
                     "declarationType": "T1",
                     "countryOfDispatch": "GER",

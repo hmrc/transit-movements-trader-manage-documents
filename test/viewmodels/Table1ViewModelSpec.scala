@@ -66,11 +66,11 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
     }
 
     "return totalItems information" in {
-      viewModel.table1ViewModel.totalItems mustBe 1
+      viewModel.table1ViewModel.totalItems mustBe 2
     }
 
     "return totalPackages information" in {
-      viewModel.table1ViewModel.totalPackages mustBe 5
+      viewModel.table1ViewModel.totalPackages mustBe 10
     }
 
     "return totalGrossMass information" in {
