@@ -28,7 +28,7 @@
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
+                                <fo:table width="99.75%" table-layout="fixed">
                                     <fo:table-column column-width="57.5%"/>
                                     <fo:table-column column-width="57.5%"/>
                                     <fo:table-column column-width="57.5%"/>
