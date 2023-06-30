@@ -32,7 +32,7 @@
           <fo:table-row >
             <fo:table-cell margin-left="0.5mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
               <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>DEC GOODS</fo:block>
+                <fo:block>@item.declarationGoodsItemNumberString</fo:block>
               </fo:block-container>
             </fo:table-cell>
 

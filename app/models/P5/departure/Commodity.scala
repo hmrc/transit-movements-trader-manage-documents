@@ -25,7 +25,7 @@ case class Commodity(
   GoodsMeasure: GoodsMeasure,
   shippingMarks: Option[String],
   cusCode: Option[String],
-  dangerousGoods: DangerousGoods
+  DangerousGoods: List[DangerousGoods]
 )
 
 object Commodity {
