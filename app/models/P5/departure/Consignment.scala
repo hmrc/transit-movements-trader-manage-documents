@@ -98,7 +98,7 @@ case class Consignment(
   )
 
   val consignmentItems: Seq[ConsignmentItem] = HouseConsignment.foldLeft(Seq.empty[ConsignmentItem]) {
-    (x, y) => x ++ y.ConsignmentItem
+    (x, y) => x ++ y.ConsignmentItem.map(_.copy(Consignor = y.Consignor))
   }
 
 }
