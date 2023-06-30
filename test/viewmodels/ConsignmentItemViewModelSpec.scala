@@ -30,83 +30,109 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
   "ConsignmentItemViewModelSpec" - {
 
     "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("T1")
     }
 
     "should return countryOfDispatchString information" in {
-      viewModel.consignmentItem.map(_.countryOfDispatchString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+      viewModel.consignmentItem.map(_.countryOfDispatchString) mustBe List("GER")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.countryOfDestinationString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return countryOfDestinationString information" in {
+      viewModel.consignmentItem.map(_.countryOfDestinationString) mustBe List("GB")
     }
 
     "should return consignor information" in {
       viewModel.consignmentItem.map(_.consignor) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return consignee information" in {
+      viewModel.consignmentItem.map(_.consignee) mustBe List(
+        "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, Contact Person Name, 123456, a@a.com"
+      )
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return goodsItemNumberString information" in {
+      viewModel.consignmentItem.map(_.goodsItemNumberString) mustBe List("123545")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return declarationGoodsItemNumberString information" in {
+      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("T1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return packaging information" in {
+      viewModel.consignmentItem.map(_.packaging) mustBe List("5, Plastic, rubberStamp")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return referenceNumberUCRString information" in {
+      viewModel.consignmentItem.map(_.referenceNumberUCRString) mustBe List("ref1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return transportCharges information" in {
+      viewModel.consignmentItem.map(_.transportCharges) mustBe List("payPal")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return additionalSupplyChainActor information" in {
+      viewModel.consignmentItem.map(_.additionalSupplyChainActor) mustBe List("Actor-Role")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return commodityCode information" in {
+      viewModel.consignmentItem.map(_.commodityCode) mustBe List("SHC1, NOMC1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return departureTransportMeans information" in {
+      viewModel.consignmentItem.map(_.departureTransportMeans) mustBe List("Actor-Role, ID001, Nationality")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return dangerousGoods information" in {
+      viewModel.consignmentItem.map(_.dangerousGoods) mustBe List("seq1, UNNumber1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return cusCode information" in {
+      viewModel.consignmentItem.map(_.cusCode) mustBe List("CUSTCODE1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return descriptionOfGoods information" in {
+      viewModel.consignmentItem.map(_.descriptionOfGoods) mustBe List("Tiles")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return previousDocumentString information" in {
+      viewModel.consignmentItem.map(_.previousDocumentString) mustBe List("Document-1, Type-1, Reference-1, C1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return supportingDocumentString information" in {
+      viewModel.consignmentItem.map(_.supportingDocumentString) mustBe List("Document-1, Type-1, Reference-1, 5, C1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return transportDocumentString information" in {
+      viewModel.consignmentItem.map(_.transportDocumentString) mustBe List("Document-1, Type-1, Reference-1")
     }
 
-    "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4")
+    "should return additionalReferenceString information" in {
+      viewModel.consignmentItem.map(_.additionalReferenceString) mustBe List("Document-1, Type-1, Reference-1")
     }
+
+    "should return grossMass information" in {
+      viewModel.consignmentItem.map(_.grossMass) mustBe List("1.2")
+    }
+
+    "should return netMass information" in {
+      viewModel.consignmentItem.map(_.netMass) mustBe List("1.4")
+    }
+    "should return consignorId information" in {
+      viewModel.consignmentItem.map(_.consignorId) mustBe List("idnum1")
+    }
+    "should return consigneeId information" in {
+      viewModel.consignmentItem.map(_.consigneeId) mustBe List("idnum1")
+    }
+    "should return supplyChainActorId information" in {
+      viewModel.consignmentItem.map(_.supplyChainActorId) mustBe List("ID001")
+    }
+    "should return totalPackages information" in {
+      viewModel.consignmentItem.map(_.totalPackages) mustBe List(5)
+    }
+    "should return packagesType information" in {
+      viewModel.consignmentItem.map(_.packagesType) mustBe List("5, Plastic, rubberStamp")
+    }
+
   }
 }
