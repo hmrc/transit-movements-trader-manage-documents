@@ -39,11 +39,9 @@
             <fo:block>
                 <fo:inline font-weight="bold">Type and number of packages, shipping marks</fo:inline> [1806]
             </fo:block>
-            @item.Packaging.map { p =>
-                <fo:block>
-                    @p.toString
-                </fo:block>
-            }
+            <fo:block>
+                @item.packaging
+            </fo:block>
         </fo:table-cell>
     </fo:table-row>
 }
@@ -112,11 +110,9 @@
             <fo:block>
                 <fo:inline font-weight="bold">Previous document</fo:inline> [1201]
             </fo:block>
-            @item.previousDocuments.map { pd =>
-                <fo:block>
-                    @pd.toString
-                </fo:block>
-            }
+            <fo:block>
+                @item.previousDocuments
+            </fo:block>
         </fo:table-cell>
     </fo:table-row>
 }
@@ -127,11 +123,9 @@
             <fo:block>
                 <fo:inline font-weight="bold">Supporting document</fo:inline> [1203]
             </fo:block>
-            @item.supportingDocuments.map { sd =>
-                <fo:block>
-                    @sd.toString
-                </fo:block>
-            }
+            <fo:block>
+                @item.supportingDocuments
+            </fo:block>
         </fo:table-cell>
     </fo:table-row>
 }
@@ -142,11 +136,9 @@
             <fo:block>
                 <fo:inline font-weight="bold">Additional reference</fo:inline> [1204]
             </fo:block>
-            @item.additionalReferences.map { ar =>
-                <fo:block>
-                    @ar.toString
-                </fo:block>
-            }
+            <fo:block>
+                @item.additionalReferences
+            </fo:block>
         </fo:table-cell>
     </fo:table-row>
 }
@@ -157,11 +149,9 @@
             <fo:block>
                 <fo:inline font-weight="bold">Additional information</fo:inline> [1202]
             </fo:block>
-            @item.additionalInformation.map { ai =>
-                <fo:block>
-                    @ai.toString
-                </fo:block>
-            }
+            <fo:block>
+                @item.additionalInformation
+            </fo:block>
         </fo:table-cell>
     </fo:table-row>
 }
@@ -172,11 +162,9 @@
             <fo:block>
                 <fo:inline font-weight="bold">Transport document</fo:inline> [1205]
             </fo:block>
-            @item.transportDocuments.map { td =>
-                <fo:block>
-                    @td.toString
-                </fo:block>
-            }
+            <fo:block>
+                @item.transportDocuments
+            </fo:block>
         </fo:table-cell>
     </fo:table-row>
 }
