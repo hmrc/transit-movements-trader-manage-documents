@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package base
+package services.P5
 
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.mockito.MockitoSugar
+import connectors.UnloadingPermissionP5Connector
+import models.P5.unloading.IE043Data
 import uk.gov.hmrc.http.HeaderCarrier
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
+import javax.inject.Inject
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
-  implicit val hc: HeaderCarrier = HeaderCarrier()
+class UnloadingMessageP5Service @Inject() (connector: UnloadingPermissionP5Connector) {
 
-  val messageId = "6445005176e4e834"
+  def getUnloadingPermissionNotification(arrivalId: String, messageId: String)(implicit
+    hc: HeaderCarrier,
+    ec: ExecutionContext
+  ): Future[IE043Data] =
+    connector.getUnloadingNotificationMessage(arrivalId, messageId)
 }

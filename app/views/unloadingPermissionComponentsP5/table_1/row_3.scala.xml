@@ -1,0 +1,179 @@
+@import views.xml.unloadingPermissionComponentsP5.table_1._
+        @import views.xml.unloadingPermissionComponentsP5._
+
+        @(ie043Data: models.P5.unloading.IE043Data)
+
+
+<fo:table-row height="30mm" font-size = "5.5pt">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+
+    <fo:table-cell number-rows-spanned="1"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                   display-align="center" padding-top="-57mm"
+    >
+
+        <fo:block-container
+                font-family="sans-serif" font-size="6"
+                reference-orientation="90" display-align="center"
+                inline-progression-dimension.minimum="8mm"
+                inline-progression-dimension.maximum="auto"
+                inline-progression-dimension.optimum="94mm"
+                margin-bottom = "4mm"
+        >
+        <fo:block hyphenate="true">UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT</fo:block>
+    </fo:block-container >
+        <fo:block-container height = "8mm">
+        <fo:block font-size="12pt"
+                  border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                  text-align = "center"
+                  font-weight = "bold"
+                  line-height = "8mm"
+                  vertical-align="middle"
+
+        >
+            A
+        </fo:block>
+        </fo:block-container>
+
+
+
+</fo:table-cell>
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                   number-columns-spanned="6"
+    >
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="35mm"/>
+                <fo:table-column column-number="2" column-width="142mm" />
+                <fo:table-body >
+
+                    <!--   Departure means row-->
+
+                    <fo:table-row height="4mm" margin-left="0.5mm">
+                        <fo:table-cell >
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                <fo:block>
+                                    <fo:inline font-weight="bold">Departure transport means</fo:inline>
+                                    <fo:inline padding-left = "1.8mm">[1302]</fo:inline>
+                                </fo:block>
+
+                            </fo:block-container>
+                        </fo:table-cell>
+                        <fo:table-cell >
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                <fo:block>
+                                    @(ie043Data.departureTransportMeans)
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+
+                    <fo:table-row height="6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                        <fo:table-cell  display-align="after"  number-columns-spanned="2"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    <fo:inline font-weight="bold">Consignee reference number</fo:inline>
+                                    <fo:inline padding-left = "4mm">TESTID12345678</fo:inline>
+
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                    </fo:table-row>
+
+                    <!--   Transport equipment row-->
+
+                    <fo:table-row height="3mm">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Transport equipment</fo:inline> [1907]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block>
+                                    <fo:inline font-weight="bold">Container</fo:inline> [1901]
+                                    <fo:inline>@(ie043Data.container)</fo:inline>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                    </fo:table-row>
+                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm" number-columns-spanned="2">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block>
+                                    @(ie043Data.transportEquipment)
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Seals row -->
+
+                    <fo:table-row height="3mm">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Seals</fo:inline> [1910]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row height="7mm"
+                                  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                    >
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block>@(ie043Data.seals)</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Previous document row -->
+
+                    <fo:table-row height="3mm">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Previous document</fo:inline> [1201]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block>@(ie043Data.previousDocument)</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Transport document row -->
+
+                    <fo:table-row height="3mm">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">Transport document</fo:inline> [1205]</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  margin-left="0.5mm">
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block>@(ie043Data.transportDocument)</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+</fo:table-row>

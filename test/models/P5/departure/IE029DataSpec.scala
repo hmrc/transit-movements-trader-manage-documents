@@ -16,13 +16,10 @@
 
 package models.P5.departure
 
+import base.DepartureData
 import base.SpecBase
-import generators.ModelGenerators
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class IE029DataSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ModelGenerators with SpecBase {
+class IE029DataSpec extends SpecBase with DepartureData {
 
   "IE029Data" - {
 

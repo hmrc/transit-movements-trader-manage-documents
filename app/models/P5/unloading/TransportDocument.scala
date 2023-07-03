@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package base
+package models.P5.unloading
 
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.mockito.MockitoSugar
-import uk.gov.hmrc.http.HeaderCarrier
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
+case class TransportDocument(`type`: String, referenceNumber: String) {
 
-  implicit val hc: HeaderCarrier = HeaderCarrier()
+  override def toString: String = Seq(
+    `type`,
+    referenceNumber
+  ).mkString(", ")
+}
 
-  val messageId = "6445005176e4e834"
+object TransportDocument {
+  implicit val formats: OFormat[TransportDocument] = Json.format[TransportDocument]
 }

@@ -16,6 +16,7 @@
 
 package connectors
 
+import base.DepartureData
 import base.SpecBase
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
@@ -26,8 +27,6 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
@@ -38,13 +37,11 @@ import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.WireMockHelper
 
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class DepartureMovementP5ConnectorSpec
-    extends AnyFreeSpec
-    with Matchers
+    extends SpecBase
+    with DepartureData
     with GuiceOneAppPerSuite
     with WireMockHelper
     with ScalaFutures
@@ -54,8 +51,7 @@ class DepartureMovementP5ConnectorSpec
     with ValidatedMatchers
     with ValidatedValues
     with FutureAwaits
-    with DefaultAwaitTimeout
-    with SpecBase {
+    with DefaultAwaitTimeout {
 
   implicit lazy val arbitraryHC: Arbitrary[HeaderCarrier] =
     Arbitrary(Gen.const(HeaderCarrier()))
