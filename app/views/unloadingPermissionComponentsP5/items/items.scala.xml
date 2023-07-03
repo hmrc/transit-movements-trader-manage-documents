@@ -12,5 +12,6 @@
         <fo:block>
             @ie043Data.items.map(item(_))
         </fo:block>
+        <fo:block id="unloading-permission-pages"/>
     </fo:flow>
 </fo:page-sequence>
