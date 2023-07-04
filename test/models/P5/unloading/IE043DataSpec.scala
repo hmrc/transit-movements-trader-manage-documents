@@ -21,39 +21,37 @@ import base.UnloadingData
 
 class IE043DataSpec extends SpecBase with UnloadingData {
 
+  private val ie043Data = IE043Data(unloadingPermissionMessageData)
+
   "IE043Data" - {
 
     "must be able to return correct UPD Data for each fields" in {
 
-      IE043Data(unloadingPermissionMessageData).mrn mustBe "38VYQTYFU3T0KUTUM3"
-      IE043Data(unloadingPermissionMessageData).tir mustBe "tirId"
-      IE043Data(unloadingPermissionMessageData).customsOfficeOfDestination mustBe "GB000068"
-      IE043Data(unloadingPermissionMessageData).countryOfDestination mustBe "FR"
-      IE043Data(unloadingPermissionMessageData).totalGrossMass mustBe 1000.99
-      IE043Data(unloadingPermissionMessageData).totalPackages mustBe 3
-      IE043Data(unloadingPermissionMessageData).totalItems mustBe 1
-      IE043Data(unloadingPermissionMessageData).container mustBe "1"
-      IE043Data(unloadingPermissionMessageData).security mustBe "4"
-      IE043Data(unloadingPermissionMessageData).inlandModeOfTransport mustBe "2"
-      IE043Data(unloadingPermissionMessageData).declarationType mustBe "T1"
-      IE043Data(
-        unloadingPermissionMessageData
-      ).consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
-      IE043Data(unloadingPermissionMessageData).consigneeIdentificationNumber mustBe "idnum2"
-      IE043Data(
-        unloadingPermissionMessageData
-      ).consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
-      IE043Data(unloadingPermissionMessageData).consignorIdentificationNumber mustBe "idnum1"
-      IE043Data(unloadingPermissionMessageData).holderOfTransit mustBe "Travis, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
-      IE043Data(unloadingPermissionMessageData).holderOfTransitID mustBe "id"
-      IE043Data(unloadingPermissionMessageData).departureTransportMeans mustBe "type1, id1, NG"
-      IE043Data(unloadingPermissionMessageData).transportEquipment mustBe "cin-2, 35, seq1:5"
-      IE043Data(unloadingPermissionMessageData).seals mustBe "1,[seal1]...2,[seal2]"
-      IE043Data(unloadingPermissionMessageData).previousDocument mustBe "768, ref1, 55"
-      IE043Data(unloadingPermissionMessageData).supportingDocument mustBe "764, ref2, 45"
-      IE043Data(unloadingPermissionMessageData).transportDocument mustBe "767, ref3"
-      IE043Data(unloadingPermissionMessageData).additionalInformation mustBe "32, additional ref text"
-      IE043Data(unloadingPermissionMessageData).additionalReference mustBe "4, ref4"
+      ie043Data.mrn mustBe "38VYQTYFU3T0KUTUM3"
+      ie043Data.tir mustBe "tirId"
+      ie043Data.customsOfficeOfDestination mustBe "GB000068"
+      ie043Data.countryOfDestination mustBe "FR"
+      ie043Data.totalGrossMass mustBe 1000.99
+      ie043Data.totalPackages mustBe 3
+      ie043Data.totalItems mustBe 1
+      ie043Data.container mustBe "1"
+      ie043Data.security mustBe "4"
+      ie043Data.inlandModeOfTransport mustBe "2"
+      ie043Data.declarationType mustBe "T1"
+      ie043Data.consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      ie043Data.consigneeIdentificationNumber mustBe "idnum2"
+      ie043Data.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      ie043Data.consignorIdentificationNumber mustBe "idnum1"
+      ie043Data.holderOfTransit mustBe "Travis, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      ie043Data.holderOfTransitID mustBe "id"
+      ie043Data.departureTransportMeans mustBe "type1, id1, NG"
+      ie043Data.transportEquipment mustBe "cin-2, 35, seq1:5"
+      ie043Data.seals mustBe "1,[seal1]...2,[seal2]"
+      ie043Data.previousDocument mustBe "768, ref1, 55"
+      ie043Data.supportingDocument mustBe "764, ref2, 45"
+      ie043Data.transportDocument mustBe "767, ref3"
+      ie043Data.additionalInformation mustBe "32, additional ref text"
+      ie043Data.additionalReference mustBe "4, ref4"
     }
   }
 

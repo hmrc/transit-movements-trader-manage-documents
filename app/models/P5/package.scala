@@ -14,18 +14,28 @@
  * limitations under the License.
  */
 
-package models.P5.unloading
+package models
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+package object P5 {
 
-case class HouseConsignment(ConsignmentItem: Seq[ConsignmentItem]) {
+  implicit class RichOptionSeqT[T](ts: Option[Seq[T]]) {
 
-  val totalPackages: Int = ConsignmentItem.total(_.totalPackages)
+    def showAll: String = ts.getOrElse(Nil).showAll
 
-  val totalItems: Int = ConsignmentItem.length
-}
+    def showFirstAndLast: String = {
+      val (headOption, lastOption) = ts match {
+        case Some(head :: tail) => (Some(head), tail.lastOption)
+        case _                  => (None, None)
+      }
+      Seq(headOption, lastOption).flatten.map(_.toString).mkString("...")
+    }
+  }
 
-object HouseConsignment {
-  implicit val formats: OFormat[HouseConsignment] = Json.format[HouseConsignment]
+  implicit class RichSeqT[T](ts: Seq[T]) {
+
+    def showAll: String = ts.map(_.toString).mkString("; ")
+
+    def total(f: T => Int): Int = ts.map(f).sum
+  }
+
 }
