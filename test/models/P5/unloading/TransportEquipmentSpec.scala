@@ -59,4 +59,41 @@ class TransportEquipmentSpec extends SpecBase {
     }
   }
 
+  "goods references" - {
+    "must display goods references as string" - {
+      "when no goods references" in {
+        val goodsReferences = Nil
+        val result          = transportEquipment.copy(GoodsReference = Some(goodsReferences)).goodsReferences
+        result mustBe ""
+      }
+
+      "when one goods reference" in {
+        val goodsReferences = List(
+          GoodsReference("1", 1)
+        )
+        val result = transportEquipment.copy(GoodsReference = Some(goodsReferences)).goodsReferences
+        result mustBe "1:1"
+      }
+
+      "when two goods references" in {
+        val goodsReferences = List(
+          GoodsReference("1", 1),
+          GoodsReference("2", 2)
+        )
+        val result = transportEquipment.copy(GoodsReference = Some(goodsReferences)).goodsReferences
+        result mustBe "1:1...2:2"
+      }
+
+      "when multiple goods references" in {
+        val goodsReferences = List(
+          GoodsReference("1", 1),
+          GoodsReference("2", 2),
+          GoodsReference("3", 3)
+        )
+        val result = transportEquipment.copy(GoodsReference = Some(goodsReferences)).goodsReferences
+        result mustBe "1:1...3:3"
+      }
+    }
+  }
+
 }
