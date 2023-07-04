@@ -24,7 +24,6 @@ package object P5 {
 
     def showFirstAndLast: String = {
       val (headOption, lastOption) = ts match {
-        case Some(head :: Nil)  => (Some(head), None)
         case Some(head :: tail) => (Some(head), tail.lastOption)
         case _                  => (None, None)
       }
