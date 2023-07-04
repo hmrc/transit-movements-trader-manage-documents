@@ -32,18 +32,9 @@ case class TransportEquipment(
     Some(goodsReferences)
   ).flatten.mkString(", ")
 
-  private def displayFirstAndLast[T](option: Option[List[T]]): String = {
-    val (headOption, lastOption) = option match {
-      case Some(head :: Nil)  => (Some(head), None)
-      case Some(head :: tail) => (Some(head), tail.lastOption)
-      case _                  => (None, None)
-    }
-    Seq(headOption, lastOption).flatten.map(_.toString).mkString("...")
-  }
+  def seals: String = Seal.showFirstAndLast
 
-  def seals: String = displayFirstAndLast(Seal)
-
-  def goodsReferences: String = displayFirstAndLast(GoodsReference)
+  def goodsReferences: String = GoodsReference.showFirstAndLast
 }
 
 object TransportEquipment {

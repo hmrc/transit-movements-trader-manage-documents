@@ -21,9 +21,7 @@ import play.api.libs.json.OFormat
 
 case class HouseConsignment(ConsignmentItem: Seq[ConsignmentItem]) {
 
-  val totalPackages: Int = ConsignmentItem.foldLeft(0)(
-    (total, item) => total + item.totalPackages
-  )
+  val totalPackages: Int = ConsignmentItem.total(_.totalPackages)
 
   val totalItems: Int = ConsignmentItem.length
 }

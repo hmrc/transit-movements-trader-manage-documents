@@ -16,6 +16,7 @@
 
 package models.P5.unloading
 
+import models.P5.RichSeqT
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -36,45 +37,25 @@ case class Consignment(
   HouseConsignment: Seq[HouseConsignment]
 ) {
 
-  val totalPackages: Int = HouseConsignment.foldLeft(0)(
-    (total, houseConsignments) => total + houseConsignments.totalPackages
-  )
+  val totalPackages: Int = HouseConsignment.total(_.totalPackages)
 
-  val totalItems: Int = HouseConsignment.foldLeft(0)(
-    (total, houseConsignments) => total + houseConsignments.totalItems
-  )
+  val totalItems: Int = HouseConsignment.total(_.totalItems)
 
-  val transportEquipment: Option[String] = TransportEquipment.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val transportEquipment: String = TransportEquipment.showAll
 
-  val departureTransportMeans: Option[String] = DepartureTransportMeans.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val departureTransportMeans: String = DepartureTransportMeans.showAll
 
-  val seals: Option[String] = TransportEquipment.map(
-    _.map(_.seals).mkString("; ")
-  )
+  val seals: String = TransportEquipment.getOrElse(Nil).map(_.seals).showAll
 
-  val previousDocument: Option[String] = PreviousDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val previousDocument: String = PreviousDocument.showAll
 
-  val supportingDocument: Option[String] = SupportingDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val supportingDocument: String = SupportingDocument.showAll
 
-  val additionalInformation: Option[String] = AdditionalInformation.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val additionalInformation: String = AdditionalInformation.showAll
 
-  val additionalReference: Option[String] = AdditionalReference.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val additionalReference: String = AdditionalReference.showAll
 
-  val transportDocument: Option[String] = TransportDocument.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val transportDocument: String = TransportDocument.showAll
 }
 
 object Consignment {
