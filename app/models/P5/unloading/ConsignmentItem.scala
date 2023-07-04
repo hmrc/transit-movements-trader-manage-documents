@@ -50,8 +50,8 @@ case class ConsignmentItem(
   val supportingDocuments: String = SupportingDocument.getOrElse(Nil).map(_.toString).mkString("; ")
   val transportDocuments: String  = TransportDocument.getOrElse(Nil).map(_.toString).mkString("; ")
 
-  val additionalReferences: String  = AdditionalReference.map(_.toString).mkString("; ")
-  val additionalInformation: String = AdditionalInformation.map(_.toString).mkString("; ")
+  val additionalReferences: String  = AdditionalReference.getOrElse(Nil).map(_.toString).mkString("; ")
+  val additionalInformation: String = AdditionalInformation.getOrElse(Nil).map(_.toString).mkString("; ")
 
   val commodityCode: String = Commodity.CommodityCode.map(_.toString).getOrElse("")
 
