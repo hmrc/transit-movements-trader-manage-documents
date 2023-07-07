@@ -1,0 +1,12 @@
+@(movementReferenceNumber: String)
+<fo:instream-foreign-object>
+  <barcode:barcode
+      xmlns:barcode="http://barcode4j.krysalis.org/ns"
+      message="@movementReferenceNumber">
+    <barcode:code128>
+      <barcode:height>15mm</barcode:height>
+      <barcode:module-width>0.24mm</barcode:module-width>
+      <barcode:human-readable>none</barcode:human-readable>
+    </barcode:code128>
+  </barcode:barcode>
+</fo:instream-foreign-object>

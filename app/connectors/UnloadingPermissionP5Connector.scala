@@ -17,39 +17,29 @@
 package connectors
 
 import config.AppConfig
-import models.P5.departure.IE029Data
-import models.P5.departure.MovementReferenceNumber
+import models.P5.unloading.IE043Data
 import play.api.Logging
-import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.http.HttpReadsTry
+import uk.gov.hmrc.http.HttpReads.Implicits._
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClient) extends HttpReadsTry with Logging {
+class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpClient) extends HttpReadsTry with Logging {
 
-  def getMRN(departureId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[MovementReferenceNumber] = {
-
-    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
-
-    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/departures/$departureId"
-
-    http.GET[MovementReferenceNumber](serviceUrl)(implicitly, headers, ec)
-  }
-
-  def getDepartureNotificationMessage(
-    departureId: String,
+  def getUnloadingNotificationMessage(
+    arrivalId: String,
     messageId: String
-  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[IE029Data] = {
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[IE043Data] = {
 
     val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
 
-    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages/$messageId"
+    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/arrivals/$arrivalId/messages/$messageId"
 
-    http.GET[IE029Data](serviceUrl)(implicitly, headers, ec)
+    http.GET[IE043Data](serviceUrl)(implicitly, headers, ec)
   }
 
 }

@@ -68,10 +68,11 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.http.HeaderCarrier
 
-import java.time.LocalDateTime
-
 trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
 
+  implicit val hc: HeaderCarrier = HeaderCarrier()
+
+  val messageId = "6445005176e4e834"
   val departureId                  = "ID1"
   val mrn: MovementReferenceNumber = MovementReferenceNumber("MRN")
   implicit val hc: HeaderCarrier   = HeaderCarrier()
