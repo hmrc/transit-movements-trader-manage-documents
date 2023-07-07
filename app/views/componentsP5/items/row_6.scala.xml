@@ -1,4 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
+
+        @(item: models.P5.departure.ConsignmentItem)
 
 <fo:table-row height="4mm">
 
@@ -31,19 +33,19 @@
                     <fo:table-row>
                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>UNDG 1</fo:block>
+                                <fo:block>@item.dangerousGoods</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Cus code 1</fo:block>
+                                <fo:block>@item.cusCode</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Transport char 1</fo:block>
+                                <fo:block>@item.transportCharges</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -85,19 +87,19 @@
                     <fo:table-row>
                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Type 1</fo:block>
+                                <fo:block>@item.declarationTypeString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>GB</fo:block>
+                                <fo:block>@item.countryOfDispatchString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>IT</fo:block>
+                                <fo:block>@item.countryOfDestinationString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 

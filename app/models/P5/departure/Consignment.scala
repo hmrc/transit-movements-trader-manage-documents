@@ -97,6 +97,10 @@ case class Consignment(
     _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
 
+  val consignmentItems: Seq[ConsignmentItem] = HouseConsignment.foldLeft(Seq.empty[ConsignmentItem]) {
+    (x, y) => x ++ y.ConsignmentItem.map(_.copy(Consignor = y.Consignor))
+  }
+
 }
 
 object Consignment {

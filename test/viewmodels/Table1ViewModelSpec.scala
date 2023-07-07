@@ -17,12 +17,13 @@
 package viewmodels
 
 import viewmodels.P5._
+import base.DepartureData
 import base.SpecBase
 import models.P5.departure.IE029Data
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 
-class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
+class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
   val ie029Data = IE029Data(departureMessageData)
   val viewModel = TableViewModel()(ie029Data)
@@ -66,11 +67,11 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
     }
 
     "return totalItems information" in {
-      viewModel.table1ViewModel.totalItems mustBe 1
+      viewModel.table1ViewModel.totalItems mustBe 2
     }
 
     "return totalPackages information" in {
-      viewModel.table1ViewModel.totalPackages mustBe 5
+      viewModel.table1ViewModel.totalPackages mustBe 10
     }
 
     "return totalGrossMass information" in {

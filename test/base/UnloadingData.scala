@@ -17,10 +17,14 @@
 package base
 
 import models.P5.unloading._
+import uk.gov.hmrc.http.HeaderCarrier
 
 trait UnloadingData {
 
   val arrivalId = "arrId"
+
+  val messageId                  = "6445005176e4e834"
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   val transitOperation: TransitOperation =
     TransitOperation("38VYQTYFU3T0KUTUM3", Some("T1"), Some("2014-06-09+01:00"), "4", "1")

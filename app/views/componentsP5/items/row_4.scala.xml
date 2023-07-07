@@ -1,4 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
+
+        @(item: models.P5.departure.ConsignmentItem)
 
 <fo:table-row height="8mm">
 
@@ -26,13 +28,13 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Add supply chain actor</fo:block>
+                                <fo:block>@item.additionalSupplyChainActor</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
                             <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Add supply chain actor ID</fo:block>
+                                <fo:block>@item.supplyChainActorId</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
@@ -63,7 +65,7 @@
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>transport doc 1</fo:block>
+                                <fo:block>@item.transportDocumentString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -83,13 +85,13 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>ucr ref 1</fo:block>
+                                <fo:block>@item.referenceNumberUCRString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>100.0</fo:block>
+                                <fo:block>@item.grossMass</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

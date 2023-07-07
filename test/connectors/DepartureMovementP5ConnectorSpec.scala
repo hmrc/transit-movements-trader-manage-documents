@@ -283,9 +283,15 @@ class DepartureMovementP5ConnectorSpec
                     "phoneNumber": "123456",
                     "eMailAddress": "a@a.com"
                   }
-                },
-                "ConsignmentItem": [
-                  {
+              },
+              "ConsignmentItem": [
+              {
+                "AdditionalSupplyChainActor": [
+                      {
+                        "role": "Actor-Role",
+                        "identificationNumber": "ID001"
+                      }
+                    ],
                     "Packaging": [
                       {
                         "numberOfPackages": 5,
@@ -293,13 +299,56 @@ class DepartureMovementP5ConnectorSpec
                         "shippingMarks": "rubberStamp"
                       }
                     ],
+                    "DepartureTransportMeans": [
+                      {
+                        "typeOfIdentification": "Actor-Role",
+                        "identificationNumber": "ID001",
+                        "nationality": "Nationality"
+                      }
+                    ],
+                    "referenceNumberUCR": "refucr1",
+                    "Consignor": {
+                      "identificationNumber": "idnum1",
+                      "name": "Consignor Name",
+                      "Address": {
+                        "streetAndNumber": "Address Line 1",
+                        "postcode": "Address Line 2",
+                        "city": "Address Line 3",
+                        "country": "Address Line 4"
+                      },
+                      "ContactPerson": {
+                        "name": "Contact Person Name",
+                        "phoneNumber": "123456",
+                        "eMailAddress": "a@a.com"
+                      }
+                    },
+                    "Consignee": {
+                        "identificationNumber": "idnum1",
+                        "name": "Consignor Name",
+                        "Address": {
+                          "streetAndNumber": "Address Line 1",
+                          "postcode": "Address Line 2",
+                          "city": "Address Line 3",
+                          "country": "Address Line 4"
+                        },
+                        "ContactPerson": {
+                          "name": "Contact Person Name",
+                          "phoneNumber": "123456",
+                          "eMailAddress": "a@a.com"
+                        }
+                    },
                     "Commodity":
                       {
                         "descriptionOfGoods": "Tiles",
                         "GoodsMeasure":
                           {
                             "grossMass": 1.43
-                          }
+                          },
+                          "DangerousGoods":[
+                          {
+                            "sequenceNumber": "SHC1",
+                            "UNNumber": "NOMC1"
+                          }]
                       },
                     "declarationType": "T1",
                     "countryOfDispatch": "GER",
@@ -308,7 +357,45 @@ class DepartureMovementP5ConnectorSpec
                     "declarationGoodsItemNumber": 9999
                   }
                 ],
-                 "grossMass": 1.3434
+                 "grossMass": 1.3434,
+                 "PreviousDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1",
+                        "complementOfInformation": "C1"
+                      }
+                    ],
+                    "TransportDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1"
+                      }
+                    ],
+                    "SupportingDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1",
+                        "documentLineItemNumber": 5,
+                        "complementOfInformation": "C1"
+                      }
+                    ],
+                    "AdditionalInformation": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "code": "Type-1",
+                        "text": "Reference-1"
+                      }
+                    ],
+                    "AdditionalReference": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1"
+                      }
+                    ]
               }
             ],
             "PreviousDocument": [
@@ -430,7 +517,6 @@ class DepartureMovementP5ConnectorSpec
         result =>
           result.data.Consignment.HouseConsignment.map(_.Consignor) mustEqual ieo29Data.data.Consignment.HouseConsignment.map(_.Consignor)
       }
-
     }
   }
 }

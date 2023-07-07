@@ -16,31 +16,14 @@
 
 package viewmodels.P5
 
+import models.P5.departure.Commodity
+import models.P5.departure.CommodityCode
+import models.P5.departure.ConsignmentItem
 import models.P5.departure.IE029Data
 import models.P5.departure.Packaging
 
 case class ConsignmentItemViewModel(implicit ie029Data: IE029Data) {
 
-  val declarationGoodsItemNumberString: Seq[String] =
-    ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.declarationGoodsItemNumber.toString))
-
-  val goodsItemNumberString: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.goodsItemNumber))
-
-  val packagings: Seq[String] = ie029Data.data.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.map(_.Packaging.toString))
-
-  val consignor = ie029Data.data.Consignment.Consignor match {
-    case Some(value) => value.toString
-    case None        => "TODO get multiple consignor"
-  }
-
-  val tup = declarationGoodsItemNumberString zip goodsItemNumberString zip packagings map {
-    case ((x, y), z) => (x, y, z)
-  }
-
-  val items = tup.map(
-    x => Item(x._1, x._2, x._3)
-  )
+  val consignmentItem: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
 
 }
-
-case class Item(declarationGoodsItemNumber: String, goodsItemNumber: String, packaging: String)

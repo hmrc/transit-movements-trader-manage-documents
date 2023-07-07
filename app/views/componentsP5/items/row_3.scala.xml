@@ -1,5 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
 
+        @(item: models.P5.departure.ConsignmentItem)
 <fo:table-row height="8mm">
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
@@ -25,13 +26,13 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Consignee 1</fo:block>
+                                <fo:block>@item.consignee</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
                             <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Consignee 1 ID</fo:block>
+                                <fo:block>@item.consigneeId</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
@@ -56,7 +57,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>add ref 1</fo:block>
+                                <fo:block>@item.additionalReferenceString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -70,7 +71,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>add info 1</fo:block>
+                                <fo:block>@item.additionalInformationString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

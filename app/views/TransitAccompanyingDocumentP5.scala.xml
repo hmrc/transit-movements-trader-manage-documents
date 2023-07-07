@@ -12,10 +12,10 @@
         pageTwo: PageTwo
 )
 
-@(viewModel: viewmodels.P5.TableViewModel)
+@(viewModel: viewmodels.P5.TableViewModel, itemViewModel: viewmodels.P5.ConsignmentItemViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8"), mrn = viewModel.table1ViewModel.mrn))
+    pageTwo = Some(pageTwo(items = itemViewModel.consignmentItem, mrn = viewModel.table1ViewModel.mrn))
 )
 
 @pageOneBody = {

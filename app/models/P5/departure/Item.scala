@@ -16,18 +16,28 @@
 
 package models.P5.departure
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
-
-case class Commodity(
+case class Item(
+  declarationGoodsItemNumber: String,
+  goodsItemNumber: String,
+  packaging: String,
+  consignor: String,
+  consignee: String,
+  referenceNumberUcr: String,
+  transportCharges: String,
+  countryOfDispatch: String,
+  countryOfDestination: String,
+  declarationType: String,
+  additionalSupplyChainActor: String,
+  commodityCode: String,
+  departureTransportMeans: String,
+  dangerousGoods: String,
+  cusCode: String,
   descriptionOfGoods: String,
-  CommodityCode: Option[CommodityCode],
-  GoodsMeasure: GoodsMeasure,
-  shippingMarks: Option[String],
-  cusCode: Option[String],
-  DangerousGoods: List[DangerousGoods]
+  previousDocument: String,
+  supportingDocument: String,
+  transportDocument: String,
+  additionalReference: String,
+  additionalInformation: String,
+  grossMass: String,
+  netMass: String
 )
-
-object Commodity {
-  implicit val formats: OFormat[Commodity] = Json.format[Commodity]
-}
