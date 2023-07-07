@@ -31,11 +31,11 @@ case class ConsignmentItem(
   Commodity: Commodity,
   referenceNumberUCR: Option[String],
   TransportCharges: Option[TransportCharges],
-  previousDocument: Option[List[PreviousDocument]],
-  supportingDocument: Option[List[SupportingDocument]],
-  transportDocument: Option[List[TransportDocument]],
-  additionalReference: Option[List[AdditionalReference]],
-  additionalInformation: Option[List[AdditionalInformation]],
+  PreviousDocument: Option[List[PreviousDocument]],
+  SupportingDocument: Option[List[SupportingDocument]],
+  TransportDocument: Option[List[TransportDocument]],
+  AdditionalReference: Option[List[AdditionalReference]],
+  AdditionalInformation: Option[List[AdditionalInformation]],
   AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
   DepartureTransportMeans: Option[List[DepartureTransportMeans]]
 ) {
@@ -56,11 +56,11 @@ case class ConsignmentItem(
   val dangerousGoods: String              = Commodity.DangerousGoods.map(_.toString).mkString("; ")
   val cusCode: String                     = Commodity.cusCode.getOrElse("")
   val descriptionOfGoods: String          = Commodity.descriptionOfGoods
-  val previousDocumentString: String      = previousDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val supportingDocumentString: String    = supportingDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val transportDocumentString: String     = transportDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val additionalReferenceString: String   = additionalReference.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val additionalInformationString: String = additionalInformation.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val previousDocumentString: String      = PreviousDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val supportingDocumentString: String    = SupportingDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val transportDocumentString: String     = TransportDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val additionalReferenceString: String   = AdditionalReference.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val additionalInformationString: String = AdditionalInformation.map(_.map(_.toString).mkString("; ")).getOrElse("")
 
   val grossMass: String          = Commodity.GoodsMeasure.grossMass.toString
   val netMass: String            = Commodity.GoodsMeasure.netMass.getOrElse("").toString
@@ -72,7 +72,7 @@ case class ConsignmentItem(
     (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
   )
 
-  val packagesType = Packaging.map(_.toString).mkString("; ")
+  val packagesType: String = Packaging.map(_.toString).mkString("; ")
 
 }
 

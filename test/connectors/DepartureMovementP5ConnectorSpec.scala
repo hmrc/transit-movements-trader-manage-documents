@@ -16,6 +16,7 @@
 
 package connectors
 
+import base.DepartureData
 import base.SpecBase
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
@@ -26,8 +27,6 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
@@ -41,8 +40,8 @@ import utils.WireMockHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class DepartureMovementP5ConnectorSpec
-    extends AnyFreeSpec
-    with Matchers
+    extends SpecBase
+    with DepartureData
     with GuiceOneAppPerSuite
     with WireMockHelper
     with ScalaFutures
@@ -52,8 +51,7 @@ class DepartureMovementP5ConnectorSpec
     with ValidatedMatchers
     with ValidatedValues
     with FutureAwaits
-    with DefaultAwaitTimeout
-    with SpecBase {
+    with DefaultAwaitTimeout {
 
   implicit lazy val arbitraryHC: Arbitrary[HeaderCarrier] =
     Arbitrary(Gen.const(HeaderCarrier()))
@@ -286,8 +284,8 @@ class DepartureMovementP5ConnectorSpec
                     "eMailAddress": "a@a.com"
                   }
               },
-                "ConsignmentItem": [
-                {
+              "ConsignmentItem": [
+              {
                 "AdditionalSupplyChainActor": [
                       {
                         "role": "Actor-Role",
@@ -359,7 +357,45 @@ class DepartureMovementP5ConnectorSpec
                     "declarationGoodsItemNumber": 9999
                   }
                 ],
-                 "grossMass": 1.3434
+                 "grossMass": 1.3434,
+                 "PreviousDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1",
+                        "complementOfInformation": "C1"
+                      }
+                    ],
+                    "TransportDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1"
+                      }
+                    ],
+                    "SupportingDocument": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1",
+                        "documentLineItemNumber": 5,
+                        "complementOfInformation": "C1"
+                      }
+                    ],
+                    "AdditionalInformation": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "code": "Type-1",
+                        "text": "Reference-1"
+                      }
+                    ],
+                    "AdditionalReference": [
+                      {
+                        "sequenceNumber": "Document-1",
+                        "type": "Type-1",
+                        "referenceNumber": "Reference-1"
+                      }
+                    ]
               }
             ],
             "PreviousDocument": [
@@ -481,7 +517,6 @@ class DepartureMovementP5ConnectorSpec
         result =>
           result.data.Consignment.HouseConsignment.map(_.Consignor) mustEqual ieo29Data.data.Consignment.HouseConsignment.map(_.Consignor)
       }
-
     }
   }
 }

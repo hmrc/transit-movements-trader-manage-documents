@@ -1,0 +1,12 @@
+@this()
+
+@()
+<fo:layout-master-set>
+  <fo:simple-page-master master-name="top-page" page-height="11.69in" page-width="8.27in" margin-left="6mm" margin-right="5mm">
+    <fo:region-body margin-top="8mm"/>
+  </fo:simple-page-master>
+  <fo:simple-page-master master-name="pages" page-height="11.69in" page-width="8.27in" margin-left="1cm" margin-right="1cm" margin-top="0mm">
+    <fo:region-body margin-top="28.5mm" margin-bottom="2cm"/>
+    <fo:region-before/>
+  </fo:simple-page-master>
+</fo:layout-master-set>

@@ -14,39 +14,24 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package models.P5.unloading
 
-import models.P5.departure.TransportEquipment.sealToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class PreviousDocument(
-  sequenceNumber: Option[String],
-  `type`: Option[String],
-  referenceNumber: Option[String],
-  complementOfInformation: Option[String],
-  goodsItemNumber: Option[Int],
-  typeOfPackages: Option[String],
-  numberOfPackages: Option[Int],
-  measurementUnitAndQualifier: Option[String],
-  quantity: Option[Double]
+  `type`: String,
+  referenceNumber: String,
+  goodsItemNumber: Option[String],
+  complementOfInformation: Option[String]
 ) {
 
-  override def toString: String = {
-
-    val stringList: Seq[Option[String]] = List(
-      sequenceNumber,
-      `type`,
-      referenceNumber,
-      complementOfInformation,
-      goodsItemNumber.map(_.toString),
-      typeOfPackages,
-      numberOfPackages.map(_.toString),
-      measurementUnitAndQualifier,
-      quantity.map(_.toString)
-    )
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = Seq(
+    Some(`type`),
+    Some(referenceNumber),
+    goodsItemNumber,
+    complementOfInformation
+  ).flatten.mkString(", ")
 }
 
 object PreviousDocument {

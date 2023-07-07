@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-package base
+package models.P5.unloading
 
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.mockito.MockitoSugar
-import uk.gov.hmrc.http.HeaderCarrier
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {}
+case class HouseConsignment(ConsignmentItem: Seq[ConsignmentItem]) {
+
+  val totalPackages: Int = ConsignmentItem.total(_.totalPackages)
+
+  val totalItems: Int = ConsignmentItem.length
+}
+
+object HouseConsignment {
+  implicit val formats: OFormat[HouseConsignment] = Json.format[HouseConsignment]
+}

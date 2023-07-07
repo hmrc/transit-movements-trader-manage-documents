@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-package base
+package models.P5.unloading
 
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.mockito.MockitoSugar
-import uk.gov.hmrc.http.HeaderCarrier
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {}
+case class GoodsReference(sequenceNumber: String, declarationGoodsItemNumber: Int) {
+
+  override def toString: String = s"$sequenceNumber:$declarationGoodsItemNumber"
+}
+
+object GoodsReference {
+  implicit val formats: OFormat[GoodsReference] = Json.format[GoodsReference]
+}
