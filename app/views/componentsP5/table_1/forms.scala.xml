@@ -19,7 +19,7 @@
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center" padding-bottom="22.5%">
             <fo:block padding-top="15%">
-             3
+              <fo:page-number-citation-last ref-id="tloi-pages"/>
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
