@@ -14,17 +14,28 @@
  * limitations under the License.
  */
 
-package base
+package models
 
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.mockito.MockitoSugar
-import uk.gov.hmrc.http.HeaderCarrier
+package object P5 {
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
+  implicit class RichOptionSeqT[T](ts: Option[Seq[T]]) {
 
-  implicit val hc: HeaderCarrier = HeaderCarrier()
+    def showAll: String = ts.getOrElse(Nil).showAll
 
-  val messageId = "6445005176e4e834"
+    def showFirstAndLast: String = {
+      val (headOption, lastOption) = ts match {
+        case Some(head :: tail) => (Some(head), tail.lastOption)
+        case _                  => (None, None)
+      }
+      Seq(headOption, lastOption).flatten.map(_.toString).mkString("...")
+    }
+  }
+
+  implicit class RichSeqT[T](ts: Seq[T]) {
+
+    def showAll: String = ts.map(_.toString).mkString("; ")
+
+    def total(f: T => Int): Int = ts.map(f).sum
+  }
+
 }
