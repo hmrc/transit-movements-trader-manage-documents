@@ -16,13 +16,14 @@
 
 package viewmodels
 
+import base.DepartureData
 import base.SpecBase
 import models.P5.departure.IE029Data
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import viewmodels.P5._
 
-class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase {
+class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
   val ie029Data = IE029Data(departureMessageData)
   val viewModel = TableViewModel()(ie029Data)
