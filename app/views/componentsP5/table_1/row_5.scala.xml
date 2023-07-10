@@ -65,31 +65,29 @@
                     </fo:table-row>
 
 
-                    <fo:table-row height="4%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                        <fo:table-cell display-align="center" margin-left="0.5%" height="4%">
+                    <fo:table-row padding-bottom="4%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Additional supply chain actor [13 12]</fo:block>
                         </fo:table-cell>
-
                         <fo:table-cell display-align="center" margin-left="1%">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row>
-
+                    <fo:table-row height="4%">
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block-container height="2%" overflow="hidden">
+                            <fo:block>
                                 <fo:block>@viewModel.table1ViewModel.additionalSupplyChainActorRoles</fo:block>
-                            </fo:block-container>
+                            </fo:block>
                         </fo:table-cell>
-
-                        <fo:table-cell margin-left="0.5%" padding-bottom="4%">
-                            <fo:block-container height="2%" overflow="hidden">
-                                <fo:block>@viewModel.table1ViewModel.additionalSupplyChainActorIdentificationNumbers
-                                </fo:block>
+                        <fo:table-cell number-columns-spanned="2" margin-left="0.5%" padding-bottom="4%">
+                            <fo:block-container height="4%" overflow="hidden">
+                                <fo:block>@viewModel.table1ViewModel.additionalSupplyChainActorIdentificationNumbers</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
+
+
 
                     <!-- Departure transport means 8% -->
 
