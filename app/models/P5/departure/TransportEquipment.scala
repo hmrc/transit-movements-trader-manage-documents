@@ -16,7 +16,6 @@
 
 package models.P5.departure
 
-import models.P5.departure.TransportEquipment.goodsReferenceToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -34,40 +33,16 @@ case class TransportEquipment(
       Some(sequenceNumber),
       containerIdentificationNumber,
       Some(numberOfSeals.toString),
-      goodsReferenceToString(GoodsReference)
+      Some(goodsReferences)
     )
     stringList.flatten.mkString(", ")
   }
+  def goodsReferences: String = GoodsReference.showFirstAndLast
+  def seal: String            = Seal.showFirstAndLast
 
 }
 
 object TransportEquipment {
-
-  def sealToString(Seal: Option[List[Seal]]): String = {
-
-    val sealString = Seal match {
-      case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.identifier.getOrElse("")}")
-      case Some(firstElem :: tail) =>
-        Some(
-          s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.identifier.getOrElse("")}..."
-        )
-      case _ => Some("")
-    }
-    sealString.getOrElse("")
-  }
-
-  private def goodsReferenceToString(GoodsReference: Option[List[GoodsReference]]): Option[String] = {
-
-    val goodsRefString = GoodsReference match {
-      case Some(firstElem :: Nil) => Some(s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.declarationGoodsItemNumber.getOrElse("")}")
-      case Some(firstElem :: tail) =>
-        Some(
-          s"${firstElem.sequenceNumber.getOrElse("")}:${firstElem.declarationGoodsItemNumber.getOrElse("")}..."
-        )
-      case _ => Some("")
-    }
-    goodsRefString
-  }
 
   implicit val formats: OFormat[TransportEquipment] = Json.format[TransportEquipment]
 }

@@ -16,7 +16,6 @@
 
 package models.P5.departure
 
-import models.P5.departure.TransportEquipment.sealToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 

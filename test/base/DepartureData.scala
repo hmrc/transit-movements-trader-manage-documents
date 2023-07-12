@@ -92,7 +92,7 @@ trait DepartureData {
   val goodsMeasure                  = GoodsMeasure(1.2, Some(1.4))
   val transportCharges              = TransportCharges(Some("payPal"))
   val dangerousGoods                = DangerousGoods("seq1", Some("UNNumber1"))
-  val commodity                     = Commodity("Tiles", Some(commodityCode), goodsMeasure, Some("shippingMark1"), Some("CUSTCODE1"), List(dangerousGoods))
+  val commodity                     = Commodity("Tiles", Some(commodityCode), goodsMeasure, Some("shippingMark1"), Some("CUSTCODE1"), Some(List(dangerousGoods)))
 
   val consignmentItem1 = ConsignmentItem(
     Some("1T1"),

@@ -42,7 +42,7 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
       val multipleSealsDM        = departureMessageData.copy(Consignment = consignmentWithMultipleSeals)
       val ie029DataMultupleSeals = IE029Data(multipleSealsDM)
       val viewModelMultiSeals    = TableViewModel()(ie029DataMultupleSeals)
-      viewModelMultiSeals.table2ViewModel.seals mustBe "1232:ID10012..."
+      viewModelMultiSeals.table2ViewModel.seals mustBe "1232:ID10012...456:ID10045"
     }
     "return comma seperated previousDocument information" in {
       viewModel.table2ViewModel.previousDocument mustBe "Document-1, Type-1, Reference-1, C1; Document-1, Type-1, Reference-1, C1"

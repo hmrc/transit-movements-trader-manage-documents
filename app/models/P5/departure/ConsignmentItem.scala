@@ -53,7 +53,7 @@ case class ConsignmentItem(
   val additionalSupplyChainActor: String  = AdditionalSupplyChainActor.map(_.map(_.toString).mkString("; ")).getOrElse("")
   val commodityCode: String               = Commodity.CommodityCode.map(_.toString).getOrElse("")
   val departureTransportMeans: String     = DepartureTransportMeans.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val dangerousGoods: String              = Commodity.DangerousGoods.map(_.toString).mkString("; ")
+  val dangerousGoods: String              = Commodity.DangerousGoods.map(_.map(_.toString).mkString("; ")).getOrElse("")
   val cusCode: String                     = Commodity.cusCode.getOrElse("")
   val descriptionOfGoods: String          = Commodity.descriptionOfGoods
   val previousDocumentString: String      = PreviousDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
