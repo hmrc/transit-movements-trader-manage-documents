@@ -25,8 +25,8 @@ import viewmodels.P5._
 
 class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
-  val ie029Data = IE029Data(departureMessageData)
-  val viewModel = TableViewModel()(ie029Data)
+  val ie029Data: IE029Data      = IE029Data(departureMessageData)
+  val viewModel: TableViewModel = TableViewModel()(ie029Data)
 
   "table2ViewModelSpec" - {
 
