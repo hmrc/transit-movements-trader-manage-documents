@@ -19,10 +19,8 @@
                             <fo:block>Consignor [13 02]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
+                        <fo:table-cell display-align="center" margin-left="1mm">
                                 <fo:block>ID</fo:block>
-                            </fo:block-container>
                         </fo:table-cell>
 
                     </fo:table-row>
