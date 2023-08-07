@@ -13,7 +13,7 @@
                 <fo:table-body>
                     <fo:table-row height="2mm">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Departure transport means [13 14]</fo:block>
+                            <fo:block>Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
