@@ -16,11 +16,9 @@
 
 package models.P5.departure
 
-import models.P5.departure.TransportEquipment.sealToString
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-//case class Consignment(value: JsObject)
 case class Consignment(
   grossMass: Double,
   inlandModeOfTransport: Option[String],
@@ -71,9 +69,7 @@ case class Consignment(
   )
 
   val seals: Option[String] = TransportEquipment.map(
-    _.map(
-      x => sealToString(x.Seal)
-    ).mkString("; ")
+    _.map(_.seal).mkString("; ")
   )
 
   val additionalInformation: Option[String] = AdditionalInformation.map(
@@ -97,6 +93,10 @@ case class Consignment(
   val activeBorderTransportMeansConveyanceNumbers: Option[String] = ActiveBorderTransportMeans.map(
     _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
+
+  val consignmentItems: Seq[ConsignmentItem] = HouseConsignment.foldLeft(Seq.empty[ConsignmentItem]) {
+    (acc, house) => acc ++ house.ConsignmentItem.map(_.copy(Consignor = house.Consignor, DepartureTransportMeans = DepartureTransportMeans))
+  }
 
 }
 

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package viewmodels.P5
 
-import play.api.libs.json.Json
-import play.api.libs.json.OWrites
-import play.api.libs.json.Reads
-import play.api.libs.json.__
+import models.P5.departure.Commodity
+import models.P5.departure.CommodityCode
+import models.P5.departure.ConsignmentItem
+import models.P5.departure.IE029Data
+import models.P5.departure.Packaging
 
-case class IE029Data(data: DepartureMessageData)
+case class ConsignmentItemViewModel(implicit ie029Data: IE029Data) {
 
-object IE029Data {
-  implicit val reads: Reads[IE029Data]    = (__ \ "body" \ "n1:CC029C").read[DepartureMessageData].map(IE029Data.apply)
-  implicit val writes: OWrites[IE029Data] = Json.writes[IE029Data]
+  val consignmentItem: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
+
 }

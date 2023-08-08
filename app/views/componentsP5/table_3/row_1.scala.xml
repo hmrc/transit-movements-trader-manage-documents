@@ -1,16 +1,16 @@
 @import views.xml.componentsP5.table_1.consignee
         @import views.xml.componentsP5.table_1.total_gross_mass
 
-        @(ie029Data: models.P5.departure.IE029Data)
+        @(viewModel: viewmodels.P5.TableViewModel)
 
-<fo:table-row height="16mm">
+<fo:table-row height="16%">
 
     <fo:table-cell number-columns-spanned="2">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
-                    <fo:table-row height="35.6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"> <!-- todo where is this extra .25mm -->
-                        <fo:table-cell display-align="top" margin-left="2mm">
+                    <fo:table-row height="35.6%">
+                        <fo:table-cell display-align="top" margin-left="2%" padding-top="5%">
                             <fo:block font-weight="bold" font-size="5pt">INCIDENTS DURING TRANSPORT (BCP)</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -20,7 +20,8 @@
     </fo:table-cell>
 
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
 
@@ -28,58 +29,59 @@
                                border-right-width="1pt" border-right-color="black">
 
                     <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3" padding-left="1mm">
-                            <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION </fo:block>
+                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="3"
+                                       padding-left="1%" padding-bottom="5%">
+                            <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
                                        border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4mm" overflow="hidden">
+                            <fo:block-container height="4%" overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                       padding-left="1mm">
+                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="3"
+                                       padding-left="1%" padding-bottom="5%">
                             <fo:block>Identity and Nationality new transport means</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
                                        border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4mm" overflow="hidden">
+                            <fo:block-container height="4%" overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                       padding-left="1mm">
+                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="3"
+                                       padding-left="1%" padding-bottom="5%">
                             <fo:block>Container ID[19 07]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
                                        border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4mm" overflow="hidden">
+                            <fo:block-container height="4%" overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                       padding-left="1mm">
+                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="3"
+                                       padding-left="1%" padding-bottom="5%">
                             <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5mm">
-                            <fo:block-container height="14mm" overflow="hidden">
+                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
+                            <fo:block-container height="14%" overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
@@ -92,13 +94,13 @@
         </fo:block>
     </fo:table-cell>
 
-    <fo:table-cell >
+    <fo:table-cell>
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="55mm"/>
-                <fo:table-column column-number="2" column-width="40mm"/>
+                <fo:table-column column-number="1" column-width="55%"/>
+                <fo:table-column column-number="2" column-width="117.25%"/>
                 <fo:table-body>
-                    <fo:table-row height="16mm">
+                    <fo:table-row height="16%">
                         <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
                                        border-left-color="black" border-right-style="solid" border-right-width="1pt"
                                        border-right-color="black" border-top-style="solid" border-top-width="1pt"
@@ -109,59 +111,69 @@
                                     <fo:table-body>
 
                                         <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                                           padding-left="1mm">
+                                            <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
+                                                           number-columns-spanned="3"
+                                                           padding-left="1%" padding-bottom="4.5%">
                                                 <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
+                                                           border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="3.85mm" overflow="hidden">
+                                                <fo:block-container height="3.85%" overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                                           padding-left="1mm" border-top-style="solid" border-top-width="1pt">
+                                            <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
+                                                           number-columns-spanned="3"
+                                                           padding-left="1%" border-top-style="solid"
+                                                           border-top-width="1pt" padding-bottom="4.75%">
                                                 <fo:block>Identity and Nationality new transport means</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
+                                                           border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="4mm" overflow="hidden">
+                                                <fo:block-container height="4%" overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                                           padding-left="1mm">
+                                            <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
+                                                           number-columns-spanned="3"
+                                                           padding-left="1%" padding-bottom="4.75%">
                                                 <fo:block>Container ID[19 07]</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" border-bottom-style="solid"
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
+                                                           border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="4mm" overflow="hidden">
+                                                <fo:block-container height="4%" overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell height="2mm" margin-top="0.5mm" display-align="center" number-columns-spanned="3"
-                                                           padding-left="1mm">
-                                                <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
+                                            <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
+                                                           number-columns-spanned="3"
+                                                           padding-left="1%" padding-bottom="13%">
+                                                <fo:block>Other incidents during carriage / Details and measures
+                                                    taken(text)
+                                                </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5mm" >
-                                                <fo:block-container height="14mm" overflow="hidden">
+                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
+                                                <fo:block-container height="20%" overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>

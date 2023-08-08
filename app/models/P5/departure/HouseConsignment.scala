@@ -19,13 +19,38 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class HouseConsignment(ConsignmentItem: Seq[ConsignmentItem]) {
+case class HouseConsignment(
+  ConsignmentItem: Seq[ConsignmentItem],
+  Consignor: Option[Consignor],
+  Consignee: Option[Consignee],
+  PreviousDocument: Option[List[PreviousDocument]],
+  TransportDocument: Option[List[TransportDocument]],
+  SupportingDocument: Option[List[SupportingDocument]],
+  AdditionalInformation: Option[List[AdditionalInformation]],
+  AdditionalReference: Option[List[AdditionalReference]],
+  TransportCharges: Option[TransportCharges],
+  grossMass: Double,
+  countryOfDispatch: Option[String],
+  referenceNumberUCR: Option[String]
+) {
 
   val totalPackages: Int = ConsignmentItem.foldLeft(0)(
     (total, item) => total + item.totalPackages
   )
 
   val totalItems: Int = ConsignmentItem.length
+
+  val previousDocumentInHC: Option[String] = PreviousDocument.map(_.map(_.toString)).map(_.mkString("; "))
+
+  val supportingDocumentInHC: Option[String] = SupportingDocument.map(_.map(_.toString).mkString("; "))
+
+  val transportDocumentInHC: Option[String] = TransportDocument.map(_.map(_.toString).mkString("; "))
+
+  val additionalInformationInHC: Option[String] = AdditionalInformation.map(_.map(_.toString).mkString("; "))
+
+  val additionalReferenceInHC: Option[String] = AdditionalReference.map(_.map(_.toString).mkString("; "))
+
+  val transportChargesInHC: Option[String] = TransportCharges.map(_.toString)
 }
 
 object HouseConsignment {

@@ -17,13 +17,10 @@
 package models.P5.departure
 
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
-import play.api.libs.json.Reads
-import play.api.libs.json.__
+import play.api.libs.json.OFormat
 
-case class IE029Data(data: DepartureMessageData)
+case class GoodsMeasure(grossMass: Double, netMass: Option[Double])
 
-object IE029Data {
-  implicit val reads: Reads[IE029Data]    = (__ \ "body" \ "n1:CC029C").read[DepartureMessageData].map(IE029Data.apply)
-  implicit val writes: OWrites[IE029Data] = Json.writes[IE029Data]
+object GoodsMeasure {
+  implicit val formats: OFormat[GoodsMeasure] = Json.format[GoodsMeasure]
 }

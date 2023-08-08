@@ -19,7 +19,16 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class GoodsReference(sequenceNumber: Option[String], declarationGoodsItemNumber: Option[Int])
+case class GoodsReference(sequenceNumber: Option[String], declarationGoodsItemNumber: Option[Int]) {
+
+  override def toString: String = {
+    val stringList: Seq[Option[String]] = List(
+      sequenceNumber,
+      declarationGoodsItemNumber.map(_.toString)
+    )
+    stringList.flatten.mkString(":")
+  }
+}
 
 object GoodsReference {
   implicit val formats: OFormat[GoodsReference] = Json.format[GoodsReference]

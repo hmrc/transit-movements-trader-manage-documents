@@ -6,18 +6,18 @@
       <fo:table-column/>
       <fo:table-column/>
       <fo:table-body>
-        <fo:table-row height="2mm">
+        <fo:table-row height="2%">
           <fo:table-cell number-columns-spanned="2" text-align="left" display-align="left">
-            <fo:block margin-top="0.5mm" margin-left="0.5mm">Forms</fo:block>
+            <fo:block margin-top="0.5%" margin-left="0.5%">Forms</fo:block>
           </fo:table-cell>
         </fo:table-row>
-        <fo:table-row number-columns-spanned="2" height="6mm">
-          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
+        <fo:table-row number-columns-spanned="2" >
+          <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center" padding-bottom="28.5%">
             <fo:block>
               1
             </fo:block>
           </fo:table-cell>
-          <fo:table-cell text-align="center" display-align="center">
+          <fo:table-cell text-align="center" display-align="center" padding-bottom="28.5%">
             <fo:block>
               <fo:page-number-citation-last ref-id="tloi-pages"/>
             </fo:block>

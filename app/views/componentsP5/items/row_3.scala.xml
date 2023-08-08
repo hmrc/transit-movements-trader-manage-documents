@@ -1,5 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
 
+        @(item: models.P5.departure.ConsignmentItem)
 <fo:table-row height="8mm">
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
@@ -22,17 +23,13 @@
 
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="6mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Consignee 1</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.consignee</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Consignee 1 ID</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.consigneeId</fo:block>
                         </fo:table-cell>
 
                     </fo:table-row>
@@ -45,7 +42,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%">
                 <fo:table-body>
                     <fo:table-row height="2mm">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
@@ -53,11 +50,9 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="2mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>add ref 1</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.additionalReferenceString</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -67,11 +62,9 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="2mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>add info 1</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.additionalInformationString</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>

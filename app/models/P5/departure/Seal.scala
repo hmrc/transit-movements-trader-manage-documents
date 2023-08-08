@@ -26,7 +26,7 @@ case class Seal(sequenceNumber: Option[String], identifier: Option[String]) {
       sequenceNumber,
       identifier
     )
-    stringList.flatten.mkString(", ")
+    stringList.flatten.mkString(":")
   }
 }
 

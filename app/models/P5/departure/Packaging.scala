@@ -19,7 +19,14 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class Packaging(numberOfPackages: Option[Int])
+case class Packaging(numberOfPackages: Option[Int], typeOfPackages: String, shippingMarks: Option[String]) {
+
+  override def toString: String = {
+
+    val stringList: Seq[Option[String]] = List(numberOfPackages.map(_.toString), Some(typeOfPackages), shippingMarks)
+    stringList.flatten.mkString(", ")
+  }
+}
 
 object Packaging {
   implicit val formats: OFormat[Packaging] = Json.format[Packaging]

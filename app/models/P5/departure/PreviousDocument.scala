@@ -16,11 +16,20 @@
 
 package models.P5.departure
 
-import models.P5.departure.TransportEquipment.sealToString
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class PreviousDocument(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String], complementOfInformation: Option[String]) {
+case class PreviousDocument(
+  sequenceNumber: Option[String],
+  `type`: Option[String],
+  referenceNumber: Option[String],
+  complementOfInformation: Option[String],
+  goodsItemNumber: Option[Int],
+  typeOfPackages: Option[String],
+  numberOfPackages: Option[Int],
+  measurementUnitAndQualifier: Option[String],
+  quantity: Option[Double]
+) {
 
   override def toString: String = {
 
@@ -28,7 +37,12 @@ case class PreviousDocument(sequenceNumber: Option[String], `type`: Option[Strin
       sequenceNumber,
       `type`,
       referenceNumber,
-      complementOfInformation
+      complementOfInformation,
+      goodsItemNumber.map(_.toString),
+      typeOfPackages,
+      numberOfPackages.map(_.toString),
+      measurementUnitAndQualifier,
+      quantity.map(_.toString)
     )
     stringList.flatten.mkString(", ")
   }

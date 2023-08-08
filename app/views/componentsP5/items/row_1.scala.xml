@@ -1,13 +1,14 @@
-@()
+@import models.P5.departure.ConsignmentItem
+
+@(item: models.P5.departure.ConsignmentItem)
 
 <fo:table-row height="4mm">
 
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
                  border-right-style="solid" border-right-width="1pt" border-right-color="black"
-                 border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
-                 border-bottom-width="1pt" border-bottom-color="black">
+                 border-top-style="solid" border-top-width="1pt" border-top-color="black" >
     <fo:block>
-      <fo:table width="100%" table-layout="fixed">
+      <fo:table width="100%">
         <fo:table-column column-number="1" column-width="25%"/>
         <fo:table-column column-number="2" column-width="17%"/>
         <fo:table-column column-number="3" column-width="58%"/>
@@ -27,23 +28,17 @@
             </fo:table-cell>
           </fo:table-row>
 
-          <fo:table-row >
-            <fo:table-cell margin-left="0.5mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
-              <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>DEC GOODS</fo:block>
-              </fo:block-container>
+          <fo:table-row>
+            <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+                <fo:block>@item.declarationGoodsItemNumberString</fo:block>
             </fo:table-cell>
 
-            <fo:table-cell margin-left="0.5mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black">
-              <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>Goods it</fo:block>
-              </fo:block-container>
+            <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                <fo:block>@item.goodsItemNumberString</fo:block>
             </fo:table-cell>
 
             <fo:table-cell margin-left="0.5mm">
-              <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>type of packages, shipping marks etc</fo:block>
-              </fo:block-container>
+                <fo:block>@item.packagesType</fo:block>
             </fo:table-cell>
           </fo:table-row>
         </fo:table-body>
@@ -56,7 +51,7 @@
                  border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                  border-bottom-width="1pt" border-bottom-color="black">
     <fo:block>
-      <fo:table width="100%" table-layout="fixed">
+      <fo:table width="100%">
         <fo:table-body>
           <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" >
             <fo:table-cell display-align="center" margin-left="0.5mm">
@@ -66,9 +61,7 @@
 
           <fo:table-row>
             <fo:table-cell margin-left="0.5mm">
-              <fo:block-container height="2mm" overflow="hidden">
-                <fo:block>Desc of goods 1</fo:block>
-              </fo:block-container>
+                <fo:block>@item.descriptionOfGoods</fo:block>
             </fo:table-cell>
           </fo:table-row>
         </fo:table-body>

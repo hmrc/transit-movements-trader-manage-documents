@@ -1,4 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
+
+        @(item: models.P5.departure.ConsignmentItem)
 
 <fo:table-row height="8mm">
 
@@ -7,7 +9,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%">
                 <fo:table-column column-number="1" column-width="44mm"/>
                 <fo:table-column column-number="2" column-width="8mm"/>
                 <fo:table-column column-number="3" column-width="37mm"/>
@@ -23,17 +25,13 @@
 
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="6mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Add supply chain actor</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.additionalSupplyChainActor</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Add supply chain actor ID</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.supplyChainActorId</fo:block>
                         </fo:table-cell>
 
                     </fo:table-row>
@@ -46,7 +44,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%">
 
                 <fo:table-column column-number="1" column-width="68%"/>
                 <fo:table-column column-number="2" column-width="32%"/>
@@ -60,18 +58,15 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="2mm">
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>transport doc 1</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.transportDocumentString</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
-
-
                     <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                        <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid"
+                                       border-right-width="1pt" border-right-color="black">
                             <fo:block>UCR [12 08]</fo:block>
                         </fo:table-cell>
 
@@ -81,15 +76,16 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                        <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt"
+                                       border-right-color="black">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>ucr ref 1</fo:block>
+                                <fo:block>@item.referenceNumberUCRString</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>100.0</fo:block>
+                                <fo:block>@item.grossMass</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

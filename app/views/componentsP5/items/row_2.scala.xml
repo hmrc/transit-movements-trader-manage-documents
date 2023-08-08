@@ -1,4 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
+
+        @(item: models.P5.departure.ConsignmentItem)
 
 <fo:table-row height="8mm">
 
@@ -7,7 +9,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%">
                 <fo:table-column column-number="1" column-width="44mm"/>
                 <fo:table-column column-number="2" column-width="8mm"/>
                 <fo:table-column column-number="3" column-width="37mm"/>
@@ -16,26 +18,18 @@
                         <fo:table-cell display-align="center" margin-left="0.5mm">
                             <fo:block>Consignor [13 02]</fo:block>
                         </fo:table-cell>
-
                         <fo:table-cell display-align="center" margin-left="1mm">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
-
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="6mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Consignor 1</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.consignor</fo:block>
                         </fo:table-cell>
-
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block-container height="6mm" overflow="hidden">
-                                <fo:block>Consignor 1 ID</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.consignorId</fo:block>
                         </fo:table-cell>
-
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
@@ -46,7 +40,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%">
                 <fo:table-body>
                     <fo:table-row height="2mm">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
@@ -54,11 +48,9 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="2mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>prev doc 1 1</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.previousDocumentString</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -68,11 +60,9 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row>
+                    <fo:table-row height="2mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Supporting document 1</fo:block>
-                            </fo:block-container>
+                            <fo:block>@item.supportingDocumentString</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>

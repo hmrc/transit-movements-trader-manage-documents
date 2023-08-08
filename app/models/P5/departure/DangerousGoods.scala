@@ -19,30 +19,15 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TransportEquipment(
-  sequenceNumber: String,
-  containerIdentificationNumber: Option[String],
-  numberOfSeals: Int,
-  Seal: Option[List[Seal]],
-  GoodsReference: Option[List[GoodsReference]]
-) {
+case class DangerousGoods(sequenceNumber: String, UNNumber: Option[String]) {
 
   override def toString: String = {
-
-    val stringList: Seq[Option[String]] = List(
-      Some(sequenceNumber),
-      containerIdentificationNumber,
-      Some(numberOfSeals.toString),
-      Some(goodsReferences)
-    )
+    val stringList: Seq[Option[String]] = List(Some(sequenceNumber), UNNumber)
     stringList.flatten.mkString(", ")
   }
-  def goodsReferences: String = GoodsReference.showFirstAndLast
-  def seal: String            = Seal.showFirstAndLast
 
 }
 
-object TransportEquipment {
-
-  implicit val formats: OFormat[TransportEquipment] = Json.format[TransportEquipment]
+object DangerousGoods {
+  implicit val formats: OFormat[DangerousGoods] = Json.format[DangerousGoods]
 }

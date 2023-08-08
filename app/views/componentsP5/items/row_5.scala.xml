@@ -1,4 +1,6 @@
-@()
+@import models.P5.departure.ConsignmentItem
+
+        @(item: models.P5.departure.ConsignmentItem)
 
 <fo:table-row height="4mm">
 
@@ -11,14 +13,14 @@
                 <fo:table-body>
                     <fo:table-row height="2mm">
                         <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Departure transport means [13 14]</fo:block>
+                            <fo:block>Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Dep transport means</fo:block>
+                                <fo:block>@item.departureTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -50,13 +52,13 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>Comm code</fo:block>
+                                <fo:block>@item.commodityCode</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>100.0</fo:block>
+                                <fo:block>@item.netMass</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

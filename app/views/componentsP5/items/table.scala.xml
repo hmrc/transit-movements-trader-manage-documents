@@ -1,15 +1,16 @@
-@(item: String)
-<fo:table width="100%" table-layout="fixed" >
+@import models.P5.departure.ConsignmentItem
+@(item: ConsignmentItem)
+<fo:table width="100%">
 
   <fo:table-column column-width="50%"/>
   <fo:table-column column-width="50%"/>
 
   <fo:table-body>
-    @row_1()
-    @row_2()
-    @row_3()
-    @row_4()
-    @row_5()
-    @row_6()
+    @row_1(item)
+    @row_2(item)
+    @row_3(item)
+    @row_4(item)
+    @row_5(item)
+    @row_6(item)
   </fo:table-body>
 </fo:table>

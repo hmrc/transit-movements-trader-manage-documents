@@ -42,7 +42,7 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
     implicit request =>
       service.getReleaseForTransitNotification(departureId, messageId).map {
         ie029 =>
-          val fileName = s"TAD_${FileNameSanitizer(ie029.mrn)}.pdf"
+          val fileName = s"TAD_${FileNameSanitizer(ie029.data.TransitOperation.MRN)}.pdf"
 
           Ok(pdf.generateP5TAD(ie029))
             .withHeaders(

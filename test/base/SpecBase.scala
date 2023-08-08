@@ -20,11 +20,5 @@ import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.mockito.MockitoSugar
-import uk.gov.hmrc.http.HeaderCarrier
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
-
-  implicit val hc: HeaderCarrier = HeaderCarrier()
-
-  val messageId = "6445005176e4e834"
-}
+trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {}

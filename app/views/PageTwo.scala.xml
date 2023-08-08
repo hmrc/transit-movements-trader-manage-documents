@@ -1,16 +1,16 @@
 @import views.xml.componentsP5.items._
-        @import models.P5.departure.ConsignmentItem
+@import models.P5.departure.ConsignmentItem
 
-@this()
+        @this()
 
-@(items: Seq[ConsignmentItem], mrn: String)
+        @(items: Seq[ConsignmentItem], mrn: String)
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
     <fo:static-content flow-name="xsl-region-before">
-          @header(mrn)
+        @header(mrn)
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
-          @items.map(table(_))
+            @items.map(table(_))
         </fo:block>
         <fo:block id="tloi-pages"/>
     </fo:flow>

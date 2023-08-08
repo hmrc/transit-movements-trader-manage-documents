@@ -1,56 +1,56 @@
 @import views.xml.componentsP5.table_1.local_reference_number
 
-@(ie029Data: models.P5.departure.IE029Data)
+        @(viewModel: viewmodels.P5.TableViewModel)
 
-<fo:table-row height="24mm">
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+<fo:table-row height="24%">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
 
-  <fo:table-cell text-align="center" vertical-align="top" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
-    <fo:block/>
-  </fo:table-cell>
+    <fo:table-cell text-align="center" vertical-align="top" border-top-color="black" border-left-style="solid"
+                   border-left-width="1pt" border-left-color="black">
+        <fo:block/>
+    </fo:table-cell>
 
-<!--  change name of xml-->
-  @holder_of_transit_procedure(
-    ie029Data.holderOfTransitProcedure,
-    ie029Data.holderOfTransitProcedureIdentificationNumber,
-    ie029Data.representative,
-    ie029Data.representativeIdentificationNumber,
-  )
+    <!--  change name of xml-->
+    @holder_of_transit_procedure(
+    viewModel.table1ViewModel.holderOfTransitProcedure,
+    viewModel.table1ViewModel.holderOfTransitProcedureIdentificationNumber,
+    viewModel.table1ViewModel.representative,
+    viewModel.table1ViewModel.representativeIdentificationNumber,
+    )
 
-  <fo:table-cell>
-    <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
-        <fo:table-body>
-          <fo:table-row>
-            <fo:table-cell>
-              <fo:block>
-                <fo:table width="100%" table-layout="fixed">
-                  <fo:table-column column-width="38mm"/>
-                  <fo:table-column column-width="28.5mm"/>
-                  <fo:table-column column-width="28.5mm"/>
+    <fo:table-cell>
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column/>
+                <fo:table-body>
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>
+                                <fo:table width="99.75%" table-layout="fixed">
+                                    <fo:table-column column-width="57.5%"/>
+                                    <fo:table-column column-width="57.5%"/>
+                                    <fo:table-column column-width="57.5%"/>
 
-                  <fo:table-body>
-                    <fo:table-row height="8mm">
-                      @local_reference_number(ie029Data.lrn)
-                      @ucr(ie029Data.ucr)
-                      @tir(ie029Data.tir)
+                                    <fo:table-body>
+                                        <fo:table-row height="8%">
+                                            @local_reference_number(viewModel.table1ViewModel.lrn)
+                                            @tir(viewModel.table1ViewModel.tir)
+                                            @ucr(viewModel.table1ViewModel.ucr)
+                                        </fo:table-row>
+                                        <fo:table-row height="17%"> <!-- todo extra 1% needed from somewhere else -->
+                                            @bcp()
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
                     </fo:table-row>
-                    <fo:table-row height="17mm"> <!-- todo extra 1mm needed from somewhere else -->
-                      @bcp()
-                    </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-        </fo:table-body>
-      </fo:table>
-    </fo:block>
-  </fo:table-cell>
-
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
 
 
 </fo:table-row>

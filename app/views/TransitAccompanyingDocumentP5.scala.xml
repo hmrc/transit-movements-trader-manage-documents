@@ -12,15 +12,15 @@
         pageTwo: PageTwo
 )
 
-@(ie029Data: models.P5.departure.IE029Data)
+@(viewModel: viewmodels.P5.TableViewModel, itemViewModel: viewmodels.P5.ConsignmentItemViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo = Some(pageTwo(items = Seq("Item 1" , "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8"), mrn = ie029Data.mrn))
+    pageTwo = Some(pageTwo(items = itemViewModel.consignmentItem, mrn = viewModel.table1ViewModel.mrn))
 )
 
 @pageOneBody = {
-        @table1(ie029Data)
-        @table2(ie029Data)
-        @table3(ie029Data)
-        @table4(ie029Data)
+        @table1(viewModel)
+        @table2(viewModel)
+        @table3(viewModel)
+        @table4(viewModel)
 }

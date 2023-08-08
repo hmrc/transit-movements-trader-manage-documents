@@ -22,7 +22,7 @@ import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
 import views.xml.TransitAccompanyingDocumentP5
-
+import viewmodels.P5._
 import javax.inject.Inject
 
 //TODO refactor this into one with unloading permission
@@ -41,7 +41,7 @@ class TADPdfGenerator @Inject() (
 
   def generateP5TAD(ie029Data: IE029Data): Array[Byte] = {
 
-    val renderedDocument = documentP5.render(ie029Data)
+    val renderedDocument = documentP5.render(TableViewModel()(ie029Data), ConsignmentItemViewModel()(ie029Data))
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
