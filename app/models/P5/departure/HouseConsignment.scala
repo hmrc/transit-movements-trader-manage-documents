@@ -40,15 +40,15 @@ case class HouseConsignment(
 
   val totalItems: Int = ConsignmentItem.length
 
-  val previousDocumentInHC: Option[String] = PreviousDocument.map(_.map(_.toString)).map(_.mkString("; "))
+  val previousDocumentInHC: Option[String] = PreviousDocument.map(_.showAll)
 
-  val supportingDocumentInHC: Option[String] = SupportingDocument.map(_.map(_.toString).mkString("; "))
+  val supportingDocumentInHC: Option[String] = SupportingDocument.map(_.showAll)
 
-  val transportDocumentInHC: Option[String] = TransportDocument.map(_.map(_.toString).mkString("; "))
+  val transportDocumentInHC: Option[String] = TransportDocument.map(_.showAll)
 
-  val additionalInformationInHC: Option[String] = AdditionalInformation.map(_.map(_.toString).mkString("; "))
+  val additionalInformationInHC: Option[String] = AdditionalInformation.map(_.showAll)
 
-  val additionalReferenceInHC: Option[String] = AdditionalReference.map(_.map(_.toString).mkString("; "))
+  val additionalReferenceInHC: Option[String] = AdditionalReference.map(_.showAll)
 
   val transportChargesInHC: Option[String] = TransportCharges.map(_.toString)
 }
