@@ -46,21 +46,21 @@ case class ConsignmentItem(
   val consignee: String                        = Consignee.map(_.toString).getOrElse("")
   val goodsItemNumberString: String            = goodsItemNumber
   val declarationGoodsItemNumberString: String = declarationGoodsItemNumber.toString
-  val packaging: String                        = Packaging.map(_.toString).mkString("; ")
+  val packaging: String                        = Packaging.showAll
   val referenceNumberUCRString: String         = referenceNumberUCR.getOrElse("")
 
   val transportCharges: String            = TransportCharges.map(_.toString).getOrElse("")
-  val additionalSupplyChainActor: String  = AdditionalSupplyChainActor.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val additionalSupplyChainActor: String  = AdditionalSupplyChainActor.map(_.showAll).getOrElse("")
   val commodityCode: String               = Commodity.CommodityCode.map(_.toString).getOrElse("")
-  val departureTransportMeans: String     = DepartureTransportMeans.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val dangerousGoods: String              = Commodity.DangerousGoods.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val departureTransportMeans: String     = DepartureTransportMeans.map(_.showAll).getOrElse("")
+  val dangerousGoods: String              = Commodity.DangerousGoods.map(_.showAll).getOrElse("")
   val cusCode: String                     = Commodity.cusCode.getOrElse("")
   val descriptionOfGoods: String          = Commodity.descriptionOfGoods
-  val previousDocumentString: String      = PreviousDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val supportingDocumentString: String    = SupportingDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val transportDocumentString: String     = TransportDocument.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val additionalReferenceString: String   = AdditionalReference.map(_.map(_.toString).mkString("; ")).getOrElse("")
-  val additionalInformationString: String = AdditionalInformation.map(_.map(_.toString).mkString("; ")).getOrElse("")
+  val previousDocumentString: String      = PreviousDocument.map(_.showAll).getOrElse("")
+  val supportingDocumentString: String    = SupportingDocument.map(_.showAll).getOrElse("")
+  val transportDocumentString: String     = TransportDocument.map(_.showAll).getOrElse("")
+  val additionalReferenceString: String   = AdditionalReference.map(_.showAll).getOrElse("")
+  val additionalInformationString: String = AdditionalInformation.map(_.showAll).getOrElse("")
 
   val grossMass: String          = Commodity.GoodsMeasure.grossMass.toString
   val netMass: String            = Commodity.GoodsMeasure.netMass.getOrElse("").toString
