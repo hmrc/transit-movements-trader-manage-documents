@@ -19,15 +19,19 @@ package services.conversion
 import cats.data.Validated.Invalid
 import cats.implicits._
 import connectors.ReferenceDataConnector
+import connectors.ReferenceDataP5Connector
+import models.P5.departure.IE029Data
+import models.reference.Country
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.CustomsOfficeWithOptionalDate
+import viewmodels.TransitAccompanyingDocumentPDF
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class TransitAccompanyingDocumentConversionService @Inject() (referenceData: ReferenceDataConnector) {
+class TransitAccompanyingDocumentConversionService @Inject() (referenceData: ReferenceDataConnector, referenceDataP5: ReferenceDataP5Connector) {
 
   /*
    * The TAD/UL xsd files are identical, both documents share same structure
@@ -114,4 +118,23 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
       result => result
     )
   }
+
+  def fromP5ToViewModel(ie029: IE029Data)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentPDF]] = {
+
+    val countriesFuture: Future[ValidationResult[Seq[Country]]] = referenceDataP5.getList[Seq[Country]]("CountryCodesForAddress")
+
+    for {
+      countryCodesForAddress <- countriesFuture
+    } yield countryCodesForAddress
+      .map {
+        countriesForAddress =>
+          TransitAccompanyingDocumentConverter.fromP5ToViewModel(ie029, countriesForAddress)
+      }
+      .fold(
+        errors => Invalid(errors),
+        result => result
+      )
+
+  }
+
 }

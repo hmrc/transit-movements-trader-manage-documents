@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package config
 
-import models.DeclarationType
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import play.api.Configuration
 
-case class TransitOperation(
-  MRN: String,
-  LRN: String,
-  DeclarationType: DeclarationType,
-  additionalDeclarationType: String,
-  security: String,
-  TIRCarnetNumber: Option[String],
-  specificCircumstanceIndicator: Option[String],
-  bindingItinerary: String
-)
+import javax.inject.Inject
 
-object TransitOperation {
-  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+class ReferenceDataP5Config @Inject() (config: Configuration) {
+
+  private val service = config.get[Service]("microservice.services.customs-reference-data")
+
+  val referenceDataURL: String = service.fullServiceUrl
+
 }

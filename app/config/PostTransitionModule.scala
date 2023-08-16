@@ -14,23 +14,13 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package config
 
-import models.DeclarationType
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+class PostTransitionModule extends Module {
 
-case class TransitOperation(
-  MRN: String,
-  LRN: String,
-  DeclarationType: DeclarationType,
-  additionalDeclarationType: String,
-  security: String,
-  TIRCarnetNumber: Option[String],
-  specificCircumstanceIndicator: Option[String],
-  bindingItinerary: String
-)
+  override def configure(): Unit = {
+    super.configure()
 
-object TransitOperation {
-  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+    bind(classOf[PhaseConfig]).to(classOf[PostTransitionConfig])
+  }
 }

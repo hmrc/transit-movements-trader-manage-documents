@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package models.P5
 
-import models.DeclarationType
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+sealed trait Phase
 
-case class TransitOperation(
-  MRN: String,
-  LRN: String,
-  DeclarationType: DeclarationType,
-  additionalDeclarationType: String,
-  security: String,
-  TIRCarnetNumber: Option[String],
-  specificCircumstanceIndicator: Option[String],
-  bindingItinerary: String
-)
+object Phase {
 
-object TransitOperation {
-  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+  case object Transition     extends Phase
+  case object PostTransition extends Phase
 }

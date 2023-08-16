@@ -72,7 +72,7 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
     case Some(value) => truncate(100, value.toString)
     case None        => truncate(100, consigneeeAtHouseOfConsignment)
   }
-  val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.declarationType)
+  val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.DeclarationType.toString)
   val additionalDeclarationType: String = truncate(10, ie029Data.data.TransitOperation.additionalDeclarationType)
   val sci: String                       = truncate(10, ie029Data.data.TransitOperation.specificCircumstanceIndicator.getOrElse(""))
   val mrn: String                       = truncate(20, ie029Data.data.TransitOperation.MRN)
