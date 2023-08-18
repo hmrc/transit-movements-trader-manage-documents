@@ -23,7 +23,7 @@ import play.api.libs.json.OFormat
 case class TransitOperation(
   MRN: String,
   LRN: String,
-  DeclarationType: DeclarationType,
+  declarationType: DeclarationType,
   additionalDeclarationType: String,
   security: String,
   TIRCarnetNumber: Option[String],

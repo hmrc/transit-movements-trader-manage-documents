@@ -105,7 +105,8 @@ class DepartureMovementP5ConnectorSpec
             "additionalDeclarationType": "T2F",
             "security": "sec",
             "TIRCarnetNumber": "TIR",
-            "specificCircumstanceIndicator": "SCI"
+            "specificCircumstanceIndicator": "SCI",
+            "bindingItinerary": "1"
           },
           "HolderOfTheTransitProcedure": {
             "identificationNumber": "id1",

@@ -109,23 +109,26 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
           convertConsignee(consignment.Consignee.map(_.toP4), countries)
         ).mapN {
           (consignor, consignee) =>
-            val bindingItinerary = transitOperation.bindingItinerary match {
+
+            // TODO maybe make an implicit class / viewModel
+
+            def intStringToBool(intString: String) = intString match {
               case "1" => true
               case _   => false
             }
 
             viewmodels.TransitAccompanyingDocumentPDF(
-              movementReferenceNumber = transitOperation.MRN,
-              declarationType = transitOperation.DeclarationType,
-              singleCountryOfDispatch = Some(countries.head),
-              singleCountryOfDestination = Some(countries.head),
+              movementReferenceNumber = transitOperation.MRN,                                    // P5
+              declarationType = transitOperation.declarationType,                                // P5
+              singleCountryOfDispatch = consignment.countryOfDispatch.map(Country(_, "")),       // P5,
+              singleCountryOfDestination = consignment.countryOfDestination.map(Country(_, "")), // P5
               transportIdentity = Some("identity"),
               transportCountry = Some(countries.head),
               acceptanceDate = Some(FormattedDate(LocalDate.of(2020, 1, 1))),
-              numberOfItems = 1,
-              numberOfPackages = Some(3),
+              numberOfItems = consignment.totalItems,
+              numberOfPackages = Some(consignment.totalPackages),
               grossMass = 1.0,
-              printBindingItinerary = bindingItinerary,
+              printBindingItinerary = intStringToBool(transitOperation.bindingItinerary),         // P5
               authId = Some("AuthId"),
               copyType = false,
               principal = viewmodels.Principal(
@@ -175,8 +178,8 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                     specialMentionNonEcViewModel,
                     specialMentionNoCountryViewModel
                   ),
-                  consignor = consignor,
-                  consignee = consignee,
+                  consignor = consignor, // P5
+                  consignee = consignee, // P5
                   containers = Seq("container 1"),
                   packages = NonEmptyList(
                     viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),

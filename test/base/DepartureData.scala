@@ -16,6 +16,7 @@
 
 package base
 
+import models.DeclarationType.T1
 import models.P5.departure.TransportEquipment
 import models.P5.departure._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -30,7 +31,7 @@ trait DepartureData {
   implicit val hc: HeaderCarrier   = HeaderCarrier()
 
   val transitOperation: TransitOperation =
-    TransitOperation("MRN", "LRN", "T1", "T2F", "sec", Some("TIR"), Some("SCI"))
+    TransitOperation("MRN", "LRN", T1, "T2F", "sec", Some("TIR"), Some("SCI"), "123")
 
   val address: Address             = Address("Address Line 1", Some("Address Line 2"), "Address Line 3", "Address Line 4")
   val contactPerson: ContactPerson = ContactPerson("Contact Person Name", "123456", Some("a@a.com"))
