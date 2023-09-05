@@ -85,10 +85,13 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     )
 
   // TODO pass ref data values here along with main model (IE029Data)
-  def fromP5ToViewModel(ie029: IE029Data, countries: Seq[Country]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
+  def fromP5ToViewModel(ie029: IE029Data, countries: Seq[Country],
+                        additionalInfo: Seq[AdditionalInformation], kindsOfPackage: Seq[KindOfPackage],
+                        documentTypes: Seq[DocumentType], previousDocumentTypes: Seq[PreviousDocumentTypes],
+                        circumstanceIndicators: Seq[CircumstanceIndicator]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
 
-    val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
-    val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
+    val kindsOfPackage            = kindsOfPackage                             // P5
+    val documentTypes             = documentTypes                              // P5
     val sensitiveGoodsInformation = Nil
 
     val controlResult = viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3)))
@@ -103,13 +106,12 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
     ie029.data match {
-      case DepartureMessageData(transitOperation, _, _, consignment, _, _, _, _, _, _) =>
+      case DepartureMessageData(transitOperation, _, _, consignment, _, authorisation, _, _, _, _) =>
         (
           convertConsignor(consignment.Consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesnt get printed in full anyways???
           convertConsignee(consignment.Consignee.map(_.toP4), countries)
         ).mapN {
           (consignor, consignee) =>
-
             // TODO maybe make an implicit class / viewModel
 
             def intStringToBool(intString: String) = intString match {
@@ -120,17 +122,17 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
             viewmodels.TransitAccompanyingDocumentPDF(
               movementReferenceNumber = transitOperation.MRN,                                    // P5
               declarationType = transitOperation.declarationType,                                // P5
-              singleCountryOfDispatch = consignment.countryOfDispatch.map(Country(_, "")),       // P5,
+              singleCountryOfDispatch = consignment.countryOfDispatch.map(Country(_, "")),       // P5
               singleCountryOfDestination = consignment.countryOfDestination.map(Country(_, "")), // P5
-              transportIdentity = Some("identity"),
+              transportIdentity = consignment.departureTransportMeansIdentity,                   // P5
               transportCountry = Some(countries.head),
-              acceptanceDate = Some(FormattedDate(LocalDate.of(2020, 1, 1))),
+              acceptanceDate = transitOperation.declarationAcceptanceDate.map(FormattedDate(_)), // P5
               numberOfItems = consignment.totalItems,
               numberOfPackages = Some(consignment.totalPackages),
-              grossMass = 1.0,
+              grossMass = consignment.grossMass,                                                  // P5
               printBindingItinerary = intStringToBool(transitOperation.bindingItinerary),         // P5
-              authId = Some("AuthId"),
-              copyType = false,
+              authId = ie029.data.authorisation,                                                  // P5  //TODO check again
+              copyType = false,                                                                   //      TODO check again
               principal = viewmodels.Principal(
                 "Principal name",
                 "Principal street",
@@ -140,7 +142,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                 countries.head,
                 Some("Principal EORI"),
                 Some("tir")
-              ),
+              ),  //TODO
               consignor = consignor,
               consignee = consignee,
               departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office"), "AB"), None),

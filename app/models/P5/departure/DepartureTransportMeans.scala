@@ -29,6 +29,7 @@ case class DepartureTransportMeans(
     val stringList: Seq[Option[String]] = List(Some(typeOfIdentification), Some(identificationNumber), nationality)
     stringList.flatten.mkString(", ")
   }
+
 }
 
 object DepartureTransportMeans {

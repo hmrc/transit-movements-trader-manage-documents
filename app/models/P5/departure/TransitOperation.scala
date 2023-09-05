@@ -17,8 +17,10 @@
 package models.P5.departure
 
 import models.DeclarationType
+import java.time.LocalDate
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
+import utils.FormattedDate
 
 case class TransitOperation(
   MRN: String,
@@ -28,7 +30,8 @@ case class TransitOperation(
   security: String,
   TIRCarnetNumber: Option[String],
   specificCircumstanceIndicator: Option[String],
-  bindingItinerary: String
+  bindingItinerary: String,
+  declarationAcceptanceDate: Option[LocalDate]
 )
 
 object TransitOperation {
