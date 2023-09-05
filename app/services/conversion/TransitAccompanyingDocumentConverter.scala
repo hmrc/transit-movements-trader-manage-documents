@@ -18,6 +18,7 @@ package services.conversion
 
 import cats.data.NonEmptyList
 import cats.data.Validated
+import scala.math.BigDecimal
 import cats.implicits._
 import models.P5.departure.DepartureMessageData
 import models.P5.departure.IE029Data
@@ -85,17 +86,16 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     )
 
   // TODO pass ref data values here along with main model (IE029Data)
-  import models.reference.P5.CustomsOffice
 
   def fromP5ToViewModel(
     ie029: IE029Data,
-    countries: Seq[Country],
+    countries: Seq[Country], //TODO: Will this fetch all countries?
     additionalInfo: Seq[AdditionalInformation],
     kindsOfPackages: Seq[KindOfPackage],
     documentType: Seq[DocumentType],
-    previousDocumentTypes: Seq[PreviousDocumentTypes],
+    previousDocuments: Seq[PreviousDocumentTypes],
     circumstanceIndicators: Seq[CircumstanceIndicator],
-    customsOffice: Seq[CustomsOffice],
+    customsOffices: Seq[CustomsOffice],
     controlResults: Seq[ControlResult]
   ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
 
@@ -103,7 +103,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     val documentTypes             = documentType    // P5
     val sensitiveGoodsInformation = Nil
 
-    println(s"*******************>>>>>>>> $customsOffice")
+    println(s"*******************>>>>>>>> $customsOffices")
     println(s"*******************>>>>>>>> $controlResults")
     val controlResult = viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3)))
 
@@ -117,7 +117,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
     ie029.data match {
-      case DepartureMessageData(transitOperation, _, _, consignment, _, authorisation, _, _, _, _) =>
+      case DepartureMessageData(transitOperation, _, _, consignment, guarantee, authorisation, seals,items, officeOfTransit, officeOfExit, officeOfDeparture, officeOfDestination) =>
         (
           convertConsignor(consignment.Consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesnt get printed in full anyways???
           convertConsignee(consignment.Consignee.map(_.toP4), countries)
@@ -154,46 +154,34 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                 Some("Principal EORI"),
                 Some("tir")
               ), //TODO
-              consignor = consignor,
-              consignee = consignee,
-              departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB124"), None),
-              destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB125"), None),
-              customsOfficeOfTransit =
-                Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))),
-              guaranteeDetails = Seq(
-                GuaranteeDetails("A", Seq(GuaranteeReference(Some("RefNum"), None, None, Nil)))
-              ),
-              seals = Seq("seal 1"),
+              consignor = consignor, // P5
+              consignee = consignee, // P5
+              departureOffice = customsOffices.find(office => office.id == officeOfDeparture.referenceNumber.getOrElse("")),
+              destinationOffice = customsOffices.find(office => office.id == officeOfDestination.referenceNumber.getOrElse("")),
+              customsOfficeOfTransit = ie029.data.customsOfficeOfTransitDeclared,
+              guaranteeDetails = guarantee,
+              seals = seals, // P5
               Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
               controlResult = Some(controlResult),
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
-                  itemNumber = 1,
-                  commodityCode = None,
-                  declarationType = None,
-                  description = "Description",
-                  grossMass = Some(1.0),
-                  netMass = Some(0.9),
-                  countryOfDispatch = Some(countries.head),
-                  countryOfDestination = Some(countries.head),
-                  methodOfPayment = None,
-                  commercialReferenceNumber = None,
-                  unDangerGoodsCode = None,
-                  producedDocuments = Seq(viewmodels.ProducedDocument(documentTypes.head, None, None)),
-                  previousDocumentTypes = Seq(
-                    PreviousDocumentType(
-                      PreviousDocumentTypes("123", Some("Foo Bar")),
-                      PreviousAdministrativeReference("123", "ABABA", None)
-                    )
-                  ),
-                  specialMentions = Seq(
-                    specialMentionEcViewModel,
-                    specialMentionNonEcViewModel,
-                    specialMentionNoCountryViewModel
-                  ),
-                  consignor = consignor, // P5
-                  consignee = consignee, // P5
-                  containers = Seq("container 1"),
+                  itemNumber = items.headOption.map(_.declarationGoodsItemNumber.toInt).getOrElse(""), //TODO: Clarify with Sayak on how items is displayed in the doc,
+                  commodityCode = items.headOption.map(_.commodityCode), //P5
+                  declarationType = items.headOption.map(x => DeclarationType.values.find(_.toString == x.declarationType).getOrElse("")), //P5
+                  description = items.headOption.map(_.descriptionOfGoods).getOrElse(""), //P5
+                  grossMass = items.headOption.map(x => BigDecimal(x.grossMass)), //P5
+                  netMass = items.headOption.map(x => BigDecimal(x.netMass)), //P5
+                  countryOfDispatch = items.headOption.map(x => countries.find(country => country.code === x.countryOfDispatch).getOrElse("")), //P5
+                  countryOfDestination = items.headOption.map(x => countries.find(country => country.code === x.countryOfDestination).getOrElse("")), //P5
+                  methodOfPayment = items.headOption.map(_.transportCharges), //P5
+                  commercialReferenceNumber = None, //TODO: More clarification on this
+                  unDangerGoodsCode = items.headOption.map(_.dangerousGoods), //P5
+                  producedDocuments = Nil, //TODO: More clarification on this
+                  previousDocumentTypes = Nil,//TODO: More clarification on this
+                  specialMentions = Nil, //TODO More clarification on this
+                  consignor = consignor, //P5
+                  consignee = consignee, //P5
+                  containers = Nil, //TODO More clarification on this
                   packages = NonEmptyList(
                     viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
                     List(
@@ -201,9 +189,9 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
                     )
                   ),
-                  sensitiveGoodsInformation = sensitiveGoodsInformation,
-                  securityConsignor = None,
-                  securityConsignee = None
+                  sensitiveGoodsInformation = Nil, //TODO More clarification on this
+                  securityConsignor = Nil, //TODO More clarification on this
+                  securityConsignee = Nil  //TODO More clarification on this
                 )
               )
             )

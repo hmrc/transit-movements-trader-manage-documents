@@ -28,6 +28,8 @@ case class DepartureMessageData(
   Consignment: Consignment,
   Guarantee: Option[List[Guarantee]],
   Authorisation: Option[List[Authorisation]],
+  Seals: Option[List[Seal]],
+  Items: List[Item],
   CustomsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
   CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
   CustomsOfficeOfDeparture: CustomsOfficeOfDeparture,
@@ -37,6 +39,11 @@ case class DepartureMessageData(
   val guarantee: Option[String] = Guarantee.map(
     _.map(_.toString).mkString("; ")
   )
+
+  val seal: Option[String] = Seals.map(
+    _.map(_.toString).mkString("; ")
+  )
+
 
   val authorisation: Option[String] = Authorisation.map(
     _.map(_.toString).mkString("; ")
