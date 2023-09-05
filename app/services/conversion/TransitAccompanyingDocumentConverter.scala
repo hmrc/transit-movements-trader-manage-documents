@@ -85,15 +85,26 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     )
 
   // TODO pass ref data values here along with main model (IE029Data)
-  def fromP5ToViewModel(ie029: IE029Data, countries: Seq[Country],
-                        additionalInfo: Seq[AdditionalInformation], kindsOfPackage: Seq[KindOfPackage],
-                        documentTypes: Seq[DocumentType], previousDocumentTypes: Seq[PreviousDocumentTypes],
-                        circumstanceIndicators: Seq[CircumstanceIndicator]): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
+  import models.reference.P5.CustomsOffice
 
-    val kindsOfPackage            = kindsOfPackage                             // P5
-    val documentTypes             = documentTypes                              // P5
+  def fromP5ToViewModel(
+    ie029: IE029Data,
+    countries: Seq[Country],
+    additionalInfo: Seq[AdditionalInformation],
+    kindsOfPackages: Seq[KindOfPackage],
+    documentType: Seq[DocumentType],
+    previousDocumentTypes: Seq[PreviousDocumentTypes],
+    circumstanceIndicators: Seq[CircumstanceIndicator],
+    customsOffice: Seq[CustomsOffice],
+    controlResults: Seq[ControlResult]
+  ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
+
+    val kindsOfPackage            = kindsOfPackages // P5
+    val documentTypes             = documentType    // P5
     val sensitiveGoodsInformation = Nil
 
+    println(s"*******************>>>>>>>> $customsOffice")
+    println(s"*******************>>>>>>>> $controlResults")
     val controlResult = viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3)))
 
     val additionalInfo = Seq(reference.AdditionalInformation("I1", "Info 1"), reference.AdditionalInformation("I2", "info 2"))
@@ -129,10 +140,10 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
               acceptanceDate = transitOperation.declarationAcceptanceDate.map(FormattedDate(_)), // P5
               numberOfItems = consignment.totalItems,
               numberOfPackages = Some(consignment.totalPackages),
-              grossMass = consignment.grossMass,                                                  // P5
-              printBindingItinerary = intStringToBool(transitOperation.bindingItinerary),         // P5
-              authId = ie029.data.authorisation,                                                  // P5  //TODO check again
-              copyType = false,                                                                   //      TODO check again
+              grossMass = consignment.grossMass,                                          // P5
+              printBindingItinerary = intStringToBool(transitOperation.bindingItinerary), // P5
+              authId = ie029.data.authorisation,                                          // P5  //TODO check again
+              copyType = false,                                                           //      TODO check again
               principal = viewmodels.Principal(
                 "Principal name",
                 "Principal street",
@@ -142,11 +153,11 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                 countries.head,
                 Some("Principal EORI"),
                 Some("tir")
-              ),  //TODO
+              ), //TODO
               consignor = consignor,
               consignee = consignee,
-              departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB124", Some("Departure Office"), "AB"), None),
-              destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB125", Some("Destination Office"), "AB"), None),
+              departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB124"), None),
+              destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AB125"), None),
               customsOfficeOfTransit =
                 Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))),
               guaranteeDetails = Seq(

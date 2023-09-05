@@ -20,8 +20,15 @@ import cats.data.Validated.Invalid
 import cats.implicits._
 import connectors.ReferenceDataConnector
 import connectors.ReferenceDataP5Connector
+import models.ControlResult
+import models.reference.CustomsOffice
 import models.P5.departure.IE029Data
-import models.reference.{AdditionalInformation, CircumstanceIndicator, Country, DocumentType, KindOfPackage, PreviousDocumentTypes}
+import models.reference.AdditionalInformation
+import models.reference.CircumstanceIndicator
+import models.reference.Country
+import models.reference.DocumentType
+import models.reference.KindOfPackage
+import models.reference.PreviousDocumentTypes
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.CustomsOfficeWithOptionalDate
@@ -122,30 +129,41 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
   def fromP5ToViewModel(ie029: IE029Data)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentPDF]] = {
 
     val countriesFuture: Future[ValidationResult[Seq[Country]]] = referenceDataP5.getList[Seq[Country]]("CountryCodesForAddress")
-    val additionalInfoFuture : Future[ValidationResult[Seq[AdditionalInformation]]] = referenceDataP5.getList[Seq[AdditionalInformation]]("additionalInformation")
-    val kindsOfPackageFuture : Future[ValidationResult[Seq[KindOfPackage]]] = referenceDataP5.getList[Seq[KindOfPackage]]("kindOfPackage")
-    val documentTypesFuture : Future[ValidationResult[Seq[DocumentType]]] = referenceDataP5.getList[Seq[DocumentType]]("documentType")
-    val previousDocumentTypesFuture : Future[ValidationResult[Seq[PreviousDocumentTypes]]] = referenceDataP5.getList[Seq[PreviousDocumentTypes]]("previousDocumentTypes")
-    val circumstanceIndicatorsFuture : Future[ValidationResult[Seq[CircumstanceIndicator]]] = referenceDataP5.getList[Seq[CircumstanceIndicator]]("circumstanceIndicators")
+    val additionalInfoFuture: Future[ValidationResult[Seq[AdditionalInformation]]] =
+      referenceDataP5.getList[Seq[AdditionalInformation]]("additionalInformation")
+    val kindsOfPackageFuture: Future[ValidationResult[Seq[KindOfPackage]]] = referenceDataP5.getList[Seq[KindOfPackage]]("kindOfPackage")
+    val documentTypesFuture: Future[ValidationResult[Seq[DocumentType]]]   = referenceDataP5.getList[Seq[DocumentType]]("documentType")
+    val previousDocumentTypesFuture: Future[ValidationResult[Seq[PreviousDocumentTypes]]] =
+      referenceDataP5.getList[Seq[PreviousDocumentTypes]]("previousDocumentTypes")
+    val circumstanceIndicatorsFuture: Future[ValidationResult[Seq[CircumstanceIndicator]]] =
+      referenceDataP5.getList[Seq[CircumstanceIndicator]]("circumstanceIndicators")
+    val customsOfficeFuture: Future[ValidationResult[Seq[CustomsOffice]]] = referenceDataP5.getList[Seq[CustomsOffice]]("customsOffices")
+    val controlResultFuture: Future[ValidationResult[Seq[ControlResult]]] =
+      referenceDataP5.getList[Seq[ControlResult]]("controlResult")
 
     for {
       countryCodesForAddress <- countriesFuture
-      additionalInfo <- additionalInfoFuture
-      kindsOfPackage <- kindsOfPackageFuture
-      documentTypes <- documentTypesFuture
-      previousDocumentTypes <- previousDocumentTypesFuture
+      additionalInfo         <- additionalInfoFuture
+      kindsOfPackage         <- kindsOfPackageFuture
+      documentTypes          <- documentTypesFuture
+      previousDocumentTypes  <- previousDocumentTypesFuture
       circumstanceIndicators <- circumstanceIndicatorsFuture
-      departureOffice <- departureOfficeFuture(ie029.data.customsOfficeOfDeparture)
-      destinationOffice <- destinationOfficeFuture
-      transitOffice <- transitOfficeFuture
-      controlResult <- controlResultFuture
-    } yield (countryCodesForAddress, additionalInfo, kindsOfPackage,
-      documentTypes, previousDocumentTypes, circumstanceIndicators)
+      customsOffice          <- customsOfficeFuture
+      controlResult          <- controlResultFuture
+    } yield (countryCodesForAddress, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes, circumstanceIndicators, customsOffice, controlResult)
       .mapN {
-        (countriesForAddress, additionalInfo, kindsOfPackage,
-         documentTypes, previousDocumentTypes, circumstanceIndicators) =>
-          TransitAccompanyingDocumentConverter.fromP5ToViewModel(ie029, countriesForAddress, additionalInfo, kindsOfPackage,
-            documentTypes, previousDocumentTypes, circumstanceIndicators)
+        (countriesForAddress, additionalInfo, kindsOfPackage, documentTypes, previousDocumentTypes, circumstanceIndicators, customsOffice, controlResult) =>
+          TransitAccompanyingDocumentConverter.fromP5ToViewModel(
+            ie029,
+            countriesForAddress,
+            additionalInfo,
+            kindsOfPackage,
+            documentTypes,
+            previousDocumentTypes,
+            circumstanceIndicators,
+            customsOffice,
+            controlResult
+          )
       }
       .fold(
         errors => Invalid(errors),
