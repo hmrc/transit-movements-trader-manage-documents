@@ -16,6 +16,8 @@
 
 package models.P5.departure
 
+import play.api.libs.json._
+
 case class Item(
   declarationGoodsItemNumber: String,
   goodsItemNumber: String,
@@ -41,3 +43,70 @@ case class Item(
   grossMass: String,
   netMass: String
 )
+
+object Item {
+//  implicit val formats: OFormat[Item] = Json.format[Item]
+
+  implicit val itemReads: Reads[Item] = new Reads[Item] {
+
+    override def reads(json: JsValue): JsResult[Item] =
+      JsSuccess(
+        Item(
+          (json \ "declarationGoodsItemNumber").as[String],
+          (json \ "goodsItemNumber").as[String],
+          (json \ "packaging").as[String],
+          (json \ "consignor").as[String],
+          (json \ "consignee").as[String],
+          (json \ "referenceNumberUcr").as[String],
+          (json \ "transportCharges").as[String],
+          (json \ "countryOfDispatch").as[String],
+          (json \ "countryOfDestination").as[String],
+          (json \ "declarationType").as[String],
+          (json \ "additionalSupplyChainActor").as[String],
+          (json \ "commodityCode").as[String],
+          (json \ "departureTransportMeans").as[String],
+          (json \ "dangerousGoods").as[String],
+          (json \ "cusCode").as[String],
+          (json \ "descriptionOfGoods").as[String],
+          (json \ "previousDocument").as[String],
+          (json \ "supportingDocument").as[String],
+          (json \ "transportDocument").as[String],
+          (json \ "additionalReference").as[String],
+          (json \ "additionalInformation").as[String],
+          (json \ "grossMass").as[String],
+          (json \ "netMass").as[String]
+        )
+      )
+  }
+
+  implicit val itemWrites: Writes[Item] = new Writes[Item] {
+
+    override def writes(item: Item): JsValue =
+      Json.obj(
+        "declarationGoodsItemNumber" -> item.declarationGoodsItemNumber,
+        "goodsItemNumber"            -> item.goodsItemNumber,
+        "packaging"                  -> item.goodsItemNumber,
+        "consignor"                  -> item.goodsItemNumber,
+        "consignee"                  -> item.goodsItemNumber,
+        "referenceNumberUcr"         -> item.goodsItemNumber,
+        "transportCharges"           -> item.goodsItemNumber,
+        "countryOfDispatch"          -> item.goodsItemNumber,
+        "countryOfDestination"       -> item.goodsItemNumber,
+        "declarationType"            -> item.goodsItemNumber,
+        "additionalSupplyChainActor" -> item.goodsItemNumber,
+        "commodityCode"              -> item.goodsItemNumber,
+        "departureTransportMeans"    -> item.goodsItemNumber,
+        "dangerousGoods"             -> item.goodsItemNumber,
+        "cusCode"                    -> item.goodsItemNumber,
+        "descriptionOfGoods"         -> item.goodsItemNumber,
+        "previousDocument"           -> item.goodsItemNumber,
+        "supportingDocument"         -> item.goodsItemNumber,
+        "transportDocument"          -> item.goodsItemNumber,
+        "additionalReference"        -> item.goodsItemNumber,
+        "additionalInformation"      -> item.goodsItemNumber,
+        "grossMass"                  -> item.goodsItemNumber,
+        "netMass"                    -> item.goodsItemNumber
+      )
+  }
+
+}

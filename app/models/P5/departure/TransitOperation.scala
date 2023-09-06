@@ -17,10 +17,10 @@
 package models.P5.departure
 
 import models.DeclarationType
-import java.time.LocalDate
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
-import utils.FormattedDate
+
+import java.time.LocalDate
 
 case class TransitOperation(
   MRN: String,

@@ -17,8 +17,6 @@
 package services.conversion
 
 import cats.data.NonEmptyList
-import cats.data.Validated
-import scala.math.BigDecimal
 import cats.implicits._
 import models.P5.departure.DepartureMessageData
 import models.P5.departure.IE029Data
@@ -27,10 +25,8 @@ import models.reference._
 import services._
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
-import viewmodels.PreviousDocumentType
 
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 
@@ -103,8 +99,6 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     val documentTypes             = documentType    // P5
     val sensitiveGoodsInformation = Nil
 
-    println(s"*******************>>>>>>>> $customsOffices")
-    println(s"*******************>>>>>>>> $controlResults")
     val controlResult = viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3)))
 
     val additionalInfo = Seq(reference.AdditionalInformation("I1", "Info 1"), reference.AdditionalInformation("I2", "info 2"))
@@ -117,7 +111,20 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
     ie029.data match {
-      case DepartureMessageData(transitOperation, _, _, consignment, guarantee, authorisation, seals,items, officeOfTransit, officeOfExit, officeOfDeparture, officeOfDestination) =>
+      case DepartureMessageData(
+            transitOperation,
+            _,
+            _,
+            consignment,
+            guarantees,
+            authorisation,
+            seals,
+            items,
+            officesOfTransit,
+            officeOfExit,
+            officeOfDeparture,
+            officeOfDestination
+          ) =>
         (
           convertConsignor(consignment.Consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesnt get printed in full anyways???
           convertConsignee(consignment.Consignee.map(_.toP4), countries)
@@ -153,35 +160,91 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                 countries.head,
                 Some("Principal EORI"),
                 Some("tir")
-              ), //TODO
+              ),                     //TODO
               consignor = consignor, // P5
               consignee = consignee, // P5
-              departureOffice = customsOffices.find(office => office.id == officeOfDeparture.referenceNumber.getOrElse("")),
-              destinationOffice = customsOffices.find(office => office.id == officeOfDestination.referenceNumber.getOrElse("")),
-              customsOfficeOfTransit = ie029.data.customsOfficeOfTransitDeclared,
-              guaranteeDetails = guarantee,
-              seals = seals, // P5
+              departureOffice = CustomsOfficeWithOptionalDate(
+                customsOffices
+                  .find(
+                    office => office.id == officeOfDeparture.referenceNumber
+                  )
+                  .get,
+                None //TODO: Date?
+              ),
+              destinationOffice = CustomsOfficeWithOptionalDate(
+                customsOffices
+                  .find(
+                    office => office.id == officeOfDestination.referenceNumber
+                  )
+                  .get,
+                None //TODO: Date?
+              ),
+              customsOfficeOfTransit = officesOfTransit match {
+                case Some(officeOfTransitList) =>
+                  officeOfTransitList.map(
+                    officeOfTransit =>
+                      CustomsOfficeWithOptionalDate(
+                        customsOffices
+                          .find(
+                            office => office.id == officeOfTransit.referenceNumber.get
+                          )
+                          .get,
+                        None
+                      )
+                  )
+                case _ => Nil
+              },
+              guaranteeDetails = guarantees match {
+                case Some(guaranteeList) =>
+                  guaranteeList.map(
+                    guarantee =>
+                      GuaranteeDetails(
+                        guarantee.guaranteeType.getOrElse(""),
+                        Seq(GuaranteeReference(None, None, None, Seq("")))
+                      ) //TODO: P4 & P5 GuaranteeReference are completely different
+                  )
+                case _ => Nil
+              },
+              seals = ie029.data.seals, // P5
               Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
               controlResult = Some(controlResult),
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
-                  itemNumber = items.headOption.map(_.declarationGoodsItemNumber.toInt).getOrElse(""), //TODO: Clarify with Sayak on how items is displayed in the doc,
+                  itemNumber = items.head.goodsItemNumber.toInt,         //TODO: Clarify with Sayak on how items is displayed in the doc,
                   commodityCode = items.headOption.map(_.commodityCode), //P5
-                  declarationType = items.headOption.map(x => DeclarationType.values.find(_.toString == x.declarationType).getOrElse("")), //P5
+                  declarationType = items.headOption.flatMap {
+                    x => DeclarationType.values.find(_.toString == x.declarationType)
+                  },                                                                      //P5
                   description = items.headOption.map(_.descriptionOfGoods).getOrElse(""), //P5
-                  grossMass = items.headOption.map(x => BigDecimal(x.grossMass)), //P5
-                  netMass = items.headOption.map(x => BigDecimal(x.netMass)), //P5
-                  countryOfDispatch = items.headOption.map(x => countries.find(country => country.code === x.countryOfDispatch).getOrElse("")), //P5
-                  countryOfDestination = items.headOption.map(x => countries.find(country => country.code === x.countryOfDestination).getOrElse("")), //P5
+                  grossMass = items.headOption.map(
+                    x => BigDecimal(x.grossMass)
+                  ), //P5
+                  netMass = items.headOption.map(
+                    x => BigDecimal(x.netMass)
+                  ), //P5
+                  countryOfDispatch = items.headOption.flatMap {
+                    x =>
+                      countries
+                        .find(
+                          country => country.code === x.countryOfDispatch
+                        )
+                  }, //P5
+                  countryOfDestination = items.headOption.flatMap {
+                    x =>
+                      countries
+                        .find(
+                          country => country.code === x.countryOfDestination
+                        )
+                  },                                                          //P5
                   methodOfPayment = items.headOption.map(_.transportCharges), //P5
-                  commercialReferenceNumber = None, //TODO: More clarification on this
+                  commercialReferenceNumber = None,                           //TODO: More clarification on this
                   unDangerGoodsCode = items.headOption.map(_.dangerousGoods), //P5
-                  producedDocuments = Nil, //TODO: More clarification on this
-                  previousDocumentTypes = Nil,//TODO: More clarification on this
-                  specialMentions = Nil, //TODO More clarification on this
-                  consignor = consignor, //P5
-                  consignee = consignee, //P5
-                  containers = Nil, //TODO More clarification on this
+                  producedDocuments = Nil,                                    //TODO: More clarification on this
+                  previousDocumentTypes = Nil,                                //TODO: More clarification on this
+                  specialMentions = Nil,                                      //TODO More clarification on this
+                  consignor = consignor,                                      //P5
+                  consignee = consignee,                                      //P5
+                  containers = Nil,                                           //TODO More clarification on this
                   packages = NonEmptyList(
                     viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
                     List(
@@ -190,8 +253,8 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                     )
                   ),
                   sensitiveGoodsInformation = Nil, //TODO More clarification on this
-                  securityConsignor = Nil, //TODO More clarification on this
-                  securityConsignee = Nil  //TODO More clarification on this
+                  securityConsignor = None,        //TODO More clarification on this
+                  securityConsignee = None         //TODO More clarification on this
                 )
               )
             )

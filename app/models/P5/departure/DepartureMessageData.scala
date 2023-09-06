@@ -17,7 +17,6 @@
 package models.P5.departure
 
 import play.api.libs.json.Json
-import play.api.libs.json.OWrites
 import play.api.libs.json.Reads
 import play.api.libs.json.Writes
 
@@ -40,10 +39,11 @@ case class DepartureMessageData(
     _.map(_.toString).mkString("; ")
   )
 
-  val seal: Option[String] = Seals.map(
-    _.map(_.toString).mkString("; ")
-  )
-
+  val seals: Seq[String] = Seals
+    .map(
+      _.map(_.toString)
+    )
+    .getOrElse(Nil)
 
   val authorisation: Option[String] = Authorisation.map(
     _.map(_.toString).mkString("; ")
