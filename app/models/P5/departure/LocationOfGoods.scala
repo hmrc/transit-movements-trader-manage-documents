@@ -27,12 +27,12 @@ case class LocationOfGoods(
   authorisationNumber: Option[String],
   additionalIdentifier: Option[String],
   UNLocode: Option[String],
-  CustomsOffice: Option[CustomsOffice],
+  customsOffice: Option[CustomsOffice],
   GNSS: Option[GNSS],
-  EconomicOperator: Option[EconomicOperator],
-  Address: Option[Address],
-  PostcodeAddress: Option[PostcodeAddress],
-  ContactPerson: Option[ContactPerson]
+  economicOperator: Option[EconomicOperator],
+  address: Option[Address],
+  postcodeAddress: Option[PostcodeAddress],
+  contactPerson: Option[ContactPerson]
 ) {
 
   override def toString: String = {
@@ -41,11 +41,11 @@ case class LocationOfGoods(
       Some(qualifierOfIdentification),
       authorisationNumber,
       UNLocode,
-      CustomsOffice.map(_.referenceNumber),
+      customsOffice.map(_.referenceNumber),
       GNSS.map(_.toString),
-      EconomicOperator.map(_.identificationNumber),
-      Address.map(_.toString),
-      PostcodeAddress.map(_.toString)
+      economicOperator.map(_.identificationNumber),
+      address.map(_.toString),
+      postcodeAddress.map(_.toString)
     )
 
     stringList.flatten.mkString(", ")

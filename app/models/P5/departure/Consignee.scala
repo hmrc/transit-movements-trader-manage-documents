@@ -22,22 +22,22 @@ import play.api.libs.json.OFormat
 case class Consignee(
   identificationNumber: Option[String],
   name: Option[String],
-  Address: Option[Address],
-  ContactPerson: Option[ContactPerson]
+  address: Option[Address],
+  contactPerson: Option[ContactPerson]
 ) {
 
   val toP4: models.Consignee = models.Consignee(
     name.getOrElse(""),
-    Address.map(_.streetAndNumber).getOrElse(""),
-    Address.flatMap(_.postcode).getOrElse(""),
-    Address.map(_.city).getOrElse(""),
-    Address.map(_.country).getOrElse(""),
+    address.map(_.streetAndNumber).getOrElse(""),
+    address.flatMap(_.postcode).getOrElse(""),
+    address.map(_.city).getOrElse(""),
+    address.map(_.country).getOrElse(""),
     None,
     identificationNumber
   )
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(name, Address.map(_.toString), ContactPerson.map(_.toString))
+    val stringList: Seq[Option[String]] = List(name, address.map(_.toString), contactPerson.map(_.toString))
     stringList.flatten.mkString(", ")
   }
 }

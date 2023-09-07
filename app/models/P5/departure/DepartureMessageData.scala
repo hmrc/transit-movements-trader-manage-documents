@@ -21,44 +21,37 @@ import play.api.libs.json.Reads
 import play.api.libs.json.Writes
 
 case class DepartureMessageData(
-  TransitOperation: TransitOperation,
-  HolderOfTheTransitProcedure: HolderOfTransitProcedure,
-  Representative: Representative,
-  Consignment: Consignment,
-  Guarantee: Option[List[Guarantee]],
-  Authorisation: Option[List[Authorisation]],
-  Seals: Option[List[Seal]],
-  Items: List[Item],
-  CustomsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
-  CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
-  CustomsOfficeOfDeparture: CustomsOfficeOfDeparture,
-  CustomsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared
+  transitOperation: TransitOperation,
+  authorisation: Option[List[Authorisation]],
+  customsOfficeOfDeparture: CustomsOfficeOfDeparture,
+  customsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared,
+  customsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
+  customsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
+  holderOfTheTransitProcedure: HolderOfTransitProcedure,
+  representative: Representative,
+  controlResult: ControlResult,
+  guarantee: Option[List[Guarantee]],
+  consignment: Consignment
 ) {
 
-  val guarantee: Option[String] = Guarantee.map(
+  val guaranteeFormat: Option[String] = guarantee.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val seals: Seq[String] = Seals
-    .map(
-      _.map(_.toString)
-    )
-    .getOrElse(Nil)
-
-  val authorisation: Option[String] = Authorisation.map(
+  val authorisationFormat: Option[String] = authorisation.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfTransitDeclared: Option[String] = CustomsOfficeOfTransitDeclared.map(
+  val customsOfficeOfTransitDeclaredFormat: Option[String] = customsOfficeOfTransitDeclared.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfExitForTransitDeclared: Option[String] = CustomsOfficeOfExitForTransitDeclared.map(
+  val customsOfficeOfExitForTransitDeclaredFormat: Option[String] = customsOfficeOfExitForTransitDeclared.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfDeparture: String           = CustomsOfficeOfDeparture.toString
-  val customsOfficeOfDestinationDeclared: String = CustomsOfficeOfDestinationDeclared.toString
+  val customsOfficeOfDepartureFormat: String           = customsOfficeOfDeparture.toString
+  val customsOfficeOfDestinationDeclaredFormat: String = customsOfficeOfDestinationDeclared.toString
 
 }
 

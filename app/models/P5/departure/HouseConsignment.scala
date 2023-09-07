@@ -20,37 +20,41 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class HouseConsignment(
-  ConsignmentItem: Seq[ConsignmentItem],
-  Consignor: Option[Consignor],
-  Consignee: Option[Consignee],
-  PreviousDocument: Option[List[PreviousDocument]],
-  TransportDocument: Option[List[TransportDocument]],
-  SupportingDocument: Option[List[SupportingDocument]],
-  AdditionalInformation: Option[List[AdditionalInformation]],
-  AdditionalReference: Option[List[AdditionalReference]],
-  TransportCharges: Option[TransportCharges],
-  grossMass: Double,
-  countryOfDispatch: Option[String],
-  referenceNumberUCR: Option[String]
+                           sequenceNumber: String,
+                           countryOfDispatch: Option[String],
+                           grossMass: Double,
+                           referenceNumberUCR: Option[String],
+                           securityIndicatorFromExport: Option[String],
+                           consignor: Option[Consignor],
+                           consignee: Option[Consignee],
+                           additionalSupplyChainActor: Option[AdditionalSupplyChainActor],
+                           departureTransportMeans: Option[DepartureTransportMeans],
+                           previousDocument: Option[List[PreviousDocument]],
+                           transportDocument: Option[List[TransportDocument]],
+                           supportingDocument: Option[List[SupportingDocument]],
+                           additionalReference: Option[List[AdditionalReference]],
+                           additionalInformation: Option[List[AdditionalInformation]],
+                           transportCharges: Option[TransportCharges],
+                           consignmentItems: Seq[ConsignmentItem],
 ) {
 
-  val totalPackages: Int = ConsignmentItem.foldLeft(0)(
+  val totalPackages: Int = consignmentItems.foldLeft(0)(
     (total, item) => total + item.totalPackages
   )
 
-  val totalItems: Int = ConsignmentItem.length
+  val totalItems: Int = consignmentItems.length
 
-  val previousDocumentInHC: Option[String] = PreviousDocument.map(_.showAll)
+  val previousDocumentInHC: Option[String] = previousDocument.map(_.showAll)
 
-  val supportingDocumentInHC: Option[String] = SupportingDocument.map(_.showAll)
+  val supportingDocumentInHC: Option[String] = supportingDocument.map(_.showAll)
 
-  val transportDocumentInHC: Option[String] = TransportDocument.map(_.showAll)
+  val transportDocumentInHC: Option[String] = transportDocument.map(_.showAll)
 
-  val additionalInformationInHC: Option[String] = AdditionalInformation.map(_.showAll)
+  val additionalInformationInHC: Option[String] = additionalInformation.map(_.showAll)
 
-  val additionalReferenceInHC: Option[String] = AdditionalReference.map(_.showAll)
+  val additionalReferenceInHC: Option[String] = additionalReference.map(_.showAll)
 
-  val transportChargesInHC: Option[String] = TransportCharges.map(_.toString)
+  val transportChargesInHC: Option[String] = transportCharges.map(_.toString)
 }
 
 object HouseConsignment {

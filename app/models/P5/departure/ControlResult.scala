@@ -16,18 +16,28 @@
 
 package models.P5.departure
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import play.api.libs.json.{Json, OFormat}
 
-case class Packaging(sequenceNumber:String, numberOfPackages: Option[Int], typeOfPackages: String, shippingMarks: Option[String]) {
+import java.time.LocalDate
+
+case class ControlResult(
+  code: String,
+  date: LocalDate,
+  controlledBy: Option[String],
+  text: Option[String]
+) {
 
   override def toString: String = {
-
-    val stringList: Seq[Option[String]] = List(numberOfPackages.map(_.toString), Some(typeOfPackages), shippingMarks)
+    val stringList: List[Option[String]] = List(
+      Some(code),
+      Some(date.toString),
+      controlledBy,
+      text.map(_.map(_.toString).mkString(","))
+    )
     stringList.flatten.mkString(", ")
   }
 }
 
-object Packaging {
-  implicit val formats: OFormat[Packaging] = Json.format[Packaging]
+object ControlResult {
+  implicit val formats: OFormat[ControlResult] = Json.format[ControlResult]
 }

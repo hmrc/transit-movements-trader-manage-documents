@@ -21,17 +21,21 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 import java.time.LocalDate
+import java.util.Date
 
 case class TransitOperation(
+                             LRN: String,
   MRN: String,
-  LRN: String,
   declarationType: DeclarationType,
-  additionalDeclarationType: String,
-  security: String,
-  TIRCarnetNumber: Option[String],
-  specificCircumstanceIndicator: Option[String],
-  bindingItinerary: String,
-  declarationAcceptanceDate: Option[LocalDate]
+                             additionalDeclarationType: String,
+                             TIRCarnetNumber: Option[String],
+                             declarationAcceptanceDate: Option[LocalDate],
+                             releaseDate: Date,
+                             security: String,
+                             reducedDatasetIndicator: String,
+                             specificCircumstanceIndicator: Option[String],
+                             communicationLanguageAtDeparture: Option[String],
+                               bindingItinerary: String
 )
 
 object TransitOperation {

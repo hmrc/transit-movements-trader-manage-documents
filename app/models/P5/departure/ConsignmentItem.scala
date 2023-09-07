@@ -20,59 +20,50 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class ConsignmentItem(
-  declarationType: Option[String],
-  countryOfDispatch: Option[String],
-  countryOfDestination: Option[String],
-  Consignor: Option[Consignor],
-  Consignee: Option[Consignee],
-  goodsItemNumber: String,
-  declarationGoodsItemNumber: Int,
-  Packaging: Seq[Packaging],
-  Commodity: Commodity,
-  referenceNumberUCR: Option[String],
-  TransportCharges: Option[TransportCharges],
-  PreviousDocument: Option[List[PreviousDocument]],
-  SupportingDocument: Option[List[SupportingDocument]],
-  TransportDocument: Option[List[TransportDocument]],
-  AdditionalReference: Option[List[AdditionalReference]],
-  AdditionalInformation: Option[List[AdditionalInformation]],
-  AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
-  DepartureTransportMeans: Option[List[DepartureTransportMeans]]
+                            goodsItemNumber: String,
+                            declarationGoodsItemNumber: Int,
+                            declarationType: Option[String],
+                            countryOfDispatch: Option[String],
+                            countryOfDestination: Option[String],
+                            referenceNumberUCR: Option[String],
+                            consignee: Option[Consignee],
+                            additionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
+                            commodity: Commodity,
+                            packaging: Seq[Packaging],
+                            previousDocument: Option[List[PreviousDocument]],
+                            supportingDocument: Option[List[SupportingDocument]],
+                            transportDocument: Option[List[TransportDocument]],
+                            additionalReference: Option[List[AdditionalReference]],
+                            additionalInformation: Option[List[AdditionalInformation]],
+                            transportCharges: Option[TransportCharges]
 ) {
   val declarationTypeString: String            = declarationType.getOrElse("")
   val countryOfDispatchString: String          = countryOfDispatch.getOrElse("")
   val countryOfDestinationString: String       = countryOfDestination.getOrElse("")
-  val consignor: String                        = Consignor.map(_.toString).getOrElse("")
-  val consignee: String                        = Consignee.map(_.toString).getOrElse("")
+  val consigneeFormat: String                        = consignee.map(_.toString).getOrElse("")
   val goodsItemNumberString: String            = goodsItemNumber
   val declarationGoodsItemNumberString: String = declarationGoodsItemNumber.toString
-  val packaging: String                        = Packaging.showAll
+  val packagingFormat: String                        = packaging.showAll
   val referenceNumberUCRString: String         = referenceNumberUCR.getOrElse("")
 
-  val transportCharges: String            = TransportCharges.map(_.toString).getOrElse("")
-  val additionalSupplyChainActor: String  = AdditionalSupplyChainActor.map(_.showAll).getOrElse("")
-  val commodityCode: String               = Commodity.CommodityCode.map(_.toString).getOrElse("")
-  val departureTransportMeans: String     = DepartureTransportMeans.map(_.showAll).getOrElse("")
-  val dangerousGoods: String              = Commodity.DangerousGoods.map(_.showAll).getOrElse("")
-  val cusCode: String                     = Commodity.cusCode.getOrElse("")
-  val descriptionOfGoods: String          = Commodity.descriptionOfGoods
-  val previousDocumentString: String      = PreviousDocument.map(_.showAll).getOrElse("")
-  val supportingDocumentString: String    = SupportingDocument.map(_.showAll).getOrElse("")
-  val transportDocumentString: String     = TransportDocument.map(_.showAll).getOrElse("")
-  val additionalReferenceString: String   = AdditionalReference.map(_.showAll).getOrElse("")
-  val additionalInformationString: String = AdditionalInformation.map(_.showAll).getOrElse("")
+  val transportChargesFormat: String            = transportCharges.map(_.toString).getOrElse("")
+  val additionalSupplyChainActorFormat: String  = additionalSupplyChainActor.map(_.showAll).getOrElse("")
+  val commodityCode: String               = commodity.commodityCode.map(_.toString).getOrElse("")
+  val dangerousGoods: String              = commodity.dangerousGoods.map(_.showAll).getOrElse("")
+  val cusCode: String                     = commodity.cusCode.getOrElse("")
+  val descriptionOfGoods: String          = commodity.descriptionOfGoods
+  val previousDocumentString: String      = previousDocument.map(_.showAll).getOrElse("")
+  val supportingDocumentString: String    = supportingDocument.map(_.showAll).getOrElse("")
+  val transportDocumentString: String     = transportDocument.map(_.showAll).getOrElse("")
+  val additionalReferenceString: String   = additionalReference.map(_.showAll).getOrElse("")
+  val additionalInformationString: String = additionalInformation.map(_.showAll).getOrElse("")
 
-  val grossMass: String          = Commodity.GoodsMeasure.grossMass.toString
-  val netMass: String            = Commodity.GoodsMeasure.netMass.getOrElse("").toString
-  val consignorId: String        = Consignor.flatMap(_.identificationNumber).getOrElse("")
-  val consigneeId: String        = Consignee.flatMap(_.identificationNumber).getOrElse("")
-  val supplyChainActorId: String = AdditionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
+  val grossMass: String          = commodity.goodsMeasure.grossMass.toString
+  val netMass: String            = commodity.goodsMeasure.netMass.getOrElse("").toString
+  val consigneeId: String        = consignee.flatMap(_.identificationNumber).getOrElse("")
+  val supplyChainActorId: String = additionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
 
-  val totalPackages: Int = Packaging.foldLeft(0)(
-    (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
-  )
-
-  val packagesType: String = Packaging.map(_.toString).mkString("; ")
+  val packagesType: String = packaging.map(_.toString).mkString("; ")
 
 }
 

@@ -21,7 +21,7 @@ import play.api.libs.json.OFormat
 
 case class Carrier(
   identificationNumber: String,
-  ContactPerson: Option[ContactPerson]
+  contactPerson: Option[ContactPerson]
 )
 
 object Carrier {

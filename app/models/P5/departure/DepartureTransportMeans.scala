@@ -20,6 +20,7 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class DepartureTransportMeans(
+                                  sequenceNumber: String,
   typeOfIdentification: String,
   identificationNumber: String,
   nationality: Option[String]
