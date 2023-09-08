@@ -207,65 +207,31 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
               seals = consignment.seals, // P5
               Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
               controlResult = Some(controlResult),
-//              goodsItems = consignment.houseConsignments.map((houseConsignment) => houseConsignment.consignmentItems.map(consignmentItem =>  {
-//                viewmodels.GoodsItem(
-//                  itemNumber = consignmentItem.goodsItemNumber.toInt,
-//                  commodityCode = Some(consignmentItem.commodityCode),
-//                  declarationType = DeclarationType.values.find((declarationType) => consignmentItem.declarationType == declarationType.toString)
-//
-//                )
-//              }))
-              goodsItems = NonEmptyList.one(
+              goodsItems = consignment.consignmentItems.map(consignmentItem => {
                 viewmodels.GoodsItem(
-                  itemNumber = consignment.houseConsignments.map(houseConsignment => houseConsignment.consignmentItems.headOption.map(item => item.goodsItemNumber.toInt)),         //TODO: Clarify with Sayak on how items is displayed in the doc,
-                  commodityCode = consignment.houseConsignments.map(houseConsignment => houseConsignment.consignmentItems.map(item => item.commodityCode)), //P5
-                  declarationType = consignment.houseConsignments.map(houseConsignment => houseConsignment.consignmentItems.map(item => DeclarationType.values.find(_.toString == item.declarationType)))
-
-                    .headOption.flatMap {
-                    x => DeclarationType.values.find(_.toString == x.declarationType)
-                  },                                                                                  //P5
-                  description = consignment.items.headOption.map(_.descriptionOfGoods).getOrElse(""), //P5
-                  grossMass = consignment.items.headOption.map(
-                    x => BigDecimal(x.grossMass)
-                  ), //P5
-                  netMass = consignment.items.headOption.map(
-                    x => BigDecimal(x.netMass)
-                  ), //P5
-                  countryOfDispatch = consignment.items.headOption.flatMap {
-                    x =>
-                      countries
-                        .find(
-                          country => country.code === x.countryOfDispatch
-                        )
-                  }, //P5
-                  countryOfDestination = consignment.items.headOption.flatMap {
-                    x =>
-                      countries
-                        .find(
-                          country => country.code === x.countryOfDestination
-                        )
-                  },                                                                      //P5
-                  methodOfPayment = consignment.items.headOption.map(_.transportCharges), //P5
-                  commercialReferenceNumber = None,                                       //TODO: More clarification on this
-                  unDangerGoodsCode = consignment.items.headOption.map(_.dangerousGoods), //P5
-                  producedDocuments = Nil,                                                //TODO: More clarification on this
-                  previousDocumentTypes = Nil,                                            //TODO: More clarification on this
-                  specialMentions = Nil,                                                  //TODO More clarification on this
-                  consignor = consignor,                                                  //P5
-                  consignee = consignee,                                                  //P5
-                  containers = Nil,                                                       //TODO More clarification on this
-                  packages = NonEmptyList(
-                    viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
-                    List(
-                      viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
-                      viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
-                    )
-                  ),
-                  sensitiveGoodsInformation = Nil, //TODO More clarification on this
-                  securityConsignor = None,        //TODO More clarification on this
-                  securityConsignee = None         //TODO More clarification on this
+                  itemNumber = consignmentItem.goodsItemNumber.toInt,
+                  commodityCode = Some(consignmentItem.commodityCode),
+                  declarationType = DeclarationType.values.find(declarationType => consignmentItem.declarationType.getOrElse("") == declarationType.toString),
+                  description = consignmentItem.descriptionOfGoods,
+                  grossMass = Some(BigDecimal(consignmentItem.grossMass)),
+                  netMass = Some(BigDecimal(consignmentItem.netMass)),
+                  countryOfDispatch = countries.find(country => country.code == consignmentItem.countryOfDispatch.getOrElse("")),
+                  countryOfDestination = countries.find(country => country.code == consignmentItem.countryOfDestination.getOrElse("")),
+                  methodOfPayment = consignmentItem.transportCharges.map(transportCharge=> transportCharge.toString),
+                  commercialReferenceNumber = None,
+                  unDangerGoodsCode = Some(consignmentItem.dangerousGoods),
+                  producedDocuments = Nil,
+                  previousDocumentTypes = Nil,
+                  specialMentions = Nil,
+                  consignor = consignor,
+                  consignee = consignee,
+                  containers = Nil,
+                  packages = NonEmptyList(Package("s")),
+                  sensitiveGoodsInformation = Nil,
+                  securityConsignor = None,
+                  securityConsignee = None
                 )
-              )
+              })
             )
         }
 

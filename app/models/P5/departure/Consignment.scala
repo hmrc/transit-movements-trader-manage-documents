@@ -100,7 +100,7 @@ case class Consignment(
   )
 
   val consignmentItems: Seq[ConsignmentItem] = houseConsignments.foldLeft(Seq.empty[ConsignmentItem]) {
-    (acc, house) => acc ++ house.consignmentItem.map(_.copy(Consignor = house.consignor, DepartureTransportMeans = departureTransportMeans))
+    (acc, house) => acc ++ house.consignmentItems.map(_.copy(countryOfDispatch = countryOfDispatch, countryOfDestination = countryOfDestination, referenceNumberUCR = referenceNumberUCR, additionalSupplyChainActor = additionalSupplyChainActor, additionalInformation =  additionalInformation, additionalReference = additionalReference, transportCharges =  transportCharges))
   }
 
 }
