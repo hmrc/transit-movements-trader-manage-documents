@@ -23,8 +23,8 @@ case class TransportEquipment(
   sequenceNumber: String,
   containerIdentificationNumber: Option[String],
   numberOfSeals: Int,
-  Seal: Option[List[Seal]],
-  GoodsReference: Option[List[GoodsReference]]
+  seals: Option[List[Seal]],
+  goodsReference: Option[List[GoodsReference]]
 ) {
 
   override def toString: String = {
@@ -37,8 +37,18 @@ case class TransportEquipment(
     )
     stringList.flatten.mkString(", ")
   }
-  def goodsReferences: String = GoodsReference.showFirstAndLast
-  def seal: String            = Seal.showFirstAndLast
+  def goodsReferences: String = goodsReference.showFirstAndLast
+
+  val sealsList = seals
+    .map(
+      sealList =>
+        sealList.map(
+          seal => seal.toString
+        )
+    )
+    .getOrElse(Nil)
+
+  def seal: String = seals.showFirstAndLast
 
 }
 

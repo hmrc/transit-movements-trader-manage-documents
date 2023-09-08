@@ -16,7 +16,9 @@
 
 package models.P5.departure
 
-import play.api.libs.json.{Json, OFormat}
+import models.reference.ControlResultData
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 
 import java.time.LocalDate
 
@@ -26,6 +28,11 @@ case class ControlResult(
   controlledBy: Option[String],
   text: Option[String]
 ) {
+
+  val toP4: viewmodels.ControlResult = viewmodels.ControlResult(
+    ControlResultData(code, text.getOrElse("")),
+    models.ControlResult(code, date)
+  )
 
   override def toString: String = {
     val stringList: List[Option[String]] = List(

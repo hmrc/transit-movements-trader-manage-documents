@@ -20,29 +20,27 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class HouseConsignment(
-                           sequenceNumber: String,
-                           countryOfDispatch: Option[String],
-                           grossMass: Double,
-                           referenceNumberUCR: Option[String],
-                           securityIndicatorFromExport: Option[String],
-                           consignor: Option[Consignor],
-                           consignee: Option[Consignee],
-                           additionalSupplyChainActor: Option[AdditionalSupplyChainActor],
-                           departureTransportMeans: Option[DepartureTransportMeans],
-                           previousDocument: Option[List[PreviousDocument]],
-                           transportDocument: Option[List[TransportDocument]],
-                           supportingDocument: Option[List[SupportingDocument]],
-                           additionalReference: Option[List[AdditionalReference]],
-                           additionalInformation: Option[List[AdditionalInformation]],
-                           transportCharges: Option[TransportCharges],
-                           consignmentItems: Seq[ConsignmentItem],
+  sequenceNumber: String,
+  countryOfDispatch: Option[String],
+  grossMass: Double,
+  referenceNumberUCR: Option[String],
+  securityIndicatorFromExport: Option[String],
+  consignor: Option[Consignor],
+  consignee: Option[Consignee],
+  additionalSupplyChainActor: Option[AdditionalSupplyChainActor],
+  departureTransportMeans: Option[DepartureTransportMeans],
+  previousDocument: Option[List[PreviousDocument]],
+  transportDocument: Option[List[TransportDocument]],
+  supportingDocument: Option[List[SupportingDocument]],
+  additionalReference: Option[List[AdditionalReference]],
+  additionalInformation: Option[List[AdditionalInformation]],
+  transportCharges: Option[TransportCharges],
+  consignmentItems: Seq[ConsignmentItem]
 ) {
 
-  val totalPackages: Int = consignmentItems.foldLeft(0)(
-    (total, item) => total + item.totalPackages
-  )
-
   val totalItems: Int = consignmentItems.length
+
+  val totalPackages: Int = consignmentItems.flatMap(_.packaging.flatMap(_.numberOfPackages)).sum
 
   val previousDocumentInHC: Option[String] = previousDocument.map(_.showAll)
 

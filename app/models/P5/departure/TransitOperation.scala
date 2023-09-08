@@ -24,18 +24,18 @@ import java.time.LocalDate
 import java.util.Date
 
 case class TransitOperation(
-                             LRN: String,
+  LRN: String,
   MRN: String,
   declarationType: DeclarationType,
-                             additionalDeclarationType: String,
-                             TIRCarnetNumber: Option[String],
-                             declarationAcceptanceDate: Option[LocalDate],
-                             releaseDate: Date,
-                             security: String,
-                             reducedDatasetIndicator: String,
-                             specificCircumstanceIndicator: Option[String],
-                             communicationLanguageAtDeparture: Option[String],
-                               bindingItinerary: String
+  additionalDeclarationType: String,
+  TIRCarnetNumber: Option[String],
+  declarationAcceptanceDate: Option[LocalDate],
+  releaseDate: Date,
+  security: String,
+  reducedDatasetIndicator: String,
+  specificCircumstanceIndicator: Option[String],
+  communicationLanguageAtDeparture: Option[String],
+  bindingItinerary: String
 )
 
 object TransitOperation {

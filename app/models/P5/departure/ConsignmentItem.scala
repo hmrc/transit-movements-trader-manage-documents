@@ -20,43 +20,43 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class ConsignmentItem(
-                            goodsItemNumber: String,
-                            declarationGoodsItemNumber: Int,
-                            declarationType: Option[String],
-                            countryOfDispatch: Option[String],
-                            countryOfDestination: Option[String],
-                            referenceNumberUCR: Option[String],
-                            consignee: Option[Consignee],
-                            additionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
-                            commodity: Commodity,
-                            packaging: Seq[Packaging],
-                            previousDocument: Option[List[PreviousDocument]],
-                            supportingDocument: Option[List[SupportingDocument]],
-                            transportDocument: Option[List[TransportDocument]],
-                            additionalReference: Option[List[AdditionalReference]],
-                            additionalInformation: Option[List[AdditionalInformation]],
-                            transportCharges: Option[TransportCharges]
+  goodsItemNumber: String,
+  declarationGoodsItemNumber: Int,
+  declarationType: Option[String],
+  countryOfDispatch: Option[String],
+  countryOfDestination: Option[String],
+  referenceNumberUCR: Option[String],
+  consignee: Option[Consignee],
+  additionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
+  commodity: Commodity,
+  packaging: Seq[Packaging],
+  previousDocument: Option[List[PreviousDocument]],
+  supportingDocument: Option[List[SupportingDocument]],
+  transportDocument: Option[List[TransportDocument]],
+  additionalReference: Option[List[AdditionalReference]],
+  additionalInformation: Option[List[AdditionalInformation]],
+  transportCharges: Option[TransportCharges]
 ) {
   val declarationTypeString: String            = declarationType.getOrElse("")
   val countryOfDispatchString: String          = countryOfDispatch.getOrElse("")
   val countryOfDestinationString: String       = countryOfDestination.getOrElse("")
-  val consigneeFormat: String                        = consignee.map(_.toString).getOrElse("")
+  val consigneeFormat: String                  = consignee.map(_.toString).getOrElse("")
   val goodsItemNumberString: String            = goodsItemNumber
   val declarationGoodsItemNumberString: String = declarationGoodsItemNumber.toString
-  val packagingFormat: String                        = packaging.showAll
+  val packagingFormat: String                  = packaging.showAll
   val referenceNumberUCRString: String         = referenceNumberUCR.getOrElse("")
 
-  val transportChargesFormat: String            = transportCharges.map(_.toString).getOrElse("")
-  val additionalSupplyChainActorFormat: String  = additionalSupplyChainActor.map(_.showAll).getOrElse("")
-  val commodityCode: String               = commodity.commodityCode.map(_.toString).getOrElse("")
-  val dangerousGoods: String              = commodity.dangerousGoods.map(_.showAll).getOrElse("")
-  val cusCode: String                     = commodity.cusCode.getOrElse("")
-  val descriptionOfGoods: String          = commodity.descriptionOfGoods
-  val previousDocumentString: String      = previousDocument.map(_.showAll).getOrElse("")
-  val supportingDocumentString: String    = supportingDocument.map(_.showAll).getOrElse("")
-  val transportDocumentString: String     = transportDocument.map(_.showAll).getOrElse("")
-  val additionalReferenceString: String   = additionalReference.map(_.showAll).getOrElse("")
-  val additionalInformationString: String = additionalInformation.map(_.showAll).getOrElse("")
+  val transportChargesFormat: String           = transportCharges.map(_.toString).getOrElse("")
+  val additionalSupplyChainActorFormat: String = additionalSupplyChainActor.map(_.showAll).getOrElse("")
+  val commodityCode: String                    = commodity.commodityCode.map(_.toString).getOrElse("")
+  val dangerousGoods: String                   = commodity.dangerousGoods.map(_.showAll).getOrElse("")
+  val cusCode: String                          = commodity.cusCode.getOrElse("")
+  val descriptionOfGoods: String               = commodity.descriptionOfGoods
+  val previousDocumentString: String           = previousDocument.map(_.showAll).getOrElse("")
+  val supportingDocumentString: String         = supportingDocument.map(_.showAll).getOrElse("")
+  val transportDocumentString: String          = transportDocument.map(_.showAll).getOrElse("")
+  val additionalReferenceString: String        = additionalReference.map(_.showAll).getOrElse("")
+  val additionalInformationString: String      = additionalInformation.map(_.showAll).getOrElse("")
 
   val grossMass: String          = commodity.goodsMeasure.grossMass.toString
   val netMass: String            = commodity.goodsMeasure.netMass.getOrElse("").toString

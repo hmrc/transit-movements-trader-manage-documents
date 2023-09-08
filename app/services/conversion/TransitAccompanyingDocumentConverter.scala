@@ -17,6 +17,7 @@
 package services.conversion
 
 import cats.data.NonEmptyList
+import cats.syntax.list._
 import cats.implicits._
 import models.P5.departure.DepartureMessageData
 import models.P5.departure.IE029Data
@@ -148,7 +149,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
               numberOfPackages = Some(consignment.totalPackages),
               grossMass = consignment.grossMass,                                          // P5
               printBindingItinerary = intStringToBool(transitOperation.bindingItinerary), // P5
-              authId = ie029.data.authorisation,                                          // P5  //TODO check again
+              authId = ie029.data.authorisationDisplay,                                   // P5  //TODO check again
               copyType = false,                                                           //      TODO check again
               principal = viewmodels.Principal(
                 "Principal name",
@@ -204,34 +205,58 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   )
                 case _ => Nil
               },
-              seals = consignment.seals, // P5
+              seals = consignment.transportEquipment match {
+                case Some(transportEquipmentList) =>
+                  transportEquipmentList.flatMap(
+                    transportEquipment => transportEquipment.sealsList
+                  )
+                case _ => Nil
+              }, // P5
               Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
-              controlResult = Some(controlResult),
-              goodsItems = consignment.consignmentItems.map(consignmentItem => {
-                viewmodels.GoodsItem(
-                  itemNumber = consignmentItem.goodsItemNumber.toInt,
-                  commodityCode = Some(consignmentItem.commodityCode),
-                  declarationType = DeclarationType.values.find(declarationType => consignmentItem.declarationType.getOrElse("") == declarationType.toString),
-                  description = consignmentItem.descriptionOfGoods,
-                  grossMass = Some(BigDecimal(consignmentItem.grossMass)),
-                  netMass = Some(BigDecimal(consignmentItem.netMass)),
-                  countryOfDispatch = countries.find(country => country.code == consignmentItem.countryOfDispatch.getOrElse("")),
-                  countryOfDestination = countries.find(country => country.code == consignmentItem.countryOfDestination.getOrElse("")),
-                  methodOfPayment = consignmentItem.transportCharges.map(transportCharge=> transportCharge.toString),
-                  commercialReferenceNumber = None,
-                  unDangerGoodsCode = Some(consignmentItem.dangerousGoods),
-                  producedDocuments = Nil,
-                  previousDocumentTypes = Nil,
-                  specialMentions = Nil,
-                  consignor = consignor,
-                  consignee = consignee,
-                  containers = Nil,
-                  packages = NonEmptyList(Package("s")),
-                  sensitiveGoodsInformation = Nil,
-                  securityConsignor = None,
-                  securityConsignee = None
-                )
-              })
+              controlResult = Some(controlResult.toP4),
+              goodsItems = {
+                val goodsItemList = consignment.consignmentItems.map {
+                  consignmentItem =>
+                    viewmodels.GoodsItem(
+                      itemNumber = consignmentItem.goodsItemNumber.toInt,
+                      commodityCode = Some(consignmentItem.commodityCode),
+                      declarationType = DeclarationType.values.find(
+                        declarationType => consignmentItem.declarationType.getOrElse("") == declarationType.toString
+                      ),
+                      description = consignmentItem.descriptionOfGoods,
+                      grossMass = Some(BigDecimal(consignmentItem.grossMass)),
+                      netMass = Some(BigDecimal(consignmentItem.netMass)),
+                      countryOfDispatch = countries.find(
+                        country => country.code == consignmentItem.countryOfDispatch.getOrElse("")
+                      ),
+                      countryOfDestination = countries.find(
+                        country => country.code == consignmentItem.countryOfDestination.getOrElse("")
+                      ),
+                      methodOfPayment = consignmentItem.transportCharges.map(
+                        transportCharge => transportCharge.toString
+                      ),
+                      commercialReferenceNumber = None,
+                      unDangerGoodsCode = Some(consignmentItem.dangerousGoods),
+                      producedDocuments = Nil,
+                      previousDocumentTypes = Nil,
+                      specialMentions = Nil,
+                      consignor = consignor,
+                      consignee = consignee,
+                      containers = Nil,
+                      packages = NonEmptyList(
+                        viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
+                        List(
+                          viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
+                          viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+                        )
+                      ),
+                      sensitiveGoodsInformation = Nil,
+                      securityConsignor = None,
+                      securityConsignee = None
+                    )
+                }.toList
+                NonEmptyList.fromList(goodsItemList).get
+              }
             )
         }
 

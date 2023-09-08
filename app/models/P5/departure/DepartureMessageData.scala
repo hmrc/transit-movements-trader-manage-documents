@@ -34,24 +34,24 @@ case class DepartureMessageData(
   consignment: Consignment
 ) {
 
-  val guaranteeFormat: Option[String] = guarantee.map(
+  val guaranteeDisplay: Option[String] = guarantee.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val authorisationFormat: Option[String] = authorisation.map(
+  val authorisationDisplay: Option[String] = authorisation.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfTransitDeclaredFormat: Option[String] = customsOfficeOfTransitDeclared.map(
+  val customsOfficeOfTransitDeclaredDisplay: Option[String] = customsOfficeOfTransitDeclared.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfExitForTransitDeclaredFormat: Option[String] = customsOfficeOfExitForTransitDeclared.map(
+  val customsOfficeOfExitForTransitDeclaredDisplay: Option[String] = customsOfficeOfExitForTransitDeclared.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfDepartureFormat: String           = customsOfficeOfDeparture.toString
-  val customsOfficeOfDestinationDeclaredFormat: String = customsOfficeOfDestinationDeclared.toString
+  val customsOfficeOfDepartureDisplay: String           = customsOfficeOfDeparture.toString
+  val customsOfficeOfDestinationDeclaredDisplay: String = customsOfficeOfDestinationDeclared.toString
 
 }
 

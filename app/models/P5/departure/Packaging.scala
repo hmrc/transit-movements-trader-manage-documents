@@ -19,7 +19,7 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class Packaging(sequenceNumber:String, numberOfPackages: Option[Int], typeOfPackages: String, shippingMarks: Option[String]) {
+case class Packaging(sequenceNumber: String, numberOfPackages: Option[Int], typeOfPackages: String, shippingMarks: Option[String]) {
 
   override def toString: String = {
 

@@ -20,7 +20,7 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class AdditionalSupplyChainActor(
-                                     sequenceNumber: String,
+  sequenceNumber: String,
   role: String,
   identificationNumber: String
 ) {

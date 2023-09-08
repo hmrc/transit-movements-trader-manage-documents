@@ -20,7 +20,7 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class ActiveBorderTransportMeans(
-                                     sequenceNumber: String,
+  sequenceNumber: String,
   customsOfficeAtBorderReferenceNumber: String,
   typeOfIdentification: String,
   identificationNumber: String,
