@@ -54,9 +54,11 @@ class ConsignmentItemSpec extends SpecBase {
           DangerousGoods("UN number 2")
         )
       ),
-      GoodsMeasure = GoodsMeasure(
-        grossMass = BigDecimal(123),
-        netMass = Some(BigDecimal(456))
+      GoodsMeasure = Some(
+        GoodsMeasure(
+          grossMass = BigDecimal(123),
+          netMass = Some(BigDecimal(456))
+        )
       )
     ),
     Packaging = Seq(

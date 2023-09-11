@@ -53,8 +53,8 @@ case class ConsignmentItem(
 
   val commodityCode: String = Commodity.CommodityCode.map(_.toString).getOrElse("")
 
-  val grossMass: String = Commodity.GoodsMeasure.grossMass.toString()
-  val netMass: String   = Commodity.GoodsMeasure.netMass.map(_.toString()).getOrElse("")
+  val grossMass: String = Commodity.GoodsMeasure.map(_.grossMass.toString()).getOrElse("")
+  val netMass: String   = Commodity.GoodsMeasure.flatMap(_.netMass.map(_.toString())).getOrElse("")
 
   val cOfDest: String = countryOfDestination.getOrElse("")
 }

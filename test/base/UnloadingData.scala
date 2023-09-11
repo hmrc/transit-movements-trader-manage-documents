@@ -61,7 +61,7 @@ trait UnloadingData {
   val additionalInformation: List[AdditionalInformation] = List(AdditionalInformation("32", Some("additional ref text")))
 
   val goodsMeasure: GoodsMeasure = GoodsMeasure(10.5, None)
-  val commodity: Commodity       = Commodity("commodity desc", None, None, None, goodsMeasure)
+  val commodity: Commodity       = Commodity("commodity desc", None, None, None, Some(goodsMeasure))
 
   val houseConsignment: Seq[HouseConsignment] = Seq(
     HouseConsignment(Seq(ConsignmentItem("1", 1, None, None, None, commodity, Seq(Packaging("package type", Some(3), None)), None, None, None, None, None)))

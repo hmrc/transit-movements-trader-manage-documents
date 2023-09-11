@@ -16,7 +16,6 @@
 
 package connectors
 
-import base.DepartureData
 import base.SpecBase
 import base.UnloadingData
 import cats.scalatest.ValidatedMatchers

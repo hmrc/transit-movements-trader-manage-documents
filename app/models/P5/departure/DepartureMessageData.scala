@@ -24,7 +24,7 @@ import play.api.libs.json.Writes
 case class DepartureMessageData(
   TransitOperation: TransitOperation,
   HolderOfTheTransitProcedure: HolderOfTransitProcedure,
-  Representative: Representative,
+  Representative: Option[Representative],
   Consignment: Consignment,
   Guarantee: Option[List[Guarantee]],
   Authorisation: Option[List[Authorisation]],

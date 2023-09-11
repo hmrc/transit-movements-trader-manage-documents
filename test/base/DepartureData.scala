@@ -92,7 +92,7 @@ trait DepartureData {
   val goodsMeasure: GoodsMeasure                                   = GoodsMeasure(1.2, Some(1.4))
   val transportCharges: TransportCharges                           = TransportCharges(Some("payPal"))
   val dangerousGoods: DangerousGoods                               = DangerousGoods("seq1", Some("UNNumber1"))
-  val commodity: Commodity                                         = Commodity("Tiles", Some(commodityCode), goodsMeasure, Some("CUSTCODE1"), Some(List(dangerousGoods)))
+  val commodity: Commodity                                         = Commodity("Tiles", Some(commodityCode), Some(goodsMeasure), Some("CUSTCODE1"), Some(List(dangerousGoods)))
 
   val consignmentItem1: ConsignmentItem = ConsignmentItem(
     Some("1T1"),
@@ -182,7 +182,7 @@ trait DepartureData {
     DepartureMessageData(
       transitOperation,
       holderOfTheTransitProcedure,
-      representative,
+      Some(representative),
       consigmment,
       Some(List(guarantee)),
       Some(List(authorisation)),
