@@ -35,12 +35,12 @@ case class HouseConsignment(
   additionalReference: Option[List[AdditionalReference]],
   additionalInformation: Option[List[AdditionalInformation]],
   transportCharges: Option[TransportCharges],
-  consignmentItems: Seq[ConsignmentItem]
+  ConsignmentItem: Seq[ConsignmentItem]
 ) {
 
-  val totalItems: Int = consignmentItems.length
+  val totalItems: Int = ConsignmentItem.length
 
-  val totalPackages: Int = consignmentItems.flatMap(_.packaging.flatMap(_.numberOfPackages)).sum
+  val totalPackages: Int = ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
 
   val previousDocumentInHC: Option[String] = previousDocument.map(_.showAll)
 

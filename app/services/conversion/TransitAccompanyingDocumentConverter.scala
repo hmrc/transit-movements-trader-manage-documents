@@ -232,7 +232,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       countryOfDestination = countries.find(
                         country => country.code == consignmentItem.countryOfDestination.getOrElse("")
                       ),
-                      methodOfPayment = consignmentItem.transportCharges.map(
+                      methodOfPayment = consignmentItem.TransportCharges.map(
                         transportCharge => transportCharge.toString
                       ),
                       commercialReferenceNumber = None,

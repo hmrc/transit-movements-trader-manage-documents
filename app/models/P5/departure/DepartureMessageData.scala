@@ -21,37 +21,37 @@ import play.api.libs.json.Reads
 import play.api.libs.json.Writes
 
 case class DepartureMessageData(
-  transitOperation: TransitOperation,
-  authorisation: Option[List[Authorisation]],
-  customsOfficeOfDeparture: CustomsOfficeOfDeparture,
-  customsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared,
-  customsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
-  customsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
-  holderOfTheTransitProcedure: HolderOfTransitProcedure,
-  representative: Representative,
-  controlResult: ControlResult,
-  guarantee: Option[List[Guarantee]],
-  consignment: Consignment
+  TransitOperation: TransitOperation,
+  Authorisation: Option[List[Authorisation]],
+  CustomsOfficeOfDeparture: CustomsOfficeOfDeparture,
+  CustomsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared,
+  CustomsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
+  CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
+  HolderOfTheTransitProcedure: HolderOfTransitProcedure,
+  Representative: Representative,
+  ControlResult: ControlResult,
+  Guarantee: Option[List[Guarantee]],
+  Consignment: Consignment
 ) {
 
-  val guaranteeDisplay: Option[String] = guarantee.map(
+  val guaranteeDisplay: Option[String] = Guarantee.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val authorisationDisplay: Option[String] = authorisation.map(
+  val authorisationDisplay: Option[String] = Authorisation.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfTransitDeclaredDisplay: Option[String] = customsOfficeOfTransitDeclared.map(
+  val customsOfficeOfTransitDeclaredDisplay: Option[String] = CustomsOfficeOfTransitDeclared.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfExitForTransitDeclaredDisplay: Option[String] = customsOfficeOfExitForTransitDeclared.map(
+  val customsOfficeOfExitForTransitDeclaredDisplay: Option[String] = CustomsOfficeOfExitForTransitDeclared.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val customsOfficeOfDepartureDisplay: String           = customsOfficeOfDeparture.toString
-  val customsOfficeOfDestinationDeclaredDisplay: String = customsOfficeOfDestinationDeclared.toString
+  val customsOfficeOfDepartureDisplay: String           = CustomsOfficeOfDeparture.toString
+  val customsOfficeOfDestinationDeclaredDisplay: String = CustomsOfficeOfDestinationDeclared.toString
 
 }
 

@@ -24,6 +24,6 @@ import models.P5.departure.Packaging
 
 case class ConsignmentItemViewModel(implicit ie029Data: IE029Data) {
 
-  val consignmentItem: Seq[ConsignmentItem] = ie029Data.data.consignment.consignmentItems
+  val consignmentItem: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
 
 }

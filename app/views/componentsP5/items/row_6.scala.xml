@@ -45,7 +45,7 @@
 
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container height="2mm" overflow="hidden">
-                                <fo:block>@item.transportCharges</fo:block>
+                                <fo:block>@item.TransportCharges</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

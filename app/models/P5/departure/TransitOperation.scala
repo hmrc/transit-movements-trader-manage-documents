@@ -16,6 +16,7 @@
 
 package models.P5.departure
 
+import akka.http.scaladsl.model.DateTime
 import models.DeclarationType
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
@@ -30,7 +31,7 @@ case class TransitOperation(
   additionalDeclarationType: String,
   TIRCarnetNumber: Option[String],
   declarationAcceptanceDate: Option[LocalDate],
-  releaseDate: Date,
+  releaseDate: LocalDate,
   security: String,
   reducedDatasetIndicator: String,
   specificCircumstanceIndicator: Option[String],

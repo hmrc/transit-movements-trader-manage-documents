@@ -58,7 +58,7 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
 
           genPdf.map {
             case Validated.Valid(arrayByte) =>
-              val fileName = s"TAD_${FileNameSanitizer(ie029.data.transitOperation.MRN)}.pdf"
+              val fileName = s"TAD_${FileNameSanitizer(ie029.data.TransitOperation.MRN)}.pdf"
 
               Ok(arrayByte)
                 .withHeaders(

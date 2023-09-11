@@ -38,19 +38,21 @@ case class Consignment(
   activeBorderTransportMeans: Option[List[ActiveBorderTransportMeans]],
   placeOfLoading: Option[PlaceOfLoading],
   placeOfUnloading: Option[PlaceOfUnloading],
-  document: Document,
+  PreviousDocument: Option[List[PreviousDocument]],
+  TransportDocument: Option[List[TransportDocument]],
+  SupportingDocument: Option[List[SupportingDocument]],
   additionalReference: Option[List[AdditionalReference]],
   additionalInformation: Option[List[AdditionalInformation]],
   transportCharges: Option[TransportCharges],
-  houseConsignments: Seq[HouseConsignment]
+  HouseConsignment: Seq[HouseConsignment]
 ) {
 
-  val totalPackages: Int = houseConsignments.foldLeft(0)(
+  val totalPackages: Int = HouseConsignment.foldLeft(0)(
     (total, houseConsignment) => total + houseConsignment.totalPackages
   )
 
-  val totalItems: Int = houseConsignments.foldLeft(0)(
-    (total, houseConsignments) => total + houseConsignments.totalItems
+  val totalItems: Int = HouseConsignment.foldLeft(0)(
+    (total, HouseConsignment) => total + HouseConsignment.totalItems
   )
 
   val additionalSupplyChainActorsRole: Option[String] = additionalSupplyChainActor.map(
@@ -99,17 +101,29 @@ case class Consignment(
     _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
 
-  val consignmentItems: Seq[ConsignmentItem] = houseConsignments.foldLeft(Seq.empty[ConsignmentItem]) {
+  val previousDocument: Option[String] = PreviousDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val supportingDocument: Option[String] = SupportingDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val transportDocument: Option[String] = TransportDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val consignmentItems: Seq[ConsignmentItem] = HouseConsignment.foldLeft(Seq.empty[ConsignmentItem]) {
     (acc, house) =>
-      acc ++ house.consignmentItems.map(
+      acc ++ house.ConsignmentItem.map(
         _.copy(
           countryOfDispatch = countryOfDispatch,
           countryOfDestination = countryOfDestination,
           referenceNumberUCR = referenceNumberUCR,
-          additionalSupplyChainActor = additionalSupplyChainActor,
-          additionalInformation = additionalInformation,
-          additionalReference = additionalReference,
-          transportCharges = transportCharges
+          AdditionalSupplyChainActor = additionalSupplyChainActor,
+          AdditionalInformation = additionalInformation,
+          AdditionalReference = additionalReference,
+          TransportCharges = transportCharges
         )
       )
   }
@@ -141,11 +155,13 @@ object Consignment {
           (json \ "activeBorderTransportMeans").asOpt[List[ActiveBorderTransportMeans]],
           (json \ "placeOfLoading").asOpt[PlaceOfLoading],
           (json \ "placeOfUnloading").asOpt[PlaceOfUnloading],
-          (json \ "document").as[Document],
+          (json \ "PreviousDocument").asOpt[List[PreviousDocument]],
+          (json \ "TransportDocument").asOpt[List[TransportDocument]],
+          (json \ "SupportingDocument").asOpt[List[SupportingDocument]],
           (json \ "additionalReference").asOpt[List[AdditionalReference]],
           (json \ "additionalInformation").asOpt[List[AdditionalInformation]],
           (json \ "transportCharges").asOpt[TransportCharges],
-          (json \ "houseConsignments").as[Seq[HouseConsignment]]
+          (json \ "HouseConsignment").as[Seq[HouseConsignment]]
         )
       )
   }
@@ -172,11 +188,13 @@ object Consignment {
         "activeBorderTransportMeans"    -> consignment.activeBorderTransportMeans,
         "placeOfLoading"                -> consignment.placeOfLoading,
         "placeOfUnloading"              -> consignment.placeOfUnloading,
-        "document"                      -> consignment.document,
+        "PreviousDocument"              -> consignment.PreviousDocument,
+        "TransportDocument"             -> consignment.TransportDocument,
+        "SupportingDocument"            -> consignment.SupportingDocument,
         "additionalReference"           -> consignment.additionalReference,
         "additionalInformation"         -> consignment.additionalInformation,
         "transportCharges"              -> consignment.transportCharges,
-        "houseConsignments"             -> consignment.houseConsignments
+        "HouseConsignment"              -> consignment.HouseConsignment
       )
   }
 
