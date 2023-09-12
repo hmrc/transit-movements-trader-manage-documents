@@ -89,15 +89,16 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     countries: Seq[Country], //TODO: Will this fetch all countries?
     additionalInfo: Seq[AdditionalInformation],
     kindsOfPackages: Seq[KindOfPackage],
-    documentType: Seq[DocumentType],
     previousDocuments: Seq[PreviousDocumentTypes],
+    supportDocuments: Seq[SupportingDocumentTypes],
+    transportDocuments: Seq[TransportDocumentTypes],
     circumstanceIndicators: Seq[CircumstanceIndicator],
     customsOffices: Seq[CustomsOffice],
     controlResults: Seq[ControlResult]
   ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
 
-    val kindsOfPackage            = kindsOfPackages // P5
-    val documentTypes             = documentType    // P5
+    val kindsOfPackage = Seq(KindOfPackage("1F", "Container, flexible")) // P5
+//    val documentTypes             = documentType    // P5
     val sensitiveGoodsInformation = Nil
 
     val controlResult = viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3)))
@@ -126,7 +127,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
             consignment
           ) =>
         (
-          convertConsignor(consignment.consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesnt get printed in full anyways???
+          convertConsignor(consignment.consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesn't get printed in full anyways???
           convertConsignee(consignment.consignee.map(_.toP4), countries)
         ).mapN {
           (consignor, consignee) =>
@@ -168,7 +169,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   .find(
                     office => office.id == officeOfDeparture.referenceNumber
                   )
-                  .get,
+                  .getOrElse(CustomsOffice("AD", None, "AD")),
                 None //TODO: Date?
               ),
               destinationOffice = CustomsOfficeWithOptionalDate(
@@ -176,7 +177,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   .find(
                     office => office.id == officeOfDestination.referenceNumber
                   )
-                  .get,
+                  .getOrElse(CustomsOffice("AD", None, "AD")),
                 None //TODO: Date?
               ),
               customsOfficeOfTransit = officesOfTransit
