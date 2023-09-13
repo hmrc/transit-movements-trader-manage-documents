@@ -52,23 +52,23 @@ case class TableViewModel(implicit ie029Data: IE029Data) {
 case class Table1ViewModel(implicit ie029Data: IE029Data) {
 
   private val consignorContactPersonAtHouseOfConsignment: String =
-    ie029Data.data.Consignment.HouseConsignment.flatMap(_.consignor.map(_.contactPerson.map(_.toString))).flatten.mkString("; ")
+    ie029Data.data.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.ContactPerson.map(_.toString))).flatten.mkString("; ")
 
-  val consignorContactPerson = ie029Data.data.Consignment.consignor.flatMap(_.contactPerson) match {
+  val consignorContactPerson = ie029Data.data.Consignment.Consignor.flatMap(_.ContactPerson) match {
     case Some(value) => truncate(100, value.toString)
     case None        => truncate(100, consignorContactPersonAtHouseOfConsignment)
   }
 
-  private val consignorAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.consignor.getOrElse("")).mkString(";")
+  private val consignorAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignor.getOrElse("")).mkString(";")
 
-  val consignor = ie029Data.data.Consignment.consignor match {
+  val consignor = ie029Data.data.Consignment.Consignor match {
     case Some(value) => truncate(100, value.toString)
     case None        => truncate(100, consignorAtHouseOfConsignment)
   }
 
-  private val consigneeeAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.consignee.getOrElse("")).mkString(";")
+  private val consigneeeAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignee.getOrElse("")).mkString(";")
 
-  val consignee: String = ie029Data.data.Consignment.consignee match {
+  val consignee: String = ie029Data.data.Consignment.Consignee match {
     case Some(value) => truncate(100, value.toString)
     case None        => truncate(100, consigneeeAtHouseOfConsignment)
   }
@@ -77,12 +77,12 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
   val sci: String                       = truncate(10, ie029Data.data.TransitOperation.specificCircumstanceIndicator.getOrElse(""))
   val mrn: String                       = truncate(20, ie029Data.data.TransitOperation.MRN)
 
-  val consigneeIdentificationNumber: String = ie029Data.data.Consignment.consignee match {
-    case Some(Consignee(Some(identificationNumber), _, _, _)) => truncate(20, identificationNumber)
-    case None                                                 => "TODO get multiple consignor identification numbers"
+  val consigneeIdentificationNumber: String = ie029Data.data.Consignment.Consignee match {
+    case Some(Consignee(Some(identificationNumber), _, _)) => truncate(20, identificationNumber)
+    case None                                              => "TODO get multiple consignor identification numbers"
   }
 
-  val consignorIdentificationNumber: String = ie029Data.data.Consignment.consignor match {
+  val consignorIdentificationNumber: String = ie029Data.data.Consignment.Consignor match {
     case Some(Consignor(Some(identificationNumber), _, _, _)) => truncate(20, identificationNumber)
     case None                                                 => "TODO get multiple consignor identification numbers"
   }
@@ -114,17 +114,17 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
 
   val activeBorderTransportMeansConveyanceNumbers: String = truncate(30, ie029Data.data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse(""))
 
-  val placeOfLoading: String = truncate(20, ie029Data.data.Consignment.placeOfLoading.map(_.toString).getOrElse(""))
+  val placeOfLoading: String = truncate(20, ie029Data.data.Consignment.PlaceOfLoading.map(_.toString).getOrElse(""))
 
-  val placeOfUnloading: String = truncate(20, ie029Data.data.Consignment.placeOfUnloading.map(_.toString).getOrElse(""))
+  val placeOfUnloading: String = truncate(20, ie029Data.data.Consignment.PlaceOfUnloading.map(_.toString).getOrElse(""))
 
   val inlandModeOfTransport: String = truncate(20, ie029Data.data.Consignment.inlandModeOfTransport.getOrElse(""))
 
   val modeOfTransportAtBorder: String = truncate(20, ie029Data.data.Consignment.modeOfTransportAtTheBorder.getOrElse(""))
 
-  val locationOfGoods: String = truncate(100, ie029Data.data.Consignment.locationOfGoods.map(_.toString).getOrElse(""))
+  val locationOfGoods: String = truncate(100, ie029Data.data.Consignment.LocationOfGoods.map(_.toString).getOrElse(""))
 
-  val locationOfGoodsContactPerson: String = truncate(100, ie029Data.data.Consignment.locationOfGoods.flatMap(_.contactPerson.map(_.toString)).getOrElse(""))
+  val locationOfGoodsContactPerson: String = truncate(100, ie029Data.data.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.toString)).getOrElse(""))
 
 }
 

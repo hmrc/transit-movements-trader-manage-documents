@@ -22,8 +22,7 @@ import play.api.libs.json.OFormat
 case class Consignee(
   identificationNumber: Option[String],
   name: Option[String],
-  Address: Option[Address],
-  contactPerson: Option[ContactPerson]
+  Address: Option[Address]
 ) {
 
   val toP4: models.Consignee = models.Consignee(
@@ -37,7 +36,7 @@ case class Consignee(
   )
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(name, Address.map(_.toString), contactPerson.map(_.toString))
+    val stringList: Seq[Option[String]] = List(name, Address.map(_.toString))
     stringList.flatten.mkString(", ")
   }
 }

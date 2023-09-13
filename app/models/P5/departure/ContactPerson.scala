@@ -22,11 +22,11 @@ import play.api.libs.json.OFormat
 case class ContactPerson(
   name: String,
   phoneNumber: String,
-  emailAddress: Option[String]
+  eMailAddress: Option[String]
 ) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(Some(name), Some(phoneNumber), emailAddress)
+    val stringList: Seq[Option[String]] = List(Some(name), Some(phoneNumber), eMailAddress)
     stringList.flatten.mkString(", ")
   }
 }

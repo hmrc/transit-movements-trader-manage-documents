@@ -25,16 +25,16 @@ case class HouseConsignment(
   grossMass: Double,
   referenceNumberUCR: Option[String],
   securityIndicatorFromExport: Option[String],
-  consignor: Option[Consignor],
-  consignee: Option[Consignee],
-  additionalSupplyChainActor: Option[AdditionalSupplyChainActor],
-  departureTransportMeans: Option[DepartureTransportMeans],
-  previousDocument: Option[List[PreviousDocument]],
-  transportDocument: Option[List[TransportDocument]],
-  supportingDocument: Option[List[SupportingDocument]],
-  additionalReference: Option[List[AdditionalReference]],
-  additionalInformation: Option[List[AdditionalInformation]],
-  transportCharges: Option[TransportCharges],
+  Consignor: Option[Consignor],
+  Consignee: Option[Consignee],
+  AdditionalSupplyChainActor: Option[AdditionalSupplyChainActor],
+  DepartureTransportMeans: Option[DepartureTransportMeans],
+  PreviousDocument: Option[List[PreviousDocument]],
+  TransportDocument: Option[List[TransportDocument]],
+  SupportingDocument: Option[List[SupportingDocument]],
+  AdditionalReference: Option[List[AdditionalReference]],
+  AdditionalInformation: Option[List[AdditionalInformation]],
+  TransportCharges: Option[TransportCharges],
   ConsignmentItem: Seq[ConsignmentItem]
 ) {
 
@@ -42,17 +42,17 @@ case class HouseConsignment(
 
   val totalPackages: Int = ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
 
-  val previousDocumentInHC: Option[String] = previousDocument.map(_.showAll)
+  val previousDocumentInHC: Option[String] = PreviousDocument.map(_.showAll)
 
-  val supportingDocumentInHC: Option[String] = supportingDocument.map(_.showAll)
+  val supportingDocumentInHC: Option[String] = SupportingDocument.map(_.showAll)
 
-  val transportDocumentInHC: Option[String] = transportDocument.map(_.showAll)
+  val transportDocumentInHC: Option[String] = TransportDocument.map(_.showAll)
 
-  val additionalInformationInHC: Option[String] = additionalInformation.map(_.showAll)
+  val additionalInformationInHC: Option[String] = AdditionalInformation.map(_.showAll)
 
-  val additionalReferenceInHC: Option[String] = additionalReference.map(_.showAll)
+  val additionalReferenceInHC: Option[String] = AdditionalReference.map(_.showAll)
 
-  val transportChargesInHC: Option[String] = transportCharges.map(_.toString)
+  val transportChargesInHC: Option[String] = TransportCharges.map(_.toString)
 }
 
 object HouseConsignment {

@@ -128,11 +128,10 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
             consignment
           ) =>
         (
-          convertConsignor(consignment.consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesn't get printed in full anyways???
-          convertConsignee(consignment.consignee.map(_.toP4), countries)
+          convertConsignor(consignment.Consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesn't get printed in full anyways???
+          convertConsignee(consignment.Consignee.map(_.toP4), countries)
         ).mapN {
           (consignor, consignee) =>
-
             def intStringToBool(intString: String) = intString match {
               case "1" => true
               case _   => false
@@ -206,7 +205,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   )
                 case _ => Nil
               },
-              seals = consignment.transportEquipment match {
+              seals = consignment.TransportEquipment match {
                 case Some(transportEquipmentList) =>
                   transportEquipmentList.flatMap(
                     transportEquipment => transportEquipment.sealsList
