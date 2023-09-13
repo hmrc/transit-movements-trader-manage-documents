@@ -26,6 +26,7 @@ import models.reference._
 import services._
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
+import viewmodels.PreviousDocumentType
 
 import java.time.LocalDate
 
@@ -97,11 +98,11 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     controlResults: Seq[ControlResult]
   ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
 
-    val kindsOfPackage = Seq(KindOfPackage("1F", "Container, flexible")) // P5
+    val kindsOfPackage = kindsOfPackages // P5
 //    val documentTypes             = documentType    // P5
     val sensitiveGoodsInformation = Nil
 
-    val controlResult = viewmodels.ControlResult(ControlResultData("code", "description a2"), ControlResult("code", LocalDate.of(1990, 2, 3)))
+    val controlResult = ControlResult("A", LocalDate.now())
 
     val additionalInfo = Seq(reference.AdditionalInformation("I1", "Info 1"), reference.AdditionalInformation("I2", "info 2"))
 
@@ -131,7 +132,6 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
           convertConsignee(consignment.consignee.map(_.toP4), countries)
         ).mapN {
           (consignor, consignee) =>
-            // TODO maybe make an implicit class / viewModel
 
             def intStringToBool(intString: String) = intString match {
               case "1" => true
@@ -161,9 +161,9 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                 countries.head,
                 Some("Principal EORI"),
                 Some("tir")
-              ),                     //TODO
-              consignor = consignor, // P5
-              consignee = consignee, // P5
+              ),                                                                                                                                         //TODO
+              consignor = Some(viewmodels.Consignor("name", "street", "streetNumberTrimmed", "postcode", "city", Country("GB", "great britain"), None)), // P5
+              consignee = consignee,                                                                                                                     // P5
               departureOffice = CustomsOfficeWithOptionalDate(
                 customsOffices
                   .find(
@@ -239,7 +239,9 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       commercialReferenceNumber = None,
                       unDangerGoodsCode = Some(consignmentItem.dangerousGoods),
                       producedDocuments = Nil,
-                      previousDocumentTypes = Nil,
+                      previousDocumentTypes = previousDocuments.map(
+                        prevDocument => PreviousDocumentType(prevDocument, PreviousAdministrativeReference("test", "test", None))
+                      ),
                       specialMentions = Nil,
                       consignor = consignor,
                       consignee = consignee,
