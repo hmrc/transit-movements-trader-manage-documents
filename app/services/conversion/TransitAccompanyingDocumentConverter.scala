@@ -160,9 +160,9 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                 countries.head,
                 Some("Principal EORI"),
                 Some("tir")
-              ),                                                                                                                                         //TODO
-              consignor = Some(viewmodels.Consignor("name", "street", "streetNumberTrimmed", "postcode", "city", Country("GB", "great britain"), None)), // P5
-              consignee = consignee,                                                                                                                     // P5
+              ),                     //TODO
+              consignor = consignor, // P5
+              consignee = consignee, // P5
               departureOffice = CustomsOfficeWithOptionalDate(
                 customsOffices
                   .find(
