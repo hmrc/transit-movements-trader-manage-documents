@@ -35,6 +35,8 @@ package object P5 {
 
     def showAll: String = ts.map(_.toString).mkString("; ")
 
+    def showAllList: Seq[String] = ts.map(_.toString)
+
     def total(f: T => Int): Int = ts.map(f).sum
   }
 

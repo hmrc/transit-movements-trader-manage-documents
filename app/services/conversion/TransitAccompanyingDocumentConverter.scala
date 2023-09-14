@@ -247,10 +247,10 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       consignee = consignee,
                       containers = Nil,
                       packages = NonEmptyList(
-                        viewmodels.BulkPackage(kindsOfPackage.head, Some("numbers")),
+                        viewmodels.BulkPackage(kindsOfPackage.head, Some("Package 1 Marks & Numbers")),
                         List(
-                          viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("marks")),
-                          viewmodels.RegularPackage(kindsOfPackage.head, 1, "marks and numbers")
+                          viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("Package 2 Marks & Numbers")),
+                          viewmodels.RegularPackage(kindsOfPackage.head, 1, "Package 3 Marks & Numbers")
                         )
                       ),
                       sensitiveGoodsInformation = Nil,

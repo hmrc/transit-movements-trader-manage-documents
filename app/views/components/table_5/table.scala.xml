@@ -74,7 +74,7 @@
                                     <fo:block>
                                         @if(seals.nonEmpty) {
                                             @if(seals.length > 1) {
-                                                @seals.head - @seals.last
+                                                @seals.head.....@seals.last
                                             } else {
                                                 @seals
                                             }
