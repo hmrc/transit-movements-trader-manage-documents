@@ -88,7 +88,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
   def fromP5ToViewModel(
     ie029: IE029Data,
     countries: Seq[Country], //TODO: Will this fetch all countries?
-    additionalInfo: Seq[AdditionalInformation],
+    additionalInformation: Seq[AdditionalInformation],
     kindsOfPackages: Seq[KindOfPackage],
     previousDocuments: Seq[PreviousDocumentTypes],
     supportDocuments: Seq[SupportingDocumentTypes],
@@ -104,7 +104,8 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
 
     val controlResult = ControlResult("A", LocalDate.now())
 
-    val additionalInfo = Seq(reference.AdditionalInformation("I1", "Info 1"), reference.AdditionalInformation("I2", "info 2"))
+//    val additionalInfo = Seq(reference.AdditionalInformation("I1", "Info 1"), reference.AdditionalInformation("I2", "info 2"))
+    val additionalInfo = additionalInformation
 
     val specialMentionEc                 = models.SpecialMention(None, additionalInfo.head.code, Some(true), None)
     val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
@@ -168,7 +169,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   .find(
                     office => office.id == officeOfDeparture.referenceNumber
                   )
-                  .getOrElse(CustomsOffice("AD", None, "AD")),
+                  .get,
                 None //TODO: Date?
               ),
               destinationOffice = CustomsOfficeWithOptionalDate(
@@ -176,7 +177,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   .find(
                     office => office.id == officeOfDestination.referenceNumber
                   )
-                  .getOrElse(CustomsOffice("AD", None, "AD")),
+                  .get,
                 None //TODO: Date?
               ),
               customsOfficeOfTransit = officesOfTransit

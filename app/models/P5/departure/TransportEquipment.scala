@@ -39,7 +39,7 @@ case class TransportEquipment(
   }
   def goodsReferences: String = GoodsReference.showFirstAndLast
 
-  val sealsList = Seal
+  val sealsList: Seq[String] = Seal
     .map(
       sealList =>
         sealList.map(

@@ -16,6 +16,7 @@
 
 package models.P5.departure
 
+import models.P5.RichSeqT
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
@@ -112,6 +113,8 @@ case class Consignment(
   val transportDocument: Option[String] = TransportDocument.map(
     _.map(_.toString).mkString("; ")
   )
+
+//  val seals: Seq[String] = TransportEquipment.getOrElse(Nil).map(_.seals).showAllSeal
 
   val consignmentItems: Seq[ConsignmentItem] = HouseConsignment.foldLeft(Seq.empty[ConsignmentItem]) {
     (acc, house) =>

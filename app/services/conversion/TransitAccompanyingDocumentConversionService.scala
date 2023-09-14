@@ -143,7 +143,7 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
       referenceDataP5.getList[Seq[TransportDocumentTypes]]("TransportDocumentType")
     val circumstanceIndicatorsFuture: Future[ValidationResult[Seq[CircumstanceIndicator]]] =
       referenceDataP5.getList[Seq[CircumstanceIndicator]]("SpecificCircumstanceIndicatorCode")
-//    val customsOfficeFuture: Future[ValidationResult[Seq[CustomsOffice]]] = referenceDataP5.getList[Seq[CustomsOffice]]("customsOffices")
+    val customsOfficeFuture: Future[ValidationResult[Seq[CustomsOffice]]] = referenceDataP5.getList[Seq[CustomsOffice]]("customsOffices")
 //    val controlResultFuture: Future[ValidationResult[Seq[ControlResult]]] =
 //      referenceDataP5.getList[Seq[ControlResult]]("controlResult")
 
@@ -155,7 +155,7 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
       supportingDocumentTypes <- supportingDocumentTypesFuture
       transportDocumentTypes  <- transportDocumentTypesFuture
       circumstanceIndicators  <- circumstanceIndicatorsFuture
-//      customsOffice           <- customsOfficeFuture
+      customsOffice           <- customsOfficeFuture
 //      controlResult <- controlResultFuture
     } yield (
       countryCodesForAddress,
@@ -164,8 +164,8 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
       previousDocumentTypes,
       supportingDocumentTypes,
       transportDocumentTypes,
-      circumstanceIndicators
-//      customsOffice
+      circumstanceIndicators,
+      customsOffice
 //      controlResult
     )
       .mapN {
@@ -176,8 +176,8 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
           previousDocumentTypes,
           supportingDocumentTypes,
           transportDocumentTypes,
-          circumstanceIndicators
-//          customsOffice
+          circumstanceIndicators,
+          customsOffice
 //          controlResult
         ) =>
           TransitAccompanyingDocumentConverter.fromP5ToViewModel(
@@ -189,7 +189,7 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
             supportingDocumentTypes,
             transportDocumentTypes,
             circumstanceIndicators,
-            Seq.empty,
+            customsOffice,
             Seq.empty
           )
       }
