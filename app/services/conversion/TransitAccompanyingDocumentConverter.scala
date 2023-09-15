@@ -153,15 +153,44 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
               authId = ie029.data.authorisationDisplay,                                   // P5  //TODO check again
               copyType = false,                                                           //      TODO check again
               principal = viewmodels.Principal(
-                "Principal name",
-                "Principal street",
-                "Principal street",
-                "Principal postCode",
-                "Principal city",
-                countries.head,
-                Some("Principal EORI"),
-                Some("tir")
-              ),                     //TODO
+                holderOfTransit.ContactPerson
+                  .map(
+                    contactPerson => contactPerson.name
+                  )
+                  .getOrElse(""),
+                holderOfTransit.Address
+                  .map(
+                    address => address.streetAndNumber
+                  )
+                  .getOrElse(""),
+                holderOfTransit.Address
+                  .map(
+                    address => address.streetAndNumber.trim()
+                  )
+                  .getOrElse(""),
+                holderOfTransit.Address
+                  .map(
+                    address => address.postcode.getOrElse("")
+                  )
+                  .getOrElse(""),
+                holderOfTransit.Address
+                  .map(
+                    address => address.city
+                  )
+                  .getOrElse(""),
+                countries
+                  .find(
+                    country =>
+                      country.code == holderOfTransit.Address
+                        .map(
+                          address => address.country
+                        )
+                        .getOrElse("")
+                  )
+                  .get,
+                holderOfTransit.identificationNumber,
+                holderOfTransit.TIRHolderIdentificationNumber
+              ),
               consignor = consignor, // P5
               consignee = consignee, // P5
               departureOffice = CustomsOfficeWithOptionalDate(
@@ -239,13 +268,32 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       commercialReferenceNumber = None,
                       unDangerGoodsCode = Some(consignmentItem.dangerousGoods),
                       producedDocuments = Nil,
-                      previousDocumentTypes = previousDocuments.map(
-                        prevDocument => PreviousDocumentType(prevDocument, PreviousAdministrativeReference("test", "test", None))
-                      ),
+                      previousDocumentTypes = consignmentItem.PreviousDocument
+                        .map {
+                          previousDocuments =>
+                            previousDocuments.flatMap {
+                              prevDocument =>
+                                val previousType = PreviousDocumentTypes("token", None)
+                                val adminReference = PreviousAdministrativeReference(
+                                  prevDocument.`type`.getOrElse(""),
+                                  prevDocument.referenceNumber.getOrElse(""),
+                                  prevDocument.complementOfInformation
+                                )
+                                Some(PreviousDocumentType(previousType, adminReference))
+                            }
+                        }
+                        .getOrElse(Seq.empty),
                       specialMentions = Nil,
                       consignor = consignor,
                       consignee = consignee,
-                      containers = Nil,
+                      containers = consignment.TransportEquipment
+                        .map(
+                          transportEquipments =>
+                            transportEquipments.map(
+                              transportEquipment => transportEquipment.containerIdentificationNumber.getOrElse("")
+                            )
+                        )
+                        .getOrElse(Seq.empty),
                       packages = NonEmptyList(
                         viewmodels.BulkPackage(kindsOfPackage.head, Some("Package 1 Marks & Numbers")),
                         List(
@@ -253,7 +301,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                           viewmodels.RegularPackage(kindsOfPackage.head, 1, "Package 3 Marks & Numbers")
                         )
                       ),
-                      sensitiveGoodsInformation = Nil,
+                      sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(consignmentItem.cusCode, 3)),
                       securityConsignor = None,
                       securityConsignee = None
                     )

@@ -127,6 +127,7 @@
                             <fo:table-row height="3.5mm">
                                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
                                     @if(goodsItem.consignor.nonEmpty) {
+
                                         @goodsItem.consignor.map(x => consignor(x))
                                     } else {
                                         <fo:block>---</fo:block>
