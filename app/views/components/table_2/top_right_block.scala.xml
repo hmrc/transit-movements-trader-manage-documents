@@ -24,9 +24,7 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
-                                                @if(!printListOfItems) {
                                                     @goodsItems.head.commodityCode.map(code => code)
-                                                }
                                             </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell>

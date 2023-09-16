@@ -301,7 +301,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                           viewmodels.RegularPackage(kindsOfPackage.head, 1, "Package 3 Marks & Numbers")
                         )
                       ),
-                      sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(consignmentItem.cusCode, 3)),
+                      sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(consignmentItem.Commodity.cusCode, 3)),
                       securityConsignor = None,
                       securityConsignee = None
                     )
