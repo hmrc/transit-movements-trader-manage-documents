@@ -1,4 +1,3 @@
-@import views.xml.components.binding_itinerary
 @import views.xml.components.table_5.control_results
 @import viewmodels.ControlResult
 
@@ -90,7 +89,6 @@
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" number-columns-spanned="3">
                                     <fo:block>Time limit (date):</fo:block>
-                                    @binding_itinerary(bindingItinerary)
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" font-weight="bold">
                                     <fo:block>

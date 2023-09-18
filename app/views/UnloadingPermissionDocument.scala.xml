@@ -23,7 +23,8 @@
             permission.movementReferenceNumber,
             permission.acceptanceDateFormatted,
             permission.goodsItems,
-            permission.declarationType
+            permission.declarationType,
+            None
         ))
     } else None
 )
@@ -51,13 +52,13 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass)
+    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass, authId = None)
 
     <!--transhipment/certification-->
     @table3()
 
     <!--Principal/TIR Holder/Office of departure-->
-    @table4(permission.principal, permission.departureOfficeTrimmed, permission.acceptanceDateFormatted)
+    @table4(permission.principal, permission.departureOfficeTrimmed, permission.acceptanceDateFormatted, printBindingItinerary = false)
 
     <!--control by office of departure/destination-->
     @table5(permission.seals)

@@ -13,7 +13,8 @@
         guaranteeDetails: Seq[GuaranteeDetails] = Nil,
         destinationOffice: Option[CustomsOfficeWithOptionalDate] = None,
         authId: Option[String] = None,
-        controlResult: Option[ControlResult] = None
+        controlResult: Option[ControlResult] = None,
+        printBindingItinerary: Boolean
 )
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
@@ -152,7 +153,7 @@
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 3 -->
-            @row_3(transitOffices)
+            @row_3(transitOffices, printBindingItinerary)
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 4 -->
             @row_4(guaranteeDetails, destinationOffice)

@@ -16,6 +16,12 @@
 
 package models.P5.departure
 
+import cats.data.NonEmptyList
+import models.reference.KindOfPackage
+import viewmodels.BulkPackage
+import viewmodels.RegularPackage
+import viewmodels.UnpackedPackage
+import models.P5.departure.{Packaging => PackagingP5}
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -43,7 +49,6 @@ case class ConsignmentItem(
   val consigneeFormat: String                  = Consignee.map(_.toString).getOrElse("")
   val goodsItemNumberString: String            = goodsItemNumber
   val declarationGoodsItemNumberString: String = declarationGoodsItemNumber.toString
-  val packagingFormat: String                  = Packaging.showAll
   val referenceNumberUCRString: String         = referenceNumberUCR.getOrElse("")
 
   val transportChargesFormat: String           = TransportCharges.map(_.toString).getOrElse("")
@@ -64,6 +69,19 @@ case class ConsignmentItem(
   val supplyChainActorId: String = AdditionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
 
   val packagesType: String = Packaging.map(_.toString).mkString("; ")
+
+  val packagingFormat: NonEmptyList[viewmodels.Package] =
+    NonEmptyList
+      .fromList(Packaging.flatMap {
+        case PackagingP5(_, Some(numberOfPackages), typeOfPackages, Some(shippingMarks)) =>
+          Some(RegularPackage(KindOfPackage(typeOfPackages, ""), numberOfPackages, shippingMarks))
+        case PackagingP5(_, None, typeOfPackages, shippingMarks) =>
+          Some(BulkPackage(KindOfPackage(typeOfPackages, ""), shippingMarks))
+        case PackagingP5(_, None, typeOfPackages, shippingMarks) =>
+          Some(UnpackedPackage(KindOfPackage(typeOfPackages, ""), 0, shippingMarks))
+        case _ => None
+      }.toList)
+      .get
 
 }
 

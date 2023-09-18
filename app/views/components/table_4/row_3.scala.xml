@@ -1,7 +1,7 @@
 @import viewmodels.CustomsOfficeWithOptionalDate
-
+@import views.xml.components.binding_itinerary
 @import views.xml.components.customs_office
-@(transitOffices: Seq[CustomsOfficeWithOptionalDate] = Nil)
+@(transitOffices: Seq[CustomsOfficeWithOptionalDate] = Nil, printBindingItinerary: Boolean)
 <fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">
     <fo:block>
         <fo:table width="100%" table-layout="fixed">
@@ -14,12 +14,15 @@
             <fo:table-body>
                 <fo:table-row height="7.5mm">
                 @for(i <- 0 to 5){
-                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="2mm">
+                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="before" font-weight="bold" padding-left="2mm">
                     @if(transitOffices.isDefinedAt(i)) {
                         @customs_office(transitOffices(i))
+                        @if(i == 0) {@binding_itinerary(printBindingItinerary)}
                     } else {
                         <fo:block/>
                     }
+
+
                     </fo:table-cell>
                 }
                 </fo:table-row>

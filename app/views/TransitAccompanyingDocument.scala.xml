@@ -23,7 +23,8 @@
             tadModel.movementReferenceNumber,
             tadModel.acceptanceDate.map(_.formattedDate),
             tadModel.goodsItems,
-            tadModel.declarationType
+            tadModel.declarationType,
+            tadModel.authId
         ))
     } else None
 )
@@ -52,7 +53,7 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
+    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary, tadModel.authId)
 
     <!--transhipment/certification-->
     @table3()
@@ -66,7 +67,8 @@
         tadModel.guaranteeDetails,
         Some(tadModel.destinationOffice),
         tadModel.authId,
-        tadModel.controlResult
+        tadModel.controlResult,
+        tadModel.printBindingItinerary
     )
 
     <!--control by office of departure/destination-->

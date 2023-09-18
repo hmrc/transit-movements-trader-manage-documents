@@ -242,13 +242,13 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   )
                 case _ => Nil
               }, // P5
-              Some(viewmodels.ReturnCopiesCustomsOffice("office", "street", "postcode", "city", countries.head)),
+              None,
               controlResult = Some(controlResult.toP4),
               goodsItems = {
                 val goodsItemList = consignment.consignmentItems.map {
                   consignmentItem =>
                     viewmodels.GoodsItem(
-                      itemNumber = consignmentItem.goodsItemNumber.toInt,
+                      itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
                       commodityCode = Some(consignmentItem.commodityCode),
                       declarationType = DeclarationType.values.find(
                         declarationType => consignmentItem.declarationType.getOrElse("") == declarationType.toString
@@ -294,13 +294,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                             )
                         )
                         .getOrElse(Seq.empty),
-                      packages = NonEmptyList(
-                        viewmodels.BulkPackage(kindsOfPackage.head, Some("Package 1 Marks & Numbers")),
-                        List(
-                          viewmodels.UnpackedPackage(kindsOfPackage.head, 1, Some("Package 2 Marks & Numbers")),
-                          viewmodels.RegularPackage(kindsOfPackage.head, 1, "Package 3 Marks & Numbers")
-                        )
-                      ),
+                      packages = consignmentItem.packagingFormat,
                       sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(consignmentItem.Commodity.cusCode, 3)),
                       securityConsignor = None,
                       securityConsignee = None

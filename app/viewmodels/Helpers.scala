@@ -63,7 +63,7 @@ object Helpers {
     singleValue(goodsItems.toList.flatMap(_.countryOfDestination), goodsItems)
 
   def printListOfItems(goodsItems: NonEmptyList[GoodsItem]): Boolean =
-    goodsItems.size > 1 ||
+    goodsItems.size >= 1 ||
       goodsItems.head.containers.size > 1 ||
       goodsItems.head.sensitiveGoodsInformation.length > 1 ||
       goodsItems.head.packages.size > 1 ||

@@ -6,7 +6,7 @@
 
 @this()
 
-@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItem], grossMass: BigDecimal, printBindingItinerary: Boolean = false)
+@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItem], grossMass: BigDecimal, printBindingItinerary: Boolean = false, authId: Option[String])
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 2 -->
     <fo:table-column column-width="16mm"/>
@@ -27,7 +27,7 @@
         <fo:table-row height="4mm"> <!-- S1 T2 ROW 3 -->
 
             <!--Additional information/ BinItiHEA246???-->
-            @bottom_left_block(printBindingItinerary)
+            @bottom_left_block(authId)
 
         </fo:table-row>
 

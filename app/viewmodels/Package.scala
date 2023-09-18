@@ -30,11 +30,10 @@ sealed trait Package {
     x => x.trim.nonEmpty
   )
 
-  val validateCountAndPackage: Int => String => Option[String] =
+  val validateCountAndPackage: Int => Option[String] =
     count =>
-      description =>
-        if (count > 0 && description.nonEmpty) {
-          Some(s"$count - $description")
+        if (count > 0) {
+          Some(s"$count")
         } else None
 
   val validatePackage: String => Option[String] =
