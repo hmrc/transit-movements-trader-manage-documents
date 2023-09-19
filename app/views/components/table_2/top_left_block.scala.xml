@@ -63,7 +63,7 @@
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row height="24mm">
-                <fo:table-cell font-weight="bold" padding-left="2mm" >
+                <fo:table-cell font-weight="bold" padding-left="2mm"  >
 
                     @if(printListOfItems) {
                         @if(goodsItems.head.packages.length > 1) {

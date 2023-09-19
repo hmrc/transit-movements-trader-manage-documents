@@ -267,7 +267,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       ),
                       commercialReferenceNumber = None,
                       unDangerGoodsCode = Some(consignmentItem.dangerousGoods),
-                      producedDocuments = Nil,
+                      producedDocuments = consignmentItem.allProducedDocuments,
                       previousDocumentTypes = consignmentItem.PreviousDocument
                         .map {
                           previousDocuments =>
@@ -283,7 +283,18 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                             }
                         }
                         .getOrElse(Seq.empty),
-                      specialMentions = Nil,
+                      specialMentions = consignmentItem.AdditionalInformation
+                        .map(
+                          additionalInformationList =>
+                            additionalInformationList.map {
+                              additionalInformation =>
+                                viewmodels.SpecialMention(
+                                  AdditionalInformation(additionalInformation.code.getOrElse(""), additionalInformation.text.getOrElse("")),
+                                  models.SpecialMention(additionalInformation.text, additionalInformation.code.getOrElse(""), None, None)
+                                )
+                            }
+                        )
+                        .getOrElse(Seq.empty),
                       consignor = consignor,
                       consignee = consignee,
                       containers = consignment.TransportEquipment

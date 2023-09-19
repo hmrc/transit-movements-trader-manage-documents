@@ -17,8 +17,10 @@
 package models.P5.departure
 
 import cats.data.NonEmptyList
+import models.reference.DocumentType
 import models.reference.KindOfPackage
 import viewmodels.BulkPackage
+import viewmodels.ProducedDocument
 import viewmodels.RegularPackage
 import viewmodels.UnpackedPackage
 import models.P5.departure.{Packaging => PackagingP5}
@@ -69,6 +71,27 @@ case class ConsignmentItem(
   val supplyChainActorId: String = AdditionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
 
   val packagesType: String = Packaging.map(_.toString).mkString("; ")
+
+  val allProducedDocuments: Seq[ProducedDocument] =
+    (for {
+      supportingDocs <- SupportingDocument
+      transportDocs  <- TransportDocument
+    } yield {
+      val supportingProducedDocs = supportingDocs.map {
+        supportingDocument =>
+          ProducedDocument(
+            DocumentType(supportingDocument.`type`.getOrElse(""), "", transportDocument = false),
+            supportingDocument.referenceNumber,
+            supportingDocument.complementOfInformation
+          )
+      }
+      val transportProducedDocs = transportDocs.map {
+        transportDocument =>
+          ProducedDocument(DocumentType(transportDocument.`type`.getOrElse(""), "", transportDocument = true), transportDocument.referenceNumber, None)
+      }
+
+      supportingProducedDocs ++ transportProducedDocs
+    }).getOrElse(Seq.empty)
 
   val packagingFormat: NonEmptyList[viewmodels.Package] =
     NonEmptyList

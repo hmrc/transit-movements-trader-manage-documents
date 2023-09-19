@@ -53,7 +53,7 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary, tadModel.authId)
+    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
 
     <!--transhipment/certification-->
     @table3()

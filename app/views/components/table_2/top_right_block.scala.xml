@@ -1,5 +1,5 @@
 @import cats.data.NonEmptyList
-
+@import views.xml.components.second_page.item._
 @(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItem])
 
 <fo:table-cell number-columns-spanned="2">
@@ -99,9 +99,11 @@
                             <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
-                                <fo:block>
-                                    @goodsItems.head.previousDocumentTypes.map(_.display)
-                                </fo:block>
+                                    @if(goodsItems.head.previousDocumentTypes.length > 1) {
+                                    @block(s"${goodsItems.head.previousDocumentTypes.head.display}...${goodsItems.head.previousDocumentTypes.last.display}")
+                                    } else {
+                                    @block(s"${goodsItems.head.previousDocumentTypes.head.display}")
+                                    }
                             </fo:inline>
                         </fo:block>
                     </fo:table-cell>

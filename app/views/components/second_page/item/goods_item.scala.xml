@@ -15,15 +15,29 @@
                 @goodsItem.itemNumber
                 </fo:block>
             </fo:table-cell>
-            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                    @goodsItem.packages.toList.map(x => block(x.marksAndNumbersValue.getOrElse("")))
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" wrap-option="wrap" >
+                    @if(goodsItem.packages.toList.length > 1) {
+                        @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}...")
+                        @block(s"${goodsItem.packages.last.marksAndNumbersValue.getOrElse("")}")
+
+                    } else {
+                        @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}")
+                    }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @goodsItem.packages.toList.map(x => package_item(x))
+                @if(goodsItem.packages.toList.length > 1) {
+                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}...${goodsItem.packages.last.packageAndNumber.getOrElse(goodsItem.packages.last.kindOfPackage.code)}")
+                } else {
+                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}")
+                }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @if(goodsItem.containers.nonEmpty) {
-                    @goodsItem.containers.map(x => block(x))
+                    @if(goodsItem.containers.length > 1) {
+                        @block(s"${goodsItem.containers.head}...${goodsItem.containers.last}")
+                    } else {
+                        @block(s"${goodsItem.containers.head}")
+                    }
                 } else {
                     <fo:block>--</fo:block>
                 }
@@ -61,7 +75,11 @@
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @if(goodsItem.previousDocumentTypes.nonEmpty){
-                    <fo:block>@goodsItem.previousDocumentTypes.map(_.display)</fo:block>
+                    @if(goodsItem.previousDocumentTypes.length > 1) {
+                        @block(s"${goodsItem.previousDocumentTypes.head.display}...${goodsItem.previousDocumentTypes.last.display}")
+                    } else {
+                        @block(s"${goodsItem.previousDocumentTypes.head.display}")
+                    }
                 } else {
                     <fo:block>--</fo:block>
                 }
@@ -94,16 +112,26 @@
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-top="0.5mm">
                 <fo:table width="100%">
-                    <fo:table-column column-width="30mm"/>
-                    <fo:table-column column-width="39mm"/>
+                    <fo:table-column column-width="69mm"/>
                     <fo:table-body>
                         <fo:table-row>
                             <fo:table-cell padding-left="2mm">
-                                <fo:block padding-top="1mm" >@authId</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding-left="2mm">
                                 @if(goodsItem.producedDocuments.nonEmpty) {
-                                    @goodsItem.producedDocuments.map(producedDocument => produced_document(producedDocument))
+                                    @if(goodsItem.producedDocuments.length > 1) {
+                                        @block(s"${goodsItem.producedDocuments.head.display}...${goodsItem.producedDocuments.last.display}")
+                                    } else {
+                                        @block(s"${goodsItem.producedDocuments.head.display}")
+                                    }
+                                } else {
+                                    <fo:block>--</fo:block>
+                                }
+
+                                @if(goodsItem.specialMentions.nonEmpty) {
+                                    @if(goodsItem.specialMentions.length > 1) {
+                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}...${goodsItem.specialMentions.last.additionalInfoCoded.toString}")
+                                    } else {
+                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}")
+                                    }
                                 } else {
                                     <fo:block>--</fo:block>
                                 }

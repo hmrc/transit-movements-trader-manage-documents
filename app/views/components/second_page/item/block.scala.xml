@@ -1,5 +1,5 @@
 @(value: String)
 
-<fo:block>
+<fo:block width = "100%">
     @value
 </fo:block>
