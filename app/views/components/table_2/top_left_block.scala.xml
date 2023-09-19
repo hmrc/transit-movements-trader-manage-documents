@@ -1,5 +1,6 @@
 @import cats.data.NonEmptyList
 @import views.xml.components.table_2.item
+@import views.xml.components.second_page.item._
 
 @(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItem])
 
@@ -62,9 +63,14 @@
                 </fo:table-cell>
             </fo:table-row>
             <fo:table-row height="24mm">
-                <fo:table-cell font-weight="bold" padding-left="2mm" wrap-option="wrap">
+                <fo:table-cell font-weight="bold" padding-left="2mm" >
+
                     @if(printListOfItems) {
-                    <fo:block margin-top="1mm">See List of Items</fo:block>
+                        @if(goodsItems.head.packages.length > 1) {
+                            @block(s"${goodsItems.head.packages.head.toString}...${goodsItems.head.packages.last.toString}")
+                        } else {
+                            @block(s"${goodsItems.head.packages.toString}")
+                        }
                     } else {
                         @item.goods(goodsItems)
                     }

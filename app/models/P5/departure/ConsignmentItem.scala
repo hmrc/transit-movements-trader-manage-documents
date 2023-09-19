@@ -77,7 +77,7 @@ case class ConsignmentItem(
           Some(RegularPackage(KindOfPackage(typeOfPackages, ""), numberOfPackages, shippingMarks))
         case PackagingP5(_, None, typeOfPackages, shippingMarks) =>
           Some(BulkPackage(KindOfPackage(typeOfPackages, ""), shippingMarks))
-        case PackagingP5(_, None, typeOfPackages, shippingMarks) =>
+        case PackagingP5(_, _, typeOfPackages, shippingMarks) =>
           Some(UnpackedPackage(KindOfPackage(typeOfPackages, ""), 0, shippingMarks))
         case _ => None
       }.toList)

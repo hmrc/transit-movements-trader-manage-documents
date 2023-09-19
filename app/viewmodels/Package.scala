@@ -32,9 +32,9 @@ sealed trait Package {
 
   val validateCountAndPackage: Int => Option[String] =
     count =>
-        if (count > 0) {
-          Some(s"$count")
-        } else None
+      if (count > 0) {
+        Some(s"$count")
+      } else None
 
   val validatePackage: String => Option[String] =
     description =>
@@ -62,6 +62,12 @@ final case class BulkPackage(
   override val numberOfPiecesValue: Int = 0
 
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(0)(kindOfPackage)
+
+  override val toString: String = marksAndNumbers match {
+    case Some(marksAndNumbers) => s"${kindOfPackage.code}-$marksAndNumbers"
+    case None                  => s"${kindOfPackage.code}"
+  }
+
 }
 
 final case class UnpackedPackage(
@@ -72,11 +78,16 @@ final case class UnpackedPackage(
 
   override val marksAndNumbersValue: Option[String] = validateString(marksAndNumbers)
 
-  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPieces)(kindOfPackage.description)
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPieces)
 
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(0)(kindOfPackage)
 
   override val numberOfPiecesValue: Int = numberOfPieces
+
+  override val toString: String = marksAndNumbers match {
+    case Some(marksAndNumbers) => s"${kindOfPackage.code}-$marksAndNumbers"
+    case None                  => s"${kindOfPackage.code}"
+  }
 }
 
 final case class RegularPackage(
@@ -87,9 +98,12 @@ final case class RegularPackage(
 
   override val marksAndNumbersValue: Option[String] = validateString(Some(marksAndNumbers))
 
-  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPackages)(kindOfPackage.description)
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPackages)
 
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(numberOfPackages)(kindOfPackage)
 
   override val numberOfPiecesValue: Int = 0
+
+  override val toString: String = s"${kindOfPackage.code}-$numberOfPackages-$marksAndNumbers"
+
 }
