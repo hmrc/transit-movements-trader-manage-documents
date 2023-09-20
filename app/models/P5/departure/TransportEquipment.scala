@@ -37,6 +37,9 @@ case class TransportEquipment(
     )
     stringList.flatten.mkString(", ")
   }
+
+  val display: String = s"$sequenceNumber, ${containerIdentificationNumber.getOrElse("")}"
+
   def goodsReferences: String = GoodsReference.showFirstAndLast
 
   val sealsList: Seq[String] = Seal

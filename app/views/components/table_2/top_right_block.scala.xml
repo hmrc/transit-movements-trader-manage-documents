@@ -100,7 +100,7 @@
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
                                     @if(goodsItems.head.previousDocumentTypes.length > 1) {
-                                    @block(s"${goodsItems.head.previousDocumentTypes.head.display}...${goodsItems.head.previousDocumentTypes.last.display}")
+                                    @block(s"${goodsItems.head.previousDocumentTypes.head.display}...")
                                     } else {
                                     @block(s"${goodsItems.head.previousDocumentTypes.head.display}")
                                     }

@@ -39,7 +39,12 @@ case class DepartureMessageData(
   )
 
   val authorisationDisplay: Option[String] = Authorisation.map(
-    _.map(_.toString).mkString("; ")
+    authorisations =>
+      authorisations.length match {
+        case 0 => ""
+        case 1 => authorisations.head.toString
+        case _ => s"${authorisations.head.toString}..."
+      }
   )
 
   val customsOfficeOfTransitDeclaredDisplay: Option[String] = CustomsOfficeOfTransitDeclared.map(

@@ -1,6 +1,6 @@
 @import cats.data.NonEmptyList
 @import views.xml.components.second_page.item._
-@(goodsItems: NonEmptyList[viewmodels.GoodsItem])
+@(goodsItems: NonEmptyList[viewmodels.GoodsItem], authId: Option[String])
 <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2" wrap-option="wrap" padding-top="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
     <fo:block>
         <fo:list-block>
@@ -17,22 +17,28 @@
         </fo:list-block>
     </fo:block>
 </fo:table-cell>
-<fo:table-cell margin-left="2mm" padding-top="2mm" font-weight = "bold">
-    @if(goodsItems.head.producedDocuments.length > 1) {
-        @block(s"${goodsItems.head.producedDocuments.head.display}...${goodsItems.head.producedDocuments.last.display}")
+<fo:table-cell margin-left="2mm" padding-top="1mm" font-weight = "bold">
+    @if(goodsItems.head.producedDocuments.nonEmpty) {
+        @if(goodsItems.head.producedDocuments.length > 1) {
+            @block(s"${goodsItems.head.producedDocuments.head.display}...")
+        } else {
+            @block(s"${goodsItems.head.producedDocuments.head.display}")
+        }
     } else {
-        @block(s"${goodsItems.head.producedDocuments.head.display}")
+        <fo:block>--</fo:block>
     }
 
     @if(goodsItems.head.specialMentions.nonEmpty) {
         @if(goodsItems.head.specialMentions.length > 1) {
-            @block(s"${goodsItems.head.specialMentions.head.additionalInfoCoded.toString}...${goodsItems.head.specialMentions.last.additionalInfoCoded.toString}")
+            @block(s"${goodsItems.head.specialMentions.head.additionalInfoCoded.toString}...")
         } else {
             @block(s"${goodsItems.head.specialMentions.head.additionalInfoCoded.toString}")
         }
     } else {
         <fo:block>--</fo:block>
     }
+
+    @block(authId.getOrElse(""))
 </fo:table-cell>
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
 <fo:block/>

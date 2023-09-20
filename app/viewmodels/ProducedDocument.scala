@@ -35,6 +35,6 @@ final case class ProducedDocument(
       Some(documentCodeOrDes),
       reference,
       complementOfInformation
-    ).flatten.mkString(" - ")
+    ).flatten.mkString(",")
 
 }

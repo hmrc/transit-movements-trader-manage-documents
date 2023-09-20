@@ -21,7 +21,7 @@ import play.api.libs.json.OFormat
 
 case class AdditionalInformation(code: String, description: String) extends CodedReferenceData {
 
-  override def toString: String = s"$code - $description"
+  override def toString: String = s"$code,$description"
 }
 
 object AdditionalInformation {

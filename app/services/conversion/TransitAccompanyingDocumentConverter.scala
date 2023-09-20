@@ -301,7 +301,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                         .map(
                           transportEquipments =>
                             transportEquipments.map(
-                              transportEquipment => transportEquipment.containerIdentificationNumber.getOrElse("")
+                              transportEquipment => transportEquipment.display
                             )
                         )
                         .getOrElse(Seq.empty),

@@ -29,12 +29,12 @@ final case class PreviousDocumentType(
       documentType.description,
       Some(previousAdminReference.documentReference),
       previousAdminReference.complimentOfInfo
-    ).flatten.mkString(" - ")
+    ).flatten.mkString(",")
   } else {
     Seq(
       Some(previousAdminReference.documentType),
       Some(previousAdminReference.documentReference),
       previousAdminReference.complimentOfInfo
-    ).flatten.mkString(" - ")
+    ).flatten.mkString(",")
   }
 }

@@ -18,15 +18,13 @@
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" wrap-option="wrap" >
                     @if(goodsItem.packages.toList.length > 1) {
                         @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}...")
-                        @block(s"${goodsItem.packages.last.marksAndNumbersValue.getOrElse("")}")
-
                     } else {
                         @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}")
                     }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @if(goodsItem.packages.toList.length > 1) {
-                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}...${goodsItem.packages.last.packageAndNumber.getOrElse(goodsItem.packages.last.kindOfPackage.code)}")
+                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}...")
                 } else {
                 @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}")
                 }
@@ -34,9 +32,9 @@
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @if(goodsItem.containers.nonEmpty) {
                     @if(goodsItem.containers.length > 1) {
-                        @block(s"${goodsItem.containers.head}...${goodsItem.containers.last}")
+                        @block(s"${goodsItem.containers.head.split(",").last}...")
                     } else {
-                        @block(s"${goodsItem.containers.head}")
+                        @block(s"${goodsItem.containers.head.split(",").last}")
                     }
                 } else {
                     <fo:block>--</fo:block>
@@ -76,7 +74,7 @@
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @if(goodsItem.previousDocumentTypes.nonEmpty){
                     @if(goodsItem.previousDocumentTypes.length > 1) {
-                        @block(s"${goodsItem.previousDocumentTypes.head.display}...${goodsItem.previousDocumentTypes.last.display}")
+                        @block(s"${goodsItem.previousDocumentTypes.head.display}...")
                     } else {
                         @block(s"${goodsItem.previousDocumentTypes.head.display}")
                     }
@@ -118,7 +116,7 @@
                             <fo:table-cell padding-left="2mm">
                                 @if(goodsItem.producedDocuments.nonEmpty) {
                                     @if(goodsItem.producedDocuments.length > 1) {
-                                        @block(s"${goodsItem.producedDocuments.head.display}...${goodsItem.producedDocuments.last.display}")
+                                        @block(s"${goodsItem.producedDocuments.head.display}...")
                                     } else {
                                         @block(s"${goodsItem.producedDocuments.head.display}")
                                     }
@@ -128,13 +126,15 @@
 
                                 @if(goodsItem.specialMentions.nonEmpty) {
                                     @if(goodsItem.specialMentions.length > 1) {
-                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}...${goodsItem.specialMentions.last.additionalInfoCoded.toString}")
+                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}...")
                                     } else {
                                         @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}")
                                     }
                                 } else {
                                     <fo:block>--</fo:block>
                                 }
+
+                                @block(authId.getOrElse(""))
                             </fo:table-cell>
                         </fo:table-row>
                     </fo:table-body>

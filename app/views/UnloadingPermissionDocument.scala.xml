@@ -52,7 +52,7 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass)
+    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass, authId = None)
 
     <!--transhipment/certification-->
     @table3()
