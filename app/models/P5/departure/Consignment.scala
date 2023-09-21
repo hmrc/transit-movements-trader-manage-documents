@@ -64,13 +64,14 @@ case class Consignment(
     _.map(_.identificationNumber).mkString("; ")
   )
 
-  val departureTransportMeansDisplay: Option[String] = DepartureTransportMeans.map(
-    _.map(_.toString).mkString("; ")
-  )
-
-  val departureTransportMeansIdentity: Option[String] = DepartureTransportMeans.map(
-    _.map(_.typeOfIdentification).mkString("; ")
-  )
+  val departureTransportMeansIdentity: Option[String] =
+    DepartureTransportMeans.map {
+      departureTransportMeansList =>
+        departureTransportMeansList.length match {
+          case 1 => s"${departureTransportMeansList.head.toString}"
+          case _ => s"${departureTransportMeansList.head.toString}..."
+        }
+    }
 
   val transportEquipmentDisplay: Option[String] = TransportEquipment.map(
     _.map(_.toString).mkString("; ")

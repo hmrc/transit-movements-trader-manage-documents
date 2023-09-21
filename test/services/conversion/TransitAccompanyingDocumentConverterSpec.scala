@@ -381,13 +381,6 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
   "fromP5ToViewModel" - {
 
-    val specialMentionEc                 = models.SpecialMention(None, additionalInfo.head.code, Some(true), None)
-    val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
-    val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.head.code, None, countries.headOption.map(_.code))
-    val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
-    val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
-    val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
-
     "must return a view model when all of the necessary reference data can be found" in {
 
       val ieo29Data = IE029Data(departureMessageData)
@@ -397,7 +390,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.last),
-        transportIdentity = Some("ID001"),
+        transportIdentity = Some("Actor-Role,ID001,TYPE01"),
         transportCountry = Some(countries.head),
         acceptanceDate = Some(FormattedDate(LocalDate.of(2020, 1, 1))),
         numberOfItems = 1,
@@ -427,9 +420,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AD000002", Some("Frankfurt Office"), "GE"), None),
         destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AT240000", Some("Paris Office"), "FR"), None),
         customsOfficeOfTransit = Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AD000002", Some("Frankfurt Office"), "GE"), None)),
-        guaranteeDetails = Seq(
-          GuaranteeDetails("SomeGuaranteeType", Seq(GuaranteeReference(None, None, None, Seq(""))))
-        ),
+        guaranteeDetails = Seq.empty,
         seals = Seq("1232,[ID10012]"),
         None,
         controlResult = controlResultP4,
@@ -445,14 +436,14 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
             countryOfDestination = Some(countries.last),
             methodOfPayment = Some("payPal"),
             commercialReferenceNumber = None,
-            unDangerGoodsCode = Some("seq1, UNNumber1"),
+            unDangerGoodsCode = None,
             producedDocuments = Seq(
               viewmodels.ProducedDocument(DocumentType("Type-1", "", transportDocument = false), Some("Reference-1"), Some("C1")),
               viewmodels.ProducedDocument(DocumentType("Type-1", "", transportDocument = true), Some("Reference-1"), None)
             ),
             previousDocumentTypes = Seq(
               PreviousDocumentType(
-                PreviousDocumentTypes("token", None),
+                PreviousDocumentTypes("Document-1", None),
                 PreviousAdministrativeReference("Type-1", "Reference-1", Some("C1"))
               )
             ),
@@ -508,127 +499,5 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
       result.value mustEqual expectedResult
     }
 
-//    "must return errors when codes cannot be found in the reference data" in {
-//
-//      val model = models.ReleaseForTransit(
-//        Header(
-//          movementReferenceNumber = "mrn",
-//          declarationType = DeclarationType.T1,
-//          countryOfDispatch = Some(invalidCode),
-//          countryOfDestination = Some(invalidCode),
-//          transportIdentity = Some("identity"),
-//          transportCountry = Some(invalidCode),
-//          acceptanceDate = LocalDate.now(),
-//          numberOfItems = 1,
-//          numberOfPackages = Some(3),
-//          grossMass = 1.0,
-//          printBindingItinerary = true,
-//          authId = Some("SomeId"),
-//          returnCopy = false,
-//          circumstanceIndicator = None,
-//          security = None,
-//          commercialReferenceNumber = None,
-//          methodOfPayment = None,
-//          identityOfTransportAtBorder = None,
-//          nationalityOfTransportAtBorder = None,
-//          transportModeAtBorder = None,
-//          agreedLocationOfGoodsCode = None,
-//          placeOfLoadingCode = None,
-//          placeOfUnloadingCode = None,
-//          conveyanceReferenceNumber = None
-//        ),
-//        principal =
-//          models.Principal("Principal name", "Principal street", "Principal postCode", "Principal city", invalidCode, Some("Principal EORI"), Some("tir")),
-//        consignor = None,
-//        consignee = None,
-//        customsOfficeOfTransit = Seq(
-//          CustomsOfficeOfTransit("SomeRef", Some(LocalDateTime.now()))
-//        ),
-//        guaranteeDetails = NonEmptyList(
-//          GuaranteeDetails("A", Seq(GuaranteeReference(Some("ref"), None, None, Nil))),
-//          Nil
-//        ),
-//        departureOffice = "The Departure office, less than 45 characters long",
-//        destinationOffice = "The Destination office, less than 45 characters long",
-//        returnCopiesCustomsOffice = None,
-//        controlResult = Some(ControlResult("SomeCode", LocalDate.now())),
-//        seals = Seq("seal 1"),
-//        goodsItems = NonEmptyList.one(
-//          models.GoodsItem(
-//            itemNumber = 1,
-//            commodityCode = None,
-//            declarationType = None,
-//            description = "Description",
-//            grossMass = Some(1.0),
-//            netMass = Some(0.9),
-//            countryOfDispatch = Some(invalidCode),
-//            countryOfDestination = Some(invalidCode),
-//            methodOfPayment = None,
-//            commercialReferenceNumber = None,
-//            unDangerGoodsCode = None,
-//            previousAdminRef = Seq(
-//              PreviousAdministrativeReference(invalidCode, "ABASD", Some("Something"))
-//            ),
-//            producedDocuments = Seq(models.ProducedDocument(invalidCode, None, None)),
-//            specialMentions = Seq(
-//              specialMentionEc.copy(additionalInformationCoded = invalidCode),
-//              specialMentionNonEc.copy(additionalInformationCoded = invalidCode),
-//              specialMentionNoCountry.copy(additionalInformationCoded = invalidCode)
-//            ),
-//            consignor = Some(models.Consignor("consignor name", "consignor street", "consignor postCode", "consignor city", invalidCode, None, None)),
-//            consignee = Some(models.Consignee("consignee name", "consignee street", "consignee postCode", "consignee city", invalidCode, None, None)),
-//            containers = Seq("container 1"),
-//            packages = NonEmptyList(
-//              models.BulkPackage(invalidCode, Some("numbers")),
-//              List(
-//                models.UnpackedPackage(invalidCode, 1, Some("marks")),
-//                models.RegularPackage(invalidCode, 1, "marks and numbers")
-//              )
-//            ),
-//            sensitiveGoodsInformation = sensitiveGoodsInformation,
-//            securityConsignor = None,
-//            securityConsignee = None
-//          )
-//        ),
-//        itineraries = Seq.empty,
-//        safetyAndSecurityCarrier = None,
-//        safetyAndSecurityConsignor = None,
-//        safetyAndSecurityConsignee = None
-//      )
-//
-//      val result = TransitAccompanyingDocumentConverter.toViewModel(
-//        model,
-//        countries,
-//        additionalInfo,
-//        kindsOfPackage,
-//        documentTypes,
-//        departureOffice,
-//        destinationOffice,
-//        transitOffices,
-//        previousDocumentTypes,
-//        controlResult
-//      )
-//
-//      val expectedErrors = Seq(
-//        ReferenceDataNotFound("countryOfDispatch", invalidCode),
-//        ReferenceDataNotFound("countryOfDestination", invalidCode),
-//        ReferenceDataNotFound("transportCountry", invalidCode),
-//        ReferenceDataNotFound("principal.countryCode", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].countryOfDispatch", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].countryOfDestination", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].producedDocuments[0].documentType", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].previousAdministrativeReference[0].previousDocumentTypes", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].specialMentions[0].additionalInformationCoded", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].specialMentions[1].additionalInformationCoded", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].specialMentions[2].additionalInformationCoded", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].consignor.countryCode", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].consignee.countryCode", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].packages[0].kindOfPackage", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].packages[1].kindOfPackage", invalidCode),
-//        ReferenceDataNotFound("goodsItems[0].packages[2].kindOfPackage", invalidCode)
-//      )
-//
-//      result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
-//    }
   }
 }

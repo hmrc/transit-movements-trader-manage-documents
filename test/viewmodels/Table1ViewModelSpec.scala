@@ -120,7 +120,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return comma seperated departureTransportMeans information" in {
-      viewModel.table1ViewModel.departureTransportMeans mustBe "ID001, TYPE01, GB"
+      viewModel.table1ViewModel.departureTransportMeans mustBe "Actor-Role,ID001,TYPE01"
     }
 
     "return ucr information" in {

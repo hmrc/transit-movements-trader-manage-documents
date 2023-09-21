@@ -26,7 +26,7 @@ case class DepartureTransportMeans(
   nationality: String
 ) {
 
-  override def toString: String = s"$typeOfIdentification, $identificationNumber, $nationality"
+  override def toString: String = s"$sequenceNumber,$typeOfIdentification,$identificationNumber"
 
 }
 

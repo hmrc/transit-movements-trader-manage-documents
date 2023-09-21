@@ -217,17 +217,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                     )
                 )
                 .getOrElse(Nil),
-              guaranteeDetails = guarantee match {
-                case Some(guaranteeList) =>
-                  guaranteeList.map(
-                    guarantee =>
-                      GuaranteeDetails(
-                        guarantee.guaranteeType.getOrElse(""),
-                        Seq(GuaranteeReference(None, None, None, Seq("")))
-                      )
-                  )
-                case _ => Nil
-              },
+              guaranteeDetails = Seq.empty,
               seals = consignment.TransportEquipment match {
                 case Some(transportEquipmentList) =>
                   transportEquipmentList.flatMap(
@@ -259,14 +249,14 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                         transportCharge => transportCharge.toString
                       ),
                       commercialReferenceNumber = None,
-                      unDangerGoodsCode = Some(consignmentItem.dangerousGoods),
+                      unDangerGoodsCode = None,
                       producedDocuments = consignmentItem.allProducedDocuments,
                       previousDocumentTypes = consignmentItem.PreviousDocument
                         .map {
                           previousDocuments =>
                             previousDocuments.flatMap {
                               prevDocument =>
-                                val previousType = PreviousDocumentTypes("token", None)
+                                val previousType = PreviousDocumentTypes(prevDocument.sequenceNumber.getOrElse(""), None)
                                 val adminReference = PreviousAdministrativeReference(
                                   prevDocument.`type`.getOrElse(""),
                                   prevDocument.referenceNumber.getOrElse(""),

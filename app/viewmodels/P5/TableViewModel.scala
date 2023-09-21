@@ -108,7 +108,7 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
   val additionalSupplyChainActorIdentificationNumbers: String =
     truncate(20, ie029Data.data.Consignment.additionalSupplyChainActorIdentificationNumbers.getOrElse(""))
 
-  val departureTransportMeans: String    = truncate(50, ie029Data.data.Consignment.departureTransportMeansDisplay.getOrElse(""))
+  val departureTransportMeans: String    = truncate(50, ie029Data.data.Consignment.departureTransportMeansIdentity.getOrElse(""))
   val ucr: String                        = truncate(20, ie029Data.data.Consignment.referenceNumberUCR.getOrElse(""))
   val activeBorderTransportMeans: String = truncate(50, ie029Data.data.Consignment.activeBorderTransportMeansDisplay.getOrElse(""))
 

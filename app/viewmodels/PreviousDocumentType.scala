@@ -24,19 +24,8 @@ final case class PreviousDocumentType(
   previousAdminReference: PreviousAdministrativeReference
 ) {
 
-  val transitionDisplay: String = if (documentType.description.exists(_.nonEmpty)) {
-    Seq(
-      documentType.description,
-      Some(previousAdminReference.documentReference),
-      previousAdminReference.complimentOfInfo
-    ).flatten.mkString(",")
-  } else {
-    Seq(
-      Some(previousAdminReference.documentType),
-      Some(previousAdminReference.documentReference),
-      previousAdminReference.complimentOfInfo
-    ).flatten.mkString(",")
-  }
+  val transitionDisplay: String =
+    s"${documentType.code}, ${previousAdminReference.documentType}, ${previousAdminReference.documentReference}, ${previousAdminReference.complimentOfInfo.getOrElse("")}"
 
   val display: String = if (documentType.description.exists(_.nonEmpty)) {
     Seq(

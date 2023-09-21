@@ -20,7 +20,7 @@
     pageTwo =  if(tadModel.printListOfItems) {
         Some(pageTwo(
             tadModel.departureOffice.office.id,
-            tadModel.movementReferenceNumber,
+            tadModel.movementReferenceNumber.split(',').head,
             tadModel.acceptanceDate.map(_.formattedDate),
             tadModel.goodsItems,
             tadModel.declarationType,
