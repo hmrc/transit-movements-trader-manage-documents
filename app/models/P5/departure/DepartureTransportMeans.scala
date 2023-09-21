@@ -23,11 +23,11 @@ case class DepartureTransportMeans(
   sequenceNumber: String,
   typeOfIdentification: String,
   identificationNumber: String,
-  nationality: Option[String]
+  nationality: String
 ) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(Some(typeOfIdentification), Some(identificationNumber), nationality)
+    val stringList: Seq[String] = List(typeOfIdentification, identificationNumber, nationality)
     stringList.flatten.mkString(", ")
   }
 

@@ -20,6 +20,7 @@ import models.DeclarationType.T1
 import models.P5.departure.TransportEquipment
 import models.P5.departure._
 import uk.gov.hmrc.http.HeaderCarrier
+import utils.FormattedDate
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -39,16 +40,16 @@ trait DepartureData {
       T1,
       "T2F",
       Some("TIR"),
-      Some(LocalDate.of(Year.MIN_VALUE, 1, 1)),
-      LocalDate.of(Year.MIN_VALUE, 1, 1),
+      Some(LocalDate.of(2020, 1, 1)),
+      LocalDate.of(2020, 1, 1),
       "security",
       "false",
       Some("SCI"),
       Some("english"),
-      "123"
+      "1"
     )
 
-  val address: Address             = Address("Address Line 1", Some("Address Line 2"), "Address Line 3", "Address Line 4")
+  val address: Address             = Address("Address Line 1", Some("Address Line 2"), "Address Line 3", "GB")
   val contactPerson: ContactPerson = ContactPerson("name", "123456", Some("a@a.com"))
 
   val holderOfTheTransitProcedure: HolderOfTransitProcedure =
@@ -56,17 +57,17 @@ trait DepartureData {
 
   val representative: Representative = Representative(Some("ID1"), Some("Status-1"), Some(contactPerson))
 
-  val controlResult = ControlResult("code", LocalDate.now(), Some("controlled"), Some("text"))
+  val controlResult = ControlResult("code", LocalDate.of(2020, 1, 1), Some("controlled"), Some("text"))
 
   val consignor: Consignor = Consignor(Some("idnum1"), Some("Consignor Name"), Some(address), Some(contactPerson))
   val consignee: Consignee = Consignee(Some("idnum1"), Some("Consignee Name"), Some(address))
   val carrier: Carrier     = Carrier("idnum1", Some(contactPerson))
 
   val authorisation: Authorisation                                                 = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
-  val customsOfficeOfTransitDeclared: CustomsOfficeOfTransitDeclared               = CustomsOfficeOfTransitDeclared(Some("seq001"), Some("ref001"), Some(LocalDateTime.MIN))
-  val customsOfficeOfExitForTransitDeclared: CustomsOfficeOfExitForTransitDeclared = CustomsOfficeOfExitForTransitDeclared(Some("seq001"), Some("ref001"))
-  val customsOfficeOfDeparture: CustomsOfficeOfDeparture                           = CustomsOfficeOfDeparture("Ref001")
-  val customsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared       = CustomsOfficeOfDestinationDeclared("Ref001")
+  val customsOfficeOfTransitDeclared: CustomsOfficeOfTransitDeclared               = CustomsOfficeOfTransitDeclared(Some("seq001"), Some("AD000002"), Some(LocalDateTime.MIN))
+  val customsOfficeOfExitForTransitDeclared: CustomsOfficeOfExitForTransitDeclared = CustomsOfficeOfExitForTransitDeclared(Some("seq001"), Some("AD000002"))
+  val customsOfficeOfDeparture: CustomsOfficeOfDeparture                           = CustomsOfficeOfDeparture("AD000002")
+  val customsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared       = CustomsOfficeOfDestinationDeclared("AT240000")
   val guaranteeReference: GuaranteeReference                                       = GuaranteeReference(Some("SEQNum-1"), Some("GRN-1"), Some("Access-code-1"), Some(123456.1212), Some("GBP"))
   val guarantee: Guarantee                                                         = Guarantee("SEQNum-1", Some("SomeGuaranteeType"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
   val postcodeAddress: PostcodeAddress                                             = PostcodeAddress(Some("house1"), "BR", "UK")
@@ -93,7 +94,7 @@ trait DepartureData {
   )
 
   val additionalSupplyChainActor: AdditionalSupplyChainActor = AdditionalSupplyChainActor("Actor-Role", "ID001", "ID33")
-  val departureTransportMeans                                = DepartureTransportMeans("Actor-Role", "ID001", "TYPE01", Some("Nationality"))
+  val departureTransportMeans                                = DepartureTransportMeans("Actor-Role", "ID001", "TYPE01", "GB")
   val transportEquipment: TransportEquipment                 = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(List(seal)), Some(List(goodsReference)))
   val transportEquipments                                    = TransportEquipment("12123", Some("Container-ID-1"), 8, Some(seals), Some(goodsReferences))
 
@@ -102,7 +103,7 @@ trait DepartureData {
   val placeOfLoading: PlaceOfLoading                               = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
   val placeOfUnLoading: PlaceOfUnloading                           = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
   val previousDocument: PreviousDocument                           = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
-  val transportDocument: TransportDocument                         = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val transportDocument: TransportDocument                         = TransportDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
   val supportingDocument: SupportingDocument                       = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
   val additionalReference: AdditionalReference                     = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
   val additionalInformation: AdditionalInformation                 = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
@@ -117,9 +118,9 @@ trait DepartureData {
   val consignmentItem1: ConsignmentItem = ConsignmentItem(
     "1T1",
     1,
-    Some("GB1"),
-    Some("GB1"),
-    Some("GE1"),
+    Some("T1"),
+    Some("GB"),
+    Some("GE"),
     Some("refUCR"),
     Some(consignee),
     Some(List(additionalSupplyChainActor)),
@@ -136,7 +137,7 @@ trait DepartureData {
   val consignmentItem2: ConsignmentItem = ConsignmentItem(
     "1T2",
     2,
-    Some("GB2"),
+    Some("T1"),
     Some("GB2"),
     Some("GE2"),
     Some("refUCR2"),
@@ -168,7 +169,7 @@ trait DepartureData {
     Some(List(additionalReference)),
     Some(List(additionalInformation)),
     Some(transportCharges),
-    Seq(consignmentItem1, consignmentItem2)
+    Seq(consignmentItem1)
   )
 
   val consigmment: Consignment = Consignment(

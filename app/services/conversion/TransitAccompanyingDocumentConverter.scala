@@ -144,13 +144,22 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
               singleCountryOfDispatch = consignment.countryOfDispatch.map(Country(_, "")),       // P5
               singleCountryOfDestination = consignment.countryOfDestination.map(Country(_, "")), // P5
               transportIdentity = consignment.departureTransportMeansIdentity,                   // P5
-              transportCountry = Some(countries.head),
+              transportCountry = countries
+                .find(
+                  country =>
+                    country.code == consignment.DepartureTransportMeans
+                      .map {
+                        departureTransportMeans =>
+                          departureTransportMeans.head.nationality
+                      }
+                      .getOrElse("")
+                ),
               acceptanceDate = transitOperation.declarationAcceptanceDate.map(FormattedDate(_)), // P5
               numberOfItems = consignment.totalItems,
               numberOfPackages = Some(consignment.totalPackages),
               grossMass = consignment.grossMass,                                          // P5
               printBindingItinerary = intStringToBool(transitOperation.bindingItinerary), // P5
-              authId = ie029.data.authorisationDisplay,                                   // P5  //TODO check again
+              authId = ie029.data.authorisationDisplay,                                   // P5
               copyType = false,                                                           //      TODO check again
               principal = viewmodels.Principal(
                 holderOfTransit.ContactPerson
@@ -199,7 +208,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                     office => office.id == officeOfDeparture.referenceNumber
                   )
                   .get,
-                None //TODO: Date?
+                None
               ),
               destinationOffice = CustomsOfficeWithOptionalDate(
                 customsOffices
@@ -207,7 +216,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                     office => office.id == officeOfDestination.referenceNumber
                   )
                   .get,
-                None //TODO: Date?
+                None
               ),
               customsOfficeOfTransit = officesOfTransit
                 .map(
@@ -231,7 +240,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       GuaranteeDetails(
                         guarantee.guaranteeType.getOrElse(""),
                         Seq(GuaranteeReference(None, None, None, Seq("")))
-                      ) //TODO: P4 & P5 GuaranteeReference are completely different
+                      )
                   )
                 case _ => Nil
               },
@@ -306,7 +315,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                         )
                         .getOrElse(Seq.empty),
                       packages = consignmentItem.packagingFormat,
-                      sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(consignmentItem.Commodity.cusCode, 3)),
+                      sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(consignmentItem.Commodity.cusCode, 0)),
                       securityConsignor = None,
                       securityConsignee = None
                     )
