@@ -32,7 +32,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
 
     "return comma seperated consignor information" in {
       println(viewModel.table1ViewModel.consignor)
-      viewModel.table1ViewModel.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, name, 123456, a@a.com"
+      viewModel.table1ViewModel.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, GB, name, 123456, a@a.com"
     }
 
     "return comma seperated consignor contact person information" in {
@@ -40,7 +40,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return comma seperated consignee information" in {
-      viewModel.table1ViewModel.consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      viewModel.table1ViewModel.consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, GB"
     }
 
     "return declarationType information" in {
@@ -68,11 +68,11 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return totalItems information" in {
-      viewModel.table1ViewModel.totalItems mustBe 2
+      viewModel.table1ViewModel.totalItems mustBe 1
     }
 
     "return totalPackages information" in {
-      viewModel.table1ViewModel.totalPackages mustBe 6
+      viewModel.table1ViewModel.totalPackages mustBe 3
     }
 
     "return totalGrossMass information" in {
@@ -84,7 +84,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return  comma seperated holderOfTransitProcedure information" in {
-      viewModel.table1ViewModel.holderOfTransitProcedure mustBe "TIRID1, Bob, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      viewModel.table1ViewModel.holderOfTransitProcedure mustBe "TIRID1, Bob, Address Line 1, Address Line 2, Address Line 3, GB"
     }
 
     "return holderOfTransitProcedureIdentificationNumber information" in {
@@ -120,7 +120,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return comma seperated departureTransportMeans information" in {
-      viewModel.table1ViewModel.departureTransportMeans mustBe "ID001, TYPE01, Nationality"
+      viewModel.table1ViewModel.departureTransportMeans mustBe "ID001, TYPE01, GB"
     }
 
     "return ucr information" in {

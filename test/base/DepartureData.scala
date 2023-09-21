@@ -103,7 +103,7 @@ trait DepartureData {
   val placeOfLoading: PlaceOfLoading                               = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
   val placeOfUnLoading: PlaceOfUnloading                           = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
   val previousDocument: PreviousDocument                           = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
-  val transportDocument: TransportDocument                         = TransportDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
+  val transportDocument: TransportDocument                         = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
   val supportingDocument: SupportingDocument                       = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
   val additionalReference: AdditionalReference                     = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
   val additionalInformation: AdditionalInformation                 = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))

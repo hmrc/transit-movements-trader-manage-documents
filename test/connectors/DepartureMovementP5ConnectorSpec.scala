@@ -158,7 +158,7 @@ class DepartureMovementP5ConnectorSpec
                 "streetAndNumber": "Address Line 1",
                 "postcode": "Address Line 2",
                 "city": "Address Line 3",
-                "country": "Address Line 4"
+                "country": "GB"
               },
               "ContactPerson": {
                 "name": "Contact Person Name",
@@ -292,7 +292,7 @@ class DepartureMovementP5ConnectorSpec
                     "streetAndNumber": "Address Line 1",
                     "postcode": "Address Line 2",
                     "city": "Address Line 3",
-                    "country": "Address Line 4"
+                    "country": "GB"
                   },
                   "ContactPerson": {
                     "name": "name",

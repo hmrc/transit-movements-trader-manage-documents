@@ -26,10 +26,7 @@ case class DepartureTransportMeans(
   nationality: String
 ) {
 
-  override def toString: String = {
-    val stringList: Seq[String] = List(typeOfIdentification, identificationNumber, nationality)
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = s"$typeOfIdentification, $identificationNumber, $nationality"
 
 }
 

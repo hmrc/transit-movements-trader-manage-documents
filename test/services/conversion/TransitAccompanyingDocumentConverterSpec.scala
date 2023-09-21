@@ -448,7 +448,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
             unDangerGoodsCode = Some("seq1, UNNumber1"),
             producedDocuments = Seq(
               viewmodels.ProducedDocument(DocumentType("Type-1", "", transportDocument = false), Some("Reference-1"), Some("C1")),
-              viewmodels.ProducedDocument(DocumentType("Type-2", "", transportDocument = true), Some("Reference-2"), None)
+              viewmodels.ProducedDocument(DocumentType("Type-1", "", transportDocument = true), Some("Reference-1"), None)
             ),
             previousDocumentTypes = Seq(
               PreviousDocumentType(
