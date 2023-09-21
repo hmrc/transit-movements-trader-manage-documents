@@ -71,6 +71,7 @@ case class ConsignmentItem(
   val supplyChainActorId: String = AdditionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
 
   val packagesType: String = Packaging.map(_.toString).mkString("; ")
+  val totalPackages        = Packaging.length
 
   val allProducedDocuments: Seq[ProducedDocument] =
     (for {

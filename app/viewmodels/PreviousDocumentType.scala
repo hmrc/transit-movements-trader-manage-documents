@@ -24,7 +24,7 @@ final case class PreviousDocumentType(
   previousAdminReference: PreviousAdministrativeReference
 ) {
 
-  val display: String = if (documentType.description.exists(_.nonEmpty)) {
+  val transitionDisplay: String = if (documentType.description.exists(_.nonEmpty)) {
     Seq(
       documentType.description,
       Some(previousAdminReference.documentReference),
@@ -36,5 +36,19 @@ final case class PreviousDocumentType(
       Some(previousAdminReference.documentReference),
       previousAdminReference.complimentOfInfo
     ).flatten.mkString(",")
+  }
+
+  val display: String = if (documentType.description.exists(_.nonEmpty)) {
+    Seq(
+      documentType.description,
+      Some(previousAdminReference.documentReference),
+      previousAdminReference.complimentOfInfo
+    ).flatten.mkString(" - ")
+  } else {
+    Seq(
+      Some(previousAdminReference.documentType),
+      Some(previousAdminReference.documentReference),
+      previousAdminReference.complimentOfInfo
+    ).flatten.mkString(" - ")
   }
 }

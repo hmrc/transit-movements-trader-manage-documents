@@ -170,7 +170,7 @@ class UnloadingPermissionConversionServiceSpec
         seals = Seq("seal 1"),
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
-            itemNumber = 1,
+            itemNumber = "1",
             commodityCode = None,
             declarationType = None,
             description = "Description",

@@ -51,11 +51,11 @@ class Table4ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "should return countryOfDispatch information" in {
-      viewModel.countryOfDispatch mustBe "GER"
+      viewModel.countryOfDispatch mustBe "GB"
     }
 
     "should return countryOfDestination information" in {
-      viewModel.countryOfDestination mustBe "GB"
+      viewModel.countryOfDestination mustBe "GE"
     }
 
   }

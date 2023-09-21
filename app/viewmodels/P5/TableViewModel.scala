@@ -62,15 +62,15 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
   private val consignorAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignor.getOrElse("")).mkString(";")
 
   val consignor = ie029Data.data.Consignment.Consignor match {
-    case Some(value) => truncate(100, value.toString)
-    case None        => truncate(100, consignorAtHouseOfConsignment)
+    case Some(value) => truncate(200, value.toString)
+    case None        => truncate(200, consignorAtHouseOfConsignment)
   }
 
   private val consigneeeAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignee.getOrElse("")).mkString(";")
 
   val consignee: String = ie029Data.data.Consignment.Consignee match {
-    case Some(value) => truncate(100, value.toString)
-    case None        => truncate(100, consigneeeAtHouseOfConsignment)
+    case Some(value) => truncate(200, value.toString)
+    case None        => truncate(200, consigneeeAtHouseOfConsignment)
   }
   val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.declarationType.toString)
   val additionalDeclarationType: String = truncate(10, ie029Data.data.TransitOperation.additionalDeclarationType)

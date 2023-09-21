@@ -716,7 +716,7 @@ trait ModelGenerators extends GeneratorHelpers {
         securityConsignor         <- Gen.option(arbitrary[viewmodels.SecurityConsignor])
         securityConsignee         <- Gen.option(arbitrary[viewmodels.SecurityConsignee])
       } yield viewmodels.GoodsItem(
-        itemNumber,
+        itemNumber.toString,
         commodityCode,
         declarationType,
         description,

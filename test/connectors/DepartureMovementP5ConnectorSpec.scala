@@ -97,16 +97,26 @@ class DepartureMovementP5ConnectorSpec
       val json1 =
         s"""{
             "n1:CC029C": {
-    
+
           "TransitOperation": {
             "MRN": "MRN",
             "LRN": "LRN",
             "declarationType": "T1",
             "additionalDeclarationType": "T2F",
-            "security": "sec",
             "TIRCarnetNumber": "TIR",
+            "declarationAcceptanceDate": "2014-06-09+01:00",
+            "releaseDate": "2008-11-15",
+            "security": "sec",
+            "reducedDatasetIndicator": "1",
             "specificCircumstanceIndicator": "SCI",
+            "communicationLanguageAtDeparture": "GB",
             "bindingItinerary": "1"
+          },
+          "ControlResult": {
+            "code": "SF",
+            "date": "2014-06-09",
+            "controlledBy": "controlledBy",
+            "text": "randomText"
           },
           "HolderOfTheTransitProcedure": {
             "identificationNumber": "id1",
@@ -138,6 +148,7 @@ class DepartureMovementP5ConnectorSpec
             "inlandModeOfTransport": "T1",
             "countryOfDispatch": "GER",
             "countryOfDestination": "GB",
+            "containerIndicator": "indicator",
             "modeOfTransportAtTheBorder": "Road",
             "referenceNumberUCR": "UCR001",
             "Consignor": {
@@ -213,6 +224,7 @@ class DepartureMovementP5ConnectorSpec
             },
             "AdditionalSupplyChainActor": [
               {
+                "sequenceNumber": "1",
                 "role": "Actor-Role",
                 "identificationNumber": "ID001"
               }
@@ -225,6 +237,7 @@ class DepartureMovementP5ConnectorSpec
             ],
             "DepartureTransportMeans": [
               {
+                "sequenceNumber": "1",
                 "typeOfIdentification": "Actor-Role",
                 "identificationNumber": "ID001",
                 "nationality": "Nationality"
@@ -251,6 +264,7 @@ class DepartureMovementP5ConnectorSpec
             ],
             "ActiveBorderTransportMeans": [
               {
+                "sequenceNumber": "1",
                 "customsOfficeAtBorderReferenceNumber": "GB0001",
                 "typeOfIdentification": "T1",
                 "identificationNumber": "ID001",
@@ -270,6 +284,7 @@ class DepartureMovementP5ConnectorSpec
             },
             "HouseConsignment": [
               {
+              "sequenceNumber": "1",
               "Consignor": {
                   "identificationNumber": "idnum1",
                   "name": "Consignor Name",
@@ -280,7 +295,7 @@ class DepartureMovementP5ConnectorSpec
                     "country": "Address Line 4"
                   },
                   "ContactPerson": {
-                    "name": "Contact Person Name",
+                    "name": "name",
                     "phoneNumber": "123456",
                     "eMailAddress": "a@a.com"
                   }
@@ -289,12 +304,14 @@ class DepartureMovementP5ConnectorSpec
               {
                 "AdditionalSupplyChainActor": [
                       {
+                        "sequenceNumber": "1",
                         "role": "Actor-Role",
                         "identificationNumber": "ID001"
                       }
                     ],
                     "Packaging": [
                       {
+                        "sequenceNumber": "1",
                         "numberOfPackages": 5,
                         "typeOfPackages": "Plastic",
                         "shippingMarks": "rubberStamp"
@@ -302,30 +319,16 @@ class DepartureMovementP5ConnectorSpec
                     ],
                     "DepartureTransportMeans": [
                       {
+                        "sequenceNumber": "1",
                         "typeOfIdentification": "Actor-Role",
                         "identificationNumber": "ID001",
                         "nationality": "Nationality"
                       }
                     ],
                     "referenceNumberUCR": "refucr1",
-                    "Consignor": {
-                      "identificationNumber": "idnum1",
-                      "name": "Consignor Name",
-                      "Address": {
-                        "streetAndNumber": "Address Line 1",
-                        "postcode": "Address Line 2",
-                        "city": "Address Line 3",
-                        "country": "Address Line 4"
-                      },
-                      "ContactPerson": {
-                        "name": "Contact Person Name",
-                        "phoneNumber": "123456",
-                        "eMailAddress": "a@a.com"
-                      }
-                    },
                     "Consignee": {
                         "identificationNumber": "idnum1",
-                        "name": "Consignor Name",
+                        "name": "Consignee Name",
                         "Address": {
                           "streetAndNumber": "Address Line 1",
                           "postcode": "Address Line 2",
@@ -486,7 +489,7 @@ class DepartureMovementP5ConnectorSpec
             "referenceNumber": "Ref001"
           }
         }
-  
+
     }"""
 
       val json2 = Json.parse(s"""

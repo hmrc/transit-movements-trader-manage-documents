@@ -305,7 +305,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               seals = transitAccompanyingDocument.seals,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
-                  itemNumber = 1,
+                  itemNumber = "1",
                   commodityCode = None,
                   declarationType = None,
                   description = "Description",
@@ -443,7 +443,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               controlResult = None,
               goodsItems = NonEmptyList.one(
                 viewmodels.GoodsItem(
-                  itemNumber = 1,
+                  itemNumber = "1",
                   commodityCode = None,
                   declarationType = None,
                   description = "Description",

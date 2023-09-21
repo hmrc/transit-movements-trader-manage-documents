@@ -186,7 +186,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         controlResult = controlResult,
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItem(
-            itemNumber = 1,
+            itemNumber = "1",
             commodityCode = None,
             declarationType = None,
             description = "Description",

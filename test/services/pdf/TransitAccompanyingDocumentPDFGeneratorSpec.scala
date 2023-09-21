@@ -116,7 +116,8 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
               tad.numberOfItems,
               tad.goodsItems,
               tad.grossMass,
-              tad.printBindingItinerary
+              tad.printBindingItinerary,
+              tad.authId
             )
 
           verify(spiedTable3, times(1)).apply()
@@ -130,7 +131,8 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
               tad.guaranteeDetails,
               Some(tad.destinationOffice),
               tad.authId,
-              tad.controlResult
+              tad.controlResult,
+              tad.printBindingItinerary
             )
 
           verify(spiedTable5, times(1))
@@ -146,7 +148,8 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
               tad.movementReferenceNumber,
               tad.acceptanceDate.map(_.formattedDate),
               tad.goodsItems,
-              tad.declarationType
+              tad.declarationType,
+              tad.authId
             )
 
           reset(spiedTable1, spiedTable2, spiedTable3, spiedTable4, spiedTable5)
@@ -217,7 +220,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
     Some(ControlResult(ControlResultData("A2", "Considered satisfactory"), models.ControlResult("A2", LocalDate.parse("2021-03-14")))),
     NonEmptyList.of(
       GoodsItem(
-        1,
+        "1",
         None,
         Some(DeclarationType.T1),
         "Snow sports",
@@ -252,7 +255,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None
       ),
       GoodsItem(
-        2,
+        "2",
         None,
         Some(DeclarationType.T2),
         "Snow Sports",
@@ -287,7 +290,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None
       ),
       GoodsItem(
-        3,
+        "3",
         None,
         Some(DeclarationType.T2),
         "Snow Sports",

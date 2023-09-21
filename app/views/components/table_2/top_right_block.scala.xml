@@ -99,11 +99,15 @@
                             <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
+                                @if(goodsItems.head.previousDocumentTypes.nonEmpty) {
                                     @if(goodsItems.head.previousDocumentTypes.length > 1) {
-                                    @block(s"${goodsItems.head.previousDocumentTypes.head.display}...")
+                                        @block(s"${goodsItems.head.previousDocumentTypes.head.transitionDisplay}...")
                                     } else {
-                                    @block(s"${goodsItems.head.previousDocumentTypes.head.display}")
+                                        @block(s"${goodsItems.head.previousDocumentTypes.head.transitionDisplay}")
                                     }
+                                } else {
+                                    <block>--</block>
+                                }
                             </fo:inline>
                         </fo:block>
                     </fo:table-cell>

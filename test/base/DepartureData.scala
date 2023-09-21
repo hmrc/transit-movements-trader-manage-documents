@@ -38,7 +38,7 @@ trait DepartureData {
       "MRN",
       T1,
       "T2F",
-      Some("sec)"),
+      Some("TIR"),
       Some(LocalDate.of(Year.MIN_VALUE, 1, 1)),
       LocalDate.of(Year.MIN_VALUE, 1, 1),
       "security",
@@ -49,12 +49,14 @@ trait DepartureData {
     )
 
   val address: Address             = Address("Address Line 1", Some("Address Line 2"), "Address Line 3", "Address Line 4")
-  val contactPerson: ContactPerson = ContactPerson("Contact Person Name", "123456", Some("a@a.com"))
+  val contactPerson: ContactPerson = ContactPerson("name", "123456", Some("a@a.com"))
 
   val holderOfTheTransitProcedure: HolderOfTransitProcedure =
     HolderOfTransitProcedure(Some("id1"), Some("TIRID1"), Some("Bob"), Some(address), Some(contactPerson))
 
   val representative: Representative = Representative(Some("ID1"), Some("Status-1"), Some(contactPerson))
+
+  val controlResult = ControlResult("code", LocalDate.now(), Some("controlled"), Some("text"))
 
   val consignor: Consignor = Consignor(Some("idnum1"), Some("Consignor Name"), Some(address), Some(contactPerson))
   val consignee: Consignee = Consignee(Some("idnum1"), Some("Consignee Name"), Some(address))
@@ -116,8 +118,8 @@ trait DepartureData {
     "1T1",
     1,
     Some("GB1"),
-    Some("CountryDispatch"),
-    Some("CountryDestination"),
+    Some("GB1"),
+    Some("GE1"),
     Some("refUCR"),
     Some(consignee),
     Some(List(additionalSupplyChainActor)),
@@ -135,8 +137,8 @@ trait DepartureData {
     "1T2",
     2,
     Some("GB2"),
-    Some("CountryDispatch2"),
-    Some("CountryDestination2"),
+    Some("GB2"),
+    Some("GE2"),
     Some("refUCR2"),
     Some(consignee),
     Some(List(additionalSupplyChainActor)),
@@ -152,7 +154,7 @@ trait DepartureData {
 
   val houseConsignment: HouseConsignment = HouseConsignment(
     "1",
-    Some("CountryDispatch"),
+    Some("GB"),
     20.0,
     Some("UCRRef"),
     Some("SecurityIndicator"),
@@ -170,28 +172,31 @@ trait DepartureData {
   )
 
   val consigmment: Consignment = Consignment(
-    1.0,
-    Some("T1"),
-    Some("Road"),
-    Some("GER"),
     Some("GB"),
-    Some("UCR001"),
+    Some("GE"),
+    "ContainerIndicator",
+    Some("Road"),
+    Some("Boat"),
+    52.02,
+    Some("UCRRefNumber"),
+    Some(carrier),
     Some(consignor),
     Some(consignee),
-    Some(carrier),
-    Document(Some(List(previousDocument)), Some(List(transportDocument)), Some(List(supportingDocument))),
-    Some(locationOfGoods),
     Some(List(additionalSupplyChainActor)),
-    Some(List(departureTransportMeans)),
     Some(List(transportEquipment)),
+    Some(locationOfGoods),
+    Some(List(departureTransportMeans)),
+    Some(List(countryOfRoutingOfConsignment)),
     Some(List(activeBorderTransportMeans)),
     Some(placeOfLoading),
     Some(placeOfUnLoading),
-    Seq(houseConsignment),
-    Some(List(additionalInformation)),
+    Some(List(previousDocument)),
+    Some(List(transportDocument)),
+    Some(List(supportingDocument)),
     Some(List(additionalReference)),
-    Some(TransportCharges(Some("payPal"))),
-    Some(List(countryOfRoutingOfConsignment))
+    Some(List(additionalInformation)),
+    Some(transportCharges),
+    Seq(houseConsignment)
   )
 
   val consignmentWithMultipleSeals = consigmment.copy(TransportEquipment = Some(List(transportEquipments)))
@@ -199,15 +204,15 @@ trait DepartureData {
   val departureMessageData: DepartureMessageData =
     DepartureMessageData(
       transitOperation,
-      holderOfTheTransitProcedure,
-      representative,
-      consigmment,
-      Some(List(guarantee)),
       Some(List(authorisation)),
+      customsOfficeOfDeparture,
+      customsOfficeOfDestinationDeclared,
       Some(List(customsOfficeOfTransitDeclared)),
       Some(List(customsOfficeOfExitForTransitDeclared)),
-      customsOfficeOfDeparture,
-      customsOfficeOfDestinationDeclared
+      holderOfTheTransitProcedure,
+      representative,
+      controlResult,
+      Some(List(guarantee)),
+      consigmment
     )
-
 }

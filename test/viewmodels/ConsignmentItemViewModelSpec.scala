@@ -31,64 +31,47 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
   "ConsignmentItemViewModelSpec" - {
 
     "should return declarationType information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("1T1", "2T1")
+      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("GB1", "GB2")
     }
 
     "should return countryOfDispatchString information" in {
-      viewModel.consignmentItem.map(_.countryOfDispatchString) mustBe List("GER1", "GER2")
+      viewModel.consignmentItem.map(_.countryOfDispatchString) mustBe List("GB", "GB")
     }
 
     "should return countryOfDestinationString information" in {
-      viewModel.consignmentItem.map(_.countryOfDestinationString) mustBe List("GB1", "GB2")
-    }
-
-    "should return consignor information" in {
-      viewModel.consignmentItem.map(_.consignor) mustBe
-        List(
-          "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4",
-          "Consignor Name, Address Line 1, " +
-            "Address Line 2, Address Line 3, Address Line 4"
-        )
+      viewModel.consignmentItem.map(_.countryOfDestinationString) mustBe List("GE", "GE")
     }
 
     "should return consignee information" in {
-      viewModel.consignmentItem.map(_.consignee) mustBe
+      viewModel.consignmentItem.map(_.consigneeFormat) mustBe
         List(
-          "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, Contact Person Name, 123456, a@a.com",
-          "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, Contact Person Name, 123456, a@a.com"
+          "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4",
+          "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
         )
     }
 
     "should return goodsItemNumberString information" in {
-      viewModel.consignmentItem.map(_.goodsItemNumberString) mustBe List("123545", "23545")
+      viewModel.consignmentItem.map(_.goodsItemNumberString) mustBe List("1T1", "1T2")
     }
 
     "should return declarationGoodsItemNumberString information" in {
-      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("1T1", "2T1")
-    }
-
-    "should return packaging information" in {
-      viewModel.consignmentItem.map(_.packaging) mustBe List("5, Plastic, rubberStamp", "5, Plastic, rubberStamp")
+      viewModel.consignmentItem.map(_.declarationGoodsItemNumberString) mustBe List("1", "2")
     }
 
     "should return referenceNumberUCRString information" in {
-      viewModel.consignmentItem.map(_.referenceNumberUCRString) mustBe List("ref1", "ref2")
+      viewModel.consignmentItem.map(_.referenceNumberUCRString) mustBe List("UCRRefNumber", "UCRRefNumber")
     }
 
     "should return transportCharges information" in {
-      viewModel.consignmentItem.map(_.transportCharges) mustBe List("payPal", "payPal")
+      viewModel.consignmentItem.map(_.transportChargesFormat) mustBe List("payPal", "payPal")
     }
 
     "should return additionalSupplyChainActor information" in {
-      viewModel.consignmentItem.map(_.additionalSupplyChainActor) mustBe List("Actor-Role", "Actor-Role")
+      viewModel.consignmentItem.map(_.additionalSupplyChainActorFormat) mustBe List("ID001", "ID001")
     }
 
     "should return commodityCode information" in {
       viewModel.consignmentItem.map(_.commodityCode) mustBe List("SHC1, NOMC1", "SHC1, NOMC1")
-    }
-
-    "should return departureTransportMeans information" in {
-      viewModel.consignmentItem.map(_.departureTransportMeans) mustBe List("Actor-Role, ID001, Nationality", "Actor-Role, ID001, Nationality")
     }
 
     "should return dangerousGoods information" in {
@@ -96,7 +79,7 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
     }
 
     "should return cusCode information" in {
-      viewModel.consignmentItem.map(_.cusCode) mustBe List("CUSTCODE1", "CUSTCODE1")
+      viewModel.consignmentItem.map(_.cusCode) mustBe List("CUSCode", "CUSCode")
     }
 
     "should return descriptionOfGoods information" in {
@@ -126,20 +109,18 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
     "should return netMass information" in {
       viewModel.consignmentItem.map(_.netMass) mustBe List("1.4", "1.4")
     }
-    "should return consignorId information" in {
-      viewModel.consignmentItem.map(_.consignorId) mustBe List("idnum1", "idnum1")
-    }
+
     "should return consigneeId information" in {
       viewModel.consignmentItem.map(_.consigneeId) mustBe List("idnum1", "idnum1")
     }
     "should return supplyChainActorId information" in {
-      viewModel.consignmentItem.map(_.supplyChainActorId) mustBe List("ID001", "ID001")
+      viewModel.consignmentItem.map(_.supplyChainActorId) mustBe List("ID33", "ID33")
     }
     "should return totalPackages information" in {
-      viewModel.consignmentItem.map(_.totalPackages) mustBe List(5, 5)
+      viewModel.consignmentItem.map(_.totalPackages) mustBe List(1, 1)
     }
     "should return packagesType information" in {
-      viewModel.consignmentItem.map(_.packagesType) mustBe List("5, Plastic, rubberStamp", "5, Plastic, rubberStamp")
+      viewModel.consignmentItem.map(_.packagesType) mustBe List("3, Rubber, RubberMark", "3, Rubber, RubberMark")
     }
 
   }

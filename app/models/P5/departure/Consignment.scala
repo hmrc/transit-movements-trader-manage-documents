@@ -77,7 +77,7 @@ case class Consignment(
   )
 
   val sealsString: Option[String] = TransportEquipment.map(
-    _.map(_.seal).mkString("; ")
+    _.flatMap(_.sealsList).mkString("...")
   )
 
   val additionalInformationDisplay: Option[String] = AdditionalInformation.map(

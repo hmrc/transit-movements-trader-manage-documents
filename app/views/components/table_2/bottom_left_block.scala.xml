@@ -20,9 +20,9 @@
 <fo:table-cell margin-left="2mm" padding-top="1mm" font-weight = "bold">
     @if(goodsItems.head.producedDocuments.nonEmpty) {
         @if(goodsItems.head.producedDocuments.length > 1) {
-            @block(s"${goodsItems.head.producedDocuments.head.display}...")
+            @block(s"${goodsItems.head.producedDocuments.head.transitionDisplay}...")
         } else {
-            @block(s"${goodsItems.head.producedDocuments.head.display}")
+            @block(s"${goodsItems.head.producedDocuments.head.transitionDisplay}")
         }
     } else {
         <fo:block>--</fo:block>

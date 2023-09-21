@@ -30,11 +30,12 @@ sealed trait Package {
     x => x.trim.nonEmpty
   )
 
-  val validateCountAndPackage: Int => Option[String] =
+  val validateCountAndPackage: Int => String => Option[String] =
     count =>
-      if (count > 0) {
-        Some(s"$count")
-      } else None
+      description =>
+        if (count > 0 && description.nonEmpty) {
+          Some(s"$count - $description")
+        } else None
 
   val validatePackage: String => Option[String] =
     description =>
@@ -78,7 +79,7 @@ final case class UnpackedPackage(
 
   override val marksAndNumbersValue: Option[String] = validateString(marksAndNumbers)
 
-  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPieces)
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPieces)(kindOfPackage.description)
 
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(0)(kindOfPackage)
 
@@ -98,12 +99,12 @@ final case class RegularPackage(
 
   override val marksAndNumbersValue: Option[String] = validateString(Some(marksAndNumbers))
 
-  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPackages)
+  override val packageAndNumber: Option[String] = validateCountAndPackage(numberOfPackages)(kindOfPackage.description)
 
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(numberOfPackages)(kindOfPackage)
 
   override val numberOfPiecesValue: Int = 0
 
-  override val toString: String = s"${kindOfPackage.code},$numberOfPackages-$marksAndNumbers"
+  override val toString: String = s"${kindOfPackage.code},$numberOfPackages,$marksAndNumbers"
 
 }

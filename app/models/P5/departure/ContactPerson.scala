@@ -25,10 +25,7 @@ case class ContactPerson(
   eMailAddress: Option[String]
 ) {
 
-  override def toString: String = {
-    val stringList: Seq[Option[String]] = List(Some(name), Some(phoneNumber), eMailAddress)
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = s"$name, $phoneNumber, ${eMailAddress.getOrElse("")}"
 }
 
 object ContactPerson {
