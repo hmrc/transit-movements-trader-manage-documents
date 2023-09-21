@@ -93,7 +93,8 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
             .apply(
               "TRANSIT - ACCOMPANYING DOCUMENT",
               boldHeading = true,
-              tad.movementReferenceNumber,
+              tad.movementReferenceNumber.split(",").head,
+              tad.movementReferenceNumber.split(",").last,
               printVariousConsignors = tad.printVariousConsignors,
               tad.consignorOne,
               tad.declarationType,

@@ -87,7 +87,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
 
   def fromP5ToViewModel(
     ie029: IE029Data,
-    countries: Seq[Country], //TODO: Will this fetch all countries?
+    countries: Seq[Country],
     additionalInformation: Seq[AdditionalInformation],
     kindsOfPackages: Seq[KindOfPackage],
     previousDocuments: Seq[PreviousDocumentTypes],
@@ -97,22 +97,6 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     customsOffices: Seq[CustomsOffice],
     controlResults: Seq[ControlResult]
   ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
-
-    val kindsOfPackage = kindsOfPackages // P5
-//    val documentTypes             = documentType    // P5
-    val sensitiveGoodsInformation = Nil
-
-    val controlResult = ControlResult("A", LocalDate.now())
-
-//    val additionalInfo = Seq(reference.AdditionalInformation("I1", "Info 1"), reference.AdditionalInformation("I2", "info 2"))
-    val additionalInfo = additionalInformation
-
-    val specialMentionEc                 = models.SpecialMention(None, additionalInfo.head.code, Some(true), None)
-    val specialMentionEcViewModel        = viewmodels.SpecialMention(additionalInfo.head, specialMentionEc)
-    val specialMentionNonEc              = models.SpecialMention(None, additionalInfo.head.code, None, countries.headOption.map(_.code))
-    val specialMentionNonEcViewModel     = viewmodels.SpecialMention(additionalInfo.head, specialMentionNonEc)
-    val specialMentionNoCountry          = models.SpecialMention(Some("Description"), additionalInfo.head.code, None, None)
-    val specialMentionNoCountryViewModel = viewmodels.SpecialMention(additionalInfo.head, specialMentionNoCountry)
 
     ie029.data match {
       case DepartureMessageData(
@@ -139,7 +123,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
             }
 
             viewmodels.TransitAccompanyingDocumentPDF(
-              movementReferenceNumber = transitOperation.MRN,                                    // P5
+              movementReferenceNumber = s"${transitOperation.MRN},${transitOperation.LRN}",      // P5
               declarationType = transitOperation.declarationType,                                // P5
               singleCountryOfDispatch = consignment.countryOfDispatch.map(Country(_, "")),       // P5
               singleCountryOfDestination = consignment.countryOfDestination.map(Country(_, "")), // P5

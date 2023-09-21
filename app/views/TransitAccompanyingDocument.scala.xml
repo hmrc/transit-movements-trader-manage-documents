@@ -35,7 +35,8 @@
     @mainHeader(
         title = "TRANSIT - ACCOMPANYING DOCUMENT",
         boldHeading = true,
-        movementReferenceNumber = tadModel.movementReferenceNumber,
+        movementReferenceNumber = tadModel.movementReferenceNumber.split(",").head,
+        lrn = tadModel.movementReferenceNumber.split(",").last,
         printVariousConsignors = tadModel.printVariousConsignors,
         consignorOne = tadModel.consignorOne,
         declarationType = tadModel.declarationType,

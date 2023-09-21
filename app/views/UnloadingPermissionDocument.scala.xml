@@ -35,6 +35,7 @@
         title = "UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT",
         boldHeading = false,
         movementReferenceNumber = permission.movementReferenceNumber,
+        lrn = permission.movementReferenceNumber,
         printVariousConsignors = permission.printVariousConsignors,
         consignorOne = permission.consignorOne,
         declarationType = permission.declarationType,

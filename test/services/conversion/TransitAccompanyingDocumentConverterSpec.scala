@@ -393,7 +393,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
       val ieo29Data = IE029Data(departureMessageData)
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
-        movementReferenceNumber = "MRN",
+        movementReferenceNumber = "MRN,LRN",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.last),
