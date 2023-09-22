@@ -289,7 +289,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                         )
                         .getOrElse(Seq.empty),
                       packages = consignmentItem.packagingFormat,
-                      sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(consignmentItem.Commodity.cusCode, 0)),
+                      sensitiveGoodsInformation = Seq.empty,
                       securityConsignor = None,
                       securityConsignee = None
                     )

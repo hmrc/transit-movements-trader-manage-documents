@@ -476,7 +476,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
             packages = NonEmptyList.of(
               viewmodels.RegularPackage(KindOfPackage("Rubber", ""), 3, "RubberMark")
             ),
-            sensitiveGoodsInformation = sensitiveGoodsInformation,
+            sensitiveGoodsInformation = Seq.empty,
             securityConsignor = None,
             securityConsignee = None
           )
