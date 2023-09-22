@@ -16,8 +16,6 @@
 
 package models.P5.departure
 
-import models.P5.RichSeqT
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class Consignment(

@@ -17,7 +17,6 @@
 package services.conversion
 
 import cats.data.NonEmptyList
-import cats.syntax.list._
 import cats.implicits._
 import models.P5.departure.DepartureMessageData
 import models.P5.departure.IE029Data
@@ -27,8 +26,6 @@ import services._
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
 import viewmodels.PreviousDocumentType
-
-import java.time.LocalDate
 
 object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 

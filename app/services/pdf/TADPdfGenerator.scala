@@ -19,13 +19,12 @@ package services.pdf
 import com.dmanchester.playfop.sapi.PlayFop
 import models.P5.departure.IE029Data
 import org.apache.xmlgraphics.util.MimeConstants
-import services.conversion.TransitAccompanyingDocumentConversionService
+import viewmodels.P5._
 import viewmodels.TransitAccompanyingDocumentP5TransitionPDF
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
 import views.xml.TransitAccompanyingDocumentP5
 import views.xml.TransitAccompanyingDocumentP5Transition
-import viewmodels.P5._
 
 import javax.inject.Inject
 

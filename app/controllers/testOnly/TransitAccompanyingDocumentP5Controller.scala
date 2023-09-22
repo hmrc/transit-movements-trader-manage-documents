@@ -19,7 +19,6 @@ package controllers.testOnly
 import cats.data.NonEmptyChain
 import cats.data.Validated
 import config.PhaseConfig
-import config.PostTransitionConfig
 import controllers.actions.AuthenticateActionProvider
 import models.P5.Phase.PostTransition
 import models.P5.Phase.Transition

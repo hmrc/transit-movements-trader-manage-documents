@@ -16,13 +16,11 @@
 
 package models.P5.departure
 
-import akka.http.scaladsl.model.DateTime
 import models.DeclarationType
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 import java.time.LocalDate
-import java.util.Date
 
 case class TransitOperation(
   LRN: String,
