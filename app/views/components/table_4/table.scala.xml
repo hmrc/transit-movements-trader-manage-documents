@@ -13,8 +13,7 @@
         guaranteeDetails: Seq[GuaranteeDetails] = Nil,
         destinationOffice: Option[CustomsOfficeWithOptionalDate] = None,
         authId: Option[String] = None,
-        controlResult: Option[ControlResult] = None,
-        printBindingItinerary: Boolean
+        controlResult: Option[ControlResult] = None
 )
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
@@ -110,6 +109,13 @@
                                     <fo:block/>
                                 </fo:table-cell>
                             </fo:table-row>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @acceptanceDateFormatted
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
                             <fo:table-row height="12mm">
                                 <fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">
                                     @controlResult.map{ result =>
@@ -146,7 +152,7 @@
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 3 -->
-            @row_3(transitOffices, printBindingItinerary)
+            @row_3(transitOffices)
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 4 -->
             @row_4(guaranteeDetails, destinationOffice)

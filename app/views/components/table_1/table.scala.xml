@@ -6,7 +6,6 @@
         title: String,
         boldHeading: Boolean,
         movementReferenceNumber: String,
-        lrn: String,
         printVariousConsignors: Boolean,
         consignorOne: Option[viewmodels.Consignor],
         declarationType: DeclarationType,
@@ -37,7 +36,7 @@
   <fo:table-body>
     @row_1(movementReferenceNumber)
 
-    @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems, lrn)
+    @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems)
 
     @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title, boldHeading)
 

@@ -2,7 +2,7 @@
 
 <fo:block>
     <fo:inline font-style="italic">
-        @packageItem.packageAndNumber.getOrElse(packageItem.kindOfPackage.code)
+        @packageItem.packageAndNumber.getOrElse(packageItem.kindOfPackage.description)
     </fo:inline>
 </fo:block>
 

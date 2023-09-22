@@ -31,7 +31,6 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
   "Table1ViewModelSpec" - {
 
     "return comma seperated consignor information" in {
-      println(viewModel.table1ViewModel.consignor)
       viewModel.table1ViewModel.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, GB, name, 123456, a@a.com"
     }
 

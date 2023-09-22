@@ -1,0 +1,21 @@
+@(mrn: String)
+
+<fo:table-row height="4mm">
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+  <fo:table-cell number-columns-spanned="2">
+    <fo:block font-weight="bold" font-size="11pt">EUROPEAN COMMUNITY</fo:block>
+  </fo:table-cell>
+  <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+    <fo:block font-weight="bold" letter-spacing="0.5mm" text-indent="1mm" space-before="1mm">1 REGIME</fo:block>
+  </fo:table-cell>
+  <fo:table-cell number-columns-spanned="2" padding-left="3mm">
+    <fo:block font-weight="bold" font-size="11pt">MRN</fo:block>
+  </fo:table-cell>
+  <fo:table-cell number-columns-spanned="2" padding-left="3mm">
+    <fo:block font-size="11pt" id="table_1_row_1_mrn">
+      @mrn
+    </fo:block>
+  </fo:table-cell>
+</fo:table-row>

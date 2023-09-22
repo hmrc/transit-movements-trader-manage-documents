@@ -20,23 +20,20 @@
     pageTwo =  if(tadModel.printListOfItems) {
         Some(pageTwo(
             tadModel.departureOffice.office.id,
-            tadModel.movementReferenceNumber.split(',').head,
+            tadModel.movementReferenceNumber,
             tadModel.acceptanceDate.map(_.formattedDate),
             tadModel.goodsItems,
-            tadModel.declarationType,
-            tadModel.authId
+            tadModel.declarationType
         ))
     } else None
 )
-
 
 @pageOneBody = {
     <!--main header-->
     @mainHeader(
         title = "TRANSIT - ACCOMPANYING DOCUMENT",
         boldHeading = true,
-        movementReferenceNumber = tadModel.movementReferenceNumber.split(",").head,
-        lrn = tadModel.movementReferenceNumber.split(",").last,
+        movementReferenceNumber = tadModel.movementReferenceNumber,
         printVariousConsignors = tadModel.printVariousConsignors,
         consignorOne = tadModel.consignorOne,
         declarationType = tadModel.declarationType,
@@ -54,7 +51,7 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary, tadModel.authId)
+    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
 
     <!--transhipment/certification-->
     @table3()
@@ -68,8 +65,7 @@
         tadModel.guaranteeDetails,
         Some(tadModel.destinationOffice),
         tadModel.authId,
-        tadModel.controlResult,
-        tadModel.printBindingItinerary
+        tadModel.controlResult
     )
 
     <!--control by office of departure/destination-->

@@ -54,7 +54,7 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
     }
 
     "should return declarationGoodsItemNumberString information" in {
-      viewModel.consignmentItem.map(_.declarationGoodsItemNumberString) mustBe List("1")
+      viewModel.consignmentItem.map(_.declarationTypeString) mustBe List("T1")
     }
 
     "should return referenceNumberUCRString information" in {

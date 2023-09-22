@@ -23,8 +23,7 @@
             permission.movementReferenceNumber,
             permission.acceptanceDateFormatted,
             permission.goodsItems,
-            permission.declarationType,
-            None
+            permission.declarationType
         ))
     } else None
 )
@@ -35,7 +34,6 @@
         title = "UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT",
         boldHeading = false,
         movementReferenceNumber = permission.movementReferenceNumber,
-        lrn = permission.movementReferenceNumber,
         printVariousConsignors = permission.printVariousConsignors,
         consignorOne = permission.consignorOne,
         declarationType = permission.declarationType,
@@ -53,13 +51,13 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass, authId = None)
+    @table2(permission.printListOfItems, permission.numberOfItems, permission.goodsItems, permission.grossMass)
 
     <!--transhipment/certification-->
     @table3()
 
     <!--Principal/TIR Holder/Office of departure-->
-    @table4(permission.principal, permission.departureOfficeTrimmed, permission.acceptanceDateFormatted, printBindingItinerary = false)
+    @table4(permission.principal, permission.departureOfficeTrimmed, permission.acceptanceDateFormatted)
 
     <!--control by office of departure/destination-->
     @table5(permission.seals)

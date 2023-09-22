@@ -5,7 +5,7 @@
 
 @import views.xml.components.barcode
 
-@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean, lrn: String)
+@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean)
 
 <fo:table-row height="16mm">
   <fo:table-cell>
@@ -54,10 +54,6 @@
   <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
     <fo:block>
       @barcode(movementReferenceNumber)
-    </fo:block>
-
-    <fo:block margin-left="2mm" font-size = "10pt" >
-    <fo:inline font-weight = "bold">LRN</fo:inline> @lrn
     </fo:block>
   </fo:table-cell>
 </fo:table-row>

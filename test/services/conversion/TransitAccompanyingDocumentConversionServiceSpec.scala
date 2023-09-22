@@ -360,9 +360,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
         forAll(arbitrary[Country], arbitrary[ReleaseForTransit], stringWithMaxLength(17)) {
           (countriesGen, transitAccompanyingDocumentGen, mrn) =>
-            val referenceDataConnector   = mock[ReferenceDataConnector]
-            val referenceDataP5Connector = mock[ReferenceDataP5Connector]
-
+            val referenceDataConnector = mock[ReferenceDataConnector]
+            val referenceDataP5Service = mock[ReferenceDataP5Connector]
             when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(Seq(countriesGen, Country("AA", "Country A"))))
             when(referenceDataConnector.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
             when(referenceDataConnector.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
@@ -376,7 +375,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
               CustomsOffice("AB125", Some("Destination Office"), "AB")
             )
 
-            val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector, referenceDataP5Connector)
+            val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector, referenceDataP5Service)
 
             val transitAccompanyingDocument =
               transitAccompanyingDocumentGen.copy(principal = transitAccompanyingDocumentGen.principal.copy(countryCode = countriesGen.code))
@@ -493,8 +492,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
     "must return errors when reference data cannot be retrieved" in {
 
-      val referenceDataConnector   = mock[ReferenceDataConnector]
-      val referenceDataP5Connector = mock[ReferenceDataP5Connector]
+      val referenceDataConnector = mock[ReferenceDataConnector]
+      val referenceDataP5Service = mock[ReferenceDataP5Connector]
 
       when(referenceDataConnector.countries()(any(), any()))
         .thenReturn(Future.successful(ReferenceDataRetrievalError("countries", 500, "body").invalidNec))
@@ -522,7 +521,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
         CustomsOffice("AB125", Some("Destination Office"), "AB")
       )
 
-      val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector, referenceDataP5Connector)
+      val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector, referenceDataP5Service)
 
       val result = service.toViewModel(validModel).futureValue
 
@@ -538,8 +537,8 @@ class TransitAccompanyingDocumentConversionServiceSpec
 
     "must return errors when reference data can be retrieved but the conversion fails" in {
 
-      val referenceDataConnector   = mock[ReferenceDataConnector]
-      val referenceDataP5Connector = mock[ReferenceDataP5Connector]
+      val referenceDataConnector = mock[ReferenceDataConnector]
+      val referenceDataP5Service = mock[ReferenceDataP5Connector]
       when(referenceDataConnector.countries()(any(), any())) thenReturn Future.successful(Valid(countries))
       when(referenceDataConnector.kindsOfPackage()(any(), any())) thenReturn Future.successful(Valid(kindsOfPackage))
       when(referenceDataConnector.documentTypes()(any(), any())) thenReturn Future.successful(Valid(documentTypes))
@@ -558,7 +557,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
         CustomsOffice("AB125", Some("Destination Office"), "AB")
       )
 
-      val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector, referenceDataP5Connector)
+      val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector, referenceDataP5Service)
 
       val header         = validModel.header.copy(countryOfDispatch = Some("non-existent code"))
       val invalidRefData = validModel copy (header = header)

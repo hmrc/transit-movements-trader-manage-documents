@@ -1,5 +1,5 @@
 @import cats.data.NonEmptyList
-@import views.xml.components.second_page.item._
+
 @(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItem])
 
 <fo:table-cell number-columns-spanned="2">
@@ -24,7 +24,9 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
+                                                @if(!printListOfItems) {
                                                     @goodsItems.head.commodityCode.map(code => code)
+                                                }
                                             </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell>
@@ -99,15 +101,11 @@
                             <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
-                                @if(goodsItems.head.previousDocumentTypes.nonEmpty) {
-                                    @if(goodsItems.head.previousDocumentTypes.length > 1) {
-                                        @block(s"${goodsItems.head.previousDocumentTypes.head.transitionDisplay}...")
-                                    } else {
-                                        @block(s"${goodsItems.head.previousDocumentTypes.head.transitionDisplay}")
+                                <fo:block>
+                                    @if(!printListOfItems){
+                                        @goodsItems.head.previousDocumentTypes.map(_.display)
                                     }
-                                } else {
-                                    <block>--</block>
-                                }
+                                </fo:block>
                             </fo:inline>
                         </fo:block>
                     </fo:table-cell>

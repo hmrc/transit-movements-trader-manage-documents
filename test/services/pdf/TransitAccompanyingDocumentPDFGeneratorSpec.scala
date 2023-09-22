@@ -93,8 +93,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
             .apply(
               "TRANSIT - ACCOMPANYING DOCUMENT",
               boldHeading = true,
-              tad.movementReferenceNumber.split(",").head,
-              tad.movementReferenceNumber.split(",").last,
+              tad.movementReferenceNumber,
               printVariousConsignors = tad.printVariousConsignors,
               tad.consignorOne,
               tad.declarationType,
@@ -117,8 +116,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
               tad.numberOfItems,
               tad.goodsItems,
               tad.grossMass,
-              tad.printBindingItinerary,
-              tad.authId
+              tad.printBindingItinerary
             )
 
           verify(spiedTable3, times(1)).apply()
@@ -132,8 +130,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
               tad.guaranteeDetails,
               Some(tad.destinationOffice),
               tad.authId,
-              tad.controlResult,
-              tad.printBindingItinerary
+              tad.controlResult
             )
 
           verify(spiedTable5, times(1))
@@ -149,8 +146,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
               tad.movementReferenceNumber,
               tad.acceptanceDate.map(_.formattedDate),
               tad.goodsItems,
-              tad.declarationType,
-              tad.authId
+              tad.declarationType
             )
 
           reset(spiedTable1, spiedTable2, spiedTable3, spiedTable4, spiedTable5)

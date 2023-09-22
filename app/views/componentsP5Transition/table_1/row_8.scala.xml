@@ -1,0 +1,10 @@
+<fo:table-row height="8mm">
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+  <fo:table-cell text-align="center" border-style="solid" border-width="1pt" border-color="black" display-align="center">
+    <fo:block font-weight="bold" font-size="12pt">
+      A
+    </fo:block>
+  </fo:table-cell>
+</fo:table-row>
