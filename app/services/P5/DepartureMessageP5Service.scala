@@ -17,7 +17,8 @@
 package services.P5
 
 import connectors.DepartureMovementP5Connector
-import models.P5.departure.IE029Data
+import models.P5.departure.IE015
+import models.P5.departure.IE029
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
@@ -29,6 +30,14 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
   def getReleaseForTransitNotification(departureId: String, messageId: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
-  ): Future[IE029Data] =
-    connector.getDepartureNotificationMessage(departureId, messageId)
+  ): Future[IE029] =
+    connector.getDepartureNotificationMessage[IE029](departureId, messageId)
+
+  def getDeclarationData(departureId: String, messageId: String)(implicit
+    hc: HeaderCarrier,
+    ec: ExecutionContext
+  ): Future[IE015] =
+    connector.getDepartureNotificationMessage[IE015](departureId, messageId)
+
+  def getIE015MessageId(departureId: String) = ???
 }

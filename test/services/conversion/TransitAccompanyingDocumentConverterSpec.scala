@@ -21,7 +21,7 @@ import base.DepartureData
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType.T1
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import models._
 import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
@@ -383,7 +383,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
     "must return a view model when all of the necessary reference data can be found" in {
 
-      val ieo29Data = IE029Data(departureMessageData)
+      val ieo29Data = IE029(departureMessageData)
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
         movementReferenceNumber = "MRN,LRN",

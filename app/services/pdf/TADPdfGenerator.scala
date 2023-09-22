@@ -17,7 +17,7 @@
 package services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import org.apache.xmlgraphics.util.MimeConstants
 import services.conversion.TransitAccompanyingDocumentConversionService
 import viewmodels.TransitAccompanyingDocumentPDF
@@ -42,7 +42,7 @@ class TADPdfGenerator @Inject() (
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
 
-  def generateP5TADPostTransition(ie029Data: IE029Data): Array[Byte] = {
+  def generateP5TADPostTransition(ie029Data: IE029): Array[Byte] = {
 
     val renderedDocument = documentP5.render(TableViewModel()(ie029Data), ConsignmentItemViewModel()(ie029Data))
 

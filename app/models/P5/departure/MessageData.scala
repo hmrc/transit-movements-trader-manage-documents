@@ -18,10 +18,17 @@ package models.P5.departure
 
 import play.api.libs.json.Json
 import play.api.libs.json.Reads
-import play.api.libs.json.Writes
 
-case class DepartureMessageData(
-  TransitOperation: TransitOperation,
+sealed trait MessageData
+
+case class IE015MessageData(TransitOperation: IE015TransitOperation) extends MessageData
+
+object IE015MessageData {
+  implicit val reads: Reads[IE015MessageData] = Json.reads[IE015MessageData]
+}
+
+case class IE029MessageData(
+  TransitOperation: IE029TransitOperation,
   Authorisation: Option[List[Authorisation]],
   CustomsOfficeOfDeparture: CustomsOfficeOfDeparture,
   CustomsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared,
@@ -32,7 +39,7 @@ case class DepartureMessageData(
   ControlResult: ControlResult,
   Guarantee: Option[List[Guarantee]],
   Consignment: Consignment
-) {
+) extends MessageData {
 
   val guaranteeDisplay: Option[String] = Guarantee.map(
     _.map(_.toString).mkString("; ")
@@ -60,8 +67,6 @@ case class DepartureMessageData(
 
 }
 
-object DepartureMessageData {
-  implicit val reads: Reads[DepartureMessageData]   = Json.reads[DepartureMessageData]
-  implicit val writes: Writes[DepartureMessageData] = Json.writes[DepartureMessageData]
-
+object IE029MessageData {
+  implicit val reads: Reads[IE029MessageData] = Json.reads[IE029MessageData]
 }

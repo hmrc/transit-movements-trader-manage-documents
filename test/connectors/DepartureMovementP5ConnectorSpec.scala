@@ -22,7 +22,10 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock._
 import generators.ReferenceModelGenerators
-import models.P5.departure.IE029Data
+import models.P5.departure.DepartureMessageType.DepartureNotification
+import models.P5.departure.DepartureMessageMetaData
+import models.P5.departure.DepartureMessages
+import models.P5.departure.IE029
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
@@ -37,6 +40,7 @@ import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.WireMockHelper
 
+import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class DepartureMovementP5ConnectorSpec
@@ -65,24 +69,62 @@ class DepartureMovementP5ConnectorSpec
 
   private lazy val service: DepartureMovementP5Connector = app.injector.instanceOf[DepartureMovementP5Connector]
 
-  "getMRN" - {
+  "getMessages" - {
 
-    val mrnUrl: String = s"/movements/departures/$departureId"
+    val url: String = s"/movements/departures/$departureId/messages"
 
-    "must return an MRN" in {
+    "must return messages for a given departure ID" in {
+
+      val json = Json.parse("""
+          |{
+          |  "_links": {
+          |    "self": {
+          |      "href": "/customs/transits/movements/departures/6365135ba5e821ee/messages"
+          |    },
+          |    "departure": {
+          |      "href": "/customs/transits/movements/departures/6365135ba5e821ee"
+          |    }
+          |  },
+          |  "totalCount": 1,
+          |  "messages": [
+          |    {
+          |      "_links": {
+          |        "self": {
+          |          "href": "/customs/transits/movements/departures/6365135ba5e821ee/message/634982098f02f00a"
+          |        },
+          |        "departure": {
+          |          "href": "/customs/transits/movements/departures/6365135ba5e821ee"
+          |        }
+          |      },
+          |      "id": "634982098f02f00a",
+          |      "departureId": "6365135ba5e821ee",
+          |      "received": "2022-11-10T15:32:51.000Z",
+          |      "type": "IE015",
+          |      "status": "Success"
+          |    }
+          |  ]
+          |}
+          |""".stripMargin)
 
       server.stubFor(
-        get(urlEqualTo(mrnUrl))
+        get(urlEqualTo(url))
           .willReturn(
-            ok(Json.toJson(mrn).toString)
+            ok(json.toString)
           )
       )
 
-      whenReady(service.getMRN(departureId)) {
-        result =>
-          result mustEqual mrn
-      }
+      val result = service.getMessages(departureId).futureValue
 
+      result mustEqual DepartureMessages(
+        List(
+          DepartureMessageMetaData(
+            id = "634982098f02f00a",
+            received = LocalDateTime.of(2022: Int, 11: Int, 10: Int, 15: Int, 32: Int, 51: Int),
+            messageType = DepartureNotification,
+            path = "movements/departures/6365135ba5e821ee/message/634982098f02f00a"
+          )
+        )
+      )
     }
   }
 
@@ -92,7 +134,7 @@ class DepartureMovementP5ConnectorSpec
 
     "must return ie029 data" in {
 
-      val ieo29Data = IE029Data(departureMessageData)
+      val ieo29Data = IE029(departureMessageData)
 
       val json1 =
         s"""{
@@ -517,7 +559,7 @@ class DepartureMovementP5ConnectorSpec
           )
       )
 
-      whenReady(service.getDepartureNotificationMessage(departureId, messageId)) {
+      whenReady(service.getDepartureNotificationMessage[IE029](departureId, messageId)) {
         result =>
           result.data.Consignment.HouseConsignment.map(_.Consignor) mustEqual ieo29Data.data.Consignment.HouseConsignment.map(_.Consignor)
       }

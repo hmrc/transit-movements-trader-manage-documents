@@ -18,14 +18,14 @@ package viewmodels
 
 import base.DepartureData
 import base.SpecBase
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import viewmodels.P5._
 
 class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
-  val ie029Data = IE029Data(departureMessageData)
+  val ie029Data = IE029(departureMessageData)
   val viewModel = ConsignmentItemViewModel()(ie029Data)
 
   "ConsignmentItemViewModelSpec" - {

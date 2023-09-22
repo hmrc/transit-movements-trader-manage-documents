@@ -18,7 +18,7 @@ package viewmodels.P5
 
 import models.P5.departure.Consignee
 import models.P5.departure.Consignor
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import viewmodels.P5.TableViewModel.houseConsignmentAppender
 import viewmodels.P5.TableViewModel.truncate
 
@@ -40,7 +40,7 @@ object TableViewModel {
 
 }
 
-case class TableViewModel(implicit ie029Data: IE029Data) {
+case class TableViewModel(implicit ie029Data: IE029) {
 
   val table1ViewModel = Table1ViewModel.apply()
   val table2ViewModel = Table2ViewModel.apply()
@@ -49,7 +49,7 @@ case class TableViewModel(implicit ie029Data: IE029Data) {
 
 }
 
-case class Table1ViewModel(implicit ie029Data: IE029Data) {
+case class Table1ViewModel(implicit ie029Data: IE029) {
 
   private val consignorContactPersonAtHouseOfConsignment: String =
     ie029Data.data.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.ContactPerson.map(_.toString))).flatten.mkString("; ")
@@ -128,7 +128,7 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
 
 }
 
-case class Table2ViewModel(implicit ie029Data: IE029Data) {
+case class Table2ViewModel(implicit ie029Data: IE029) {
 
   val transportEquipment: String = truncate(50, ie029Data.data.Consignment.transportEquipmentDisplay.getOrElse(""))
   val seals: String              = truncate(50, ie029Data.data.Consignment.sealsString.getOrElse(""))
@@ -162,9 +162,9 @@ case class Table2ViewModel(implicit ie029Data: IE029Data) {
 
 }
 
-case class Table3ViewModel(implicit ie029Data: IE029Data)
+case class Table3ViewModel(implicit ie029Data: IE029)
 
-case class Table4ViewModel(implicit ie029Data: IE029Data) {
+case class Table4ViewModel(implicit ie029Data: IE029) {
 
   val countryOfRoutingOfConsignment: String = truncate(30, ie029Data.data.Consignment.countryOfRoutingOfConsignmentDisplay.getOrElse(""))
 

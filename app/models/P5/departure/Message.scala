@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package viewmodels.P5
+package models.P5.departure
 
-import models.P5.departure.Commodity
-import models.P5.departure.CommodityCode
-import models.P5.departure.ConsignmentItem
-import models.P5.departure.IE029
-import models.P5.departure.Packaging
+import play.api.libs.json.Reads
+import play.api.libs.json.__
 
-case class ConsignmentItemViewModel(implicit ie029Data: IE029) {
+sealed trait Message {
+  val data: MessageData
+}
 
-  val consignmentItem: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
+case class IE029(data: IE029MessageData) extends Message
 
+object IE029 {
+  implicit val reads: Reads[IE029] = (__ \ "body" \ "n1:CC029C").read[IE029MessageData].map(IE029.apply)
+}
+
+case class IE015(data: IE015MessageData) extends Message
+
+object IE015 {
+  implicit val reads: Reads[IE015] = (__ \ "body" \ "n1:CC015C").read[IE015MessageData].map(IE015.apply)
 }

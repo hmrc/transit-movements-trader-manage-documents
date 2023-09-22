@@ -16,4 +16,33 @@
 
 package models.P5.departure
 
-case class DepartureNotificationMessage(movementReferenceNumber: MovementReferenceNumber, data: IE029Data)
+import base.SpecBase
+import play.api.libs.json.Json
+
+class MessageSpec extends SpecBase {
+
+  "must serialise" - {
+    "when IE015" in {
+      val json = Json.parse("""
+          |{
+          |  "body" : {
+          |    "n1:CC015C": {
+          |      "TransitOperation": {
+          |        "limitDate": "22-09-2023"
+          |      }
+          |    }
+          |  }
+          |}
+          |""".stripMargin)
+
+      json.as[IE015] mustBe IE015(
+        IE015MessageData(
+          TransitOperation = IE015TransitOperation(
+            limitDate = Some("22-09-2023")
+          )
+        )
+      )
+    }
+  }
+
+}

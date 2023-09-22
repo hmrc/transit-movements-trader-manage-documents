@@ -19,8 +19,8 @@ package services.conversion
 import cats.data.NonEmptyList
 import cats.syntax.list._
 import cats.implicits._
-import models.P5.departure.DepartureMessageData
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029MessageData
+import models.P5.departure.IE029
 import models._
 import models.reference._
 import services._
@@ -86,7 +86,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
   // TODO pass ref data values here along with main model (IE029Data)
 
   def fromP5ToViewModel(
-    ie029: IE029Data,
+    ie029: IE029,
     countries: Seq[Country],
     additionalInformation: Seq[AdditionalInformation],
     kindsOfPackages: Seq[KindOfPackage],
@@ -99,7 +99,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
   ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
 
     ie029.data match {
-      case DepartureMessageData(
+      case IE029MessageData(
             transitOperation,
             authorisation,
             officeOfDeparture,

@@ -30,7 +30,7 @@ import models.reference.KindOfPackage
 import models.reference.PreviousDocumentTypes
 import models.reference.SupportingDocumentTypes
 import models.reference.TransportDocumentTypes
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.CustomsOfficeWithOptionalDate
@@ -129,7 +129,7 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
     )
   }
 
-  def fromP5ToViewModel(ie029: IE029Data)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentPDF]] = {
+  def fromP5ToViewModel(ie029: IE029)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentPDF]] = {
 
     val countriesFuture: Future[ValidationResult[Seq[Country]]] = referenceDataP5.getList[Seq[Country]]("CountryCodesForAddress")
     val additionalInfoFuture: Future[ValidationResult[Seq[AdditionalInformation]]] =

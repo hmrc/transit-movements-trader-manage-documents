@@ -16,15 +16,21 @@
 
 package models.P5.departure
 
-import akka.http.scaladsl.model.DateTime
 import models.DeclarationType
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 import java.time.LocalDate
-import java.util.Date
 
-case class TransitOperation(
+case class IE015TransitOperation(
+  limitDate: Option[String]
+)
+
+object IE015TransitOperation {
+  implicit val formats: OFormat[IE015TransitOperation] = Json.format[IE015TransitOperation]
+}
+
+case class IE029TransitOperation(
   LRN: String,
   MRN: String,
   declarationType: DeclarationType,
@@ -39,6 +45,6 @@ case class TransitOperation(
   bindingItinerary: String
 )
 
-object TransitOperation {
-  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+object IE029TransitOperation {
+  implicit val formats: OFormat[IE029TransitOperation] = Json.format[IE029TransitOperation]
 }

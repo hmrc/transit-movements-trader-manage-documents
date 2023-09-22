@@ -18,14 +18,14 @@ package viewmodels
 
 import base.DepartureData
 import base.SpecBase
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import viewmodels.P5._
 
 class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
-  val ie029Data: IE029Data      = IE029Data(departureMessageData)
+  val ie029Data: IE029          = IE029(departureMessageData)
   val viewModel: TableViewModel = TableViewModel()(ie029Data)
 
   "table2ViewModelSpec" - {
@@ -40,7 +40,7 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
 
     "return comma seperated seal information and semi-colon seperated seals" in {
       val multipleSealsDM        = departureMessageData.copy(Consignment = consignmentWithMultipleSeals)
-      val ie029DataMultupleSeals = IE029Data(multipleSealsDM)
+      val ie029DataMultupleSeals = IE029(multipleSealsDM)
       val viewModelMultiSeals    = TableViewModel()(ie029DataMultupleSeals)
       viewModelMultiSeals.table2ViewModel.seals mustBe "1232,[ID10012]...456,[ID10045]"
     }
