@@ -498,7 +498,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         controlResults
       )
 
-      result.value mustEqual expectedResult
+      result.valid.value mustEqual expectedResult
     }
 
   }
