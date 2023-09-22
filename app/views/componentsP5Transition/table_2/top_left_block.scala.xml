@@ -2,7 +2,7 @@
 @import views.xml.components.table_2.item
 @import views.xml.components.second_page.item._
 
-@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItem])
+@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition])
 
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="1" wrap-option="wrap" padding-top="1mm">
     <fo:block>

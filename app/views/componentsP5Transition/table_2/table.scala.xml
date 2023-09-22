@@ -1,12 +1,12 @@
 @import cats.data.NonEmptyList
-@import views.xml.components.table_2.top_left_block
-@import views.xml.components.table_2.top_right_block
-@import views.xml.components.table_2.bottom_left_block
-@import views.xml.components.table_2.bottom_right_block
+@import views.xml.componentsP5Transition.table_2.top_left_block
+@import views.xml.componentsP5Transition.table_2.top_right_block
+@import views.xml.componentsP5Transition.table_2.bottom_left_block
+@import views.xml.componentsP5Transition.table_2.bottom_right_block
 
 @this()
 
-@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItem], grossMass: BigDecimal, printBindingItinerary: Boolean = false, authId: Option[String])
+@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], grossMass: BigDecimal, printBindingItinerary: Boolean = false, authId: Option[String])
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 2 -->
     <fo:table-column column-width="16mm"/>
@@ -31,7 +31,7 @@
 
         </fo:table-row>
 
-        <fo:table-row height="16mm"> <!-- S1 T2 ROW 4 -->
+        <fo:table-row height="12mm"> <!-- S1 T2 ROW 4 -->
 
             <!--Special mentions/ produced documents-->
             @bottom_right_block(printListOfItems, goodsItems)

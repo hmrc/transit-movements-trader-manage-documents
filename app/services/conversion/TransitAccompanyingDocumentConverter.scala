@@ -17,7 +17,6 @@
 package services.conversion
 
 import cats.data.NonEmptyList
-import cats.syntax.list._
 import cats.implicits._
 import models.P5.departure.IE029MessageData
 import models.P5.departure.IE029
@@ -27,8 +26,6 @@ import services._
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
 import viewmodels.PreviousDocumentType
-
-import java.time.LocalDate
 
 object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 
@@ -96,7 +93,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
     circumstanceIndicators: Seq[CircumstanceIndicator],
     customsOffices: Seq[CustomsOffice],
     controlResults: Seq[ControlResult]
-  ): ValidationResult[viewmodels.TransitAccompanyingDocumentPDF] = {
+  ): ValidationResult[viewmodels.TransitAccompanyingDocumentP5TransitionPDF] = {
 
     ie029.data match {
       case IE029MessageData(
@@ -113,7 +110,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
             consignment
           ) =>
         (
-          convertConsignor(consignment.Consignor.map(_.toP4), countries), // TODO unsure if we need this, it doesn't get printed in full anyways???
+          convertConsignor(consignment.Consignor.map(_.toP4), countries),
           convertConsignee(consignment.Consignee.map(_.toP4), countries)
         ).mapN {
           (consignor, consignee) =>
@@ -122,7 +119,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
               case _   => false
             }
 
-            viewmodels.TransitAccompanyingDocumentPDF(
+            viewmodels.TransitAccompanyingDocumentP5TransitionPDF(
               movementReferenceNumber = s"${transitOperation.MRN},${transitOperation.LRN}",      // P5
               declarationType = transitOperation.declarationType,                                // P5
               singleCountryOfDispatch = consignment.countryOfDispatch.map(Country(_, "")),       // P5
@@ -230,8 +227,8 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
               goodsItems = {
                 val goodsItemList = consignment.consignmentItems.map {
                   consignmentItem =>
-                    viewmodels.GoodsItem(
-                      itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
+                    viewmodels.GoodsItemP5Transition(
+                      itemNumber = s"${consignmentItem.goodsItemNumber},${consignmentItem.declarationGoodsItemNumber}",
                       commodityCode = Some(consignmentItem.commodityCode),
                       declarationType = DeclarationType.values.find(
                         declarationType => consignmentItem.declarationType.getOrElse("") == declarationType.toString
@@ -250,7 +247,8 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       ),
                       commercialReferenceNumber = None,
                       unDangerGoodsCode = None,
-                      producedDocuments = consignmentItem.allProducedDocuments,
+                      transportDocuments = consignmentItem.TransportDocument.getOrElse(Seq.empty),
+                      supportingDocuments = consignmentItem.SupportingDocument.getOrElse(Seq.empty),
                       previousDocumentTypes = consignmentItem.PreviousDocument
                         .map {
                           previousDocuments =>
@@ -290,6 +288,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                         .getOrElse(Seq.empty),
                       packages = consignmentItem.packagingFormat,
                       sensitiveGoodsInformation = Seq.empty,
+                      additionalReferences = consignmentItem.AdditionalReference.getOrElse(Seq.empty),
                       securityConsignor = None,
                       securityConsignee = None
                     )

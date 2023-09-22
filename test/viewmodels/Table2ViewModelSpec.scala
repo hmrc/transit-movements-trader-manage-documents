@@ -49,11 +49,11 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return comma seperated supportingDocument information" in {
-      viewModel.table2ViewModel.supportingDocument mustBe "Document-1, Type-1, Reference-1, 5, C1; Document-1, Type-1, Reference-1, 5, C1"
+      viewModel.table2ViewModel.supportingDocument mustBe "Document-1,Type-1,Reference-1,5,C1; Document-1,Type-1,Reference-1,5,C1"
     }
 
     "return transportDocument information" in {
-      viewModel.table2ViewModel.transportDocument mustBe "Document-1, Type-1, Reference-1; Document-1, Type-1, Reference-1"
+      viewModel.table2ViewModel.transportDocument mustBe "Document-1,Type-1,Reference-1; Document-1,Type-1,Reference-1"
     }
 
     "return additionalInformation information" in {
@@ -61,7 +61,7 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return additionalReference information" in {
-      viewModel.table2ViewModel.additionalReference mustBe "Document-1, Type-1, Reference-1; Document-1, Type-1, Reference-1"
+      viewModel.table2ViewModel.additionalReference mustBe "Document-1,Type-1,Reference-1; Document-1,Type-1,Reference-1"
     }
 
     "return transportCharges information" in {

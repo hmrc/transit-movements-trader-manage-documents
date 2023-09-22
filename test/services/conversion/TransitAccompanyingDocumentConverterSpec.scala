@@ -16,12 +16,15 @@
 
 package services.conversion
 
-import cats.data.NonEmptyList
 import base.DepartureData
+import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType.T1
+import models.P5.departure.AdditionalReference
 import models.P5.departure.IE029
+import models.P5.departure.SupportingDocument
+import models.P5.departure.TransportDocument
 import models._
 import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
@@ -385,7 +388,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
       val ieo29Data = IE029(departureMessageData)
 
-      val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
+      val expectedResult = viewmodels.TransitAccompanyingDocumentP5TransitionPDF(
         movementReferenceNumber = "MRN,LRN",
         declarationType = DeclarationType.T1,
         singleCountryOfDispatch = Some(countries.head),
@@ -425,8 +428,8 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         None,
         controlResult = controlResultP4,
         goodsItems = NonEmptyList.one(
-          viewmodels.GoodsItem(
-            itemNumber = "1T1/1",
+          viewmodels.GoodsItemP5Transition(
+            itemNumber = "1T1,1",
             commodityCode = Some("SHC1, NOMC1"),
             declarationType = Some(T1),
             description = "Tiles",
@@ -437,10 +440,8 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
             methodOfPayment = Some("payPal"),
             commercialReferenceNumber = None,
             unDangerGoodsCode = None,
-            producedDocuments = Seq(
-              viewmodels.ProducedDocument(DocumentType("Type-1", "", transportDocument = false), Some("Reference-1"), Some("C1")),
-              viewmodels.ProducedDocument(DocumentType("Type-1", "", transportDocument = true), Some("Reference-1"), None)
-            ),
+            transportDocuments = Seq(TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))),
+            supportingDocuments = Seq(SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))),
             previousDocumentTypes = Seq(
               PreviousDocumentType(
                 PreviousDocumentTypes("Document-1", None),
@@ -477,6 +478,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
               viewmodels.RegularPackage(KindOfPackage("Rubber", ""), 3, "RubberMark")
             ),
             sensitiveGoodsInformation = Seq.empty,
+            additionalReferences = Seq(AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))),
             securityConsignor = None,
             securityConsignee = None
           )
@@ -496,7 +498,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         controlResults
       )
 
-      result.value mustEqual expectedResult
+      result.valid.value mustEqual expectedResult
     }
 
   }

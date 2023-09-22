@@ -1,6 +1,6 @@
 @import cats.data.NonEmptyList
 
-@(goodsItems: NonEmptyList[viewmodels.GoodsItem])
+@(goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition])
 @if(goodsItems.head.packages.toList.nonEmpty) {
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="20mm"/>
