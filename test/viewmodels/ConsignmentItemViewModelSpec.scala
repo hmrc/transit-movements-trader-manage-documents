@@ -90,15 +90,15 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
     }
 
     "should return supportingDocumentString information" in {
-      viewModel.consignmentItem.map(_.supportingDocumentString) mustBe List("Document-1, Type-1, Reference-1, 5, C1")
+      viewModel.consignmentItem.map(_.supportingDocumentString) mustBe List("Document-1,Type-1,Reference-1,5,C1")
     }
 
     "should return transportDocumentString information" in {
-      viewModel.consignmentItem.map(_.transportDocumentString) mustBe List("Document-1, Type-1, Reference-1")
+      viewModel.consignmentItem.map(_.transportDocumentString) mustBe List("Document-1,Type-1,Reference-1")
     }
 
     "should return additionalReferenceString information" in {
-      viewModel.consignmentItem.map(_.additionalReferenceString) mustBe List("Document-1, Type-1, Reference-1")
+      viewModel.consignmentItem.map(_.additionalReferenceString) mustBe List("Document-1,Type-1,Reference-1")
     }
 
     "should return grossMass information" in {

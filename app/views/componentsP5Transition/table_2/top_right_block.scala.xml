@@ -1,6 +1,6 @@
 @import cats.data.NonEmptyList
 @import views.xml.components.second_page.item._
-@(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItem])
+@(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition])
 
 <fo:table-cell number-columns-spanned="2">
     <fo:block>

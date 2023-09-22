@@ -35,7 +35,7 @@ case class SupportingDocument(
       documentLineItemNumber.map(_.toString),
       complementOfInformation
     )
-    stringList.flatten.mkString(", ")
+    stringList.flatten.mkString(",")
   }
 }
 

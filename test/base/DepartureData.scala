@@ -17,14 +17,11 @@
 package base
 
 import models.DeclarationType.T1
-import models.P5.departure.TransportEquipment
 import models.P5.departure._
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.FormattedDate
 
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.Year
 
 trait DepartureData {
 

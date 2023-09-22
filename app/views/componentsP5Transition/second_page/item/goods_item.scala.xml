@@ -1,7 +1,7 @@
 @import views.xml.components.second_page.item._
 @import views.xml.components.{item => componentItem}
 
-@(goodsItem: viewmodels.GoodsItem, declarationType: DeclarationType, authId: Option[String])
+@(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: DeclarationType, authId: Option[String])
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
     <fo:table-column column-width="28mm"/>
@@ -114,11 +114,21 @@
                     <fo:table-body>
                         <fo:table-row>
                             <fo:table-cell padding-left="2mm">
-                                @if(goodsItem.producedDocuments.nonEmpty) {
-                                    @if(goodsItem.producedDocuments.length > 1) {
-                                        @block(s"${goodsItem.producedDocuments.head.transitionDisplay}...")
+                                @if(goodsItem.transportDocuments.nonEmpty) {
+                                    @if(goodsItem.transportDocuments.length > 1) {
+                                        @block(s"${goodsItem.transportDocuments.head.toString}...")
                                     } else {
-                                        @block(s"${goodsItem.producedDocuments.head.transitionDisplay}")
+                                        @block(s"${goodsItem.transportDocuments.head.toString}")
+                                    }
+                                } else {
+                                    <fo:block>--</fo:block>
+                                }
+
+                                @if(goodsItem.supportingDocuments.nonEmpty) {
+                                    @if(goodsItem.supportingDocuments.length > 1) {
+                                        @block(s"${goodsItem.supportingDocuments.head.toString}...")
+                                    } else {
+                                        @block(s"${goodsItem.supportingDocuments.head.toString}")
                                     }
                                 } else {
                                     <fo:block>--</fo:block>
@@ -129,6 +139,16 @@
                                         @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}...")
                                     } else {
                                         @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}")
+                                    }
+                                } else {
+                                    <fo:block>--</fo:block>
+                                }
+
+                                @if(goodsItem.additionalReferences.nonEmpty) {
+                                    @if(goodsItem.additionalReferences.length > 1) {
+                                        @block(s"${goodsItem.additionalReferences.head.toString}...")
+                                    } else {
+                                        @block(s"${goodsItem.additionalReferences.head.toString}")
                                     }
                                 } else {
                                     <fo:block>--</fo:block>

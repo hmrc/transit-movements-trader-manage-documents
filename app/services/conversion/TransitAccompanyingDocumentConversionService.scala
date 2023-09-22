@@ -34,9 +34,10 @@ import models.P5.departure.IE029Data
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.CustomsOfficeWithOptionalDate
+import viewmodels.TransitAccompanyingDocumentP5TransitionPDF
 import viewmodels.TransitAccompanyingDocumentPDF
-import java.time.LocalDate
 
+import java.time.LocalDate
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
@@ -129,7 +130,9 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
     )
   }
 
-  def fromP5ToViewModel(ie029: IE029Data)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentPDF]] = {
+  def fromP5ToViewModel(
+    ie029: IE029Data
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentP5TransitionPDF]] = {
 
     val countriesFuture: Future[ValidationResult[Seq[Country]]] = referenceDataP5.getList[Seq[Country]]("CountryCodesForAddress")
     val additionalInfoFuture: Future[ValidationResult[Seq[AdditionalInformation]]] =

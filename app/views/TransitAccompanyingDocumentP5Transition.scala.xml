@@ -13,7 +13,7 @@
         pageTwo: second_page.table
 )
 
-@(tadModel: viewmodels.TransitAccompanyingDocumentPDF)
+@(tadModel: viewmodels.TransitAccompanyingDocumentP5TransitionPDF)
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo =  if(tadModel.printListOfItems) {
