@@ -23,6 +23,7 @@ import services.conversion.TransitAccompanyingDocumentConversionService
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
 import views.xml.TransitAccompanyingDocumentP5
+import views.xml.TransitAccompanyingDocumentP5Transition
 import viewmodels.P5._
 
 import javax.inject.Inject
@@ -30,7 +31,8 @@ import javax.inject.Inject
 class TADPdfGenerator @Inject() (
   fop: PlayFop,
   document: TransitAccompanyingDocument,
-  documentP5: TransitAccompanyingDocumentP5
+  documentP5: TransitAccompanyingDocumentP5,
+  documentTransitionP5: TransitAccompanyingDocumentP5Transition
 ) {
 
   def generate(permission: TransitAccompanyingDocumentPDF): Array[Byte] = {
@@ -43,6 +45,13 @@ class TADPdfGenerator @Inject() (
   def generateP5TADPostTransition(ie029Data: IE029Data): Array[Byte] = {
 
     val renderedDocument = documentP5.render(TableViewModel()(ie029Data), ConsignmentItemViewModel()(ie029Data))
+
+    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
+  }
+
+  def generateP5TADTransition(permission: TransitAccompanyingDocumentPDF): Array[Byte] = {
+
+    val renderedDocument = documentTransitionP5.render(permission)
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }

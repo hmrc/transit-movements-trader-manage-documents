@@ -53,7 +53,7 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
           // TODO handle this better
           val genPdf: Future[Validated[NonEmptyChain[ValidationError], Array[Byte]]] = phaseConfig match {
             case _: PostTransitionConfig => Future.successful(Validated.Valid(pdf.generateP5TADPostTransition(ie029)))
-            case _                       => conversionService.fromP5ToViewModel(ie029).map(_.map(pdf.generate))
+            case _                       => conversionService.fromP5ToViewModel(ie029).map(_.map(pdf.generateP5TADTransition))
           }
 
           genPdf.map {
