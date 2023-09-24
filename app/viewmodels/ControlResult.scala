@@ -19,8 +19,6 @@ package viewmodels
 import models.reference.ControlResultData
 import utils.DateFormatter
 
-import java.time.LocalDate
-
 case class ControlResult(controlResultData: ControlResultData, controlResult: models.ControlResult) {
 
   lazy val isDescriptionAvailable: Boolean = controlResultData.description.nonEmpty

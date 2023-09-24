@@ -16,13 +16,10 @@
 
 package viewmodels.P5
 
-import models.P5.departure.Commodity
-import models.P5.departure.CommodityCode
 import models.P5.departure.ConsignmentItem
 import models.P5.departure.IE029
-import models.P5.departure.Packaging
 
-case class ConsignmentItemViewModel(implicit ie029Data: IE029) {
+case class ConsignmentItemViewModel()(implicit ie029Data: IE029) {
 
   val consignmentItem: Seq[ConsignmentItem] = ie029Data.data.Consignment.consignmentItems
 
