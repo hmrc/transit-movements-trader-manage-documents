@@ -25,7 +25,7 @@ import viewmodels.P5._
 
 class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
-  val ie029Data = IE029(departureMessageData)
+  val ie029Data = IE029(ie029MessageData)
   val viewModel = ConsignmentItemViewModel()(ie029Data)
 
   "ConsignmentItemViewModelSpec" - {

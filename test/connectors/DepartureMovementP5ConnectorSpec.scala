@@ -134,7 +134,7 @@ class DepartureMovementP5ConnectorSpec
 
     "must return ie029 data" in {
 
-      val ieo29Data = IE029(departureMessageData)
+      val ieo29Data = IE029(ie029MessageData)
 
       val json1 =
         s"""{

@@ -25,7 +25,7 @@ import org.scalatest.matchers.must.Matchers
 
 class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
-  val ie029Data = IE029(departureMessageData)
+  val ie029Data = IE029(ie029MessageData)
   val viewModel = TableViewModel()(ie029Data)
 
   "Table1ViewModelSpec" - {

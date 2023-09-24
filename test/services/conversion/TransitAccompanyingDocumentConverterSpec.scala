@@ -22,6 +22,7 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType.T1
 import models.P5.departure.AdditionalReference
+import models.P5.departure.IE015
 import models.P5.departure.IE029
 import models.P5.departure.SupportingDocument
 import models.P5.departure.TransportDocument
@@ -386,7 +387,8 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
     "must return a view model when all of the necessary reference data can be found" in {
 
-      val ieo29Data = IE029(departureMessageData)
+      val ieo29Data = IE029(ie029MessageData)
+      val ieo15Data = IE015(ie015MessageData)
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentP5TransitionPDF(
         movementReferenceNumber = "MRN,LRN",
@@ -395,6 +397,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         singleCountryOfDestination = Some(countries.last),
         transportIdentity = Some("Actor-Role,ID001,TYPE01"),
         transportCountry = Some(countries.head),
+        limitDate = "2010-11-15",
         acceptanceDate = Some(FormattedDate(LocalDate.of(2020, 1, 1))),
         numberOfItems = 1,
         numberOfPackages = Some(3),
@@ -487,6 +490,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
       val result = TransitAccompanyingDocumentConverter.fromP5ToViewModel(
         ieo29Data,
+        ieo15Data,
         countries,
         additionalInfo,
         kindsOfPackage,

@@ -30,7 +30,7 @@ trait DepartureData {
   val mrn: MovementReferenceNumber = MovementReferenceNumber("MRN")
   implicit val hc: HeaderCarrier   = HeaderCarrier()
 
-  val transitOperation: IE029TransitOperation =
+  val ie029TransitOperation: IE029TransitOperation =
     IE029TransitOperation(
       "LRN",
       "MRN",
@@ -44,6 +44,11 @@ trait DepartureData {
       Some("SCI"),
       Some("english"),
       "1"
+    )
+
+  val ie015TransitOperation: IE015TransitOperation =
+    IE015TransitOperation(
+      Some("2010-11-15")
     )
 
   val address: Address             = Address("Address Line 1", Some("Address Line 2"), "Address Line 3", "GB")
@@ -199,9 +204,9 @@ trait DepartureData {
 
   val consignmentWithMultipleSeals = consigmment.copy(TransportEquipment = Some(List(transportEquipments)))
 
-  val departureMessageData: IE029MessageData =
+  val ie029MessageData: IE029MessageData =
     IE029MessageData(
-      transitOperation,
+      ie029TransitOperation,
       Some(List(authorisation)),
       customsOfficeOfDeparture,
       customsOfficeOfDestinationDeclared,
@@ -209,8 +214,13 @@ trait DepartureData {
       Some(List(customsOfficeOfExitForTransitDeclared)),
       holderOfTheTransitProcedure,
       representative,
-      controlResult,
+      Some(controlResult),
       Some(List(guarantee)),
       consigmment
+    )
+
+  val ie015MessageData: IE015MessageData =
+    IE015MessageData(
+      ie015TransitOperation
     )
 }
