@@ -36,7 +36,7 @@ case class IE029MessageData(
   CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
   HolderOfTheTransitProcedure: HolderOfTransitProcedure,
   Representative: Representative,
-  ControlResult: ControlResult,
+  ControlResult: Option[ControlResult],
   Guarantee: Option[List[Guarantee]],
   Consignment: Consignment
 ) extends MessageData {

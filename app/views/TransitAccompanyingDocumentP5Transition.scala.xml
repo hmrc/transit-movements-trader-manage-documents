@@ -72,5 +72,5 @@
     )
 
     <!--control by office of departure/destination-->
-    @table5(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult)
+    @table5(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult, tadModel.limitDate)
 }

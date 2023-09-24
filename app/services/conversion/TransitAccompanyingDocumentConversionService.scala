@@ -20,6 +20,7 @@ import cats.data.Validated.Invalid
 import cats.implicits._
 import connectors.ReferenceDataConnector
 import connectors.ReferenceDataP5Connector
+import models.P5.departure.IE015
 import models.P5.departure.IE029
 import models.reference._
 import services.ValidationResult
@@ -120,7 +121,8 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
   }
 
   def fromP5ToViewModel(
-    ie029: IE029
+    ie029: IE029,
+    ie015: IE015
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentP5TransitionPDF]] = {
 
     val countriesFuture: Future[ValidationResult[Seq[Country]]] = referenceDataP5.getList[Seq[Country]]("CountryCodesForAddress")
@@ -174,6 +176,7 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
         ) =>
           TransitAccompanyingDocumentConverter.fromP5ToViewModel(
             ie029,
+            ie015,
             countriesForAddress,
             additionalInfo,
             kindsOfPackage,

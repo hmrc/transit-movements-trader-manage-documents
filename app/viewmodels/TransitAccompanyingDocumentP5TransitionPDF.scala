@@ -29,6 +29,7 @@ final case class TransitAccompanyingDocumentP5TransitionPDF(
   singleCountryOfDestination: Option[Country],
   transportIdentity: Option[String],
   transportCountry: Option[Country],
+  limitDate: String,
   acceptanceDate: Option[FormattedDate],
   numberOfItems: Int,
   numberOfPackages: Option[Int],

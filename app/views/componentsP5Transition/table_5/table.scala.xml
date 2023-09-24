@@ -1,9 +1,11 @@
 @import views.xml.components.table_5.control_results
 @import viewmodels.ControlResult
+        @import java.time.format.DateTimeFormatter
+@import java.time.LocalDate
 
 @this()
 
-@(seals: Seq[String], bindingItinerary: Boolean =  false, controlResult: Option[ControlResult] = None)
+@(seals: Seq[String], bindingItinerary: Boolean =  false, controlResult: Option[ControlResult] = None, limitDate: String)
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 5 -->
     <fo:table-column column-width="93mm"/>
@@ -92,7 +94,11 @@
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" font-weight="bold">
                                     <fo:block>
-                                        @controlResult.map(_.formattedDate)
+                                        @if(limitDate.length >0) {
+                                            @LocalDate.parse(limitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                                        } else {
+                                            @limitDate
+                                        }
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>

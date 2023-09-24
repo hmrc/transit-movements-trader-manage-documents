@@ -18,8 +18,9 @@ package services.conversion
 
 import cats.data.NonEmptyList
 import cats.implicits._
-import models.P5.departure.IE029MessageData
+import models.P5.departure.IE015
 import models.P5.departure.IE029
+import models.P5.departure.IE029MessageData
 import models._
 import models.reference._
 import services._
@@ -84,6 +85,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
 
   def fromP5ToViewModel(
     ie029: IE029,
+    ie015: IE015,
     countries: Seq[Country],
     additionalInformation: Seq[AdditionalInformation],
     kindsOfPackages: Seq[KindOfPackage],
@@ -135,6 +137,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                       }
                       .getOrElse("")
                 ),
+              limitDate = ie015.data.TransitOperation.limitDate.getOrElse(""),
               acceptanceDate = transitOperation.declarationAcceptanceDate.map(FormattedDate(_)), // P5
               numberOfItems = consignment.totalItems,
               numberOfPackages = Some(consignment.totalPackages),
@@ -223,7 +226,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                 case _ => Nil
               }, // P5
               None,
-              controlResult = Some(controlResult.toP4),
+              controlResult = controlResult.map(_.toP4),
               goodsItems = {
                 val goodsItemList = consignment.consignmentItems.map {
                   consignmentItem =>

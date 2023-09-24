@@ -54,7 +54,7 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
             ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
             genPdf <- phaseConfig.phase match {
               case PostTransition => Future.successful(Validated.Valid(pdf.generateP5TADPostTransition(ie029)))
-              case Transition     => conversionService.fromP5ToViewModel(ie029).map(_.map(pdf.generateP5TADTransition))
+              case Transition     => conversionService.fromP5ToViewModel(ie029, ie015).map(_.map(pdf.generateP5TADTransition))
             }
           } yield genPdf match {
             case Validated.Valid(arrayByte) =>
