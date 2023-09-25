@@ -20,11 +20,11 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class CustomsOfficeOfDestinationDeclared(
-  referenceNumber: Option[String]
+  referenceNumber: String
 ) {
 
   override def toString: String =
-    referenceNumber.getOrElse("")
+    referenceNumber
 }
 
 object CustomsOfficeOfDestinationDeclared {

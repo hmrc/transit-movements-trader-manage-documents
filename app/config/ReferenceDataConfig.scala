@@ -16,7 +16,6 @@
 
 package config
 
-import models.Service
 import play.api.Configuration
 
 import javax.inject.Inject

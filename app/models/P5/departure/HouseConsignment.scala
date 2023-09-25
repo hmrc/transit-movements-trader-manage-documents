@@ -20,25 +20,27 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class HouseConsignment(
-  ConsignmentItem: Seq[ConsignmentItem],
+  sequenceNumber: String,
+  countryOfDispatch: Option[String],
+  grossMass: Double,
+  referenceNumberUCR: Option[String],
+  securityIndicatorFromExport: Option[String],
   Consignor: Option[Consignor],
   Consignee: Option[Consignee],
+  AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
+  DepartureTransportMeans: Option[List[DepartureTransportMeans]],
   PreviousDocument: Option[List[PreviousDocument]],
   TransportDocument: Option[List[TransportDocument]],
   SupportingDocument: Option[List[SupportingDocument]],
-  AdditionalInformation: Option[List[AdditionalInformation]],
   AdditionalReference: Option[List[AdditionalReference]],
+  AdditionalInformation: Option[List[AdditionalInformation]],
   TransportCharges: Option[TransportCharges],
-  grossMass: Double,
-  countryOfDispatch: Option[String],
-  referenceNumberUCR: Option[String]
+  ConsignmentItem: Seq[ConsignmentItem]
 ) {
 
-  val totalPackages: Int = ConsignmentItem.foldLeft(0)(
-    (total, item) => total + item.totalPackages
-  )
-
   val totalItems: Int = ConsignmentItem.length
+
+  val totalPackages: Int = ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
 
   val previousDocumentInHC: Option[String] = PreviousDocument.map(_.showAll)
 

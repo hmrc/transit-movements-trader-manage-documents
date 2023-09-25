@@ -86,7 +86,7 @@ class UnloadingPermissionPdfGeneratorSpec
 object UnloadingPermissionPdfGeneratorConstants {
 
   private val goodsItem = GoodsItem(
-    itemNumber = 1,
+    itemNumber = "1",
     commodityCode = None,
     declarationType = None,
     description = "Flowers",
@@ -110,7 +110,7 @@ object UnloadingPermissionPdfGeneratorConstants {
   )
 
   private val goodsItem1 = GoodsItem(
-    itemNumber = 2,
+    itemNumber = "2",
     commodityCode = None,
     declarationType = None,
     description = "Vases",

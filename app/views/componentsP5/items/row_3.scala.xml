@@ -25,7 +25,7 @@
 
                     <fo:table-row height="6mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block>@item.consignee</fo:block>
+                            <fo:block>@item.Consignee</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">

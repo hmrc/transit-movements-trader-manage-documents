@@ -21,15 +21,8 @@ import play.api.libs.json.OFormat
 
 case class AdditionalReference(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String]) {
 
-  override def toString: String = {
+  override def toString: String = s"${sequenceNumber.getOrElse("")},${`type`.getOrElse("")},${referenceNumber.getOrElse("")}"
 
-    val stringList: Seq[Option[String]] = List(
-      sequenceNumber,
-      `type`,
-      referenceNumber
-    )
-    stringList.flatten.mkString(", ")
-  }
 }
 
 object AdditionalReference {

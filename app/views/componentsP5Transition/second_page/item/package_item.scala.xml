@@ -1,0 +1,15 @@
+@(packageItem: viewmodels.Package)
+
+<fo:block>
+    <fo:inline font-style="italic">
+        @packageItem.packageAndNumber.getOrElse(packageItem.kindOfPackage.code)
+    </fo:inline>
+</fo:block>
+
+@if(packageItem.numberOfPiecesValue > 0) {
+    <fo:block font-weight="normal">
+        <fo:inline font-weight="bold">
+            Pieces @packageItem.numberOfPiecesValue
+        </fo:inline>
+    </fo:block>
+}

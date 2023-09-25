@@ -16,19 +16,35 @@
 
 package models.P5.departure
 
+import models.DeclarationType
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TransitOperation(
-  MRN: String,
-  LRN: String,
-  declarationType: String,
-  additionalDeclarationType: String,
-  security: String,
-  TIRCarnetNumber: Option[String],
-  specificCircumstanceIndicator: Option[String]
+import java.time.LocalDate
+
+case class IE015TransitOperation(
+  limitDate: Option[String]
 )
 
-object TransitOperation {
-  implicit val formats: OFormat[TransitOperation] = Json.format[TransitOperation]
+object IE015TransitOperation {
+  implicit val formats: OFormat[IE015TransitOperation] = Json.format[IE015TransitOperation]
+}
+
+case class IE029TransitOperation(
+  LRN: String,
+  MRN: String,
+  declarationType: DeclarationType,
+  additionalDeclarationType: String,
+  TIRCarnetNumber: Option[String],
+  declarationAcceptanceDate: Option[LocalDate],
+  releaseDate: LocalDate,
+  security: String,
+  reducedDatasetIndicator: String,
+  specificCircumstanceIndicator: Option[String],
+  communicationLanguageAtDeparture: Option[String],
+  bindingItinerary: String
+)
+
+object IE029TransitOperation {
+  implicit val formats: OFormat[IE029TransitOperation] = Json.format[IE029TransitOperation]
 }

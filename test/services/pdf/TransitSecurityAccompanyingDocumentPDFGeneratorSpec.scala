@@ -234,7 +234,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
     Some(ControlResult(ControlResultData("A2", "Considered satisfactory"), models.ControlResult("A2", LocalDate.parse("2021-03-14")))),
     NonEmptyList.of(
       GoodsItem(
-        1,
+        "1",
         None,
         Some(T2),
         "Jet Ski props",
@@ -257,7 +257,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
         Some(SecurityConsignee(None, None, None, None, None, Some("GB602070107000")))
       ),
       GoodsItem(
-        2,
+        "2",
         None,
         Some(T2),
         "Surf boards",
@@ -280,7 +280,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
         Some(SecurityConsignee(None, None, None, None, None, Some("GB602070107000")))
       ),
       GoodsItem(
-        3,
+        "3",
         None,
         Some(T2),
         "Kite surf boards",

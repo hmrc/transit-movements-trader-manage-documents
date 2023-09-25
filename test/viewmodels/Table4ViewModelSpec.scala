@@ -18,14 +18,14 @@ package viewmodels
 
 import base.DepartureData
 import base.SpecBase
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import viewmodels.P5._
 
 class Table4ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
-  val ie029Data: IE029Data       = IE029Data(departureMessageData)
+  val ie029Data: IE029           = IE029(ie029MessageData)
   val viewModel: Table4ViewModel = Table4ViewModel()(ie029Data)
 
   "table4ViewModelSpec" - {
@@ -35,27 +35,27 @@ class Table4ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "should return customsOfficeOfTransitDeclared information" in {
-      viewModel.customsOfficeOfTransitDeclared mustBe "seq001, ref001, -999999999-01-01T00:00"
+      viewModel.customsOfficeOfTransitDeclared mustBe "seq001, AD000002, -999999999-01-01T00:00"
     }
 
     "should return customsOfficeOfExitForTransitDeclared information" in {
-      viewModel.customsOfficeOfExitForTransitDeclared mustBe "seq001, ref001"
+      viewModel.customsOfficeOfExitForTransitDeclared mustBe "seq001, AD000002"
     }
 
     "should return customsOfficeOfDeparture information" in {
-      viewModel.customsOfficeOfDeparture mustBe "Ref001"
+      viewModel.customsOfficeOfDeparture mustBe "AD000002"
     }
 
     "should return customsOfficeOfDestinationDeclared information" in {
-      viewModel.customsOfficeOfDestinationDeclared mustBe "Ref001"
+      viewModel.customsOfficeOfDestinationDeclared mustBe "AT240000"
     }
 
     "should return countryOfDispatch information" in {
-      viewModel.countryOfDispatch mustBe "GER"
+      viewModel.countryOfDispatch mustBe "GB"
     }
 
     "should return countryOfDestination information" in {
-      viewModel.countryOfDestination mustBe "GB"
+      viewModel.countryOfDestination mustBe "GE"
     }
 
   }

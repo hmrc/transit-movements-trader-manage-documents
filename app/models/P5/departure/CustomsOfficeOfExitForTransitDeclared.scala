@@ -19,8 +19,6 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-import java.time.LocalDateTime
-
 case class CustomsOfficeOfExitForTransitDeclared(
   sequenceNumber: Option[String],
   referenceNumber: Option[String]

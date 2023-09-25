@@ -88,7 +88,7 @@ class GoodsItemConverterSpec extends AnyFreeSpec with Matchers with ValidatedMat
       )
 
       val expectedViewModel = viewmodels.GoodsItem(
-        itemNumber = 1,
+        itemNumber = "1",
         commodityCode = None,
         declarationType = None,
         description = "Description",

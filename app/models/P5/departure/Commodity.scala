@@ -21,10 +21,10 @@ import play.api.libs.json.OFormat
 
 case class Commodity(
   descriptionOfGoods: String,
-  CommodityCode: Option[CommodityCode],
-  GoodsMeasure: GoodsMeasure,
   cusCode: Option[String],
-  DangerousGoods: Option[List[DangerousGoods]]
+  CommodityCode: Option[CommodityCode],
+  DangerousGoods: Option[List[DangerousGoods]],
+  GoodsMeasure: GoodsMeasure
 )
 
 object Commodity {

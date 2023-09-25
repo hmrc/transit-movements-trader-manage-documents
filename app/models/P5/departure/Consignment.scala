@@ -16,77 +16,84 @@
 
 package models.P5.departure
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class Consignment(
-  grossMass: Double,
-  inlandModeOfTransport: Option[String],
-  modeOfTransportAtTheBorder: Option[String],
   countryOfDispatch: Option[String],
   countryOfDestination: Option[String],
+  containerIndicator: String,
+  inlandModeOfTransport: Option[String],
+  modeOfTransportAtTheBorder: Option[String],
+  grossMass: Double,
   referenceNumberUCR: Option[String],
+  carrier: Option[Carrier],
   Consignor: Option[Consignor],
   Consignee: Option[Consignee],
-  Carrier: Option[Carrier],
-  Document: Document,
-  LocationOfGoods: Option[LocationOfGoods],
   AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
-  DepartureTransportMeans: Option[List[DepartureTransportMeans]],
   TransportEquipment: Option[List[TransportEquipment]],
+  LocationOfGoods: Option[LocationOfGoods],
+  DepartureTransportMeans: Option[List[DepartureTransportMeans]],
+  CountryOfRoutingOfConsignment: Option[List[CountryOfRoutingOfConsignment]],
   ActiveBorderTransportMeans: Option[List[ActiveBorderTransportMeans]],
   PlaceOfLoading: Option[PlaceOfLoading],
   PlaceOfUnloading: Option[PlaceOfUnloading],
-  HouseConsignment: Seq[HouseConsignment],
-  AdditionalInformation: Option[List[AdditionalInformation]],
+  PreviousDocument: Option[List[PreviousDocument]],
+  TransportDocument: Option[List[TransportDocument]],
+  SupportingDocument: Option[List[SupportingDocument]],
   AdditionalReference: Option[List[AdditionalReference]],
+  AdditionalInformation: Option[List[AdditionalInformation]],
   TransportCharges: Option[TransportCharges],
-  CountryOfRoutingOfConsignment: Option[List[CountryOfRoutingOfConsignment]]
+  HouseConsignment: Seq[HouseConsignment]
 ) {
 
   val totalPackages: Int = HouseConsignment.foldLeft(0)(
-    (total, houseConsignments) => total + houseConsignments.totalPackages
+    (total, houseConsignment) => total + houseConsignment.totalPackages
   )
 
   val totalItems: Int = HouseConsignment.foldLeft(0)(
-    (total, houseConsignments) => total + houseConsignments.totalItems
+    (total, HouseConsignment) => total + HouseConsignment.totalItems
   )
 
   val additionalSupplyChainActorsRole: Option[String] = AdditionalSupplyChainActor.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val additionalSupplyChainActorIdentificationNumbers: Option[String] = AdditionalSupplyChainActor.map {
+  val additionalSupplyChainActorIdentificationNumbers: Option[String] = AdditionalSupplyChainActor.map(
     _.map(_.identificationNumber).mkString("; ")
-  }
+  )
 
-  val departureTransportMeans: Option[String] = DepartureTransportMeans.map(
+  val departureTransportMeansIdentity: Option[String] =
+    DepartureTransportMeans.map {
+      departureTransportMeansList =>
+        departureTransportMeansList.length match {
+          case 1 => s"${departureTransportMeansList.head.toString}"
+          case _ => s"${departureTransportMeansList.head.toString}..."
+        }
+    }
+
+  val transportEquipmentDisplay: Option[String] = TransportEquipment.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val transportEquipment: Option[String] = TransportEquipment.map(
+  val sealsString: Option[String] = TransportEquipment.map(
+    _.flatMap(_.sealsList).mkString("...")
+  )
+
+  val additionalInformationDisplay: Option[String] = AdditionalInformation.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val seals: Option[String] = TransportEquipment.map(
-    _.map(_.seal).mkString("; ")
-  )
-
-  val additionalInformation: Option[String] = AdditionalInformation.map(
+  val additionalReferenceDisplay: Option[String] = AdditionalReference.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val additionalReference: Option[String] = AdditionalReference.map(
+  val transportChargesDisplay: Option[String] = TransportCharges.map(_.toString)
+
+  val activeBorderTransportMeansDisplay: Option[String] = ActiveBorderTransportMeans.map(
     _.map(_.toString).mkString("; ")
   )
 
-  val transportCharges: Option[String] = TransportCharges.map(_.toString)
-
-  val activeBorderTransportMeans: Option[String] = ActiveBorderTransportMeans.map(
-    _.map(_.toString).mkString("; ")
-  )
-
-  val countryOfRoutingOfConsignment: Option[String] = CountryOfRoutingOfConsignment.map(
+  val countryOfRoutingOfConsignmentDisplay: Option[String] = CountryOfRoutingOfConsignment.map(
     _.map(_.toString).mkString("; ")
   )
 
@@ -94,39 +101,103 @@ case class Consignment(
     _.map(_.conveyanceReferenceNumberToString).mkString("; ")
   )
 
+  val previousDocument: Option[String] = PreviousDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val supportingDocument: Option[String] = SupportingDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+  val transportDocument: Option[String] = TransportDocument.map(
+    _.map(_.toString).mkString("; ")
+  )
+
+//  val seals: Seq[String] = TransportEquipment.getOrElse(Nil).map(_.seals).showAllSeal
+
   val consignmentItems: Seq[ConsignmentItem] = HouseConsignment.foldLeft(Seq.empty[ConsignmentItem]) {
-    (acc, house) => acc ++ house.ConsignmentItem.map(_.copy(Consignor = house.Consignor, DepartureTransportMeans = DepartureTransportMeans))
+    (acc, house) =>
+      acc ++ house.ConsignmentItem.map(
+        _.copy(
+          countryOfDispatch = countryOfDispatch,
+          countryOfDestination = countryOfDestination,
+          referenceNumberUCR = referenceNumberUCR,
+          AdditionalSupplyChainActor = AdditionalSupplyChainActor,
+          AdditionalInformation = AdditionalInformation,
+          AdditionalReference = AdditionalReference,
+          TransportCharges = TransportCharges
+        )
+      )
   }
 
 }
 
 object Consignment {
 
-  implicit lazy val reads: Reads[Consignment] = (
-    (__ \ "grossMass").read[Double] and
-      (__ \ "inlandModeOfTransport").readNullable[String] and
-      (__ \ "modeOfTransportAtTheBorder").readNullable[String] and
-      (__ \ "countryOfDispatch").readNullable[String] and
-      (__ \ "countryOfDestination").readNullable[String] and
-      (__ \ "referenceNumberUCR").readNullable[String] and
-      (__ \ "Consignor").readNullable[Consignor] and
-      (__ \ "Consignee").readNullable[Consignee] and
-      (__ \ "Carrier").readNullable[Carrier] and
-      (__.read[Document]) and
-      (__ \ "LocationOfGoods").readNullable[LocationOfGoods] and
-      (__ \ "AdditionalSupplyChainActor").readNullable[List[AdditionalSupplyChainActor]] and
-      (__ \ "DepartureTransportMeans").readNullable[List[DepartureTransportMeans]] and
-      (__ \ "TransportEquipment").readNullable[List[TransportEquipment]] and
-      (__ \ "ActiveBorderTransportMeans").readNullable[List[ActiveBorderTransportMeans]] and
-      (__ \ "PlaceOfLoading").readNullable[PlaceOfLoading] and
-      (__ \ "PlaceOfUnloading").readNullable[PlaceOfUnloading] and
-      (__ \ "HouseConsignment").read[Seq[HouseConsignment]] and
-      (__ \ "AdditionalInformation").readNullable[List[AdditionalInformation]] and
-      (__ \ "AdditionalReference").readNullable[List[AdditionalReference]] and
-      (__ \ "TransportCharges").readNullable[TransportCharges] and
-      (__ \ "CountryOfRoutingOfConsignment").readNullable[List[CountryOfRoutingOfConsignment]]
-  )(Consignment.apply _)
+  implicit val consignmentReads: Reads[Consignment] = new Reads[Consignment] {
 
-  implicit val writes: Writes[Consignment] = Json.writes[Consignment]
+    override def reads(json: JsValue): JsResult[Consignment] =
+      JsSuccess(
+        Consignment(
+          (json \ "countryOfDispatch").asOpt[String],
+          (json \ "countryOfDestination").asOpt[String],
+          (json \ "containerIndicator").as[String],
+          (json \ "inlandModeOfTransport").asOpt[String],
+          (json \ "modeOfTransportAtTheBorder").asOpt[String],
+          (json \ "grossMass").as[Double],
+          (json \ "referenceNumberUCR").asOpt[String],
+          (json \ "carrier").asOpt[Carrier],
+          (json \ "Consignor").asOpt[Consignor],
+          (json \ "Consignee").asOpt[Consignee],
+          (json \ "AdditionalSupplyChainActor").asOpt[List[AdditionalSupplyChainActor]],
+          (json \ "TransportEquipment").asOpt[List[TransportEquipment]],
+          (json \ "LocationOfGoods").asOpt[LocationOfGoods],
+          (json \ "DepartureTransportMeans").asOpt[List[DepartureTransportMeans]],
+          (json \ "CountryOfRoutingOfConsignment").asOpt[List[CountryOfRoutingOfConsignment]],
+          (json \ "ActiveBorderTransportMeans").asOpt[List[ActiveBorderTransportMeans]],
+          (json \ "PlaceOfLoading").asOpt[PlaceOfLoading],
+          (json \ "PlaceOfUnloading").asOpt[PlaceOfUnloading],
+          (json \ "PreviousDocument").asOpt[List[PreviousDocument]],
+          (json \ "TransportDocument").asOpt[List[TransportDocument]],
+          (json \ "SupportingDocument").asOpt[List[SupportingDocument]],
+          (json \ "AdditionalReference").asOpt[List[AdditionalReference]],
+          (json \ "AdditionalInformation").asOpt[List[AdditionalInformation]],
+          (json \ "TransportCharges").asOpt[TransportCharges],
+          (json \ "HouseConsignment").as[Seq[HouseConsignment]]
+        )
+      )
+  }
+
+  implicit val consignmentWrites: Writes[Consignment] = new Writes[Consignment] {
+
+    override def writes(consignment: Consignment): JsValue =
+      Json.obj(
+        "countryOfDispatch"             -> consignment.countryOfDispatch,
+        "countryOfDestination"          -> consignment.countryOfDestination,
+        "containerIndicator"            -> consignment.containerIndicator,
+        "inlandModeOfTransport"         -> consignment.inlandModeOfTransport,
+        "modeOfTransportAtTheBorder"    -> consignment.modeOfTransportAtTheBorder,
+        "grossMass"                     -> consignment.grossMass,
+        "referenceNumberUCR"            -> consignment.referenceNumberUCR,
+        "carrier"                       -> consignment.carrier,
+        "Consignor"                     -> consignment.Consignor,
+        "Consignee"                     -> consignment.Consignee,
+        "AdditionalSupplyChainActor"    -> consignment.AdditionalSupplyChainActor,
+        "TransportEquipment"            -> consignment.TransportEquipment,
+        "LocationOfGoods"               -> consignment.LocationOfGoods,
+        "DepartureTransportMeans"       -> consignment.DepartureTransportMeans,
+        "CountryOfRoutingOfConsignment" -> consignment.CountryOfRoutingOfConsignment,
+        "ActiveBorderTransportMeans"    -> consignment.ActiveBorderTransportMeans,
+        "PlaceOfLoading"                -> consignment.PlaceOfLoading,
+        "PlaceOfUnloading"              -> consignment.PlaceOfUnloading,
+        "PreviousDocument"              -> consignment.PreviousDocument,
+        "TransportDocument"             -> consignment.TransportDocument,
+        "SupportingDocument"            -> consignment.SupportingDocument,
+        "AdditionalReference"           -> consignment.AdditionalReference,
+        "AdditionalInformation"         -> consignment.AdditionalInformation,
+        "TransportCharges"              -> consignment.TransportCharges,
+        "HouseConsignment"              -> consignment.HouseConsignment
+      )
+  }
 
 }

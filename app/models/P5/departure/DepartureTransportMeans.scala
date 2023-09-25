@@ -20,15 +20,14 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class DepartureTransportMeans(
+  sequenceNumber: String,
   typeOfIdentification: String,
   identificationNumber: String,
-  nationality: Option[String]
+  nationality: String
 ) {
 
-  override def toString: String = {
-    val stringList: Seq[Option[String]] = List(Some(typeOfIdentification), Some(identificationNumber), nationality)
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = s"$sequenceNumber,$typeOfIdentification,$identificationNumber"
+
 }
 
 object DepartureTransportMeans {

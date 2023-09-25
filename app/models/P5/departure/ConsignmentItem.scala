@@ -16,63 +16,96 @@
 
 package models.P5.departure
 
+import cats.data.NonEmptyList
+import models.reference.DocumentType
+import models.reference.KindOfPackage
+import viewmodels.BulkPackage
+import viewmodels.ProducedDocument
+import viewmodels.RegularPackage
+import viewmodels.UnpackedPackage
+import models.P5.departure.{Packaging => PackagingP5}
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class ConsignmentItem(
+  goodsItemNumber: String,
+  declarationGoodsItemNumber: Int,
   declarationType: Option[String],
   countryOfDispatch: Option[String],
   countryOfDestination: Option[String],
-  Consignor: Option[Consignor],
-  Consignee: Option[Consignee],
-  goodsItemNumber: String,
-  declarationGoodsItemNumber: Int,
-  Packaging: Seq[Packaging],
-  Commodity: Commodity,
   referenceNumberUCR: Option[String],
-  TransportCharges: Option[TransportCharges],
+  Consignee: Option[Consignee],
+  AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
+  Commodity: Commodity,
+  Packaging: Seq[Packaging],
   PreviousDocument: Option[List[PreviousDocument]],
   SupportingDocument: Option[List[SupportingDocument]],
   TransportDocument: Option[List[TransportDocument]],
   AdditionalReference: Option[List[AdditionalReference]],
   AdditionalInformation: Option[List[AdditionalInformation]],
-  AdditionalSupplyChainActor: Option[List[AdditionalSupplyChainActor]],
-  DepartureTransportMeans: Option[List[DepartureTransportMeans]]
+  TransportCharges: Option[TransportCharges]
 ) {
   val declarationTypeString: String            = declarationType.getOrElse("")
   val countryOfDispatchString: String          = countryOfDispatch.getOrElse("")
   val countryOfDestinationString: String       = countryOfDestination.getOrElse("")
-  val consignor: String                        = Consignor.map(_.toString).getOrElse("")
-  val consignee: String                        = Consignee.map(_.toString).getOrElse("")
+  val consigneeFormat: String                  = Consignee.map(_.toString).getOrElse("")
   val goodsItemNumberString: String            = goodsItemNumber
   val declarationGoodsItemNumberString: String = declarationGoodsItemNumber.toString
-  val packaging: String                        = Packaging.showAll
   val referenceNumberUCRString: String         = referenceNumberUCR.getOrElse("")
 
-  val transportCharges: String            = TransportCharges.map(_.toString).getOrElse("")
-  val additionalSupplyChainActor: String  = AdditionalSupplyChainActor.map(_.showAll).getOrElse("")
-  val commodityCode: String               = Commodity.CommodityCode.map(_.toString).getOrElse("")
-  val departureTransportMeans: String     = DepartureTransportMeans.map(_.showAll).getOrElse("")
-  val dangerousGoods: String              = Commodity.DangerousGoods.map(_.showAll).getOrElse("")
-  val cusCode: String                     = Commodity.cusCode.getOrElse("")
-  val descriptionOfGoods: String          = Commodity.descriptionOfGoods
-  val previousDocumentString: String      = PreviousDocument.map(_.showAll).getOrElse("")
-  val supportingDocumentString: String    = SupportingDocument.map(_.showAll).getOrElse("")
-  val transportDocumentString: String     = TransportDocument.map(_.showAll).getOrElse("")
-  val additionalReferenceString: String   = AdditionalReference.map(_.showAll).getOrElse("")
-  val additionalInformationString: String = AdditionalInformation.map(_.showAll).getOrElse("")
+  val transportChargesFormat: String           = TransportCharges.map(_.toString).getOrElse("")
+  val additionalSupplyChainActorFormat: String = AdditionalSupplyChainActor.map(_.showAll).getOrElse("")
+  val commodityCode: String                    = Commodity.CommodityCode.map(_.toString).getOrElse("")
+  val dangerousGoods: String                   = Commodity.DangerousGoods.map(_.showAll).getOrElse("")
+  val cusCode: String                          = Commodity.cusCode.getOrElse("")
+  val descriptionOfGoods: String               = Commodity.descriptionOfGoods
+  val previousDocumentString: String           = PreviousDocument.map(_.showAll).getOrElse("")
+  val supportingDocumentString: String         = SupportingDocument.map(_.showAll).getOrElse("")
+  val transportDocumentString: String          = TransportDocument.map(_.showAll).getOrElse("")
+  val additionalReferenceString: String        = AdditionalReference.map(_.showAll).getOrElse("")
+  val additionalInformationString: String      = AdditionalInformation.map(_.showAll).getOrElse("")
 
   val grossMass: String          = Commodity.GoodsMeasure.grossMass.toString
   val netMass: String            = Commodity.GoodsMeasure.netMass.getOrElse("").toString
-  val consignorId: String        = Consignor.flatMap(_.identificationNumber).getOrElse("")
   val consigneeId: String        = Consignee.flatMap(_.identificationNumber).getOrElse("")
   val supplyChainActorId: String = AdditionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
 
-  val totalPackages: Int = Packaging.foldLeft(0)(
-    (total, packaging) => total + packaging.numberOfPackages.getOrElse(0)
-  )
-
   val packagesType: String = Packaging.map(_.toString).mkString("; ")
+  val totalPackages        = Packaging.length
+
+  val allProducedDocuments: Seq[ProducedDocument] =
+    (for {
+      supportingDocs <- SupportingDocument
+      transportDocs  <- TransportDocument
+    } yield {
+      val supportingProducedDocs = supportingDocs.map {
+        supportingDocument =>
+          ProducedDocument(
+            DocumentType(supportingDocument.`type`.getOrElse(""), "", transportDocument = false),
+            supportingDocument.referenceNumber,
+            supportingDocument.complementOfInformation
+          )
+      }
+      val transportProducedDocs = transportDocs.map {
+        transportDocument =>
+          ProducedDocument(DocumentType(transportDocument.`type`.getOrElse(""), "", transportDocument = true), transportDocument.referenceNumber, None)
+      }
+
+      supportingProducedDocs ++ transportProducedDocs
+    }).getOrElse(Seq.empty)
+
+  val packagingFormat: NonEmptyList[viewmodels.Package] =
+    NonEmptyList
+      .fromList(Packaging.flatMap {
+        case PackagingP5(_, Some(numberOfPackages), typeOfPackages, Some(shippingMarks)) =>
+          Some(RegularPackage(KindOfPackage(typeOfPackages, ""), numberOfPackages, shippingMarks))
+        case PackagingP5(_, None, typeOfPackages, shippingMarks) =>
+          Some(BulkPackage(KindOfPackage(typeOfPackages, ""), shippingMarks))
+        case PackagingP5(_, _, typeOfPackages, shippingMarks) =>
+          Some(UnpackedPackage(KindOfPackage(typeOfPackages, ""), 0, shippingMarks))
+        case _ => None
+      }.toList)
+      .get
 
 }
 

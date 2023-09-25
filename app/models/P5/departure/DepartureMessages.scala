@@ -19,7 +19,10 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.Reads
 
-case class DepartureMessages(messages: List[DepartureMessageMetaData])
+case class DepartureMessages(messages: List[DepartureMessageMetaData]) {
+
+  def find(`type`: DepartureMessageType): Option[DepartureMessageMetaData] = messages.find(_.messageType == `type`)
+}
 
 object DepartureMessages {
   implicit val reads: Reads[DepartureMessages] = Json.reads[DepartureMessages]

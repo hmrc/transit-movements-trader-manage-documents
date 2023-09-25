@@ -63,6 +63,12 @@ final case class BulkPackage(
   override val numberOfPiecesValue: Int = 0
 
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(0)(kindOfPackage)
+
+  override val toString: String = marksAndNumbers match {
+    case Some(marksAndNumbers) => s"${kindOfPackage.code},$marksAndNumbers"
+    case None                  => s"${kindOfPackage.code}"
+  }
+
 }
 
 final case class UnpackedPackage(
@@ -78,6 +84,11 @@ final case class UnpackedPackage(
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(0)(kindOfPackage)
 
   override val numberOfPiecesValue: Int = numberOfPieces
+
+  override val toString: String = marksAndNumbers match {
+    case Some(marksAndNumbers) => s"${kindOfPackage.code},$marksAndNumbers"
+    case None                  => s"${kindOfPackage.code}"
+  }
 }
 
 final case class RegularPackage(
@@ -93,4 +104,7 @@ final case class RegularPackage(
   override val countPackageAndMarks: Option[String] = validateCountPackageAndMarks(numberOfPackages)(kindOfPackage)
 
   override val numberOfPiecesValue: Int = 0
+
+  override val toString: String = s"${kindOfPackage.code},$numberOfPackages,$marksAndNumbers"
+
 }

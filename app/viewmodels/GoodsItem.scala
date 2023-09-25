@@ -22,7 +22,7 @@ import models.SensitiveGoodsInformation
 import models.reference.Country
 
 final case class GoodsItem(
-  itemNumber: Int,
+  itemNumber: String,
   commodityCode: Option[String],
   declarationType: Option[DeclarationType],
   description: String,

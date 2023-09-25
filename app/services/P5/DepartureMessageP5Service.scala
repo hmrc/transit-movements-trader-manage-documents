@@ -17,8 +17,11 @@
 package services.P5
 
 import connectors.DepartureMovementP5Connector
-import models.P5.departure.IE029Data
+import models.P5.departure.DepartureMessageType.DepartureNotification
+import models.P5.departure.IE015
+import models.P5.departure.IE029
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.HttpReads.Implicits._
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
@@ -26,9 +29,22 @@ import scala.concurrent.Future
 
 class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connector) {
 
-  def getReleaseForTransitNotification(departureId: String, messageId: String)(implicit
-    hc: HeaderCarrier,
-    ec: ExecutionContext
-  ): Future[IE029Data] =
-    connector.getDepartureNotificationMessage(departureId, messageId)
+  def getReleaseForTransitNotification(
+    departureId: String,
+    messageId: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[IE029] =
+    connector.getDepartureNotificationMessage[IE029](departureId, messageId)
+
+  def getDeclarationData(
+    departureId: String,
+    messageId: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[IE015] =
+    connector.getDepartureNotificationMessage[IE015](departureId, messageId)
+
+  def getIE015MessageId(
+    departureId: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[String]] =
+    connector
+      .getMessages(departureId)
+      .map(_.find(DepartureNotification).map(_.id))
 }

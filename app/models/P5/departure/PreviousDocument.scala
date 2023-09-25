@@ -23,12 +23,7 @@ case class PreviousDocument(
   sequenceNumber: Option[String],
   `type`: Option[String],
   referenceNumber: Option[String],
-  complementOfInformation: Option[String],
-  goodsItemNumber: Option[Int],
-  typeOfPackages: Option[String],
-  numberOfPackages: Option[Int],
-  measurementUnitAndQualifier: Option[String],
-  quantity: Option[Double]
+  complementOfInformation: Option[String]
 ) {
 
   override def toString: String = {
@@ -37,12 +32,7 @@ case class PreviousDocument(
       sequenceNumber,
       `type`,
       referenceNumber,
-      complementOfInformation,
-      goodsItemNumber.map(_.toString),
-      typeOfPackages,
-      numberOfPackages.map(_.toString),
-      measurementUnitAndQualifier,
-      quantity.map(_.toString)
+      complementOfInformation
     )
     stringList.flatten.mkString(", ")
   }

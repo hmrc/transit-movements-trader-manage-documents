@@ -37,4 +37,11 @@ final case class ProducedDocument(
       complementOfInformation
     ).flatten.mkString(" - ")
 
+  val transitionDisplay: String =
+    Seq(
+      Some(documentCodeOrDes),
+      reference,
+      complementOfInformation
+    ).flatten.mkString(",")
+
 }

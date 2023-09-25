@@ -16,7 +16,6 @@
 
 package models.P5.departure
 
-import akka.http.scaladsl.model.DateTime
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 

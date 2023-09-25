@@ -17,19 +17,22 @@
 package services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import org.apache.xmlgraphics.util.MimeConstants
+import viewmodels.P5._
+import viewmodels.TransitAccompanyingDocumentP5TransitionPDF
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
 import views.xml.TransitAccompanyingDocumentP5
-import viewmodels.P5._
+import views.xml.TransitAccompanyingDocumentP5Transition
+
 import javax.inject.Inject
 
-//TODO refactor this into one with unloading permission
 class TADPdfGenerator @Inject() (
   fop: PlayFop,
   document: TransitAccompanyingDocument,
-  documentP5: TransitAccompanyingDocumentP5
+  documentP5: TransitAccompanyingDocumentP5,
+  documentTransitionP5: TransitAccompanyingDocumentP5Transition
 ) {
 
   def generate(permission: TransitAccompanyingDocumentPDF): Array[Byte] = {
@@ -39,9 +42,16 @@ class TADPdfGenerator @Inject() (
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }
 
-  def generateP5TAD(ie029Data: IE029Data): Array[Byte] = {
+  def generateP5TADPostTransition(ie029Data: IE029): Array[Byte] = {
 
     val renderedDocument = documentP5.render(TableViewModel()(ie029Data), ConsignmentItemViewModel()(ie029Data))
+
+    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
+  }
+
+  def generateP5TADTransition(permission: TransitAccompanyingDocumentP5TransitionPDF): Array[Byte] = {
+
+    val renderedDocument = documentTransitionP5.render(permission)
 
     fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
   }

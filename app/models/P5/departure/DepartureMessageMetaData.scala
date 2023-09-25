@@ -21,14 +21,15 @@ import play.api.libs.json.__
 
 import java.time.LocalDateTime
 
-case class DepartureMessageMetaData(received: LocalDateTime, messageType: DepartureMessageType, path: String)
+case class DepartureMessageMetaData(id: String, received: LocalDateTime, messageType: DepartureMessageType, path: String)
 
 object DepartureMessageMetaData {
 
   implicit lazy val reads: Reads[DepartureMessageMetaData] = {
     import play.api.libs.functional.syntax._
     (
-      (__ \ "received").read[LocalDateTime] and
+      (__ \ "id").read[String] and
+        (__ \ "received").read[LocalDateTime] and
         (__ \ "type").read[DepartureMessageType] and
         (__ \ "_links" \ "self" \ "href").read[String].map(_.replace("/customs/transits/", ""))
     )(DepartureMessageMetaData.apply _)

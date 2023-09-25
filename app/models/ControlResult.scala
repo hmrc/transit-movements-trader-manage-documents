@@ -19,6 +19,8 @@ package models
 import cats.syntax.all._
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
+import play.api.libs.json.Json
+import play.api.libs.json.OFormat
 import utils.LocalDateXMLReader._
 
 import java.time.LocalDate
@@ -26,6 +28,8 @@ import java.time.LocalDate
 case class ControlResult(conResCodERS16: String, datLimERS69: LocalDate)
 
 object ControlResult {
+
+  implicit val format: OFormat[ControlResult] = Json.format[ControlResult]
 
   object Constants {
     val controlResultCodeLength = 2

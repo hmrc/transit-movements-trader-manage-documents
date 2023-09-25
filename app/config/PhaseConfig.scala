@@ -14,6 +14,23 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package config
 
-case class DepartureNotificationMessage(movementReferenceNumber: MovementReferenceNumber, data: IE029Data)
+import models.P5.Phase
+import models.P5.Phase.PostTransition
+import models.P5.Phase.Transition
+
+trait PhaseConfig {
+  val phase: Phase
+
+}
+
+class TransitionConfig() extends PhaseConfig {
+  override val phase: Phase = Transition
+
+}
+
+class PostTransitionConfig() extends PhaseConfig {
+  override val phase: Phase = PostTransition
+
+}

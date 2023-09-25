@@ -18,7 +18,7 @@ package viewmodels.P5
 
 import models.P5.departure.Consignee
 import models.P5.departure.Consignor
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import viewmodels.P5.TableViewModel.houseConsignmentAppender
 import viewmodels.P5.TableViewModel.truncate
 
@@ -40,7 +40,7 @@ object TableViewModel {
 
 }
 
-case class TableViewModel(implicit ie029Data: IE029Data) {
+case class TableViewModel()(implicit ie029Data: IE029) {
 
   val table1ViewModel = Table1ViewModel.apply()
   val table2ViewModel = Table2ViewModel.apply()
@@ -49,7 +49,7 @@ case class TableViewModel(implicit ie029Data: IE029Data) {
 
 }
 
-case class Table1ViewModel(implicit ie029Data: IE029Data) {
+case class Table1ViewModel()(implicit ie029Data: IE029) {
 
   private val consignorContactPersonAtHouseOfConsignment: String =
     ie029Data.data.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.ContactPerson.map(_.toString))).flatten.mkString("; ")
@@ -62,24 +62,24 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
   private val consignorAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignor.getOrElse("")).mkString(";")
 
   val consignor = ie029Data.data.Consignment.Consignor match {
-    case Some(value) => truncate(100, value.toString)
-    case None        => truncate(100, consignorAtHouseOfConsignment)
+    case Some(value) => truncate(200, value.toString)
+    case None        => truncate(200, consignorAtHouseOfConsignment)
   }
 
   private val consigneeeAtHouseOfConsignment: String = ie029Data.data.Consignment.HouseConsignment.map(_.Consignee.getOrElse("")).mkString(";")
 
   val consignee: String = ie029Data.data.Consignment.Consignee match {
-    case Some(value) => truncate(100, value.toString)
-    case None        => truncate(100, consigneeeAtHouseOfConsignment)
+    case Some(value) => truncate(200, value.toString)
+    case None        => truncate(200, consigneeeAtHouseOfConsignment)
   }
-  val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.declarationType)
+  val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.declarationType.toString)
   val additionalDeclarationType: String = truncate(10, ie029Data.data.TransitOperation.additionalDeclarationType)
   val sci: String                       = truncate(10, ie029Data.data.TransitOperation.specificCircumstanceIndicator.getOrElse(""))
   val mrn: String                       = truncate(20, ie029Data.data.TransitOperation.MRN)
 
   val consigneeIdentificationNumber: String = ie029Data.data.Consignment.Consignee match {
-    case Some(Consignee(Some(identificationNumber), _, _, _)) => truncate(20, identificationNumber)
-    case None                                                 => "TODO get multiple consignor identification numbers"
+    case Some(Consignee(Some(identificationNumber), _, _)) => truncate(20, identificationNumber)
+    case None                                              => "TODO get multiple consignor identification numbers"
   }
 
   val consignorIdentificationNumber: String = ie029Data.data.Consignment.Consignor match {
@@ -101,16 +101,16 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
   val lrn: String                                = truncate(20, ie029Data.data.TransitOperation.LRN)
   val tir: String                                = truncate(20, ie029Data.data.TransitOperation.TIRCarnetNumber.getOrElse(""))
 
-  val carrierIdentificationNumber: String = truncate(20, ie029Data.data.Consignment.Carrier.map(_.identificationNumber).getOrElse(""))
+  val carrierIdentificationNumber: String = truncate(20, ie029Data.data.Consignment.carrier.map(_.identificationNumber).getOrElse(""))
 
   val additionalSupplyChainActorRoles: String = truncate(30, ie029Data.data.Consignment.additionalSupplyChainActorsRole.getOrElse(""))
 
   val additionalSupplyChainActorIdentificationNumbers: String =
     truncate(20, ie029Data.data.Consignment.additionalSupplyChainActorIdentificationNumbers.getOrElse(""))
 
-  val departureTransportMeans: String    = truncate(50, ie029Data.data.Consignment.departureTransportMeans.getOrElse(""))
+  val departureTransportMeans: String    = truncate(50, ie029Data.data.Consignment.departureTransportMeansIdentity.getOrElse(""))
   val ucr: String                        = truncate(20, ie029Data.data.Consignment.referenceNumberUCR.getOrElse(""))
-  val activeBorderTransportMeans: String = truncate(50, ie029Data.data.Consignment.activeBorderTransportMeans.getOrElse(""))
+  val activeBorderTransportMeans: String = truncate(50, ie029Data.data.Consignment.activeBorderTransportMeansDisplay.getOrElse(""))
 
   val activeBorderTransportMeansConveyanceNumbers: String = truncate(30, ie029Data.data.Consignment.activeBorderTransportMeansConveyanceNumbers.getOrElse(""))
 
@@ -128,53 +128,53 @@ case class Table1ViewModel(implicit ie029Data: IE029Data) {
 
 }
 
-case class Table2ViewModel(implicit ie029Data: IE029Data) {
+case class Table2ViewModel()(implicit ie029Data: IE029) {
 
-  val transportEquipment: String = truncate(50, ie029Data.data.Consignment.transportEquipment.getOrElse(""))
-  val seals: String              = truncate(50, ie029Data.data.Consignment.seals.getOrElse(""))
+  val transportEquipment: String = truncate(50, ie029Data.data.Consignment.transportEquipmentDisplay.getOrElse(""))
+  val seals: String              = truncate(50, ie029Data.data.Consignment.sealsString.getOrElse(""))
 
-  private val previousDocumentAtConsignment: String      = ie029Data.data.Consignment.Document.previousDocument.getOrElse("")
+  private val previousDocumentAtConsignment: String      = ie029Data.data.Consignment.previousDocument.getOrElse("")
   private val previousDocumentAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.previousDocumentInHC).mkString("")
   val previousDocument: String                           = truncate(100, houseConsignmentAppender(previousDocumentAtConsignment, previousDocumentAtHouseConsignment))
 
-  private val supportingDocumentAtConsignment: String      = ie029Data.data.Consignment.Document.supportingDocument.getOrElse("")
+  private val supportingDocumentAtConsignment: String      = ie029Data.data.Consignment.supportingDocument.getOrElse("")
   private val supportingDocumentAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.supportingDocumentInHC).mkString("")
   val supportingDocument: String                           = truncate(100, houseConsignmentAppender(supportingDocumentAtConsignment, supportingDocumentAtHouseConsignment))
 
-  private val transportDocumentAtConsignment      = ie029Data.data.Consignment.Document.transportDocument.getOrElse("")
+  private val transportDocumentAtConsignment      = ie029Data.data.Consignment.transportDocument.getOrElse("")
   private val transportDocumentAtHouseConsignment = ie029Data.data.Consignment.HouseConsignment.flatMap(_.transportDocumentInHC).mkString("")
   val transportDocument: String                   = truncate(100, houseConsignmentAppender(transportDocumentAtConsignment, transportDocumentAtHouseConsignment))
 
-  private val additionalInformationAtConsignment: String      = ie029Data.data.Consignment.additionalInformation.getOrElse("")
+  private val additionalInformationAtConsignment: String      = ie029Data.data.Consignment.additionalInformationDisplay.getOrElse("")
   private val additionalInformationAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.additionalInformationInHC).mkString("")
   val additionalInformation: String                           = truncate(100, houseConsignmentAppender(additionalInformationAtConsignment, additionalInformationAtHouseConsignment))
 
-  private val additionalReferenceAtConsignment: String      = ie029Data.data.Consignment.additionalReference.getOrElse("")
+  private val additionalReferenceAtConsignment: String      = ie029Data.data.Consignment.additionalReferenceDisplay.getOrElse("")
   private val additionalReferenceAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.additionalReferenceInHC).mkString("")
   val additionalReference: String                           = truncate(100, houseConsignmentAppender(additionalReferenceAtConsignment, additionalReferenceAtHouseConsignment))
 
-  private val transportChargesAtConsignment: String      = ie029Data.data.Consignment.transportCharges.getOrElse("")
+  private val transportChargesAtConsignment: String      = ie029Data.data.Consignment.transportChargesDisplay.getOrElse("")
   private val transportChargesAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.transportChargesInHC).mkString("")
   val transportCharges: String                           = truncate(20, houseConsignmentAppender(transportChargesAtConsignment, transportChargesAtHouseConsignment))
 
-  val guarantee: String     = truncate(100, ie029Data.data.guarantee.getOrElse(""))
-  val authorisation: String = truncate(100, ie029Data.data.authorisation.getOrElse(""))
+  val guarantee: String     = truncate(100, ie029Data.data.guaranteeDisplay.getOrElse(""))
+  val authorisation: String = truncate(100, ie029Data.data.authorisationDisplay.getOrElse(""))
 
 }
 
-case class Table3ViewModel(implicit ie029Data: IE029Data)
+case class Table3ViewModel()()
 
-case class Table4ViewModel(implicit ie029Data: IE029Data) {
+case class Table4ViewModel()(implicit ie029Data: IE029) {
 
-  val countryOfRoutingOfConsignment: String = truncate(30, ie029Data.data.Consignment.countryOfRoutingOfConsignment.getOrElse(""))
+  val countryOfRoutingOfConsignment: String = truncate(30, ie029Data.data.Consignment.countryOfRoutingOfConsignmentDisplay.getOrElse(""))
 
-  val customsOfficeOfTransitDeclared: String = truncate(60, ie029Data.data.customsOfficeOfTransitDeclared.getOrElse(""))
+  val customsOfficeOfTransitDeclared: String = truncate(60, ie029Data.data.customsOfficeOfTransitDeclaredDisplay.getOrElse(""))
 
-  val customsOfficeOfExitForTransitDeclared: String = truncate(60, ie029Data.data.customsOfficeOfExitForTransitDeclared.getOrElse(""))
+  val customsOfficeOfExitForTransitDeclared: String = truncate(60, ie029Data.data.customsOfficeOfExitForTransitDeclaredDisplay.getOrElse(""))
 
-  val customsOfficeOfDeparture: String = truncate(10, ie029Data.data.customsOfficeOfDeparture)
+  val customsOfficeOfDeparture: String = truncate(10, ie029Data.data.customsOfficeOfDepartureDisplay)
 
-  val customsOfficeOfDestinationDeclared: String = truncate(10, ie029Data.data.customsOfficeOfDestinationDeclared)
+  val customsOfficeOfDestinationDeclared: String = truncate(10, ie029Data.data.customsOfficeOfDestinationDeclaredDisplay)
 
   val countryOfDispatch: String = truncate(10, ie029Data.data.Consignment.countryOfDispatch.getOrElse(""))
 

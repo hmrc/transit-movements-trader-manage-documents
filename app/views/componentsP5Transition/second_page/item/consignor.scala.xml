@@ -1,0 +1,50 @@
+@(consignor: viewmodels.Consignor)
+
+<fo:block>
+    <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-number="1" column-width="44mm"/>
+        <fo:table-column column-number="2" column-width="8mm"/>
+        <fo:table-column column-number="3" column-width="38mm"/>
+        <fo:table-body>
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="2" font-weight="bold"
+                               display-align="center">
+                    <fo:block>
+                            @consignor.name
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell font-weight="bold" display-align="center">
+                    <fo:block>
+                        @consignor.eori.getOrElse("---")
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="2"
+                               display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignor.streetAndNumber
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignor.postCode
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="2"
+                               display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignor.city
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignor.country.code
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-body>
+    </fo:table>
+</fo:block>

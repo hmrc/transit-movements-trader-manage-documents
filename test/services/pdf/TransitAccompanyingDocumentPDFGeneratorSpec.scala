@@ -217,7 +217,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
     Some(ControlResult(ControlResultData("A2", "Considered satisfactory"), models.ControlResult("A2", LocalDate.parse("2021-03-14")))),
     NonEmptyList.of(
       GoodsItem(
-        1,
+        "1",
         None,
         Some(DeclarationType.T1),
         "Snow sports",
@@ -252,7 +252,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None
       ),
       GoodsItem(
-        2,
+        "2",
         None,
         Some(DeclarationType.T2),
         "Snow Sports",
@@ -287,7 +287,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
         None
       ),
       GoodsItem(
-        3,
+        "3",
         None,
         Some(DeclarationType.T2),
         "Snow Sports",

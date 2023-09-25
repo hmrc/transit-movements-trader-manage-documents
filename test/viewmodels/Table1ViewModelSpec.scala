@@ -19,27 +19,27 @@ package viewmodels
 import viewmodels.P5._
 import base.DepartureData
 import base.SpecBase
-import models.P5.departure.IE029Data
+import models.P5.departure.IE029
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 
 class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with DepartureData {
 
-  val ie029Data = IE029Data(departureMessageData)
+  val ie029Data = IE029(ie029MessageData)
   val viewModel = TableViewModel()(ie029Data)
 
   "Table1ViewModelSpec" - {
 
     "return comma seperated consignor information" in {
-      viewModel.table1ViewModel.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      viewModel.table1ViewModel.consignor mustBe "Consignor Name, Address Line 1, Address Line 2, Address Line 3, GB, name, 123456, a@a.com"
     }
 
     "return comma seperated consignor contact person information" in {
-      viewModel.table1ViewModel.consignorContactPerson mustBe "Contact Person Name, 123456, a@a.com"
+      viewModel.table1ViewModel.consignorContactPerson mustBe "name, 123456, a@a.com"
     }
 
     "return comma seperated consignee information" in {
-      viewModel.table1ViewModel.consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, Address Line 4, Contact Person Na..."
+      viewModel.table1ViewModel.consignee mustBe "Consignee Name, Address Line 1, Address Line 2, Address Line 3, GB"
     }
 
     "return declarationType information" in {
@@ -67,23 +67,23 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return totalItems information" in {
-      viewModel.table1ViewModel.totalItems mustBe 2
+      viewModel.table1ViewModel.totalItems mustBe 1
     }
 
     "return totalPackages information" in {
-      viewModel.table1ViewModel.totalPackages mustBe 10
+      viewModel.table1ViewModel.totalPackages mustBe 3
     }
 
     "return totalGrossMass information" in {
-      viewModel.table1ViewModel.totalGrossMass mustBe 1.0
+      viewModel.table1ViewModel.totalGrossMass mustBe 52.02
     }
 
     "return security information" in {
-      viewModel.table1ViewModel.security mustBe "sec"
+      viewModel.table1ViewModel.security mustBe "security"
     }
 
     "return  comma seperated holderOfTransitProcedure information" in {
-      viewModel.table1ViewModel.holderOfTransitProcedure mustBe "TIRID1, Bob, Address Line 1, Address Line 2, Address Line 3, Address Line 4"
+      viewModel.table1ViewModel.holderOfTransitProcedure mustBe "TIRID1, Bob, Address Line 1, Address Line 2, Address Line 3, GB"
     }
 
     "return holderOfTransitProcedureIdentificationNumber information" in {
@@ -111,23 +111,23 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return additionalSupplyChainActorRoles information" in {
-      viewModel.table1ViewModel.additionalSupplyChainActorRoles mustBe "Actor-Role"
+      viewModel.table1ViewModel.additionalSupplyChainActorRoles mustBe "ID001"
     }
 
     "return additionalSupplyChainActorIdentificationNumbers information" in {
-      viewModel.table1ViewModel.additionalSupplyChainActorIdentificationNumbers mustBe "ID001"
+      viewModel.table1ViewModel.additionalSupplyChainActorIdentificationNumbers mustBe "ID33"
     }
 
     "return comma seperated departureTransportMeans information" in {
-      viewModel.table1ViewModel.departureTransportMeans mustBe "Actor-Role, ID001, Nationality"
+      viewModel.table1ViewModel.departureTransportMeans mustBe "Actor-Role,ID001,TYPE01"
     }
 
     "return ucr information" in {
-      viewModel.table1ViewModel.ucr mustBe "UCR001"
+      viewModel.table1ViewModel.ucr mustBe "UCRRefNumber"
     }
 
     "return activeBorderTransportMeans information" in {
-      viewModel.table1ViewModel.activeBorderTransportMeans mustBe "GB0001, T1, ID001, GB"
+      viewModel.table1ViewModel.activeBorderTransportMeans mustBe "T1, ID001, GB, nationality"
     }
 
     "return  activeBorderTransportMeansConveyanceNumbers information" in {
@@ -143,11 +143,11 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return inlandModeOfTransport information" in {
-      viewModel.table1ViewModel.inlandModeOfTransport mustBe "T1"
+      viewModel.table1ViewModel.inlandModeOfTransport mustBe "Road"
     }
 
     "return modeOfTransportAtBorder information" in {
-      viewModel.table1ViewModel.modeOfTransportAtBorder mustBe "Road"
+      viewModel.table1ViewModel.modeOfTransportAtBorder mustBe "Boat"
     }
 
     "return locationOfGoods information" in {
@@ -155,7 +155,7 @@ class Table1ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return  comma seperated locationOfGoodsContactPerson information" in {
-      viewModel.table1ViewModel.locationOfGoodsContactPerson mustBe "Contact Person Name, 123456, a@a.com"
+      viewModel.table1ViewModel.locationOfGoodsContactPerson mustBe "name, 123456, a@a.com"
     }
   }
 }

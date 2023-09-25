@@ -132,7 +132,7 @@ object GoodsItemConverter extends Converter {
     ).mapN(
       (dispatch, destination, docs, mentions, packages, consignor, consignee, previousDocs) =>
         viewmodels.GoodsItem(
-          itemNumber = goodsItem.itemNumber,
+          itemNumber = goodsItem.itemNumber.toString,
           commodityCode = goodsItem.commodityCode,
           declarationType = goodsItem.declarationType,
           description = goodsItem.description,

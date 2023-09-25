@@ -227,7 +227,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
         securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
       } yield GoodsItem(
-        itemNumber,
+        itemNumber.toString,
         commodityCode,
         declarationType,
         description,
