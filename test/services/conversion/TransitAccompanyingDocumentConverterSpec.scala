@@ -22,6 +22,8 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType.T1
 import models.P5.departure.AdditionalReference
+import models.P5.departure.GoodsReference
+import models.P5.departure.HolderOfTransitProcedure
 import models.P5.departure.IE015
 import models.P5.departure.IE029
 import models.P5.departure.SupportingDocument
@@ -404,35 +406,32 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         grossMass = 52.02,
         printBindingItinerary = true,
         authId = Some("SEQNum-1, Auth-Type, Reference-Numb-1"),
+        goodsReference = Seq(GoodsReference("1232", 3)),
         copyType = false,
-        principal = viewmodels.Principal(
-          "name",
-          "Address Line 1",
-          "Address Line 1",
-          "Address Line 2",
-          "Address Line 3",
-          Country("GB", ""),
-          Some("id1"),
-          Some("TIRID1")
-        ),
+        holderOfTransitProcedure = HolderOfTransitProcedure(Some("id1"), Some("TIRID1"), Some("Bob"), Some(address), Some(contactPerson)),
         consignor = Some(
-          viewmodels
-            .Consignor("Consignor Name", "Address Line 1", "Address Line 1", "Address Line 2", "Address Line 3", Country("GB", ""), Some("idnum1"))
+          models.P5.departure
+            .Consignor(Some("idnum1"), Some("Consignor Name"), Some(address), Some(contactPerson))
         ),
         consignee = Some(
-          viewmodels
-            .Consignee("Consignee Name", "Address Line 1", "Address Line 1", "Address Line 2", "Address Line 3", Country("GB", ""), Some("idnum1"))
+          models.P5.departure
+            .Consignee(Some("idnum1"), Some("Consignee Name"), Some(address))
         ),
-        departureOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AD000002", Some("Frankfurt Office"), "GE"), None),
-        destinationOffice = CustomsOfficeWithOptionalDate(CustomsOffice("AT240000", Some("Paris Office"), "FR"), None),
-        customsOfficeOfTransit = Seq(CustomsOfficeWithOptionalDate(CustomsOffice("AD000002", Some("Frankfurt Office"), "GE"), None)),
-        guaranteeDetails = Seq.empty,
-        seals = Seq("1232,[ID10012]"),
-        None,
-        controlResult = controlResultP4,
+        departureOffice = customsOfficeOfDeparture,
+        destinationOffice = customsOfficeOfDestinationDeclared,
+        customsOfficeOfTransit = Seq(customsOfficeOfTransitDeclared),
+        previousDocuments = Seq(previousDocumentConsignment),
+        transportDocuments = Seq(transportDocumentConsignment),
+        supportingDocuments = Seq(supportingDocumentConsignment),
+        additionalInformation = Seq(additionalInformationConsignment),
+        additionalReferences = Seq(additionalReferenceConsignment),
+        guaranteeType = "G",
+        seals = Seq.empty,
+        returnCopiesCustomsOffice = None,
+        controlResult = None,
         goodsItems = NonEmptyList.one(
           viewmodels.GoodsItemP5Transition(
-            itemNumber = "1T1,1",
+            itemNumber = "1T1/1",
             commodityCode = Some("SHC1, NOMC1"),
             declarationType = Some(T1),
             description = "Tiles",
@@ -443,45 +442,24 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
             methodOfPayment = Some("payPal"),
             commercialReferenceNumber = None,
             unDangerGoodsCode = None,
-            transportDocuments = Seq(TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))),
-            supportingDocuments = Seq(SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))),
-            previousDocumentTypes = Seq(
-              PreviousDocumentType(
-                PreviousDocumentTypes("Document-1", None),
-                PreviousAdministrativeReference("Type-1", "Reference-1", Some("C1"))
-              )
-            ),
-            specialMentions = Seq(
-              viewmodels.SpecialMention(AdditionalInformation("Type-1", "Reference-1"), models.SpecialMention(Some("Reference-1"), "Type-1", None, None))
-            ),
-            consignor = Some(
-              viewmodels.Consignor(
-                "Consignor Name",
-                "Address Line 1",
-                "Address Line 1",
-                "Address Line 2",
-                "Address Line 3",
-                Country("GB", ""),
-                Some("idnum1")
-              )
-            ),
+            transportDocuments = Seq(transportDocumentItem),
+            supportingDocuments = Seq(supportingDocumentItem),
+            previousDocuments = Seq(previousDocumentItem),
+            additionalInformation = Seq(additionalInformationItem),
+            additionalReferences = Seq(additionalReferenceItem),
+            consignor = None,
             consignee = Some(
-              viewmodels.Consignee(
-                "Consignee Name",
-                "Address Line 1",
-                "Address Line 1",
-                "Address Line 2",
-                "Address Line 3",
-                Country("GB", ""),
-                Some("idnum1")
+              models.P5.departure.Consignee(
+                Some("idnum1"),
+                Some("Consignee Name"),
+                Some(address)
               )
             ),
             containers = Seq("12123, Container-ID-1"),
-            packages = NonEmptyList.of(
-              viewmodels.RegularPackage(KindOfPackage("Rubber", ""), 3, "RubberMark")
+            packages = Seq(
+              packaging
             ),
             sensitiveGoodsInformation = Seq.empty,
-            additionalReferences = Seq(AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))),
             securityConsignor = None,
             securityConsignee = None
           )
@@ -491,15 +469,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
       val result = TransitAccompanyingDocumentConverter.fromP5ToViewModel(
         ieo29Data,
         ieo15Data,
-        countries,
-        additionalInfo,
-        kindsOfPackage,
-        previousDocumentTypes,
-        supportingDocumentTypes,
-        transportDocumentTypes,
-        circumstanceIndicators,
-        customsOffices,
-        controlResults
+        countries
       )
 
       result.valid.value mustEqual expectedResult

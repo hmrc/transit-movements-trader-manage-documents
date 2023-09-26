@@ -71,15 +71,15 @@ trait DepartureData {
   val customsOfficeOfDeparture: CustomsOfficeOfDeparture                           = CustomsOfficeOfDeparture("AD000002")
   val customsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared       = CustomsOfficeOfDestinationDeclared("AT240000")
   val guaranteeReference: GuaranteeReference                                       = GuaranteeReference(Some("SEQNum-1"), Some("GRN-1"), Some("Access-code-1"), Some(123456.1212), Some("GBP"))
-  val guarantee: Guarantee                                                         = Guarantee("SEQNum-1", Some("SomeGuaranteeType"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
+  val guarantee: Guarantee                                                         = Guarantee("SEQNum-1", Some("G"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
   val postcodeAddress: PostcodeAddress                                             = PostcodeAddress(Some("house1"), "BR", "UK")
   val economicOperator: EconomicOperator                                           = EconomicOperator("EconomicOperator-1")
   val customsOffice: CustomsOffice                                                 = CustomsOffice("Reference1")
   val gnss: GNSS                                                                   = GNSS("1232", "1234")
   val seal: Seal                                                                   = Seal("1232", "ID10012")
   val seals: List[Seal]                                                            = List(Seal("1232", "ID10012"), Seal("456", "ID10045"))
-  val goodsReference: GoodsReference                                               = GoodsReference(Some("1232"), Some(1234))
-  val goodsReferences: List[GoodsReference]                                        = List(GoodsReference(Some("1234"), Some(1234)), GoodsReference(Some("4567"), Some(4567)))
+  val goodsReference: GoodsReference                                               = GoodsReference("1232", 3)
+  val goodsReferences: List[GoodsReference]                                        = List(GoodsReference("1234", 1234), GoodsReference("4567", 4567))
 
   val locationOfGoods: LocationOfGoods = LocationOfGoods(
     "Warehouse",
@@ -102,13 +102,22 @@ trait DepartureData {
 
   val activeBorderTransportMeans: ActiveBorderTransportMeans =
     ActiveBorderTransportMeans("GB0001", "T1", "ID001", "GB", "nationality", Some("conveyReferenceNumber-1"))
-  val placeOfLoading: PlaceOfLoading                               = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
-  val placeOfUnLoading: PlaceOfUnloading                           = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
-  val previousDocument: PreviousDocument                           = PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"))
-  val transportDocument: TransportDocument                         = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val supportingDocument: SupportingDocument                       = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
-  val additionalReference: AdditionalReference                     = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val additionalInformation: AdditionalInformation                 = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val placeOfLoading: PlaceOfLoading     = PlaceOfLoading(Some("LoCoCode-1"), Some("GB"), Some("L1"))
+  val placeOfUnLoading: PlaceOfUnloading = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
+
+  val previousDocumentConsignment: PreviousDocument =
+    PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"), None, None, None, None, None)
+  val transportDocumentConsignment: TransportDocument         = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val supportingDocumentConsignment: SupportingDocument       = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
+  val additionalReferenceConsignment: AdditionalReference     = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+  val additionalInformationConsignment: AdditionalInformation = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+
+  val previousDocumentItem: PreviousDocument =
+    PreviousDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"), Some("C1"), Some(3), Some("type"), Some(5), Some("measurement"), Some(5.0))
+  val transportDocumentItem: TransportDocument                     = TransportDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
+  val supportingDocumentItem: SupportingDocument                   = SupportingDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"), Some(5), Some("C1"))
+  val additionalReferenceItem: AdditionalReference                 = AdditionalReference(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
+  val additionalInformationItem: AdditionalInformation             = AdditionalInformation(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
   val countryOfRoutingOfConsignment: CountryOfRoutingOfConsignment = CountryOfRoutingOfConsignment(Some("Seqnum12243"), Some("GB"))
   val packaging: Packaging                                         = Packaging("1", Some(3), "Rubber", Some("RubberMark"))
   val commodityCode: CommodityCode                                 = CommodityCode("SHC1", Some("NOMC1"))
@@ -128,11 +137,11 @@ trait DepartureData {
     Some(List(additionalSupplyChainActor)),
     commodity,
     Seq(packaging),
-    Some(List(previousDocument)),
-    Some(List(supportingDocument)),
-    Some(List(transportDocument)),
-    Some(List(additionalReference)),
-    Some(List(additionalInformation)),
+    Some(List(previousDocumentItem)),
+    Some(List(supportingDocumentItem)),
+    Some(List(transportDocumentItem)),
+    Some(List(additionalReferenceItem)),
+    Some(List(additionalInformationItem)),
     Some(transportCharges)
   )
 
@@ -147,11 +156,11 @@ trait DepartureData {
     Some(List(additionalSupplyChainActor)),
     commodity,
     Seq(packaging),
-    Some(List(previousDocument)),
-    Some(List(supportingDocument)),
-    Some(List(transportDocument)),
-    Some(List(additionalReference)),
-    Some(List(additionalInformation)),
+    Some(List(previousDocumentItem)),
+    Some(List(supportingDocumentItem)),
+    Some(List(transportDocumentItem)),
+    Some(List(additionalReferenceItem)),
+    Some(List(additionalInformationItem)),
     Some(transportCharges)
   )
 
@@ -165,11 +174,11 @@ trait DepartureData {
     Some(consignee),
     Some(List(additionalSupplyChainActor)),
     Some(List(departureTransportMeans)),
-    Some(List(previousDocument)),
-    Some(List(transportDocument)),
-    Some(List(supportingDocument)),
-    Some(List(additionalReference)),
-    Some(List(additionalInformation)),
+    Some(List(previousDocumentItem)),
+    Some(List(transportDocumentItem)),
+    Some(List(supportingDocumentItem)),
+    Some(List(additionalReferenceItem)),
+    Some(List(additionalInformationItem)),
     Some(transportCharges),
     Seq(consignmentItem1)
   )
@@ -193,11 +202,11 @@ trait DepartureData {
     Some(List(activeBorderTransportMeans)),
     Some(placeOfLoading),
     Some(placeOfUnLoading),
-    Some(List(previousDocument)),
-    Some(List(transportDocument)),
-    Some(List(supportingDocument)),
-    Some(List(additionalReference)),
-    Some(List(additionalInformation)),
+    Some(List(previousDocumentConsignment)),
+    Some(List(transportDocumentConsignment)),
+    Some(List(supportingDocumentConsignment)),
+    Some(List(additionalReferenceConsignment)),
+    Some(List(additionalInformationConsignment)),
     Some(transportCharges),
     Seq(houseConsignment)
   )

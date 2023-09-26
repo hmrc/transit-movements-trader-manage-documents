@@ -86,19 +86,19 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
     }
 
     "should return previousDocumentString information" in {
-      viewModel.consignmentItem.map(_.previousDocumentString) mustBe List("Document-1, Type-1, Reference-1, C1")
+      viewModel.consignmentItem.map(_.previousDocumentString) mustBe List("Document-2, Type-2, Reference-2, C1")
     }
 
     "should return supportingDocumentString information" in {
-      viewModel.consignmentItem.map(_.supportingDocumentString) mustBe List("Document-1,Type-1,Reference-1,5,C1")
+      viewModel.consignmentItem.map(_.supportingDocumentString) mustBe List("Document-2,Type-2,Reference-2,5,C1")
     }
 
     "should return transportDocumentString information" in {
-      viewModel.consignmentItem.map(_.transportDocumentString) mustBe List("Document-1,Type-1,Reference-1")
+      viewModel.consignmentItem.map(_.transportDocumentString) mustBe List("Document-2,Type-2,Reference-2")
     }
 
     "should return additionalReferenceString information" in {
-      viewModel.consignmentItem.map(_.additionalReferenceString) mustBe List("Document-1,Type-1,Reference-1")
+      viewModel.consignmentItem.map(_.additionalReferenceString) mustBe List("Document-2,Type-2,Reference-2")
     }
 
     "should return grossMass information" in {
@@ -119,7 +119,7 @@ class ConsignmentItemViewModelSpec extends AnyFreeSpec with Matchers with SpecBa
       viewModel.consignmentItem.map(_.totalPackages) mustBe List(1)
     }
     "should return packagesType information" in {
-      viewModel.consignmentItem.map(_.packagesType) mustBe List("3, Rubber, RubberMark")
+      viewModel.consignmentItem.map(_.packagesType) mustBe List("1, 3, Rubber, RubberMark")
     }
 
   }
