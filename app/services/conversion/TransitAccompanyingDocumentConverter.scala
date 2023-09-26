@@ -133,7 +133,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
             numberOfPackages = Some(consignment.totalPackages),
             grossMass = consignment.grossMass,                                          // P5
             printBindingItinerary = intStringToBool(transitOperation.bindingItinerary), // P5
-            authId = ie029.data.authorisationDisplay,                                   // P5
+            authorisation = authorisation.getOrElse(Seq.empty),                         // P5
             goodsReference = consignment.TransportEquipment.flatMap(_.head.GoodsReference).getOrElse(Seq.empty),
             copyType = false,
             holderOfTransitProcedure = holderOfTransit,

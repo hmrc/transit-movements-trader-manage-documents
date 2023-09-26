@@ -6,7 +6,7 @@
 
 @this()
 
-@(departureOffice: CustomsOfficeOfDeparture, movementReferenceNumber: String, acceptanceDateFormatted: Option[String], goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], declarationType: DeclarationType, authId: Option[String])
+@(departureOffice: CustomsOfficeOfDeparture, movementReferenceNumber: String, acceptanceDateFormatted: Option[String], goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], declarationType: DeclarationType, authorisation: Seq[Authorisation])
 
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force"> <!-- SEQ 2 -->
     <fo:static-content flow-name="xsl-region-before">
@@ -14,7 +14,7 @@
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
-            @goodsItems.toList.map(goodsItem => item.goods_item(goodsItem, declarationType, authId))
+            @goodsItems.toList.map(goodsItem => item.goods_item(goodsItem, declarationType, authorisation))
         </fo:block>
         <fo:block id="A-last-page"/>
     </fo:flow>

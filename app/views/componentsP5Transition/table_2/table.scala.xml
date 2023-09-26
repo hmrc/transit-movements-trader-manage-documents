@@ -7,7 +7,7 @@
 
 @this()
 
-@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], grossMass: BigDecimal, printBindingItinerary: Boolean = false, authId: Option[String], previousDocuments: Seq[PreviousDocument], supportingDocuments: Seq[SupportingDocument], transportDocuments: Seq[TransportDocument], additionalInformation: Seq[AdditionalInformation], additionalReferences: Seq[AdditionalReference], goodsReference: Seq[GoodsReference] )
+@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], grossMass: BigDecimal, printBindingItinerary: Boolean = false, authorisation: Seq[Authorisation], previousDocuments: Seq[PreviousDocument], supportingDocuments: Seq[SupportingDocument], transportDocuments: Seq[TransportDocument], additionalInformation: Seq[AdditionalInformation], additionalReferences: Seq[AdditionalReference], goodsReference: Seq[GoodsReference] )
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 2 -->
     <fo:table-column column-width="16mm"/>
@@ -28,7 +28,7 @@
         <fo:table-row height="4mm"> <!-- S1 T2 ROW 3 -->
 
             <!--Additional information/ BinItiHEA246???-->
-            @bottom_left_block(supportingDocuments,transportDocuments,additionalInformation, additionalReferences, authId)
+            @bottom_left_block(supportingDocuments,transportDocuments,additionalInformation, additionalReferences, authorisation)
 
         </fo:table-row>
 

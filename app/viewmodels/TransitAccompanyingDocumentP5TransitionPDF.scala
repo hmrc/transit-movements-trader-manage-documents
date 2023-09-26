@@ -36,7 +36,7 @@ final case class TransitAccompanyingDocumentP5TransitionPDF(
   numberOfPackages: Option[Int],
   grossMass: BigDecimal,
   printBindingItinerary: Boolean,
-  authId: Option[String],
+  authorisation: Seq[Authorisation],
   goodsReference: Seq[GoodsReference],
   copyType: Boolean,
   holderOfTransitProcedure: HolderOfTransitProcedure,

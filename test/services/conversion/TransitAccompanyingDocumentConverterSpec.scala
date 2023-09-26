@@ -22,6 +22,7 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import models.DeclarationType.T1
 import models.P5.departure.AdditionalReference
+import models.P5.departure.Authorisation
 import models.P5.departure.GoodsReference
 import models.P5.departure.HolderOfTransitProcedure
 import models.P5.departure.IE015
@@ -405,7 +406,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         numberOfPackages = Some(3),
         grossMass = 52.02,
         printBindingItinerary = true,
-        authId = Some("SEQNum-1, Auth-Type, Reference-Numb-1"),
+        authorisation = Seq(Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))),
         goodsReference = Seq(GoodsReference("1232", 3)),
         copyType = false,
         holderOfTransitProcedure = HolderOfTransitProcedure(Some("id1"), Some("TIRID1"), Some("Bob"), Some(address), Some(contactPerson)),

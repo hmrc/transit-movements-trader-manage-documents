@@ -1,7 +1,7 @@
 @import cats.data.NonEmptyList
 @import views.xml.componentsP5Transition.second_page.item._
 @import models.P5.departure._
-@(supportingDocuments: Seq[SupportingDocument], transportDocuments: Seq[TransportDocument], additionalInformation: Seq[AdditionalInformation], additionalReferences: Seq[AdditionalReference], authId: Option[String])
+@(supportingDocuments: Seq[SupportingDocument], transportDocuments: Seq[TransportDocument], additionalInformation: Seq[AdditionalInformation], additionalReferences: Seq[AdditionalReference], authorisation: Seq[Authorisation])
 <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2" wrap-option="wrap" padding-top="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
     <fo:block>
         <fo:list-block>
@@ -59,7 +59,16 @@
         <fo:block>&#160;</fo:block>
     }
 
-    @block(authId.getOrElse(""))
+    @if(authorisation.nonEmpty) {
+        @if(authorisation.length > 1) {
+            @block(s"${authorisation.head.toString}...")
+        } else {
+            @block(s"${authorisation.head.toString}")
+        }
+    } else {
+        <fo:block>&#160;</fo:block>
+    }
+
 </fo:table-cell>
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
 <fo:block/>

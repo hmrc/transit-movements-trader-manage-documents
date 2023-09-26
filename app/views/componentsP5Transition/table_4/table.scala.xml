@@ -12,7 +12,6 @@
         transitOffices: Seq[CustomsOfficeOfTransitDeclared] = Nil,
         guaranteeType: String,
         destinationOffice: CustomsOfficeOfDestinationDeclared,
-        authId: Option[String] = None,
         controlResult: Option[ControlResult] = None,
         printBindingItinerary: Boolean
 )
@@ -44,7 +43,7 @@
                                         No
                                         <fo:inline font-weight = "bold">
                                         @if(holderOfTransit.TIRHolderIdentificationNumber.nonEmpty && holderOfTransit.identificationNumber.nonEmpty) {
-                                            @holderOfTransit.TIRHolderIdentificationNumber.map(x => x) / @holderOfTransit.identificationNumber.map(x => x)
+                                            @holderOfTransit.TIRHolderIdentificationNumber.map(x => x), @holderOfTransit.identificationNumber.map(x => x)
                                         } else if(holderOfTransit.TIRHolderIdentificationNumber.nonEmpty) {
                                             @holderOfTransit.TIRHolderIdentificationNumber.map(x => x)
                                         } else {

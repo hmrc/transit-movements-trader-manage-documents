@@ -67,20 +67,22 @@
 
 
 
+                    @if(goodsItems.head.containers.nonEmpty) {
+                        @if(goodsItems.head.containers.length > 1) {
+                            @block(s"${goodsItems.head.containers.head}...")
+                        } else {
+                            @block(s"${goodsItems.head.containers.head}")
+                        }
+                    } else {
+                        <fo:block>&#160;</fo:block>
+                    }
+
                         @if(goodsItems.head.packages.length > 1) {
                             @block(s"${goodsItems.head.packages.head.toString}...")
                         } else {
                             @block(s"${goodsItems.head.packages.head.toString}")
                         }
-                        @if(goodsItems.head.containers.nonEmpty) {
-                            @if(goodsItems.head.containers.length > 1) {
-                                @block(s"${goodsItems.head.containers.head}...")
-                            } else {
-                                @block(s"${goodsItems.head.containers.head}")
-                            }
-                        } else {
-                            <fo:block>--</fo:block>
-                        }
+
 
                 </fo:table-cell>
             </fo:table-row>
