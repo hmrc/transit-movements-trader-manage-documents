@@ -55,7 +55,7 @@
                                 </fo:table-cell>
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @holderOfTransit.ContactPerson.map(_.phoneNumber)
+                                        @holderOfTransit.Address.map(_.streetAndNumber)
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -66,7 +66,25 @@
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell  padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @holderOfTransit.Address.map(_.postcode.getOrElse(""))
+                                    </fo:block>
+                                </fo:table-cell>
 
+                                <fo:table-cell  padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @holderOfTransit.Address.map(_.city)
+
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @holderOfTransit.Address.map(_.country)
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
                             <fo:table-row height="4.25mm">
                                 <fo:table-cell number-columns-spanned="5" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
@@ -74,33 +92,15 @@
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                            <fo:table-row height="6.25mm">
+                            <fo:table-row height="4.25mm">
                                 <fo:table-cell  padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @holderOfTransit.Address.map(_.streetAndNumber)
+                                        @holderOfTransit.ContactPerson.map(_.phoneNumber)
                                     </fo:block>
                                 </fo:table-cell>
-
-                                <fo:table-cell  padding-left="2mm" display-align="center" font-weight="bold">
+                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
                                         @holderOfTransit.ContactPerson.map(_.eMailAddress.getOrElse(""))
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        @holderOfTransit.Address.map(_.postcode.getOrElse(""))
-                                    </fo:block>
-                                </fo:table-cell>
-                            </fo:table-row>
-                            <fo:table-row height="4.25mm">
-                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        @holderOfTransit.Address.map(_.city)
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        @holderOfTransit.Address.map(_.country)
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>

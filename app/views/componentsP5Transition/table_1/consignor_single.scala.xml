@@ -9,7 +9,7 @@
   </fo:table-cell>
   <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
     <fo:block>
-      @consignor.map(c => c.ContactPerson.map(_.phoneNumber))
+      @consignor.map(c => c.Address.map(_.streetAndNumber))
     </fo:block>
   </fo:table-cell>
 </fo:table-row>
@@ -25,17 +25,17 @@
 <fo:table-row height="4mm" padding-top = "2mm">
 <fo:table-cell display-align="center" padding-left="2mm"   font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.Address.map(_.streetAndNumber))
-  </fo:block>
-</fo:table-cell>
-<fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
-  <fo:block>
     @consignor.map(c => c.Address.map(_.postcode.getOrElse("")))
   </fo:block>
 </fo:table-cell>
 <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.ContactPerson.map(_.eMailAddress.getOrElse("")))
+    @consignor.map(_.Address.map(_.city))
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
+  <fo:block>
+    @consignor.map(_.Address.map(_.country))
   </fo:block>
 </fo:table-cell>
 </fo:table-row>

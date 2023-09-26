@@ -24,21 +24,21 @@
         <fo:table-column column-number="3" column-width="25mm"/>
         <fo:table-body>
           <fo:table-row height="4mm">
-            <fo:table-cell  padding-left="2mm" display-align="center" font-weight="bold">
+            <fo:table-cell number-columns-spanned="3" display-align="center" padding-left="2mm" font-weight="bold">
               <fo:block>
-                @consignor.map(_.Address.map(_.city))
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
-              <fo:block>
-                @consignor.map(_.Address.map(_.country))
+                @consignor.map(c => c.ContactPerson.map(_.name))
               </fo:block>
             </fo:table-cell>
           </fo:table-row>
           <fo:table-row height="4mm">
-            <fo:table-cell number-columns-spanned="3" display-align="center" padding-left="2mm" font-weight="bold">
+            <fo:table-cell  padding-left="2mm" display-align="center" font-weight="bold">
               <fo:block>
-                @consignor.map(c => c.ContactPerson.map(_.name))
+                @consignor.map(c => c.ContactPerson.map(_.phoneNumber))
+              </fo:block>
+            </fo:table-cell>
+            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+              <fo:block>
+                @consignor.map(c => c.ContactPerson.map(_.eMailAddress.getOrElse("")))
               </fo:block>
             </fo:table-cell>
           </fo:table-row>
