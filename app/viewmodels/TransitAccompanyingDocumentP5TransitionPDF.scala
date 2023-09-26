@@ -61,10 +61,6 @@ final case class TransitAccompanyingDocumentP5TransitionPDF(
 
   val itemConsigneeOne: Option[models.P5.departure.Consignee] = Helpers.consigneeOneTransition(goodsItems, consignee)
 
-  val countryOfDispatch: Option[Country] = Helpers.countryOfDispatchTransition(goodsItems)
-
-  val countryOfDestination: Option[Country] = Helpers.countryOfDestinationTransition(goodsItems)
-
   val printListOfItems: Boolean = Helpers.printListOfItemsTransition(goodsItems)
 
   val printVariousConsignees: Boolean =

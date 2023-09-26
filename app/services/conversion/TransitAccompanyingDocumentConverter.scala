@@ -157,18 +157,12 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                   viewmodels.GoodsItemP5Transition(
                     itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
                     commodityCode = Some(consignmentItem.commodityCode),
-                    declarationType = DeclarationType.values.find(
-                      declarationType => consignmentItem.declarationType.getOrElse("") == declarationType.toString
-                    ),
+                    declarationType = consignmentItem.declarationType,
                     description = consignmentItem.descriptionOfGoods,
                     grossMass = Some(BigDecimal(consignmentItem.grossMass)),
                     netMass = Some(BigDecimal(consignmentItem.netMass)),
-                    countryOfDispatch = countries.find(
-                      country => country.code == consignmentItem.countryOfDispatch.getOrElse("")
-                    ),
-                    countryOfDestination = countries.find(
-                      country => country.code == consignmentItem.countryOfDestination.getOrElse("")
-                    ),
+                    countryOfDispatch = consignmentItem.countryOfDispatch,
+                    countryOfDestination = consignmentItem.countryOfDestination,
                     methodOfPayment = consignmentItem.TransportCharges.map(
                       transportCharge => transportCharge.toString
                     ),

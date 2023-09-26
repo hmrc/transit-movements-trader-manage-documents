@@ -109,14 +109,8 @@ object Helpers {
   def countryOfDispatch(goodsItems: NonEmptyList[GoodsItem]): Option[Country] =
     singleValue(goodsItems.toList.flatMap(_.countryOfDispatch), goodsItems)
 
-  def countryOfDispatchTransition(goodsItems: NonEmptyList[GoodsItemP5Transition]): Option[Country] =
-    singleValueTransition(goodsItems.toList.flatMap(_.countryOfDispatch), goodsItems)
-
   def countryOfDestination(goodsItems: NonEmptyList[GoodsItem]): Option[Country] =
     singleValue(goodsItems.toList.flatMap(_.countryOfDestination), goodsItems)
-
-  def countryOfDestinationTransition(goodsItems: NonEmptyList[GoodsItemP5Transition]): Option[Country] =
-    singleValueTransition(goodsItems.toList.flatMap(_.countryOfDestination), goodsItems)
 
   def printListOfItems(goodsItems: NonEmptyList[GoodsItem]): Boolean =
     goodsItems.size > 1 ||

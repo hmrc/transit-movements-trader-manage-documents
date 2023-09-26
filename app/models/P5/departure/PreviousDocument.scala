@@ -36,12 +36,12 @@ case class PreviousDocument(
       sequenceNumber,
       `type`,
       referenceNumber,
-      complementOfInformation,
       goodsItemNumber.map(_.toString),
       typeOfPackages,
       numberOfPackages.map(_.toString),
       measurementUnitAndQualifier,
-      quantity.map(_.toString)
+      quantity.map(_.toString),
+      complementOfInformation
     )
     stringList.flatten.mkString(", ")
   }

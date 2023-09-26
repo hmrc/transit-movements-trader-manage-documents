@@ -34,7 +34,7 @@
         <fo:table-row height="3.5mm">
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @declarationType
+                    @block(goodsItem.declarationType.getOrElse(""))
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
@@ -62,18 +62,10 @@
         </fo:table-row>
         <fo:table-row height="3.5mm">
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.countryOfDispatch.nonEmpty) {
-                    @goodsItem.countryOfDispatch.map(country => block(country.code))
-                } else {
-                    <fo:block>&#160;</fo:block>
-                }
+                @block(goodsItem.countryOfDispatch.getOrElse(""))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.countryOfDestination.nonEmpty) {
-                    @goodsItem.countryOfDestination.map(country => block(country.code))
-                } else {
-                    <fo:block>&#160;</fo:block>
-                }
+                @block(goodsItem.countryOfDestination.getOrElse(""))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
