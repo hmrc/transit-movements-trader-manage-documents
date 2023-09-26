@@ -1,5 +1,5 @@
-@import views.xml.components.table_1.consignee
-@(printVariousConsignees: Boolean, consigneeOne: Option[viewmodels.Consignee], returnCopiesCustomsOffice: Option[viewmodels.ReturnCopiesCustomsOffice])
+@import views.xml.componentsP5Transition.table_1.consignee
+@(printVariousConsignees: Boolean, consigneeOne: Option[models.P5.departure.Consignee], returnCopiesCustomsOffice: Option[viewmodels.ReturnCopiesCustomsOffice])
 
 <fo:table-row height="25mm">
   <fo:table-cell>

@@ -1,6 +1,6 @@
 @import cats.data.NonEmptyList
-@import views.xml.components.table_2.item
-@import views.xml.components.{item => componentItem}
+@import views.xml.componentsP5Transition.table_2.item
+@import views.xml.componentsP5Transition.{item => componentItem}
 
 @(printListOfItems: Boolean, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition])
 
@@ -13,11 +13,7 @@
         <fo:table-body>
             <fo:table-row>
                 <fo:table-cell padding-left="2mm">
-                    @if(goodsItems.head.specialMentions.nonEmpty) {
-                        @goodsItems.head.specialMentions.map(specialMention => componentItem.special_mentions(specialMention))
-                    } else {
                         <fo:block/>
-                    }
                 </fo:table-cell>
                 <fo:table-cell padding-left="3mm">
                     <fo:block/>

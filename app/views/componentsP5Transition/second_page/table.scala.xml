@@ -1,11 +1,12 @@
-@import views.xml.components.second_page.item
-@import views.xml.components.second_page.header_table
+@import views.xml.componentsP5Transition.second_page.item
+@import views.xml.componentsP5Transition.second_page.header_table
+@import models.P5.departure._
 
 @import cats.data.NonEmptyList
 
 @this()
 
-@(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: Option[String], goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], declarationType: DeclarationType, authId: Option[String])
+@(departureOffice: CustomsOfficeOfDeparture, movementReferenceNumber: String, acceptanceDateFormatted: Option[String], goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], declarationType: DeclarationType, authId: Option[String])
 
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force"> <!-- SEQ 2 -->
     <fo:static-content flow-name="xsl-region-before">

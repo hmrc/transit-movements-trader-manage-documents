@@ -1,4 +1,4 @@
-@(printVariousConsignors: Boolean, consignor: Option[viewmodels.Consignor], numberOfItems: Int, totalNumberOfPackages: String, formName: String, boldHeading: Boolean)
+@(printVariousConsignors: Boolean, consignor: Option[models.P5.departure.Consignor], numberOfItems: Int, totalNumberOfPackages: String, formName: String, boldHeading: Boolean)
 
 <fo:table-row height="8mm">
   <fo:table-cell>
@@ -19,19 +19,26 @@
     <fo:block>
       @if(!printVariousConsignors) {
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column column-number="1" column-width="44mm"/>
-        <fo:table-column column-number="2" column-width="8mm"/>
-        <fo:table-column column-number="3" column-width="37mm"/>
+        <fo:table-column column-number="1" column-width="30mm"/>
+        <fo:table-column column-number="2" column-width="35mm"/>
+        <fo:table-column column-number="3" column-width="25mm"/>
         <fo:table-body>
-          <fo:table-row height="5mm">
-            <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+          <fo:table-row height="4mm">
+            <fo:table-cell  padding-left="2mm" display-align="center" font-weight="bold">
               <fo:block>
-                @consignor.map(_.city)
+                @consignor.map(_.Address.map(_.city))
               </fo:block>
             </fo:table-cell>
             <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
               <fo:block>
-                @consignor.map(_.country.code)
+                @consignor.map(_.Address.map(_.country))
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="4mm">
+            <fo:table-cell number-columns-spanned="3" display-align="center" padding-left="2mm" font-weight="bold">
+              <fo:block>
+                @consignor.map(c => c.ContactPerson.map(_.name))
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

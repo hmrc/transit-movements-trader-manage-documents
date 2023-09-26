@@ -1,8 +1,10 @@
 @import cats.data.NonEmptyList
-@import views.xml.components.table_2.item
-@import views.xml.components.second_page.item._
+@import views.xml.componentsP5Transition.table_2.item
+@import views.xml.componentsP5Transition.second_page.item._
+@import models.P5.departure._
 
-@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition])
+
+@(printListOfItems: Boolean, numberOfItems: Int, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], goodsReference: Seq[GoodsReference])
 
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="1" wrap-option="wrap" padding-top="1mm">
     <fo:block>
@@ -44,14 +46,12 @@
                                 </fo:table-row>
                                 <fo:table-row height="3.9mm">
                                     <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" font-weight="bold" text-align="center">
-                                        <fo:block>
-                                            <!-- Number and kind -->
-                                            @if(!printListOfItems) {
-                                                @numberOfItems
-                                            } else {
-                                            -&#45;&#45;
-                                            }
+                                        @if(goodsReference.nonEmpty){
+                                         @block(s"${goodsItems.head.itemNumber.split("/").head}/${goodsReference.head.declarationGoodsItemNumber}")
+                                        } else {
                                         </fo:block>
+                                        }
+
                                     </fo:table-cell>
                                     <fo:table-cell display-align="center" text-align="center" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                         <fo:block>No</fo:block>
@@ -65,12 +65,12 @@
             <fo:table-row height="24mm">
                 <fo:table-cell font-weight="bold" padding-left="2mm"  >
 
-                    @if(printListOfItems) {
+
 
                         @if(goodsItems.head.packages.length > 1) {
                             @block(s"${goodsItems.head.packages.head.toString}...")
                         } else {
-                            @block(s"${goodsItems.head.packages.toString}")
+                            @block(s"${goodsItems.head.packages.head.toString}")
                         }
                         @if(goodsItems.head.containers.nonEmpty) {
                             @if(goodsItems.head.containers.length > 1) {
@@ -81,9 +81,7 @@
                         } else {
                             <fo:block>--</fo:block>
                         }
-                    } else {
-                        @item.goods(goodsItems)
-                    }
+
                 </fo:table-cell>
             </fo:table-row>
         </fo:table-body>

@@ -1,5 +1,5 @@
-@import views.xml.components.second_page.item._
-@import views.xml.components.{item => componentItem}
+@import views.xml.componentsP5Transition.second_page.item._
+@import views.xml.componentsP5Transition.{item => componentItem}
 
 @(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: DeclarationType, authId: Option[String])
 <fo:table width="100%" table-layout="fixed">
@@ -17,16 +17,16 @@
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" wrap-option="wrap" >
                     @if(goodsItem.packages.toList.length > 1) {
-                        @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}...")
+                        @block(s"${goodsItem.packages.head.shippingMarks.getOrElse("")}...")
                     } else {
-                        @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}")
+                        @block(s"${goodsItem.packages.head.shippingMarks.getOrElse("")}")
                     }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @if(goodsItem.packages.toList.length > 1) {
-                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}...")
+                @block(s"${goodsItem.packages.head.numberOfPackages.getOrElse(goodsItem.packages.head.typeOfPackages)}...")
                 } else {
-                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}")
+                @block(s"${goodsItem.packages.head.numberOfPackages.getOrElse(goodsItem.packages.head.typeOfPackages)}")
                 }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
@@ -37,7 +37,7 @@
                         @block(s"${goodsItem.containers.head.split(",").last}")
                     }
                 } else {
-                    <fo:block>--</fo:block>
+                    <fo:block>&#160;</fo:block>
                 }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
@@ -58,28 +58,24 @@
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
-                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.goodsCode.getOrElse("--")))
-                } else {
-                    <fo:block>--</fo:block>
-                }
+
+                    <fo:block>&#160;</fo:block>
+
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
-                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.quantity.toString))
-                } else {
-                    <fo:block>--</fo:block>
-                }
+
+                    <fo:block>&#160;</fo:block>
+
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.previousDocumentTypes.nonEmpty){
-                    @if(goodsItem.previousDocumentTypes.length > 1) {
-                        @block(s"${goodsItem.previousDocumentTypes.head.transitionDisplay}...")
+                @if(goodsItem.previousDocuments.nonEmpty){
+                    @if(goodsItem.previousDocuments.length > 1) {
+                        @block(s"${goodsItem.previousDocuments.head.toStringItem}...")
                     } else {
-                        @block(s"${goodsItem.previousDocumentTypes.head.transitionDisplay}")
+                        @block(s"${goodsItem.previousDocuments.head.toStringItem}")
                     }
                 } else {
-                    <fo:block>--</fo:block>
+                    <fo:block>&#160;</fo:block>
                 }
             </fo:table-cell>
         </fo:table-row>
@@ -88,24 +84,24 @@
                 @if(goodsItem.countryOfDispatch.nonEmpty) {
                     @goodsItem.countryOfDispatch.map(country => block(country.code))
                 } else {
-                    <fo:block>---</fo:block>
+                    <fo:block>&#160;</fo:block>
                 }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @if(goodsItem.countryOfDestination.nonEmpty) {
                     @goodsItem.countryOfDestination.map(country => block(country.code))
                 } else {
-                    <fo:block>---</fo:block>
+                    <fo:block>&#160;</fo:block>
                 }
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @goodsItem.grossMass.getOrElse("---")
+                    @goodsItem.grossMass.getOrElse("")
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @goodsItem.netMass.getOrElse("---")
+                    @goodsItem.netMass.getOrElse("")
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-top="0.5mm">
@@ -121,7 +117,7 @@
                                         @block(s"${goodsItem.transportDocuments.head.toString}")
                                     }
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
 
                                 @if(goodsItem.supportingDocuments.nonEmpty) {
@@ -131,17 +127,17 @@
                                         @block(s"${goodsItem.supportingDocuments.head.toString}")
                                     }
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
 
-                                @if(goodsItem.specialMentions.nonEmpty) {
-                                    @if(goodsItem.specialMentions.length > 1) {
-                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}...")
+                                @if(goodsItem.additionalInformation.nonEmpty) {
+                                    @if(goodsItem.additionalInformation.length > 1) {
+                                        @block(s"${goodsItem.additionalInformation.head.toString}...")
                                     } else {
-                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}")
+                                        @block(s"${goodsItem.additionalInformation.head.toString}")
                                     }
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
 
                                 @if(goodsItem.additionalReferences.nonEmpty) {
@@ -151,7 +147,7 @@
                                         @block(s"${goodsItem.additionalReferences.head.toString}")
                                     }
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
 
                                 @block(authId.getOrElse(""))
@@ -174,14 +170,14 @@
 
                                         @goodsItem.consignor.map(x => consignor(x))
                                     } else {
-                                        <fo:block>---</fo:block>
+                                        <fo:block>&#160;</fo:block>
                                     }
                                 </fo:table-cell>
                                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
                                     @if(goodsItem.consignee.nonEmpty) {
                                         @goodsItem.consignee.map(x => consignee(x))
                                     } else {
-                                        <fo:block>---</fo:block>
+                                        <fo:block>&#160;</fo:block>
                                     }
                                 </fo:table-cell>
                             </fo:table-row>

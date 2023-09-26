@@ -19,6 +19,7 @@ package viewmodels
 import cats.data.NonEmptyList
 import models.DeclarationType
 import models.GuaranteeDetails
+import models.P5.departure._
 import models.reference.Country
 import utils.FormattedDate
 
@@ -36,23 +37,29 @@ final case class TransitAccompanyingDocumentP5TransitionPDF(
   grossMass: BigDecimal,
   printBindingItinerary: Boolean,
   authId: Option[String],
+  goodsReference: Seq[GoodsReference],
   copyType: Boolean,
-  principal: Principal,
-  consignor: Option[Consignor],
-  consignee: Option[Consignee],
-  departureOffice: CustomsOfficeWithOptionalDate,
-  destinationOffice: CustomsOfficeWithOptionalDate,
-  customsOfficeOfTransit: Seq[CustomsOfficeWithOptionalDate],
-  guaranteeDetails: Seq[GuaranteeDetails],
+  holderOfTransitProcedure: HolderOfTransitProcedure,
+  consignor: Option[models.P5.departure.Consignor],
+  consignee: Option[models.P5.departure.Consignee],
+  departureOffice: CustomsOfficeOfDeparture,
+  destinationOffice: CustomsOfficeOfDestinationDeclared,
+  customsOfficeOfTransit: Seq[CustomsOfficeOfTransitDeclared],
+  previousDocuments: Seq[PreviousDocument],
+  supportingDocuments: Seq[SupportingDocument],
+  transportDocuments: Seq[TransportDocument],
+  additionalInformation: Seq[AdditionalInformation],
+  additionalReferences: Seq[AdditionalReference],
+  guaranteeType: String,
   seals: Seq[String],
   returnCopiesCustomsOffice: Option[ReturnCopiesCustomsOffice],
   controlResult: Option[ControlResult],
   goodsItems: NonEmptyList[GoodsItemP5Transition]
 ) {
 
-  val consignorOne: Option[Consignor] = Helpers.consignorOneTransition(goodsItems, consignor)
+  val itemConsignorOne: Option[models.P5.departure.Consignor] = Helpers.consignorOneTransition(goodsItems, consignor)
 
-  val consigneeOne: Option[Consignee] = Helpers.consigneeOneTransition(goodsItems, consignee)
+  val itemConsigneeOne: Option[models.P5.departure.Consignee] = Helpers.consigneeOneTransition(goodsItems, consignee)
 
   val countryOfDispatch: Option[Country] = Helpers.countryOfDispatchTransition(goodsItems)
 
@@ -62,12 +69,12 @@ final case class TransitAccompanyingDocumentP5TransitionPDF(
 
   val printVariousConsignees: Boolean =
     printListOfItems &&
-      consigneeOne.isEmpty &&
+      itemConsigneeOne.isEmpty &&
       goodsItems.toList.flatMap(_.consignee).nonEmpty
 
   val printVariousConsignors: Boolean =
     printListOfItems &&
-      consignorOne.isEmpty &&
+      itemConsignorOne.isEmpty &&
       goodsItems.toList.flatMap(_.consignor).nonEmpty
 
   val totalNumberOfPackages: String = numberOfPackages.fold("")(_.toString)

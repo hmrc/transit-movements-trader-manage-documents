@@ -18,10 +18,13 @@ package viewmodels
 
 import cats.data.NonEmptyList
 import models.P5.departure.AdditionalReference
+import models.P5.departure.Packaging
+import models.P5.departure.PreviousDocument
 import models.P5.departure.SupportingDocument
 import models.P5.departure.TransportDocument
 import models.DeclarationType
 import models.SensitiveGoodsInformation
+import models.reference.AdditionalInformation
 import models.reference.Country
 
 final case class GoodsItemP5Transition(
@@ -38,14 +41,14 @@ final case class GoodsItemP5Transition(
   unDangerGoodsCode: Option[String],
   transportDocuments: Seq[TransportDocument],
   supportingDocuments: Seq[SupportingDocument],
-  previousDocumentTypes: Seq[PreviousDocumentType],
-  specialMentions: Seq[SpecialMention],
-  consignor: Option[Consignor],
-  consignee: Option[Consignee],
-  containers: Seq[String],
-  packages: NonEmptyList[Package],
-  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation],
+  previousDocuments: Seq[PreviousDocument],
+  additionalInformation: Seq[models.P5.departure.AdditionalInformation],
   additionalReferences: Seq[AdditionalReference],
+  consignor: Option[models.P5.departure.Consignor],
+  consignee: Option[models.P5.departure.Consignee],
+  containers: Seq[String],
+  packages: Seq[Packaging],
+  sensitiveGoodsInformation: Seq[SensitiveGoodsInformation],
   securityConsignor: Option[SecurityConsignor],
   securityConsignee: Option[SecurityConsignee]
 )

@@ -1,11 +1,11 @@
-@import views.xml.components.table_1.consignor
-@import views.xml.components.table_1.declaration_type
-@import views.xml.components.table_1.forms
-@import views.xml.components.table_1.loading_lists
+@import views.xml.componentsP5Transition.table_1.consignor
+@import views.xml.componentsP5Transition.table_1.declaration_type
+@import views.xml.componentsP5Transition.table_1.forms
+@import views.xml.componentsP5Transition.table_1.loading_lists
 
-@import views.xml.components.barcode
+@import views.xml.componentsP5Transition.barcode
 
-@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean, lrn: String)
+@(printVariousConsignors: Boolean, consignorOne: Option[models.P5.departure.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean, lrn: String)
 
 <fo:table-row height="16mm">
   <fo:table-cell>

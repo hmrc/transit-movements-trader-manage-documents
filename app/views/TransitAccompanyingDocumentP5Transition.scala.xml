@@ -18,7 +18,7 @@
     pageOne = pageOne(pageOneBody),
     pageTwo =  if(tadModel.printListOfItems) {
         Some(pageTwo(
-            tadModel.departureOffice.office.id,
+            tadModel.departureOffice,
             tadModel.movementReferenceNumber.split(',').head,
             tadModel.acceptanceDate.map(_.formattedDate),
             tadModel.goodsItems,
@@ -37,14 +37,14 @@
         movementReferenceNumber = tadModel.movementReferenceNumber.split(",").head,
         lrn = tadModel.movementReferenceNumber.split(",").last,
         printVariousConsignors = tadModel.printVariousConsignors,
-        consignorOne = tadModel.consignorOne,
+        consignorOne = tadModel.consignor,
         declarationType = tadModel.declarationType,
         printListOfItems = tadModel.printListOfItems,
         consignor = tadModel.consignor,
         numberOfItems = tadModel.numberOfItems,
         totalNumberOfPackages = tadModel.totalNumberOfPackages,
         printVariousConsignees = tadModel.printVariousConsignees,
-        consigneeOne = tadModel.consigneeOne,
+        consigneeOne = tadModel.consignee,
         singleCountryOfDispatch = tadModel.singleCountryOfDispatch,
         singleCountryOfDestination = tadModel.singleCountryOfDestination,
         transportIdentity = tadModel.transportIdentity,
@@ -53,19 +53,19 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary, tadModel.authId)
+    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary, tadModel.authId, tadModel.previousDocuments, tadModel.supportingDocuments, tadModel.transportDocuments, tadModel.additionalInformation, tadModel.additionalReferences, tadModel.goodsReference)
 
     <!--transhipment/certification-->
     @table3()
 
     <!--Principal/TIR Holder/Office of departure-->
     @table4(
-        tadModel.principal,
-        tadModel.departureOffice.reference,
+        tadModel.holderOfTransitProcedure,
+        tadModel.departureOffice,
         tadModel.acceptanceDate.map(_.formattedDate),
         tadModel.customsOfficeOfTransit,
-        tadModel.guaranteeDetails,
-        Some(tadModel.destinationOffice),
+        tadModel.guaranteeType,
+        tadModel.destinationOffice,
         tadModel.authId,
         tadModel.controlResult,
         tadModel.printBindingItinerary

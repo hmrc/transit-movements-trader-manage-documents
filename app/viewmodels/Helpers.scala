@@ -42,7 +42,10 @@ object Helpers {
       consignor
     }
 
-  def consignorOneTransition(goodsItems: NonEmptyList[GoodsItemP5Transition], consignor: Option[Consignor]): Option[Consignor] =
+  def consignorOneTransition(
+    goodsItems: NonEmptyList[GoodsItemP5Transition],
+    consignor: Option[models.P5.departure.Consignor]
+  ): Option[models.P5.departure.Consignor] =
     if (goodsItems.toList.flatMap(_.consignor).nonEmpty) {
       singleValueTransition(goodsItems.toList.flatMap(_.consignor), goodsItems)
     } else {
@@ -56,7 +59,10 @@ object Helpers {
       consignee
     }
 
-  def consigneeOneTransition(goodsItems: NonEmptyList[GoodsItemP5Transition], consignee: Option[Consignee]): Option[Consignee] =
+  def consigneeOneTransition(
+    goodsItems: NonEmptyList[GoodsItemP5Transition],
+    consignee: Option[models.P5.departure.Consignee]
+  ): Option[models.P5.departure.Consignee] =
     if (goodsItems.toList.flatMap(_.consignee).nonEmpty) {
       singleValueTransition(goodsItems.toList.flatMap(_.consignee), goodsItems)
     } else {
@@ -113,7 +119,7 @@ object Helpers {
     singleValueTransition(goodsItems.toList.flatMap(_.countryOfDestination), goodsItems)
 
   def printListOfItems(goodsItems: NonEmptyList[GoodsItem]): Boolean =
-    goodsItems.size >= 1 ||
+    goodsItems.size > 1 ||
       goodsItems.head.containers.size > 1 ||
       goodsItems.head.sensitiveGoodsInformation.length > 1 ||
       goodsItems.head.packages.size > 1 ||
@@ -124,6 +130,5 @@ object Helpers {
     goodsItems.size >= 1 ||
       goodsItems.head.containers.size > 1 ||
       goodsItems.head.sensitiveGoodsInformation.length > 1 ||
-      goodsItems.head.packages.size > 1 ||
-      goodsItems.head.specialMentions.size > 4
+      goodsItems.head.packages.size > 1
 }

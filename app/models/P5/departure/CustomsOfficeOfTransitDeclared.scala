@@ -27,6 +27,8 @@ case class CustomsOfficeOfTransitDeclared(
   arrivalDateAndTimeEstimated: Option[LocalDateTime]
 ) {
 
+  val transitionDisplay = s"${sequenceNumber.getOrElse("")},${referenceNumber.getOrElse("")}"
+
   override def toString: String = {
     val stringList: List[Option[String]] = List(sequenceNumber, referenceNumber, arrivalDateAndTimeEstimated.map(_.toString))
 

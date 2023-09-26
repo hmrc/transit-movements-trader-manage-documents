@@ -1,17 +1,13 @@
-@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor])
+@(printVariousConsignors: Boolean, consignorOne: Option[models.P5.departure.Consignor])
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
-      <fo:table-column column-number="1" column-width="44mm"/>
-      <fo:table-column column-number="2" column-width="8mm"/>
-      <fo:table-column column-number="3" column-width="37mm"/>
+      <fo:table-column column-number="1" column-width="30mm"/>
+      <fo:table-column column-number="2" column-width="35mm"/>
+      <fo:table-column column-number="3" column-width="25mm"/>
       <fo:table-body>
-        @if(printVariousConsignors) {
-          @consignor_various()
-        } else {
           @consignor_single(consignorOne)
-        }
       </fo:table-body>
     </fo:table>
   </fo:block>

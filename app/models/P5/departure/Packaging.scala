@@ -23,7 +23,7 @@ case class Packaging(sequenceNumber: String, numberOfPackages: Option[Int], type
 
   override def toString: String = {
 
-    val stringList: Seq[Option[String]] = List(numberOfPackages.map(_.toString), Some(typeOfPackages), shippingMarks)
+    val stringList: Seq[Option[String]] = List(Some(sequenceNumber), numberOfPackages.map(_.toString), Some(typeOfPackages), shippingMarks)
     stringList.flatten.mkString(", ")
   }
 }

@@ -1,6 +1,7 @@
 @import cats.data.NonEmptyList
-@import views.xml.components.second_page.item._
-@(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition])
+@import views.xml.componentsP5Transition.second_page.item._
+@import models.P5.departure._
+@(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], previousDocuments: Seq[PreviousDocument])
 
 <fo:table-cell number-columns-spanned="2">
     <fo:block>
@@ -80,9 +81,7 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
-                                                @if(!printListOfItems) {
-                                                    @goodsItems.head.netMass.map(netMass => netMass)
-                                                }
+                                                &#160;
                                             </fo:block>
                                         </fo:table-cell>
                                     </fo:table-row>
@@ -99,11 +98,11 @@
                             <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
-                                @if(goodsItems.head.previousDocumentTypes.nonEmpty) {
-                                    @if(goodsItems.head.previousDocumentTypes.length > 1) {
-                                        @block(s"${goodsItems.head.previousDocumentTypes.head.transitionDisplay}...")
+                                @if(previousDocuments.nonEmpty) {
+                                    @if(previousDocuments.length > 1) {
+                                        @block(s"${previousDocuments.head.toString}...")
                                     } else {
-                                        @block(s"${goodsItems.head.previousDocumentTypes.head.transitionDisplay}")
+                                        @block(s"${previousDocuments.head.toString}")
                                     }
                                 } else {
                                     <block>--</block>

@@ -1,4 +1,4 @@
-@(consignee: viewmodels.Consignee)
+@(consignee: models.P5.departure.Consignee)
 
 <fo:block>
     <fo:table width="100%" table-layout="fixed">
@@ -10,12 +10,12 @@
                 <fo:table-cell number-columns-spanned="2" font-weight="bold"
                                display-align="center">
                     <fo:block>
-                        @consignee.name
+                        @consignee.name.getOrElse("")
                     </fo:block>
                 </fo:table-cell>
                 <fo:table-cell font-weight="bold" display-align="center">
                     <fo:block>
-                        @consignee.eori.getOrElse("---")
+                        @consignee.identificationNumber.getOrElse("")
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
@@ -23,12 +23,12 @@
                 <fo:table-cell number-columns-spanned="2"
                                display-align="center" font-weight="bold">
                     <fo:block>
-                        @consignee.streetAndNumber
+                        @consignee.Address.map(_.streetAndNumber)
                     </fo:block>
                 </fo:table-cell>
                 <fo:table-cell display-align="center" font-weight="bold">
                     <fo:block>
-                        @consignee.postCode
+                        @consignee.Address.map(_.postcode.getOrElse(""))
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
@@ -36,12 +36,12 @@
                 <fo:table-cell number-columns-spanned="2"
                                display-align="center" font-weight="bold">
                     <fo:block>
-                        @consignee.city
+                        @consignee.Address.map(_.city)
                     </fo:block>
                 </fo:table-cell>
                 <fo:table-cell display-align="center" font-weight="bold">
                     <fo:block>
-                        @consignee.country.code
+                        @consignee.Address.map(_.country)
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
