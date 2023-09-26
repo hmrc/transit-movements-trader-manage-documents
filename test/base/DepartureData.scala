@@ -66,7 +66,7 @@ trait DepartureData {
   val carrier: Carrier     = Carrier("idnum1", Some(contactPerson))
 
   val authorisation: Authorisation                                                 = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
-  val customsOfficeOfTransitDeclared: CustomsOfficeOfTransitDeclared               = CustomsOfficeOfTransitDeclared(Some("seq001"), Some("AD000002"), Some(LocalDateTime.MIN))
+  val customsOfficeOfTransitDeclared: CustomsOfficeOfTransitDeclared               = CustomsOfficeOfTransitDeclared("seq001", "AD000002", Some(LocalDateTime.MIN))
   val customsOfficeOfExitForTransitDeclared: CustomsOfficeOfExitForTransitDeclared = CustomsOfficeOfExitForTransitDeclared(Some("seq001"), Some("AD000002"))
   val customsOfficeOfDeparture: CustomsOfficeOfDeparture                           = CustomsOfficeOfDeparture("AD000002")
   val customsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared       = CustomsOfficeOfDestinationDeclared("AT240000")
