@@ -47,7 +47,7 @@
                                 <fo:table-row height="3.9mm">
                                     <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" font-weight="bold" text-align="center">
                                         @if(goodsReference.nonEmpty){
-                                         @block(s"${goodsItems.head.itemNumber.split("/").head}/${goodsReference.head.declarationGoodsItemNumber}")
+                                         @block(s"${goodsReference.head.declarationGoodsItemNumber}")
                                         } else {
                                         </fo:block>
                                         }

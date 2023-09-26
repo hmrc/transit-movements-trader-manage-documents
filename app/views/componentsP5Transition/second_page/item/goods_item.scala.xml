@@ -75,7 +75,7 @@
                         @block(s"${goodsItem.previousDocuments.head.toStringItem}")
                     }
                 } else {
-                    <fo:block>&#160;</fo:block>
+                    </fo:block>
                 }
             </fo:table-cell>
         </fo:table-row>
