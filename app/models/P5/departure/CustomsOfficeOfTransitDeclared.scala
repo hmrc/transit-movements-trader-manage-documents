@@ -22,13 +22,15 @@ import play.api.libs.json.OFormat
 import java.time.LocalDateTime
 
 case class CustomsOfficeOfTransitDeclared(
-  sequenceNumber: Option[String],
-  referenceNumber: Option[String],
+  sequenceNumber: String,
+  referenceNumber: String,
   arrivalDateAndTimeEstimated: Option[LocalDateTime]
 ) {
 
+  val transitionDisplay = s"$sequenceNumber,$referenceNumber"
+
   override def toString: String = {
-    val stringList: List[Option[String]] = List(sequenceNumber, referenceNumber, arrivalDateAndTimeEstimated.map(_.toString))
+    val stringList: List[Option[String]] = List(Some(sequenceNumber), Some(referenceNumber), arrivalDateAndTimeEstimated.map(_.toString))
 
     stringList.flatten.mkString(", ")
   }

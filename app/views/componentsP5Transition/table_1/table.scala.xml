@@ -1,4 +1,4 @@
-@import views.xml.components.table_1._
+@import views.xml.componentsP5Transition.table_1._
 
 @this()
 
@@ -8,14 +8,14 @@
         movementReferenceNumber: String,
         lrn: String,
         printVariousConsignors: Boolean,
-        consignorOne: Option[viewmodels.Consignor],
+        consignorOne: Option[models.P5.departure.Consignor],
         declarationType: DeclarationType,
         printListOfItems: Boolean,
-        consignor: Option[viewmodels.Consignor],
+        consignor: Option[models.P5.departure.Consignor],
         numberOfItems: Int,
         totalNumberOfPackages: String,
         printVariousConsignees: Boolean,
-        consigneeOne: Option[viewmodels.Consignee],
+        consigneeOne: Option[models.P5.departure.Consignee],
         singleCountryOfDispatch: Option[models.reference.Country],
         singleCountryOfDestination: Option[models.reference.Country],
         transportIdentity: Option[String],

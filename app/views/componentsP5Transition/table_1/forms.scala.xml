@@ -1,6 +1,6 @@
 @(printListOfItems: Boolean)
 
-<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
+<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" >
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
       <fo:table-column/>
@@ -13,18 +13,10 @@
         </fo:table-row>
         <fo:table-row height="4.5mm">
           <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
-            <fo:block>
-              1
-            </fo:block>
+            <fo:block>&#160;</fo:block>
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
-            <fo:block>
-              @if(!printListOfItems) {
-                1
-              } else {
-                <fo:page-number-citation ref-id="A-last-page"/>
-              }
-            </fo:block>
+            <fo:block>&#160;</fo:block>
           </fo:table-cell>
         </fo:table-row>
       </fo:table-body>

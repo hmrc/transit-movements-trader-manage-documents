@@ -126,72 +126,14 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentP5TransitionPDF]] = {
 
     val countriesFuture: Future[ValidationResult[Seq[Country]]] = referenceDataP5.getList[Seq[Country]]("CountryCodesForAddress")
-    val additionalInfoFuture: Future[ValidationResult[Seq[AdditionalInformation]]] =
-      referenceDataP5.getList[Seq[AdditionalInformation]]("AdditionalInformation")
-    val kindsOfPackageFuture: Future[ValidationResult[Seq[KindOfPackage]]] = referenceDataP5.getList[Seq[KindOfPackage]]("KindOfPackages")
-    val previousDocumentTypesFuture: Future[ValidationResult[Seq[PreviousDocumentTypes]]] =
-      referenceDataP5.getList[Seq[PreviousDocumentTypes]]("PreviousDocumentType")
-    val supportingDocumentTypesFuture: Future[ValidationResult[Seq[SupportingDocumentTypes]]] =
-      referenceDataP5.getList[Seq[SupportingDocumentTypes]]("SupportingDocumentType")
-    val transportDocumentTypesFuture: Future[ValidationResult[Seq[TransportDocumentTypes]]] =
-      referenceDataP5.getList[Seq[TransportDocumentTypes]]("TransportDocumentType")
-    val circumstanceIndicatorsFuture: Future[ValidationResult[Seq[CircumstanceIndicator]]] =
-      referenceDataP5.getList[Seq[CircumstanceIndicator]]("SpecificCircumstanceIndicatorCode")
-    val customsOfficeFuture: Future[ValidationResult[Seq[CustomsOffice]]] = referenceDataP5.getList[Seq[CustomsOffice]]("customsOffices")
-//    val controlResultFuture: Future[ValidationResult[Seq[ControlResult]]] =
-//      referenceDataP5.getList[Seq[ControlResult]]("controlResult")
 
-    for {
-      countryCodesForAddress  <- countriesFuture
-      additionalInfo          <- additionalInfoFuture
-      kindsOfPackage          <- kindsOfPackageFuture
-      previousDocumentTypes   <- previousDocumentTypesFuture
-      supportingDocumentTypes <- supportingDocumentTypesFuture
-      transportDocumentTypes  <- transportDocumentTypesFuture
-      circumstanceIndicators  <- circumstanceIndicatorsFuture
-      customsOffice           <- customsOfficeFuture
-//      controlResult <- controlResultFuture
-    } yield (
-      countryCodesForAddress,
-      additionalInfo,
-      kindsOfPackage,
-      previousDocumentTypes,
-      supportingDocumentTypes,
-      transportDocumentTypes,
-      circumstanceIndicators,
-      customsOffice
-//      controlResult
-    )
-      .mapN {
-        (
-          countriesForAddress,
-          additionalInfo,
-          kindsOfPackage,
-          previousDocumentTypes,
-          supportingDocumentTypes,
-          transportDocumentTypes,
-          circumstanceIndicators,
-          customsOffice
-//          controlResult
-        ) =>
-          TransitAccompanyingDocumentConverter.fromP5ToViewModel(
-            ie029,
-            ie015,
-            countriesForAddress,
-            additionalInfo,
-            kindsOfPackage,
-            previousDocumentTypes,
-            supportingDocumentTypes,
-            transportDocumentTypes,
-            circumstanceIndicators,
-            customsOffice,
-            Seq.empty
-          )
-      }
-      .fold(
-        errors => Invalid(errors),
-        result => result
-      )
+    countriesFuture.map {
+      validationResult =>
+        validationResult.fold(
+          errors => Invalid(errors),
+          countries => TransitAccompanyingDocumentConverter.fromP5ToViewModel(ie029, ie015, countries)
+        )
+    }
 
   }
 

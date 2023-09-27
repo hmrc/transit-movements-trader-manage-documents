@@ -119,13 +119,7 @@ case class Consignment(
     (acc, house) =>
       acc ++ house.ConsignmentItem.map(
         _.copy(
-          countryOfDispatch = countryOfDispatch,
-          countryOfDestination = countryOfDestination,
-          referenceNumberUCR = referenceNumberUCR,
-          AdditionalSupplyChainActor = AdditionalSupplyChainActor,
-          AdditionalInformation = AdditionalInformation,
-          AdditionalReference = AdditionalReference,
-          TransportCharges = TransportCharges
+          referenceNumberUCR = referenceNumberUCR
         )
       )
   }

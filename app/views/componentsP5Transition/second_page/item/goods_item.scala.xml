@@ -1,7 +1,8 @@
-@import views.xml.components.second_page.item._
-@import views.xml.components.{item => componentItem}
+@import views.xml.componentsP5Transition.second_page.item._
+@import views.xml.componentsP5Transition.{item => componentItem}
+@import models.P5.departure._
 
-@(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: DeclarationType, authId: Option[String])
+@(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: DeclarationType, authorisation: Seq[Authorisation])
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
     <fo:table-column column-width="28mm"/>
@@ -16,29 +17,13 @@
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" wrap-option="wrap" >
-                    @if(goodsItem.packages.toList.length > 1) {
-                        @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}...")
-                    } else {
-                        @block(s"${goodsItem.packages.head.marksAndNumbersValue.getOrElse("")}")
-                    }
+                <fo:block>&#160;</fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.packages.toList.length > 1) {
-                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}...")
-                } else {
-                @block(s"${goodsItem.packages.head.packageAndNumber.getOrElse(goodsItem.packages.head.kindOfPackage.code)}")
-                }
+                <fo:block>&#160;</fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.containers.nonEmpty) {
-                    @if(goodsItem.containers.length > 1) {
-                        @block(s"${goodsItem.containers.head.split(",").last}...")
-                    } else {
-                        @block(s"${goodsItem.containers.head.split(",").last}")
-                    }
-                } else {
-                    <fo:block>--</fo:block>
-                }
+                <fo:block>&#160;</fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
@@ -49,7 +34,7 @@
         <fo:table-row height="3.5mm">
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @declarationType
+                    @block(goodsItem.declarationType.getOrElse(""))
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
@@ -58,54 +43,38 @@
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
-                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.goodsCode.getOrElse("--")))
-                } else {
-                    <fo:block>--</fo:block>
-                }
+
+                    <fo:block>&#160;</fo:block>
+
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
-                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.quantity.toString))
-                } else {
-                    <fo:block>--</fo:block>
-                }
+
+                    <fo:block>&#160;</fo:block>
+
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.previousDocumentTypes.nonEmpty){
-                    @if(goodsItem.previousDocumentTypes.length > 1) {
-                        @block(s"${goodsItem.previousDocumentTypes.head.transitionDisplay}...")
-                    } else {
-                        @block(s"${goodsItem.previousDocumentTypes.head.transitionDisplay}")
-                    }
+                @if(goodsItem.previousDocuments.nonEmpty){
+                    @goodsItem.previousDocuments.map(x => block(x.toStringItem))
                 } else {
-                    <fo:block>--</fo:block>
+                    <fo:block>&#160;</fo:block>
                 }
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="3.5mm">
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.countryOfDispatch.nonEmpty) {
-                    @goodsItem.countryOfDispatch.map(country => block(country.code))
-                } else {
-                    <fo:block>---</fo:block>
-                }
+                @block(goodsItem.countryOfDispatch.getOrElse(""))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.countryOfDestination.nonEmpty) {
-                    @goodsItem.countryOfDestination.map(country => block(country.code))
-                } else {
-                    <fo:block>---</fo:block>
-                }
+                @block(goodsItem.countryOfDestination.getOrElse(""))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @goodsItem.grossMass.getOrElse("---")
+                    @goodsItem.grossMass.getOrElse("")
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @goodsItem.netMass.getOrElse("---")
+                    @goodsItem.netMass.getOrElse("")
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-top="0.5mm">
@@ -115,46 +84,35 @@
                         <fo:table-row>
                             <fo:table-cell padding-left="2mm">
                                 @if(goodsItem.transportDocuments.nonEmpty) {
-                                    @if(goodsItem.transportDocuments.length > 1) {
-                                        @block(s"${goodsItem.transportDocuments.head.toString}...")
-                                    } else {
-                                        @block(s"${goodsItem.transportDocuments.head.toString}")
-                                    }
+                                         @goodsItem.transportDocuments.map(x => block(x.toString))
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
+
 
                                 @if(goodsItem.supportingDocuments.nonEmpty) {
-                                    @if(goodsItem.supportingDocuments.length > 1) {
-                                        @block(s"${goodsItem.supportingDocuments.head.toString}...")
-                                    } else {
-                                        @block(s"${goodsItem.supportingDocuments.head.toString}")
-                                    }
+                                    @goodsItem.supportingDocuments.map(x => block(x.toString))
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
 
-                                @if(goodsItem.specialMentions.nonEmpty) {
-                                    @if(goodsItem.specialMentions.length > 1) {
-                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}...")
-                                    } else {
-                                        @block(s"${goodsItem.specialMentions.head.additionalInfoCoded.toString}")
-                                    }
+                                @if(goodsItem.additionalInformation.nonEmpty) {
+                                    @goodsItem.additionalInformation.map(x => block(x.toString))
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
 
                                 @if(goodsItem.additionalReferences.nonEmpty) {
-                                    @if(goodsItem.additionalReferences.length > 1) {
-                                        @block(s"${goodsItem.additionalReferences.head.toString}...")
-                                    } else {
-                                        @block(s"${goodsItem.additionalReferences.head.toString}")
-                                    }
+                                    @goodsItem.additionalReferences.map(x => block(x.toString))
                                 } else {
-                                    <fo:block>--</fo:block>
+                                    <fo:block>&#160;</fo:block>
                                 }
 
-                                @block(authId.getOrElse(""))
+                                @if(authorisation.nonEmpty) {
+                                    @authorisation.map(x => block(x.toString))
+                                } else {
+                                    <fo:block>&#160;</fo:block>
+                                }
                             </fo:table-cell>
                         </fo:table-row>
                     </fo:table-body>
@@ -174,14 +132,14 @@
 
                                         @goodsItem.consignor.map(x => consignor(x))
                                     } else {
-                                        <fo:block>---</fo:block>
+                                        <fo:block>&#160;</fo:block>
                                     }
                                 </fo:table-cell>
                                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
                                     @if(goodsItem.consignee.nonEmpty) {
                                         @goodsItem.consignee.map(x => consignee(x))
                                     } else {
-                                        <fo:block>---</fo:block>
+                                        <fo:block>&#160;</fo:block>
                                     }
                                 </fo:table-cell>
                             </fo:table-row>

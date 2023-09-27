@@ -31,7 +31,7 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
   "table2ViewModelSpec" - {
 
     "return comma seperated transportEquipment information" in {
-      viewModel.table2ViewModel.transportEquipment mustBe "12123, Container-ID-1, 8, 1232:1234"
+      viewModel.table2ViewModel.transportEquipment mustBe "12123, Container-ID-1, 8, 1232:3"
     }
 
     "return comma seperated seals information" in {
@@ -45,23 +45,23 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
       viewModelMultiSeals.table2ViewModel.seals mustBe "1232,[ID10012]...456,[ID10045]"
     }
     "return comma seperated previousDocument information" in {
-      viewModel.table2ViewModel.previousDocument mustBe "Document-1, Type-1, Reference-1, C1; Document-1, Type-1, Reference-1, C1"
+      viewModel.table2ViewModel.previousDocument mustBe "Document-1, Type-1, Reference-1, C1; Document-2, Type-2, Reference-2, C1"
     }
 
     "return comma seperated supportingDocument information" in {
-      viewModel.table2ViewModel.supportingDocument mustBe "Document-1,Type-1,Reference-1,5,C1; Document-1,Type-1,Reference-1,5,C1"
+      viewModel.table2ViewModel.supportingDocument mustBe "Document-1,Type-1,Reference-1,5,C1; Document-2,Type-2,Reference-2,5,C1"
     }
 
     "return transportDocument information" in {
-      viewModel.table2ViewModel.transportDocument mustBe "Document-1,Type-1,Reference-1; Document-1,Type-1,Reference-1"
+      viewModel.table2ViewModel.transportDocument mustBe "Document-1,Type-1,Reference-1; Document-2,Type-2,Reference-2"
     }
 
     "return additionalInformation information" in {
-      viewModel.table2ViewModel.additionalInformation mustBe "Document-1, Type-1, Reference-1; Document-1, Type-1, Reference-1"
+      viewModel.table2ViewModel.additionalInformation mustBe "Document-1, Type-1, Reference-1; Document-2, Type-2, Reference-2"
     }
 
     "return additionalReference information" in {
-      viewModel.table2ViewModel.additionalReference mustBe "Document-1,Type-1,Reference-1; Document-1,Type-1,Reference-1"
+      viewModel.table2ViewModel.additionalReference mustBe "Document-1,Type-1,Reference-1; Document-2,Type-2,Reference-2"
     }
 
     "return transportCharges information" in {
@@ -69,7 +69,7 @@ class Table2ViewModelSpec extends AnyFreeSpec with Matchers with SpecBase with D
     }
 
     "return comma seperated guarantee information" in {
-      viewModel.table2ViewModel.guarantee mustBe "SEQNum-1, SomeGuaranteeType, otherGuaranteeReference, SEQNum-1, GRN-1, Access-code-1, 123456.1212..."
+      viewModel.table2ViewModel.guarantee mustBe "SEQNum-1, G, otherGuaranteeReference, SEQNum-1, GRN-1, Access-code-1, 123456.1212, GBP"
     }
 
     "return comma seperated authorisation information" in {

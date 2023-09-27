@@ -1,4 +1,4 @@
-@import views.xml.components.table_5.control_results
+@import views.xml.componentsP5Transition.table_5.control_results
 @import viewmodels.ControlResult
         @import java.time.format.DateTimeFormatter
 @import java.time.LocalDate
@@ -37,11 +37,9 @@
                                     <fo:block>Result:</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell display-align="center" font-weight="bold">
-                                    @controlResult.map{ result =>
-                                        @control_results(result)
-                                    }.getOrElse{
+
                                         <fo:block/>
-                                    }
+
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="2mm">
@@ -59,7 +57,7 @@
                                         @if(seals.nonEmpty) {
                                             @seals.length
                                         } else {
-                                            ---
+
                                         }
                                     </fo:block>
                                 </fo:table-cell>
@@ -80,7 +78,7 @@
                                                 @seals
                                             }
                                         } else {
-                                            ---
+
                                         }
                                     </fo:block>
                                 </fo:table-cell>
@@ -95,7 +93,7 @@
                                 <fo:table-cell padding-top="1mm" font-weight="bold">
                                     <fo:block>
                                         @if(limitDate.length >0) {
-                                            @LocalDate.parse(limitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                                            @LocalDate.parse(limitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                                         } else {
                                             @limitDate
                                         }

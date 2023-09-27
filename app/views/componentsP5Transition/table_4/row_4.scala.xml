@@ -1,8 +1,8 @@
-@import views.xml.components.table_4.guaranteeReference
-
-@import viewmodels.CustomsOfficeWithOptionalDate
-@import views.xml.components.customs_office
-@(guaranteeDetails: Seq[GuaranteeDetails] = Nil, destination: Option[CustomsOfficeWithOptionalDate] = None)
+@import views.xml.componentsP5Transition.table_4.guaranteeReference
+@import views.xml.componentsP5Transition.second_page.item.block
+@import models.P5.departure._
+@import views.xml.componentsP5Transition.customs_office
+@(guaranteeType: String, destination: CustomsOfficeOfDestinationDeclared)
 <fo:table-cell >
     <fo:block>
         <fo:list-block>
@@ -33,7 +33,9 @@
                             <fo:table-column column-width="38.213mm"/>
                             <fo:table-body>
                                 <fo:table-row height="2mm">
-                                    @guaranteeReference(guaranteeDetails)
+                                    <fo:table-cell>
+                                        <fo:block/>
+                                    </fo:table-cell>
                                 </fo:table-row>
                                 <fo:table-row>
                                     <fo:table-cell>
@@ -51,14 +53,7 @@
             <fo:table-row>
                 <fo:table-cell display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center">
                     <fo:block>
-                        @for(i <- 0 to 2) {
-                            @if(guaranteeDetails.isDefinedAt(i)){
-                                @if(i != 0){
-                                    <fo:inline>,</fo:inline>
-                                }
-                                @guaranteeDetails(i).guaranteeType
-                            }
-                        }
+                      @guaranteeType
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
@@ -77,11 +72,7 @@
                 </fo:table-row>
                 <fo:table-row height="2mm">
                     <fo:table-cell text-align="center" display-align="center" font-weight="bold">
-                        @destination.map{ des =>
-                            @customs_office(des)
-                        }.getOrElse(
-                            <fo:block />
-                        )
+                        @block(destination.referenceNumber)
                     </fo:table-cell>
                 </fo:table-row>
             </fo:table-body>

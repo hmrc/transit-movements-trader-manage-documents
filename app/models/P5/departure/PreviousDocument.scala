@@ -23,8 +23,28 @@ case class PreviousDocument(
   sequenceNumber: Option[String],
   `type`: Option[String],
   referenceNumber: Option[String],
-  complementOfInformation: Option[String]
+  complementOfInformation: Option[String],
+  goodsItemNumber: Option[Int],
+  typeOfPackages: Option[String],
+  numberOfPackages: Option[Int],
+  measurementUnitAndQualifier: Option[String],
+  quantity: Option[Double]
 ) {
+
+  def toStringItem: String = {
+    val stringList: Seq[Option[String]] = List(
+      sequenceNumber,
+      `type`,
+      referenceNumber,
+      goodsItemNumber.map(_.toString),
+      typeOfPackages,
+      numberOfPackages.map(_.toString),
+      measurementUnitAndQualifier,
+      quantity.map(_.toString),
+      complementOfInformation
+    )
+    stringList.flatten.mkString(", ")
+  }
 
   override def toString: String = {
 

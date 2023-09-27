@@ -1,6 +1,7 @@
 @import cats.data.NonEmptyList
-@import views.xml.components.second_page.item._
-@(goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], authId: Option[String])
+@import views.xml.componentsP5Transition.second_page.item._
+@import models.P5.departure._
+@(supportingDocuments: Seq[SupportingDocument], transportDocuments: Seq[TransportDocument], additionalInformation: Seq[AdditionalInformation], additionalReferences: Seq[AdditionalReference], authorisation: Seq[Authorisation])
 <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2" wrap-option="wrap" padding-top="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
     <fo:block>
         <fo:list-block>
@@ -18,47 +19,56 @@
     </fo:block>
 </fo:table-cell>
 <fo:table-cell margin-left="2mm" padding-top="1mm" font-weight = "bold">
-    @if(goodsItems.head.transportDocuments.nonEmpty) {
-        @if(goodsItems.head.transportDocuments.length > 1) {
-            @block(s"${goodsItems.head.transportDocuments.head.toString}...")
+    @if(transportDocuments.nonEmpty) {
+        @if(transportDocuments.length > 1) {
+            @block(s"${transportDocuments.head.toString}...")
         } else {
-            @block(s"${goodsItems.head.transportDocuments.head.toString}")
+            @block(s"${transportDocuments.head.toString}")
         }
     } else {
-        <fo:block>--</fo:block>
+        <fo:block>&#160;</fo:block>
     }
 
-    @if(goodsItems.head.supportingDocuments.nonEmpty) {
-        @if(goodsItems.head.supportingDocuments.length > 1) {
-            @block(s"${goodsItems.head.supportingDocuments.head.toString}...")
+    @if(supportingDocuments.nonEmpty) {
+        @if(supportingDocuments.length > 1) {
+            @block(s"${supportingDocuments.head.toString}...")
         } else {
-            @block(s"${goodsItems.head.supportingDocuments.head.toString}")
+            @block(s"${supportingDocuments.head.toString}")
         }
     } else {
-        <fo:block>--</fo:block>
+        <fo:block>&#160;</fo:block>
     }
 
-    @if(goodsItems.head.specialMentions.nonEmpty) {
-        @if(goodsItems.head.specialMentions.length > 1) {
-            @block(s"${goodsItems.head.specialMentions.head.additionalInfoCoded.toString}...")
+    @if(additionalInformation.nonEmpty) {
+        @if(additionalInformation.length > 1) {
+            @block(s"${additionalInformation.head.toString}...")
         } else {
-            @block(s"${goodsItems.head.specialMentions.head.additionalInfoCoded.toString}")
+            @block(s"${additionalInformation.head.toString}")
         }
     } else {
-        <fo:block>--</fo:block>
+        <fo:block>&#160;</fo:block>
     }
 
-    @if(goodsItems.head.additionalReferences.nonEmpty) {
-        @if(goodsItems.head.additionalReferences.length > 1) {
-            @block(s"${goodsItems.head.additionalReferences.head.toString}...")
+    @if(additionalReferences.nonEmpty) {
+        @if(additionalReferences.length > 1) {
+            @block(s"${additionalReferences.head.toString}...")
         } else {
-            @block(s"${goodsItems.head.additionalReferences.head.toString}")
+            @block(s"${additionalReferences.head.toString}")
         }
     } else {
-        <fo:block>--</fo:block>
+        <fo:block>&#160;</fo:block>
     }
 
-    @block(authId.getOrElse(""))
+    @if(authorisation.nonEmpty) {
+        @if(authorisation.length > 1) {
+            @block(s"${authorisation.head.toString}...")
+        } else {
+            @block(s"${authorisation.head.toString}")
+        }
+    } else {
+        <fo:block>&#160;</fo:block>
+    }
+
 </fo:table-cell>
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
 <fo:block/>
