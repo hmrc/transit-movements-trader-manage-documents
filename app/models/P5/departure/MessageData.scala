@@ -35,7 +35,7 @@ case class IE029MessageData(
   CustomsOfficeOfTransitDeclared: Option[List[CustomsOfficeOfTransitDeclared]],
   CustomsOfficeOfExitForTransitDeclared: Option[List[CustomsOfficeOfExitForTransitDeclared]],
   HolderOfTheTransitProcedure: HolderOfTransitProcedure,
-  Representative: Representative,
+  Representative: Option[Representative],
   ControlResult: Option[ControlResult],
   Guarantee: Option[List[Guarantee]],
   Consignment: Consignment
