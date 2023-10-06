@@ -147,7 +147,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
             supportingDocuments = consignment.SupportingDocument.getOrElse(Seq.empty),
             additionalInformation = consignment.AdditionalInformation.getOrElse(Seq.empty),
             additionalReferences = consignment.AdditionalReference.getOrElse(Seq.empty),
-            guaranteeType = guarantee.map(_.head.guaranteeType.getOrElse("")).get,
+            guaranteeType = guarantee.head.guaranteeType,
             seals = Seq.empty,
             returnCopiesCustomsOffice = None,
             controlResult = None,

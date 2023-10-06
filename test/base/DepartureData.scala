@@ -59,19 +59,19 @@ trait DepartureData {
 
   val representative: Representative = Representative("ID1", "Status-1", Some(contactPerson))
 
-  val controlResult = ControlResult("code", LocalDate.of(2020, 1, 1), Some("controlled"), Some("text"))
+  val controlResult = ControlResult("code", LocalDate.of(2020, 1, 1), "controlled", Some("text"))
 
   val consignor: Consignor = Consignor(Some("idnum1"), Some("Consignor Name"), Some(address), Some(contactPerson))
   val consignee: Consignee = Consignee(Some("idnum1"), Some("Consignee Name"), Some(address))
   val carrier: Carrier     = Carrier("idnum1", Some(contactPerson))
 
-  val authorisation: Authorisation                                                 = Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))
+  val authorisation: Authorisation                                                 = Authorisation("SEQNum-1", "Auth-Type", "Reference-Numb-1")
   val customsOfficeOfTransitDeclared: CustomsOfficeOfTransitDeclared               = CustomsOfficeOfTransitDeclared("seq001", "AD000002", Some(LocalDateTime.MIN))
-  val customsOfficeOfExitForTransitDeclared: CustomsOfficeOfExitForTransitDeclared = CustomsOfficeOfExitForTransitDeclared(Some("seq001"), Some("AD000002"))
+  val customsOfficeOfExitForTransitDeclared: CustomsOfficeOfExitForTransitDeclared = CustomsOfficeOfExitForTransitDeclared("seq001", "AD000002")
   val customsOfficeOfDeparture: CustomsOfficeOfDeparture                           = CustomsOfficeOfDeparture("AD000002")
   val customsOfficeOfDestinationDeclared: CustomsOfficeOfDestinationDeclared       = CustomsOfficeOfDestinationDeclared("AT240000")
-  val guaranteeReference: GuaranteeReference                                       = GuaranteeReference(Some("SEQNum-1"), Some("GRN-1"), Some("Access-code-1"), Some(123456.1212), Some("GBP"))
-  val guarantee: Guarantee                                                         = Guarantee("SEQNum-1", Some("G"), Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
+  val guaranteeReference: GuaranteeReference                                       = GuaranteeReference("SEQNum-1", Some("GRN-1"), Some("Access-code-1"), 123456.1212, "GBP")
+  val guarantee: Guarantee                                                         = Guarantee("SEQNum-1", "G", Some("otherGuaranteeReference"), Some(List(guaranteeReference)))
   val postcodeAddress: PostcodeAddress                                             = PostcodeAddress(Some("house1"), "BR", "UK")
   val economicOperator: EconomicOperator                                           = EconomicOperator("EconomicOperator-1")
   val customsOffice: CustomsOffice                                                 = CustomsOffice("Reference1")
@@ -106,25 +106,25 @@ trait DepartureData {
   val placeOfUnLoading: PlaceOfUnloading = PlaceOfUnloading(Some("UnLoCoCode-1"), Some("GB"), Some("L1"))
 
   val previousDocumentConsignment: PreviousDocument =
-    PreviousDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some("C1"), None, None, None, None, None)
-  val transportDocumentConsignment: TransportDocument         = TransportDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val supportingDocumentConsignment: SupportingDocument       = SupportingDocument(Some("Document-1"), Some("Type-1"), Some("Reference-1"), Some(5), Some("C1"))
-  val additionalReferenceConsignment: AdditionalReference     = AdditionalReference(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
-  val additionalInformationConsignment: AdditionalInformation = AdditionalInformation(Some("Document-1"), Some("Type-1"), Some("Reference-1"))
+    PreviousDocument("Document-1", "Type-1", "Reference-1", Some("C1"), None, None, None, None, None)
+  val transportDocumentConsignment: TransportDocument         = TransportDocument("Document-1", "Type-1", "Reference-1")
+  val supportingDocumentConsignment: SupportingDocument       = SupportingDocument("Document-1", "Type-1", "Reference-1", Some(5), Some("C1"))
+  val additionalReferenceConsignment: AdditionalReference     = AdditionalReference("Document-1", "Type-1", Some("Reference-1"))
+  val additionalInformationConsignment: AdditionalInformation = AdditionalInformation("Document-1", "Type-1", Some("Reference-1"))
 
   val previousDocumentItem: PreviousDocument =
-    PreviousDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"), Some("C1"), Some(3), Some("type"), Some(5), Some("measurement"), Some(5.0))
-  val transportDocumentItem: TransportDocument                     = TransportDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
-  val supportingDocumentItem: SupportingDocument                   = SupportingDocument(Some("Document-2"), Some("Type-2"), Some("Reference-2"), Some(5), Some("C1"))
-  val additionalReferenceItem: AdditionalReference                 = AdditionalReference(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
-  val additionalInformationItem: AdditionalInformation             = AdditionalInformation(Some("Document-2"), Some("Type-2"), Some("Reference-2"))
-  val countryOfRoutingOfConsignment: CountryOfRoutingOfConsignment = CountryOfRoutingOfConsignment(Some("Seqnum12243"), Some("GB"))
+    PreviousDocument("Document-2", "Type-2", "Reference-2", Some("C1"), Some(3), Some("type"), Some(5), Some("measurement"), Some(5.0))
+  val transportDocumentItem: TransportDocument                     = TransportDocument("Document-2", "Type-2", "Reference-2")
+  val supportingDocumentItem: SupportingDocument                   = SupportingDocument("Document-2", "Type-2", "Reference-2", Some(5), Some("C1"))
+  val additionalReferenceItem: AdditionalReference                 = AdditionalReference("Document-2", "Type-2", Some("Reference-2"))
+  val additionalInformationItem: AdditionalInformation             = AdditionalInformation("Document-2", "Type-2", Some("Reference-2"))
+  val countryOfRoutingOfConsignment: CountryOfRoutingOfConsignment = CountryOfRoutingOfConsignment("Seqnum12243", "GB")
   val packaging: Packaging                                         = Packaging("1", Some(3), "Rubber", Some("RubberMark"))
   val commodityCode: CommodityCode                                 = CommodityCode("SHC1", Some("NOMC1"))
   val goodsMeasure: GoodsMeasure                                   = GoodsMeasure(1.2, Some(1.4))
-  val transportCharges: TransportCharges                           = TransportCharges(Some("payPal"))
-  val dangerousGoods: DangerousGoods                               = DangerousGoods("seq1", Some("UNNumber1"))
-  val commodity: Commodity                                         = Commodity("Tiles", Some("CUSCode"), Some(commodityCode), Some(List(dangerousGoods)), goodsMeasure)
+  val transportCharges: TransportCharges                           = TransportCharges("payPal")
+  val dangerousGoods: DangerousGoods                               = DangerousGoods("seq1", "UNNumber1")
+  val commodity: Commodity                                         = Commodity("Tiles", Some("CUSCode"), Some(commodityCode), Some(List(dangerousGoods)), Some(goodsMeasure))
 
   val consignmentItem1: ConsignmentItem = ConsignmentItem(
     "1T1",
@@ -224,7 +224,7 @@ trait DepartureData {
       holderOfTheTransitProcedure,
       Some(representative),
       Some(controlResult),
-      Some(List(guarantee)),
+      List(guarantee),
       consigmment
     )
 

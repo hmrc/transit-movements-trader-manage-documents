@@ -19,10 +19,10 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TransportCharges(methodOfPayment: Option[String]) {
+case class TransportCharges(methodOfPayment: String) {
 
   override def toString: String =
-    methodOfPayment.getOrElse("")
+    methodOfPayment
 }
 
 object TransportCharges {

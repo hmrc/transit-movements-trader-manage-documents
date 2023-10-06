@@ -406,7 +406,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         numberOfPackages = Some(3),
         grossMass = 52.02,
         printBindingItinerary = true,
-        authorisation = Seq(Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))),
+        authorisation = Seq(Authorisation("SEQNum-1", "Auth-Type", "Reference-Numb-1")),
         goodsReference = Seq(GoodsReference("1232", 3)),
         copyType = false,
         holderOfTransitProcedure = HolderOfTransitProcedure(Some("id1"), Some("TIRID1"), Some("Bob"), Some(address), Some(contactPerson)),

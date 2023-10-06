@@ -19,12 +19,12 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class CountryOfRoutingOfConsignment(sequenceNumber: Option[String], country: Option[String]) {
+case class CountryOfRoutingOfConsignment(sequenceNumber: String, country: String) {
 
   override def toString: String = {
 
-    val stringList: Seq[Option[String]] = List(sequenceNumber, country)
-    stringList.flatten.mkString(", ")
+    val stringList: Seq[String] = List(sequenceNumber, country)
+    stringList.mkString(", ")
   }
 }
 
