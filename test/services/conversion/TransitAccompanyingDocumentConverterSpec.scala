@@ -401,7 +401,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
         transportIdentity = Some("Actor-Role,ID001,TYPE01"),
         transportCountry = Some(countries.head),
         limitDate = "2010-11-15",
-        acceptanceDate = Some(FormattedDate(LocalDate.of(2020, 1, 1))),
+        acceptanceDate = FormattedDate(LocalDate.of(2020, 1, 1)),
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 52.02,

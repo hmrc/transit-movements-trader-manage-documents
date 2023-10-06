@@ -128,7 +128,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
                     .getOrElse("")
               ),
             limitDate = ie015.data.TransitOperation.limitDate.getOrElse(""),
-            acceptanceDate = transitOperation.declarationAcceptanceDate.map(FormattedDate(_)), // P5
+            acceptanceDate = FormattedDate(transitOperation.declarationAcceptanceDate), // P5
             numberOfItems = consignment.totalItems,
             numberOfPackages = Some(consignment.totalPackages),
             grossMass = consignment.grossMass,                                          // P5

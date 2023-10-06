@@ -37,7 +37,7 @@ trait DepartureData {
       T1,
       "T2F",
       Some("TIR"),
-      Some(LocalDate.of(2020, 1, 1)),
+      LocalDate.of(2020, 1, 1),
       LocalDate.of(2020, 1, 1),
       "security",
       "false",
