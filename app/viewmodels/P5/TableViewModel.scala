@@ -95,9 +95,9 @@ case class Table1ViewModel()(implicit ie029Data: IE029) {
   val holderOfTransitProcedure: String                     = truncate(150, ie029Data.data.HolderOfTheTransitProcedure.toString)
   val holderOfTransitProcedureIdentificationNumber: String = truncate(20, ie029Data.data.HolderOfTheTransitProcedure.identificationNumber.getOrElse(""))
 
-  val representative: String = ie029Data.data.Representative.toString
+  val representative: String = ie029Data.data.Representative.map(_.toString).getOrElse("")
 
-  val representativeIdentificationNumber: String = truncate(20, ie029Data.data.Representative.identificationNumber.getOrElse(""))
+  val representativeIdentificationNumber: String = truncate(20, ie029Data.data.Representative.map(_.identificationNumber).getOrElse(""))
   val lrn: String                                = truncate(20, ie029Data.data.TransitOperation.LRN)
   val tir: String                                = truncate(20, ie029Data.data.TransitOperation.TIRCarnetNumber.getOrElse(""))
 

@@ -20,15 +20,12 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class Representative(
-  identificationNumber: Option[String],
-  status: Option[String],
+  identificationNumber: String,
+  status: String,
   contactPerson: Option[ContactPerson]
 ) {
 
-  override def toString: String = {
-    val stringList: Seq[Option[String]] = List(status)
-    stringList.flatten.mkString(", ")
-  }
+  override def toString: String = s"$status"
 }
 
 object Representative {

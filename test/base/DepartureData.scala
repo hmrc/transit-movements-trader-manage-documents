@@ -57,7 +57,7 @@ trait DepartureData {
   val holderOfTheTransitProcedure: HolderOfTransitProcedure =
     HolderOfTransitProcedure(Some("id1"), Some("TIRID1"), Some("Bob"), Some(address), Some(contactPerson))
 
-  val representative: Representative = Representative(Some("ID1"), Some("Status-1"), Some(contactPerson))
+  val representative: Representative = Representative("ID1", "Status-1", Some(contactPerson))
 
   val controlResult = ControlResult("code", LocalDate.of(2020, 1, 1), Some("controlled"), Some("text"))
 
@@ -222,7 +222,7 @@ trait DepartureData {
       Some(List(customsOfficeOfTransitDeclared)),
       Some(List(customsOfficeOfExitForTransitDeclared)),
       holderOfTheTransitProcedure,
-      representative,
+      Some(representative),
       Some(controlResult),
       Some(List(guarantee)),
       consigmment
