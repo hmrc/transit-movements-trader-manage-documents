@@ -2,7 +2,7 @@
 @import views.xml.componentsP5Transition.{item => componentItem}
 @import models.P5.departure._
 
-@(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: DeclarationType, authorisation: Seq[Authorisation])
+@(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: DeclarationType)
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
     <fo:table-column column-width="28mm"/>
@@ -104,12 +104,6 @@
 
                                 @if(goodsItem.additionalReferences.nonEmpty) {
                                     @goodsItem.additionalReferences.map(x => block(x.toString))
-                                } else {
-                                    <fo:block>&#160;</fo:block>
-                                }
-
-                                @if(authorisation.nonEmpty) {
-                                    @authorisation.map(x => block(x.toString))
                                 } else {
                                     <fo:block>&#160;</fo:block>
                                 }
