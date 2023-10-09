@@ -22,8 +22,7 @@
             tadModel.movementReferenceNumber.split(',').head,
             tadModel.acceptanceDate.map(_.formattedDate),
             tadModel.goodsItems,
-            tadModel.declarationType,
-            tadModel.authorisation
+            tadModel.declarationType
         ))
     } else None
 )
