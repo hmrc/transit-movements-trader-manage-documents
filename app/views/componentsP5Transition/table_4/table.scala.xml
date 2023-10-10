@@ -8,7 +8,7 @@
 @(
         holderOfTransit: HolderOfTransitProcedure,
         departureOfficeTrimmed: CustomsOfficeOfDeparture,
-        acceptanceDateFormatted: Option[String],
+        acceptanceDateFormatted: String,
         transitOffices: Seq[CustomsOfficeOfTransitDeclared] = Nil,
         guaranteeType: String,
         destinationOffice: CustomsOfficeOfDestinationDeclared,

@@ -19,16 +19,16 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class TransportDocument(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String]) {
+case class TransportDocument(sequenceNumber: String, `type`: String, referenceNumber: String) {
 
   override def toString: String = {
 
-    val stringList: Seq[Option[String]] = List(
+    val stringList: Seq[String] = List(
       sequenceNumber,
       `type`,
       referenceNumber
     )
-    stringList.flatten.mkString(",")
+    stringList.mkString(",")
   }
 }
 

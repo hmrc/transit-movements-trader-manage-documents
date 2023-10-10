@@ -20,18 +20,18 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class Authorisation(
-  sequenceNumber: Option[String],
-  `type`: Option[String],
-  referenceNumber: Option[String]
+  sequenceNumber: String,
+  `type`: String,
+  referenceNumber: String
 ) {
 
   override def toString: String = {
-    val stringList: List[Option[String]] = List(
+    val stringList: List[String] = List(
       sequenceNumber,
       `type`,
       referenceNumber
     )
-    stringList.flatten.mkString(", ")
+    stringList.mkString(", ")
   }
 }
 

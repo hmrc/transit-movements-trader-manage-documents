@@ -19,9 +19,16 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class AdditionalReference(sequenceNumber: Option[String], `type`: Option[String], referenceNumber: Option[String]) {
+case class AdditionalReference(sequenceNumber: String, `type`: String, referenceNumber: Option[String]) {
 
-  override def toString: String = s"${sequenceNumber.getOrElse("")},${`type`.getOrElse("")},${referenceNumber.getOrElse("")}"
+  override def toString: String = {
+    val stringList: List[Option[String]] = List(
+      Some(sequenceNumber),
+      Some(`type`),
+      referenceNumber
+    )
+    stringList.flatten.mkString(",")
+  }
 
 }
 

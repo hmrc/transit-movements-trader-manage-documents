@@ -20,7 +20,7 @@
         Some(pageTwo(
             tadModel.departureOffice,
             tadModel.movementReferenceNumber.split(',').head,
-            tadModel.acceptanceDate.map(_.formattedDate),
+            tadModel.acceptanceDate.formattedDate,
             tadModel.goodsItems,
             tadModel.declarationType
         ))
@@ -61,7 +61,7 @@
     @table4(
         tadModel.holderOfTransitProcedure,
         tadModel.departureOffice,
-        tadModel.acceptanceDate.map(_.formattedDate),
+        tadModel.acceptanceDate.formattedDate,
         tadModel.customsOfficeOfTransit,
         tadModel.guaranteeType,
         tadModel.destinationOffice,
