@@ -20,14 +20,14 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class CustomsOfficeOfExitForTransitDeclared(
-  sequenceNumber: Option[String],
-  referenceNumber: Option[String]
+  sequenceNumber: String,
+  referenceNumber: String
 ) {
 
   override def toString: String = {
-    val stringList: List[Option[String]] = List(sequenceNumber, referenceNumber)
+    val stringList: List[String] = List(sequenceNumber, referenceNumber)
 
-    stringList.flatten.mkString(", ")
+    stringList.mkString(", ")
   }
 }
 

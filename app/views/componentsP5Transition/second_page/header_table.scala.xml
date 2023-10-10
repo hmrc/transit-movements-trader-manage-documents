@@ -1,6 +1,6 @@
 @import views.xml.componentsP5Transition.barcode_small
 @import models.P5.departure._
-@(departureOffice: CustomsOfficeOfDeparture, movementReferenceNumber: String, acceptanceDateFormatted: Option[String])
+@(departureOffice: CustomsOfficeOfDeparture, movementReferenceNumber: String, acceptanceDateFormatted: String)
 <fo:block>
     <fo:table width="100%" table-layout="fixed" font-size="12pt" font-weight="bold">
         <fo:table-column column-width="52mm"/>

@@ -157,7 +157,7 @@ case class Table2ViewModel()(implicit ie029Data: IE029) {
   private val transportChargesAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.transportChargesInHC).mkString("")
   val transportCharges: String                           = truncate(20, houseConsignmentAppender(transportChargesAtConsignment, transportChargesAtHouseConsignment))
 
-  val guarantee: String     = truncate(100, ie029Data.data.guaranteeDisplay.getOrElse(""))
+  val guarantee: String     = truncate(100, ie029Data.data.guaranteeDisplay)
   val authorisation: String = truncate(100, ie029Data.data.authorisationDisplay.getOrElse(""))
 
 }

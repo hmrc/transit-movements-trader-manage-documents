@@ -31,7 +31,7 @@ final case class TransitAccompanyingDocumentP5TransitionPDF(
   transportIdentity: Option[String],
   transportCountry: Option[Country],
   limitDate: String,
-  acceptanceDate: Option[FormattedDate],
+  acceptanceDate: FormattedDate,
   numberOfItems: Int,
   numberOfPackages: Option[Int],
   grossMass: BigDecimal,

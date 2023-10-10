@@ -25,7 +25,7 @@ import java.time.LocalDate
 case class ControlResult(
   code: String,
   date: LocalDate,
-  controlledBy: Option[String],
+  controlledBy: String,
   text: Option[String]
 ) {
 
@@ -38,7 +38,7 @@ case class ControlResult(
     val stringList: List[Option[String]] = List(
       Some(code),
       Some(date.toString),
-      controlledBy,
+      Some(controlledBy),
       text.map(_.map(_.toString).mkString(","))
     )
     stringList.flatten.mkString(", ")

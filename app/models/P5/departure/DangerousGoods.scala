@@ -19,10 +19,10 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class DangerousGoods(sequenceNumber: String, UNNumber: Option[String]) {
+case class DangerousGoods(sequenceNumber: String, UNNumber: String) {
 
   override def toString: String = {
-    val stringList: Seq[Option[String]] = List(Some(sequenceNumber), UNNumber)
+    val stringList: Seq[Option[String]] = List(Some(sequenceNumber), Some(UNNumber))
     stringList.flatten.mkString(", ")
   }
 
