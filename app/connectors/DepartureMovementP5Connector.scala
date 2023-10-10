@@ -17,18 +17,13 @@
 package connectors
 
 import config.AppConfig
-import models.P5.departure.DepartureMessages
-import models.P5.departure.Message
+import models.P5.departure.{DepartureMessages, Message}
 import play.api.Logging
 import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
-import uk.gov.hmrc.http.HttpReads
-import uk.gov.hmrc.http.HttpReadsTry
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads, HttpReadsTry}
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClient) extends HttpReadsTry with Logging {
 
@@ -51,6 +46,18 @@ class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClien
     val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages/$messageId"
 
     http.GET[T](serviceUrl)(reads, headers, ec)
+  }
+
+  def getMessage(
+    departureId: String,
+    messageId: String
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[models.Message] = {
+
+    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
+
+    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages/$messageId"
+
+    http.GET[models.Message](serviceUrl)(implicitly, headers, ec)
   }
 
 }

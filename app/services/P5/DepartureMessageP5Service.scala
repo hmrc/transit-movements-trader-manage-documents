@@ -20,6 +20,8 @@ import connectors.DepartureMovementP5Connector
 import models.P5.departure.DepartureMessageType.DepartureNotification
 import models.P5.departure.IE015
 import models.P5.departure.IE029
+import scalaxb.XMLFormat
+import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpReads.Implicits._
 
@@ -47,4 +49,10 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
     connector
       .getMessages(departureId)
       .map(_.find(DepartureNotification).map(_.id))
+
+  def getMessage[T](
+                  departureId: String,
+                  messageId: String
+                )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
+    connector.getMessage(departureId, messageId).map(_.body).map(fromXML(_))
 }

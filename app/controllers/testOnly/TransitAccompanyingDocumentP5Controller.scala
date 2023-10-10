@@ -19,12 +19,10 @@ package controllers.testOnly
 import cats.data.Validated
 import config.PhaseConfig
 import controllers.actions.AuthenticateActionProvider
-import models.P5.Phase.PostTransition
-import models.P5.Phase.Transition
+import generated.p5.{CC015CType, CC029CType}
+import models.P5.Phase.{PostTransition, Transition}
 import play.api.Logging
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.ControllerComponents
+import play.api.mvc.{Action, AnyContent, ControllerComponents}
 import services.P5.DepartureMessageP5Service
 import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.TADPdfGenerator
@@ -32,8 +30,7 @@ import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class TransitAccompanyingDocumentP5Controller @Inject() (
   pdf: TADPdfGenerator,
@@ -50,8 +47,8 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
       service.getIE015MessageId(departureId).flatMap {
         case Some(ie015MessageId) =>
           for {
-            ie015 <- service.getDeclarationData(departureId, ie015MessageId)
-            ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
+            ie015 <- service.getMessage[CC015CType](departureId, ie015MessageId)
+            ie029 <- service.getMessage[CC029CType](departureId, messageId)
             genPdf <- phaseConfig.phase match {
               case PostTransition => Future.successful(Validated.Valid(pdf.generateP5TADPostTransition(ie029)))
               case Transition     => conversionService.fromP5ToViewModel(ie029, ie015).map(_.map(pdf.generateP5TADTransition))

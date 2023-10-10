@@ -4,7 +4,7 @@ val appName         = "transit-movements-trader-manage-documents"
 val silencerVersion = "1.7.9"
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin)
+  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin, ScalaxbPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(
     majorVersion := 0,
@@ -32,6 +32,11 @@ lazy val microservice = Project(appName, file("."))
       compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     )
+  )
+  .settings(
+    Compile / scalaxb / scalaxbXsdSource := new File("./conf/xsd/p5"),
+    Compile / scalaxb / scalaxbDispatchVersion := "1.1.3",
+    Compile / scalaxb / scalaxbPackageName := "generated.p5"
   )
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(
