@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.testOnly
+package controllers.P5
 
 import controllers.actions.AuthenticateActionProvider
 import play.api.Logging

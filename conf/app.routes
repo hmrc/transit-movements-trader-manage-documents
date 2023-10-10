@@ -5,3 +5,6 @@ POST         /unloading-permission                   controllers.UnloadingPermis
 POST         /transit-accompanying-document          controllers.TransitAccompanyingDocumentController.get
 
 POST         /transit-security-accompanying-document controllers.TransitSecurityAccompanyingDocumentController.get()
+
+GET          /transit-movements-trader-manage-documents/:departureId/transit-accompanying-document/:messageId      controllers.P5.TransitAccompanyingDocumentP5Controller.get(departureId, messageId)
+GET          /transit-movements-trader-manage-documents/:arrivalId/unloading-permission-document/:messageId        controllers.P5.UnloadingPermissionDocumentP5Controller.get(arrivalId, messageId)

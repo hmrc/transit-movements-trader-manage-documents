@@ -8,7 +8,7 @@
         movementReferenceNumber: String,
         printVariousConsignors: Boolean,
         consignorOne: Option[viewmodels.Consignor],
-        declarationType: DeclarationType,
+        declarationType: String,
         printListOfItems: Boolean,
         consignor: Option[viewmodels.Consignor],
         numberOfItems: Int,

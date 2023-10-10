@@ -36,7 +36,7 @@
         movementReferenceNumber = tadModel.movementReferenceNumber,
         printVariousConsignors = tadModel.printVariousConsignors,
         consignorOne = tadModel.consignorOne,
-        declarationType = tadModel.declarationType,
+        declarationType = tadModel.declarationType.toString,
         printListOfItems = tadModel.printListOfItems,
         consignor = tadModel.consignor,
         numberOfItems = tadModel.numberOfItems,

@@ -17,8 +17,10 @@
 package generators
 
 import cats.data.NonEmptyList
+import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Shrink
+import org.scalacheck.Arbitrary.arbitrary
 
 import java.time.Instant
 import java.time.LocalDate
@@ -41,13 +43,26 @@ trait GeneratorHelpers {
   def nonEmptyString: Gen[String] =
     string suchThat (_.nonEmpty)
 
-  def listWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[Seq[T]] =
+  def listWithMaxSize[T](maxSize: Int = 10)(implicit arbitraryT: Arbitrary[T]): Gen[Seq[T]] =
+    for {
+      size  <- Gen.choose(0, maxSize)
+      items <- Gen.listOfN(size, arbitraryT.arbitrary)
+    } yield items
+
+  def listWithMaxSize[T](gen: Gen[T], maxSize: Int = 10): Gen[Seq[T]] =
     for {
       size  <- Gen.choose(0, maxSize)
       items <- Gen.listOfN(size, gen)
     } yield items
 
-  def nonEmptyListWithMaxSize[T](maxSize: Int, gen: Gen[T]): Gen[NonEmptyList[T]] =
+  def nonEmptyListWithMaxSize[T](maxSize: Int = 10)(implicit arbitraryT: Arbitrary[T]): Gen[NonEmptyList[T]] =
+    for {
+      head     <- arbitrary[T]
+      tailSize <- Gen.choose(1, maxSize - 1)
+      tail     <- Gen.listOfN(tailSize, arbitraryT.arbitrary)
+    } yield NonEmptyList(head, tail)
+
+  def nonEmptyListWithMaxSize[T](gen: Gen[T], maxSize: Int = 10): Gen[NonEmptyList[T]] =
     for {
       head     <- gen
       tailSize <- Gen.choose(1, maxSize - 1)
