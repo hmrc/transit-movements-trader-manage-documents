@@ -113,7 +113,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends AnyFreeSpec with 
       val model = models.ReleaseForTransit(
         Header(
           movementReferenceNumber = "mrn",
-          declarationType = DeclarationType.T1,
+          declarationType = "T1",
           countryOfDispatch = Some(countries.head.code),
           countryOfDestination = Some(countries.head.code),
           transportIdentity = Some("identity"),
@@ -197,7 +197,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends AnyFreeSpec with 
 
       val expectedResult = viewmodels.TransitSecurityAccompanyingDocumentPDF(
         movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
@@ -316,7 +316,7 @@ class TransitSecurityAccompanyingDocumentConverterSpec extends AnyFreeSpec with 
       val model = models.ReleaseForTransit(
         Header(
           movementReferenceNumber = "mrn",
-          declarationType = DeclarationType.T1,
+          declarationType = "T1",
           countryOfDispatch = Some(invalidCode),
           countryOfDestination = Some(invalidCode),
           transportIdentity = Some("identity"),

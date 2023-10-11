@@ -18,7 +18,6 @@ package services.pdf
 
 import cats.data.NonEmptyList
 import generators.ViewmodelGenerators
-import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.PreviousAdministrativeReference
@@ -179,7 +178,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
 
   val transitAccompanyingDocumentPDF: TransitAccompanyingDocumentPDF = TransitAccompanyingDocumentPDF(
     "21GB00006010025BD1",
-    DeclarationType.TMinus,
+    "T-",
     Some(Country("GB", "United Kingdom")),
     Some(Country("IT", "Italy")),
     Some("TAD ID Departure"),
@@ -219,7 +218,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
       GoodsItem(
         "1",
         None,
-        Some(DeclarationType.T1),
+        Some("T1"),
         "Snow sports",
         Some(4000),
         Some(3996),
@@ -254,7 +253,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
       GoodsItem(
         "2",
         None,
-        Some(DeclarationType.T2),
+        Some("T2"),
         "Snow Sports",
         Some(4000),
         Some(3996),
@@ -289,7 +288,7 @@ object TransitAccompanyingDocumentPDFGeneratorSpec {
       GoodsItem(
         "3",
         None,
-        Some(DeclarationType.T2),
+        Some("T2"),
         "Snow Sports",
         Some(4000),
         Some(3996),

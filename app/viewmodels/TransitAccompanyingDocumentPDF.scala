@@ -17,14 +17,13 @@
 package viewmodels
 
 import cats.data.NonEmptyList
-import models.DeclarationType
 import models.GuaranteeDetails
 import models.reference.Country
 import utils.FormattedDate
 
 final case class TransitAccompanyingDocumentPDF(
   movementReferenceNumber: String,
-  declarationType: DeclarationType,
+  declarationType: String,
   singleCountryOfDispatch: Option[Country],
   singleCountryOfDestination: Option[Country],
   transportIdentity: Option[String],

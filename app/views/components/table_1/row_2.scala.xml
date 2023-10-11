@@ -5,7 +5,7 @@
 
 @import views.xml.components.barcode
 
-@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean)
+@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: String,  movementReferenceNumber: String, printListOfItems: Boolean)
 
 <fo:table-row height="16mm">
   <fo:table-cell>

@@ -21,16 +21,16 @@ import cats.syntax.all._
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
 import com.lucidchart.open.xtract.XmlReader._
+import json.NonEmptyListOps._
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 import utils.BigDecimalXMLReader._
 import utils.NonEmptyListXMLReader._
-import json.NonEmptyListOps._
 
 final case class GoodsItem(
   itemNumber: Int,
   commodityCode: Option[String],
-  declarationType: Option[DeclarationType],
+  declarationType: Option[String],
   description: String,
   grossMass: Option[BigDecimal],
   netMass: Option[BigDecimal],
@@ -59,7 +59,7 @@ object GoodsItem {
     (
       (__ \ "IteNumGDS7").read[Int],
       (__ \ "ComCodTarCodGDS10").read[String].optional,
-      (__ \ "DecTypGDS15").read[DeclarationType].optional,
+      (__ \ "DecTypGDS15").read[String].optional,
       (__ \ "GooDesGDS23").read[String],
       (__ \ "GroMasGDS46").read[BigDecimal].optional,
       (__ \ "NetMasGDS48").read[BigDecimal].optional,

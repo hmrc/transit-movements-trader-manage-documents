@@ -1,7 +1,7 @@
 @import views.xml.securityComponents.second_page.item._
 @import views.xml.securityComponents.{item => componentItem}
 
-@(goodsItem: viewmodels.GoodsItem, declarationType: DeclarationType, placeOfUnloadingCode: Option[String])
+@(goodsItem: viewmodels.GoodsItem, declarationType: String, placeOfUnloadingCode: Option[String])
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="11.4mm"/>
     <fo:table-column column-width="3.7mm"/>
