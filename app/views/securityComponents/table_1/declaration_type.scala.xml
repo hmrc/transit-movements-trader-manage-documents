@@ -1,4 +1,4 @@
-@(declarationType: DeclarationType, circumstanceIndicator: Option[String])
+@(declarationType: String, circumstanceIndicator: Option[String])
 <fo:table-row>
   <fo:table-cell>
     <fo:block>
@@ -20,7 +20,7 @@
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="after" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" padding-bottom="1mm">
             <fo:block font-weight="bold">
-               @declarationType.toString
+               @declarationType
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

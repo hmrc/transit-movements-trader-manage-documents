@@ -183,7 +183,7 @@ class UnloadingPermissionSpec extends AnyFreeSpec with Matchers with ScalaCheckP
               <CC043A>
             <HEAHEA>
               <DocNumHEA5>{unloadingPermission.movementReferenceNumber}</DocNumHEA5>
-              <TypOfDecHEA24>{unloadingPermission.declarationType.toString}</TypOfDecHEA24>
+              <TypOfDecHEA24>{unloadingPermission.declarationType}</TypOfDecHEA24>
               {
                 unloadingPermission.countryOfDispatch.fold(NodeSeq.Empty) {
                   countryOfDispatch =>

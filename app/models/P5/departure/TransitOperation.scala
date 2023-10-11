@@ -16,7 +16,6 @@
 
 package models.P5.departure
 
-import models.DeclarationType
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
@@ -33,7 +32,7 @@ object IE015TransitOperation {
 case class IE029TransitOperation(
   LRN: String,
   MRN: String,
-  declarationType: DeclarationType,
+  declarationType: String,
   additionalDeclarationType: String,
   TIRCarnetNumber: Option[String],
   declarationAcceptanceDate: LocalDate,

@@ -16,7 +16,6 @@
 
 package base
 
-import models.DeclarationType.T1
 import models.P5.departure._
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -34,7 +33,7 @@ trait DepartureData {
     IE029TransitOperation(
       "LRN",
       "MRN",
-      T1,
+      "T1",
       "T2F",
       Some("TIR"),
       LocalDate.of(2020, 1, 1),

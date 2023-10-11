@@ -16,12 +16,9 @@
 
 package services.conversion
 
-import java.time.LocalDate
-
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.DeclarationType
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
@@ -29,6 +26,8 @@ import models.reference.KindOfPackage
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import services.ReferenceDataNotFound
+
+import java.time.LocalDate
 
 class UnloadingPermissionConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues {
 
@@ -55,7 +54,7 @@ class UnloadingPermissionConverterSpec extends AnyFreeSpec with Matchers with Va
 
       val permission = models.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         countryOfDispatch = Some(countries.head.code),
         countryOfDestination = Some(countries.head.code),
         transportIdentity = Some("identity"),
@@ -111,7 +110,7 @@ class UnloadingPermissionConverterSpec extends AnyFreeSpec with Matchers with Va
 
       val expectedResult = viewmodels.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
@@ -190,7 +189,7 @@ class UnloadingPermissionConverterSpec extends AnyFreeSpec with Matchers with Va
 
       val permission = models.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         countryOfDispatch = Some(invalidCode),
         countryOfDestination = Some(invalidCode),
         transportIdentity = Some("identity"),

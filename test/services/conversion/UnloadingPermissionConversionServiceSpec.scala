@@ -22,26 +22,26 @@ import cats.implicits._
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import connectors.ReferenceDataConnector
-import models.DeclarationType
 import models.reference.AdditionalInformation
 import models.reference.Country
 import models.reference.DocumentType
 import models.reference.KindOfPackage
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.mockito.MockitoSugar
 import services.ReferenceDataNotFound
 import services.ReferenceDataRetrievalError
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.PermissionToStartUnloading
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
+
 import java.time.LocalDate
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import org.mockito.ArgumentMatchers.any
 
 class UnloadingPermissionConversionServiceSpec
     extends AnyFreeSpec
@@ -71,7 +71,7 @@ class UnloadingPermissionConversionServiceSpec
 
   private val validUnloadingPermission = models.PermissionToStartUnloading(
     movementReferenceNumber = "mrn",
-    declarationType = DeclarationType.T1,
+    declarationType = "T1",
     countryOfDispatch = Some(countries.head.code),
     countryOfDestination = Some(countries.head.code),
     transportIdentity = Some("identity"),
@@ -139,7 +139,7 @@ class UnloadingPermissionConversionServiceSpec
 
       val expectedResult = viewmodels.PermissionToStartUnloading(
         movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),

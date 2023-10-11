@@ -20,7 +20,6 @@ import base.DepartureData
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.DeclarationType.T1
 import models.P5.departure.AdditionalReference
 import models.P5.departure.Authorisation
 import models.P5.departure.GoodsReference
@@ -80,7 +79,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
       val model = models.ReleaseForTransit(
         Header(
           movementReferenceNumber = "mrn",
-          declarationType = DeclarationType.T1,
+          declarationType = "T1",
           countryOfDispatch = Some(countries.head.code),
           countryOfDestination = Some(countries.head.code),
           transportIdentity = Some("identity"),
@@ -164,7 +163,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
         movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
@@ -267,7 +266,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
       val model = models.ReleaseForTransit(
         Header(
           movementReferenceNumber = "mrn",
-          declarationType = DeclarationType.T1,
+          declarationType = "T1",
           countryOfDispatch = Some(invalidCode),
           countryOfDestination = Some(invalidCode),
           transportIdentity = Some("identity"),
@@ -395,7 +394,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentP5TransitionPDF(
         movementReferenceNumber = "MRN,LRN",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.last),
         transportIdentity = Some("Actor-Role,ID001,TYPE01"),

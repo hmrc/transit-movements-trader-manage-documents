@@ -5,7 +5,7 @@
 
 @import views.xml.componentsP5Transition.barcode
 
-@(printVariousConsignors: Boolean, consignorOne: Option[models.P5.departure.Consignor], declarationType: models.DeclarationType,  movementReferenceNumber: String, printListOfItems: Boolean, lrn: String)
+@(printVariousConsignors: Boolean, consignorOne: Option[models.P5.departure.Consignor], declarationType: String,  movementReferenceNumber: String, printListOfItems: Boolean, lrn: String)
 
 <fo:table-row height="16mm">
   <fo:table-cell>

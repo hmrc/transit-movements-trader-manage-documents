@@ -17,15 +17,13 @@
 package viewmodels
 
 import cats.data.NonEmptyList
-import models.DeclarationType
-import models.GuaranteeDetails
 import models.P5.departure._
 import models.reference.Country
 import utils.FormattedDate
 
 final case class TransitAccompanyingDocumentP5TransitionPDF(
   movementReferenceNumber: String,
-  declarationType: DeclarationType,
+  declarationType: String,
   singleCountryOfDispatch: Option[Country],
   singleCountryOfDestination: Option[Country],
   transportIdentity: Option[String],
