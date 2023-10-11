@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels.P5
 
-import play.api.libs.json.Format
-import play.api.libs.json.Json
+trait Formatters {
 
-import scala.xml.NodeSeq
+  def truncate(maxLength: Int, input: String): String =
+    if (input.length > maxLength) input.take(maxLength - 3) + "..." else input
 
-case class Message(
-  body: NodeSeq
-)
-
-object Message extends NodeSeqFormat {
-  implicit val format: Format[Message] = Json.format[Message]
 }

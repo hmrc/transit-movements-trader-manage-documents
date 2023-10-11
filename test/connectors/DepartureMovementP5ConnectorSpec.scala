@@ -42,6 +42,7 @@ import utils.WireMockHelper
 
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.xml._
 
 class DepartureMovementP5ConnectorSpec
     extends SpecBase
@@ -563,6 +564,46 @@ class DepartureMovementP5ConnectorSpec
         result =>
           result.data.Consignment.HouseConsignment.map(_.Consignor) mustEqual ieo29Data.data.Consignment.HouseConsignment.map(_.Consignor)
       }
+    }
+  }
+
+  "getMessage" - {
+
+    val url: String = s"/movements/departures/$departureId/messages/$messageId"
+
+    "must return message data" in {
+
+      val json = Json.parse("""
+          |{
+          |  "_links": {
+          |    "self": {
+          |      "href": "/customs/transits/movements/departures/62f4ebbbf581d4aa/messages/62f4ebbb765ba8c2"
+          |    },
+          |    "departure": {
+          |      "href": "/customs/transits/movements/departures/62f4ebbbf581d4aa"
+          |    }
+          |  },
+          |  "id": "62f4ebbb765ba8c2",
+          |  "departureId": "62f4ebbbf581d4aa",
+          |  "received": "2022-08-11T11:44:59.83705",
+          |  "type": "IE015",
+          |  "status": "Success",
+          |  "body": "<ncts:CC015C></ncts:CC015C>"
+          |}
+          |""".stripMargin)
+
+      server.stubFor(
+        get(urlEqualTo(url))
+          .willReturn(
+            ok(Json.stringify(json))
+          )
+      )
+
+      val result = service.getMessage(departureId, messageId).futureValue
+
+      val xml: NodeSeq = <ncts:CC015C></ncts:CC015C>
+
+      result.body mustBe xml
     }
   }
 }

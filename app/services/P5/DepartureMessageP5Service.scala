@@ -51,8 +51,8 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
       .map(_.find(DepartureNotification).map(_.id))
 
   def getMessage[T](
-                  departureId: String,
-                  messageId: String
-                )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
+    departureId: String,
+    messageId: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
     connector.getMessage(departureId, messageId).map(_.body).map(fromXML(_))
 }

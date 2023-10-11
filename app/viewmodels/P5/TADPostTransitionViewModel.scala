@@ -14,17 +14,8 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels.P5
 
-import play.api.libs.json.Format
-import play.api.libs.json.Json
+import generated.p5.CC029CType
 
-import scala.xml.NodeSeq
-
-case class Message(
-  body: NodeSeq
-)
-
-object Message extends NodeSeqFormat {
-  implicit val format: Format[Message] = Json.format[Message]
-}
+case class TADPostTransitionViewModel(ie029: CC029CType) extends TADViewModel {}
