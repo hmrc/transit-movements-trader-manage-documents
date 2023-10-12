@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package controllers.actions
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.requests.AuthenticatedRequest
+import play.api.mvc._
 
-case class CountryOfRoutingOfConsignment(sequenceNumber: String, country: String) {
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
-  override def toString: String = {
+class FakeAuthenticateAction(eoriNumber: String) extends ActionRefiner[Request, AuthenticatedRequest] {
 
-    val stringList: Seq[String] = List(sequenceNumber, country)
-    stringList.mkString(", ")
-  }
-}
+  override protected def refine[A](request: Request[A]): Future[Either[Result, AuthenticatedRequest[A]]] =
+    Future.successful(Right(AuthenticatedRequest(request, eoriNumber)))
 
-object CountryOfRoutingOfConsignment {
-  implicit val formats: OFormat[CountryOfRoutingOfConsignment] = Json.format[CountryOfRoutingOfConsignment]
+  override protected def executionContext: ExecutionContext = implicitly[ExecutionContext]
 }

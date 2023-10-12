@@ -20,7 +20,6 @@ import cats.data.NonEmptyList
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Shrink
-import org.scalacheck.Arbitrary.arbitrary
 
 import java.time.Instant
 import java.time.LocalDate
@@ -28,6 +27,11 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 trait GeneratorHelpers {
+
+  implicit lazy val arbitraryDeclarationType: Arbitrary[String] =
+    Arbitrary {
+      Gen.oneOf("T-", "T", "T1", "T2", "T2F", "T2SM", "TIR")
+    }
 
   implicit def dontShrink[A]: Shrink[A] = Shrink.shrinkAny
 
@@ -44,25 +48,18 @@ trait GeneratorHelpers {
     string suchThat (_.nonEmpty)
 
   def listWithMaxSize[T](maxSize: Int = 10)(implicit arbitraryT: Arbitrary[T]): Gen[Seq[T]] =
-    for {
-      size  <- Gen.choose(0, maxSize)
-      items <- Gen.listOfN(size, arbitraryT.arbitrary)
-    } yield items
+    listWithMaxSize(arbitraryT.arbitrary, maxSize)
 
-  def listWithMaxSize[T](gen: Gen[T], maxSize: Int = 10): Gen[Seq[T]] =
+  def listWithMaxSize[T](gen: Gen[T], maxSize: Int): Gen[Seq[T]] =
     for {
       size  <- Gen.choose(0, maxSize)
       items <- Gen.listOfN(size, gen)
     } yield items
 
   def nonEmptyListWithMaxSize[T](maxSize: Int = 10)(implicit arbitraryT: Arbitrary[T]): Gen[NonEmptyList[T]] =
-    for {
-      head     <- arbitrary[T]
-      tailSize <- Gen.choose(1, maxSize - 1)
-      tail     <- Gen.listOfN(tailSize, arbitraryT.arbitrary)
-    } yield NonEmptyList(head, tail)
+    nonEmptyListWithMaxSize(arbitraryT.arbitrary, maxSize)
 
-  def nonEmptyListWithMaxSize[T](gen: Gen[T], maxSize: Int = 10): Gen[NonEmptyList[T]] =
+  def nonEmptyListWithMaxSize[T](gen: Gen[T], maxSize: Int): Gen[NonEmptyList[T]] =
     for {
       head     <- gen
       tailSize <- Gen.choose(1, maxSize - 1)

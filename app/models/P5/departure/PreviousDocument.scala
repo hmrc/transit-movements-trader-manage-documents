@@ -20,9 +20,9 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class PreviousDocument(
-  sequenceNumber: Option[String],
-  `type`: Option[String],
-  referenceNumber: Option[String],
+  sequenceNumber: String,
+  `type`: String,
+  referenceNumber: String,
   complementOfInformation: Option[String],
   goodsItemNumber: Option[Int],
   typeOfPackages: Option[String],
@@ -33,9 +33,9 @@ case class PreviousDocument(
 
   def toStringItem: String = {
     val stringList: Seq[Option[String]] = List(
-      sequenceNumber,
-      `type`,
-      referenceNumber,
+      Some(sequenceNumber),
+      Some(`type`),
+      Some(referenceNumber),
       goodsItemNumber.map(_.toString),
       typeOfPackages,
       numberOfPackages.map(_.toString),
@@ -49,9 +49,9 @@ case class PreviousDocument(
   override def toString: String = {
 
     val stringList: Seq[Option[String]] = List(
-      sequenceNumber,
-      `type`,
-      referenceNumber,
+      Some(sequenceNumber),
+      Some(`type`),
+      Some(referenceNumber),
       complementOfInformation
     )
     stringList.flatten.mkString(", ")

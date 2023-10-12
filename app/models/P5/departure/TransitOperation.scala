@@ -35,7 +35,7 @@ case class IE029TransitOperation(
   declarationType: String,
   additionalDeclarationType: String,
   TIRCarnetNumber: Option[String],
-  declarationAcceptanceDate: Option[LocalDate],
+  declarationAcceptanceDate: LocalDate,
   releaseDate: LocalDate,
   security: String,
   reducedDatasetIndicator: String,

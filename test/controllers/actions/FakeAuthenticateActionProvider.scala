@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package controllers.actions
 
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat
+import models.requests.AuthenticatedRequest
+import play.api.mvc._
+import play.api.test.Helpers
 
-case class CountryOfRoutingOfConsignment(sequenceNumber: String, country: String) {
+import scala.concurrent.ExecutionContext.Implicits.global
 
-  override def toString: String = {
+class FakeAuthenticateActionProvider extends AuthenticateActionProvider {
 
-    val stringList: Seq[String] = List(sequenceNumber, country)
-    stringList.mkString(", ")
+  override def apply(): ActionBuilder[AuthenticatedRequest, AnyContent] = {
+    val defaultActionBuilder = DefaultActionBuilder(Helpers.stubBodyParser())
+    val authenticate         = new FakeAuthenticateAction("eori")
+
+    defaultActionBuilder andThen authenticate
   }
-}
-
-object CountryOfRoutingOfConsignment {
-  implicit val formats: OFormat[CountryOfRoutingOfConsignment] = Json.format[CountryOfRoutingOfConsignment]
 }

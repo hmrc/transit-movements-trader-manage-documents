@@ -20,18 +20,18 @@ import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
 case class SupportingDocument(
-  sequenceNumber: Option[String],
-  `type`: Option[String],
-  referenceNumber: Option[String],
+  sequenceNumber: String,
+  `type`: String,
+  referenceNumber: String,
   documentLineItemNumber: Option[Int],
   complementOfInformation: Option[String]
 ) {
 
   override def toString: String = {
     val stringList: List[Option[String]] = List(
-      sequenceNumber,
-      `type`,
-      referenceNumber,
+      Some(sequenceNumber),
+      Some(`type`),
+      Some(referenceNumber),
       documentLineItemNumber.map(_.toString),
       complementOfInformation
     )

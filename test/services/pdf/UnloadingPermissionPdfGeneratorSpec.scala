@@ -17,8 +17,7 @@
 package services.pdf
 
 import cats.data.NonEmptyList
-import generators.ViewmodelGenerators
-import models.DeclarationType
+import generators.ViewModelGenerators
 import models.SensitiveGoodsInformation
 import models.reference.Country
 import models.reference.DocumentType
@@ -26,10 +25,10 @@ import models.reference.KindOfPackage
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Environment
 import services.pdf.UnloadingPermissionPdfGeneratorConstants.permissionToUnloadViewModel
@@ -43,7 +42,7 @@ class UnloadingPermissionPdfGeneratorSpec
     extends AnyFreeSpec
     with Matchers
     with GuiceOneAppPerSuite
-    with ViewmodelGenerators
+    with ViewModelGenerators
     with OptionValues
     with ScalaFutures {
 
@@ -139,7 +138,7 @@ object UnloadingPermissionPdfGeneratorConstants {
 
   val permissionToUnloadViewModel: PermissionToStartUnloading = PermissionToStartUnloading(
     "99IT9876AB88901209",
-    DeclarationType.T1,
+    "T1",
     Some(Country("IT", "Italy")),
     Some(Country("GB", "United Kingdom")),
     Some("abcd"),

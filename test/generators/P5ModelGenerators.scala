@@ -16,7 +16,6 @@
 
 package generators
 
-import models.DeclarationType
 import models.P5.departure._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
@@ -25,11 +24,6 @@ import org.scalacheck.Gen
 import java.time.LocalDate
 
 trait P5ModelGenerators extends GeneratorHelpers {
-
-  implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
-    Arbitrary {
-      Gen.oneOf(DeclarationType.values)
-    }
 
   implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
     datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
@@ -47,10 +41,10 @@ trait P5ModelGenerators extends GeneratorHelpers {
       for {
         lrn                              <- nonEmptyString
         mrn                              <- nonEmptyString
-        declarationType                  <- arbitrary[DeclarationType]
+        declarationType                  <- arbitrary[String](arbitraryDeclarationType)
         additionalDeclarationType        <- nonEmptyString
         tirCarnetNumber                  <- Gen.option(nonEmptyString)
-        declarationAcceptanceDate        <- Gen.option(arbitrary[LocalDate])
+        declarationAcceptanceDate        <- arbitrary[LocalDate]
         releaseDate                      <- arbitrary[LocalDate]
         security                         <- nonEmptyString
         reducedDatasetIndicator          <- nonEmptyString
@@ -83,9 +77,9 @@ trait P5ModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryAuthorisation: Arbitrary[Authorisation] =
     Arbitrary {
       for {
-        sequenceNumber    <- Gen.option(nonEmptyString)
-        authorisationType <- Gen.option(nonEmptyString)
-        referenceNumber   <- Gen.option(nonEmptyString)
+        sequenceNumber    <- nonEmptyString
+        authorisationType <- nonEmptyString
+        referenceNumber   <- nonEmptyString
       } yield Authorisation(sequenceNumber, authorisationType, referenceNumber)
     }
 
@@ -101,6 +95,14 @@ trait P5ModelGenerators extends GeneratorHelpers {
       for {
         referenceNumber <- nonEmptyString
       } yield CustomsOfficeOfDestinationDeclared(referenceNumber)
+    }
+
+  implicit lazy val arbitraryCustomsOfficeOfTransitDeclared: Arbitrary[CustomsOfficeOfTransitDeclared] =
+    Arbitrary {
+      for {
+        sequenceNumber  <- nonEmptyString
+        referenceNumber <- nonEmptyString
+      } yield CustomsOfficeOfTransitDeclared(sequenceNumber, referenceNumber, None)
     }
 
   implicit lazy val arbitraryAddress: Arbitrary[Address] =
@@ -139,18 +141,165 @@ trait P5ModelGenerators extends GeneratorHelpers {
       )
     }
 
+  implicit lazy val arbitraryP5GuaranteeReference: Arbitrary[GuaranteeReference] =
+    Arbitrary {
+      for {
+        sequenceNumber    <- nonEmptyString
+        grn               <- Gen.option(nonEmptyString)
+        accessCode        <- Gen.option(nonEmptyString)
+        amountToBeCovered <- arbitrary[Double]
+        currency          <- nonEmptyString
+      } yield GuaranteeReference(
+        sequenceNumber,
+        grn,
+        accessCode,
+        amountToBeCovered,
+        currency
+      )
+    }
+
+  implicit lazy val arbitraryGuarantee: Arbitrary[Guarantee] =
+    Arbitrary {
+      for {
+        sequenceNumber          <- nonEmptyString
+        guaranteeType           <- nonEmptyString
+        otherGuaranteeReference <- Gen.option(nonEmptyString)
+        guaranteeReferences     <- Gen.option(listWithMaxSize[GuaranteeReference]())
+      } yield Guarantee(
+        sequenceNumber,
+        guaranteeType,
+        otherGuaranteeReference,
+        guaranteeReferences.map(_.toList)
+      )
+    }
+
+  implicit lazy val arbitraryCommodity: Arbitrary[Commodity] =
+    Arbitrary {
+      for {
+        descriptionOfGoods <- nonEmptyString
+      } yield Commodity(
+        descriptionOfGoods,
+        None,
+        None,
+        None,
+        None
+      )
+    }
+
+  implicit lazy val arbitraryPackaging: Arbitrary[Packaging] =
+    Arbitrary {
+      for {
+        sequenceNumber <- nonEmptyString
+        typeOfPackages <- nonEmptyString
+      } yield Packaging(
+        sequenceNumber,
+        None,
+        typeOfPackages,
+        None
+      )
+    }
+
+  implicit lazy val arbitraryConsignmentItem: Arbitrary[ConsignmentItem] =
+    Arbitrary {
+      for {
+        goodsItemNumber            <- nonEmptyString
+        declarationGoodsItemNumber <- arbitrary[Int]
+        commodity                  <- arbitrary[Commodity]
+        packaging                  <- listWithMaxSize[Packaging]()
+      } yield ConsignmentItem(
+        goodsItemNumber,
+        declarationGoodsItemNumber,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        commodity,
+        packaging,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None
+      )
+    }
+
+  implicit lazy val arbitraryHouseConsignment: Arbitrary[HouseConsignment] =
+    Arbitrary {
+      for {
+        sequenceNumber   <- nonEmptyString
+        grossMass        <- arbitrary[Double]
+        consignmentItems <- nonEmptyListWithMaxSize[ConsignmentItem]()
+      } yield HouseConsignment(
+        sequenceNumber,
+        None,
+        grossMass,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        consignmentItems.toList
+      )
+    }
+
+  implicit lazy val arbitraryConsignment: Arbitrary[Consignment] =
+    Arbitrary {
+      for {
+        containerIndicator <- nonEmptyString
+        grossMass          <- arbitrary[Double]
+        houseConsignments  <- listWithMaxSize[HouseConsignment]()
+      } yield Consignment(
+        None,
+        None,
+        containerIndicator,
+        None,
+        None,
+        grossMass,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        houseConsignments
+      )
+    }
+
   implicit lazy val arbitraryIE029MessageData: Arbitrary[IE029MessageData] =
     Arbitrary {
       for {
         ie029TransitOperation              <- arbitrary[IE029TransitOperation]
-        authorisations                     <- Gen.option(listWithMaxSize[Authorisation]().map(_.toList))
+        authorisations                     <- Gen.option(listWithMaxSize[Authorisation]())
         customsOfficeOfDeparture           <- arbitrary[CustomsOfficeOfDeparture]
         customsOfficeOfDestinationDeclared <- arbitrary[CustomsOfficeOfDestinationDeclared]
         holderOfTransitProcedure           <- arbitrary[HolderOfTransitProcedure]
         consignment                        <- arbitrary[Consignment]
+        guarantees                         <- listWithMaxSize[Guarantee]()
       } yield IE029MessageData(
         ie029TransitOperation,
-        authorisations,
+        authorisations.map(_.toList),
         customsOfficeOfDeparture,
         customsOfficeOfDestinationDeclared,
         None,
@@ -158,7 +307,7 @@ trait P5ModelGenerators extends GeneratorHelpers {
         holderOfTransitProcedure,
         None,
         None,
-        None,
+        guarantees.toList,
         consignment
       )
     }
@@ -173,7 +322,7 @@ trait P5ModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryIE029: Arbitrary[IE029] =
     Arbitrary {
       for {
-        ie015MessageData <- arbitrary[IE015MessageData]
-      } yield IE015(ie015MessageData)
+        ie029MessageData <- arbitrary[IE029MessageData]
+      } yield IE029(ie029MessageData)
     }
 }

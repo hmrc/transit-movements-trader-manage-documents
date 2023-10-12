@@ -37,13 +37,11 @@ case class IE029MessageData(
   HolderOfTheTransitProcedure: HolderOfTransitProcedure,
   Representative: Option[Representative],
   ControlResult: Option[ControlResult],
-  Guarantee: Option[List[Guarantee]],
+  Guarantee: List[Guarantee],
   Consignment: Consignment
 ) extends MessageData {
 
-  val guaranteeDisplay: Option[String] = Guarantee.map(
-    _.map(_.toString).mkString("; ")
-  )
+  val guaranteeDisplay: String = Guarantee.map(_.toString).mkString("; ")
 
   val authorisationDisplay: Option[String] = Authorisation.map(
     authorisations =>

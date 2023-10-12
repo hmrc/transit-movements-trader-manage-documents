@@ -20,7 +20,6 @@ import base.DepartureData
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.DeclarationType.T1
 import models.P5.departure.AdditionalReference
 import models.P5.departure.Authorisation
 import models.P5.departure.GoodsReference
@@ -80,7 +79,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
       val model = models.ReleaseForTransit(
         Header(
           movementReferenceNumber = "mrn",
-          declarationType = DeclarationType.T1,
+          declarationType = "T1",
           countryOfDispatch = Some(countries.head.code),
           countryOfDestination = Some(countries.head.code),
           transportIdentity = Some("identity"),
@@ -164,7 +163,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentPDF(
         movementReferenceNumber = "mrn",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.head),
         transportIdentity = Some("identity"),
@@ -267,7 +266,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
       val model = models.ReleaseForTransit(
         Header(
           movementReferenceNumber = "mrn",
-          declarationType = DeclarationType.T1,
+          declarationType = "T1",
           countryOfDispatch = Some(invalidCode),
           countryOfDestination = Some(invalidCode),
           transportIdentity = Some("identity"),
@@ -395,18 +394,18 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
       val expectedResult = viewmodels.TransitAccompanyingDocumentP5TransitionPDF(
         movementReferenceNumber = "MRN,LRN",
-        declarationType = DeclarationType.T1,
+        declarationType = "T1",
         singleCountryOfDispatch = Some(countries.head),
         singleCountryOfDestination = Some(countries.last),
         transportIdentity = Some("Actor-Role,ID001,TYPE01"),
         transportCountry = Some(countries.head),
         limitDate = "2010-11-15",
-        acceptanceDate = Some(FormattedDate(LocalDate.of(2020, 1, 1))),
+        acceptanceDate = FormattedDate(LocalDate.of(2020, 1, 1)),
         numberOfItems = 1,
         numberOfPackages = Some(3),
         grossMass = 52.02,
         printBindingItinerary = true,
-        authorisation = Seq(Authorisation(Some("SEQNum-1"), Some("Auth-Type"), Some("Reference-Numb-1"))),
+        authorisation = Seq(Authorisation("SEQNum-1", "Auth-Type", "Reference-Numb-1")),
         goodsReference = Seq(GoodsReference("1232", 3)),
         copyType = false,
         holderOfTransitProcedure = HolderOfTransitProcedure(Some("id1"), Some("TIRID1"), Some("Bob"), Some(address), Some(contactPerson)),

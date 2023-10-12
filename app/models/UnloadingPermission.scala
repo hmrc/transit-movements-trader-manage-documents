@@ -56,7 +56,7 @@ object UnloadingPermission {
 
 final case class PermissionToStartUnloading(
   movementReferenceNumber: String,
-  declarationType: DeclarationType,
+  declarationType: String,
   countryOfDispatch: Option[String],
   countryOfDestination: Option[String],
   transportIdentity: Option[String],
@@ -83,7 +83,7 @@ object PermissionToStartUnloading {
   implicit val xmlReader: XmlReader[PermissionToStartUnloading] =
     (
       (__ \ "HEAHEA" \ "DocNumHEA5").read[String],
-      (__ \ "HEAHEA" \ "TypOfDecHEA24").read[DeclarationType],
+      (__ \ "HEAHEA" \ "TypOfDecHEA24").read[String],
       (__ \ "HEAHEA" \ "CouOfDisCodHEA55").read[String].optional,
       (__ \ "HEAHEA" \ "CouOfDesCodHEA30").read[String].optional,
       (__ \ "HEAHEA" \ "IdeOfMeaOfTraAtDHEA78").read[String].optional,

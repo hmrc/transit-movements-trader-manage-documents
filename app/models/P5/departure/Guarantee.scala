@@ -21,7 +21,7 @@ import play.api.libs.json.OFormat
 
 case class Guarantee(
   sequenceNumber: String,
-  guaranteeType: Option[String],
+  guaranteeType: String,
   otherGuaranteeReference: Option[String],
   guaranteeReference: Option[List[GuaranteeReference]]
 ) {
@@ -29,7 +29,7 @@ case class Guarantee(
   override def toString: String = {
     val stringList: List[Option[String]] = List(
       Some(sequenceNumber),
-      guaranteeType,
+      Some(guaranteeType),
       otherGuaranteeReference,
       guaranteeReference.map(_.map(_.toString).mkString(","))
     )

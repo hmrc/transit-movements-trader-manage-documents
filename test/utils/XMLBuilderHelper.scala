@@ -50,7 +50,7 @@ object XMLBuilderHelper {
         } ++
           goodsItem.declarationType.fold(NodeSeq.Empty) {
             declarationType =>
-              <DecTypGDS15>{declarationType.toString}</DecTypGDS15>
+              <DecTypGDS15>{declarationType}</DecTypGDS15>
           }
       }
     }

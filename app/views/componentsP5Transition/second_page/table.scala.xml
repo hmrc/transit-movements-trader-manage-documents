@@ -6,7 +6,7 @@
 
 @this()
 
-@(departureOffice: CustomsOfficeOfDeparture, movementReferenceNumber: String, acceptanceDateFormatted: Option[String], goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], declarationType: DeclarationType)
+@(departureOffice: CustomsOfficeOfDeparture, movementReferenceNumber: String, acceptanceDateFormatted: String, goodsItems: NonEmptyList[viewmodels.GoodsItemP5Transition], declarationType: String)
 
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force"> <!-- SEQ 2 -->
     <fo:static-content flow-name="xsl-region-before">

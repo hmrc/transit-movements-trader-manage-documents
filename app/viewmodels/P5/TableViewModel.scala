@@ -72,7 +72,7 @@ case class Table1ViewModel()(implicit ie029Data: IE029) {
     case Some(value) => truncate(200, value.toString)
     case None        => truncate(200, consigneeeAtHouseOfConsignment)
   }
-  val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.declarationType.toString)
+  val declarationType: String           = truncate(10, ie029Data.data.TransitOperation.declarationType)
   val additionalDeclarationType: String = truncate(10, ie029Data.data.TransitOperation.additionalDeclarationType)
   val sci: String                       = truncate(10, ie029Data.data.TransitOperation.specificCircumstanceIndicator.getOrElse(""))
   val mrn: String                       = truncate(20, ie029Data.data.TransitOperation.MRN)
@@ -157,7 +157,7 @@ case class Table2ViewModel()(implicit ie029Data: IE029) {
   private val transportChargesAtHouseConsignment: String = ie029Data.data.Consignment.HouseConsignment.flatMap(_.transportChargesInHC).mkString("")
   val transportCharges: String                           = truncate(20, houseConsignmentAppender(transportChargesAtConsignment, transportChargesAtHouseConsignment))
 
-  val guarantee: String     = truncate(100, ie029Data.data.guaranteeDisplay.getOrElse(""))
+  val guarantee: String     = truncate(100, ie029Data.data.guaranteeDisplay)
   val authorisation: String = truncate(100, ie029Data.data.authorisationDisplay.getOrElse(""))
 
 }

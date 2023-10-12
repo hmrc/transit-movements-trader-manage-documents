@@ -19,13 +19,13 @@ package models.P5.departure
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class AdditionalInformation(sequenceNumber: Option[String], code: Option[String], text: Option[String]) {
+case class AdditionalInformation(sequenceNumber: String, code: String, text: Option[String]) {
 
   override def toString: String = {
 
     val stringList: Seq[Option[String]] = List(
-      sequenceNumber,
-      code,
+      Some(sequenceNumber),
+      Some(code),
       text
     )
     stringList.flatten.mkString(", ")

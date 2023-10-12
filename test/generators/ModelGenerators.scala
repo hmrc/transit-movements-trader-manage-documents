@@ -247,11 +247,6 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield Principal(name, streetAndNumber, postCode, city, country, eori, tir)
     }
 
-  implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
-    Arbitrary {
-      Gen.oneOf(DeclarationType.values)
-    }
-
   implicit lazy val arbitrarySensitiveGoodsInformation: Arbitrary[SensitiveGoodsInformation] =
     Arbitrary {
       for {
@@ -265,7 +260,7 @@ trait ModelGenerators extends GeneratorHelpers {
       for {
         itemNumber                <- Gen.choose(1, 99999)
         commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
+        declarationType           <- Gen.option(arbitrary[String](arbitraryDeclarationType))
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
@@ -325,7 +320,7 @@ trait ModelGenerators extends GeneratorHelpers {
 
       for {
         mrn                  <- stringWithMaxLength(17)
-        declarationType      <- arbitrary[DeclarationType]
+        declarationType      <- arbitrary[String](arbitraryDeclarationType)
         countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
         countryOfDestination <- Gen.option(stringWithMaxLength(2))
         transportId          <- Gen.option(stringWithMaxLength(27))
@@ -398,7 +393,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
       for {
         mrn                               <- stringWithMaxLength(22)
-        declarationType                   <- arbitrary[DeclarationType]
+        declarationType                   <- arbitrary[String](arbitraryDeclarationType)
         countryOfDispatch                 <- Gen.option(stringWithMaxLength(2))
         countryOfDestination              <- Gen.option(stringWithMaxLength(2))
         transportId                       <- Gen.option(stringWithMaxLength(27))
@@ -695,7 +690,7 @@ trait ModelGenerators extends GeneratorHelpers {
       for {
         itemNumber                <- Gen.choose(1, 99999)
         commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
+        declarationType           <- Gen.option(arbitrary[String](arbitraryDeclarationType))
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))

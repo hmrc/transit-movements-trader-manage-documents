@@ -16,9 +16,32 @@
 
 package base
 
+import config.PostTransitionModule
+import config.TransitionModule
+import controllers.actions.AuthenticateActionProvider
+import controllers.actions.FakeAuthenticateActionProvider
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.mockito.MockitoSugar
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {}
+trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
+
+  def defaultApplicationBuilder(): GuiceApplicationBuilder =
+    new GuiceApplicationBuilder()
+      .overrides(
+        bind[AuthenticateActionProvider].to[FakeAuthenticateActionProvider]
+      )
+
+  def p5TransitionApplicationBuilder(): GuiceApplicationBuilder =
+    defaultApplicationBuilder()
+      .disable[PostTransitionModule]
+      .bindings(new TransitionModule)
+
+  def p5PostTransitionApplicationBuilder(): GuiceApplicationBuilder =
+    defaultApplicationBuilder()
+      .disable[TransitionModule]
+      .bindings(new PostTransitionModule)
+}

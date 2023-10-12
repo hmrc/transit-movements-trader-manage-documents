@@ -65,15 +65,15 @@ case class ConsignmentItem(
   val additionalReferenceString: String        = AdditionalReference.map(_.showAll).getOrElse("")
   val additionalInformationString: String      = AdditionalInformation.map(_.showAll).getOrElse("")
 
-  val grossMass: String          = Commodity.GoodsMeasure.grossMass.toString
-  val netMass: String            = Commodity.GoodsMeasure.netMass.getOrElse("").toString
+  val grossMass: String          = Commodity.GoodsMeasure.map(_.grossMass.toString).getOrElse("")
+  val netMass: String            = Commodity.GoodsMeasure.map(_.netMass.getOrElse("").toString).getOrElse("")
   val consigneeId: String        = Consignee.flatMap(_.identificationNumber).getOrElse("")
   val supplyChainActorId: String = AdditionalSupplyChainActor.map(_.map(_.identificationNumber).mkString("; ")).getOrElse("")
 
   val packagesType: String = Packaging.map(_.toString).mkString("; ")
   val totalPackages        = Packaging.length
 
-  val allProducedDocuments: Seq[ProducedDocument] =
+  lazy val allProducedDocuments: Seq[ProducedDocument] =
     (for {
       supportingDocs <- SupportingDocument
       transportDocs  <- TransportDocument
@@ -81,20 +81,20 @@ case class ConsignmentItem(
       val supportingProducedDocs = supportingDocs.map {
         supportingDocument =>
           ProducedDocument(
-            DocumentType(supportingDocument.`type`.getOrElse(""), "", transportDocument = false),
-            supportingDocument.referenceNumber,
+            DocumentType(supportingDocument.`type`, "", transportDocument = false),
+            Some(supportingDocument.referenceNumber),
             supportingDocument.complementOfInformation
           )
       }
       val transportProducedDocs = transportDocs.map {
         transportDocument =>
-          ProducedDocument(DocumentType(transportDocument.`type`.getOrElse(""), "", transportDocument = true), transportDocument.referenceNumber, None)
+          ProducedDocument(DocumentType(transportDocument.`type`, "", transportDocument = true), Some(transportDocument.referenceNumber), None)
       }
 
       supportingProducedDocs ++ transportProducedDocs
     }).getOrElse(Seq.empty)
 
-  val packagingFormat: NonEmptyList[viewmodels.Package] =
+  lazy val packagingFormat: NonEmptyList[viewmodels.Package] =
     NonEmptyList
       .fromList(Packaging.flatMap {
         case PackagingP5(_, Some(numberOfPackages), typeOfPackages, Some(shippingMarks)) =>

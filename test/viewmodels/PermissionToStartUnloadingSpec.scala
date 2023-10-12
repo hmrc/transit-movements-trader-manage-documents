@@ -17,7 +17,7 @@
 package viewmodels
 
 import cats.data.NonEmptyList
-import generators.ViewmodelGenerators
+import generators.ViewModelGenerators
 import models.reference.Country
 import models.SensitiveGoodsInformation
 import org.scalacheck.Arbitrary.arbitrary
@@ -27,7 +27,7 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ViewmodelGenerators with OptionValues {
+class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ViewModelGenerators with OptionValues {
 
   private val genPermissionWithoutListOfItems = for {
     permission                <- arbitrary[PermissionToStartUnloading]
