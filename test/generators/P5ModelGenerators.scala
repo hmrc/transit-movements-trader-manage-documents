@@ -17,6 +17,11 @@
 package generators
 
 import models.P5.departure._
+import models.P5.unloading.CustomsOfficeOfDestinationActual
+import models.P5.unloading.IE043Data
+import models.P5.unloading.UnloadingMessageData
+import models.P5.unloading.{HolderOfTransitProcedure => IE043HolderOfTransitProcedure}
+import models.P5.unloading.{TransitOperation => IE043TransitOperation}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
@@ -138,6 +143,18 @@ trait P5ModelGenerators extends GeneratorHelpers {
         name,
         address,
         contactPerson
+      )
+    }
+
+  implicit lazy val arbitraryIE043HolderOfTheTransitProcedure: Arbitrary[IE043HolderOfTransitProcedure] =
+    Arbitrary {
+      for {
+        name <- nonEmptyString
+      } yield IE043HolderOfTransitProcedure(
+        None,
+        None,
+        name,
+        None
       )
     }
 
@@ -324,5 +341,48 @@ trait P5ModelGenerators extends GeneratorHelpers {
       for {
         ie029MessageData <- arbitrary[IE029MessageData]
       } yield IE029(ie029MessageData)
+    }
+
+  implicit lazy val arbitraryIE043TransitOperation: Arbitrary[IE043TransitOperation] =
+    Arbitrary {
+      for {
+        mrn                     <- nonEmptyString
+        security                <- nonEmptyString
+        reducedDatasetIndicator <- nonEmptyString
+      } yield IE043TransitOperation(
+        mrn,
+        None,
+        None,
+        security,
+        reducedDatasetIndicator
+      )
+    }
+
+  implicit lazy val arbitraryCustomsOfficeOfDestinationActual: Arbitrary[CustomsOfficeOfDestinationActual] =
+    Arbitrary {
+      for {
+        referenceNumber <- nonEmptyString
+      } yield CustomsOfficeOfDestinationActual(referenceNumber)
+    }
+
+  implicit lazy val arbitraryUnloadingMessageData: Arbitrary[UnloadingMessageData] =
+    Arbitrary {
+      for {
+        ie043TransitOperation            <- arbitrary[IE043TransitOperation]
+        customsOfficeOfDestinationActual <- arbitrary[CustomsOfficeOfDestinationActual]
+        ie043HolderOfTransitProcedure    <- arbitrary[IE043HolderOfTransitProcedure]
+      } yield UnloadingMessageData(
+        ie043TransitOperation,
+        customsOfficeOfDestinationActual,
+        ie043HolderOfTransitProcedure,
+        None
+      )
+    }
+
+  implicit lazy val arbitraryIE043Data: Arbitrary[IE043Data] =
+    Arbitrary {
+      for {
+        data <- arbitrary[UnloadingMessageData]
+      } yield IE043Data(data)
     }
 }

@@ -18,6 +18,7 @@ package controllers.P5
 
 import akka.util.ByteString
 import base.SpecBase
+import cats.data.NonEmptyChain
 import cats.data.Validated
 import generators.ViewModelGenerators
 import models.P5.departure.IE015
@@ -36,6 +37,8 @@ import play.api.test.Helpers._
 import services.P5.DepartureMessageP5Service
 import services.conversion.TransitAccompanyingDocumentConversionService
 import services.pdf.TADPdfGenerator
+import services.JsonError
+import services.ValidationResult
 import viewmodels.TransitAccompanyingDocumentP5TransitionPDF
 
 import scala.concurrent.Future
@@ -53,8 +56,11 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ViewMode
   private lazy val mockPdfGenerator      = mock[TADPdfGenerator]
   private lazy val mockConversionService = mock[TransitAccompanyingDocumentConversionService]
 
-  private def applicationBuilder(defaultApplicationBuilder: GuiceApplicationBuilder): GuiceApplicationBuilder =
-    defaultApplicationBuilder
+  private val validationError: ValidationResult[TransitAccompanyingDocumentP5TransitionPDF] =
+    Validated.Invalid(NonEmptyChain(JsonError("error", Nil)))
+
+  private def applicationBuilder(baseApplicationBuilder: GuiceApplicationBuilder = defaultApplicationBuilder()): GuiceApplicationBuilder =
+    baseApplicationBuilder
       .overrides(
         bind[DepartureMessageP5Service].toInstance(mockMessageService),
         bind[TADPdfGenerator].toInstance(mockPdfGenerator),
@@ -148,6 +154,62 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ViewMode
               verifyNoInteractions(mockConversionService)
               verify(mockPdfGenerator, never()).generateP5TADTransition(any())
               verify(mockPdfGenerator).generateP5TADPostTransition(eqTo(ie029))
+          }
+        }
+      }
+    }
+
+    "must return INTERNAL SERVER ERROR" - {
+      "when IE015 message ID not found" in {
+        val application = applicationBuilder().build()
+        running(application) {
+          when(mockMessageService.getIE015MessageId(any())(any(), any()))
+            .thenReturn(Future.successful(None))
+
+          val request = FakeRequest(GET, controllerRoute)
+
+          val result = route(application, request).value
+
+          status(result) mustEqual INTERNAL_SERVER_ERROR
+
+          verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
+          verify(mockMessageService, never()).getDeclarationData(any(), any())(any(), any())
+          verify(mockMessageService, never()).getReleaseForTransitNotification(any(), any())(any(), any())
+          verifyNoInteractions(mockConversionService)
+          verifyNoInteractions(mockPdfGenerator)
+        }
+      }
+
+      "when conversion fails for P5 transition" in {
+        val application = applicationBuilder(p5TransitionApplicationBuilder()).build()
+        running(application) {
+          forAll(nonEmptyString, arbitrary[IE015], arbitrary[IE029]) {
+            (ie015MessageId, ie015, ie029) =>
+              beforeEach()
+
+              when(mockMessageService.getIE015MessageId(any())(any(), any()))
+                .thenReturn(Future.successful(Some(ie015MessageId)))
+
+              when(mockMessageService.getDeclarationData(any(), any())(any(), any()))
+                .thenReturn(Future.successful(ie015))
+
+              when(mockMessageService.getReleaseForTransitNotification(any(), any())(any(), any()))
+                .thenReturn(Future.successful(ie029))
+
+              when(mockConversionService.fromP5ToViewModel(any(), any())(any(), any()))
+                .thenReturn(Future.successful(validationError))
+
+              val request = FakeRequest(GET, controllerRoute)
+
+              val result = route(application, request).value
+
+              status(result) mustEqual INTERNAL_SERVER_ERROR
+
+              verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
+              verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId))(any(), any())
+              verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId))(any(), any())
+              verify(mockConversionService).fromP5ToViewModel(eqTo(ie029), eqTo(ie015))(any(), any())
+              verifyNoInteractions(mockPdfGenerator)
           }
         }
       }
