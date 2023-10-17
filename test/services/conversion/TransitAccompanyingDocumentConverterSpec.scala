@@ -20,14 +20,11 @@ import base.DepartureData
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.P5.departure.AdditionalReference
 import models.P5.departure.Authorisation
 import models.P5.departure.GoodsReference
 import models.P5.departure.HolderOfTransitProcedure
 import models.P5.departure.IE015
 import models.P5.departure.IE029
-import models.P5.departure.SupportingDocument
-import models.P5.departure.TransportDocument
 import models._
 import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
@@ -44,7 +41,6 @@ import java.time.LocalDateTime
 class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers with ValidatedMatchers with ValidatedValues with DepartureData {
 
   private val countries                 = Seq(Country("GB", ""), Country("GE", ""))
-  private val customsOffices            = Seq(CustomsOffice("AT240000", Some("Paris Office"), "FR"), CustomsOffice("AD000002", Some("Frankfurt Office"), "GE"))
   private val kindsOfPackage            = Seq(KindOfPackage("P1", "Package 1"), KindOfPackage("P2", "Package 2"))
   private val documentTypes             = Seq(DocumentType("T1", "Document 1", transportDocument = true), DocumentType("T2", "Document 2", transportDocument = false))
   private val additionalInfo            = Seq(AdditionalInformation("I1", "Info 1"), AdditionalInformation("I2", "info 2"))
@@ -55,15 +51,11 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
   private val transitOffices = Seq(
     CustomsOfficeWithOptionalDate(CustomsOffice("AB123", Some("Transit Office"), "AB"), Some(LocalDateTime.of(2020, 1, 1, 0, 0)))
   )
-  private val arbitraryDescription    = arbitrary[Option[String]].sample.get
-  private val previousDocumentTypes   = Seq(PreviousDocumentTypes("123", arbitraryDescription), PreviousDocumentTypes("124", Some("Description2")))
-  private val supportingDocumentTypes = Seq(SupportingDocumentTypes("CF40", arbitraryDescription), SupportingDocumentTypes("CZ44", arbitraryDescription))
-  private val transportDocumentTypes  = Seq(TransportDocumentTypes("TF67", arbitraryDescription), TransportDocumentTypes("L463", arbitraryDescription))
-  private val invalidCode             = "non-existent code"
+  private val arbitraryDescription  = arbitrary[Option[String]].sample.get
+  private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", arbitraryDescription), PreviousDocumentTypes("124", Some("Description2")))
+  private val invalidCode           = "non-existent code"
 
   val controlResultP4: Option[viewmodels.ControlResult] = Some(controlResult.toP4)
-  private val controlResults                            = Seq(ControlResult("controlResult1", LocalDate.now()), ControlResult("controlResult2", LocalDate.now()))
-  private val circumstanceIndicators                    = Seq(CircumstanceIndicator("code1", "desc1"), CircumstanceIndicator("code2", "desc2"))
 
   "toViewModel" - {
 

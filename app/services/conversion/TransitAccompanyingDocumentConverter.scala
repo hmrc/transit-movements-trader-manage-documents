@@ -27,7 +27,6 @@ import models.reference._
 import services._
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
-import viewmodels.PreviousDocumentType
 import viewmodels.TransitAccompanyingDocumentP5TransitionPDF
 
 object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
