@@ -19,7 +19,7 @@ package controllers
 import cats.data.Validated.Invalid
 import cats.data.Validated.Valid
 import cats.data._
-import generators.ViewmodelGenerators
+import generators.ViewModelGenerators
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -49,7 +49,7 @@ class TransitSecurityAccompanyingDocumentControllerSpec
     with OptionValues
     with MockitoSugar
     with ScalaCheckPropertyChecks
-    with ViewmodelGenerators {
+    with ViewModelGenerators {
 
   def onwardRoute: Call = Call("GET", "/foo")
 

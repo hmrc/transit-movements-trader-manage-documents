@@ -17,7 +17,7 @@
 package viewmodels
 
 import cats.data.NonEmptyList
-import generators.ViewmodelGenerators
+import generators.ViewModelGenerators
 import models.reference.Country
 import models.SensitiveGoodsInformation
 import org.scalacheck.Arbitrary.arbitrary
@@ -27,15 +27,15 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ViewmodelGenerators with OptionValues {
+class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with ViewModelGenerators with OptionValues {
 
   private val genPermissionWithoutListOfItems = for {
     permission                <- arbitrary[PermissionToStartUnloading]
-    containers                <- listWithMaxSize(1, stringWithMaxLength(17))
+    containers                <- listWithMaxSize(stringWithMaxLength(17), 1)
     onePackage                <- arbitrary[Package]
-    mentions                  <- listWithMaxSize(4, arbitrary[SpecialMention])
-    documents                 <- listWithMaxSize(4, arbitrary[ProducedDocument])
-    sensitiveGoodsInformation <- listWithMaxSize(1, arbitrary[SensitiveGoodsInformation])
+    mentions                  <- listWithMaxSize(arbitrary[SpecialMention], 4)
+    documents                 <- listWithMaxSize(arbitrary[ProducedDocument], 4)
+    sensitiveGoodsInformation <- listWithMaxSize(arbitrary[SensitiveGoodsInformation], 1)
   } yield (permission, containers, onePackage, mentions, documents, sensitiveGoodsInformation)
 
   "must have a consignor" - {
@@ -102,8 +102,8 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       val gen = for {
         permission <- arbitrary[PermissionToStartUnloading]
-        items1     <- nonEmptyListWithMaxSize(5, arbitrary[GoodsItem])
-        items2     <- nonEmptyListWithMaxSize(5, arbitrary[GoodsItem])
+        items1     <- nonEmptyListWithMaxSize(arbitrary[GoodsItem], 5)
+        items2     <- nonEmptyListWithMaxSize(arbitrary[GoodsItem], 5)
         consignor  <- arbitrary[Consignor]
       } yield (permission, items1, items2, consignor)
 
@@ -180,8 +180,8 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       val gen = for {
         permission <- arbitrary[PermissionToStartUnloading]
-        items1     <- nonEmptyListWithMaxSize(5, arbitrary[GoodsItem])
-        items2     <- nonEmptyListWithMaxSize(5, arbitrary[GoodsItem])
+        items1     <- nonEmptyListWithMaxSize(arbitrary[GoodsItem], 5)
+        items2     <- nonEmptyListWithMaxSize(arbitrary[GoodsItem], 5)
         consignee  <- arbitrary[Consignee]
       } yield (permission, items1, items2, consignee)
 

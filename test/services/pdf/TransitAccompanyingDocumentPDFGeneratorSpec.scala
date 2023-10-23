@@ -17,7 +17,7 @@
 package services.pdf
 
 import cats.data.NonEmptyList
-import generators.ViewmodelGenerators
+import generators.ViewModelGenerators
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.PreviousAdministrativeReference
@@ -54,7 +54,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
     extends AnyFreeSpec
     with Matchers
     with GuiceOneAppPerSuite
-    with ViewmodelGenerators
+    with ViewModelGenerators
     with OptionValues
     with ScalaFutures {
 

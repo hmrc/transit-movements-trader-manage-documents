@@ -17,7 +17,7 @@
 package services.pdf
 
 import cats.data.NonEmptyList
-import generators.ViewmodelGenerators
+import generators.ViewModelGenerators
 import models.SensitiveGoodsInformation
 import models.reference.Country
 import models.reference.DocumentType
@@ -42,7 +42,7 @@ class UnloadingPermissionPdfGeneratorSpec
     extends AnyFreeSpec
     with Matchers
     with GuiceOneAppPerSuite
-    with ViewmodelGenerators
+    with ViewModelGenerators
     with OptionValues
     with ScalaFutures {
 
