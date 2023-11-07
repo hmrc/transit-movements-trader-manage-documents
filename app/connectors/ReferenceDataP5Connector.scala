@@ -39,12 +39,12 @@ class ReferenceDataP5Connector @Inject() (
   httpClient: HttpClient
 ) extends Logging {
 
-  private def referenceDataReads[A](typeOfData: String)(implicit ev: Reads[A]): HttpReads[ValidationResult[A]] =
+  private def referenceDataReads[A](typeOfData: String)(implicit ev: Reads[A]): HttpReads[ValidationResult[Seq[A]]] =
     (_, _, response: HttpResponse) =>
       response.status match {
         case Status.OK =>
           (response.json \ "data")
-            .validate[A]
+            .validate[Seq[A]]
             .fold(
               errors => JsonError(typeOfData, errors).invalidNec,
               result => result.validNec
@@ -52,13 +52,11 @@ class ReferenceDataP5Connector @Inject() (
         case _ => ReferenceDataRetrievalError(typeOfData, response.status, response.body).invalidNec
       }
 
-  def getList[A](listName: String)(implicit ec: ExecutionContext, hc: HeaderCarrier, reads: Reads[A]): Future[ValidationResult[A]] = {
+  def getList[A](listName: String)(implicit ec: ExecutionContext, hc: HeaderCarrier, reads: Reads[A]): Future[ValidationResult[Seq[A]]] = {
+    val url = s"${config.referenceDataURL}/lists/$listName"
 
-    val customReads: HttpReads[ValidationResult[A]] = referenceDataReads[A](listName)
-
-    val serviceUrl = s"${config.referenceDataURL}/lists/$listName"
-
-    httpClient.GET[ValidationResult[A]](serviceUrl, headers = version2Header)(customReads, implicitly, implicitly)
+    implicit val customReads: HttpReads[ValidationResult[Seq[A]]] = referenceDataReads[A](listName)
+    httpClient.GET[ValidationResult[Seq[A]]](url, headers = version2Header)
   }
 
   private def version2Header: Seq[(String, String)] = Seq(
