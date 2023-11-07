@@ -27,6 +27,7 @@ import models.P5.departure.DepartureMessageMetaData
 import models.P5.departure.DepartureMessages
 import models.P5.departure.IE029
 import org.scalacheck.Arbitrary
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures

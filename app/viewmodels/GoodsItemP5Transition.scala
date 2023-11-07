@@ -16,16 +16,8 @@
 
 package viewmodels
 
-import cats.data.NonEmptyList
-import models.P5.departure.AdditionalReference
-import models.P5.departure.Packaging
-import models.P5.departure.PreviousDocument
-import models.P5.departure.SupportingDocument
-import models.P5.departure.TransportDocument
-import models.DeclarationType
+import models.P5.departure._
 import models.SensitiveGoodsInformation
-import models.reference.AdditionalInformation
-import models.reference.Country
 
 final case class GoodsItemP5Transition(
   itemNumber: String,

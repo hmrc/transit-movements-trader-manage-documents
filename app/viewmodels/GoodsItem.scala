@@ -17,14 +17,13 @@
 package viewmodels
 
 import cats.data.NonEmptyList
-import models.DeclarationType
 import models.SensitiveGoodsInformation
 import models.reference.Country
 
 final case class GoodsItem(
   itemNumber: String,
   commodityCode: Option[String],
-  declarationType: Option[DeclarationType],
+  declarationType: Option[String],
   description: String,
   grossMass: Option[BigDecimal],
   netMass: Option[BigDecimal],

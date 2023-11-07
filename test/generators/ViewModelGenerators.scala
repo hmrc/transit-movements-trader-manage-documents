@@ -16,9 +16,12 @@
 
 package generators
 
+import models.P5.departure.CustomsOfficeOfDeparture
+import models.P5.departure.CustomsOfficeOfDestinationDeclared
+import models.P5.departure.CustomsOfficeOfTransitDeclared
+import models.P5.departure.HolderOfTransitProcedure
 import models.reference._
 import models.ControlResult
-import models.DeclarationType
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.Itinerary
@@ -33,7 +36,7 @@ import viewmodels._
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators {
+trait ViewModelGenerators extends GeneratorHelpers with ReferenceModelGenerators with P5ModelGenerators {
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {
@@ -171,12 +174,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield Principal(name, streetAndNumber, streetAndNumber, postCode, city, country, eori, tir)
     }
 
-  implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
-    Arbitrary {
-
-      Gen.oneOf(DeclarationType.values)
-    }
-
   implicit lazy val arbitrarySensitiveGoodsInformation: Arbitrary[SensitiveGoodsInformation] =
     Arbitrary {
       for {
@@ -207,7 +204,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       for {
         itemNumber                <- Gen.choose(1, 99999)
         commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
+        declarationType           <- Gen.option(arbitrary[String](arbitraryDeclarationType))
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
@@ -216,14 +213,14 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         methodOfPayment           <- Gen.option(stringWithMaxLength(1))
         commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
         unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
-        producedDocuments         <- listWithMaxSize(9, arbitrary[ProducedDocument])
-        previousDocuments         <- listWithMaxSize(9, arbitrary[PreviousDocumentType])
-        specialMentions           <- listWithMaxSize(9, arbitrary[SpecialMention])
+        producedDocuments         <- listWithMaxSize(arbitrary[ProducedDocument], 9)
+        previousDocuments         <- listWithMaxSize(arbitrary[PreviousDocumentType], 9)
+        specialMentions           <- listWithMaxSize(arbitrary[SpecialMention], 9)
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
-        containers                <- listWithMaxSize(9, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(9, arbitrary[Package])
-        sensitiveGoodsInformation <- listWithMaxSize(9, arbitrary[SensitiveGoodsInformation])
+        containers                <- listWithMaxSize(stringWithMaxLength(17), 9)
+        packages                  <- nonEmptyListWithMaxSize(arbitrary[Package], 9)
+        sensitiveGoodsInformation <- listWithMaxSize(arbitrary[SensitiveGoodsInformation], 9)
         securityConsignor         <- Gen.option(arbitrary[SecurityConsignor])
         securityConsignee         <- Gen.option(arbitrary[SecurityConsignee])
       } yield GoodsItem(
@@ -256,7 +253,7 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
 
       for {
         mrn                   <- stringWithMaxLength(17)
-        declarationType       <- arbitrary[DeclarationType]
+        declarationType       <- arbitrary[String](arbitraryDeclarationType)
         countryOfDispatch     <- Gen.option(arbitrary[Country])
         countryOfDestination  <- Gen.option(arbitrary[Country])
         transportId           <- Gen.option(stringWithMaxLength(27))
@@ -272,8 +269,8 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         traderAtDestination   <- Gen.option(arbitrary[TraderAtDestination])
         departureOffice       <- stringWithMaxLength(8)
         presentationOffice    <- Gen.option(stringWithMaxLength(8))
-        seals                 <- listWithMaxSize(9, stringWithMaxLength(20))
-        goodsItems            <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        seals                 <- listWithMaxSize(stringWithMaxLength(20), 9)
+        goodsItems            <- nonEmptyListWithMaxSize(arbitrary[GoodsItem], 9)
       } yield PermissionToStartUnloading(
         mrn,
         declarationType,
@@ -331,14 +328,14 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       guaranteeRef      <- Gen.option(stringWithMaxLength(23))
       otherGuaranteeRef <- stringWithMaxLength(23)
       notValidForEc     <- Gen.option(arbitrary[Boolean])
-      notValidForOther  <- listWithMaxSize(4, stringWithMaxLength(24))
+      notValidForOther  <- listWithMaxSize(stringWithMaxLength(24), 4)
     } yield GuaranteeReference(guaranteeRef, if (guaranteeRef.isDefined) None else Some(otherGuaranteeRef), notValidForEc, notValidForOther)
   }
 
   implicit lazy val arbitraryGuaranteeDetails: Arbitrary[GuaranteeDetails] = Arbitrary {
     for {
       guaranteeType <- Gen.oneOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "A")
-      guaranteeRefs <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeReference])
+      guaranteeRefs <- nonEmptyListWithMaxSize(arbitrary[GuaranteeReference], 5)
     } yield GuaranteeDetails(guaranteeType, guaranteeRefs.toList)
   }
 
@@ -369,10 +366,9 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
 
   implicit lazy val arbitraryTransitAccompanyingDocument: Arbitrary[TransitAccompanyingDocumentPDF] =
     Arbitrary {
-
       for {
         mrn                       <- stringWithMaxLength(17)
-        declarationType           <- arbitrary[DeclarationType]
+        declarationType           <- arbitrary[String](arbitraryDeclarationType)
         countryOfDispatch         <- Gen.option(arbitrary[Country])
         countryOfDestination      <- Gen.option(arbitrary[Country])
         transportId               <- Gen.option(stringWithMaxLength(27))
@@ -389,12 +385,12 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         consignee                 <- Gen.option(arbitrary[Consignee])
         departureOffice           <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
         destinationOffice         <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
-        cusOfficesOfTransit       <- listWithMaxSize(5, arbitrary[CustomsOfficeWithOptionalDate])
-        guaranteeDetails          <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeDetails])
-        seals                     <- listWithMaxSize(9, stringWithMaxLength(20))
+        cusOfficesOfTransit       <- listWithMaxSize(arbitrary[CustomsOfficeWithOptionalDate], 5)
+        guaranteeDetails          <- nonEmptyListWithMaxSize(arbitrary[GuaranteeDetails], 5)
+        seals                     <- listWithMaxSize(stringWithMaxLength(20), 9)
         returnCopiesCustomsOffice <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
         controlResult             <- Gen.option(arbitrary[viewmodels.ControlResult])
-        goodsItems                <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
+        goodsItems                <- nonEmptyListWithMaxSize(arbitrary[GoodsItem], 9)
       } yield TransitAccompanyingDocumentPDF(
         mrn,
         declarationType,
@@ -432,7 +428,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
 
   implicit lazy val arbitraryGoodsItemSecurityConsignee: Arbitrary[SecurityConsignee] =
     Arbitrary {
-
       for {
         name            <- Gen.option(stringWithMaxLength(35))
         streetAndNumber <- Gen.option(stringWithMaxLength(35))
@@ -445,7 +440,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
 
   implicit lazy val arbitraryGoodsItemSecurityConsignor: Arbitrary[SecurityConsignor] =
     Arbitrary {
-
       for {
         name            <- Gen.option(stringWithMaxLength(35))
         streetAndNumber <- Gen.option(stringWithMaxLength(35))
@@ -458,7 +452,6 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
 
   implicit lazy val arbitrarySafetyAndSecurityCarrier: Arbitrary[SafetyAndSecurityCarrier] =
     Arbitrary {
-
       for {
         name            <- Gen.option(stringWithMaxLength(35))
         streetAndNumber <- Gen.option(stringWithMaxLength(35))
@@ -469,12 +462,43 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, eori)
     }
 
+  implicit lazy val arbitraryGoodsItemP5Transition: Arbitrary[GoodsItemP5Transition] =
+    Arbitrary {
+      for {
+        itemNumber  <- nonEmptyString
+        description <- nonEmptyString
+      } yield GoodsItemP5Transition(
+        itemNumber,
+        None,
+        None,
+        description,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        Nil,
+        Nil,
+        Nil,
+        Nil,
+        Nil,
+        None,
+        None,
+        Nil,
+        Nil,
+        Nil,
+        None,
+        None
+      )
+    }
+
   implicit lazy val arbitraryTransitSecurityAccompanyingDocument: Arbitrary[TransitSecurityAccompanyingDocumentPDF] =
     Arbitrary {
-
       for {
         mrn                               <- stringWithMaxLength(17)
-        declarationType                   <- arbitrary[DeclarationType]
+        declarationType                   <- arbitrary[String](arbitraryDeclarationType)
         countryOfDispatch                 <- Gen.option(arbitrary[Country])
         countryOfDestination              <- Gen.option(arbitrary[Country])
         transportId                       <- Gen.option(stringWithMaxLength(27))
@@ -502,13 +526,13 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         consignee                         <- Gen.option(arbitrary[Consignee])
         departureOffice                   <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
         destinationOffice                 <- arbitrary[CustomsOfficeWithOptionalDate](arbitraryCustomsOfficeWithoutOptionalDate)
-        cusOfficesOfTransit               <- listWithMaxSize(5, arbitrary[CustomsOfficeWithOptionalDate])
-        guaranteeDetails                  <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeDetails])
-        seals                             <- listWithMaxSize(9, stringWithMaxLength(20))
+        cusOfficesOfTransit               <- listWithMaxSize(arbitrary[CustomsOfficeWithOptionalDate], 5)
+        guaranteeDetails                  <- nonEmptyListWithMaxSize(arbitrary[GuaranteeDetails], 5)
+        seals                             <- listWithMaxSize(stringWithMaxLength(20), 9)
         returnCopiesCustomsOffice         <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
         controlResult                     <- Gen.option(arbitrary[viewmodels.ControlResult])
-        goodsItems                        <- nonEmptyListWithMaxSize(9, arbitrary[GoodsItem])
-        itineraries                       <- listWithMaxSize(9, arbitrary[Itinerary])
+        goodsItems                        <- nonEmptyListWithMaxSize(arbitrary[GoodsItem], 9)
+        itineraries                       <- listWithMaxSize(arbitrary[Itinerary], 9)
         safetyAndSecurityCarrier          <- Gen.option(arbitrary[SafetyAndSecurityCarrier])
         safetyAndSecurityConsignor        <- Gen.option(arbitrary[SecurityConsignor])
         safetyAndSecurityConsignee        <- Gen.option(arbitrary[SecurityConsignee])
@@ -552,6 +576,66 @@ trait ViewmodelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         safetyAndSecurityCarrier,
         safetyAndSecurityConsignor,
         safetyAndSecurityConsignee
+      )
+    }
+
+  implicit lazy val arbitraryTransitAccompanyingDocumentP5TransitionPDF: Arbitrary[TransitAccompanyingDocumentP5TransitionPDF] =
+    Arbitrary {
+      for {
+        mrn                         <- stringWithMaxLength(17)
+        declarationType             <- arbitrary[String](arbitraryDeclarationType)
+        countryOfDispatch           <- Gen.option(arbitrary[Country])
+        countryOfDestination        <- Gen.option(arbitrary[Country])
+        transportId                 <- Gen.option(stringWithMaxLength(27))
+        transportCountry            <- Gen.option(arbitrary[Country])
+        limitDate                   <- nonEmptyString
+        acceptanceDate              <- arbitrary[FormattedDate]
+        numberOfItems               <- Gen.choose(1, 99999)
+        numberOfPackages            <- Gen.option(Gen.choose(1, 9999999))
+        grossMass                   <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
+        printBindingItinerary       <- arbitrary[Boolean]
+        copyType                    <- arbitrary[Boolean]
+        holderOfTheTransitProcedure <- arbitrary[HolderOfTransitProcedure]
+        departureOffice             <- arbitrary[CustomsOfficeOfDeparture]
+        destinationOffice           <- arbitrary[CustomsOfficeOfDestinationDeclared]
+        cusOfficesOfTransit         <- listWithMaxSize(arbitrary[CustomsOfficeOfTransitDeclared], 5)
+        seals                       <- listWithMaxSize(stringWithMaxLength(20), 9)
+        returnCopiesCustomsOffice   <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
+        controlResult               <- Gen.option(arbitrary[viewmodels.ControlResult])
+        goodsItems                  <- nonEmptyListWithMaxSize(arbitrary[GoodsItemP5Transition], 9)
+        guaranteeType               <- nonEmptyString
+      } yield TransitAccompanyingDocumentP5TransitionPDF(
+        mrn,
+        declarationType,
+        countryOfDispatch,
+        countryOfDestination,
+        transportId,
+        transportCountry,
+        limitDate,
+        acceptanceDate,
+        numberOfItems,
+        numberOfPackages,
+        grossMass,
+        printBindingItinerary,
+        Nil,
+        Nil,
+        copyType,
+        holderOfTheTransitProcedure,
+        None,
+        None,
+        departureOffice,
+        destinationOffice,
+        cusOfficesOfTransit,
+        Nil,
+        Nil,
+        Nil,
+        Nil,
+        Nil,
+        guaranteeType,
+        seals,
+        returnCopiesCustomsOffice,
+        controlResult,
+        goodsItems
       )
     }
 }

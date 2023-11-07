@@ -73,7 +73,7 @@ case class ConsignmentItem(
   val packagesType: String = Packaging.map(_.toString).mkString("; ")
   val totalPackages        = Packaging.length
 
-  val allProducedDocuments: Seq[ProducedDocument] =
+  lazy val allProducedDocuments: Seq[ProducedDocument] =
     (for {
       supportingDocs <- SupportingDocument
       transportDocs  <- TransportDocument
@@ -94,7 +94,7 @@ case class ConsignmentItem(
       supportingProducedDocs ++ transportProducedDocs
     }).getOrElse(Seq.empty)
 
-  val packagingFormat: NonEmptyList[viewmodels.Package] =
+  lazy val packagingFormat: NonEmptyList[viewmodels.Package] =
     NonEmptyList
       .fromList(Packaging.flatMap {
         case PackagingP5(_, Some(numberOfPackages), typeOfPackages, Some(shippingMarks)) =>

@@ -16,15 +16,14 @@
 
 package viewmodels
 
-import java.time.LocalDate
-
 import cats.data.NonEmptyList
-import models.DeclarationType
 import models.reference.Country
+
+import java.time.LocalDate
 
 final case class PermissionToStartUnloading(
   movementReferenceNumber: String,
-  declarationType: DeclarationType,
+  declarationType: String,
   singleCountryOfDispatch: Option[Country],
   singleCountryOfDestination: Option[Country],
   transportIdentity: Option[String],

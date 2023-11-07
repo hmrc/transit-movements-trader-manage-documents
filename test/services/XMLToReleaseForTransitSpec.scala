@@ -16,7 +16,7 @@
 
 package services
 
-import generators.ViewmodelGenerators
+import generators.ViewModelGenerators
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.OptionValues
@@ -32,7 +32,7 @@ class XMLToReleaseForTransitSpec
     with ScalaFutures
     with OptionValues
     with IntegrationPatience
-    with ViewmodelGenerators
+    with ViewModelGenerators
     with ScalaCheckPropertyChecks {
 
   "XMLToTransitAccompanyingDocument" - {

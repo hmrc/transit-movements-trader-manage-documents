@@ -2,7 +2,7 @@
 @import views.xml.componentsP5Transition.{item => componentItem}
 @import models.P5.departure._
 
-@(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: DeclarationType)
+@(goodsItem: viewmodels.GoodsItemP5Transition, declarationType: String)
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
     <fo:table-column column-width="28mm"/>

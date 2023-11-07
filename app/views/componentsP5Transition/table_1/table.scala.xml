@@ -9,7 +9,7 @@
         lrn: String,
         printVariousConsignors: Boolean,
         consignorOne: Option[models.P5.departure.Consignor],
-        declarationType: DeclarationType,
+        declarationType: String,
         printListOfItems: Boolean,
         consignor: Option[models.P5.departure.Consignor],
         numberOfItems: Int,

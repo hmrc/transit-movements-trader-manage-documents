@@ -18,8 +18,8 @@ package models
 
 import com.lucidchart.open.xtract.XmlReader
 import com.lucidchart.open.xtract.__
-import utils.BinaryToBooleanXMLReader.xmlBinaryToBooleanReads
 import utils.BigDecimalXMLReader._
+import utils.BinaryToBooleanXMLReader.xmlBinaryToBooleanReads
 import utils.LocalDateXMLReader._
 
 import java.time.LocalDate
@@ -27,7 +27,7 @@ import scala.xml.NodeSeq
 
 final case class Header(
   movementReferenceNumber: String,
-  declarationType: DeclarationType,
+  declarationType: String,
   countryOfDispatch: Option[String],
   countryOfDestination: Option[String],
   transportIdentity: Option[String],
@@ -57,7 +57,7 @@ object Header {
   implicit val xmlReader1: XmlReader[Header] = (xml: NodeSeq) => {
     for {
       mrn                            <- (__ \ "DocNumHEA5").read[String].read(xml)
-      decType                        <- (__ \ "TypOfDecHEA24").read[DeclarationType].read(xml)
+      decType                        <- (__ \ "TypOfDecHEA24").read[String].read(xml)
       countryOfDispatch              <- (__ \ "CouOfDisCodHEA55").read[String].optional.read(xml)
       countryOfDestination           <- (__ \ "CouOfDesCodHEA30").read[String].optional.read(xml)
       transportIdentity              <- (__ \ "IdeOfMeaOfTraAtDHEA78").read[String].optional.read(xml)

@@ -247,12 +247,6 @@ trait ModelGenerators extends GeneratorHelpers {
       } yield Principal(name, streetAndNumber, postCode, city, country, eori, tir)
     }
 
-  implicit lazy val arbitraryDeclarationType: Arbitrary[DeclarationType] =
-    Arbitrary {
-
-      Gen.oneOf(DeclarationType.values)
-    }
-
   implicit lazy val arbitrarySensitiveGoodsInformation: Arbitrary[SensitiveGoodsInformation] =
     Arbitrary {
       for {
@@ -266,7 +260,7 @@ trait ModelGenerators extends GeneratorHelpers {
       for {
         itemNumber                <- Gen.choose(1, 99999)
         commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
+        declarationType           <- Gen.option(arbitrary[String](arbitraryDeclarationType))
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
@@ -275,14 +269,14 @@ trait ModelGenerators extends GeneratorHelpers {
         methodOfPayment           <- Gen.option(stringWithMaxLength(1))
         commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
         unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
-        producedDocuments         <- listWithMaxSize(2, arbitrary[ProducedDocument])
-        previousAdminRef          <- listWithMaxSize(2, arbitrary[PreviousAdministrativeReference])
-        specialMentions           <- listWithMaxSize(2, arbitrary[SpecialMention])
+        producedDocuments         <- listWithMaxSize[ProducedDocument](2)
+        previousAdminRef          <- listWithMaxSize[PreviousAdministrativeReference](2)
+        specialMentions           <- listWithMaxSize[SpecialMention](2)
         consignor                 <- Gen.option(arbitrary[Consignor])
         consignee                 <- Gen.option(arbitrary[Consignee])
-        containers                <- listWithMaxSize(2, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(2, arbitrary[Package])
-        sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        containers                <- listWithMaxSize(stringWithMaxLength(17), 2)
+        packages                  <- nonEmptyListWithMaxSize[Package](2)
+        sensitiveGoodsInformation <- listWithMaxSize[SensitiveGoodsInformation](2)
         securityConsignor         <- arbitrary[SecurityConsignor]
         securityConsignee         <- arbitrary[SecurityConsignee]
       } yield GoodsItem(
@@ -326,7 +320,7 @@ trait ModelGenerators extends GeneratorHelpers {
 
       for {
         mrn                  <- stringWithMaxLength(17)
-        declarationType      <- arbitrary[DeclarationType]
+        declarationType      <- arbitrary[String](arbitraryDeclarationType)
         countryOfDispatch    <- Gen.option(stringWithMaxLength(2))
         countryOfDestination <- Gen.option(stringWithMaxLength(2))
         transportId          <- Gen.option(stringWithMaxLength(27))
@@ -341,8 +335,8 @@ trait ModelGenerators extends GeneratorHelpers {
         traderAtDestination  <- arbitrary[TraderAtDestination]
         departureOffice      <- stringWithMaxLength(8)
         presentationOffice   <- stringWithMaxLength(8)
-        seals                <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems           <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
+        seals                <- listWithMaxSize(stringWithMaxLength(20), 2)
+        goodsItems           <- nonEmptyListWithMaxSize[GoodsItem](2)
       } yield PermissionToStartUnloading(
         mrn,
         declarationType,
@@ -377,14 +371,14 @@ trait ModelGenerators extends GeneratorHelpers {
       guaranteeRef      <- Gen.option(stringWithMaxLength(23))
       otherGuaranteeRef <- stringWithMaxLength(23)
       notValidForEc     <- Gen.option(arbitrary[Boolean])
-      notValidForOther  <- listWithMaxSize(4, stringWithMaxLength(24))
+      notValidForOther  <- listWithMaxSize(stringWithMaxLength(24), 4)
     } yield GuaranteeReference(guaranteeRef, if (guaranteeRef.isDefined) None else Some(otherGuaranteeRef), notValidForEc, notValidForOther)
   }
 
   implicit lazy val arbitraryGuaranteeDetails: Arbitrary[GuaranteeDetails] = Arbitrary {
     for {
       guaranteeType <- Gen.oneOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "A")
-      guaranteeRefs <- nonEmptyListWithMaxSize(5, arbitrary[GuaranteeReference])
+      guaranteeRefs <- nonEmptyListWithMaxSize[GuaranteeReference](5)
     } yield GuaranteeDetails(guaranteeType, guaranteeRefs.toList)
   }
 
@@ -399,7 +393,7 @@ trait ModelGenerators extends GeneratorHelpers {
     Arbitrary {
       for {
         mrn                               <- stringWithMaxLength(22)
-        declarationType                   <- arbitrary[DeclarationType]
+        declarationType                   <- arbitrary[String](arbitraryDeclarationType)
         countryOfDispatch                 <- Gen.option(stringWithMaxLength(2))
         countryOfDestination              <- Gen.option(stringWithMaxLength(2))
         transportId                       <- Gen.option(stringWithMaxLength(27))
@@ -464,15 +458,15 @@ trait ModelGenerators extends GeneratorHelpers {
         principal                  <- arbitrary[Principal]
         consignor                  <- Gen.option(arbitrary[Consignor])
         consignee                  <- Gen.option(arbitrary[Consignee])
-        customsOffOfTransit        <- listWithMaxSize(9, arbitrary[CustomsOfficeOfTransit])
-        guaranteeDetails           <- nonEmptyListWithMaxSize(9, arbitrary[GuaranteeDetails])
+        customsOffOfTransit        <- listWithMaxSize[CustomsOfficeOfTransit](9)
+        guaranteeDetails           <- nonEmptyListWithMaxSize[GuaranteeDetails](9)
         departureOffice            <- stringWithMaxLength(8)
         destinationOffice          <- stringWithMaxLength(8)
         returnCopiesCustomsOffice  <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
         controlResult              <- Gen.option(arbitrary[ControlResult])
-        seals                      <- listWithMaxSize(2, stringWithMaxLength(20))
-        goodsItems                 <- nonEmptyListWithMaxSize(2, arbitrary[GoodsItem])
-        itineraries                <- listWithMaxSize(9, arbitrary[Itinerary])
+        seals                      <- listWithMaxSize(stringWithMaxLength(20), 2)
+        goodsItems                 <- nonEmptyListWithMaxSize[GoodsItem](2)
+        itineraries                <- listWithMaxSize[Itinerary](9)
         safetyAndSecurityCarrier   <- Gen.option(arbitrary[SafetyAndSecurityCarrier])
         safetyAndSecurityConsignor <- Gen.option(arbitrary[SecurityConsignor])
         safetyAndSecurityConsignee <- Gen.option(arbitrary[SecurityConsignee])
@@ -696,7 +690,7 @@ trait ModelGenerators extends GeneratorHelpers {
       for {
         itemNumber                <- Gen.choose(1, 99999)
         commodityCode             <- Gen.option(stringWithMaxLength(22))
-        declarationType           <- Gen.option(arbitrary[DeclarationType])
+        declarationType           <- Gen.option(arbitrary[String](arbitraryDeclarationType))
         description               <- stringWithMaxLength(280)
         grossMass                 <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
         netMass                   <- Gen.option(Gen.choose(0.0, 99999999.999).map(BigDecimal(_)))
@@ -705,14 +699,14 @@ trait ModelGenerators extends GeneratorHelpers {
         methodOfPayment           <- Gen.option(stringWithMaxLength(1))
         commercialReferenceNumber <- Gen.option(stringWithMaxLength(17))
         unDangerGoodsCode         <- Gen.option(stringWithMaxLength(4))
-        producedDocuments         <- listWithMaxSize(2, arbitrary[viewmodels.ProducedDocument])
-        previousDocTypes          <- listWithMaxSize(2, arbitrary[viewmodels.PreviousDocumentType])
-        specialMentions           <- listWithMaxSize(2, arbitrary[viewmodels.SpecialMention])
+        producedDocuments         <- listWithMaxSize[viewmodels.ProducedDocument](2)
+        previousDocTypes          <- listWithMaxSize[viewmodels.PreviousDocumentType](2)
+        specialMentions           <- listWithMaxSize[viewmodels.SpecialMention](2)
         consignor                 <- Gen.option(arbitrary[viewmodels.Consignor])
         consignee                 <- Gen.option(arbitrary[viewmodels.Consignee])
-        containers                <- listWithMaxSize(2, stringWithMaxLength(17))
-        packages                  <- nonEmptyListWithMaxSize(2, arbitrary[viewmodels.Package])
-        sensitiveGoodsInformation <- listWithMaxSize(2, arbitrary[SensitiveGoodsInformation])
+        containers                <- listWithMaxSize(stringWithMaxLength(17), 2)
+        packages                  <- nonEmptyListWithMaxSize[viewmodels.Package](2)
+        sensitiveGoodsInformation <- listWithMaxSize[SensitiveGoodsInformation](2)
         securityConsignor         <- Gen.option(arbitrary[viewmodels.SecurityConsignor])
         securityConsignee         <- Gen.option(arbitrary[viewmodels.SecurityConsignee])
       } yield viewmodels.GoodsItem(

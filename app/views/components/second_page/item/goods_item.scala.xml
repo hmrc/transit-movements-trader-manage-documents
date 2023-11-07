@@ -1,7 +1,7 @@
 @import views.xml.components.second_page.item._
 @import views.xml.components.{item => componentItem}
 
-@(goodsItem: viewmodels.GoodsItem, declarationType: DeclarationType)
+@(goodsItem: viewmodels.GoodsItem, declarationType: String)
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
     <fo:table-column column-width="28mm"/>

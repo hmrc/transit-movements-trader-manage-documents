@@ -17,9 +17,7 @@
 package services.pdf
 
 import cats.data.NonEmptyList
-import generators.ViewmodelGenerators
-import models.DeclarationType.T2
-import models.DeclarationType
+import generators.ViewModelGenerators
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.Itinerary
@@ -57,7 +55,7 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
     extends AnyFreeSpec
     with Matchers
     with GuiceOneAppPerSuite
-    with ViewmodelGenerators
+    with ViewModelGenerators
     with OptionValues
     with ScalaFutures {
 
@@ -165,7 +163,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
 
   val transitSecurityAccompanyingDocumentPDF: TransitSecurityAccompanyingDocumentPDF = TransitSecurityAccompanyingDocumentPDF(
     "21GB00006010025BE0",
-    DeclarationType.TMinus,
+    "T-",
     Some(Country("GB", "United Kingdom")),
     Some(Country("IT", "Italy")),
     Some("TSAD ID Departure"),
@@ -236,7 +234,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
       GoodsItem(
         "1",
         None,
-        Some(T2),
+        Some("T2"),
         "Jet Ski props",
         Some(4000),
         Some(3996),
@@ -259,7 +257,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
       GoodsItem(
         "2",
         None,
-        Some(T2),
+        Some("T2"),
         "Surf boards",
         Some(4000),
         Some(3996),
@@ -282,7 +280,7 @@ object TransitSecurityAccompanyingDocumentPDFGeneratorSpec {
       GoodsItem(
         "3",
         None,
-        Some(T2),
+        Some("T2"),
         "Kite surf boards",
         Some(4000),
         Some(3996),
