@@ -123,18 +123,12 @@ class TransitAccompanyingDocumentConversionService @Inject() (referenceData: Ref
   def fromP5ToViewModel(
     ie029: IE029,
     ie015: IE015
-  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentP5TransitionPDF]] = {
-
-    val countriesFuture: Future[ValidationResult[Seq[Country]]] = referenceDataP5.getList[Seq[Country]]("CountryCodesForAddress")
-
-    countriesFuture.map {
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[ValidationResult[TransitAccompanyingDocumentP5TransitionPDF]] =
+    referenceDataP5.getList[Country]("CountryCodesForAddress").map {
       validationResult =>
         validationResult.fold(
           errors => Invalid(errors),
           countries => TransitAccompanyingDocumentConverter.fromP5ToViewModel(ie029, ie015, countries)
         )
     }
-
-  }
-
 }
