@@ -1,0 +1,188 @@
+@import refactor.views.xml.p5.components.table_1.consignee
+
+        @import refactor.views.xml.p5.components.table_1.total_gross_mass
+
+        @(viewModel: viewmodels.P5.Table4ViewModel)
+
+
+<fo:table-row height="16%">
+
+    <fo:table-cell number-columns-spanned="2">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-body>
+                    <fo:table-row height="37%" border-bottom-style="solid" border-bottom-width="1pt"
+                                  border-bottom-color="black">
+                        <fo:table-cell display-align="top" margin-left="2">
+                            <fo:block font-weight="bold" font-size="5pt"></fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   number-columns-spanned="6">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed" border-right-style="solid"
+                      border-right-width="1pt" border-right-color="black">
+
+                <fo:table-body>
+
+                    <fo:table-row height="16%">
+                        <fo:table-cell margin-top="0.5%" display-align="top" margin-left="0.5%"
+                                       number-columns-spanned="4" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black" padding-bottom="2.5%">
+                            <fo:block>Country of routing of consignment [16 12]</fo:block>
+                            <fo:block>@(viewModel.countryOfRoutingOfConsignment)</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-bottom="0.5%" margin-top="0.5%" display-align="right"
+                                       margin-left="0.5%" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-bottom-color="black">
+                            <fo:block margin-left="0.5%" padding-top="0.5%" border-left-style="solid"
+                                      border-left-width="1pt"
+                                      border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                      border-bottom-color="black" padding-left="5%" padding-bottom="2%">Prescribed
+                                Itinerary [16 17]:
+                                <fo:inline margin-top="0.5%" border-style="solid" border-width="0.5pt">
+                                    &#160;&#160;&#160;&#160;
+                                </fo:inline>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>
+                                <fo:table width="121%" table-layout="fixed">
+                                    <fo:table-body>
+                                        <fo:table-row height="14%" border-bottom-style="solid"
+                                                      border-bottom-width="1pt" border-bottom-color="black"
+                                                      border-right-style="solid" border-right-width="1pt"
+                                                      border-right-color="black" padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="1%" padding-bottom="11%">
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF TRANSIT[17 04]</fo:block>
+                                                <fo:block font-size="5pt">@(viewModel.customsOfficeOfTransitDeclared)
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="3">
+                            <fo:block>
+                                <fo:table width="100%">
+                                    <fo:table-body>
+                                        <fo:table-row height="14%"
+                                                      padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="15%">
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT[17 06]
+                                                </fo:block>
+                                                <fo:block font-size="5pt">
+                                                    @(viewModel.customsOfficeOfExitForTransitDeclared)
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>
+                                <fo:table width="121%" table-layout="fixed">
+                                    <fo:table-body>
+                                        <fo:table-row height="14%"
+                                                      border-right-style="solid" border-right-width="1pt"
+                                                      border-right-color="black" padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="1%" padding-bottom="11%">
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DEPARTURE[17 03]</fo:block>
+                                                <fo:block font-size="5pt">@(viewModel.customsOfficeOfDeparture)
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="3">
+                            <fo:block>
+                                <fo:table width="100%">
+                                    <fo:table-body>
+                                        <fo:table-row height="14%" border-top-style="solid" border-top-width="1pt"
+                                                      border-top-color="black"
+                                                      padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="15%">
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]
+                                                </fo:block>
+                                                <fo:block font-size="5pt">
+                                                    @(viewModel.customsOfficeOfDestinationDeclared)
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="5" padding-left="34.5%" border-bottom-style="solid"
+                                       border-bottom-width="1pt"
+                                       border-bottom-color="black">
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-body>
+                                        <fo:table-row height="3%" padding-top="2%">
+                                            <fo:table-cell display-align="top" margin-left="1mm" width="120%"
+                                                           border-bottom-style="solid" border-bottom-width="1pt"
+                                                           border-bottom-color="black">
+
+                                                <fo:block font-size="5pt"></fo:block>
+                                            </fo:table-cell>
+
+                                            <fo:table-cell display-align="top" width="60mm"
+                                                           border-top-style="solid" border-top-width="1pt"
+                                                           border-top-color="black"
+                                                           border-left-style="solid" border-left-width="1pt"
+                                                           border-left-color="black"
+                                                           border-bottom-style="solid" border-bottom-width="1pt"
+                                                           border-bottom-color="black" margin-left="1%">
+                                                <fo:block font-size="5pt">Country of dispatch[16 06]
+                                                    @(viewModel.countryOfDispatch)
+                                                </fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell display-align="top" margin-left="1mm" width="120%m"
+                                                           border-top-style="solid" border-top-width="1pt"
+                                                           border-top-color="black"
+                                                           border-left-style="solid" border-left-width="1pt"
+                                                           border-left-color="black"
+                                                           border-bottom-style="solid" border-bottom-width="1pt"
+                                                           border-bottom-color="black">
+                                                <fo:block font-size="5pt">Country of destination[16 03]
+                                                    @(viewModel.countryOfDestination)
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+
+
+                    </fo:table-row>
+
+
+                </fo:table-body>
+
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+
+</fo:table-row>

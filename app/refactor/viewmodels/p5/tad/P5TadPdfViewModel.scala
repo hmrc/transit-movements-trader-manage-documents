@@ -14,8 +14,21 @@
  * limitations under the License.
  */
 
-package viewmodels.P5
+package refactor.viewmodels.p5.tad
 
-import generated.p5.CC029CType
+import generated.p5._
+import refactor.viewmodels.RichString
 
-case class TADPostTransitionViewModel(ie029: CC029CType) extends TADViewModel {}
+case class P5TadPdfViewModel(
+  mrn: String,
+  consignmentItemViewModels: Seq[ConsignmentItemViewModel]
+)
+
+object P5TadPdfViewModel {
+
+  def apply(ie029: CC029CType): P5TadPdfViewModel =
+    new P5TadPdfViewModel(
+      mrn = ie029.TransitOperation.MRN.truncateForOver10,
+      consignmentItemViewModels = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).map(ConsignmentItemViewModel(_))
+    )
+}

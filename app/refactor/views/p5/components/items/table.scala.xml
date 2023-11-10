@@ -1,0 +1,52 @@
+@import refactor.viewmodels.p5.tad.ConsignmentItemViewModel
+
+@(vm: ConsignmentItemViewModel)
+<fo:table width="100%">
+
+  <fo:table-column column-width="50%"/>
+  <fo:table-column column-width="50%"/>
+
+  <fo:table-body>
+    @row_1(
+      vm.declarationGoodsItemNumber,
+      vm.goodsItemNumber,
+      vm.packagesType,
+      vm.descriptionOfGoods
+    )
+
+    @row_2(
+      vm.previousDocuments,
+      vm.supportingDocuments
+    )
+
+    @row_3(
+      vm.consignee,
+      vm.consigneeId,
+      vm.additionalReferences,
+      vm.additionalInformation
+    )
+
+    @row_4(
+      vm.additionalSupplyChainActors,
+      vm.supplyChainActorId,
+      vm.transportDocuments,
+      vm.referenceNumberUCR,
+      vm.grossMass
+    )
+
+    @row_5(
+      vm.commodityCode,
+      vm.netMass
+    )
+
+    @row_6(
+      vm.dangerousGoods,
+      vm.cusCode,
+      vm.transportCharges,
+      vm.declarationType,
+      vm.countryOfDispatch,
+      vm.countryOfDestination
+    )
+    
+  </fo:table-body>
+</fo:table>

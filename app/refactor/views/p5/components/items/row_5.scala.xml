@@ -1,0 +1,50 @@
+@(
+        commodityCode: String,
+        netMass: String
+)
+
+<fo:table-row height="4mm">
+
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
+                   border-bottom-width="1pt" border-bottom-color="black">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+
+                <fo:table-column column-number="1" column-width="68%"/>
+                <fo:table-column column-number="2" column-width="32%"/>
+
+                <fo:table-body>
+                    <fo:table-row height="2mm">
+                        <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                            <fo:block>Commodity Code [18 09]</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                            <fo:block>Net mass (kg) [18 01]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+                            <fo:block-container height="2mm" overflow="hidden">
+                                <fo:block>@commodityCode</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block-container height="2mm" overflow="hidden">
+                                <fo:block>@netMass</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+</fo:table-row>
+

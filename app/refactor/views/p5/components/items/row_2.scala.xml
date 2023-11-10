@@ -1,0 +1,44 @@
+@(
+        previousDocuments: String,
+        supportingDocuments: String
+)
+
+<fo:table-row height="8mm">
+
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
+                   border-bottom-width="1pt" border-bottom-color="black">
+        <fo:block>
+            <fo:table width="100%">
+                <fo:table-body>
+                    <fo:table-row height="2mm">
+                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                            <fo:block>Previous Document [12 01]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row height="2mm">
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block>@previousDocuments</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                            <fo:block>Supporting document [12 03]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row height="2mm">
+                        <fo:table-cell margin-left="0.5mm">
+                            <fo:block>@supportingDocuments</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+</fo:table-row>
+

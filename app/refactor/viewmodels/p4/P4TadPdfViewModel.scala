@@ -14,9 +14,21 @@
  * limitations under the License.
  */
 
-package viewmodels.P5
+package refactor.viewmodels.p4
 
-import generated.p5.CC015CType
-import generated.p5.CC029CType
+import generated.p4._
+import generated.p5._
+import models.reference.Country
 
-case class TADTransitionViewModel(ie029: CC029CType, ie015: CC015CType) extends TADViewModel {}
+case class P4TadPdfViewModel()
+
+object P4TadPdfViewModel {
+
+  // P4
+  def apply(ie029: CC029BType): P4TadPdfViewModel =
+    new P4TadPdfViewModel()
+
+  // P5 transition
+  def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel =
+    new P4TadPdfViewModel()
+}

@@ -1,0 +1,109 @@
+@import refactor.views.xml.p5.components.barcode
+
+@(mrn: String)
+
+<fo:block>
+  <fo:table width="100%" table-layout="fixed">
+    <fo:table-column column-width="50%"/>
+    <fo:table-column column-width="10%"/>
+    <fo:table-column column-width="5%"/>
+    <fo:table-column column-width="35%"/>
+    <fo:table-body>
+      <!-- Margin -->
+      <fo:table-row height="11mm">
+        <fo:table-cell number-columns-spanned="3">
+          <fo:block/>
+        </fo:table-cell>
+      </fo:table-row>
+      <fo:table-row height="12mm">
+        @title
+        @forms
+        @formPadding
+        @mrnBarcode(mrn)
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+</fo:block>
+
+@title = {
+  <fo:table-cell text-align="center" display-align="after">
+    <fo:table width="100%">
+      <fo:table-body>
+        <fo:table-row height="2mm">
+          <fo:table-cell>
+            <fo:block/>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="10mm" border-style="solid" border-width="1pt" border-color="black">
+          <fo:table-cell padding-bottom="5mm">
+            <fo:block font-weight="bold" font-size="10pt">TRANSIT LIST OF ITEMS</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:table-cell>
+}
+
+@formPadding = {
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+}
+
+@forms = {
+<fo:table-cell display-align="after" table-layout="fixed">
+<fo:block>
+  <fo:table width="100%">
+    <fo:table-column/>
+    <fo:table-column/>
+
+    <fo:table-body>
+      <fo:table-row>
+        <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="before" font-size="7pt" border-style="solid" border-width="1pt" border-color="black" border-bottom-style="none" height="4mm">
+          <fo:block>Forms</fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+      <fo:table-row border-style="solid" border-width="1pt" border-color="black" border-top-style="none" border-bottom-style="none" height="4mm">
+        <fo:table-cell text-align="center" display-align="center" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+          <fo:block>
+            <fo:page-number/>
+          </fo:block>
+        </fo:table-cell>
+        <fo:table-cell text-align="center" display-align="center">
+          <fo:block>
+            <fo:page-number-citation-last ref-id="tloi-pages"/>
+          </fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+</fo:block>
+</fo:table-cell>
+}
+
+@mrnBarcode(mrn: String) = {
+<fo:table-cell border-style="solid" border-width="1pt" border-color="black">
+<fo:block>
+  <fo:table width="100%" table-layout="fixed">
+    <fo:table-column/>
+    <fo:table-body>
+      <fo:table-row>
+        <fo:table-cell font-size="6pt" font-weight="bold" margin-left="2mm" padding-bottom="3mm">
+          <fo:block>MRN</fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+      <fo:table-row>
+        <fo:table-cell text-align="center">
+          <fo:block>
+            @barcode(mrn)
+          </fo:block>
+          <fo:block font-weight="bold" text-align="center">
+            @mrn
+          </fo:block>
+        </fo:table-cell>
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+</fo:block>
+</fo:table-cell>
+}

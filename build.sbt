@@ -56,6 +56,7 @@ def customScalaxbSettings: Seq[Def.Setting[_]] =
     )
 
 def customScalaxbSettingsFor(base: String): Seq[Def.Setting[_]] = Seq(
+  sourceManaged := (Compile / sourceManaged).value,
   scalaxbXsdSource := new File(s"./conf/xsd/$base"),
   scalaxbDispatchVersion := "1.1.3",
   scalaxbPackageName := s"generated.$base"
