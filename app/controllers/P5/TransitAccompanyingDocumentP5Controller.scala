@@ -19,8 +19,6 @@ package controllers.P5
 import cats.data.Validated
 import config.PhaseConfig
 import controllers.actions.AuthenticateActionProvider
-import generated.p5.CC015CType
-import generated.p5.CC029CType
 import models.P5.Phase.PostTransition
 import models.P5.Phase.Transition
 import play.api.Logging
