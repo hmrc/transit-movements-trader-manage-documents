@@ -22,8 +22,11 @@ import refactor.viewmodels.p5._
 
 case class Table1ViewModel(
   additionalDeclarationType: String,
-  consignees: Seq[ConsigneeType04],
-  consignors: Seq[ConsignorType03],
+  consignees: String,
+  consigneeIdentificationNumbers: String,
+  consignors: String,
+  consignorIdentificationNumbers: String,
+  consignorContactPersons: String,
   declarationType: String,
   holderOfTransitProcedure: String,
   holderOfTransitProcedureIdentificationNumber: String,
@@ -49,24 +52,23 @@ case class Table1ViewModel(
   totalItems: String,
   totalPackages: String,
   ucr: String
-) {
-
-  val consignee: String = consignees.map(_.asString.take200).separateEntities
-
-  val consigneeIdentificationNumber: String = consignees.flatMap(_.identificationNumber.map(_.take20)).separateEntities
-
-  val consignorIdentificationNumber: String = consignors.flatMap(_.identificationNumber.map(_.take20)).separateEntities
-
-  val consignorContactPerson: String = consignors.flatMap(_.ContactPerson.map(_.asString.take100)).separateEntities
-}
+)
 
 object Table1ViewModel {
 
-  def apply(ie029: CC029CType): Table1ViewModel =
+  def apply(ie029: CC029CType): Table1ViewModel = {
+
+    val consignees = ie029.Consignment.Consignee.map(Seq(_)).getOrElse(ie029.Consignment.HouseConsignment.flatMap(_.Consignee))
+
+    val consignors = ie029.Consignment.Consignor.map(Seq(_)).getOrElse(ie029.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.asConsignorType03)))
+
     new Table1ViewModel(
       additionalDeclarationType = ie029.TransitOperation.additionalDeclarationType.take10,
-      consignees = ie029.Consignment.Consignee.map(Seq(_)).getOrElse(ie029.Consignment.HouseConsignment.flatMap(_.Consignee)),
-      consignors = ie029.Consignment.Consignor.map(Seq(_)).getOrElse(ie029.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.asConsignorType03))),
+      consignees = consignees.map(_.asString.take200).separateWithSemiColon,
+      consigneeIdentificationNumbers = consignees.flatMap(_.identificationNumber.map(_.take20)).separateWithSemiColon,
+      consignors = consignors.map(_.asString.take200).separateWithSemiColon,
+      consignorIdentificationNumbers = consignors.flatMap(_.identificationNumber.map(_.take20)).separateWithSemiColon,
+      consignorContactPersons = consignors.flatMap(_.ContactPerson.map(_.asString.take100)).separateWithSemiColon,
       declarationType = ie029.TransitOperation.declarationType,
       holderOfTransitProcedure = ie029.HolderOfTheTransitProcedure.asString,
       holderOfTransitProcedureIdentificationNumber = ie029.HolderOfTheTransitProcedure.identificationNumber.orElseBlank,
@@ -74,11 +76,11 @@ object Table1ViewModel {
       representativeIdentificationNumber = ie029.Representative.map(_.identificationNumber).orElseBlank,
       lrn = ie029.TransitOperation.LRN,
       carrierIdentificationNumber = ie029.Consignment.Carrier.map(_.identificationNumber).orElseBlank.take20,
-      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).separateEntities.takeN(30),
-      additionalSupplyChainActorIdentificationNumbers = ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).separateEntities.take20,
-      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).toBeContinued.takeN(50),
-      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).separateEntities.takeN(50),
-      activeBorderTransportMeansConveyanceNumbers = ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).separateEntities,
+      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).separateWithSemiColon.take30,
+      additionalSupplyChainActorIdentificationNumbers = ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).separateWithSemiColon.take20,
+      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).toBeContinued.take50,
+      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).separateWithSemiColon.take50,
+      activeBorderTransportMeansConveyanceNumbers = ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).separateWithSemiColon,
       placeOfLoading = ie029.Consignment.PlaceOfLoading.map(_.asString).orElseBlank.take20,
       placeOfUnloading = ie029.Consignment.PlaceOfUnloading.map(_.asString).orElseBlank.take20,
       modeOfTransportAtBorder = ie029.Consignment.modeOfTransportAtTheBorder.orElseBlank.take20,
@@ -93,4 +95,5 @@ object Table1ViewModel {
       totalPackages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages))).sum.toString(),
       ucr = ie029.Consignment.referenceNumberUCR.orElseBlank
     )
+  }
 }

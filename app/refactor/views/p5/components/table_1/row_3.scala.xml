@@ -1,7 +1,14 @@
 @import refactor.views.xml.p5.components.table_1.consignee
-        @import refactor.views.xml.p5.components.table_1.total_gross_mass
+@import refactor.views.xml.p5.components.table_1.total_gross_mass
 
-        @(viewModel: viewmodels.P5.TableViewModel)
+@(
+    consignees: String,
+    consigneeIdentificationNumbers: String,
+    totalItems: String,
+    totalPackages: String,
+    totalGrossMass: String,
+    securityString: String
+)
 
 <fo:table-row height="8%">
 
@@ -14,7 +21,7 @@
         <fo:block/>
     </fo:table-cell>
 
-    @consignee(viewModel.table1ViewModel.consignee, viewModel.table1ViewModel.consigneeIdentificationNumber)
+    @consignee(consignees, consigneeIdentificationNumbers)
 
     <fo:table-cell>
         <fo:block>
@@ -35,10 +42,10 @@
 
                                     <fo:table-body>
                                         <fo:table-row height="8%">
-                                            @total_items(viewModel.table1ViewModel.totalItems)
-                                            @total_packages(viewModel.table1ViewModel.totalPackages)
-                                            @total_gross_mass(viewModel.table1ViewModel.totalGrossMass)
-                                            @security(viewModel.table1ViewModel.security)
+                                            @total_items(totalItems)
+                                            @total_packages(totalPackages)
+                                            @total_gross_mass(totalGrossMass)
+                                            @security(securityString)
                                         </fo:table-row>
                                     </fo:table-body>
                                 </fo:table>

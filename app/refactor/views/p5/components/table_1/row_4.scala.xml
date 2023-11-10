@@ -1,6 +1,14 @@
 @import refactor.views.xml.p5.components.table_1.local_reference_number
 
-        @(viewModel: viewmodels.P5.TableViewModel)
+@(
+    holderOfTransitProcedure: String,
+    holderOfTransitProcedureIdentificationNumber: String,
+    representative: String,
+    representativeIdentificationNumber: String,
+    lrn: String,
+    tirCarnet: String,
+    referenceNumberUCR: String
+)
 
 <fo:table-row height="24%">
     <fo:table-cell>
@@ -14,10 +22,10 @@
 
     <!--  change name of xml-->
     @holder_of_transit_procedure(
-        viewModel.table1ViewModel.holderOfTransitProcedure,
-        viewModel.table1ViewModel.holderOfTransitProcedureIdentificationNumber,
-        viewModel.table1ViewModel.representative,
-        viewModel.table1ViewModel.representativeIdentificationNumber,
+        holderOfTransitProcedure,
+        holderOfTransitProcedureIdentificationNumber,
+        representative,
+        representativeIdentificationNumber
     )
 
     <fo:table-cell>
@@ -35,9 +43,9 @@
 
                                     <fo:table-body>
                                         <fo:table-row height="8%">
-                                            @local_reference_number(viewModel.table1ViewModel.lrn)
-                                            @tir(viewModel.table1ViewModel.tir)
-                                            @ucr(viewModel.table1ViewModel.ucr)
+                                            @local_reference_number(lrn)
+                                            @tir(tirCarnet)
+                                            @ucr(referenceNumberUCR)
                                         </fo:table-row>
                                         <fo:table-row height="17%"> <!-- todo extra 1% needed from somewhere else -->
                                             @bcp()

@@ -2,26 +2,28 @@
 @import refactor.views.xml.p5.components._
 @import refactor.views.xml.PageOne
 @import refactor.views.xml.PageTwo
+@import refactor.viewmodels.p5.tad.P5TadPdfViewModel
 
 @this(
-        table1: table_1.table,
-        table2: table_2.table,
-        table3: table_3.table,
-        table4: table_4.table,
-        template: DocumentTemplateP5,
-        pageOne: PageOne,
-        pageTwo: PageTwo
+    table1: table_1.table,
+    table2: table_2.table,
+    table3: table_3.table,
+    table4: table_4.table,
+    template: DocumentTemplateP5,
+    pageOne: PageOne,
+    pageTwo: PageTwo
 )
 
-@(viewModel: viewmodels.P5.TableViewModel, itemViewModel: viewmodels.P5.ConsignmentItemViewModel)
+@(vm: P5TadPdfViewModel)
+
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo = Some(pageTwo(items = itemViewModel.consignmentItem, mrn = viewModel.table1ViewModel.mrn))
+    pageTwo = Some(pageTwo(items = vm.consignmentItemViewModels, mrn = vm.mrn))
 )
 
 @pageOneBody = {
-        @table1(viewModel)
-        @table2(viewModel)
-        @table3(viewModel)
-        @table4(viewModel)
+    @table1(vm.table1ViewModel, vm.mrn)
+    @table2(vm.table2ViewModel)
+    @table3()
+    @table4(vm.table4ViewModel)
 }

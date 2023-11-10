@@ -16,11 +16,30 @@
 
 package refactor.viewmodels.p5.tad
 
-import generated.p5.CC029CType
+import generated.p5._
+import refactor.viewmodels._
+import refactor.viewmodels.p5._
 
-case class Table4ViewModel()
+case class Table4ViewModel(
+  countryOfRoutingOfConsignment: String,
+  customsOfficeOfTransitDeclared: String,
+  customsOfficeOfExitForTransitDeclared: String,
+  customsOfficeOfDeparture: String,
+  customsOfficeOfDestinationDeclared: String,
+  countryOfDispatch: String,
+  countryOfDestination: String
+)
 
 object Table4ViewModel {
 
-  def apply(ie029: CC029CType): Table4ViewModel = ???
+  def apply(ie029: CC029CType): Table4ViewModel =
+    new Table4ViewModel(
+      countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asString).separateWithSemiColon.take30,
+      customsOfficeOfTransitDeclared = ie029.CustomsOfficeOfTransitDeclared.map(_.asString).separateWithSemiColon.take60,
+      customsOfficeOfExitForTransitDeclared = ie029.CustomsOfficeOfExitForTransitDeclared.map(_.asString).separateWithSemiColon.take60,
+      customsOfficeOfDeparture = ie029.CustomsOfficeOfDeparture.asString.take10,
+      customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.take10,
+      countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,
+      countryOfDestination = ie029.Consignment.countryOfDestination.orElseBlank.take10
+    )
 }

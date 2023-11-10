@@ -16,11 +16,13 @@
 
 package refactor
 
+import javax.xml.datatype.XMLGregorianCalendar
+
 package object viewmodels {
 
   implicit class RichString(value: String) {
 
-    def takeN(n: Int): String =
+    private def takeN(n: Int): String =
       if (value.length > n) {
         value.take(n - 3) + "..."
       } else {
@@ -29,22 +31,38 @@ package object viewmodels {
 
     def take10: String  = takeN(10)
     def take20: String  = takeN(20)
+    def take30: String  = takeN(30)
+    def take50: String  = takeN(50)
+    def take60: String  = takeN(60)
     def take100: String = takeN(100)
     def take200: String = takeN(200)
   }
 
   implicit class RichStringSeq(value: Seq[String]) {
-    def commaSeparate: String    = value.mkString(", ")
-    def separateEntities: String = value.mkString("; ")
+    def commaSeparate: String         = value.mkString(", ")
+    def separateWithSemiColon: String = value.mkString("; ")
+    def separateWithEllipsis: String  = value.mkString("...")
 
     def toBeContinued: String = value match {
       case Nil         => ""
       case head :: Nil => head
       case head :: _   => s"$head..."
     }
+
+    def firstAndLast: String = {
+      val (headOption, lastOption) = value match {
+        case head :: tail => (Some(head), tail.lastOption)
+        case _            => (None, None)
+      }
+      Seq(headOption, lastOption).flatten.mkString("...")
+    }
   }
 
   implicit class RichStringOption(value: Option[String]) {
     def orElseBlank: String = value.getOrElse("")
+  }
+
+  implicit class RichXMLGregorianCalendar(value: XMLGregorianCalendar) {
+    def asString: String = value.formatted("dd/MM/yyyy HH:mm")
   }
 }

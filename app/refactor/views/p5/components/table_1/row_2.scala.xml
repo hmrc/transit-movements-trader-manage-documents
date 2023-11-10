@@ -1,7 +1,15 @@
 @import refactor.views.xml.p5.components.table_1._
-        @import refactor.views.xml.p5.components._
+@import refactor.views.xml.p5.components._
 
-        @(viewModel: viewmodels.P5.TableViewModel)
+@(
+    consignors: String,
+    consignorIdentificationNumbers: String,
+    consignorContactPersons: String,
+    declarationType: String,
+    additionalDeclarationType: String,
+    specificCircumstanceIndicator: String,
+    mrn: String
+)
 
 <fo:table-row height="16%">
     <fo:table-cell>
@@ -15,9 +23,7 @@
     </fo:table-cell>
     SCI
 
-
-    @consignor(viewModel.table1ViewModel.consignor, viewModel.table1ViewModel.consignorIdentificationNumber,
-    viewModel.table1ViewModel.consignorContactPerson)
+    @consignor(consignors, consignorIdentificationNumbers, consignorContactPersons)
 
     <fo:table-cell>
         <fo:block>
@@ -33,8 +39,8 @@
 
                                     <fo:table-body>
                                         <fo:table-row height="8%">
-                                            @declaration_type(viewModel.table1ViewModel.declarationType)
-                                            @additional_declaration_type(viewModel.table1ViewModel.additionalDeclarationType)
+                                            @declaration_type(declarationType)
+                                            @additional_declaration_type(additionalDeclarationType)
                                         </fo:table-row>
                                     </fo:table-body>
                                 </fo:table>
@@ -50,7 +56,7 @@
                                     <fo:table-body>
                                         <fo:table-row height="8%">
                                             @forms()
-                                            @sci(viewModel.table1ViewModel.sci)
+                                            @sci(specificCircumstanceIndicator)
                                         </fo:table-row>
                                     </fo:table-body>
                                 </fo:table>
@@ -67,10 +73,10 @@
                    border-left-color="black" border-right-style="solid" border-right-width="1pt"
                    border-right-color="black" padding-left="1%">
         <fo:block>
-            @barcode(viewModel.table1ViewModel.mrn)
+            @barcode(mrn)
         </fo:block>
         <fo:block text-align="center">
-            @viewModel.table1ViewModel.mrn
+            @mrn
         </fo:block>
     </fo:table-cell>
 </fo:table-row>

@@ -1,8 +1,9 @@
 @import refactor.views.xml.p5.components.table_1._
+@import refactor.viewmodels.p5.tad.Table1ViewModel
 
-        @this()
+@this()
 
-        @(viewModel: viewmodels.P5.TableViewModel)
+@(vm: Table1ViewModel, mrn: String)
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
 
@@ -17,9 +18,50 @@
 
     <fo:table-body>
         @row_1()
-        @row_2(viewModel)
-        @row_3(viewModel)
-        @row_4(viewModel)
-        @row_5(viewModel)
+
+        @row_2(
+            vm.consignors,
+            vm.consignorIdentificationNumbers,
+            vm.consignorContactPersons,
+            vm.declarationType,
+            vm.additionalDeclarationType,
+            vm.specificCircumstanceIndicator,
+            mrn
+        )
+
+        @row_3(
+            vm.consignees,
+            vm.consigneeIdentificationNumbers,
+            vm.totalItems,
+            vm.totalPackages,
+            vm.totalGrossMass,
+            vm.security
+        )
+
+        @row_4(
+            vm.holderOfTransitProcedure,
+            vm.holderOfTransitProcedureIdentificationNumber,
+            vm.representative,
+            vm.representativeIdentificationNumber,
+            vm.lrn,
+            vm.tir,
+            vm.ucr
+        )
+
+        @row_5(
+            vm.carrierIdentificationNumber,
+            vm.additionalSupplyChainActorRoles,
+            vm.additionalSupplyChainActorIdentificationNumbers,
+            vm.departureTransportMeans,
+            vm.activeBorderTransportMeans,
+            vm.activeBorderTransportMeansConveyanceNumbers,
+            vm.placeOfLoading,
+            vm.placeOfUnloading,
+            vm.modeOfTransportAtBorder,
+            vm.inlandModeOfTransport,
+            vm.locationOfGoods,
+            vm.locationOfGoodsContactPerson
+        )
+
     </fo:table-body>
 </fo:table>

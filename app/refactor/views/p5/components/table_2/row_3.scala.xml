@@ -1,7 +1,12 @@
 @import refactor.views.xml.p5.components.table_1.consignee
-        @import refactor.views.xml.p5.components.table_1.total_gross_mass
+@import refactor.views.xml.p5.components.table_1.total_gross_mass
 
-        @(viewModel: viewmodels.P5.TableViewModel)
+@(
+    supportingDocuments: String,
+    additionalReferences: String,
+    transportCharges: String,
+    additionalInformation: String
+)
 
 <fo:table-row height="16%">
 
@@ -28,7 +33,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-bottom="5%">
                             <fo:block-container height="14%" overflow="hidden">
-                                <fo:block>@(viewModel.table2ViewModel.supportingDocument)</fo:block>
+                                <fo:block>@supportingDocuments</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -66,7 +71,7 @@
                                                            padding-bottom="4%">
                                                 <fo:block-container height="6%" overflow="hidden">
                                                     <fo:block>
-                                                        @(viewModel.table2ViewModel.additionalReference)
+                                                        @additionalReferences
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
@@ -83,7 +88,7 @@
                                                            border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block>Transport charges [14 02]
-                                                    @(viewModel.table2ViewModel.transportCharges)
+                                                    @transportCharges
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -92,7 +97,7 @@
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5%">
                                                 <fo:block-container height="6%" overflow="hidden" padding-bottom="5%">
-                                                    <fo:block>@(viewModel.table2ViewModel.additionalInformation)
+                                                    <fo:block>@additionalInformation
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>

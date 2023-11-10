@@ -45,6 +45,26 @@ package object p5 {
     ).flatten.commaSeparate
   }
 
+  implicit class RichPreviousDocumentType06(value: PreviousDocumentType06) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.complementOfInformation
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichPreviousDocumentType07(value: PreviousDocumentType07) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.complementOfInformation
+    ).flatten.commaSeparate
+  }
+
   implicit class RichSupportingDocumentType06(value: SupportingDocumentType06) {
 
     def asString: String = Seq(
@@ -207,6 +227,15 @@ package object p5 {
     ).flatten.commaSeparate
   }
 
+  implicit class RichAdditionalReferenceType03(value: AdditionalReferenceType03) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.typeValue),
+      value.referenceNumber
+    ).flatten.commaSeparate
+  }
+
   implicit class RichHolderOfTheTransitProcedureType05(value: HolderOfTheTransitProcedureType05) {
 
     def asString: String = Seq(
@@ -279,5 +308,96 @@ package object p5 {
       value.latitude,
       value.longitude
     ).commaSeparate
+  }
+
+  implicit class RichTransportEquipmentType05(value: TransportEquipmentType05) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      value.containerIdentificationNumber,
+      Some(value.numberOfSeals.toString),
+      Some(value.GoodsReference.map(_.asString).firstAndLast)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichGoodsReferenceType02(value: GoodsReferenceType02) {
+
+    def asString: String = value match {
+      case GoodsReferenceType02(sequenceNumber, declarationGoodsItemNumber) =>
+        s"$sequenceNumber:${declarationGoodsItemNumber.toString()}"
+    }
+  }
+
+  implicit class RichSealType04(value: SealType04) {
+
+    def asString: String = value match {
+      case SealType04(sequenceNumber, identifier) =>
+        s"$sequenceNumber,[$identifier]"
+    }
+  }
+
+  implicit class RichGuaranteeType03(value: GuaranteeType03) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.guaranteeType),
+      value.otherGuaranteeReference,
+      Some(value.GuaranteeReference.map(_.asString).commaSeparate)
+    ).flatten.separateWithSemiColon
+  }
+
+  implicit class RichGuaranteeReferenceType01(value: GuaranteeReferenceType01) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      value.GRN,
+      value.accessCode,
+      Some(value.amountToBeCovered.toString()),
+      Some(value.currency)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichAuthorisationType02(value: AuthorisationType02) {
+
+    def asString: String = Seq(
+      value.sequenceNumber,
+      value.typeValue,
+      value.referenceNumber
+    ).commaSeparate
+  }
+
+  implicit class RichCountryOfRoutingOfConsignmentType01(value: CountryOfRoutingOfConsignmentType01) {
+
+    def asString: String = Seq(
+      value.sequenceNumber,
+      value.country
+    ).commaSeparate
+  }
+
+  implicit class RichCustomsOfficeOfTransitDeclaredType04(value: CustomsOfficeOfTransitDeclaredType04) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.referenceNumber),
+      value.arrivalDateAndTimeEstimated.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichCustomsOfficeOfExitForTransitDeclaredType02(value: CustomsOfficeOfExitForTransitDeclaredType02) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.referenceNumber)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichCustomsOfficeOfDepartureType03(value: CustomsOfficeOfDepartureType03) {
+
+    def asString: String = value.referenceNumber
+  }
+
+  implicit class RichCustomsOfficeOfDestinationDeclaredType01(value: CustomsOfficeOfDestinationDeclaredType01) {
+
+    def asString: String = value.referenceNumber
   }
 }

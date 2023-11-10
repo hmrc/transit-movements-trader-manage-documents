@@ -2,7 +2,7 @@
 
 @import refactor.views.xml.p5.components.table_1.total_gross_mass
 
-        @(viewModel: viewmodels.P5.Table4ViewModel)
+@()
 
 <fo:table-row height="16mm">
 

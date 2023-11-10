@@ -1,9 +1,8 @@
 @import refactor.views.xml.p5.components.table_1.consignee
+@import refactor.views.xml.p5.components.table_1.total_gross_mass
+@import refactor.viewmodels.p5.tad.Table4ViewModel
 
-        @import refactor.views.xml.p5.components.table_1.total_gross_mass
-
-        @(viewModel: viewmodels.P5.Table4ViewModel)
-
+@(vm: Table4ViewModel)
 
 <fo:table-row height="16%">
 
@@ -36,7 +35,7 @@
                                        number-columns-spanned="4" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-bottom-color="black" padding-bottom="2.5%">
                             <fo:block>Country of routing of consignment [16 12]</fo:block>
-                            <fo:block>@(viewModel.countryOfRoutingOfConsignment)</fo:block>
+                            <fo:block>@(vm.countryOfRoutingOfConsignment)</fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-bottom="0.5%" margin-top="0.5%" display-align="right"
                                        margin-left="0.5%" border-bottom-style="solid" border-bottom-width="1pt"
@@ -64,7 +63,7 @@
                                                       border-right-color="black" padding-top="2%">
                                             <fo:table-cell display-align="top" margin-left="1%" padding-bottom="11%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF TRANSIT[17 04]</fo:block>
-                                                <fo:block font-size="5pt">@(viewModel.customsOfficeOfTransitDeclared)
+                                                <fo:block font-size="5pt">@(vm.customsOfficeOfTransitDeclared)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -82,7 +81,7 @@
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT[17 06]
                                                 </fo:block>
                                                 <fo:block font-size="5pt">
-                                                    @(viewModel.customsOfficeOfExitForTransitDeclared)
+                                                    @(vm.customsOfficeOfExitForTransitDeclared)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -102,7 +101,7 @@
                                                       border-right-color="black" padding-top="2%">
                                             <fo:table-cell display-align="top" margin-left="1%" padding-bottom="11%">
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF DEPARTURE[17 03]</fo:block>
-                                                <fo:block font-size="5pt">@(viewModel.customsOfficeOfDeparture)
+                                                <fo:block font-size="5pt">@(vm.customsOfficeOfDeparture)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -121,7 +120,7 @@
                                                 <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]
                                                 </fo:block>
                                                 <fo:block font-size="5pt">
-                                                    @(viewModel.customsOfficeOfDestinationDeclared)
+                                                    @(vm.customsOfficeOfDestinationDeclared)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
@@ -154,7 +153,7 @@
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black" margin-left="1%">
                                                 <fo:block font-size="5pt">Country of dispatch[16 06]
-                                                    @(viewModel.countryOfDispatch)
+                                                    @(vm.countryOfDispatch)
                                                 </fo:block>
                                             </fo:table-cell>
                                             <fo:table-cell display-align="top" margin-left="1mm" width="120%m"
@@ -165,7 +164,7 @@
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block font-size="5pt">Country of destination[16 03]
-                                                    @(viewModel.countryOfDestination)
+                                                    @(vm.countryOfDestination)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>

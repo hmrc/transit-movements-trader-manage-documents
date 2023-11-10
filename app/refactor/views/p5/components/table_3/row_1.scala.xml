@@ -1,7 +1,7 @@
 @import refactor.views.xml.p5.components.table_1.consignee
-        @import refactor.views.xml.p5.components.table_1.total_gross_mass
+@import refactor.views.xml.p5.components.table_1.total_gross_mass
 
-        @(viewModel: viewmodels.P5.TableViewModel)
+@()
 
 <fo:table-row height="16%">
 
