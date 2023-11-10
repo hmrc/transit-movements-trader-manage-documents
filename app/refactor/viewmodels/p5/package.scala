@@ -100,6 +100,16 @@ package object p5 {
     def asString: String = value.methodOfPayment
   }
 
+  implicit class RichAddressType07(value: AddressType07) {
+
+    def asString: String = Seq(
+      Some(value.streetAndNumber),
+      value.postcode,
+      Some(value.city),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
   implicit class RichAddressType09(value: AddressType09) {
 
     def asString: String = Seq(
@@ -115,6 +125,41 @@ package object p5 {
     def asString: String = Seq(
       value.name,
       value.Address.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichConsigneeType04(value: ConsigneeType04) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichConsignorType03(value: ConsignorType03) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString),
+      value.ContactPerson.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichConsignorType04(value: ConsignorType04) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString),
+      value.ContactPerson.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichContactPersonType01(value: ContactPersonType01) {
+
+    def asString: String = Seq(
+      Some(value.name),
+      Some(value.phoneNumber),
+      value.eMailAddress
     ).flatten.commaSeparate
   }
 

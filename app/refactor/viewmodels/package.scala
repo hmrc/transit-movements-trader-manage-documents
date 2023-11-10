@@ -20,15 +20,17 @@ package object viewmodels {
 
   implicit class RichString(value: String) {
 
-    private def truncate(maxLength: Int): String =
-      if (value.length > maxLength) {
-        value.take(maxLength - 3) + "..."
+    def takeN(n: Int): String =
+      if (value.length > n) {
+        value.take(n - 3) + "..."
       } else {
         value
       }
 
-    def truncateForOver10: String = truncate(10)
-    def truncateForOver20: String = truncate(20)
+    def take10: String  = takeN(10)
+    def take20: String  = takeN(20)
+    def take100: String = takeN(100)
+    def take200: String = takeN(200)
   }
 
   implicit class RichStringSeq(value: Seq[String]) {

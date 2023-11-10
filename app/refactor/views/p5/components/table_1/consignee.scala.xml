@@ -1,4 +1,4 @@
-@(consignee: String, identificationNumber: String)
+@(consignee: String, consigneeIdentificationNumber: String)
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid"
                border-bottom-width="1pt" border-bottom-color="black">
@@ -29,7 +29,7 @@
 
                     <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
                         <fo:block-container height="6%" overflow="hidden">
-                            <fo:block>@identificationNumber</fo:block>
+                            <fo:block>@consigneeIdentificationNumber</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 

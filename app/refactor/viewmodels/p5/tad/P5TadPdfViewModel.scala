@@ -21,14 +21,22 @@ import refactor.viewmodels.RichString
 
 case class P5TadPdfViewModel(
   mrn: String,
-  consignmentItemViewModels: Seq[ConsignmentItemViewModel]
+  consignmentItemViewModels: Seq[ConsignmentItemViewModel],
+  table1ViewModel: Table1ViewModel,
+  table2ViewModel: Table2ViewModel,
+  table3ViewModel: Table3ViewModel,
+  table4ViewModel: Table4ViewModel
 )
 
 object P5TadPdfViewModel {
 
   def apply(ie029: CC029CType): P5TadPdfViewModel =
     new P5TadPdfViewModel(
-      mrn = ie029.TransitOperation.MRN.truncateForOver10,
-      consignmentItemViewModels = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).map(ConsignmentItemViewModel(_))
+      mrn = ie029.TransitOperation.MRN.take10,
+      consignmentItemViewModels = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).map(ConsignmentItemViewModel(_)),
+      table1ViewModel = Table1ViewModel(ie029),
+      table2ViewModel = Table2ViewModel(ie029),
+      table3ViewModel = Table3ViewModel(ie029),
+      table4ViewModel = Table4ViewModel(ie029)
     )
 }
