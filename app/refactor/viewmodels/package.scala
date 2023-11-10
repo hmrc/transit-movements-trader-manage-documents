@@ -35,7 +35,13 @@ package object viewmodels {
 
   implicit class RichStringSeq(value: Seq[String]) {
     def commaSeparate: String    = value.mkString(", ")
-    def seperateEntities: String = value.mkString("; ")
+    def separateEntities: String = value.mkString("; ")
+
+    def toBeContinued: String = value match {
+      case Nil         => ""
+      case head :: Nil => head
+      case head :: _   => s"$head..."
+    }
   }
 
   implicit class RichStringOption(value: Option[String]) {

@@ -3,7 +3,7 @@
         holderOfTransitProcedureIdentificationNumber: String,
         representative: String,
         representativeIdentificationNumber: String
-        )
+)
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid"
                border-bottom-width="1pt" border-bottom-color="black">

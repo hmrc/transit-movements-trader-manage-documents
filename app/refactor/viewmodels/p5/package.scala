@@ -100,6 +100,16 @@ package object p5 {
     def asString: String = value.methodOfPayment
   }
 
+  implicit class RichAddressType02(value: AddressType02) {
+
+    def asString: String = Seq(
+      Some(value.streetAndNumber),
+      value.postcode,
+      Some(value.city),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
   implicit class RichAddressType07(value: AddressType07) {
 
     def asString: String = Seq(
@@ -116,6 +126,15 @@ package object p5 {
       Some(value.streetAndNumber),
       value.postcode,
       Some(value.city),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichPostcodeAddressType01(value: PostcodeAddressType01) {
+
+    def asString: String = Seq(
+      value.houseNumber,
+      Some(value.postcode),
       Some(value.country)
     ).flatten.commaSeparate
   }
@@ -141,7 +160,7 @@ package object p5 {
     def asString: String = Seq(
       value.name,
       value.Address.map(_.asString),
-      value.ContactPerson.map(_.asString)
+      value.ContactPerson.map(_.asString) // TODO - since we print the contact person separately do we need this?
     ).flatten.commaSeparate
   }
 
@@ -152,9 +171,25 @@ package object p5 {
       value.Address.map(_.asString),
       value.ContactPerson.map(_.asString)
     ).flatten.commaSeparate
+
+    def asConsignorType03: ConsignorType03 = ConsignorType03(
+      value.identificationNumber,
+      value.name,
+      value.Address,
+      value.ContactPerson
+    )
   }
 
   implicit class RichContactPersonType01(value: ContactPersonType01) {
+
+    def asString: String = Seq(
+      Some(value.name),
+      Some(value.phoneNumber),
+      value.eMailAddress
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichContactPersonType02(value: ContactPersonType02) {
 
     def asString: String = Seq(
       Some(value.name),
@@ -170,5 +205,79 @@ package object p5 {
       Some(value.typeValue),
       value.referenceNumber
     ).flatten.commaSeparate
+  }
+
+  implicit class RichHolderOfTheTransitProcedureType05(value: HolderOfTheTransitProcedureType05) {
+
+    def asString: String = Seq(
+      value.TIRHolderIdentificationNumber,
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichRepresentativeType02(value: RepresentativeType02) {
+
+    def asString: String = value.status
+  }
+
+  implicit class RichDepartureTransportMeansType02(value: DepartureTransportMeansType02) {
+
+    def asString: String = Seq(
+      value.sequenceNumber,
+      value.typeOfIdentification,
+      value.identificationNumber
+    ).commaSeparate
+  }
+
+  implicit class RichActiveBorderTransportMeansType01(value: ActiveBorderTransportMeansType01) {
+
+    def asString: String = Seq(
+      value.customsOfficeAtBorderReferenceNumber,
+      value.typeOfIdentification,
+      value.identificationNumber,
+      value.nationality
+    ).commaSeparate
+  }
+
+  implicit class RichPlaceOfLoadingType02(value: PlaceOfLoadingType02) {
+
+    def asString: String = Seq(
+      value.UNLocode,
+      value.country,
+      value.location
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichPlaceOfUnloadingType02(value: PlaceOfUnloadingType02) {
+
+    def asString: String = Seq(
+      value.UNLocode,
+      value.country,
+      value.location
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichLocationOfGoodsType02(value: LocationOfGoodsType02) {
+
+    def asString: String = Seq(
+      Some(value.typeOfLocation),
+      Some(value.qualifierOfIdentification),
+      value.authorisationNumber,
+      value.UNLocode,
+      value.CustomsOffice.map(_.referenceNumber),
+      value.GNSS.map(_.asString),
+      value.EconomicOperator.map(_.identificationNumber),
+      value.Address.map(_.asString),
+      value.PostcodeAddress.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichGNSSType(value: GNSSType) {
+
+    def asString: String = Seq(
+      value.latitude,
+      value.longitude
+    ).commaSeparate
   }
 }

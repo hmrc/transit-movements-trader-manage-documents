@@ -14,10 +14,10 @@
 
     <!--  change name of xml-->
     @holder_of_transit_procedure(
-    viewModel.table1ViewModel.holderOfTransitProcedure,
-    viewModel.table1ViewModel.holderOfTransitProcedureIdentificationNumber,
-    viewModel.table1ViewModel.representative,
-    viewModel.table1ViewModel.representativeIdentificationNumber,
+        viewModel.table1ViewModel.holderOfTransitProcedure,
+        viewModel.table1ViewModel.holderOfTransitProcedureIdentificationNumber,
+        viewModel.table1ViewModel.representative,
+        viewModel.table1ViewModel.representativeIdentificationNumber,
     )
 
     <fo:table-cell>
