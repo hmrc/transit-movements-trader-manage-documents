@@ -1,0 +1,6 @@
+@(printBindingItinerary: Boolean = false)
+@if(printBindingItinerary) {
+        <fo:block padding-top="1mm" font-weight="bold">BINDING ITINERARY</fo:block>
+} else {
+    <fo:block />
+}

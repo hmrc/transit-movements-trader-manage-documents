@@ -1,0 +1,21 @@
+@import refactor.views.xml.p4.tad.components.table_1.consignee_various
+@import refactor.views.xml.p4.tad.components.table_1.consignee_single
+@(printVariousConsignees: Boolean, consigneeOne: Option[viewmodels.Consignee])
+
+<fo:table-cell alignment-adjust="auto" border-style="solid" border-width="1pt" border-color="black" column-number="3">
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column column-number="1" column-width="44mm"/>
+      <fo:table-column column-number="2" column-width="8mm"/>
+      <fo:table-column column-number="3" column-width="37mm"/>
+
+      <fo:table-body>
+        @if(printVariousConsignees) {
+          @consignee_various()
+        } else {
+          @consignee_single(consigneeOne)
+        }
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>

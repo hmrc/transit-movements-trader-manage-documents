@@ -19,8 +19,16 @@ package refactor.viewmodels.p4.tad
 import generated.p4._
 import generated.p5._
 import models.reference.Country
+import refactor.viewmodels._
 
 case class P4TadPdfViewModel(
+  mrn: String,
+  consignmentItemViewModels: Seq[ConsignmentItemViewModel],
+  table1ViewModel: Table1ViewModel,
+  table2ViewModel: Table2ViewModel,
+  table3ViewModel: Table3ViewModel,
+  table4ViewModel: Table4ViewModel,
+  table5ViewModel: Table5ViewModel
 )
 
 object P4TadPdfViewModel {
@@ -28,14 +36,30 @@ object P4TadPdfViewModel {
   /** @param ie029 release for transit
     * @return P4 TAD view model based on P4 data
     */
-  def apply(ie029: CC029BType): P4TadPdfViewModel =
-    new P4TadPdfViewModel()
+  def apply(ie029: CC029BType): P4TadPdfViewModel = ???
 
   /** @param ie015 declaration data
     * @param ie029 release for transit
     * @param countries CountryCodesForAddress
     * @return P4 TAD view model based on P5 (transition) data
     */
-  def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel =
-    new P4TadPdfViewModel()
+  def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel = {
+    val consignmentItems = {
+      val original = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem)
+      ie029.Consignment.referenceNumberUCR match {
+        case Some(referenceNumberUCR) => original.map(_.copy(referenceNumberUCR = Some(referenceNumberUCR)))
+        case None                     => original
+      }
+    }
+
+    new P4TadPdfViewModel(
+      mrn = Seq(ie029.TransitOperation.MRN, ie029.TransitOperation.LRN).commaSeparate,
+      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(_)),
+      table1ViewModel = Table1ViewModel(ie029, countries),
+      table2ViewModel = Table2ViewModel(ie029),
+      table3ViewModel = Table3ViewModel(ie029),
+      table4ViewModel = Table4ViewModel(ie029),
+      table5ViewModel = Table5ViewModel(ie015, ie029)
+    )
+  }
 }
