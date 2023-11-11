@@ -1,4 +1,4 @@
-@import refactor.views.xml.p5.components.table_1._
+@import refactor.views.xml.p5.tad.components.table_1._
 
 @(
     carrierIdentificationNumber: String,

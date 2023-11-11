@@ -29,12 +29,24 @@ case class P5TadPdfViewModel(
 
 object P5TadPdfViewModel {
 
-  def apply(ie029: CC029CType): P5TadPdfViewModel =
+  /** @param ie029 release for transit
+    * @return P5 TAD view model based on P5 (final) data
+    */
+  def apply(ie029: CC029CType): P5TadPdfViewModel = {
+    val consignmentItems = {
+      val original = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem)
+      ie029.Consignment.referenceNumberUCR match {
+        case Some(referenceNumberUCR) => original.map(_.copy(referenceNumberUCR = Some(referenceNumberUCR)))
+        case None                     => original
+      }
+    }
+
     new P5TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN.take10,
-      consignmentItemViewModels = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).map(ConsignmentItemViewModel(_)),
+      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(_)),
       table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029),
       table4ViewModel = Table4ViewModel(ie029)
     )
+  }
 }

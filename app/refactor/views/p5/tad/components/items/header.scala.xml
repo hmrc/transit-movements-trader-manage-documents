@@ -1,4 +1,4 @@
-@import refactor.views.xml.p5.components.barcode
+@import refactor.views.xml.p5.tad.components.barcode
 
 @(mrn: String)
 

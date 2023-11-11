@@ -1,4 +1,4 @@
-@import refactor.views.xml.p5.components.table_2._
+@import refactor.views.xml.p5.tad.components.table_2._
 @import refactor.viewmodels.p5.tad.Table2ViewModel
 
 @this()

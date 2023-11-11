@@ -14,21 +14,28 @@
  * limitations under the License.
  */
 
-package refactor.viewmodels.p4
+package refactor.viewmodels.p4.tad
 
 import generated.p4._
 import generated.p5._
 import models.reference.Country
 
-case class P4TadPdfViewModel()
+case class P4TadPdfViewModel(
+)
 
 object P4TadPdfViewModel {
 
-  // P4
+  /** @param ie029 release for transit
+    * @return P4 TAD view model based on P4 data
+    */
   def apply(ie029: CC029BType): P4TadPdfViewModel =
     new P4TadPdfViewModel()
 
-  // P5 transition
+  /** @param ie015 declaration data
+    * @param ie029 release for transit
+    * @param countries CountryCodesForAddress
+    * @return P4 TAD view model based on P5 (transition) data
+    */
   def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel =
     new P4TadPdfViewModel()
 }

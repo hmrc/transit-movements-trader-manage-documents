@@ -1,4 +1,4 @@
-@import views.xml.componentsP5._
+@import refactor.views.xml.p5.tad.components._
 
 @this(
     layoutMasterSet: layout_master_set_TAD_P5

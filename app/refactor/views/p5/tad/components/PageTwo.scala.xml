@@ -1,5 +1,5 @@
 @import refactor.viewmodels.p5.tad.P5TadPdfViewModel
-@import refactor.views.xml.p5.components.items._
+@import refactor.views.xml.p5.tad.components.items._
 
 @this()
 

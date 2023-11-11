@@ -1,4 +1,4 @@
-@import refactor.views.xml.p5.components.items._
+@import refactor.views.xml.p5.tad.components.items._
 @import refactor.viewmodels.p5.tad.ConsignmentItemViewModel
 
 @this()

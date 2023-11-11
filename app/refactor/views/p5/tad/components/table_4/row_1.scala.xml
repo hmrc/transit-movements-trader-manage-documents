@@ -1,5 +1,5 @@
-@import refactor.views.xml.p5.components.table_1.consignee
-@import refactor.views.xml.p5.components.table_1.total_gross_mass
+@import refactor.views.xml.p5.tad.components.table_1.consignee
+@import refactor.views.xml.p5.tad.components.table_1.total_gross_mass
 @import refactor.viewmodels.p5.tad.Table4ViewModel
 
 @(vm: Table4ViewModel)

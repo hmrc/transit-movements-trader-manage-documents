@@ -1,5 +1,5 @@
-@import refactor.views.xml.p5.components.table_1._
-@import refactor.views.xml.p5.components._
+@import refactor.views.xml.p5.tad.components.table_1._
+@import refactor.views.xml.p5.tad.components._
 
 @(
     consignors: String,

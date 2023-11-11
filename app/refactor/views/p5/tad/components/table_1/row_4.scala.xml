@@ -1,4 +1,4 @@
-@import refactor.views.xml.p5.components.table_1.local_reference_number
+@import refactor.views.xml.p5.tad.components.table_1.local_reference_number
 
 @(
     holderOfTransitProcedure: String,

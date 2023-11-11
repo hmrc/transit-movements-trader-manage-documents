@@ -1,5 +1,5 @@
-@import refactor.views.xml.p5.DocumentTemplateP5
-@import refactor.views.xml.p5.components._
+@import refactor.views.xml.p5.tad.DocumentTemplateP5
+@import refactor.views.xml.p5.tad.components._
 @import refactor.views.xml.PageOne
 @import refactor.views.xml.PageTwo
 @import refactor.viewmodels.p5.tad.P5TadPdfViewModel
