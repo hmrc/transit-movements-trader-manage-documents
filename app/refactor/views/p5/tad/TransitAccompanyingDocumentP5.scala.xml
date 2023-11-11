@@ -1,4 +1,4 @@
-@import refactor.views.xml.p5.tad.DocumentTemplateP5
+@import refactor.views.xml.p5.DocumentTemplateP5
 @import refactor.views.xml.p5.tad.components._
 @import refactor.views.xml.PageOne
 @import refactor.views.xml.PageTwo

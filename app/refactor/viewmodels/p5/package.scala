@@ -45,6 +45,17 @@ package object p5 {
     ).flatten.commaSeparate
   }
 
+  implicit class RichPreviousDocumentType04(value: PreviousDocumentType04) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.goodsItemNumber,
+      value.complementOfInformation
+    ).flatten.commaSeparate
+  }
+
   implicit class RichPreviousDocumentType06(value: PreviousDocumentType06) {
 
     def asString: String = Seq(
@@ -56,6 +67,16 @@ package object p5 {
   }
 
   implicit class RichPreviousDocumentType07(value: PreviousDocumentType07) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.complementOfInformation
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichSupportingDocumentType02(value: SupportingDocumentType02) {
 
     def asString: String = Seq(
       Some(value.sequenceNumber),
@@ -150,6 +171,16 @@ package object p5 {
     ).flatten.commaSeparate
   }
 
+  implicit class RichAddressType10(value: AddressType10) {
+
+    def asString: String = Seq(
+      Some(value.streetAndNumber),
+      value.postcode,
+      Some(value.city),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
   implicit class RichPostcodeAddressType01(value: PostcodeAddressType01) {
 
     def asString: String = Seq(
@@ -192,12 +223,21 @@ package object p5 {
       value.ContactPerson.map(_.asString)
     ).flatten.commaSeparate
 
+    // TODO - refactor when you create generic types for duplicates
     def asConsignorType03: ConsignorType03 = ConsignorType03(
       value.identificationNumber,
       value.name,
       value.Address,
       value.ContactPerson
     )
+  }
+
+  implicit class RichConsignorType05(value: ConsignorType05) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten.commaSeparate
   }
 
   implicit class RichContactPersonType01(value: ContactPersonType01) {
@@ -242,6 +282,14 @@ package object p5 {
       value.TIRHolderIdentificationNumber,
       value.name,
       value.Address.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichHolderOfTheTransitProcedureType06(value: HolderOfTheTransitProcedureType06) {
+
+    def asString: String = Seq(
+      Some(value.name),
+      Some(value.Address.asString)
     ).flatten.commaSeparate
   }
 

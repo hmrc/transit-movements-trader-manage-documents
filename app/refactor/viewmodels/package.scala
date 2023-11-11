@@ -16,6 +16,8 @@
 
 package refactor
 
+import generated.p5.Flag
+
 import javax.xml.datatype.XMLGregorianCalendar
 
 package object viewmodels {
@@ -64,5 +66,9 @@ package object viewmodels {
 
   implicit class RichXMLGregorianCalendar(value: XMLGregorianCalendar) {
     def asString: String = value.formatted("dd/MM/yyyy HH:mm")
+  }
+
+  implicit class RichFlag(value: Flag) {
+    def asString: String = value.toString
   }
 }
