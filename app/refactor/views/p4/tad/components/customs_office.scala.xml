@@ -1,5 +1,7 @@
-@import viewmodels.CustomsOfficeWithOptionalDate
-@(customsOffice: CustomsOfficeWithOptionalDate)
+@import refactor.viewmodels.p4.tad.Table4ViewModel.TransitOfficeViewModel
+
+@(customsOffice: TransitOfficeViewModel)
+
 <fo:block>
     <fo:inline font-style="italic">
         @customsOffice.reference
@@ -7,7 +9,7 @@
 </fo:block>
 <fo:block>
     <fo:inline font-style="italic">
-    @customsOffice.dateTimeFormatted.getOrElse{
+    @customsOffice.dateTime.getOrElse{
         &#160;
     }
     </fo:inline>

@@ -116,7 +116,11 @@ object Table1ViewModel {
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
       countryOfDestination = ie029.Consignment.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       transportIdentity = ie029.Consignment.DepartureTransportMeans.map(_.asString).toBeContinued("---"),
-      transportCountry = "---", // TODO - get this from transport means?
+      transportCountry = ie029.Consignment.DepartureTransportMeans.headOption
+        .flatMap {
+          dtm => countries.find(_.code == dtm.nationality).map(_.code)
+        }
+        .getOrElse("---"),
       returnCopiesCustomsOffice = None
     )
 }

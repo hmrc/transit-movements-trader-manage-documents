@@ -26,9 +26,9 @@ package object viewmodels {
 
   implicit class RichString(value: String) {
 
-    private def takeN(n: Int): String =
+    def takeN(n: Int, chars: String = "..."): String =
       if (value.length > n) {
-        value.take(n - 3) + "..."
+        value.take(n - 3) + chars
       } else {
         value
       }

@@ -1,8 +1,13 @@
 @import refactor.views.xml.p4.tad.components.table_4.guaranteeReference
-
 @import viewmodels.CustomsOfficeWithOptionalDate
 @import refactor.views.xml.p4.tad.components.customs_office
-@(guaranteeDetails: Seq[GuaranteeDetails] = Nil, destination: Option[CustomsOfficeWithOptionalDate] = None)
+@import refactor.viewmodels.p4.tad.Table4ViewModel._
+
+@(
+    guarantees: Seq[GuaranteeViewModel],
+    destination: Option[TransitOfficeViewModel]
+)
+
 <fo:table-cell >
     <fo:block>
         <fo:list-block>
@@ -33,7 +38,7 @@
                             <fo:table-column column-width="38.213mm"/>
                             <fo:table-body>
                                 <fo:table-row height="2mm">
-                                    @guaranteeReference(guaranteeDetails)
+                                    @guaranteeReference(guarantees)
                                 </fo:table-row>
                                 <fo:table-row>
                                     <fo:table-cell>
@@ -52,11 +57,11 @@
                 <fo:table-cell display-align="center" border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center">
                     <fo:block>
                         @for(i <- 0 to 2) {
-                            @if(guaranteeDetails.isDefinedAt(i)){
+                            @if(guarantees.isDefinedAt(i)){
                                 @if(i != 0){
                                     <fo:inline>,</fo:inline>
                                 }
-                                @guaranteeDetails(i).guaranteeType
+                                @guarantees(i).typeValue
                             }
                         }
                     </fo:block>

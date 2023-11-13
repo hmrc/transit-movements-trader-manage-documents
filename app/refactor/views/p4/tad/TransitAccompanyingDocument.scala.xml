@@ -15,7 +15,8 @@
     pageTwo: second_page.table
 )
 
-@(tadModel: viewmodels.TransitAccompanyingDocumentPDF, vm: P4TadPdfViewModel)
+@(vm: P4TadPdfViewModel)
+
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
@@ -38,14 +39,7 @@
 
     <!--Principal/TIR Holder/Office of departure-->
     @table4(
-        tadModel.principal,
-        tadModel.departureOffice.reference,
-        tadModel.acceptanceDate.map(_.formattedDate),
-        tadModel.customsOfficeOfTransit,
-        tadModel.guaranteeDetails,
-        Some(tadModel.destinationOffice),
-        tadModel.authId,
-        tadModel.controlResult
+        vm.table4ViewModel
     )
 
     <!--control by office of departure/destination-->

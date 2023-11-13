@@ -2,18 +2,12 @@
 @import refactor.views.xml.p4.tad.components.table_4.row_4
 @import viewmodels.CustomsOfficeWithOptionalDate
 @import viewmodels.ControlResult
+@import refactor.viewmodels.p4.tad.Table4ViewModel
 
 @this()
 
 @(
-        principal: viewmodels.Principal,
-        departureOfficeTrimmed: String,
-        acceptanceDateFormatted: Option[String],
-        transitOffices: Seq[CustomsOfficeWithOptionalDate] = Nil,
-        guaranteeDetails: Seq[GuaranteeDetails] = Nil,
-        destinationOffice: Option[CustomsOfficeWithOptionalDate] = None,
-        authId: Option[String] = None,
-        controlResult: Option[ControlResult] = None
+    vm: Table4ViewModel
 )
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
@@ -44,42 +38,38 @@
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
                                         <!--output eori/tirid or eori-->
-                                        @if(principal.tir.nonEmpty && principal.eori.nonEmpty) {
-                                            @principal.eori.map(x => x) / @principal.tir.map(x => x)
-                                        } else {
-                                            @principal.eori.map(x => x)
-                                        }
+                                        @vm.principal.toString
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="5" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @principal.name
+                                        @vm.principal.name
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @principal.streetAndNumberTrimmed
+                                        @vm.principal.streetAndNumber
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @principal.postCode
+                                        @vm.principal.postCode
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @principal.city
+                                        @vm.principal.city
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @principal.country.code
+                                        @vm.principal.country
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -100,7 +90,7 @@
                             <fo:table-row height="3.6875mm">
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @departureOfficeTrimmed
+                                        @vm.departureOffice
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -112,20 +102,18 @@
                             <fo:table-row height="3.6875mm">
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @acceptanceDateFormatted
+                                        @vm.acceptanceDate
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="12mm">
                                 <fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">
-                                    @controlResult.map{ result =>
-                                        @if(result.isSimplifiedMovement){
-                                            <fo:block>@authId</fo:block>
-                                            <fo:block>@principal.name</fo:block>
-                                        } else {
-                                            <fo:block />
-                                        }
-                                    }.getOrElse(<fo:block />)
+                                    @if(vm.isSimplifiedMovement){
+                                        @vm.authId.map(x => <fo:block>@x</fo:block>)
+                                        <fo:block>@vm.principal.name</fo:block>
+                                    } else {
+                                        <fo:block />
+                                    }
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>
@@ -152,10 +140,10 @@
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 3 -->
-            @row_3(transitOffices)
+            @row_3(vm.transitOffices)
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 4 -->
-            @row_4(guaranteeDetails, destinationOffice)
+            @row_4(vm.guaranteeViewModels, vm.destinationOffice)
         </fo:table-row>
     </fo:table-body>
 </fo:table>
