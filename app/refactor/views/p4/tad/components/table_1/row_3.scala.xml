@@ -1,4 +1,11 @@
-@(printVariousConsignors: Boolean, consignor: Option[viewmodels.Consignor], numberOfItems: Int, totalNumberOfPackages: String, formName: String, boldHeading: Boolean)
+@import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
+
+@(
+  consignorViewModel: Option[ConsignorViewModel],
+  numberOfItems: Int,
+  totalNumberOfPackages: String,
+  formName: String
+)
 
 <fo:table-row height="8mm">
   <fo:table-cell>
@@ -6,8 +13,7 @@
   </fo:table-cell>
   <fo:table-cell number-rows-spanned="5" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" padding-top="-10mm">
     <fo:block-container
-          font-family="sans-serif" font-size="8"
-        @if(boldHeading){font-weight="bold"}
+          font-family="sans-serif" font-size="8" font-weight="bold"
           reference-orientation="90" display-align="center"
           inline-progression-dimension.minimum="8mm"
           inline-progression-dimension.optimum="80mm"
@@ -17,26 +23,26 @@
   </fo:table-cell>
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">
     <fo:block>
-      @if(!printVariousConsignors) {
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column column-number="1" column-width="44mm"/>
-        <fo:table-column column-number="2" column-width="8mm"/>
-        <fo:table-column column-number="3" column-width="37mm"/>
-        <fo:table-body>
-          <fo:table-row height="5mm">
-            <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
-              <fo:block>
-                @consignor.map(_.city)
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
-              <fo:block>
-                @consignor.map(_.country.code)
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-        </fo:table-body>
-      </fo:table>
+      @consignorViewModel.map { consignor =>
+        <fo:table width="100%" table-layout="fixed">
+          <fo:table-column column-number="1" column-width="44mm"/>
+          <fo:table-column column-number="2" column-width="8mm"/>
+          <fo:table-column column-number="3" column-width="37mm"/>
+          <fo:table-body>
+            <fo:table-row height="5mm">
+              <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+                <fo:block>
+                  @consignor.city
+                </fo:block>
+              </fo:table-cell>
+              <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                <fo:block>
+                  @consignor.country
+                </fo:block>
+              </fo:table-cell>
+            </fo:table-row>
+          </fo:table-body>
+        </fo:table>
       }
     </fo:block>
   </fo:table-cell>

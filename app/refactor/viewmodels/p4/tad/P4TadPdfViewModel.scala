@@ -23,12 +23,19 @@ import refactor.viewmodels._
 
 case class P4TadPdfViewModel(
   mrn: String,
-  consignmentItemViewModels: Seq[ConsignmentItemViewModel],
+  secondPageViewModel: SecondPageViewModel,
   table1ViewModel: Table1ViewModel,
   table2ViewModel: Table2ViewModel,
   table4ViewModel: Table4ViewModel,
   table5ViewModel: Table5ViewModel
-)
+) {
+
+  val printListOfItems: Boolean = secondPageViewModel.consignmentItemViewModels match {
+    case Nil         => false
+    case head :: Nil => head.containers.size > 1 || head.sensitiveGoodsInformation.size > 1 || head.packages.size > 1
+    case _           => true
+  }
+}
 
 object P4TadPdfViewModel {
 
@@ -42,22 +49,13 @@ object P4TadPdfViewModel {
     * @param countries CountryCodesForAddress
     * @return P4 TAD view model based on P5 (transition) data
     */
-  def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel = {
-    val consignmentItems = {
-      val original = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem)
-      ie029.Consignment.referenceNumberUCR match {
-        case Some(referenceNumberUCR) => original.map(_.copy(referenceNumberUCR = Some(referenceNumberUCR)))
-        case None                     => original
-      }
-    }
-
+  def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel =
     new P4TadPdfViewModel(
       mrn = Seq(ie029.TransitOperation.MRN, ie029.TransitOperation.LRN).commaSeparate,
-      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(ie029.Consignment, _)),
+      secondPageViewModel = SecondPageViewModel(ie029),
       table1ViewModel = Table1ViewModel(ie029, countries),
       table2ViewModel = Table2ViewModel(ie029),
       table4ViewModel = Table4ViewModel(ie029),
       table5ViewModel = Table5ViewModel(ie015, ie029)
     )
-  }
 }

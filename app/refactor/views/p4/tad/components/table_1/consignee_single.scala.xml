@@ -1,4 +1,6 @@
-@(consignee: Option[viewmodels.Consignee])
+@import refactor.viewmodels.p4.tad.Table1ViewModel.ConsigneeViewModel
+
+@(vm: ConsigneeViewModel)
 
 <fo:table-row height="6.25mm">
   <fo:table-cell padding-left="2mm" display-align="center">
@@ -9,38 +11,38 @@
   </fo:table-cell>
   <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
     <fo:block>
-      @consignee.map(c => c.eori)
+      @vm.eori
     </fo:block>
   </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="6.25mm">
 <fo:table-cell padding-left="2mm" number-columns-spanned="3" font-weight="bold" display-align="center">
   <fo:block>
-    @consignee.map(c => c.name)
+    @vm.name
   </fo:block>
 </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="6.25mm">
 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignee.map(c => c.streetAndNumberTrimmed)
+    @vm.streetAndNumber
   </fo:block>
 </fo:table-cell>
 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignee.map(c => c.postCode)
+    @vm.postcode
   </fo:block>
 </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="6.25mm">
 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignee.map(c => c.city)
+    @vm.city
   </fo:block>
 </fo:table-cell>
 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
   <fo:block>
-    @consignee.map(c => c.country.code)
+    @vm.country
   </fo:block>
 </fo:table-cell>
 </fo:table-row>

@@ -1,24 +1,21 @@
 @import refactor.views.xml.p4.tad.components.second_page.item
 @import refactor.views.xml.p4.tad.components.second_page.header_table
-@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
+@import refactor.viewmodels.p4.tad.SecondPageViewModel
 
 @this()
 
 @(
-    departureOffice: String,
-    movementReferenceNumber: String,
-    acceptanceDateFormatted: Option[String],
-    items: Seq[ConsignmentItemViewModel],
-    declarationType: String
+    vm: SecondPageViewModel,
+    mrn: String
 )
 
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force"> <!-- SEQ 2 -->
     <fo:static-content flow-name="xsl-region-before">
-        @header_table(departureOffice, movementReferenceNumber, acceptanceDateFormatted)
+        @header_table(vm.departureOffice, mrn, vm.acceptanceDate)
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
-            @items.map(item.goods_item(_, declarationType))
+            @vm.consignmentItemViewModels.map(item.goods_item(_))
         </fo:block>
         <fo:block id="A-last-page"/>
     </fo:flow>

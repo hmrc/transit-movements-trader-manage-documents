@@ -1,4 +1,4 @@
-@(singleCountryOfDispatch: Option[models.reference.Country])
+@(countryOfDispatch: String)
 
 <fo:table-row height="8mm">
   <fo:table-cell>
@@ -20,7 +20,7 @@
           <fo:table-row height="4mm">
             <fo:table-cell text-align="center" font-weight="bold" display-align="center">
               <fo:block>
-                @singleCountryOfDispatch.map(country => country.code).getOrElse("---")
+                @countryOfDispatch
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

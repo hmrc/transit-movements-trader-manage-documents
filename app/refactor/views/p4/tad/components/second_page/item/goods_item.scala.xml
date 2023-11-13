@@ -3,8 +3,7 @@
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
 @(
-    vm: ConsignmentItemViewModel,
-    declarationType: String
+    vm: ConsignmentItemViewModel
 )
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
@@ -37,7 +36,7 @@
         <fo:table-row height="3.5mm">
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @declarationType
+                    @vm.declarationType
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">

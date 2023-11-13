@@ -46,8 +46,8 @@ package object viewmodels {
     def dashSeparate: String      = value.mkString(" - ")
     def ellipsisSeparate: String  = value.mkString("...")
 
-    def toBeContinued: String = value match {
-      case Nil         => ""
+    def toBeContinued(stringIfEmpty: String = ""): String = value match {
+      case Nil         => stringIfEmpty
       case head :: Nil => head
       case head :: _   => s"$head..."
     }
@@ -63,6 +63,14 @@ package object viewmodels {
     def addDefaultIfEmpty(): Seq[String] = if (value.isEmpty) Seq("--") else value
   }
 
+  implicit class RichOptionTSeq[T](value: Seq[Option[T]]) {
+
+    def takeFirstIfAllTheSame: Option[T] = value match {
+      case head :: tail if tail.forall(_ == head) => head
+      case _                                      => None
+    }
+  }
+
   implicit class RichStringOption(value: Option[String]) {
     def orElseBlank: String = value.getOrElse("")
 
@@ -71,7 +79,8 @@ package object viewmodels {
   }
 
   implicit class RichXMLGregorianCalendar(value: XMLGregorianCalendar) {
-    def asString: String = value.formatted("dd/MM/yyyy HH:mm")
+    def dateAndTimeString: String = value.formatted("dd/MM/yyyy HH:mm")
+    def dateString: String        = value.formatted("dd/MM/yyyy")
   }
 
   implicit class RichFlag(value: Flag) {

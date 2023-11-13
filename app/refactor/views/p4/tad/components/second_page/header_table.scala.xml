@@ -1,5 +1,5 @@
 @import refactor.views.xml.p4.tad.components.barcode_small
-@(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: Option[String])
+@(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: String)
 <fo:block>
     <fo:table width="100%" table-layout="fixed" font-size="12pt" font-weight="bold">
         <fo:table-column column-width="52mm"/>

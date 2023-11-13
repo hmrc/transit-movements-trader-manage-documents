@@ -20,6 +20,11 @@ import generated.p5._
 
 package object p5 {
 
+  implicit class RichCC029CType(value: CC029CType) {
+
+    def consignmentItems: Seq[ConsignmentItemType03] = value.Consignment.HouseConsignment.flatMap(_.ConsignmentItem)
+  }
+
   implicit class RichPackagingType02(value: PackagingType02) {
 
     def asString: String = Seq(
@@ -438,7 +443,7 @@ package object p5 {
     def asString: String = Seq(
       Some(value.sequenceNumber),
       Some(value.referenceNumber),
-      value.arrivalDateAndTimeEstimated.map(_.asString)
+      value.arrivalDateAndTimeEstimated.map(_.dateAndTimeString)
     ).flatten.commaSeparate
   }
 

@@ -16,9 +16,9 @@
 
 package refactor.viewmodels.p4.tad
 
+import generated.p5.CC029CType
 import generated.p5.ConsigneeType03
 import generated.p5.ConsignmentItemType03
-import generated.p5.ConsignmentType04
 import generated.p5.PackagingType02
 import refactor.viewmodels._
 import refactor.viewmodels.p4.tad.ConsignmentItemViewModel._
@@ -31,6 +31,7 @@ case class ConsignmentItemViewModel(
   packages: Seq[PackageViewModel],
   containers: Seq[String],
   description: String,
+  declarationType: String,
   commodityCode: String,
   sensitiveGoodsInformation: Seq[SensitiveGoodsInformationViewModel],
   previousDocuments: Seq[String],
@@ -103,16 +104,17 @@ object ConsignmentItemViewModel {
     quantity: String
   )
 
-  def apply(consignment: ConsignmentType04, consignmentItem: ConsignmentItemType03): ConsignmentItemViewModel =
+  def apply(ie029: CC029CType, consignmentItem: ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
       shippingMarks = consignmentItem.Packaging.flatMap(_.shippingMarks),
       packages = consignmentItem.Packaging.map(PackageViewModel(_)),
-      containers = consignment.TransportEquipment
+      containers = ie029.Consignment.TransportEquipment
         .filter(_.GoodsReference.exists(_.declarationGoodsItemNumber == consignmentItem.declarationGoodsItemNumber))
         .map(_.asP4String)
         .addDefaultIfEmpty(),
       description = consignmentItem.Commodity.descriptionOfGoods,
+      declarationType = consignmentItem.declarationType.getOrElse(ie029.TransitOperation.declarationType),
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElse2Dashes,
       sensitiveGoodsInformation = Seq(SensitiveGoodsInformationViewModel("--", "--")), // Not in P5?
       previousDocuments = consignmentItem.PreviousDocument.map(_.asP4String).addDefaultIfEmpty(),

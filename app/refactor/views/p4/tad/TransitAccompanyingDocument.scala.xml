@@ -18,13 +18,10 @@
 @(tadModel: viewmodels.TransitAccompanyingDocumentPDF, vm: P4TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo =  if(tadModel.printListOfItems) {
+    pageTwo =  if(vm.printListOfItems) {
         Some(pageTwo(
-            tadModel.departureOffice.office.id,
-            tadModel.movementReferenceNumber,
-            tadModel.acceptanceDate.map(_.formattedDate),
-            vm.consignmentItemViewModels,
-            tadModel.declarationType
+            vm.secondPageViewModel,
+            vm.mrn
         ))
     } else None
 )
@@ -32,27 +29,14 @@
 @pageOneBody = {
     <!--main header-->
     @mainHeader(
-        title = "TRANSIT - ACCOMPANYING DOCUMENT",
-        boldHeading = true,
-        movementReferenceNumber = vm.mrn,
-        printVariousConsignors = tadModel.printVariousConsignors,
-        consignorOne = tadModel.consignorOne,
-        declarationType = tadModel.declarationType.toString,
-        printListOfItems = tadModel.printListOfItems,
-        consignor = tadModel.consignor,
-        numberOfItems = tadModel.numberOfItems,
-        totalNumberOfPackages = tadModel.totalNumberOfPackages,
-        printVariousConsignees = tadModel.printVariousConsignees,
-        consigneeOne = tadModel.consigneeOne,
-        singleCountryOfDispatch = tadModel.singleCountryOfDispatch,
-        singleCountryOfDestination = tadModel.singleCountryOfDestination,
-        transportIdentity = tadModel.transportIdentity,
-        transportCountry = tadModel.transportCountry,
-        returnCopiesCustomsOffice = tadModel.returnCopiesCustomsOffice
+        vm = vm.table1ViewModel,
+        mrn = vm.mrn,
+        printListOfItems = vm.printListOfItems,
+        title = "TRANSIT - ACCOMPANYING DOCUMENT"
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(tadModel.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
+    @table2(vm.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
 
     <!--transhipment/certification-->
     @table3()

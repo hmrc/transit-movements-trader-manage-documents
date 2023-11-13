@@ -1,10 +1,7 @@
+@import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
+
 @(
-  printVariousConsignors: Boolean,
-  consignorOne: Option[viewmodels.Consignor],
-  eori: String,
-  name: String,
-  streetAndNumber: String,
-  postcode: String
+  consignor: Option[ConsignorViewModel]
 )
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
@@ -14,17 +11,7 @@
       <fo:table-column column-number="2" column-width="8mm"/>
       <fo:table-column column-number="3" column-width="37mm"/>
       <fo:table-body>
-        @if(printVariousConsignors) {
-          @consignor_various()
-        } else {
-          @consignor_single(
-            consignorOne,
-            eori,
-            name,
-            streetAndNumber,
-            postcode
-          )
-        }
+        @consignor.map(consignor_single(_)).getOrElse(consignor_various())
       </fo:table-body>
     </fo:table>
   </fo:block>

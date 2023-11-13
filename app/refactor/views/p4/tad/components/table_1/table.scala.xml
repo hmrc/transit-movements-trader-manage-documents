@@ -1,25 +1,13 @@
 @import refactor.views.xml.p4.tad.components.table_1._
+@import refactor.viewmodels.p4.tad.Table1ViewModel
 
 @this()
 
 @(
-        title: String,
-        boldHeading: Boolean,
-        movementReferenceNumber: String,
-        printVariousConsignors: Boolean,
-        consignorOne: Option[viewmodels.Consignor],
-        declarationType: String,
-        printListOfItems: Boolean,
-        consignor: Option[viewmodels.Consignor],
-        numberOfItems: Int,
-        totalNumberOfPackages: String,
-        printVariousConsignees: Boolean,
-        consigneeOne: Option[viewmodels.Consignee],
-        singleCountryOfDispatch: Option[models.reference.Country],
-        singleCountryOfDestination: Option[models.reference.Country],
-        transportIdentity: Option[String],
-        transportCountry: Option[models.reference.Country],
-        returnCopiesCustomsOffice: Option[viewmodels.ReturnCopiesCustomsOffice]
+  vm: Table1ViewModel,
+  mrn: String,
+  printListOfItems: Boolean,
+  title: String
 )
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
@@ -34,19 +22,19 @@
   <fo:table-column column-number="8" column-width="49mm"/>
 
   <fo:table-body>
-    @row_1(movementReferenceNumber)
+    @row_1(mrn)
 
-    @row_2(printVariousConsignors, consignorOne, declarationType, movementReferenceNumber, printListOfItems)
+    @row_2(vm.consignorViewModel, vm.declarationType, mrn, printListOfItems)
 
-    @row_3(printVariousConsignors, consignor, numberOfItems, totalNumberOfPackages, title, boldHeading)
+    @row_3(vm.consignorViewModel, vm.numberOfItems, vm.totalNumberOfPackages, title)
 
-    @row_4(printVariousConsignees, consigneeOne, returnCopiesCustomsOffice)
+    @row_4(vm.consigneeViewModel, vm.returnCopiesCustomsOffice)
 
-    @row_5(singleCountryOfDispatch)
+    @row_5(vm.countryOfDispatch)
 
-    @row_6(singleCountryOfDestination)
+    @row_6(vm.countryOfDestination)
 
-    @row_7(transportIdentity, transportCountry)
+    @row_7(vm.transportIdentity, vm.transportCountry)
 
     @row_8()
 

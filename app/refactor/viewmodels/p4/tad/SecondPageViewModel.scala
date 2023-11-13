@@ -14,26 +14,21 @@
  * limitations under the License.
  */
 
-package refactor.viewmodels.p5.tad
+package refactor.viewmodels.p4.tad
 
 import generated.p5._
-import refactor.viewmodels.RichString
+import refactor.viewmodels._
 import refactor.viewmodels.p5._
 
-case class P5TadPdfViewModel(
-  mrn: String,
-  consignmentItemViewModels: Seq[ConsignmentItemViewModel],
-  table1ViewModel: Table1ViewModel,
-  table2ViewModel: Table2ViewModel,
-  table4ViewModel: Table4ViewModel
+case class SecondPageViewModel(
+  departureOffice: String,
+  acceptanceDate: String,
+  consignmentItemViewModels: Seq[ConsignmentItemViewModel]
 )
 
-object P5TadPdfViewModel {
+object SecondPageViewModel {
 
-  /** @param ie029 release for transit
-    * @return P5 TAD view model based on P5 (final) data
-    */
-  def apply(ie029: CC029CType): P5TadPdfViewModel = {
+  def apply(ie029: CC029CType): SecondPageViewModel = {
     val consignmentItems = {
       val original = ie029.consignmentItems
       ie029.Consignment.referenceNumberUCR match {
@@ -42,12 +37,10 @@ object P5TadPdfViewModel {
       }
     }
 
-    new P5TadPdfViewModel(
-      mrn = ie029.TransitOperation.MRN.take10,
-      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(_)),
-      table1ViewModel = Table1ViewModel(ie029),
-      table2ViewModel = Table2ViewModel(ie029),
-      table4ViewModel = Table4ViewModel(ie029)
+    new SecondPageViewModel(
+      departureOffice = ie029.CustomsOfficeOfDeparture.asString,
+      acceptanceDate = ie029.TransitOperation.declarationAcceptanceDate.dateString,
+      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(ie029, _))
     )
   }
 }

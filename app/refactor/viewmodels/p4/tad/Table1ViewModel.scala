@@ -16,12 +16,23 @@
 
 package refactor.viewmodels.p4.tad
 
-import generated.p5.CC029CType
+import generated.p5._
 import models.reference.Country
-import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
+import refactor.viewmodels._
+import refactor.viewmodels.p4.tad.Table1ViewModel._
+import refactor.viewmodels.p5._
 
 case class Table1ViewModel(
-  consignorViewModel: Option[ConsignorViewModel]
+  declarationType: String,
+  consignorViewModel: Option[ConsignorViewModel],
+  numberOfItems: Int,
+  totalNumberOfPackages: String,
+  consigneeViewModel: Option[ConsigneeViewModel],
+  countryOfDispatch: String,
+  countryOfDestination: String,
+  transportIdentity: String,
+  transportCountry: String,
+  returnCopiesCustomsOffice: Option[CustomsOfficeViewModel]
 )
 
 object Table1ViewModel {
@@ -30,17 +41,82 @@ object Table1ViewModel {
     eori: String,
     name: String,
     streetAndNumber: String,
-    postcode: String
+    postcode: String,
+    city: String,
+    country: String
   )
 
   object ConsignorViewModel {
 
     def apply(ie029: CC029CType): Option[ConsignorViewModel] =
-      ???
+      ie029.Consignment.Consignor.map(ConsignorViewModel(_))
+
+    def apply(consignor: ConsignorType03): ConsignorViewModel =
+      new ConsignorViewModel(
+        eori = consignor.identificationNumber.orElseBlank,
+        name = consignor.name.orElseBlank,
+        streetAndNumber = consignor.Address.map(_.streetAndNumber).orElseBlank,
+        postcode = consignor.Address.flatMap(_.postcode).orElseBlank,
+        city = consignor.Address.map(_.city).orElseBlank,
+        country = consignor.Address.map(_.country).orElseBlank
+      )
   }
+
+  case class ConsigneeViewModel(
+    eori: String,
+    name: String,
+    streetAndNumber: String,
+    postcode: String,
+    city: String,
+    country: String
+  )
+
+  object ConsigneeViewModel {
+
+    def apply(ie029: CC029CType): Option[ConsigneeViewModel] =
+      ie029.Consignment.Consignee.map(ConsigneeViewModel(_)) orElse
+        ie029.consignmentItems.map(_.Consignee).takeFirstIfAllTheSame.map(ConsigneeViewModel(_))
+
+    def apply(consignee: ConsigneeType03): ConsigneeViewModel =
+      new ConsigneeViewModel(
+        eori = consignee.identificationNumber.orElseBlank,
+        name = consignee.name.orElseBlank,
+        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElseBlank,
+        postcode = consignee.Address.flatMap(_.postcode).orElseBlank,
+        city = consignee.Address.map(_.city).orElseBlank,
+        country = consignee.Address.map(_.country).orElseBlank
+      )
+
+    def apply(consignee: ConsigneeType04): ConsigneeViewModel =
+      new ConsigneeViewModel(
+        eori = consignee.identificationNumber.orElseBlank,
+        name = consignee.name.orElseBlank,
+        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElseBlank,
+        postcode = consignee.Address.flatMap(_.postcode).orElseBlank,
+        city = consignee.Address.map(_.city).orElseBlank,
+        country = consignee.Address.map(_.country).orElseBlank
+      )
+  }
+
+  case class CustomsOfficeViewModel(
+    name: String,
+    streetAndNumber: String,
+    postcode: String,
+    city: String,
+    country: String
+  )
 
   def apply(ie029: CC029CType, countries: Seq[Country]): Table1ViewModel =
     new Table1ViewModel(
-      consignorViewModel = ConsignorViewModel(ie029)
+      declarationType = ie029.TransitOperation.declarationType,
+      consignorViewModel = ConsignorViewModel(ie029),
+      numberOfItems = ie029.consignmentItems.size,
+      totalNumberOfPackages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages))).sum.toString(),
+      consigneeViewModel = ConsigneeViewModel(ie029),
+      countryOfDispatch = ie029.Consignment.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
+      countryOfDestination = ie029.Consignment.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
+      transportIdentity = ie029.Consignment.DepartureTransportMeans.map(_.asString).toBeContinued("---"),
+      transportCountry = "---", // TODO - get this from transport means?
+      returnCopiesCustomsOffice = None
     )
 }
