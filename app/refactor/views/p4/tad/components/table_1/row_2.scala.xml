@@ -3,13 +3,14 @@
 @import refactor.views.xml.p4.tad.components.table_1.forms
 @import refactor.views.xml.p4.tad.components.table_1.loading_lists
 @import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 @import refactor.views.xml.p4.tad.components.barcode
 
 @(
   consignorViewModel: Option[ConsignorViewModel],
   declarationType: String,
   movementReferenceNumber: String,
-  printListOfItems: Boolean
+  consignmentItemViewModel: Option[ConsignmentItemViewModel]
 )
 
 <fo:table-row height="16mm">
@@ -43,7 +44,7 @@
                   <fo:table-body>
                     <fo:table-row height="9mm">
 
-                      @forms(printListOfItems)
+                      @forms(consignmentItemViewModel)
                       @loading_lists()
                     </fo:table-row>
                   </fo:table-body>

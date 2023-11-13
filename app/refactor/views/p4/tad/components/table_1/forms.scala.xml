@@ -1,4 +1,6 @@
-@(printListOfItems: Boolean)
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
+
+@(consignmentItemViewModel: Option[ConsignmentItemViewModel])
 
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
   <fo:block>
@@ -19,11 +21,7 @@
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
             <fo:block>
-              @if(!printListOfItems) {
-                1
-              } else {
-                <fo:page-number-citation ref-id="A-last-page"/>
-              }
+              @consignmentItemViewModel.map(_ => 1).getOrElse(<fo:page-number-citation ref-id="A-last-page"/>)
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

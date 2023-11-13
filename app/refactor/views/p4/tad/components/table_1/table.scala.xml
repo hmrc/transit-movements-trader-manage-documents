@@ -1,12 +1,13 @@
 @import refactor.views.xml.p4.tad.components.table_1._
 @import refactor.viewmodels.p4.tad.Table1ViewModel
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
 @this()
 
 @(
   vm: Table1ViewModel,
   mrn: String,
-  printListOfItems: Boolean,
+  consignmentItemViewModel: Option[ConsignmentItemViewModel],
   title: String
 )
 
@@ -24,7 +25,7 @@
   <fo:table-body>
     @row_1(mrn)
 
-    @row_2(vm.consignorViewModel, vm.declarationType, mrn, printListOfItems)
+    @row_2(vm.consignorViewModel, vm.declarationType, mrn, consignmentItemViewModel)
 
     @row_3(vm.consignorViewModel, vm.numberOfItems, vm.totalNumberOfPackages, title)
 

@@ -29,10 +29,7 @@ case class P4TadPdfViewModel(
   table2ViewModel: Table2ViewModel,
   table4ViewModel: Table4ViewModel,
   table5ViewModel: Table5ViewModel
-) {
-
-  val printListOfItems: Boolean = P4TadPdfViewModel.printListOfItems(secondPageViewModel.consignmentItemViewModels)
-}
+)
 
 object P4TadPdfViewModel {
 
@@ -57,27 +54,27 @@ object P4TadPdfViewModel {
 
     val consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(ie029, _))
 
+    val printListOfItems: Boolean =
+      consignmentItemViewModels match {
+        case Nil =>
+          false
+        case head :: Nil =>
+          head.containers.size > 1 ||
+            head.sensitiveGoodsInformation.size > 1 ||
+            head.packages.size > 1 ||
+            head.specialMentions.size > 4 ||
+            head.producedDocuments.size > 4
+        case _ =>
+          true
+      }
+
     new P4TadPdfViewModel(
       mrn = Seq(ie029.TransitOperation.MRN, ie029.TransitOperation.LRN).commaSeparate,
       secondPageViewModel = SecondPageViewModel(ie029, consignmentItemViewModels),
       table1ViewModel = Table1ViewModel(ie029, countries),
-      table2ViewModel = Table2ViewModel(ie029, if (!printListOfItems(consignmentItemViewModels)) consignmentItemViewModels.headOption else None),
+      table2ViewModel = Table2ViewModel(ie029, if (printListOfItems) None else consignmentItemViewModels.headOption),
       table4ViewModel = Table4ViewModel(ie029),
       table5ViewModel = Table5ViewModel(ie015, ie029)
     )
   }
-
-  def printListOfItems(consignmentItemViewModels: Seq[ConsignmentItemViewModel]): Boolean =
-    consignmentItemViewModels match {
-      case Nil =>
-        false
-      case head :: Nil =>
-        head.containers.size > 1 ||
-          head.sensitiveGoodsInformation.size > 1 ||
-          head.packages.size > 1 ||
-          head.specialMentions.size > 4 ||
-          head.producedDocuments.size > 4
-      case _ =>
-        true
-    }
 }

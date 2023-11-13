@@ -18,12 +18,7 @@
 @(tadModel: viewmodels.TransitAccompanyingDocumentPDF, vm: P4TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo =  if(vm.printListOfItems) {
-        Some(pageTwo(
-            vm.secondPageViewModel,
-            vm.mrn
-        ))
-    } else None
+    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
 )
 
 @pageOneBody = {
@@ -31,7 +26,7 @@
     @mainHeader(
         vm = vm.table1ViewModel,
         mrn = vm.mrn,
-        printListOfItems = vm.printListOfItems,
+        consignmentItemViewModel = vm.table2ViewModel.consignmentItemViewModel,
         title = "TRANSIT - ACCOMPANYING DOCUMENT"
     )
 
