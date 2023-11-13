@@ -108,7 +108,10 @@ object ConsignmentItemViewModel {
       itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
       shippingMarks = consignmentItem.Packaging.flatMap(_.shippingMarks),
       packages = consignmentItem.Packaging.map(PackageViewModel(_)),
-      containers = consignment.TransportEquipment.map(_.asP4String).addDefaultIfEmpty(),
+      containers = consignment.TransportEquipment
+        .filter(_.GoodsReference.exists(_.declarationGoodsItemNumber == consignmentItem.declarationGoodsItemNumber))
+        .map(_.asP4String)
+        .addDefaultIfEmpty(),
       description = consignmentItem.Commodity.descriptionOfGoods,
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElse2Dashes,
       sensitiveGoodsInformation = Seq(SensitiveGoodsInformationViewModel("--", "--")), // Not in P5?
