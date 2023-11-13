@@ -1,10 +1,11 @@
 @import refactor.views.xml.p4.tad.components.binding_itinerary
 @import refactor.views.xml.p4.tad.components.table_5.control_results
 @import viewmodels.ControlResult
+@import refactor.viewmodels.p4.tad.Table5ViewModel
 
 @this()
 
-@(seals: Seq[String], bindingItinerary: Boolean =  false, controlResult: Option[ControlResult] = None)
+@(vm: Table5ViewModel)
 
 <fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 5 -->
     <fo:table-column column-width="93mm"/>
@@ -36,7 +37,7 @@
                                     <fo:block>Result:</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell display-align="center" font-weight="bold">
-                                    @controlResult.map{ result =>
+                                    @vm.controlResult.map{ result =>
                                         @control_results(result)
                                     }.getOrElse{
                                         <fo:block/>
@@ -55,11 +56,7 @@
                                 </fo:table-cell>
                                 <fo:table-cell display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @if(seals.nonEmpty) {
-                                            @seals.length
-                                        } else {
-                                            ---
-                                        }
+                                        @vm.numberOfSeals
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -72,15 +69,7 @@
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="2" display-align="center" font-weight="bold">
                                     <fo:block>
-                                        @if(seals.nonEmpty) {
-                                            @if(seals.length > 1) {
-                                                @seals.head - @seals.last
-                                            } else {
-                                                @seals
-                                            }
-                                        } else {
-                                            ---
-                                        }
+                                        @vm.sealsForDisplay
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -90,11 +79,11 @@
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" number-columns-spanned="3">
                                     <fo:block>Time limit (date):</fo:block>
-                                    @binding_itinerary(bindingItinerary)
+                                    @binding_itinerary(vm.bindingItinerary)
                                 </fo:table-cell>
                                 <fo:table-cell padding-top="1mm" font-weight="bold">
                                     <fo:block>
-                                        @controlResult.map(_.formattedDate)
+                                        @vm.limitDate
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>

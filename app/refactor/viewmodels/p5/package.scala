@@ -377,7 +377,7 @@ package object p5 {
       Some(value.sequenceNumber),
       value.containerIdentificationNumber,
       Some(value.numberOfSeals.toString),
-      Some(value.GoodsReference.map(_.asString).firstAndLast)
+      Some(value.GoodsReference.map(_.asString).firstAndLast())
     ).flatten.commaSeparate
 
     def asP4String: String = Seq(

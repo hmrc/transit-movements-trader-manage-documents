@@ -54,12 +54,12 @@ package object viewmodels {
       case head :: _   => s"$head..."
     }
 
-    def firstAndLast: String = {
+    def firstAndLast(separator: String = "..."): String = {
       val (headOption, lastOption) = value match {
         case head :: tail => (Some(head), tail.lastOption)
         case _            => (None, None)
       }
-      Seq(headOption, lastOption).flatten.mkString("...")
+      Seq(headOption, lastOption).flatten.mkString(separator)
     }
 
     def addDefaultIfEmpty(): Seq[String] = if (value.isEmpty) Seq("--") else value

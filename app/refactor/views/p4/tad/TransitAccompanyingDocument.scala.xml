@@ -5,14 +5,14 @@
 @import refactor.viewmodels.p4.tad.P4TadPdfViewModel
 
 @this(
-        mainHeader: table_1.table,
-        table2: table_2.table,
-        table3: table_3.table,
-        table4: table_4.table,
-        table5: table_5.table,
-        template: DocumentTemplate,
-        pageOne: PageOne,
-        pageTwo: second_page.table
+    mainHeader: table_1.table,
+    table2: table_2.table,
+    table3: table_3.table,
+    table4: table_4.table,
+    table5: table_5.table,
+    template: DocumentTemplate,
+    pageOne: PageOne,
+    pageTwo: second_page.table
 )
 
 @(tadModel: viewmodels.TransitAccompanyingDocumentPDF, vm: P4TadPdfViewModel)
@@ -49,5 +49,5 @@
     )
 
     <!--control by office of departure/destination-->
-    @table5(tadModel.seals, tadModel.printBindingItinerary, tadModel.controlResult)
+    @table5(vm.table5ViewModel)
 }

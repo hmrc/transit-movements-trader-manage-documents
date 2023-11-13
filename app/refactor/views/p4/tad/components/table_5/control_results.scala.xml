@@ -1,10 +1,6 @@
-@(controlResult: viewmodels.ControlResult)
+@(controlResult: String)
 <fo:block>
-    @if(controlResult.isDescriptionAvailable){
-        @controlResult.displayName
-    } else {
-        <fo:inline font-style="italic">
-            @controlResult.displayName
-        </fo:inline>
-    }
+    <fo:inline font-style="italic">
+        @controlResult
+    </fo:inline>
 </fo:block>

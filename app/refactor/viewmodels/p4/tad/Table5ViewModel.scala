@@ -16,13 +16,29 @@
 
 package refactor.viewmodels.p4.tad
 
-import generated.p5.CC015CType
-import generated.p5.CC029CType
+import generated.p5._
+import refactor.viewmodels._
+import refactor.viewmodels.p5._
 
-case class Table5ViewModel()
+case class Table5ViewModel(
+  seals: Seq[String],
+  bindingItinerary: Boolean,
+  controlResult: Option[String],
+  limitDate: String
+) {
+
+  val numberOfSeals: String = if (seals.isEmpty) "---" else seals.size.toString
+
+  val sealsForDisplay: String = if (seals.isEmpty) "---" else seals.firstAndLast(" - ")
+}
 
 object Table5ViewModel {
 
   def apply(ie015: CC015CType, ie029: CC029CType): Table5ViewModel =
-    new Table5ViewModel()
+    new Table5ViewModel(
+      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString),
+      bindingItinerary = ie029.TransitOperation.bindingItinerary.toBoolean,
+      controlResult = None,
+      limitDate = ie015.TransitOperation.limitDate.map(_.dateString).orElseBlank
+    )
 }
