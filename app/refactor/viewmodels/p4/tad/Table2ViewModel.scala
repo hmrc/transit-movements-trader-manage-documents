@@ -17,11 +17,23 @@
 package refactor.viewmodels.p4.tad
 
 import generated.p5.CC029CType
+import refactor.viewmodels.RichFlag
+import refactor.viewmodels.p5.RichCC029CType
 
-case class Table2ViewModel()
+case class Table2ViewModel(
+  numberOfItems: Int,
+  grossMass: String,
+  printBindingItinerary: Boolean,
+  consignmentItemViewModel: Option[ConsignmentItemViewModel]
+)
 
 object Table2ViewModel {
 
-  def apply(ie029: CC029CType): Table2ViewModel =
-    new Table2ViewModel()
+  def apply(ie029: CC029CType, consignmentItemViewModel: Option[ConsignmentItemViewModel]): Table2ViewModel =
+    new Table2ViewModel(
+      numberOfItems = ie029.numberOfItems,
+      grossMass = ie029.Consignment.grossMass.toString(),
+      printBindingItinerary = ie029.TransitOperation.bindingItinerary.toBoolean,
+      consignmentItemViewModel = consignmentItemViewModel
+    )
 }

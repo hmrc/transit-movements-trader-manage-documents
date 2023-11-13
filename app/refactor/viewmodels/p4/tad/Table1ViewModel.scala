@@ -110,7 +110,7 @@ object Table1ViewModel {
     new Table1ViewModel(
       declarationType = ie029.TransitOperation.declarationType,
       consignorViewModel = ConsignorViewModel(ie029),
-      numberOfItems = ie029.consignmentItems.size,
+      numberOfItems = ie029.numberOfItems,
       totalNumberOfPackages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages))).sum.toString(),
       consigneeViewModel = ConsigneeViewModel(ie029),
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data

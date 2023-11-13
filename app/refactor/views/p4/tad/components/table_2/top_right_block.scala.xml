@@ -1,6 +1,9 @@
-@import cats.data.NonEmptyList
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
-@(printListOfItems: Boolean, grossMass: BigDecimal, goodsItems: NonEmptyList[viewmodels.GoodsItem])
+@(
+    grossMass: String,
+    consignmentItemViewModel: Option[ConsignmentItemViewModel]
+)
 
 <fo:table-cell number-columns-spanned="2">
     <fo:block>
@@ -24,8 +27,8 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
-                                                @if(!printListOfItems) {
-                                                    @goodsItems.head.commodityCode.map(code => code)
+                                                @consignmentItemViewModel.map { vm =>
+                                                    @vm.commodityCode
                                                 }
                                             </fo:block>
                                         </fo:table-cell>
@@ -82,8 +85,8 @@
                                     <fo:table-row height="4mm">
                                         <fo:table-cell display-align="center" font-weight="bold" text-align="center">
                                             <fo:block>
-                                                @if(!printListOfItems) {
-                                                    @goodsItems.head.netMass.map(netMass => netMass)
+                                                @consignmentItemViewModel.map { vm =>
+                                                    @vm.netMass
                                                 }
                                             </fo:block>
                                         </fo:table-cell>
@@ -102,8 +105,8 @@
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline font-style="italic">
                                 <fo:block>
-                                    @if(!printListOfItems){
-                                        @goodsItems.head.previousDocumentTypes.map(_.display)
+                                    @consignmentItemViewModel.map { vm =>
+                                        @vm.previousDocuments
                                     }
                                 </fo:block>
                             </fo:inline>

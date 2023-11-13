@@ -1,5 +1,7 @@
 @import refactor.views.xml.p4.tad.components.binding_itinerary
-@(bindingItinerary: Boolean = false)
+
+@(bindingItinerary: Boolean)
+
 <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2" wrap-option="wrap" padding-top="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
     <fo:block>
         <fo:list-block>

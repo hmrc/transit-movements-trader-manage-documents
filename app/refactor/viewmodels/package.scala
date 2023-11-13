@@ -17,6 +17,8 @@
 package refactor
 
 import generated.p5.Flag
+import generated.p5.Number0
+import generated.p5.Number1
 
 import javax.xml.datatype.XMLGregorianCalendar
 
@@ -85,5 +87,10 @@ package object viewmodels {
 
   implicit class RichFlag(value: Flag) {
     def asString: String = value.toString
+
+    def toBoolean: Boolean = value match {
+      case Number0 => false
+      case Number1 => true
+    }
   }
 }

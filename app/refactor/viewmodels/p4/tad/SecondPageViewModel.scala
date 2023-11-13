@@ -28,19 +28,10 @@ case class SecondPageViewModel(
 
 object SecondPageViewModel {
 
-  def apply(ie029: CC029CType): SecondPageViewModel = {
-    val consignmentItems = {
-      val original = ie029.consignmentItems
-      ie029.Consignment.referenceNumberUCR match {
-        case Some(referenceNumberUCR) => original.map(_.copy(referenceNumberUCR = Some(referenceNumberUCR)))
-        case None                     => original
-      }
-    }
-
+  def apply(ie029: CC029CType, consignmentItemViewModels: Seq[ConsignmentItemViewModel]): SecondPageViewModel =
     new SecondPageViewModel(
       departureOffice = ie029.CustomsOfficeOfDeparture.asString,
       acceptanceDate = ie029.TransitOperation.declarationAcceptanceDate.dateString,
-      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(ie029, _))
+      consignmentItemViewModels = consignmentItemViewModels
     )
-  }
 }

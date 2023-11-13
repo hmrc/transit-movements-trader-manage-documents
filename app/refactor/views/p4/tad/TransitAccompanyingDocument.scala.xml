@@ -36,7 +36,7 @@
     )
 
     <!--packages/goods description/docs/certs-->
-    @table2(vm.printListOfItems, tadModel.numberOfItems, tadModel.goodsItems, tadModel.grossMass, tadModel.printBindingItinerary)
+    @table2(vm.table2ViewModel)
 
     <!--transhipment/certification-->
     @table3()

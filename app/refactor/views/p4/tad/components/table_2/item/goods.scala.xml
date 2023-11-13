@@ -1,70 +1,70 @@
-@import cats.data.NonEmptyList
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
-@(goodsItems: NonEmptyList[viewmodels.GoodsItem])
-@if(goodsItems.head.packages.toList.nonEmpty) {
-<fo:table width="100%" table-layout="fixed">
-    <fo:table-column column-width="20mm"/>
-    <fo:table-column column-width="25mm"/>
-    <fo:table-column column-width="15mm"/>
-    <fo:table-column column-width="25mm"/>
-    <fo:table-column column-width="25mm"/>
-    <fo:table-body>
-        <fo:table-row height="15mm" padding-top="1mm">
-            <fo:table-cell font-weight="bold" wrap-option="wrap">
-                <fo:block>
-                    <!--Marks and numbers-->
-                    @goodsItems.head.packages.toList.head.marksAndNumbersValue.map( y => y)
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
-                <!-- Container No(s) -->
-                <fo:block>
-                    @goodsItems.head.containers.headOption
-                </fo:block>
-            </fo:table-cell>
-            <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
-                <!-- Number and kind -->
-                <fo:block>
-                    <fo:inline font-style="italic">
-                        @goodsItems.head.packages.toList.head.packageAndNumber.getOrElse(goodsItems.head.packages.toList.head.kindOfPackage.description)
-                    </fo:inline>
-                </fo:block>
-                <!-- Number of pieces -->
-                @if(goodsItems.head.packages.toList.head.numberOfPiecesValue > 0) {
-                    <fo:block font-weight="normal">
-                        <fo:inline font-weight="bold">
-                            Pieces @goodsItems.head.packages.toList.head.numberOfPiecesValue
+@(vm: ConsignmentItemViewModel)
+
+@vm.packages.headOption.map { packageViewModel =>
+    <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-width="20mm"/>
+        <fo:table-column column-width="25mm"/>
+        <fo:table-column column-width="15mm"/>
+        <fo:table-column column-width="25mm"/>
+        <fo:table-column column-width="25mm"/>
+        <fo:table-body>
+            <fo:table-row height="15mm" padding-top="1mm">
+                <fo:table-cell font-weight="bold" wrap-option="wrap">
+                    <fo:block>
+                        <!--Marks and numbers-->
+                        @packageViewModel.toString
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                    <!-- Container No(s) -->
+                    <fo:block>
+                        @vm.containers.headOption
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                    <!-- Number and kind -->
+                    <fo:block>
+                        <fo:inline font-style="italic">
+                            @packageViewModel.toString
                         </fo:inline>
                     </fo:block>
+                    <!-- Number of pieces -->
+                    @if(packageViewModel.numberOfPackages > 0) {
+                        <fo:block font-weight="normal">
+                            <fo:inline font-weight="bold">
+                                Pieces @packageViewModel.numberOfPackages
+                            </fo:inline>
+                        </fo:block>
+                    }
+                </fo:table-cell>
+                <!-- Sensitive goods code -->
+                @vm.sensitiveGoodsInformation.headOption.map { sgi =>
+                    <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                        <fo:block>
+                            <fo:inline font-weight="normal">Sensitive Goods code:</fo:inline>
+                            @sgi.goodsCode
+                        </fo:block>
+                    </fo:table-cell>
+
+                    <!-- Sensitive goods quantity -->
+                    <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+                        <fo:block>
+                            <fo:inline font-weight="normal">Sensitive Quantity:</fo:inline>
+                            @sgi.quantity
+                        </fo:block>
+                    </fo:table-cell>
                 }
-            </fo:table-cell>
-            <!-- Sensitive goods code -->
-            @if(goodsItems.head.sensitiveGoodsInformation.nonEmpty && goodsItems.head.sensitiveGoodsInformation.head.goodsCode.isDefined) {
-                <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
+            </fo:table-row>
+            <!-- Description -->
+            <fo:table-row padding-top="1mm">
+                <fo:table-cell number-columns-spanned="5" font-weight="bold" wrap-option="wrap">
                     <fo:block>
-                        <fo:inline font-weight="normal">Sensitive Goods code:</fo:inline>
-                            @goodsItems.head.sensitiveGoodsInformation.head.goodsCode.map(code => code)
+                        @vm.description
                     </fo:block>
                 </fo:table-cell>
-            }
-            <!-- Sensitive goods quantity -->
-            @if(goodsItems.head.sensitiveGoodsInformation.length > 0) {
-                <fo:table-cell font-weight="bold" padding-left="3mm" wrap-option="wrap">
-                    <fo:block>
-                        <fo:inline font-weight="normal">Sensitive Quantity:</fo:inline>
-                        @goodsItems.head.sensitiveGoodsInformation.head.quantity
-                    </fo:block>
-                </fo:table-cell>
-            }
-        </fo:table-row>
-        <!-- Description -->
-        <fo:table-row padding-top="1mm">
-            <fo:table-cell number-columns-spanned="5" font-weight="bold" wrap-option="wrap">
-                <fo:block>
-                    @goodsItems.head.description
-                </fo:block>
-            </fo:table-cell>
-        </fo:table-row>
-    </fo:table-body>
-</fo:table>
+            </fo:table-row>
+        </fo:table-body>
+    </fo:table>
 }
