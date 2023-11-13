@@ -26,7 +26,6 @@ case class P4TadPdfViewModel(
   consignmentItemViewModels: Seq[ConsignmentItemViewModel],
   table1ViewModel: Table1ViewModel,
   table2ViewModel: Table2ViewModel,
-  table3ViewModel: Table3ViewModel,
   table4ViewModel: Table4ViewModel,
   table5ViewModel: Table5ViewModel
 )
@@ -54,10 +53,9 @@ object P4TadPdfViewModel {
 
     new P4TadPdfViewModel(
       mrn = Seq(ie029.TransitOperation.MRN, ie029.TransitOperation.LRN).commaSeparate,
-      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(_)),
+      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(ie029.Consignment, _)),
       table1ViewModel = Table1ViewModel(ie029, countries),
       table2ViewModel = Table2ViewModel(ie029),
-      table3ViewModel = Table3ViewModel(ie029),
       table4ViewModel = Table4ViewModel(ie029),
       table5ViewModel = Table5ViewModel(ie015, ie029)
     )

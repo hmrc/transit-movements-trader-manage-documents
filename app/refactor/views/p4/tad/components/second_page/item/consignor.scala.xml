@@ -1,4 +1,8 @@
-@(consignor: viewmodels.Consignor)
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel.ConsignorViewModel
+
+@(
+    consignor: ConsignorViewModel
+)
 
 <fo:block>
     <fo:table width="100%" table-layout="fixed">
@@ -15,7 +19,7 @@
                 </fo:table-cell>
                 <fo:table-cell font-weight="bold" display-align="center">
                     <fo:block>
-                        @consignor.eori.getOrElse("---")
+                        @consignor.eori
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
@@ -28,7 +32,7 @@
                 </fo:table-cell>
                 <fo:table-cell display-align="center" font-weight="bold">
                     <fo:block>
-                        @consignor.postCode
+                        @consignor.postcode
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
@@ -41,7 +45,7 @@
                 </fo:table-cell>
                 <fo:table-cell display-align="center" font-weight="bold">
                     <fo:block>
-                        @consignor.country.code
+                        @consignor.country
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>

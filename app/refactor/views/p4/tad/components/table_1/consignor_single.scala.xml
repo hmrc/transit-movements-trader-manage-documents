@@ -1,4 +1,10 @@
-@(consignor: Option[viewmodels.Consignor])
+@(
+  consignor: Option[viewmodels.Consignor],
+  eori: String,
+  name: String,
+  streetAndNumber: String,
+  postcode: String
+)
 
 <fo:table-row height="5.33mm">
   <fo:table-cell display-align="center" padding-left="2mm">
@@ -9,26 +15,26 @@
   </fo:table-cell>
   <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
     <fo:block>
-      @consignor.map(c => c.eori)
+      @eori
     </fo:block>
   </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="5.33mm">
 <fo:table-cell number-columns-spanned="3" display-align="center" padding-left="2mm" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.name)
+    @name
   </fo:block>
 </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="5.33mm">
 <fo:table-cell display-align="center" padding-left="2mm" number-columns-spanned="2" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.streetAndNumberTrimmed)
+    @streetAndNumber
   </fo:block>
 </fo:table-cell>
 <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
   <fo:block>
-    @consignor.map(c => c.postCode)
+    @postcode
   </fo:block>
 </fo:table-cell>
 </fo:table-row>

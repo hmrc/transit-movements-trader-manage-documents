@@ -38,11 +38,11 @@ object Table2ViewModel {
   def apply(ie029: CC029CType): Table2ViewModel = {
 
     def combine(consignmentLevel: ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[HouseConsignmentType03] => Seq[String]): String =
-      Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.separateWithSemiColon
+      Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.semiColonSeparate
 
     new Table2ViewModel(
-      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).separateWithSemiColon.take50,
-      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString).separateWithEllipsis.take50,
+      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).semiColonSeparate.take50,
+      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString).ellipsisSeparate.take50,
       previousDocuments = combine(
         _.PreviousDocument.map(_.asString),
         _.flatMap(_.PreviousDocument).map(_.asString)
@@ -67,7 +67,7 @@ object Table2ViewModel {
         _.AdditionalInformation.map(_.asString),
         _.flatMap(_.AdditionalInformation).map(_.asString)
       ).take100,
-      guarantees = ie029.Guarantee.map(_.asString).separateWithSemiColon.take100,
+      guarantees = ie029.Guarantee.map(_.asString).semiColonSeparate.take100,
       authorisations = ie029.Authorisation.map(_.asString).toBeContinued.take100
     )
   }

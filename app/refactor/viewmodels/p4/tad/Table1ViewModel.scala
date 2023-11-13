@@ -18,11 +18,29 @@ package refactor.viewmodels.p4.tad
 
 import generated.p5.CC029CType
 import models.reference.Country
+import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
 
-case class Table1ViewModel()
+case class Table1ViewModel(
+  consignorViewModel: Option[ConsignorViewModel]
+)
 
 object Table1ViewModel {
 
+  case class ConsignorViewModel(
+    eori: String,
+    name: String,
+    streetAndNumber: String,
+    postcode: String
+  )
+
+  object ConsignorViewModel {
+
+    def apply(ie029: CC029CType): Option[ConsignorViewModel] =
+      ???
+  }
+
   def apply(ie029: CC029CType, countries: Seq[Country]): Table1ViewModel =
-    new Table1ViewModel()
+    new Table1ViewModel(
+      consignorViewModel = ConsignorViewModel(ie029)
+    )
 }

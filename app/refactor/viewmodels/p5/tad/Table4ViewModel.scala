@@ -34,9 +34,9 @@ object Table4ViewModel {
 
   def apply(ie029: CC029CType): Table4ViewModel =
     new Table4ViewModel(
-      countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asString).separateWithSemiColon.take30,
-      customsOfficeOfTransitDeclared = ie029.CustomsOfficeOfTransitDeclared.map(_.asString).separateWithSemiColon.take60,
-      customsOfficeOfExitForTransitDeclared = ie029.CustomsOfficeOfExitForTransitDeclared.map(_.asString).separateWithSemiColon.take60,
+      countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asString).semiColonSeparate.take30,
+      customsOfficeOfTransitDeclared = ie029.CustomsOfficeOfTransitDeclared.map(_.asString).semiColonSeparate.take60,
+      customsOfficeOfExitForTransitDeclared = ie029.CustomsOfficeOfExitForTransitDeclared.map(_.asString).semiColonSeparate.take60,
       customsOfficeOfDeparture = ie029.CustomsOfficeOfDeparture.asString.take10,
       customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.take10,
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,

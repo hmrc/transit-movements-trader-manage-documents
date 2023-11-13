@@ -1,7 +1,11 @@
 @import refactor.views.xml.p4.tad.components.second_page.item._
 @import refactor.views.xml.p4.tad.components.{item => componentItem}
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
-@(goodsItem: viewmodels.GoodsItem, declarationType: String)
+@(
+    vm: ConsignmentItemViewModel,
+    declarationType: String
+)
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
     <fo:table-column column-width="28mm"/>
@@ -12,25 +16,21 @@
         <fo:table-row height="3.5mm">
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
                 <fo:block>
-                    @goodsItem.itemNumber
+                    @vm.itemNumber
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                    @goodsItem.packages.toList.map(x => block(x.marksAndNumbersValue.getOrElse("")))
+                @vm.shippingMarks.map(block(_))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @goodsItem.packages.toList.map(x => package_item(x))
+                @vm.packages.map(package_item(_))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.containers.nonEmpty) {
-                    @goodsItem.containers.map(x => block(x))
-                } else {
-                    <fo:block>--</fo:block>
-                }
+                @vm.containers.map(block(_))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @goodsItem.description
+                    @vm.description
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
@@ -42,54 +42,34 @@
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                   @goodsItem.commodityCode.getOrElse("--")
+                   @vm.commodityCode
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
-                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.goodsCode.getOrElse("--")))
-                } else {
-                    <fo:block>--</fo:block>
-                }
+                @vm.sensitiveGoodsInformation.map(_.goodsCode).map(block(_))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.sensitiveGoodsInformation.length > 0) {
-                    @goodsItem.sensitiveGoodsInformation.map( test => block(test.quantity.toString))
-                } else {
-                    <fo:block>--</fo:block>
-                }
+                @vm.sensitiveGoodsInformation.map(_.quantity).map(block(_))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.previousDocumentTypes.nonEmpty){
-                    <fo:block>@goodsItem.previousDocumentTypes.map(_.display)</fo:block>
-                } else {
-                    <fo:block>--</fo:block>
-                }
+                @vm.previousDocuments.map(block(_))
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="3.5mm">
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.countryOfDispatch.nonEmpty) {
-                    @goodsItem.countryOfDispatch.map(country => block(country.code))
-                } else {
-                    <fo:block>---</fo:block>
-                }
+                @block(vm.countryOfDispatch)
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @if(goodsItem.countryOfDestination.nonEmpty) {
-                    @goodsItem.countryOfDestination.map(country => block(country.code))
-                } else {
-                    <fo:block>---</fo:block>
-                }
+                @block(vm.countryOfDestination)
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @goodsItem.grossMass.getOrElse("---")
+                    @vm.grossMass
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 <fo:block>
-                    @goodsItem.netMass.getOrElse("---")
+                    @vm.netMass
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-top="0.5mm">
@@ -99,18 +79,10 @@
                     <fo:table-body>
                         <fo:table-row>
                             <fo:table-cell padding-left="2mm">
-                                @if(goodsItem.specialMentions.nonEmpty) {
-                                    @goodsItem.specialMentions.map(x => componentItem.special_mentions(x))
-                                } else {
-                                    <fo:block>--</fo:block>
-                                }
+                                @vm.specialMentions.map(_.map(componentItem.special_mentions(_))).getOrElse(<fo:block>--</fo:block>)
                             </fo:table-cell>
                             <fo:table-cell padding-left="2mm">
-                                @if(goodsItem.producedDocuments.nonEmpty) {
-                                    @goodsItem.producedDocuments.map(producedDocument => produced_document(producedDocument))
-                                } else {
-                                    <fo:block>--</fo:block>
-                                }
+                                @vm.producedDocuments.map(_.map(produced_document(_))).getOrElse(<fo:block>--</fo:block>)
                             </fo:table-cell>
                         </fo:table-row>
                     </fo:table-body>
@@ -126,18 +98,10 @@
                         <fo:table-body>
                             <fo:table-row height="3.5mm">
                                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
-                                    @if(goodsItem.consignor.nonEmpty) {
-                                        @goodsItem.consignor.map(x => consignor(x))
-                                    } else {
-                                        <fo:block>---</fo:block>
-                                    }
+                                    @vm.consignorViewModel.map(consignor(_)).getOrElse(<fo:block>---</fo:block>)
                                 </fo:table-cell>
                                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" display-align="center" padding-left="2mm">
-                                    @if(goodsItem.consignee.nonEmpty) {
-                                        @goodsItem.consignee.map(x => consignee(x))
-                                    } else {
-                                        <fo:block>---</fo:block>
-                                    }
+                                    @vm.consigneeViewModel.map(consignee(_)).getOrElse(<fo:block>---</fo:block>)
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>

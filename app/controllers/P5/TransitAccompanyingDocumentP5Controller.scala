@@ -84,6 +84,7 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
       service.getIE015MessageId(departureId).flatMap {
         case Some(ie015MessageId) =>
           for {
+            // referenceDataP5.getList[Country]("CountryCodesForAddress")
             ie029 <- service.getMessage[CC029CType](departureId, messageId)
             genPdf: Validated[NonEmptyChain[ValidationError], Array[Byte]] = phaseConfig.phase match {
               case PostTransition => Validated.Valid(pdfRefactored.generateP5TADPostTransition(ie029))

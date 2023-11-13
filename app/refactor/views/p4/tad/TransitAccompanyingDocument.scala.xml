@@ -2,6 +2,7 @@
 @import refactor.views.xml.p4.tad.components._
 @import views.xml.PageOne
 @import refactor.views.xml.p4.tad.components.second_page
+@import refactor.viewmodels.p4.tad.P4TadPdfViewModel
 
 @this(
         mainHeader: table_1.table,
@@ -14,7 +15,7 @@
         pageTwo: second_page.table
 )
 
-@(tadModel: viewmodels.TransitAccompanyingDocumentPDF)
+@(tadModel: viewmodels.TransitAccompanyingDocumentPDF, vm: P4TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo =  if(tadModel.printListOfItems) {
@@ -22,7 +23,7 @@
             tadModel.departureOffice.office.id,
             tadModel.movementReferenceNumber,
             tadModel.acceptanceDate.map(_.formattedDate),
-            tadModel.goodsItems,
+            vm.consignmentItemViewModels,
             tadModel.declarationType
         ))
     } else None
@@ -33,7 +34,7 @@
     @mainHeader(
         title = "TRANSIT - ACCOMPANYING DOCUMENT",
         boldHeading = true,
-        movementReferenceNumber = tadModel.movementReferenceNumber,
+        movementReferenceNumber = vm.mrn,
         printVariousConsignors = tadModel.printVariousConsignors,
         consignorOne = tadModel.consignorOne,
         declarationType = tadModel.declarationType.toString,

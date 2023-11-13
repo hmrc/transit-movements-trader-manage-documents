@@ -43,6 +43,12 @@ package object p5 {
       value.quantity.map(_.toString),
       value.complementOfInformation
     ).flatten.commaSeparate
+
+    def asP4String: String = Seq(
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.complementOfInformation
+    ).flatten.dashSeparate
   }
 
   implicit class RichPreviousDocumentType04(value: PreviousDocumentType04) {
@@ -366,6 +372,11 @@ package object p5 {
       Some(value.numberOfSeals.toString),
       Some(value.GoodsReference.map(_.asString).firstAndLast)
     ).flatten.commaSeparate
+
+    def asP4String: String = Seq(
+      Some(value.sequenceNumber),
+      value.containerIdentificationNumber
+    ).flatten.commaSeparate
   }
 
   implicit class RichGoodsReferenceType02(value: GoodsReferenceType02) {
@@ -391,7 +402,7 @@ package object p5 {
       Some(value.guaranteeType),
       value.otherGuaranteeReference,
       Some(value.GuaranteeReference.map(_.asString).commaSeparate)
-    ).flatten.separateWithSemiColon
+    ).flatten.semiColonSeparate
   }
 
   implicit class RichGuaranteeReferenceType01(value: GuaranteeReferenceType01) {

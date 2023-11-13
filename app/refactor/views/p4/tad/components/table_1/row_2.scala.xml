@@ -5,7 +5,13 @@
 
 @import refactor.views.xml.p4.tad.components.barcode
 
-@(printVariousConsignors: Boolean, consignorOne: Option[viewmodels.Consignor], declarationType: String,  movementReferenceNumber: String, printListOfItems: Boolean)
+@(
+  printVariousConsignors: Boolean,
+  consignorOne: Option[viewmodels.Consignor],
+  declarationType: String,
+  movementReferenceNumber: String,
+  printListOfItems: Boolean
+)
 
 <fo:table-row height="16mm">
   <fo:table-cell>
@@ -17,7 +23,14 @@
     </fo:block>
   </fo:table-cell>
 
-  @consignor(printVariousConsignors, consignorOne)
+  @consignor(
+    printVariousConsignors,
+    consignorOne,
+    "TODO",
+    "TODO",
+    "TODO",
+    "TODO"
+  )
 
   <fo:table-cell>
     <fo:block>

@@ -41,9 +41,10 @@ package object viewmodels {
   }
 
   implicit class RichStringSeq(value: Seq[String]) {
-    def commaSeparate: String         = value.mkString(", ")
-    def separateWithSemiColon: String = value.mkString("; ")
-    def separateWithEllipsis: String  = value.mkString("...")
+    def commaSeparate: String     = value.mkString(", ")
+    def semiColonSeparate: String = value.mkString("; ")
+    def dashSeparate: String      = value.mkString(" - ")
+    def ellipsisSeparate: String  = value.mkString("...")
 
     def toBeContinued: String = value match {
       case Nil         => ""
@@ -58,10 +59,15 @@ package object viewmodels {
       }
       Seq(headOption, lastOption).flatten.mkString("...")
     }
+
+    def addDefaultIfEmpty(): Seq[String] = if (value.isEmpty) Seq("--") else value
   }
 
   implicit class RichStringOption(value: Option[String]) {
     def orElseBlank: String = value.getOrElse("")
+
+    def orElse2Dashes: String = value.getOrElse("--")
+    def orElse3Dashes: String = value.getOrElse("---")
   }
 
   implicit class RichXMLGregorianCalendar(value: XMLGregorianCalendar) {
