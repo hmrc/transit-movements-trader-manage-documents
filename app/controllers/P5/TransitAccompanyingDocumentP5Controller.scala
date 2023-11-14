@@ -17,11 +17,13 @@
 package controllers.P5
 
 import config.PhaseConfig
+import connectors.ReferenceDataP5Connector
 import controllers.actions.AuthenticateActionProvider
 import generated.p5.CC015CType
 import generated.p5.CC029CType
 import models.P5.Phase.PostTransition
 import models.P5.Phase.Transition
+import models.reference.Country
 import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -39,7 +41,8 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
   pdf: TADPdfGenerator,
   service: DepartureMessageP5Service,
   authenticate: AuthenticateActionProvider,
-  cc: ControllerComponents
+  cc: ControllerComponents,
+  referenceDataConnector: ReferenceDataP5Connector
 )(implicit ec: ExecutionContext, phaseConfig: PhaseConfig)
     extends BackendController(cc)
     with Logging {
@@ -49,12 +52,13 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
       service.getIE015MessageId(departureId).flatMap {
         case Some(ie015MessageId) =>
           for {
-            ie015 <- service.getMessage[CC015CType](departureId, ie015MessageId)
-            ie029 <- service.getMessage[CC029CType](departureId, messageId)
+            ie015     <- service.getMessage[CC015CType](departureId, ie015MessageId)
+            ie029     <- service.getMessage[CC029CType](departureId, messageId)
+            countries <- referenceDataConnector.getListWithDefault[Country]("CountryCodesForAddress")
           } yield {
             val bytes = phaseConfig.phase match {
               case PostTransition => pdf.generateP5TADPostTransition(ie029)
-              case Transition     => pdf.generateP5TADTransition(ie015, ie029, Seq.empty)
+              case Transition     => pdf.generateP5TADTransition(ie015, ie029, countries)
             }
             val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"
             Ok(bytes)
