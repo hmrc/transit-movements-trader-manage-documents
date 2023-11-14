@@ -18,6 +18,8 @@ package services.P5
 
 import connectors.UnloadingPermissionP5Connector
 import models.P5.unloading.IE043Data
+import scalaxb.XMLFormat
+import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
@@ -31,4 +33,10 @@ class UnloadingMessageP5Service @Inject() (connector: UnloadingPermissionP5Conne
     ec: ExecutionContext
   ): Future[IE043Data] =
     connector.getUnloadingNotificationMessage(arrivalId, messageId)
+
+  def getMessage[T](
+    arrivalId: String,
+    messageId: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
+    connector.getMessage(arrivalId, messageId).map(_.body).map(fromXML(_))
 }

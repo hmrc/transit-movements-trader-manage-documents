@@ -38,9 +38,7 @@
     @table3()
 
     <!--Principal/TIR Holder/Office of departure-->
-    @table4(
-        vm.table4ViewModel
-    )
+    @table4(vm.table4ViewModel)
 
     <!--control by office of departure/destination-->
     @table5(vm.table5ViewModel)

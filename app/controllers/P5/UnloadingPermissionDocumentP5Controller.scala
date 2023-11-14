@@ -17,12 +17,13 @@
 package controllers.P5
 
 import controllers.actions.AuthenticateActionProvider
+import generated.p5.CC043CType
 import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
+import refactor.services.pdf.UnloadingPermissionPdfGenerator
 import services.P5.UnloadingMessageP5Service
-import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
 
@@ -40,10 +41,11 @@ class UnloadingPermissionDocumentP5Controller @Inject() (
 
   def get(arrivalId: String, messageId: String): Action[AnyContent] = authenticate().async {
     implicit request =>
-      service.getUnloadingPermissionNotification(arrivalId, messageId).map {
+      service.getMessage[CC043CType](arrivalId, messageId).map {
         ie043 =>
-          val fileName = s"UPD_${FileNameSanitizer(ie043.mrn)}.pdf"
-          Ok(pdf.generateP5(ie043))
+          val bytes    = pdf.generateP5(ie043)
+          val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"
+          Ok(bytes)
             .withHeaders(
               CONTENT_TYPE        -> "application/pdf",
               CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
