@@ -22,21 +22,24 @@ import generated.p5.CC029CType
 import models.reference.Country
 import org.apache.xmlgraphics.util.MimeConstants
 import play.twirl.api.XmlFormat
+import refactor.viewmodels.p4.tad.P4TadPdfViewModel
 import refactor.viewmodels.p5.tad.P5TadPdfViewModel
+import refactor.views.xml.p4.tad.TransitAccompanyingDocument
 import refactor.views.xml.p5.tad.TransitAccompanyingDocumentP5
 
 import javax.inject.Inject
 
 class TADPdfGenerator @Inject() (
   fop: PlayFop,
-  documentP5: TransitAccompanyingDocumentP5
+  documentP5: TransitAccompanyingDocumentP5,
+  documentP5Transition: TransitAccompanyingDocument
 ) {
 
   def generateP5TADPostTransition(ie029: CC029CType): Array[Byte] =
     processDocument(documentP5.render(P5TadPdfViewModel(ie029)))
 
   def generateP5TADTransition(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): Array[Byte] =
-    ???
+    processDocument(documentP5Transition.render(P4TadPdfViewModel(ie015, ie029, countries)))
 
   private def processDocument(document: XmlFormat.Appendable): Array[Byte] =
     fop.processTwirlXml(document, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
