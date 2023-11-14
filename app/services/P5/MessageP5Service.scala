@@ -16,26 +16,18 @@
 
 package services.P5
 
-import connectors.UnloadingPermissionP5Connector
-import generated.p5.CC043CType
 import models.NamespaceBinding
-import uk.gov.hmrc.http.HeaderCarrier
+import scalaxb.`package`.fromXML
 
-import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class UnloadingMessageP5Service @Inject() (connector: UnloadingPermissionP5Connector) extends MessageP5Service {
+trait MessageP5Service {
 
-  def getUnloadingPermissionNotification(arrivalId: String, messageId: String)(implicit
-    hc: HeaderCarrier,
-    ec: ExecutionContext
-  ): Future[CC043CType] =
-    getMessage[CC043CType](arrivalId, messageId)
+  def formatResponse[T](messageF: Future[models.Message])(implicit ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
+    messageF.map(_.body).map {
+      nodeSeq =>
+        fromXML(nodeSeq, namespaceBinding.stack)(namespaceBinding.format)
+    }
 
-  private def getMessage[T](
-    arrivalId: String,
-    messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
-    formatResponse(connector.getMessage(arrivalId, messageId))
 }

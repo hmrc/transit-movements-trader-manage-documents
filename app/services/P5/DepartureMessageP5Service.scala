@@ -21,14 +21,13 @@ import generated.p5.CC015CType
 import generated.p5.CC029CType
 import models.NamespaceBinding
 import models.P5.departure.DepartureMessageType.DepartureNotification
-import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connector) {
+class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connector) extends MessageP5Service {
 
   def getReleaseForTransitNotification(
     departureId: String,
@@ -53,8 +52,5 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
     departureId: String,
     messageId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
-    connector.getMessage(departureId, messageId).map(_.body).map {
-      nodeSeq =>
-        fromXML(nodeSeq, namespaceBinding.stack)(namespaceBinding.format)
-    }
+    formatResponse(connector.getMessage(departureId, messageId))
 }
