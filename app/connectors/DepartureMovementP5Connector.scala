@@ -20,6 +20,7 @@ import config.AppConfig
 import models.P5.departure.DepartureMessages
 import models.P5.departure.Message
 import play.api.Logging
+import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
@@ -58,7 +59,7 @@ class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClien
     messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[models.Message] = {
 
-    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
+    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json-xml"))
 
     val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages/$messageId"
 

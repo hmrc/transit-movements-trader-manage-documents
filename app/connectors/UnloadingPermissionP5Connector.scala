@@ -19,10 +19,12 @@ package connectors
 import config.AppConfig
 import models.P5.unloading.IE043Data
 import play.api.Logging
+import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.http.HttpReadsTry
+import uk.gov.hmrc.http.HttpResponse
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
@@ -47,7 +49,7 @@ class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpCli
     messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[models.Message] = {
 
-    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
+    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json-xml"))
 
     val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/arrivals/$arrivalId/messages/$messageId"
 
