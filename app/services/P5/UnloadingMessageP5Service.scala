@@ -17,8 +17,8 @@
 package services.P5
 
 import connectors.UnloadingPermissionP5Connector
-import models.P5.unloading.IE043Data
-import scalaxb.XMLFormat
+import generated.p5.CC043CType
+import models.NamespaceBinding
 import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -31,12 +31,16 @@ class UnloadingMessageP5Service @Inject() (connector: UnloadingPermissionP5Conne
   def getUnloadingPermissionNotification(arrivalId: String, messageId: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
-  ): Future[IE043Data] =
-    connector.getUnloadingNotificationMessage(arrivalId, messageId)
+  ): Future[CC043CType] =
+    getMessage[CC043CType](arrivalId, messageId)
 
-  def getMessage[T](
+  // TODO - refactor this along with DepartureMessageP5Service.getMessage to call a single connector endpoint
+  private def getMessage[T](
     arrivalId: String,
     messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
-    connector.getMessage(arrivalId, messageId).map(_.body).map(fromXML(_))
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
+    connector.getMessage(arrivalId, messageId).map(_.body).map {
+      nodeSeq =>
+        fromXML(nodeSeq, namespaceBinding.stack)(namespaceBinding.format)
+    }
 }

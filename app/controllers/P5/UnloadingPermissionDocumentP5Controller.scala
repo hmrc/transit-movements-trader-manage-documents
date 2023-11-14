@@ -17,7 +17,6 @@
 package controllers.P5
 
 import controllers.actions.AuthenticateActionProvider
-import generated.p5.CC043CType
 import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -41,7 +40,7 @@ class UnloadingPermissionDocumentP5Controller @Inject() (
 
   def get(arrivalId: String, messageId: String): Action[AnyContent] = authenticate().async {
     implicit request =>
-      service.getMessage[CC043CType](arrivalId, messageId).map {
+      service.getUnloadingPermissionNotification(arrivalId, messageId).map {
         ie043 =>
           val bytes    = pdf.generateP5(ie043)
           val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"

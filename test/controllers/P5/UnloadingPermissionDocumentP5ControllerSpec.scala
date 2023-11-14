@@ -18,8 +18,8 @@ package controllers.P5
 
 import akka.util.ByteString
 import base.SpecBase
-import generators.ViewModelGenerators
-import models.P5.unloading.IE043Data
+import generated.p5.CC043CType
+import generators.ScalaxbModelGenerators
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.{eq => eqTo}
 import org.mockito.Mockito._
@@ -31,12 +31,12 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import refactor.services.pdf.UnloadingPermissionPdfGenerator
 import services.P5.UnloadingMessageP5Service
-import services.pdf.UnloadingPermissionPdfGenerator
 
 import scala.concurrent.Future
 
-class UnloadingPermissionDocumentP5ControllerSpec extends SpecBase with ViewModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
+class UnloadingPermissionDocumentP5ControllerSpec extends SpecBase with ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
 
   def onwardRoute: Call = Call("GET", "/foo")
 
@@ -66,7 +66,7 @@ class UnloadingPermissionDocumentP5ControllerSpec extends SpecBase with ViewMode
     "must return OK and PDF" in {
       val application = applicationBuilder().build()
       running(application) {
-        forAll(arbitrary[IE043Data], arbitrary[Array[Byte]]) {
+        forAll(arbitrary[CC043CType], arbitrary[Array[Byte]]) {
           (ie043, byteArray) =>
             beforeEach()
 
@@ -83,12 +83,11 @@ class UnloadingPermissionDocumentP5ControllerSpec extends SpecBase with ViewMode
             status(result) mustEqual OK
             contentAsBytes(result) mustEqual ByteString(byteArray)
             headers(result).get(CONTENT_TYPE).value mustEqual "application/pdf"
-            val mrn = ie043.mrn
+            val mrn = ie043.TransitOperation.MRN
             headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="UPD_$mrn.pdf""""
 
             verify(mockMessageService).getUnloadingPermissionNotification(eqTo(arrivalId), eqTo(messageId))(any(), any())
             verify(mockPdfGenerator).generateP5(eqTo(ie043))
-            verify(mockPdfGenerator, never()).generate(any())
         }
       }
     }

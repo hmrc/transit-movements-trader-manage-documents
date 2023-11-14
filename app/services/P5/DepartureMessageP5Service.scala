@@ -17,13 +17,12 @@
 package services.P5
 
 import connectors.DepartureMovementP5Connector
+import generated.p5.CC015CType
+import generated.p5.CC029CType
+import models.NamespaceBinding
 import models.P5.departure.DepartureMessageType.DepartureNotification
-import models.P5.departure.IE015
-import models.P5.departure.IE029
-import scalaxb.XMLFormat
 import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpReads.Implicits._
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
@@ -34,14 +33,14 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
   def getReleaseForTransitNotification(
     departureId: String,
     messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[IE029] =
-    connector.getDepartureNotificationMessage[IE029](departureId, messageId)
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC029CType] =
+    getMessage[CC029CType](departureId, messageId)
 
   def getDeclarationData(
     departureId: String,
     messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[IE015] =
-    connector.getDepartureNotificationMessage[IE015](departureId, messageId)
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC015CType] =
+    getMessage[CC015CType](departureId, messageId)
 
   def getIE015MessageId(
     departureId: String
@@ -50,9 +49,12 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
       .getMessages(departureId)
       .map(_.find(DepartureNotification).map(_.id))
 
-  def getMessage[T](
+  private def getMessage[T](
     departureId: String,
     messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
-    connector.getMessage(departureId, messageId).map(_.body).map(fromXML(_))
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
+    connector.getMessage(departureId, messageId).map(_.body).map {
+      nodeSeq =>
+        fromXML(nodeSeq, namespaceBinding.stack)(namespaceBinding.format)
+    }
 }
