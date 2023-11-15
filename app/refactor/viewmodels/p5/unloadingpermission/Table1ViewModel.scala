@@ -58,12 +58,8 @@ object Table1ViewModel {
       holderOfTransitID = ie043.HolderOfTheTransitProcedure.flatMap(_.identificationNumber).orElseBlank,
       holderOfTransit = ie043.HolderOfTheTransitProcedure.map(_.asString).orElseBlank,
       declarationType = ie043.TransitOperation.declarationType.orElseBlank,
-      totalItems = ie043.Consignment.fold(0)(_.HouseConsignment.flatMap(_.ConsignmentItem).length).toString,
-      totalPackages = ie043.Consignment
-        .fold(BigInt(0)) {
-          _.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages))).sum
-        }
-        .toString(),
+      totalItems = ie043.consignmentItems.length.toString,
+      totalPackages = ie043.consignmentItems.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum.toString(),
       totalGrossMass = ie043.Consignment.flatMap(_.grossMass).getOrElse(BigDecimal(0)).toString(),
       tir = ie043.HolderOfTheTransitProcedure.flatMap(_.TIRHolderIdentificationNumber).orElseBlank,
       security = ie043.TransitOperation.security,

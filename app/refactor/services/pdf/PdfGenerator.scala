@@ -17,17 +17,11 @@
 package refactor.services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
-import generated.p5.CC043CType
-import refactor.viewmodels.p5.unloadingpermission.P5UnloadingPermissionPdfViewModel
-import refactor.views.xml.p5.unloadingpermission.UnloadingPermissionDocumentP5
+import org.apache.xmlgraphics.util.MimeConstants
+import play.twirl.api.XmlFormat
 
-import javax.inject.Inject
+class PdfGenerator(fop: PlayFop) {
 
-class UnloadingPermissionPdfGenerator @Inject() (
-  fop: PlayFop,
-  documentP5: UnloadingPermissionDocumentP5
-) extends PdfGenerator(fop) {
-
-  def generateP5(ie043: CC043CType): Array[Byte] =
-    processDocument(documentP5.render(P5UnloadingPermissionPdfViewModel(ie043)))
+  protected def processDocument(document: XmlFormat.Appendable): Array[Byte] =
+    fop.processTwirlXml(document, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
 }

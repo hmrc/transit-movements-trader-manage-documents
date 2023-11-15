@@ -44,15 +44,7 @@ object P4TadPdfViewModel {
     * @return P4 TAD view model based on P5 (transition) data
     */
   def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel = {
-    val consignmentItems = {
-      val original = ie029.consignmentItems
-      ie029.Consignment.referenceNumberUCR match {
-        case Some(referenceNumberUCR) => original.map(_.copy(referenceNumberUCR = Some(referenceNumberUCR)))
-        case None                     => original
-      }
-    }
-
-    val consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(ie029, _))
+    val consignmentItemViewModels = ie029.consignmentItems.map(ConsignmentItemViewModel(ie029, _))
 
     new P4TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,

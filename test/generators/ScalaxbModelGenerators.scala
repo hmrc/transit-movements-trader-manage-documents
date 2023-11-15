@@ -98,6 +98,41 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
+  implicit lazy val arbitraryConsignmentItemType04: Arbitrary[ConsignmentItemType04] =
+    Arbitrary {
+      for {
+        goodsItemNumber            <- nonEmptyString
+        declarationGoodsItemNumber <- arbitrary[BigInt]
+        commodity                  <- arbitrary[CommodityType08]
+      } yield ConsignmentItemType04(
+        goodsItemNumber = goodsItemNumber,
+        declarationGoodsItemNumber = declarationGoodsItemNumber,
+        declarationType = None,
+        countryOfDestination = None,
+        Consignee = None,
+        Commodity = commodity,
+        Packaging = Nil,
+        PreviousDocument = Nil,
+        SupportingDocument = Nil,
+        TransportDocument = Nil,
+        AdditionalReference = Nil,
+        AdditionalInformation = Nil
+      )
+    }
+
+  implicit lazy val arbitraryCommodityType08: Arbitrary[CommodityType08] =
+    Arbitrary {
+      for {
+        descriptionOfGoods <- nonEmptyString
+      } yield CommodityType08(
+        descriptionOfGoods = descriptionOfGoods,
+        cusCode = None,
+        CommodityCode = None,
+        DangerousGoods = Nil,
+        GoodsMeasure = None
+      )
+    }
+
   implicit lazy val arbitraryHolderOfTheTransitProcedureType05: Arbitrary[HolderOfTheTransitProcedureType05] =
     Arbitrary {
       for {
