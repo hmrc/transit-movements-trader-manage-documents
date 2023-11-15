@@ -30,9 +30,8 @@ package object p5 {
   implicit class RichPackagingType02(value: PackagingType02) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
-      value.numberOfPackages.map(_.toString()),
       Some(value.typeOfPackages),
+      value.numberOfPackages.map(_.toString()),
       value.shippingMarks
     ).flatten.commaSeparate
   }
@@ -314,9 +313,9 @@ package object p5 {
   implicit class RichDepartureTransportMeansType02(value: DepartureTransportMeansType02) {
 
     def asString: String = Seq(
-      value.sequenceNumber,
       value.typeOfIdentification,
-      value.identificationNumber
+      value.identificationNumber,
+      value.nationality
     ).commaSeparate
   }
 
@@ -409,7 +408,7 @@ package object p5 {
       Some(value.guaranteeType),
       value.otherGuaranteeReference,
       Some(value.GuaranteeReference.map(_.asString).commaSeparate)
-    ).flatten.semiColonSeparate
+    ).flatten.commaSeparate
   }
 
   implicit class RichGuaranteeReferenceType01(value: GuaranteeReferenceType01) {
@@ -418,7 +417,7 @@ package object p5 {
       Some(value.sequenceNumber),
       value.GRN,
       value.accessCode,
-      Some(value.amountToBeCovered.toString()),
+      Some(value.amountToBeCovered.asString),
       Some(value.currency)
     ).flatten.commaSeparate
   }

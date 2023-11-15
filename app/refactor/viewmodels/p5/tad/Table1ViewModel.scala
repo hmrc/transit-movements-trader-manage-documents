@@ -90,7 +90,7 @@ object Table1ViewModel {
       specificCircumstanceIndicator = ie029.TransitOperation.specificCircumstanceIndicator.orElseBlank.take10,
       security = ie029.TransitOperation.security,
       tir = ie029.TransitOperation.TIRCarnetNumber.orElseBlank,
-      totalGrossMass = ie029.Consignment.grossMass.toString(),
+      totalGrossMass = ie029.Consignment.grossMass.asString,
       totalItems = ie029.Consignment.HouseConsignment.map(_.ConsignmentItem).length.toString,
       totalPackages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages))).sum.toString(),
       ucr = ie029.Consignment.referenceNumberUCR.orElseBlank

@@ -20,6 +20,7 @@ import generated.p5.Flag
 import generated.p5.Number0
 import generated.p5.Number1
 
+import java.text.SimpleDateFormat
 import javax.xml.datatype.XMLGregorianCalendar
 
 package object viewmodels {
@@ -81,8 +82,15 @@ package object viewmodels {
   }
 
   implicit class RichXMLGregorianCalendar(value: XMLGregorianCalendar) {
-    def dateAndTimeString: String = value.formatted("dd/MM/yyyy HH:mm")
-    def dateString: String        = value.formatted("dd/MM/yyyy")
+
+    private def format(pattern: String): String = {
+      val date      = value.toGregorianCalendar.getTime
+      val formatter = new SimpleDateFormat(pattern)
+      formatter.format(date)
+    }
+
+    def dateAndTimeString: String = format("dd/MM/yyyy HH:mm")
+    def dateString: String        = format("dd/MM/yyyy")
   }
 
   implicit class RichFlag(value: Flag) {
@@ -92,5 +100,9 @@ package object viewmodels {
       case Number0 => false
       case Number1 => true
     }
+  }
+
+  implicit class RichBigDecimal(value: BigDecimal) {
+    def asString: String = value.toDouble.toString
   }
 }

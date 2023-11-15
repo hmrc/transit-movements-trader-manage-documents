@@ -58,8 +58,8 @@ object ConsignmentItemViewModel {
       additionalInformation = consignmentItem.AdditionalInformation.map(_.asString).semiColonSeparate,
       transportDocuments = consignmentItem.TransportDocument.map(_.asString).semiColonSeparate,
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElseBlank,
-      grossMass = consignmentItem.Commodity.GoodsMeasure.map(_.grossMass.toString).orElseBlank,
+      grossMass = consignmentItem.Commodity.GoodsMeasure.map(_.grossMass.asString).orElseBlank,
       cOfDest = consignmentItem.countryOfDestination.orElseBlank,
-      netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass.map(_.toString())).orElseBlank
+      netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass.map(_.asString)).orElseBlank
     )
 }

@@ -7,6 +7,7 @@
 @(
   vm: Table1ViewModel,
   mrn: String,
+  lrn: Option[String],
   consignmentItemViewModel: Option[ConsignmentItemViewModel],
   title: String
 )
@@ -25,7 +26,7 @@
   <fo:table-body>
     @row_1(mrn)
 
-    @row_2(vm.consignorViewModel, vm.declarationType, mrn, consignmentItemViewModel)
+    @row_2(vm.consignorViewModel, vm.declarationType, mrn, lrn, consignmentItemViewModel)
 
     @row_3(vm.consignorViewModel, vm.numberOfItems, vm.totalNumberOfPackages, title)
 

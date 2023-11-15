@@ -120,8 +120,8 @@ object ConsignmentItemViewModel {
       previousDocuments = consignmentItem.PreviousDocument.map(_.asP4String).addDefaultIfEmpty(),
       countryOfDispatch = consignmentItem.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
       countryOfDestination = consignmentItem.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
-      grossMass = consignmentItem.Commodity.GoodsMeasure.map(_.grossMass.toString()).orElse3Dashes,
-      netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass).map(_.toString()).orElse3Dashes,
+      grossMass = consignmentItem.Commodity.GoodsMeasure.map(_.grossMass.asString).orElse3Dashes,
+      netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass).map(_.asString).orElse3Dashes,
       specialMentions = None,   // Not in P5?
       producedDocuments = None, // Not in P5?
       consigneeViewModel = consignmentItem.Consignee.map(ConsigneeViewModel(_)),

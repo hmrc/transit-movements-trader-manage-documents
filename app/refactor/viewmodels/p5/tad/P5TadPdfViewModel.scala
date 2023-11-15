@@ -17,7 +17,6 @@
 package refactor.viewmodels.p5.tad
 
 import generated.p5._
-import refactor.viewmodels.RichString
 import refactor.viewmodels.p5._
 
 case class P5TadPdfViewModel(
@@ -43,7 +42,7 @@ object P5TadPdfViewModel {
     }
 
     new P5TadPdfViewModel(
-      mrn = ie029.TransitOperation.MRN.take10,
+      mrn = ie029.TransitOperation.MRN,
       consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(_)),
       table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029),

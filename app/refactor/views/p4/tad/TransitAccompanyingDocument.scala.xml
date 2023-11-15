@@ -26,6 +26,7 @@
     @mainHeader(
         vm = vm.table1ViewModel,
         mrn = vm.mrn,
+        lrn = vm.lrn,
         consignmentItemViewModel = vm.table2ViewModel.consignmentItemViewModel,
         title = "TRANSIT - ACCOMPANYING DOCUMENT"
     )

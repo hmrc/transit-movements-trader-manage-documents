@@ -19,11 +19,11 @@ package refactor.viewmodels.p4.tad
 import generated.p4._
 import generated.p5._
 import models.reference.Country
-import refactor.viewmodels._
 import refactor.viewmodels.p5.RichCC029CType
 
 case class P4TadPdfViewModel(
   mrn: String,
+  lrn: Option[String],
   secondPageViewModel: SecondPageViewModel,
   table1ViewModel: Table1ViewModel,
   table2ViewModel: Table2ViewModel,
@@ -55,7 +55,8 @@ object P4TadPdfViewModel {
     val consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(ie029, _))
 
     new P4TadPdfViewModel(
-      mrn = Seq(ie029.TransitOperation.MRN, ie029.TransitOperation.LRN).commaSeparate,
+      mrn = ie029.TransitOperation.MRN,
+      lrn = Some(ie029.TransitOperation.LRN),
       secondPageViewModel = SecondPageViewModel(ie029, consignmentItemViewModels),
       table1ViewModel = Table1ViewModel(ie029, countries),
       table2ViewModel = Table2ViewModel(ie029, if (printListOfItems(consignmentItemViewModels)) None else consignmentItemViewModels.headOption),
