@@ -23,7 +23,7 @@ import org.scalacheck.Arbitrary.arbitrary
 
 class Table1ViewModelSpec extends SpecBase with ScalaxbModelGenerators {
 
-  private val ie043: CC043CType = CC043CType(
+  private val data: CC043CType = CC043CType(
     messageSequence1 = arbitrary[MESSAGESequence].sample.value,
     TransitOperation = TransitOperationType14(
       MRN = "mrn",
@@ -210,9 +210,9 @@ class Table1ViewModelSpec extends SpecBase with ScalaxbModelGenerators {
     )
   )
 
-  "must map consignment item to view model" - {
+  "must map data to view model" - {
 
-    val result = Table1ViewModel(ie043)
+    val result = Table1ViewModel(data)
 
     "consignorIdentificationNumber" in {
       result.consignorIdentificationNumber mustBe "in"

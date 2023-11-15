@@ -98,6 +98,32 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
+  implicit lazy val arbitraryConsignmentItemType03: Arbitrary[ConsignmentItemType03] =
+    Arbitrary {
+      for {
+        goodsItemNumber            <- nonEmptyString
+        declarationGoodsItemNumber <- arbitrary[BigInt]
+        commodity                  <- arbitrary[CommodityType08]
+      } yield ConsignmentItemType03(
+        goodsItemNumber = goodsItemNumber,
+        declarationGoodsItemNumber = declarationGoodsItemNumber,
+        declarationType = None,
+        countryOfDispatch = None,
+        countryOfDestination = None,
+        referenceNumberUCR = None,
+        Consignee = None,
+        AdditionalSupplyChainActor = Nil,
+        Commodity = commodity,
+        Packaging = Nil,
+        PreviousDocument = Nil,
+        SupportingDocument = Nil,
+        TransportDocument = Nil,
+        AdditionalReference = Nil,
+        AdditionalInformation = Nil,
+        TransportCharges = None
+      )
+    }
+
   implicit lazy val arbitraryConsignmentItemType04: Arbitrary[ConsignmentItemType04] =
     Arbitrary {
       for {
@@ -379,7 +405,7 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
 
   implicit lazy val arbitraryMessageTypes: Arbitrary[MessageTypes] =
     Arbitrary {
-      Gen.oneOf(CC015C, CC029C, CC043C)
+      Gen.oneOf(MessageTypes.values)
     }
 
   implicit lazy val arbitraryCORRELATION_IDENTIFIERSequence: Arbitrary[CORRELATION_IDENTIFIERSequence] =

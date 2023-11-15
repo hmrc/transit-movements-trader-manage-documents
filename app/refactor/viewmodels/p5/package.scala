@@ -31,12 +31,18 @@ package object p5 {
     }
 
     val numberOfItems: Int = consignmentItems.size
+
+    val numberOfPackages: BigInt = consignmentItems.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
   }
 
   implicit class RichCC043CType(value: CC043CType) {
 
-    val consignmentItems: Seq[ConsignmentItemType04] =
+    private val consignmentItems: Seq[ConsignmentItemType04] =
       value.Consignment.fold[Seq[ConsignmentItemType04]](Nil)(_.HouseConsignment.flatMap(_.ConsignmentItem))
+
+    val numberOfItems: Int = consignmentItems.size
+
+    val numberOfPackages: BigInt = consignmentItems.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
   }
 
   implicit class RichPackagingType02(value: PackagingType02) {
@@ -234,8 +240,7 @@ package object p5 {
 
     def asString: String = Seq(
       value.name,
-      value.Address.map(_.asString),
-      value.ContactPerson.map(_.asString) // TODO - since we print the contact person separately do we need this?
+      value.Address.map(_.asString)
     ).flatten.commaSeparate
   }
 

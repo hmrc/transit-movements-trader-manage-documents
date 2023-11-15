@@ -91,8 +91,8 @@ object Table1ViewModel {
       security = ie029.TransitOperation.security,
       tir = ie029.TransitOperation.TIRCarnetNumber.orElseBlank,
       totalGrossMass = ie029.Consignment.grossMass.asString,
-      totalItems = ie029.Consignment.HouseConsignment.map(_.ConsignmentItem).length.toString,
-      totalPackages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.flatMap(_.numberOfPackages))).sum.toString(),
+      totalItems = ie029.numberOfItems.toString,
+      totalPackages = ie029.numberOfPackages.toString(),
       ucr = ie029.Consignment.referenceNumberUCR.orElseBlank
     )
   }
