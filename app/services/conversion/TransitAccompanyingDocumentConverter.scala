@@ -16,18 +16,12 @@
 
 package services.conversion
 
-import cats.data.NonEmptyList
-import cats.data.Validated.Valid
 import cats.implicits._
-import models.P5.departure.IE015
-import models.P5.departure.IE029
-import models.P5.departure.IE029MessageData
 import models._
 import models.reference._
 import services._
 import utils.FormattedDate
 import viewmodels.CustomsOfficeWithOptionalDate
-import viewmodels.TransitAccompanyingDocumentP5TransitionPDF
 
 object TransitAccompanyingDocumentConverter extends Converter with ConversionHelpers {
 
@@ -81,119 +75,5 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
           goodsItems = goodsItems
         )
     )
-
-  // TODO pass ref data values here along with main model (IE029Data)
-
-  def fromP5ToViewModel(
-    ie029: IE029,
-    ie015: IE015,
-    countries: Seq[Country]
-  ): ValidationResult[TransitAccompanyingDocumentP5TransitionPDF] = {
-
-    ie029.data match {
-      case IE029MessageData(
-            transitOperation,
-            authorisation,
-            officeOfDeparture,
-            officeOfDestination,
-            officesOfTransit,
-            officeOfExit,
-            holderOfTransit,
-            representative,
-            controlResult,
-            guarantee,
-            consignment
-          ) =>
-        def intStringToBool(intString: String) = intString match {
-          case "1" => true
-          case _   => false
-        }
-
-        Valid(
-          viewmodels.TransitAccompanyingDocumentP5TransitionPDF(
-            movementReferenceNumber = s"${transitOperation.MRN},${transitOperation.LRN}",      // P5
-            declarationType = transitOperation.declarationType,                                // P5
-            singleCountryOfDispatch = consignment.countryOfDispatch.map(Country(_, "")),       // P5
-            singleCountryOfDestination = consignment.countryOfDestination.map(Country(_, "")), // P5
-            transportIdentity = consignment.departureTransportMeansIdentity,                   // P5
-            transportCountry = countries
-              .find(
-                country =>
-                  country.code == consignment.DepartureTransportMeans
-                    .map {
-                      departureTransportMeans =>
-                        departureTransportMeans.head.nationality
-                    }
-                    .getOrElse("")
-              ),
-            limitDate = ie015.data.TransitOperation.limitDate.getOrElse(""),
-            acceptanceDate = FormattedDate(transitOperation.declarationAcceptanceDate), // P5
-            numberOfItems = consignment.totalItems,
-            numberOfPackages = Some(consignment.totalPackages),
-            grossMass = consignment.grossMass,                                          // P5
-            printBindingItinerary = intStringToBool(transitOperation.bindingItinerary), // P5
-            authorisation = authorisation.getOrElse(Seq.empty),                         // P5
-            goodsReference = consignment.TransportEquipment.flatMap(_.head.GoodsReference).getOrElse(Seq.empty),
-            copyType = false,
-            holderOfTransitProcedure = holderOfTransit,
-            consignor = consignment.Consignor, // P5
-            consignee = consignment.Consignee, // P5
-            departureOffice = officeOfDeparture,
-            destinationOffice = officeOfDestination,
-            customsOfficeOfTransit = officesOfTransit.getOrElse(Seq.empty),
-            previousDocuments = consignment.PreviousDocument.getOrElse(Seq.empty),
-            transportDocuments = consignment.TransportDocument.getOrElse(Seq.empty),
-            supportingDocuments = consignment.SupportingDocument.getOrElse(Seq.empty),
-            additionalInformation = consignment.AdditionalInformation.getOrElse(Seq.empty),
-            additionalReferences = consignment.AdditionalReference.getOrElse(Seq.empty),
-            guaranteeType = guarantee.head.guaranteeType,
-            seals = Seq.empty,
-            returnCopiesCustomsOffice = None,
-            controlResult = None,
-            goodsItems = {
-              val goodsItemList = consignment.consignmentItems.map {
-                consignmentItem =>
-                  viewmodels.GoodsItemP5Transition(
-                    itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
-                    commodityCode = Some(consignmentItem.commodityCode),
-                    declarationType = consignmentItem.declarationType,
-                    description = consignmentItem.descriptionOfGoods,
-                    grossMass = Some(BigDecimal(consignmentItem.grossMass)),
-                    netMass = Some(BigDecimal(consignmentItem.netMass)),
-                    countryOfDispatch = consignmentItem.countryOfDispatch,
-                    countryOfDestination = consignmentItem.countryOfDestination,
-                    methodOfPayment = consignmentItem.TransportCharges.map(
-                      transportCharge => transportCharge.toString
-                    ),
-                    commercialReferenceNumber = None,
-                    unDangerGoodsCode = None,
-                    transportDocuments = consignmentItem.TransportDocument.getOrElse(Seq.empty),
-                    supportingDocuments = consignmentItem.SupportingDocument.getOrElse(Seq.empty),
-                    previousDocuments = consignmentItem.PreviousDocument.getOrElse(Seq.empty),
-                    additionalInformation = consignmentItem.AdditionalInformation.getOrElse(Seq.empty),
-                    additionalReferences = consignmentItem.AdditionalReference.getOrElse(Seq.empty),
-                    consignor = None,
-                    consignee = consignmentItem.Consignee,
-                    containers = consignment.TransportEquipment
-                      .map(
-                        transportEquipments =>
-                          transportEquipments.map(
-                            transportEquipment => transportEquipment.display
-                          )
-                      )
-                      .getOrElse(Seq.empty),
-                    packages = consignmentItem.Packaging,
-                    sensitiveGoodsInformation = Seq.empty,
-                    securityConsignor = None,
-                    securityConsignee = None
-                  )
-              }.toList
-              NonEmptyList.fromList(goodsItemList).get
-            }
-          )
-        )
-    }
-
-  }
 
 }

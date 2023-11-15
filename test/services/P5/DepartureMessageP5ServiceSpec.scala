@@ -34,7 +34,6 @@ import scala.concurrent.Await
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import scala.xml.Node
-import scala.xml.NodeSeq
 
 class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures {
 

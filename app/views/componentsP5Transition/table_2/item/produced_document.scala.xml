@@ -1,7 +1,0 @@
-@(producedDocument: viewmodels.ProducedDocument)
-
-<fo:block>
-    <fo:inline font-style="italic">
-        @producedDocument.display
-    </fo:inline>
-</fo:block>
