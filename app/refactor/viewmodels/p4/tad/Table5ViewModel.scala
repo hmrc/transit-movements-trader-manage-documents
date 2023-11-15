@@ -36,7 +36,7 @@ object Table5ViewModel {
 
   def apply(ie015: CC015CType, ie029: CC029CType): Table5ViewModel =
     new Table5ViewModel(
-      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString),
+      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asP4String),
       bindingItinerary = ie029.TransitOperation.bindingItinerary.toBoolean,
       controlResult = None,
       limitDate = ie015.TransitOperation.limitDate.map(_.dateString).orElseBlank

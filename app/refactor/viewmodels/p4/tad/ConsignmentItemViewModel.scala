@@ -104,6 +104,12 @@ object ConsignmentItemViewModel {
     quantity: String
   )
 
+  object SensitiveGoodsInformationViewModel {
+
+    def apply(): SensitiveGoodsInformationViewModel =
+      new SensitiveGoodsInformationViewModel("--", "--")
+  }
+
   def apply(ie029: CC029CType, consignmentItem: ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
@@ -116,7 +122,7 @@ object ConsignmentItemViewModel {
       description = consignmentItem.Commodity.descriptionOfGoods,
       declarationType = consignmentItem.declarationType.getOrElse(ie029.TransitOperation.declarationType),
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElse2Dashes,
-      sensitiveGoodsInformation = Seq(SensitiveGoodsInformationViewModel("--", "--")), // Not in P5?
+      sensitiveGoodsInformation = Seq(SensitiveGoodsInformationViewModel()), // Not in P5?
       previousDocuments = consignmentItem.PreviousDocument.map(_.asP4String).addDefaultIfEmpty(),
       countryOfDispatch = consignmentItem.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
       countryOfDestination = consignmentItem.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data

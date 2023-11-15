@@ -317,6 +317,11 @@ package object p5 {
       value.identificationNumber,
       value.nationality
     ).commaSeparate
+
+    def asP4String: String = Seq(
+      value.typeOfIdentification,
+      value.identificationNumber
+    ).commaSeparate
   }
 
   implicit class RichActiveBorderTransportMeansType01(value: ActiveBorderTransportMeansType01) {
@@ -399,6 +404,8 @@ package object p5 {
       case SealType04(sequenceNumber, identifier) =>
         s"$sequenceNumber,[$identifier]"
     }
+
+    def asP4String: String = value.identifier
   }
 
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
