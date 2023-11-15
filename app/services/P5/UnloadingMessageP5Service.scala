@@ -18,7 +18,7 @@ package services.P5
 
 import connectors.UnloadingPermissionP5Connector
 import generated.p5.CC043CType
-import models.NamespaceBinding
+import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
@@ -36,6 +36,6 @@ class UnloadingMessageP5Service @Inject() (connector: UnloadingPermissionP5Conne
   private def getMessage[T](
     arrivalId: String,
     messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
     formatResponse(connector.getMessage(arrivalId, messageId))
 }

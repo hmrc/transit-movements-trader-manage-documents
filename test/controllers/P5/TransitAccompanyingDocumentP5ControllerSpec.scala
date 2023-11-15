@@ -124,9 +124,6 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
               when(mockMessageService.getIE015MessageId(any())(any(), any()))
                 .thenReturn(Future.successful(Some(ie015MessageId)))
 
-              when(mockMessageService.getDeclarationData(any(), any())(any(), any()))
-                .thenReturn(Future.successful(ie015))
-
               when(mockMessageService.getReleaseForTransitNotification(any(), any())(any(), any()))
                 .thenReturn(Future.successful(ie029))
 
@@ -144,7 +141,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
               headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="TAD_$mrn.pdf""""
 
               verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
-              verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId))(any(), any())
+              verify(mockMessageService, never()).getDeclarationData(any(), any())(any(), any())
               verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId))(any(), any())
               verifyNoInteractions(mockReferenceDataP5Connector)
               verify(mockPdfGenerator, never()).generateP5TADTransition(any(), any(), any())

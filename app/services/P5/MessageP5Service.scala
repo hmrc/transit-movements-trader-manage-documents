@@ -16,7 +16,7 @@
 
 package services.P5
 
-import models.NamespaceBinding
+import scalaxb.XMLFormat
 import scalaxb.`package`.fromXML
 
 import scala.concurrent.ExecutionContext
@@ -24,10 +24,7 @@ import scala.concurrent.Future
 
 trait MessageP5Service {
 
-  def formatResponse[T](messageF: Future[models.Message])(implicit ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
-    messageF.map(_.body).map {
-      nodeSeq =>
-        fromXML(nodeSeq, namespaceBinding.stack)(namespaceBinding.format)
-    }
+  def formatResponse[T](messageF: Future[models.Message])(implicit ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
+    messageF.map(_.body).map(fromXML(_))
 
 }

@@ -18,15 +18,18 @@ package models
 
 import play.api.libs.json._
 
+import scala.xml.Node
 import scala.xml.NodeSeq
 import scala.xml.XML
 
 trait NodeSeqFormat {
 
-  implicit val writes: Writes[NodeSeq] =
-    (o: NodeSeq) => JsString(o.mkString)
+  implicit val nodeSeqReads: Reads[NodeSeq] = {
+    case JsString(value) => JsSuccess(XML.loadString(value))
+    case _               => JsError("Value cannot be parsed as XML")
+  }
 
-  implicit val reads: Reads[NodeSeq] = {
+  implicit val nodeReads: Reads[Node] = {
     case JsString(value) => JsSuccess(XML.loadString(value))
     case _               => JsError("Value cannot be parsed as XML")
   }

@@ -16,15 +16,18 @@
 
 package models
 
-import play.api.libs.json.Format
-import play.api.libs.json.Json
+import play.api.libs.json.Reads
+import play.api.libs.json.__
 
-import scala.xml.NodeSeq
+import scala.xml.Node
+import scala.xml.Utility._
 
-case class Message(
-  body: NodeSeq
-)
+case class Message(body: Node)
 
 object Message extends NodeSeqFormat {
-  implicit val format: Format[Message] = Json.format[Message]
+
+  def apply(body: Node): Message = new Message(trim(body))
+
+  implicit val reads: Reads[Message] =
+    (__ \ "body").read[Node].map(Message(_))
 }

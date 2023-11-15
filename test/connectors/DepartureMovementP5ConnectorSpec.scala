@@ -27,7 +27,6 @@ import models.P5.departure.DepartureMessageMetaData
 import models.P5.departure.DepartureMessages
 import models.P5.departure.IE029
 import org.scalacheck.Arbitrary
-import uk.gov.hmrc.http.HttpReads.Implicits._
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
@@ -39,10 +38,12 @@ import play.api.libs.json.Json
 import play.api.test.DefaultAwaitTimeout
 import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import utils.WireMockHelper
 
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.xml.Utility.trim
 import scala.xml._
 
 class DepartureMovementP5ConnectorSpec
@@ -587,9 +588,9 @@ class DepartureMovementP5ConnectorSpec
           |  "id": "62f4ebbb765ba8c2",
           |  "departureId": "62f4ebbbf581d4aa",
           |  "received": "2022-08-11T11:44:59.83705",
-          |  "type": "IE015",
+          |  "type": "IE029",
           |  "status": "Success",
-          |  "body": "<ncts:CC015C></ncts:CC015C>"
+          |  "body" : "<ncts:CC029C PhaseID=\"NCTS5.0\" xmlns:ncts=\"http://ncts.dgtaxud.ec\">\n    <messageSender>token</messageSender>\n</ncts:CC029C>"
           |}
           |""".stripMargin)
 
@@ -602,9 +603,12 @@ class DepartureMovementP5ConnectorSpec
 
       val result = service.getMessage(departureId, messageId).futureValue
 
-      val xml: NodeSeq = <ncts:CC015C></ncts:CC015C>
+      val xml: NodeSeq =
+        <ncts:CC029C PhaseID="NCTS5.0" xmlns:ncts="http://ncts.dgtaxud.ec">
+          <messageSender>token</messageSender>
+        </ncts:CC029C>
 
-      result.body mustBe xml
+      result.body mustBe xml.map(trim)
     }
   }
 }

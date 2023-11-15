@@ -19,8 +19,8 @@ package services.P5
 import connectors.DepartureMovementP5Connector
 import generated.p5.CC015CType
 import generated.p5.CC029CType
-import models.NamespaceBinding
 import models.P5.departure.DepartureMessageType.DepartureNotification
+import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
@@ -51,6 +51,6 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
   private def getMessage[T](
     departureId: String,
     messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext, namespaceBinding: NamespaceBinding[T]): Future[T] =
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
     formatResponse(connector.getMessage(departureId, messageId))
 }
