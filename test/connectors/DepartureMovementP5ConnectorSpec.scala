@@ -28,6 +28,7 @@ import models.P5.departure.DepartureMessages
 import models.P5.departure.IE029
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
+import org.scalatest.Assertion
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -562,7 +563,7 @@ class DepartureMovementP5ConnectorSpec
           )
       )
 
-      whenReady(service.getDepartureNotificationMessage[IE029](departureId, messageId)) {
+      whenReady[IE029, Assertion](service.getDepartureNotificationMessage[IE029](departureId, messageId)) {
         result =>
           result.data.Consignment.HouseConsignment.map(_.Consignor) mustEqual ieo29Data.data.Consignment.HouseConsignment.map(_.Consignor)
       }
@@ -603,12 +604,12 @@ class DepartureMovementP5ConnectorSpec
 
       val result = service.getMessage(departureId, messageId).futureValue
 
-      val xml: NodeSeq =
+      val xml: Node =
         <ncts:CC029C PhaseID="NCTS5.0" xmlns:ncts="http://ncts.dgtaxud.ec">
           <messageSender>token</messageSender>
         </ncts:CC029C>
 
-      result.body mustBe xml.map(trim)
+      result.body mustBe trim(xml)
     }
   }
 }

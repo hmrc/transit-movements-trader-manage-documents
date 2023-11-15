@@ -17,7 +17,8 @@
 package refactor.services.pdf
 
 import com.dmanchester.playfop.sapi.PlayFop
-import generated.p5.{CC015CType, CC029CType}
+import generated.p5.CC015CType
+import generated.p5.CC029CType
 import models.reference.Country
 import org.apache.xmlgraphics.util.MimeConstants
 import play.twirl.api.XmlFormat
