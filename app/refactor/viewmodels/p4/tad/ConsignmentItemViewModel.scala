@@ -39,7 +39,7 @@ case class ConsignmentItemViewModel(
   countryOfDestination: String,
   grossMass: String,
   netMass: String,
-  specialMentions: Option[Seq[SpecialMention]],
+  specialMentions: Option[Seq[SpecialMention]], // TODO
   producedDocuments: Option[Seq[String]],
   consigneeViewModel: Option[ConsigneeViewModel],
   consignorViewModel: Option[ConsignorViewModel]

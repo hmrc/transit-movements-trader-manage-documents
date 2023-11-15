@@ -15,7 +15,6 @@
 )
 
 @(vm: P5TadPdfViewModel)
-
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo = Some(pageTwo(items = vm.consignmentItemViewModels, mrn = vm.mrn))

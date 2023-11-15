@@ -16,7 +16,6 @@
 )
 
 @(vm: P4TadPdfViewModel)
-
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
