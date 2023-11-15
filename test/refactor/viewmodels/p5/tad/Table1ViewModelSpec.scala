@@ -21,11 +21,9 @@ import refactor.viewmodels.DummyData
 
 class Table1ViewModelSpec extends SpecBase with DummyData {
 
-  private val data = ie029
-
   "must map data to view model" - {
 
-    val result = Table1ViewModel(data)
+    val result = Table1ViewModel(cc029c)
 
     "additionalDeclarationType" in {
       result.additionalDeclarationType mustBe "adt"

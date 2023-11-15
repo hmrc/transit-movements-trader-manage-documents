@@ -18,7 +18,6 @@ package refactor.viewmodels.p4.tad
 
 import generated.p4._
 import generated.p5._
-import models.reference.Country
 import refactor.viewmodels.p5.RichCC029CType
 
 case class P4TadPdfViewModel(
@@ -40,17 +39,16 @@ object P4TadPdfViewModel {
 
   /** @param ie015 declaration data
     * @param ie029 release for transit
-    * @param countries CountryCodesForAddress
     * @return P4 TAD view model based on P5 (transition) data
     */
-  def apply(ie015: CC015CType, ie029: CC029CType, countries: Seq[Country]): P4TadPdfViewModel = {
+  def apply(ie015: CC015CType, ie029: CC029CType): P4TadPdfViewModel = {
     val consignmentItemViewModels = ie029.consignmentItems.map(ConsignmentItemViewModel(ie029, _))
 
     new P4TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
       lrn = Some(ie029.TransitOperation.LRN),
       secondPageViewModel = SecondPageViewModel(ie029, consignmentItemViewModels),
-      table1ViewModel = Table1ViewModel(ie029, countries),
+      table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029, if (printListOfItems(consignmentItemViewModels)) None else consignmentItemViewModels.headOption),
       table4ViewModel = Table4ViewModel(ie029),
       table5ViewModel = Table5ViewModel(ie015, ie029)

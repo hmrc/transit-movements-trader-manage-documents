@@ -17,7 +17,6 @@
 package refactor.viewmodels.p4.tad
 
 import generated.p5._
-import models.reference.Country
 import refactor.viewmodels._
 import refactor.viewmodels.p4.tad.Table1ViewModel._
 import refactor.viewmodels.p5._
@@ -106,7 +105,7 @@ object Table1ViewModel {
     country: String
   )
 
-  def apply(ie029: CC029CType, countries: Seq[Country]): Table1ViewModel =
+  def apply(ie029: CC029CType): Table1ViewModel =
     new Table1ViewModel(
       declarationType = ie029.TransitOperation.declarationType,
       consignorViewModel = ConsignorViewModel(ie029),
@@ -116,11 +115,7 @@ object Table1ViewModel {
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
       countryOfDestination = ie029.Consignment.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       transportIdentity = ie029.Consignment.DepartureTransportMeans.map(_.asP4String).toBeContinued("---"),
-      transportCountry = ie029.Consignment.DepartureTransportMeans.headOption
-        .flatMap {
-          dtm => countries.find(_.code == dtm.nationality).map(_.code)
-        }
-        .getOrElse("---"),
+      transportCountry = ie029.Consignment.DepartureTransportMeans.headOption.map(_.nationality).getOrElse("---"),
       returnCopiesCustomsOffice = None
     )
 }

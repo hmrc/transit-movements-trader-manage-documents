@@ -21,11 +21,9 @@ import refactor.viewmodels.DummyData
 
 class Table4ViewModelSpec extends SpecBase with DummyData {
 
-  private val data = ie029
-
   "must map data to view model" - {
 
-    val result = Table4ViewModel(data)
+    val result = Table4ViewModel(cc029c)
 
     "countryOfRoutingOfConsignment" in {
       result.countryOfRoutingOfConsignment mustBe "1, corocc1; 2, corocc2"

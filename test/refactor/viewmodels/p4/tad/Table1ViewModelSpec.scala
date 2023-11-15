@@ -17,23 +17,14 @@
 package refactor.viewmodels.p4.tad
 
 import base.SpecBase
-import models.reference.Country
 import refactor.viewmodels.DummyData
 import refactor.viewmodels.p4.tad.Table1ViewModel._
 
 class Table1ViewModelSpec extends SpecBase with DummyData {
 
-  private val data = ie029
-
-  private val countries = Seq(
-    Country("GB", "United Kingdom"),
-    Country("FR", "France"),
-    Country("ES", "Spain")
-  )
-
   "must map data to view model" - {
 
-    val result = Table1ViewModel(data, countries)
+    val result = Table1ViewModel(cc029c)
 
     "declarationType" in {
       result.declarationType mustBe "T"
@@ -82,7 +73,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "transportCountry" in {
-      result.transportCountry mustBe "United Kingdom"
+      result.transportCountry mustBe "nat1"
     }
 
     "returnCopiesCustomsOffice" in {
