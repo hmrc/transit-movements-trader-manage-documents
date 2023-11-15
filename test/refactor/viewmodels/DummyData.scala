@@ -260,11 +260,11 @@ trait DummyData extends ScalaxbModelGenerators {
           GoodsReference = Seq(
             GoodsReferenceType02(
               sequenceNumber = "1",
-              declarationGoodsItemNumber = BigInt(10)
+              declarationGoodsItemNumber = BigInt(1)
             ),
             GoodsReferenceType02(
               sequenceNumber = "2",
-              declarationGoodsItemNumber = BigInt(20)
+              declarationGoodsItemNumber = BigInt(3)
             )
           )
         )
@@ -627,11 +627,11 @@ trait DummyData extends ScalaxbModelGenerators {
             GoodsReference = Seq(
               GoodsReferenceType02(
                 sequenceNumber = "1",
-                declarationGoodsItemNumber = BigInt(10)
+                declarationGoodsItemNumber = BigInt(1)
               ),
               GoodsReferenceType02(
                 sequenceNumber = "2",
-                declarationGoodsItemNumber = BigInt(20)
+                declarationGoodsItemNumber = BigInt(3)
               )
             )
           )

@@ -26,7 +26,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     val result = Table2ViewModel(cc029c)
 
     "transportEquipment" in {
-      result.transportEquipment mustBe "1, cin1, 2, 1:10...2:20"
+      result.transportEquipment mustBe "1, cin1, 2, 1:1...2:3"
     }
 
     "seals" in {
@@ -62,7 +62,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "authorisations" in {
-      result.authorisations mustBe "1, tv1, rn1..."
+      result.authorisations mustBe "1, C521, rn1..."
     }
   }
 }

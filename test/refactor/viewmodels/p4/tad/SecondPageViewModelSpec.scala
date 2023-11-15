@@ -19,27 +19,23 @@ package refactor.viewmodels.p4.tad
 import base.SpecBase
 import refactor.viewmodels.DummyData
 
-class Table2ViewModelSpec extends SpecBase with DummyData {
+class SecondPageViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val consignmentItemViewModel: Option[ConsignmentItemViewModel] = None
-    val result                                                     = Table2ViewModel(cc029c, consignmentItemViewModel)
+    val consignmentItemViewModels: Seq[ConsignmentItemViewModel] = Nil
+    val result                                                   = SecondPageViewModel(cc029c, consignmentItemViewModels)
 
-    "numberOfItems" in {
-      result.numberOfItems mustBe 2
+    "departureOffice" in {
+      result.departureOffice mustBe "cood"
     }
 
-    "grossMass" in {
-      result.grossMass mustBe "200.0"
+    "acceptanceDate" in {
+      result.acceptanceDate mustBe "03/02/1996"
     }
 
-    "printBindingItinerary" in {
-      result.printBindingItinerary mustBe true
-    }
-
-    "consignmentItemViewModel" in {
-      result.consignmentItemViewModel mustBe consignmentItemViewModel
+    "consignmentItemViewModels" in {
+      result.consignmentItemViewModels mustBe consignmentItemViewModels
     }
   }
 }

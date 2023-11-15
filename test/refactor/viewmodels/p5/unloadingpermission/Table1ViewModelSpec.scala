@@ -86,7 +86,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "transportEquipment" in {
-      result.transportEquipment mustBe "1, cin1, 2, 1:10...2:20"
+      result.transportEquipment mustBe "1, cin1, 2, 1:1...2:3"
     }
 
     "seals" in {
