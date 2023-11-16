@@ -1,7 +1,7 @@
 @import views.xml.DocumentTemplate
 @import refactor.views.xml.p4.tad.components._
-@import refactor.views.xml.IntermediaryPage
 @import refactor.views.xml.PageOne
+@import refactor.views.xml.IntermediaryPage
 @import refactor.views.xml.p4.tad.components.second_page
 @import refactor.viewmodels.p4.tad.P4TadPdfViewModel
 
@@ -21,7 +21,7 @@
 @(vm: P4TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    intermediaryPage = vm.securityViewModel.map(_ => None).getOrElse(Some(intermediaryPage(intermediaryPageBody)))
+    intermediaryPage = vm.securityViewModel.map(x => (intermediaryPage(intermediaryPageBody))),
     pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
 )
 
@@ -48,13 +48,12 @@
     @table5(vm.table5ViewModel)
 }
 
-@vm.securityViewModel.map { securityViewModel =>
-    @intermediaryPageBody = {
-        <!--main header-->
-        @securityHeader(
-            vm = securityViewModel,
-            mrn = vm.mrn
-        )
-    }
+@intermediaryPageBody = {
+    <!--main header-->
+    @securityHeader(
+        vm = vm.securityViewModel.get,
+        mrn = vm.mrn
+    )
 }
+
 
