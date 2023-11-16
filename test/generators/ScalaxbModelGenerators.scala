@@ -422,4 +422,13 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       XMLCalendar(LocalDateTime.now().toString)
     }
 
+  implicit lazy val arbitraryTransportChargesType: Arbitrary[TransportChargesType] =
+    Arbitrary {
+      for {
+        methodOfPayment <- nonEmptyString
+      } yield TransportChargesType(
+        methodOfPayment = methodOfPayment
+      )
+    }
+
 }
