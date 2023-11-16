@@ -21,10 +21,11 @@ import scalaxb.`package`.fromXML
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.xml.Node
 
 trait MessageP5Service {
 
-  def formatResponse[T](messageF: Future[models.Message])(implicit ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
-    messageF.map(_.body).map(fromXML(_))
+  def formatResponse[T](messageF: Future[Node])(implicit ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
+    messageF.map(fromXML(_))
 
 }

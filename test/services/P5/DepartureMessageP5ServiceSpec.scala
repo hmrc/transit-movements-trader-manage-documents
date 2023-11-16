@@ -19,7 +19,6 @@ package services.P5
 import base.SpecBase
 import connectors.DepartureMovementP5Connector
 import generated.p5.CC029CType
-import models.Message
 import models.P5.departure.DepartureMessageType.DepartureNotification
 import models.P5.departure.DepartureMessageMetaData
 import models.P5.departure.DepartureMessages
@@ -78,7 +77,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures {
 
   "getReleaseForTransitNotification" - {
     "must parse CC029CType" in {
-      val nodes: Node =
+      val message: Node =
         <ncts:CC029C PhaseID="NCTS5.0" xmlns:ncts="http://ncts.dgtaxud.ec">
           <messageSender>token</messageSender>
           <messageRecipient>token</messageRecipient>
@@ -620,8 +619,6 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures {
             </HouseConsignment>
           </Consignment>
         </ncts:CC029C>
-
-      val message = Message(nodes)
 
       when(mockConnector.getMessage(any(), any())(any(), any()))
         .thenReturn(Future.successful(message))

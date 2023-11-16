@@ -41,7 +41,6 @@ import utils.WireMockHelper
 
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.xml.Utility.trim
 import scala.xml._
 
 class DepartureMovementP5ConnectorSpec
@@ -133,44 +132,25 @@ class DepartureMovementP5ConnectorSpec
 
   "getMessage" - {
 
-    val url: String = s"/movements/departures/$departureId/messages/$messageId"
+    val url: String = s"/movements/departures/$departureId/messages/$messageId/body"
 
     "must return message data" in {
-
-      val json = Json.parse("""
-          |{
-          |  "_links": {
-          |    "self": {
-          |      "href": "/customs/transits/movements/departures/62f4ebbbf581d4aa/messages/62f4ebbb765ba8c2"
-          |    },
-          |    "departure": {
-          |      "href": "/customs/transits/movements/departures/62f4ebbbf581d4aa"
-          |    }
-          |  },
-          |  "id": "62f4ebbb765ba8c2",
-          |  "departureId": "62f4ebbbf581d4aa",
-          |  "received": "2022-08-11T11:44:59.83705",
-          |  "type": "IE029",
-          |  "status": "Success",
-          |  "body" : "<ncts:CC029C PhaseID=\"NCTS5.0\" xmlns:ncts=\"http://ncts.dgtaxud.ec\">\n    <messageSender>token</messageSender>\n</ncts:CC029C>"
-          |}
-          |""".stripMargin)
-
-      server.stubFor(
-        get(urlEqualTo(url))
-          .willReturn(
-            ok(Json.stringify(json))
-          )
-      )
-
-      val result = service.getMessage(departureId, messageId).futureValue
 
       val xml: Node =
         <ncts:CC029C PhaseID="NCTS5.0" xmlns:ncts="http://ncts.dgtaxud.ec">
           <messageSender>token</messageSender>
         </ncts:CC029C>
 
-      result.body mustBe trim(xml)
+      server.stubFor(
+        get(urlEqualTo(url))
+          .willReturn(
+            ok(xml.toString())
+          )
+      )
+
+      val result = service.getMessage(departureId, messageId).futureValue
+
+      result mustBe xml
     }
   }
 }

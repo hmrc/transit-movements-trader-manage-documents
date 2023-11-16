@@ -17,20 +17,31 @@
 package connectors
 
 import config.AppConfig
+import play.api.Logging
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.HttpReadsTry
+import uk.gov.hmrc.http.HttpResponse
 
-import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.Node
+import scala.xml.XML
 
-class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpClient) extends MovementConnector(config, http) {
+class MovementConnector(config: AppConfig, http: HttpClient) extends HttpReadsTry with Logging {
 
   def getMessage(
+    movements: String,
     arrivalId: String,
     messageId: String
-  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("arrivals", arrivalId, messageId)
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] = {
+
+    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+xml"))
+
+    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/$movements/$arrivalId/messages/$messageId/body"
+
+    http.GET[HttpResponse](serviceUrl)(implicitly, headers, ec).map(_.body).map(XML.loadString)
+  }
 
 }
