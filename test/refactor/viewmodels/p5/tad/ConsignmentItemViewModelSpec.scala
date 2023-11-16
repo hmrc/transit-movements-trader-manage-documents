@@ -17,7 +17,6 @@
 package refactor.viewmodels.p5.tad
 
 import base.SpecBase
-import generated.p5._
 import refactor.viewmodels.DummyData
 
 class ConsignmentItemViewModelSpec extends SpecBase with DummyData {

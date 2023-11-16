@@ -27,7 +27,8 @@ case class P4TadPdfViewModel(
   table1ViewModel: Table1ViewModel,
   table2ViewModel: Table2ViewModel,
   table4ViewModel: Table4ViewModel,
-  table5ViewModel: Table5ViewModel
+  table5ViewModel: Table5ViewModel,
+  securityViewModel: Option[SecurityViewModel]
 )
 
 object P4TadPdfViewModel {
@@ -51,7 +52,11 @@ object P4TadPdfViewModel {
       table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029, if (printListOfItems(consignmentItemViewModels)) None else consignmentItemViewModels.headOption),
       table4ViewModel = Table4ViewModel(ie029),
-      table5ViewModel = Table5ViewModel(ie015, ie029)
+      table5ViewModel = Table5ViewModel(ie015, ie029),
+      securityViewModel = ie029.TransitOperation.security match {
+        case "0" => None
+        case _   => Some(SecurityViewModel(ie029))
+      }
     )
   }
 

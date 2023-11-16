@@ -12,7 +12,8 @@
     table5: table_5.table,
     template: DocumentTemplate,
     pageOne: PageOne,
-    pageTwo: second_page.table
+    pageTwo: second_page.table,
+    securityPage: security.table
 )
 
 @(vm: P4TadPdfViewModel)
@@ -30,6 +31,10 @@
         consignmentItemViewModel = vm.table2ViewModel.consignmentItemViewModel,
         title = "TRANSIT - ACCOMPANYING DOCUMENT"
     )
+
+    @vm.securityViewModel.map { securityViewModel =>
+        @securityPage(securityViewModel)
+    }
 
     <!--packages/goods description/docs/certs-->
     @table2(vm.table2ViewModel)

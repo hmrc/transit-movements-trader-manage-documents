@@ -1,0 +1,11 @@
+@import refactor.viewmodels.p4.tad.SecurityViewModel
+
+@this()
+
+@(vm: SecurityViewModel)
+
+<fo:block>
+    @carrier(
+        vm.carrierIdentificationNumber
+    )
+</fo:block>
