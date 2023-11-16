@@ -2,7 +2,7 @@
 
 
 @(content: Xml)
-<fo:page-sequence aster-reference="pages" initial-page-number="2" force-page-count="no-force">
+<fo:page-sequence master-reference="pages" initial-page-number="3" force-page-count="no-force">
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
             @content

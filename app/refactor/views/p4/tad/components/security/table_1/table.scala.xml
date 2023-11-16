@@ -8,7 +8,7 @@
   mrn: String
 )
 
-<fo:table width="100%" table-layout="fixed" id="table-1">
+<fo:table width="100%" table-layout="fixed" id="security-table-1">
 
   <fo:table-column column-number="1" column-width="8mm"/>
 
