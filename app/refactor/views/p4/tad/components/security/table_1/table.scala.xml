@@ -1,0 +1,20 @@
+@import refactor.views.xml.p4.tad.components.table_1._
+@import refactor.viewmodels.p4.tad.SecurityViewModel
+
+@this()
+
+@(
+  vm: SecurityViewModel,
+  mrn: String
+)
+
+<fo:table width="100%" table-layout="fixed" id="table-1">
+
+  <fo:table-column column-number="1" column-width="8mm"/>
+
+
+  <fo:table-body>
+    @row_1(mrn)
+
+  </fo:table-body>
+</fo:table>

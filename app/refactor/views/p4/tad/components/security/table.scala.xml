@@ -2,7 +2,7 @@
 
 @this()
 
-@(vm: SecurityViewModel)
+@(vm: SecurityViewModel, mrn: String)
 
 <fo:block>
     @carrier(

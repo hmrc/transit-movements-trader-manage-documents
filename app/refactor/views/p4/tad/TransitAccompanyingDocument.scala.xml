@@ -1,6 +1,7 @@
 @import views.xml.DocumentTemplate
 @import refactor.views.xml.p4.tad.components._
-@import views.xml.PageOne
+@import refactor.views.xml.IntermediaryPage
+@import refactor.views.xml.PageOne
 @import refactor.views.xml.p4.tad.components.second_page
 @import refactor.viewmodels.p4.tad.P4TadPdfViewModel
 
@@ -13,12 +14,14 @@
     template: DocumentTemplate,
     pageOne: PageOne,
     pageTwo: second_page.table,
-    securityPage: security.table
+    intermediaryPage: IntermediaryPage,
+    securityHeader: security.table_1.table
 )
 
 @(vm: P4TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
+    intermediaryPage = vm.securityViewModel.map(_ => None).getOrElse(Some(intermediaryPage(intermediaryPageBody)))
     pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
 )
 
@@ -32,10 +35,6 @@
         title = "TRANSIT - ACCOMPANYING DOCUMENT"
     )
 
-    @vm.securityViewModel.map { securityViewModel =>
-        @securityPage(securityViewModel)
-    }
-
     <!--packages/goods description/docs/certs-->
     @table2(vm.table2ViewModel)
 
@@ -48,3 +47,14 @@
     <!--control by office of departure/destination-->
     @table5(vm.table5ViewModel)
 }
+
+@vm.securityViewModel.map { securityViewModel =>
+    @intermediaryPageBody = {
+        <!--main header-->
+        @securityHeader(
+            vm = securityViewModel,
+            mrn = vm.mrn
+        )
+    }
+}
+
