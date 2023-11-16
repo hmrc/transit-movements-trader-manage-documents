@@ -28,26 +28,9 @@ object Helpers {
       None
     }
 
-  private def singleValueTransition[A](items: Seq[A], goodsItems: NonEmptyList[GoodsItemP5Transition]): Option[A] =
-    if (items.distinct.size == 1 && items.size == goodsItems.size) {
-      Some(items.head)
-    } else {
-      None
-    }
-
   def consignorOne(goodsItems: NonEmptyList[GoodsItem], consignor: Option[Consignor]): Option[Consignor] =
     if (goodsItems.toList.flatMap(_.consignor).nonEmpty) {
       singleValue(goodsItems.toList.flatMap(_.consignor), goodsItems)
-    } else {
-      consignor
-    }
-
-  def consignorOneTransition(
-    goodsItems: NonEmptyList[GoodsItemP5Transition],
-    consignor: Option[models.P5.departure.Consignor]
-  ): Option[models.P5.departure.Consignor] =
-    if (goodsItems.toList.flatMap(_.consignor).nonEmpty) {
-      singleValueTransition(goodsItems.toList.flatMap(_.consignor), goodsItems)
     } else {
       consignor
     }
@@ -59,41 +42,11 @@ object Helpers {
       consignee
     }
 
-  def consigneeOneTransition(
-    goodsItems: NonEmptyList[GoodsItemP5Transition],
-    consignee: Option[models.P5.departure.Consignee]
-  ): Option[models.P5.departure.Consignee] =
-    if (goodsItems.toList.flatMap(_.consignee).nonEmpty) {
-      singleValueTransition(goodsItems.toList.flatMap(_.consignee), goodsItems)
-    } else {
-      consignee
-    }
-
   def securityConsignorOne(goodsItems: NonEmptyList[GoodsItem], headerSafetyAndSecurityConsignor: Option[SecurityConsignor]): Option[SecurityConsignor] =
     if (goodsItems.toList.flatMap(_.securityConsignor).nonEmpty) {
       singleValue(goodsItems.toList.flatMap(_.securityConsignor), goodsItems)
     } else {
       headerSafetyAndSecurityConsignor
-    }
-
-  def securityConsignorOneTransition(
-    goodsItems: NonEmptyList[GoodsItemP5Transition],
-    headerSafetyAndSecurityConsignor: Option[SecurityConsignor]
-  ): Option[SecurityConsignor] =
-    if (goodsItems.toList.flatMap(_.securityConsignor).nonEmpty) {
-      singleValueTransition(goodsItems.toList.flatMap(_.securityConsignor), goodsItems)
-    } else {
-      headerSafetyAndSecurityConsignor
-    }
-
-  def securityConsigneeOneTransition(
-    goodsItems: NonEmptyList[GoodsItemP5Transition],
-    headerSafetyAndSecurityConsignee: Option[SecurityConsignee]
-  ): Option[SecurityConsignee] =
-    if (goodsItems.toList.flatMap(_.securityConsignee).nonEmpty) {
-      singleValueTransition(goodsItems.toList.flatMap(_.securityConsignee), goodsItems)
-    } else {
-      headerSafetyAndSecurityConsignee
     }
 
   def securityConsigneeOne(
@@ -119,10 +72,4 @@ object Helpers {
       goodsItems.head.packages.size > 1 ||
       goodsItems.head.specialMentions.size > 4 ||
       goodsItems.head.producedDocuments.size > 4
-
-  def printListOfItemsTransition(goodsItems: NonEmptyList[GoodsItemP5Transition]): Boolean =
-    goodsItems.size >= 1 ||
-      goodsItems.head.containers.size > 1 ||
-      goodsItems.head.sensitiveGoodsInformation.length > 1 ||
-      goodsItems.head.packages.size > 1
 }

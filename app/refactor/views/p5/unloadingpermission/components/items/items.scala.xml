@@ -1,0 +1,18 @@
+@import refactor.views.xml.p5.unloadingpermission.components.items._
+@import refactor.viewmodels.p5.unloadingpermission.ConsignmentItemViewModel
+
+@this()
+
+@(vms: Seq[ConsignmentItemViewModel], mrn: String)
+
+<fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
+    <fo:static-content flow-name="xsl-region-before">
+        @header(mrn)
+    </fo:static-content>
+    <fo:flow flow-name="xsl-region-body">
+        <fo:block>
+            @vms.map(item(_))
+        </fo:block>
+        <fo:block id="unloading-permission-pages"/>
+    </fo:flow>
+</fo:page-sequence>

@@ -1,0 +1,45 @@
+@import views.xml.DocumentTemplate
+@import refactor.views.xml.p4.tad.components._
+@import views.xml.PageOne
+@import refactor.views.xml.p4.tad.components.second_page
+@import refactor.viewmodels.p4.tad.P4TadPdfViewModel
+
+@this(
+    mainHeader: table_1.table,
+    table2: table_2.table,
+    table3: table_3.table,
+    table4: table_4.table,
+    table5: table_5.table,
+    template: DocumentTemplate,
+    pageOne: PageOne,
+    pageTwo: second_page.table
+)
+
+@(vm: P4TadPdfViewModel)
+@template(
+    pageOne = pageOne(pageOneBody),
+    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
+)
+
+@pageOneBody = {
+    <!--main header-->
+    @mainHeader(
+        vm = vm.table1ViewModel,
+        mrn = vm.mrn,
+        lrn = vm.lrn,
+        consignmentItemViewModel = vm.table2ViewModel.consignmentItemViewModel,
+        title = "TRANSIT - ACCOMPANYING DOCUMENT"
+    )
+
+    <!--packages/goods description/docs/certs-->
+    @table2(vm.table2ViewModel)
+
+    <!--transhipment/certification-->
+    @table3()
+
+    <!--Principal/TIR Holder/Office of departure-->
+    @table4(vm.table4ViewModel)
+
+    <!--control by office of departure/destination-->
+    @table5(vm.table5ViewModel)
+}

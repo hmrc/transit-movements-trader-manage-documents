@@ -17,29 +17,20 @@
 package connectors
 
 import config.AppConfig
-import models.P5.unloading.IE043Data
-import play.api.Logging
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.HttpClient
-import uk.gov.hmrc.http.HttpReadsTry
-import uk.gov.hmrc.http.HttpReads.Implicits._
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.xml.Node
 
-class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpClient) extends HttpReadsTry with Logging {
+class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpClient) extends MovementConnector(config, http) {
 
-  def getUnloadingNotificationMessage(
+  def getMessage(
     arrivalId: String,
     messageId: String
-  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[IE043Data] = {
-
-    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
-
-    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/arrivals/$arrivalId/messages/$messageId"
-
-    http.GET[IE043Data](serviceUrl)(implicitly, headers, ec)
-  }
+  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
+    getMessage("arrivals", arrivalId, messageId)
 
 }

@@ -1,0 +1,43 @@
+@import refactor.views.xml.p5.tad.components.table_2._
+@import refactor.viewmodels.p5.tad.Table2ViewModel
+
+@this()
+
+@(vm: Table2ViewModel)
+
+<fo:table width="100%" table-layout="fixed" id="table-2">
+
+    <fo:table-column column-number="1" column-width="8mm"/>
+    <fo:table-column column-number="2" column-width="8mm"/>
+    <fo:table-column column-number="3" column-width="89mm"/>
+    <fo:table-column column-number="4" column-width="32mm"/>
+    <fo:table-column column-number="5" column-width="5mm"/>
+    <fo:table-column column-number="6" column-width="5mm"/>
+    <fo:table-column column-number="7" column-width="4mm"/>
+    <fo:table-column column-number="8" column-width="49mm"/>
+
+    <fo:table-body>
+        @row_1(
+            vm.transportEquipment,
+            vm.seals
+        )
+        
+        @row_2(
+            vm.previousDocuments,
+            vm.transportDocuments
+        )
+        
+        @row_3(
+            vm.supportingDocuments,
+            vm.additionalReferences,
+            vm.transportCharges,
+            vm.additionalInformation
+        )
+        
+        @row_4(
+            vm.guarantees,
+            vm.authorisations
+        )
+        
+    </fo:table-body>
+</fo:table>

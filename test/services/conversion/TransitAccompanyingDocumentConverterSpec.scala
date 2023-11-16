@@ -20,11 +20,6 @@ import base.DepartureData
 import cats.data.NonEmptyList
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import models.P5.departure.Authorisation
-import models.P5.departure.GoodsReference
-import models.P5.departure.HolderOfTransitProcedure
-import models.P5.departure.IE015
-import models.P5.departure.IE029
 import models._
 import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
@@ -55,7 +50,7 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
   private val previousDocumentTypes = Seq(PreviousDocumentTypes("123", arbitraryDescription), PreviousDocumentTypes("124", Some("Description2")))
   private val invalidCode           = "non-existent code"
 
-  val controlResultP4: Option[viewmodels.ControlResult] = Some(controlResult.toP4)
+  val controlResultP4: Option[viewmodels.ControlResult] = None
 
   "toViewModel" - {
 
@@ -375,97 +370,5 @@ class TransitAccompanyingDocumentConverterSpec extends AnyFreeSpec with Matchers
 
       result.invalidValue.toChain.toList must contain theSameElementsAs expectedErrors
     }
-  }
-
-  "fromP5ToViewModel" - {
-
-    "must return a view model when all of the necessary reference data can be found" in {
-
-      val ieo29Data = IE029(ie029MessageData)
-      val ieo15Data = IE015(ie015MessageData)
-
-      val expectedResult = viewmodels.TransitAccompanyingDocumentP5TransitionPDF(
-        movementReferenceNumber = "MRN,LRN",
-        declarationType = "T1",
-        singleCountryOfDispatch = Some(countries.head),
-        singleCountryOfDestination = Some(countries.last),
-        transportIdentity = Some("Actor-Role,ID001,TYPE01"),
-        transportCountry = Some(countries.head),
-        limitDate = "2010-11-15",
-        acceptanceDate = FormattedDate(LocalDate.of(2020, 1, 1)),
-        numberOfItems = 1,
-        numberOfPackages = Some(3),
-        grossMass = 52.02,
-        printBindingItinerary = true,
-        authorisation = Seq(Authorisation("SEQNum-1", "Auth-Type", "Reference-Numb-1")),
-        goodsReference = Seq(GoodsReference("1232", 3)),
-        copyType = false,
-        holderOfTransitProcedure = HolderOfTransitProcedure(Some("id1"), Some("TIRID1"), Some("Bob"), Some(address), Some(contactPerson)),
-        consignor = Some(
-          models.P5.departure
-            .Consignor(Some("idnum1"), Some("Consignor Name"), Some(address), Some(contactPerson))
-        ),
-        consignee = Some(
-          models.P5.departure
-            .Consignee(Some("idnum1"), Some("Consignee Name"), Some(address))
-        ),
-        departureOffice = customsOfficeOfDeparture,
-        destinationOffice = customsOfficeOfDestinationDeclared,
-        customsOfficeOfTransit = Seq(customsOfficeOfTransitDeclared),
-        previousDocuments = Seq(previousDocumentConsignment),
-        transportDocuments = Seq(transportDocumentConsignment),
-        supportingDocuments = Seq(supportingDocumentConsignment),
-        additionalInformation = Seq(additionalInformationConsignment),
-        additionalReferences = Seq(additionalReferenceConsignment),
-        guaranteeType = "G",
-        seals = Seq.empty,
-        returnCopiesCustomsOffice = None,
-        controlResult = None,
-        goodsItems = NonEmptyList.one(
-          viewmodels.GoodsItemP5Transition(
-            itemNumber = "1T1/1",
-            commodityCode = Some("SHC1, NOMC1"),
-            declarationType = Some("T1"),
-            description = "Tiles",
-            grossMass = Some(1.2),
-            netMass = Some(1.4),
-            countryOfDispatch = Some(countries.head.code),
-            countryOfDestination = Some(countries.last.code),
-            methodOfPayment = Some("payPal"),
-            commercialReferenceNumber = None,
-            unDangerGoodsCode = None,
-            transportDocuments = Seq(transportDocumentItem),
-            supportingDocuments = Seq(supportingDocumentItem),
-            previousDocuments = Seq(previousDocumentItem),
-            additionalInformation = Seq(additionalInformationItem),
-            additionalReferences = Seq(additionalReferenceItem),
-            consignor = None,
-            consignee = Some(
-              models.P5.departure.Consignee(
-                Some("idnum1"),
-                Some("Consignee Name"),
-                Some(address)
-              )
-            ),
-            containers = Seq("12123, Container-ID-1"),
-            packages = Seq(
-              packaging
-            ),
-            sensitiveGoodsInformation = Seq.empty,
-            securityConsignor = None,
-            securityConsignee = None
-          )
-        )
-      )
-
-      val result = TransitAccompanyingDocumentConverter.fromP5ToViewModel(
-        ieo29Data,
-        ieo15Data,
-        countries
-      )
-
-      result.valid.value mustEqual expectedResult
-    }
-
   }
 }

@@ -1,10 +1,14 @@
+import sbtscalaxb.ScalaxbPlugin.*
 import scoverage.ScoverageKeys
 
 val appName         = "transit-movements-trader-manage-documents"
 val silencerVersion = "1.7.9"
 
+lazy val P4 = config("p4") extend Compile
+lazy val P5 = config("p5") extend Compile
+
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin)
+  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin, ScalaxbPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(
     majorVersion := 0,
@@ -14,7 +18,7 @@ lazy val microservice = Project(appName, file("."))
     ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*handlers.*;.*repositories.*;" +
       ".*BuildInfo.*;.*javascript.*;.*Routes.*;.*GuiceInjector;" +
       ".*ControllerConfiguration;.*LanguageSwitchController",
-    ScoverageKeys.coverageExcludedPackages := ".*views.xml.*",
+    ScoverageKeys.coverageExcludedPackages := ".*views.xml.*;scalaxb.*;generated.*",
     ScoverageKeys.coverageMinimumStmtTotal := 75,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true
@@ -33,6 +37,7 @@ lazy val microservice = Project(appName, file("."))
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     )
   )
+  .settings(customScalaxbSettings: _*)
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(
   fork := true,
@@ -40,4 +45,19 @@ lazy val testSettings: Seq[Def.Setting[?]] = Seq(
     "-Dconfig.resource=test.application.conf",
     "-Dlogger.resource=logback-test.xml"
   )
+)
+
+def customScalaxbSettings: Seq[Def.Setting[_]] =
+  inConfig(P4)(baseScalaxbSettings ++ inTask(scalaxb)(customScalaxbSettingsFor("p4"))) ++
+    inConfig(P5)(baseScalaxbSettings ++ inTask(scalaxb)(customScalaxbSettingsFor("p5"))) ++
+    Seq(
+      Compile / sourceGenerators += (P4 / scalaxb).taskValue,
+      Compile / sourceGenerators += (P5 / scalaxb).taskValue
+    )
+
+def customScalaxbSettingsFor(base: String): Seq[Def.Setting[_]] = Seq(
+  sourceManaged := (Compile / sourceManaged).value,
+  scalaxbXsdSource := new File(s"./conf/xsd/$base"),
+  scalaxbDispatchVersion := "1.1.3",
+  scalaxbPackageName := s"generated.$base"
 )

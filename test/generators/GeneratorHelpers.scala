@@ -19,6 +19,8 @@ package generators
 import cats.data.NonEmptyList
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
+import org.scalacheck.Gen.choose
+import org.scalacheck.Gen.listOfN
 import org.scalacheck.Shrink
 
 import java.time.Instant
@@ -45,7 +47,10 @@ trait GeneratorHelpers {
     } yield chars.mkString
 
   def nonEmptyString: Gen[String] =
-    string suchThat (_.nonEmpty)
+    for {
+      length <- choose(1, 50)
+      chars  <- listOfN(length, Gen.alphaNumChar)
+    } yield chars.mkString
 
   def listWithMaxSize[T](maxSize: Int = 10)(implicit arbitraryT: Arbitrary[T]): Gen[Seq[T]] =
     listWithMaxSize(arbitraryT.arbitrary, maxSize)

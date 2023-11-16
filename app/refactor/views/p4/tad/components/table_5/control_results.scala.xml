@@ -1,0 +1,6 @@
+@(controlResult: String)
+<fo:block>
+    <fo:inline font-style="italic">
+        @controlResult
+    </fo:inline>
+</fo:block>

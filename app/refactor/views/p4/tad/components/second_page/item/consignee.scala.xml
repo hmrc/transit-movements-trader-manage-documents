@@ -1,0 +1,54 @@
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel.ConsigneeViewModel
+
+@(
+    consignee: ConsigneeViewModel
+)
+
+<fo:block>
+    <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-number="1" column-width="44mm"/>
+        <fo:table-column column-number="2" column-width="8mm"/>
+        <fo:table-column column-number="3" column-width="38mm"/>
+        <fo:table-body>
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="2" font-weight="bold"
+                               display-align="center">
+                    <fo:block>
+                        @consignee.name
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell font-weight="bold" display-align="center">
+                    <fo:block>
+                        @consignee.eori
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="2"
+                               display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignee.streetAndNumber
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignee.postcode
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="2"
+                               display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignee.city
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell display-align="center" font-weight="bold">
+                    <fo:block>
+                        @consignee.country
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-body>
+    </fo:table>
+</fo:block>

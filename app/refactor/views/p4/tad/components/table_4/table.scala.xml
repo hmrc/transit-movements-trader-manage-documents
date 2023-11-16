@@ -1,0 +1,149 @@
+@import refactor.views.xml.p4.tad.components.table_4.row_3
+@import refactor.views.xml.p4.tad.components.table_4.row_4
+@import viewmodels.CustomsOfficeWithOptionalDate
+@import viewmodels.ControlResult
+@import refactor.viewmodels.p4.tad.Table4ViewModel
+
+@this()
+
+@(
+    vm: Table4ViewModel
+)
+
+<fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 4 -->
+    <fo:table-column column-width="16mm" column-number="1"/>
+    <fo:table-column column-width="122.64mm" column-number="2"/>
+    <fo:table-column column-width="61.32mm" column-number="3"/>
+    <fo:table-body>
+        <fo:table-row height="18.75mm"> <!-- S1 T4 ROW 1 -->
+            <fo:table-cell border-top-color="black" border-top-width="1pt" border-top-style="solid">
+                <fo:block/>
+            </fo:table-cell>
+            <fo:table-cell border-style="solid" border-width="1pt" border-color="black" number-rows-spanned="2">
+                <fo:block>
+                    <fo:table width="100%" table-layout="fixed">
+                        <fo:table-column column-width="45mm"/>
+                        <fo:table-column column-width="6mm"/>
+                        <fo:table-column column-width="33.36mm"/>
+                        <fo:table-column column-width="10mm"/>
+                        <fo:table-column column-width="33mm"/>
+                        <fo:table-body>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell padding-left="2mm" display-align="center">
+                                    <fo:block>Principal/TIR Holder (50)</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding-left="2mm" display-align="center">
+                                    <fo:block>No</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        <!--output eori/tirid or eori-->
+                                        @vm.principal.toString
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="5" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.name
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.streetAndNumber
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.postCode
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.city
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.country
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell border-top-style="solid" border-top-width="0.5pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2">
+                <fo:block>
+                    <fo:table width="100%" table-layout="fixed">
+                        <fo:table-column/>
+                        <fo:table-body>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center">
+                                    <fo:block>C OFFICE OF DEPARTURE</fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.departureOffice
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block/>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="3.6875mm">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.acceptanceDate
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="12mm">
+                                <fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">
+                                    @if(vm.isSimplifiedMovement){
+                                        @vm.authId.map(x => <fo:block>@x</fo:block>)
+                                        <fo:block>@vm.principal.name</fo:block>
+                                    } else {
+                                        <fo:block />
+                                    }
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="8mm"> <!-- S1 T4 ROW 2 -->
+            <fo:table-cell number-rows-spanned="2" padding-top="1mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                <fo:block>
+                    <fo:list-block>
+                        <fo:list-item>
+                            <fo:list-item-label>
+                                <fo:block>
+                                    51
+                                </fo:block>
+                            </fo:list-item-label>
+                            <fo:list-item-body start-indent="3mm" end-indent="0mm">
+                                <fo:block wrap-option="wrap">Intended offices of transit (and country)</fo:block>
+                            </fo:list-item-body>
+                        </fo:list-item>
+                    </fo:list-block>
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row> <!-- S1 T4 ROW 3 -->
+            @row_3(vm.transitOffices)
+        </fo:table-row>
+        <fo:table-row> <!-- S1 T4 ROW 4 -->
+            @row_4(vm.guaranteeViewModels, vm.destinationOffice)
+        </fo:table-row>
+    </fo:table-body>
+</fo:table>

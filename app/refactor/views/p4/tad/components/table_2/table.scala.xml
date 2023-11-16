@@ -1,0 +1,41 @@
+@import refactor.views.xml.p4.tad.components.table_2.top_left_block
+@import refactor.views.xml.p4.tad.components.table_2.top_right_block
+@import refactor.views.xml.p4.tad.components.table_2.bottom_left_block
+@import refactor.views.xml.p4.tad.components.table_2.bottom_right_block
+@import refactor.viewmodels.p4.tad.Table2ViewModel
+
+@this()
+
+@(vm: Table2ViewModel)
+
+<fo:table width="100%" table-layout="fixed"> <!-- S1 TABLE 2 -->
+    <fo:table-column column-width="16mm"/>
+    <fo:table-column column-width="115mm"/>
+    <fo:table-column column-width="33mm"/>
+    <fo:table-column column-width="36mm"/>
+    <fo:table-body>
+        <fo:table-row height="32mm"> <!-- S1 T2 ROW 1-->
+
+            <!--Commodity marks/containers/items-->
+            @top_left_block(vm.numberOfItems, vm.consignmentItemViewModel)
+
+            <!--Commodity code/weight/documents-->
+            @top_right_block(vm.grossMass, vm.consignmentItemViewModel)
+
+        </fo:table-row>
+
+        <fo:table-row height="4mm"> <!-- S1 T2 ROW 3 -->
+
+            <!--Additional information/ BinItiHEA246???-->
+            @bottom_left_block(vm.printBindingItinerary)
+
+        </fo:table-row>
+
+        <fo:table-row height="16mm"> <!-- S1 T2 ROW 4 -->
+
+            <!--Special mentions/ produced documents-->
+            @bottom_right_block(vm.consignmentItemViewModel)
+
+        </fo:table-row>
+    </fo:table-body>
+</fo:table>

@@ -16,17 +16,13 @@
 
 package generators
 
-import models.P5.departure.CustomsOfficeOfDeparture
-import models.P5.departure.CustomsOfficeOfDestinationDeclared
-import models.P5.departure.CustomsOfficeOfTransitDeclared
-import models.P5.departure.HolderOfTransitProcedure
-import models.reference._
 import models.ControlResult
 import models.GuaranteeDetails
 import models.GuaranteeReference
 import models.Itinerary
 import models.PreviousAdministrativeReference
 import models.SensitiveGoodsInformation
+import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
@@ -36,7 +32,7 @@ import viewmodels._
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-trait ViewModelGenerators extends GeneratorHelpers with ReferenceModelGenerators with P5ModelGenerators {
+trait ViewModelGenerators extends GeneratorHelpers with ReferenceModelGenerators {
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {
@@ -462,38 +458,6 @@ trait ViewModelGenerators extends GeneratorHelpers with ReferenceModelGenerators
       } yield SafetyAndSecurityCarrier(name, streetAndNumber, postCode, city, country, eori)
     }
 
-  implicit lazy val arbitraryGoodsItemP5Transition: Arbitrary[GoodsItemP5Transition] =
-    Arbitrary {
-      for {
-        itemNumber  <- nonEmptyString
-        description <- nonEmptyString
-      } yield GoodsItemP5Transition(
-        itemNumber,
-        None,
-        None,
-        description,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        Nil,
-        Nil,
-        Nil,
-        Nil,
-        Nil,
-        None,
-        None,
-        Nil,
-        Nil,
-        Nil,
-        None,
-        None
-      )
-    }
-
   implicit lazy val arbitraryTransitSecurityAccompanyingDocument: Arbitrary[TransitSecurityAccompanyingDocumentPDF] =
     Arbitrary {
       for {
@@ -576,66 +540,6 @@ trait ViewModelGenerators extends GeneratorHelpers with ReferenceModelGenerators
         safetyAndSecurityCarrier,
         safetyAndSecurityConsignor,
         safetyAndSecurityConsignee
-      )
-    }
-
-  implicit lazy val arbitraryTransitAccompanyingDocumentP5TransitionPDF: Arbitrary[TransitAccompanyingDocumentP5TransitionPDF] =
-    Arbitrary {
-      for {
-        mrn                         <- stringWithMaxLength(17)
-        declarationType             <- arbitrary[String](arbitraryDeclarationType)
-        countryOfDispatch           <- Gen.option(arbitrary[Country])
-        countryOfDestination        <- Gen.option(arbitrary[Country])
-        transportId                 <- Gen.option(stringWithMaxLength(27))
-        transportCountry            <- Gen.option(arbitrary[Country])
-        limitDate                   <- nonEmptyString
-        acceptanceDate              <- arbitrary[FormattedDate]
-        numberOfItems               <- Gen.choose(1, 99999)
-        numberOfPackages            <- Gen.option(Gen.choose(1, 9999999))
-        grossMass                   <- Gen.choose(0.0, 99999999.999).map(BigDecimal(_))
-        printBindingItinerary       <- arbitrary[Boolean]
-        copyType                    <- arbitrary[Boolean]
-        holderOfTheTransitProcedure <- arbitrary[HolderOfTransitProcedure]
-        departureOffice             <- arbitrary[CustomsOfficeOfDeparture]
-        destinationOffice           <- arbitrary[CustomsOfficeOfDestinationDeclared]
-        cusOfficesOfTransit         <- listWithMaxSize(arbitrary[CustomsOfficeOfTransitDeclared], 5)
-        seals                       <- listWithMaxSize(stringWithMaxLength(20), 9)
-        returnCopiesCustomsOffice   <- Gen.option(arbitrary[ReturnCopiesCustomsOffice])
-        controlResult               <- Gen.option(arbitrary[viewmodels.ControlResult])
-        goodsItems                  <- nonEmptyListWithMaxSize(arbitrary[GoodsItemP5Transition], 9)
-        guaranteeType               <- nonEmptyString
-      } yield TransitAccompanyingDocumentP5TransitionPDF(
-        mrn,
-        declarationType,
-        countryOfDispatch,
-        countryOfDestination,
-        transportId,
-        transportCountry,
-        limitDate,
-        acceptanceDate,
-        numberOfItems,
-        numberOfPackages,
-        grossMass,
-        printBindingItinerary,
-        Nil,
-        Nil,
-        copyType,
-        holderOfTheTransitProcedure,
-        None,
-        None,
-        departureOffice,
-        destinationOffice,
-        cusOfficesOfTransit,
-        Nil,
-        Nil,
-        Nil,
-        Nil,
-        Nil,
-        guaranteeType,
-        seals,
-        returnCopiesCustomsOffice,
-        controlResult,
-        goodsItems
       )
     }
 }

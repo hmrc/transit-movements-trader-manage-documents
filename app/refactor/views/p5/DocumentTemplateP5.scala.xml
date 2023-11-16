@@ -1,0 +1,21 @@
+@import refactor.views.xml.p5.tad.components._
+
+@this(
+    layoutMasterSet: layout_master_set_TAD_P5
+)
+
+@(
+    pageOne: Xml,
+    pageTwo: Option[Xml] = None
+)
+<?xml version='1.0' encoding='utf-8'?>
+
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="ariel-narrow" font-size="5pt" text-align="left">
+
+  @layoutMasterSet()
+
+  @pageOne
+
+  @pageTwo
+
+</fo:root>

@@ -20,9 +20,10 @@ import base.SpecBase
 import base.UnloadingData
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
-import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import generators.ReferenceModelGenerators
-import models.P5.unloading.IE043Data
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
@@ -31,13 +32,13 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
 import play.api.test.DefaultAwaitTimeout
 import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.WireMockHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.xml.Node
 
 class UnloadingPermissionP5ConnectorSpec
     extends SpecBase
@@ -65,185 +66,29 @@ class UnloadingPermissionP5ConnectorSpec
 
   private lazy val service: UnloadingPermissionP5Connector = app.injector.instanceOf[UnloadingPermissionP5Connector]
 
-  "getUnloadingNotificationMessage" - {
+  implicit private val hc: HeaderCarrier = HeaderCarrier()
 
-    val unloadingNotificationUrl: String = s"/movements/arrivals/$arrivalId/messages/$messageId"
+  "getMessage" - {
 
-    "must return ie043 data" in {
+    val url: String = s"/movements/arrivals/$arrivalId/messages/$messageId/body"
 
-      val ie043Data = IE043Data(unloadingPermissionMessageData)
+    "must return message data" in {
 
-      val jsonUserData =
-        """
-          |{
-          |  "n1:CC043C": {
-          |    "PhaseID": "NCTS5.0",
-          |    "xmlns:ncts": "http://ncts.dgtaxud.ec",
-          |    "messageSender": "token",
-          |    "messageRecipient": "token",
-          |    "preparationDateAndTime": "2007-10-26T07:36:28",
-          |    "messageIdentification": "token",
-          |    "messageType": "CC043C",
-          |    "correlationIdentifier": "token",
-          |    "TransitOperation": {
-          |      "MRN": "38VYQTYFU3T0KUTUM3",
-          |      "declarationType": "T1",
-          |      "declarationAcceptanceDate": "2014-06-09+01:00",
-          |      "security": "4",
-          |      "reducedDatasetIndicator": "1"
-          |    },
-          |    "CustomsOfficeOfDestinationActual": {"referenceNumber": "GB000068"},
-          |    "HolderOfTheTransitProcedure": {
-          |      "identificationNumber": "id",
-          |      "TIRHolderIdentificationNumber": "tirId",
-          |      "name": "Travis",
-          |      "Address": {
-          |        "streetAndNumber": "Address Line 1",
-          |        "postcode": "Address Line 2",
-          |        "city": "Address Line 3",
-          |        "country": "Address Line 4"
-          |      }
-          |    },
-          |    "TraderAtDestination": {"identificationNumber": "tad-1"},
-          |    "CTLControl": {"continueUnloading": "9"},
-          |    "Consignment": {
-          |      "countryOfDestination": "FR",
-          |      "containerIndicator": "1",
-          |      "inlandModeOfTransport": "2",
-          |      "grossMass": 1000.99,
-          |      "Consignor": {
-          |        "identificationNumber": "idnum1",
-          |        "name": "Consignor Name",
-          |        "Address": {
-          |          "streetAndNumber": "Address Line 1",
-          |          "postcode": "Address Line 2",
-          |          "city": "Address Line 3",
-          |          "country": "Address Line 4"
-          |        }
-          |      },
-          |      "Consignee": {
-          |        "identificationNumber": "idnum2",
-          |        "name": "Consignee Name",
-          |        "Address": {
-          |          "streetAndNumber": "Address Line 1",
-          |          "postcode": "Address Line 2",
-          |          "city": "Address Line 3",
-          |          "country": "Address Line 4"
-          |        }
-          |      },
-          |      "TransportEquipment": [
-          |        {
-          |          "sequenceNumber": "te2",
-          |          "containerIdentificationNumber": "cin-2",
-          |          "numberOfSeals": 35,
-          |          "Seal": [
-          |            {
-          |              "sequenceNumber": "1",
-          |              "identifier": "seal1"
-          |            },
-          |            {
-          |              "sequenceNumber": "2",
-          |              "identifier": "seal2"
-          |            }
-          |          ],
-          |          "GoodsReference": [
-          |            {
-          |              "sequenceNumber": "seq1",
-          |              "declarationGoodsItemNumber": 5
-          |            }
-          |          ]
-          |        }
-          |      ],
-          |      "DepartureTransportMeans": [
-          |        {
-          |          "sequenceNumber": "seq1",
-          |          "typeOfIdentification": "type1",
-          |          "identificationNumber": "id1",
-          |          "nationality": "NG"
-          |        }
-          |      ],
-          |      "PreviousDocument": [
-          |        {
-          |          "sequenceNumber": "pr1",
-          |          "type": "768",
-          |          "referenceNumber": "ref1",
-          |          "complementOfInformation": "55"
-          |        }
-          |      ],
-          |      "SupportingDocument": [
-          |        {
-          |          "sequenceNumber": "sp1",
-          |          "type": "764",
-          |          "referenceNumber": "ref2",
-          |          "complementOfInformation": "45"
-          |        }
-          |      ],
-          |      "TransportDocument": [
-          |        {
-          |          "sequenceNumber": "tp1",
-          |          "type": "767",
-          |          "referenceNumber": "ref3"
-          |        }
-          |      ],
-          |      "AdditionalReference": [
-          |        {
-          |          "sequenceNumber": "adRef1",
-          |          "type": "4",
-          |          "referenceNumber": "ref4"
-          |        }
-          |      ],
-          |      "AdditionalInformation": [
-          |        {
-          |          "sequenceNumber": "adInf1",
-          |          "code": "32",
-          |          "text": "additional ref text"
-          |        }
-          |      ],
-          |      "HouseConsignment": [
-          |        {
-          |          "ConsignmentItem": [
-          |            {
-          |              "goodsItemNumber": "1",
-          |              "declarationGoodsItemNumber": 1,
-          |              "Commodity": {
-          |                "descriptionOfGoods": "commodity desc",
-          |                "GoodsMeasure": {
-          |                  "grossMass": 10.5
-          |                }
-          |              },
-          |              "Packaging": [
-          |                {
-          |                  "typeOfPackages": "package type",
-          |                  "numberOfPackages": 3
-          |                }
-          |              ]
-          |            }
-          |          ]
-          |        }
-          |      ]
-          |    }
-          |  }
-          |}
-          |""".stripMargin
-
-      val json = Json.parse(s"""
-                        {
-                          "body": $jsonUserData
-                        }
-                        """)
+      val xml: Node =
+        <ncts:CC043C PhaseID="NCTS5.0" xmlns:ncts="http://ncts.dgtaxud.ec">
+          <messageSender>token</messageSender>
+        </ncts:CC043C>
 
       server.stubFor(
-        get(urlEqualTo(unloadingNotificationUrl))
+        get(urlEqualTo(url))
           .willReturn(
-            ok(json.toString())
+            ok(xml.toString())
           )
       )
 
-      whenReady(service.getUnloadingNotificationMessage(arrivalId, messageId)) {
-        result =>
-          result mustEqual ie043Data
-      }
+      val result = service.getMessage(arrivalId, messageId).futureValue
 
+      result mustBe xml
     }
   }
 }

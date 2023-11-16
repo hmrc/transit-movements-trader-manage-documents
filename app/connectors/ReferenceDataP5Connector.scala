@@ -59,6 +59,13 @@ class ReferenceDataP5Connector @Inject() (
     httpClient.GET[ValidationResult[Seq[A]]](url, headers = version2Header)
   }
 
+  def getListWithDefault[A](listName: String)(implicit ec: ExecutionContext, hc: HeaderCarrier, reads: Reads[A]): Future[Seq[A]] = {
+    val url = s"${config.referenceDataURL}/lists/$listName"
+
+    implicit val customReads: HttpReads[ValidationResult[Seq[A]]] = referenceDataReads[A](listName)
+    httpClient.GET[ValidationResult[Seq[A]]](url, headers = version2Header).map(_.getOrElse(Seq.empty))
+  }
+
   private def version2Header: Seq[(String, String)] = Seq(
     HeaderNames.Accept -> "application/vnd.hmrc.2.0+json"
   )

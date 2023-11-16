@@ -1,0 +1,82 @@
+@import refactor.views.xml.p5.tad.components.table_1._
+@import refactor.views.xml.p5.tad.components._
+
+@(
+    consignors: String,
+    consignorIdentificationNumbers: String,
+    consignorContactPersons: String,
+    declarationType: String,
+    additionalDeclarationType: String,
+    specificCircumstanceIndicator: String,
+    mrn: String
+)
+
+<fo:table-row height="16%">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+
+    <fo:table-cell padding-left="5%" text-align="center" vertical-align="top" border-top-style="solid"
+                   border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt"
+                   border-left-color="black">
+        <fo:block/>
+    </fo:table-cell>
+    SCI
+
+    @consignor(consignors, consignorIdentificationNumbers, consignorContactPersons)
+
+    <fo:table-cell>
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column/>
+
+                <fo:table-body>
+
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+
+                                    <fo:table-body>
+                                        <fo:table-row height="8%">
+                                            @declaration_type(declarationType)
+                                            @additional_declaration_type(additionalDeclarationType)
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-body>
+                                        <fo:table-row height="8%">
+                                            @forms()
+                                            @sci(specificCircumstanceIndicator)
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+    <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt"
+                   border-left-color="black" border-right-style="solid" border-right-width="1pt"
+                   border-right-color="black" padding-left="1%">
+        <fo:block>
+            @barcode(mrn)
+        </fo:block>
+        <fo:block text-align="center">
+            @mrn
+        </fo:block>
+    </fo:table-cell>
+</fo:table-row>

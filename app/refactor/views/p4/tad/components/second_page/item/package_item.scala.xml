@@ -1,0 +1,17 @@
+@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel.PackageViewModel
+
+@(vm: PackageViewModel)
+
+<fo:block>
+    <fo:inline font-style="italic">
+        @vm.toString
+    </fo:inline>
+</fo:block>
+
+@if(vm.numberOfPackages > 0) {
+    <fo:block font-weight="normal">
+        <fo:inline font-weight="bold">
+            Pieces @vm.numberOfPackages
+        </fo:inline>
+    </fo:block>
+}
