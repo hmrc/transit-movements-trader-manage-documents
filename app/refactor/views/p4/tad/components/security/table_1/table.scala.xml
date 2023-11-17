@@ -24,5 +24,7 @@
 
     @row_3(vm.modeOfTransportAtTheBorder,vm.referenceNumberUcr,vm.carrierContactPerson)
 
+    @row_4(vm.seals)
+
   </fo:table-body>
 </fo:table>

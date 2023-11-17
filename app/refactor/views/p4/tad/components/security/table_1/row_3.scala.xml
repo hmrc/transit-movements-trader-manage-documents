@@ -21,7 +21,7 @@
         <fo:table-row height="5mm">
           <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black"   border-top-style="solid" border-top-width="1pt" border-top-color="black">
             <fo:block >
-              Mode of transport at the border (25) &#160;&#160;&#160;&#160;[1903]
+              Mode of transport at the border <fo:inline font-size="6px">(25)</fo:inline> &#160;&#160;&#160;&#160;[1903]
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
@@ -53,7 +53,7 @@
         <fo:table-row height="5mm">
           <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black"   border-top-style="solid" border-top-width="1pt" border-top-color="black">
             <fo:block >
-              Reference number UCR (7) &#160;&#160;&#160;&#160;[1208]
+              Reference number UCR <fo:inline font-size="6px">(7)</fo:inline> &#160;&#160;&#160;&#160;[1208]
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
