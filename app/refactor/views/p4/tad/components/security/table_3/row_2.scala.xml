@@ -1,0 +1,14 @@
+@import refactor.viewmodels.p4.tad.SecurityViewModel._
+@import refactor.views.xml.p4.tad.components.security.table_3._
+
+@(  conveyanceReferenceNumbers: String,
+        placeOfLoading: PlaceOfLoadingViewModel,
+        placeOfUnloading: PlaceOfLoadingViewModel)
+
+<fo:table-row height="36mm">
+
+    @country_of_routing(countriesOfRoutingOfConsignment)
+    @active_border_transport_means(activeBorderTransportMeans)
+
+</fo:table-row>
+

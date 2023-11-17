@@ -1,0 +1,49 @@
+@import refactor.viewmodels.p4.tad.SecurityViewModel._
+
+
+@(
+        activeBorderTransportMeans: ActiveBorderTransportMeansViewModel
+)
+
+<fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+  <fo:block>
+    <fo:table  width="100%" table-layout="fixed" >
+      <fo:table-column column-number="1" column-width="33mm"/>
+      <fo:table-column column-number="2" column-width="52mm"/>
+      <fo:table-body>
+        <fo:table-row display-align="before" height="6mm" >
+          <fo:table-cell  padding-left="2mm" padding-top = "2mm"  number-columns-spanned="2">
+            <fo:block>ACTIVE BORDER TRANSPORT MEANS (21) &#160;&#160;&#160; [1908]</fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row display-align="before" height="6mm" >
+          <fo:table-cell  padding-left="2mm"  number-columns-spanned="2" >
+            <fo:block>Sequence number &#160;&#160;&#160;<fo:inline font-weight = "bold"> @activeBorderTransportMeans.sequenceNumbers</fo:inline></fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row display-align="before" height="6mm">
+          <fo:table-cell  padding-left="2mm" number-columns-spanned="2" >
+            <fo:block>Customs office at border reference number &#160;&#160;&#160;<fo:inline font-weight = "bold">@activeBorderTransportMeans.customsOfficeAtBorderReferenceNumbers</fo:inline> </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row display-align="before" height="6mm">
+          <fo:table-cell  padding-left="2mm"  number-columns-spanned="2">
+            <fo:block>Type of identification &#160;&#160;&#160;<fo:inline font-weight = "bold">@activeBorderTransportMeans.typesOfIdentification</fo:inline> </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+
+        <fo:table-row display-align="before" height="6mm">
+          <fo:table-cell  padding-left="2mm"   number-columns-spanned="2">
+            <fo:block>Identification number &#160;&#160;&#160;<fo:inline font-weight = "bold">@activeBorderTransportMeans.identificationNumbers</fo:inline> </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+
+        <fo:table-row display-align="before" height="6.33mm">
+          <fo:table-cell  padding-left="2mm"  number-columns-spanned="2">
+            <fo:block>Nationality &#160;&#160;&#160;<fo:inline font-weight = "bold">@activeBorderTransportMeans.nationalities</fo:inline> </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>
