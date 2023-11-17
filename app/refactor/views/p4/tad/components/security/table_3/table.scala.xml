@@ -9,8 +9,8 @@
 
 <fo:table width="100%" table-layout="fixed" id="sec-table-3">
   <fo:table-column column-number="1" column-width="66mm"/>
-  <fo:table-column column-number="2" column-width="55mm"/>
-  <fo:table-column column-number="3" column-width="69mm"/>
+  <fo:table-column column-number="2" column-width="62mm"/>
+  <fo:table-column column-number="3" column-width="62mm"/>
 
 
   <fo:table-body>

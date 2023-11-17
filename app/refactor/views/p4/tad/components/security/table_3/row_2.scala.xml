@@ -5,10 +5,11 @@
         placeOfLoading: PlaceOfLoadingViewModel,
         placeOfUnloading: PlaceOfLoadingViewModel)
 
-<fo:table-row height="36mm">
+<fo:table-row height="23mm">
 
-    @country_of_routing(countriesOfRoutingOfConsignment)
-    @active_border_transport_means(activeBorderTransportMeans)
+    @conveyance_reference_number(conveyanceReferenceNumbers)
+    @place_of_loading(placeOfLoading)
+    @place_of_unloading(placeOfUnloading)
 
 </fo:table-row>
 
