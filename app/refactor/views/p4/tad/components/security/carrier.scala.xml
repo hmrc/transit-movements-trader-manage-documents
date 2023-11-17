@@ -1,9 +1,0 @@
-@import refactor.viewmodels.p4.tad.SecurityViewModel
-
-@(
-    carrierIdentificationNumber: String
-)
-
-<fo:block>
-    @carrierIdentificationNumber
-</fo:block>

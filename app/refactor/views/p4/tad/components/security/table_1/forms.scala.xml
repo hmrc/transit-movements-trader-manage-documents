@@ -1,31 +1,30 @@
-@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
-@(consignmentItemViewModel: Option[ConsignmentItemViewModel])
 
-<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
+@()
+<fo:table-row>
+<fo:table-cell
+        border-right-style="solid" border-right-width="1pt" border-right-color="black"
+>
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
-      <fo:table-column/>
-      <fo:table-column/>
-      <fo:table-body>
-        <fo:table-row height="4.5mm">
+      <fo:table-column column-width="16mm"/>
+      <fo:table-column column-width="16mm"/>
+      <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+        <fo:table-row height="5mm">
           <fo:table-cell number-columns-spanned="2" text-align="center" display-align="center">
             <fo:block>3 Forms</fo:block>
           </fo:table-cell>
         </fo:table-row>
-        <fo:table-row height="4.5mm">
+        <fo:table-row height="5mm">
           <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
-            <fo:block>
-              1
-            </fo:block>
+            <fo:block/>
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
-            <fo:block>
-              @consignmentItemViewModel.map(_ => 1).getOrElse(<fo:page-number-citation ref-id="A-last-page"/>)
-            </fo:block>
+            <fo:block/>
           </fo:table-cell>
         </fo:table-row>
       </fo:table-body>
     </fo:table>
   </fo:block>
 </fo:table-cell>
+</fo:table-row>

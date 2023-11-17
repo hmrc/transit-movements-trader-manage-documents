@@ -1,30 +1,16 @@
-@import refactor.views.xml.p4.tad.components.table_1.consignor
-@import refactor.views.xml.p4.tad.components.table_1.declaration_type
-@import refactor.views.xml.p4.tad.components.table_1.forms
-@import refactor.views.xml.p4.tad.components.table_1.loading_lists
-@import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
-@import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
+@import refactor.views.xml.p4.tad.components.security.table_1._
+@import refactor.viewmodels.p4.tad.SecurityViewModel
 @import refactor.views.xml.p4.tad.components.barcode
 
 @(
-  consignorViewModel: Option[ConsignorViewModel],
-  declarationType: String,
-  movementReferenceNumber: String,
-  localReferenceNumber: Option[String],
-  consignmentItemViewModel: Option[ConsignmentItemViewModel]
+  mrn: String,
+  carrierIdentificationNumber: String,
+  securityType: String
 )
 
 <fo:table-row height="16mm">
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
-  <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
-    <fo:block font-weight="bold" font-size="12pt" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-      A
-    </fo:block>
-  </fo:table-cell>
 
-  @consignor(consignorViewModel)
+  @carrier(carrierIdentificationNumber)
 
   <fo:table-cell>
     <fo:block>
@@ -33,40 +19,17 @@
 
         <fo:table-body>
 
-          @declaration_type(declarationType)
+          @security(securityType)
 
-          <fo:table-row>
-            <fo:table-cell>
-              <fo:block>
-                <fo:table width="100%" table-layout="fixed">
-                  <fo:table-column column-width="16mm"/>
-                  <fo:table-column column-width="16mm"/>
-
-                  <fo:table-body>
-                    <fo:table-row height="9mm">
-
-                      @forms(consignmentItemViewModel)
-                      @loading_lists()
-                    </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
+          @forms()
         </fo:table-body>
       </fo:table>
     </fo:block>
   </fo:table-cell>
 
-  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
-    <fo:block>
-      @barcode(movementReferenceNumber)
+  <fo:table-cell  border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" >
+    <fo:block >
+      @barcode(mrn)
     </fo:block>
-
-    @localReferenceNumber.map { lrn =>
-      <fo:block margin-left="2mm" font-size = "10pt" >
-        <fo:inline font-weight = "bold">LRN</fo:inline> @lrn
-      </fo:block>
-    }
   </fo:table-cell>
 </fo:table-row>
