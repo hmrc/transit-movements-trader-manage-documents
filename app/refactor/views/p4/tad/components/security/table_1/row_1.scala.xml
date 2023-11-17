@@ -1,10 +1,7 @@
 @(mrn: String)
 
 <fo:table-row height="4mm">
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
-  <fo:table-cell number-columns-spanned="2">
+  <fo:table-cell >
     <fo:block/>
   </fo:table-cell>
   <fo:table-cell >
