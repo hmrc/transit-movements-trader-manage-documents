@@ -6,20 +6,34 @@
     carrierContactPerson: ContactPersonViewModel
 )
 
+
 <fo:table-row height="10mm">
 
-  @contact_person(carrierContactPerson)
+@contact_person(carrierContactPerson)
 
-  <fo:table-cell padding-top="1mm" padding-left="1mm" number-columns-spanned="4" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
-    <fo:block>
-      Mode of transport at the border (25)
-    </fo:block>
-  </fo:table-cell>
-  <fo:table-cell padding-top="1mm" padding-left="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
-    <fo:block>
-      [1903]
-    </fo:block>
-  </fo:table-cell>
+<fo:table-cell
+        number-columns-spanned="5"   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+>
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column/>
+      <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+        <fo:table-row height="5mm">
+          <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black"   border-top-style="solid" border-top-width="1pt" border-top-color="black">
+            <fo:block >
+              Mode of transport at the border (25) &#160;&#160;&#160;&#160;[1903]
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="5mm">
+          <fo:table-cell  padding-left = "1mm" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  >
+            <fo:block font-weight = "bold"> @modeOfTransportAtTheBorder </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>
 
 </fo:table-row>
 
@@ -30,27 +44,22 @@
 </fo:table-cell>
 
 <fo:table-cell
-        border-right-style="solid" border-right-width="1pt" border-right-color="black" number-columns-spanned="5"
+        number-columns-spanned="5"   border-right-style="solid" border-right-width="1pt" border-right-color="black"
 >
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
       <fo:table-column/>
       <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:table-row height="5mm">
-          <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
-            <fo:block>
-              Reference number UCR (7)
-            </fo:block>
-          </fo:table-cell>
-          <fo:table-cell padding-top="1mm" padding-left="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
-            <fo:block>
-              [1208]
+          <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black"   border-top-style="solid" border-top-width="1pt" border-top-color="black">
+            <fo:block >
+              Reference number UCR (7) &#160;&#160;&#160;&#160;[1208]
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="5mm">
-          <fo:table-cell text-align="center" display-align="center">
-            <fo:block> @referenceNumberUcr </fo:block>
+          <fo:table-cell  padding-left = "1mm" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  >
+            <fo:block font-weight = "bold"> @referenceNumberUcr </fo:block>
           </fo:table-cell>
         </fo:table-row>
       </fo:table-body>
