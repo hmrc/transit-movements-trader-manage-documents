@@ -1,6 +1,6 @@
 @import refactor.viewmodels.p4.tad.SecurityViewModel.CountriesOfRoutingOfConsignmentViewModel
 @import refactor.viewmodels.p4.tad.SecurityViewModel.ActiveBorderTransportMeansViewModel
-@import refactor.views.xml.p4.tad.components.security.table_3._
+@import refactor.views.xml.p4.tad.components.security.table_3.row1._
 
 @(countriesOfRoutingOfConsignment: CountriesOfRoutingOfConsignmentViewModel, activeBorderTransportMeans: ActiveBorderTransportMeansViewModel)
 

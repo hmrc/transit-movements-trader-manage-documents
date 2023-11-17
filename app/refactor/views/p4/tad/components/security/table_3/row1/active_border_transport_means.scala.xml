@@ -13,7 +13,7 @@
       <fo:table-body>
         <fo:table-row display-align="before" height="6mm" >
           <fo:table-cell  padding-left="2mm" padding-top = "2mm"  number-columns-spanned="2">
-            <fo:block>ACTIVE BORDER TRANSPORT MEANS (21) &#160;&#160;&#160; [1908]</fo:block>
+            <fo:block>ACTIVE BORDER TRANSPORT MEANS <fo:inline font-size="6px">(21)</fo:inline> &#160;&#160;&#160; [1908]</fo:block>
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row display-align="before" height="6mm" >
