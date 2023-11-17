@@ -29,6 +29,11 @@ carrierIdentificationNumber: String
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
+        <fo:table-row height="6.33mm">
+          <fo:table-cell display-align="after" padding-left="2mm">
+            <fo:block font-weight="bold">CONTACT PERSON </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
       </fo:table-body>
     </fo:table>
   </fo:block>

@@ -1,85 +1,61 @@
-@import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
+@import refactor.viewmodels.p4.tad.SecurityViewModel.ContactPersonViewModel
 
 @(
-  consignorViewModel: Option[ConsignorViewModel],
-  numberOfItems: Int,
-  totalNumberOfPackages: String,
-  formName: String
+    modeOfTransportAtTheBorder: String,
+    referenceNumberUcr: String,
+    carrierContactPerson: ContactPersonViewModel
 )
 
-<fo:table-row height="8mm">
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
-  <fo:table-cell number-rows-spanned="5" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" padding-top="-10mm">
-    <fo:block-container
-          font-family="sans-serif" font-size="8" font-weight="bold"
-          reference-orientation="90" display-align="center"
-          inline-progression-dimension.minimum="8mm"
-          inline-progression-dimension.optimum="80mm"
-          inline-progression-dimension.maximum="auto">
-      <fo:block hyphenate="true">@formName</fo:block>
-    </fo:block-container>
-  </fo:table-cell>
-  <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">
+<fo:table-row height="10mm">
+
+  @contact_person(carrierContactPerson)
+
+  <fo:table-cell padding-top="1mm" padding-left="1mm" number-columns-spanned="4" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
     <fo:block>
-      @consignorViewModel.map { consignor =>
-        <fo:table width="100%" table-layout="fixed">
-          <fo:table-column column-number="1" column-width="44mm"/>
-          <fo:table-column column-number="2" column-width="8mm"/>
-          <fo:table-column column-number="3" column-width="37mm"/>
-          <fo:table-body>
-            <fo:table-row height="5mm">
-              <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
-                <fo:block>
-                  @consignor.city
-                </fo:block>
-              </fo:table-cell>
-              <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
-                <fo:block>
-                  @consignor.country
-                </fo:block>
-              </fo:table-cell>
-            </fo:table-row>
-          </fo:table-body>
-        </fo:table>
-      }
+      Mode of transport at the border (25)
     </fo:block>
   </fo:table-cell>
-  <fo:table-cell alignment-adjust="auto" border-style="solid" border-width="1pt" border-color="black" number-columns-spanned="3">
+  <fo:table-cell padding-top="1mm" padding-left="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
     <fo:block>
-      <fo:table width="100%" table-layout="fixed">
-        <fo:table-column column-width="16mm"/>
-        <fo:table-column border-left-width="1pt" border-left-style="solid" border-left-color="black"/>
-        <fo:table-body>
-          <fo:table-row height="4mm">
-            <fo:table-cell display-align="center" text-align="center">
-              <fo:block>5 Items</fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding-left="2mm" text-align="left" display-align="center">
-              <fo:block>6 Total packages</fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-          <fo:table-row height="4mm">
-            <fo:table-cell text-align="center" display-align="center" font-weight="bold">
-              <fo:block>
-                @numberOfItems
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell text-align="center" display-align="center" font-weight="bold">
-              <fo:block>
-                @totalNumberOfPackages
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-        </fo:table-body>
-      </fo:table>
+      [1903]
     </fo:block>
   </fo:table-cell>
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
-  <fo:table-cell>
-    <fo:block/>
-  </fo:table-cell>
+
+</fo:table-row>
+
+<fo:table-row height="10mm">
+
+<fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" >
+  <fo:block />
+</fo:table-cell>
+
+<fo:table-cell
+        border-right-style="solid" border-right-width="1pt" border-right-color="black" number-columns-spanned="5"
+>
+  <fo:block>
+    <fo:table width="100%" table-layout="fixed">
+      <fo:table-column/>
+      <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+        <fo:table-row height="5mm">
+          <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
+            <fo:block>
+              Reference number UCR (7)
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell padding-top="1mm" padding-left="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"  border-top-style="solid" border-top-width="1pt" border-top-color="black">
+            <fo:block>
+              [1208]
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <fo:table-row height="5mm">
+          <fo:table-cell text-align="center" display-align="center">
+            <fo:block> @referenceNumberUcr </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </fo:block>
+</fo:table-cell>
+
 </fo:table-row>
