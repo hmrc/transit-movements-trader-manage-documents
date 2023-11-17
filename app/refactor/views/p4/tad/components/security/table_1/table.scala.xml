@@ -1,4 +1,4 @@
-@import refactor.views.xml.p4.tad.components.table_1._
+@import refactor.views.xml.p4.tad.components.security.table_1._
 @import refactor.viewmodels.p4.tad.SecurityViewModel
 
 @this()

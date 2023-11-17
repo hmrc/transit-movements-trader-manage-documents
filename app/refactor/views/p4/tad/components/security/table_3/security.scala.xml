@@ -1,0 +1,32 @@
+@(securityType: String)
+<fo:table-row>
+  <fo:table-cell>
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-width="12.5mm"/>
+        <fo:table-column column-width="6.5mm"/>
+        <fo:table-column column-width="13mm"/>
+
+        <fo:table-body border-top-style="solid" border-top-width="1pt" border-top-color="black">
+          <fo:table-row height="5mm">
+            <fo:table-cell text-align="center" number-columns-spanned="2" padding-top = "1mm">
+              <fo:block>   Security <fo:inline font-size="6px">(S00)</fo:inline>  </fo:block>
+            </fo:table-cell>
+            <fo:table-cell margin-left = "2mm" text-align="left" padding-top = "1mm">
+              <fo:block>
+                [1107]
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="5mm">
+            <fo:table-cell text-align="center" number-columns-spanned="3" display-align="after" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" padding-bottom="1mm">
+              <fo:block font-weight="bold" font-size = "7px">
+                @securityType
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+</fo:table-row>
