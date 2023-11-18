@@ -1,7 +1,4 @@
 @import refactor.views.xml.p4.tad.components.security.table_2._
-@import refactor.views.xml.p4.tad.components.security.table_2.sections._
-@import refactor.viewmodels.p4.tad.SecurityViewModel
-@import refactor.views.xml.p4.tad.components.barcode
 
 @(
   typeOfLocation: String,

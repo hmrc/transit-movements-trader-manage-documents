@@ -1,4 +1,10 @@
-@import refactor.views.xml.p4.tad.components.table_2._
+@import refactor.views.xml.p4.tad.components.security.table_2.row1._
+@import refactor.views.xml.p4.tad.components.security.table_2.row2._
+@import refactor.views.xml.p4.tad.components.security.table_2.row3._
+@import refactor.views.xml.p4.tad.components.security.table_2.row4._
+@import refactor.views.xml.p4.tad.components.security.table_2.row5._
+@import refactor.views.xml.p4.tad.components.security.table_2.row6._
+@import refactor.views.xml.p4.tad.components.security.table_2.row7._
 @import refactor.viewmodels.p4.tad.SecurityViewModel
 
 @this()
@@ -27,28 +33,28 @@
       </fo:table-cell>
     </fo:table-row>
 
-    @row_2( vm.locationOfGoods.typeOfLocation,
+    @row_1( vm.locationOfGoods.typeOfLocation,
       vm.locationOfGoods.qualifierOfIdentification,
       vm.locationOfGoods.authorisationNumber
     )
-    @row_3(vm.locationOfGoods.additionalIdentifier, vm.locationOfGoods.unLocode)
-    @row_4(vm.locationOfGoods.customsOffice,
+    @row_2(vm.locationOfGoods.additionalIdentifier, vm.locationOfGoods.unLocode)
+    @row_3(vm.locationOfGoods.customsOffice,
       vm.locationOfGoods.gnssLatitude,
       vm.locationOfGoods.gnssLongitude,
       vm.locationOfGoods.economicOperator
     )
-    @row_5(vm.locationOfGoods.addressStreetAndNumber,
+    @row_4(vm.locationOfGoods.addressStreetAndNumber,
       vm.locationOfGoods.postcodeAddressHouseNumber,
       vm.locationOfGoods.contactPerson.name
     )
-    @row_6(vm.locationOfGoods.addressPostcode,
+    @row_5(vm.locationOfGoods.addressPostcode,
       vm.locationOfGoods.postcodeAddressPostcode,
       vm.locationOfGoods.contactPerson.phoneNumber)
-    @row_7(vm.locationOfGoods.addressCity,
+    @row_6(vm.locationOfGoods.addressCity,
       vm.locationOfGoods.postcodeAddressCountry,
       vm.locationOfGoods.contactPerson.emailAddress
     )
-    @row_8(vm.locationOfGoods.addressCountry)
+    @row_7(vm.locationOfGoods.addressCountry)
 
 
 
