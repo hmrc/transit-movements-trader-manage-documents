@@ -3,10 +3,7 @@
 
 @this()
 
-@(
-  vm: SecurityViewModel,
-  mrn: String
-)
+@(vm: SecurityViewModel)
 
 <fo:table
         width="100%" table-layout="fixed" id="security-table-2"
@@ -26,7 +23,7 @@
 
     <fo:table-row height="5.33mm">
       <fo:table-cell display-align="center" padding-left="2mm">
-        <fo:block>LOCATION OF GOODS <fo:inline font-size="6px">(30)</fo:inline>  [1615]</fo:block>
+        <fo:block>LOCATION OF GOODS <fo:inline font-size="6px">(30)</fo:inline> <fo:inline padding-left="2mm"> [1615] </fo:inline> </fo:block>
       </fo:table-cell>
     </fo:table-row>
 

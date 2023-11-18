@@ -8,7 +8,7 @@
   unLocode: String,
 )
 
-<fo:table-row height="16mm">
+<fo:table-row height="15mm">
 
 
 

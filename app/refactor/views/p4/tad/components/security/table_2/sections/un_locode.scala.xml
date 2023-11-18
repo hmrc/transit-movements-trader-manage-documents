@@ -2,7 +2,7 @@
 
 
 @(
-carrierIdentificationNumber: String
+value: String
 )
 
 <fo:table-cell  >
@@ -21,7 +21,7 @@ carrierIdentificationNumber: String
         <fo:table-row height="5.33mm">
           <fo:table-cell  padding-left="2mm" font-weight="bold">
             <fo:block>
-              @carrierIdentificationNumber
+              @value
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

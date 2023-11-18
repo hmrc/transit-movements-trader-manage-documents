@@ -57,10 +57,7 @@
         vm = securityModel,
         mrn = vm.mrn
     )
-    @securityTable2(
-        vm = securityModel,
-        mrn = vm.mrn
-    )
+    @securityTable2(securityModel)
 
     @securityTable3(securityModel)
 }

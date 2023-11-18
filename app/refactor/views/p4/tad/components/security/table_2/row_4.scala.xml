@@ -16,9 +16,9 @@
 
   @customs_office(customsOffice)
 
-  @gnss_lattitude(gnssLatitude)
+  @gnss_latitude(gnssLatitude)
 
-  @gnss_longtitude(gnssLongitude)
+  @gnss_longitude(gnssLongitude)
 
   @economic_operator(economicOperator)
 
