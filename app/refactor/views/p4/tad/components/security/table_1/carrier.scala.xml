@@ -14,7 +14,7 @@ carrierIdentificationNumber: String
       <fo:table-body>
         <fo:table-row height="5.33mm">
           <fo:table-cell display-align="center" padding-left="2mm">
-            <fo:block>CARRIER <fo:inline font-size="6px">(S07)</fo:inline>  [1312]</fo:block>
+            <fo:block>CARRIER <fo:inline font-size="6px">(S07)</fo:inline>  &#160;&#160;&#160;&#160;[1312]</fo:block>
           </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="5.33mm">

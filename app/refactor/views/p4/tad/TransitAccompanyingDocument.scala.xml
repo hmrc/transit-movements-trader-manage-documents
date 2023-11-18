@@ -18,6 +18,7 @@
     intermediaryPage: IntermediaryPage,
     securityHeader: security.table_1.table,
     securityTable2: security.table_2.table
+    securityTable3: security.table_3.table
 )
 
 @(vm: P4TadPdfViewModel)
@@ -60,6 +61,8 @@
         vm = securityModel,
         mrn = vm.mrn
     )
+
+    @securityTable3(securityModel)
 }
 
 

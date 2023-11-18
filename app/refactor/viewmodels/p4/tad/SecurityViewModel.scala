@@ -73,6 +73,7 @@ object SecurityViewModel {
 
   case class SealsViewModel(
     sequenceNumbers: String,
+    numberOfSeals: String,
     identifiers: String
   )
 
@@ -81,6 +82,7 @@ object SecurityViewModel {
     def apply(seals: Seq[SealType04]): SealsViewModel =
       new SealsViewModel(
         sequenceNumbers = seals.map(_.sequenceNumber).firstAndLast(", "),
+        numberOfSeals = seals.length.toString,
         identifiers = seals
           .map(
             x => s"[${x.identifier}]"

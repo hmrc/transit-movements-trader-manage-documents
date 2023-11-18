@@ -1,4 +1,4 @@
-@import refactor.views.xml.p4.tad.components.table_1._
+@import refactor.views.xml.p4.tad.components.security.table_1._
 @import refactor.viewmodels.p4.tad.SecurityViewModel
 
 @this()
@@ -23,6 +23,8 @@
     @row_2(mrn, vm.carrierIdentificationNumber, vm.security)
 
     @row_3(vm.modeOfTransportAtTheBorder,vm.referenceNumberUcr,vm.carrierContactPerson)
+
+    @row_4(vm.seals)
 
   </fo:table-body>
 </fo:table>
