@@ -1,0 +1,25 @@
+@import refactor.views.xml.p4.tad.components.security.table_2._
+@import refactor.views.xml.p4.tad.components.security.table_2.sections._
+@import refactor.viewmodels.p4.tad.SecurityViewModel
+@import refactor.views.xml.p4.tad.components.barcode
+
+@(
+  mrn: String,
+  carrierIdentificationNumber: String,
+  securityType: String
+)
+
+<fo:table-row height="20mm">
+
+
+
+  @customs_office(carrierIdentificationNumber)
+
+  @gnss_lattitude(carrierIdentificationNumber)
+
+  @gnss_longtitude(carrierIdentificationNumber)
+
+  @economic_operator(carrierIdentificationNumber)
+
+
+</fo:table-row>

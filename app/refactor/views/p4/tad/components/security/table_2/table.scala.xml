@@ -1,0 +1,45 @@
+@import refactor.views.xml.p4.tad.components.table_2._
+@import refactor.viewmodels.p4.tad.SecurityViewModel
+
+@this()
+
+@(
+  vm: SecurityViewModel,
+  mrn: String
+)
+
+<fo:table
+        width="100%" table-layout="fixed" id="security-table-2"
+        border-right-style="solid" border-right-width="1pt" border-right-color="black"
+        border-top-style="solid" border-top-width="1pt" border-top-color="black"
+        border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+        border-left-style="solid" border-left-width="1pt" border-left-color="black"
+>
+  <fo:table-column column-number="1" column-width="70mm"/>
+  <fo:table-column column-number="2" column-width="20mm"/>
+  <fo:table-column column-number="3" column-width="50mm"/>
+  <fo:table-column column-number="4" column-width="50mm"/>
+
+
+
+  <fo:table-body>
+
+    <fo:table-row height="5.33mm">
+      <fo:table-cell display-align="center" padding-left="2mm">
+        <fo:block>LOCATION OF GOODS <fo:inline font-size="6px">(30)</fo:inline>  [1615]</fo:block>
+      </fo:table-cell>
+    </fo:table-row>
+
+    @row_2(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_3(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_4(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_5(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_6(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_7(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_8(mrn, vm.carrierIdentificationNumber, vm.security)
+
+
+
+
+  </fo:table-body>
+</fo:table>
