@@ -4,22 +4,23 @@
 @import refactor.views.xml.p4.tad.components.barcode
 
 @(
-  mrn: String,
-  carrierIdentificationNumber: String,
-  securityType: String
+    customsOffice: String,
+    gnssLatitude: String,
+    gnssLongitude: String,
+    economicOperator: String
 )
 
 <fo:table-row height="20mm">
 
 
 
-  @customs_office(carrierIdentificationNumber)
+  @customs_office(customsOffice)
 
-  @gnss_lattitude(carrierIdentificationNumber)
+  @gnss_lattitude(gnssLatitude)
 
-  @gnss_longtitude(carrierIdentificationNumber)
+  @gnss_longtitude(gnssLongitude)
 
-  @economic_operator(carrierIdentificationNumber)
+  @economic_operator(economicOperator)
 
 
 </fo:table-row>

@@ -4,22 +4,22 @@
 @import refactor.views.xml.p4.tad.components.barcode
 
 @(
-  mrn: String,
-  carrierIdentificationNumber: String,
-  securityType: String
+  addressCity: String,
+  addressCountry: String,
+  emailAddress: String
 )
 
 <fo:table-row height="16mm">
 
 
 
-  @city(carrierIdentificationNumber)
+  @city(addressCity)
 
   <fo:table-cell  number-columns-spanned="2">
-    @country(carrierIdentificationNumber)
+    @country(addressCountry)
   </fo:table-cell>
 
-  @email_address(carrierIdentificationNumber)
+  @email_address(emailAddress)
 
 
 </fo:table-row>

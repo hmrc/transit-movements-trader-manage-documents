@@ -14,7 +14,7 @@ carrierIdentificationNumber: String
       <fo:table-body>
 
         <fo:table-row height="5.33mm">
-          <fo:table-cell display-align="center" padding-left="2mm">
+          <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
             <fo:block>POSTCODE ADDRESS</fo:block>
           </fo:table-cell>
         </fo:table-row>

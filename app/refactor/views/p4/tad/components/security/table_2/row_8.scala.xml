@@ -4,16 +4,14 @@
 @import refactor.views.xml.p4.tad.components.barcode
 
 @(
-  mrn: String,
-  carrierIdentificationNumber: String,
-  securityType: String
+  addressCountry: String
 )
 
 <fo:table-row height="16mm">
 
 
   <fo:table-cell  >
-    @country(carrierIdentificationNumber)
+    @country(addressCountry)
   </fo:table-cell>
 
 

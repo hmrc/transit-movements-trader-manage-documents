@@ -4,18 +4,17 @@
 @import refactor.views.xml.p4.tad.components.barcode
 
 @(
-  mrn: String,
-  carrierIdentificationNumber: String,
-  securityType: String
+  additionalIdentifier: String,
+  unLocode: String,
 )
 
 <fo:table-row height="16mm">
 
 
 
-  @additional_identifier(carrierIdentificationNumber)
+  @additional_identifier(additionalIdentifier)
 
-  @un_locode(carrierIdentificationNumber)
+  @un_locode(unLocode)
 
 
 </fo:table-row>

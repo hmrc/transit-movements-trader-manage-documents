@@ -30,13 +30,28 @@
       </fo:table-cell>
     </fo:table-row>
 
-    @row_2(mrn, vm.carrierIdentificationNumber, vm.security)
-    @row_3(mrn, vm.carrierIdentificationNumber, vm.security)
-    @row_4(mrn, vm.carrierIdentificationNumber, vm.security)
-    @row_5(mrn, vm.carrierIdentificationNumber, vm.security)
-    @row_6(mrn, vm.carrierIdentificationNumber, vm.security)
-    @row_7(mrn, vm.carrierIdentificationNumber, vm.security)
-    @row_8(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_2( vm.locationOfGoods.typeOfLocation,
+      vm.locationOfGoods.qualifierOfIdentification,
+      vm.locationOfGoods.authorisationNumber
+    )
+    @row_3(vm.locationOfGoods.additionalIdentifier, vm.locationOfGoods.unLocode)
+    @row_4(vm.locationOfGoods.customsOffice,
+      vm.locationOfGoods.gnssLatitude,
+      vm.locationOfGoods.gnssLongitude,
+      vm.locationOfGoods.economicOperator
+    )
+    @row_5(vm.locationOfGoods.addressStreetAndNumber,
+      vm.locationOfGoods.postcodeAddressHouseNumber,
+      vm.locationOfGoods.contactPerson.name
+    )
+    @row_6(vm.locationOfGoods.addressPostcode,
+      vm.locationOfGoods.postcodeAddressPostcode,
+      vm.locationOfGoods.contactPerson.phoneNumber)
+    @row_7(vm.locationOfGoods.addressCity,
+      vm.locationOfGoods.postcodeAddressCountry,
+      vm.locationOfGoods.contactPerson.emailAddress
+    )
+    @row_8(vm.locationOfGoods.addressCountry)
 
 
 
