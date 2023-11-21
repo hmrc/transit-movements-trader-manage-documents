@@ -42,7 +42,10 @@ object Table1ViewModel {
     streetAndNumber: String,
     postcode: String,
     city: String,
-    country: String
+    country: String,
+    contactName: String,
+    phoneNumber: String,
+    emailAddress: String
   )
 
   object ConsignorViewModel {
@@ -57,7 +60,10 @@ object Table1ViewModel {
         streetAndNumber = consignor.Address.map(_.streetAndNumber).orElseBlank,
         postcode = consignor.Address.flatMap(_.postcode).orElseBlank,
         city = consignor.Address.map(_.city).orElseBlank,
-        country = consignor.Address.map(_.country).orElseBlank
+        country = consignor.Address.map(_.country).orElseBlank,
+        contactName = consignor.ContactPerson.map(_.name).orElseBlank,
+        phoneNumber = consignor.ContactPerson.map(_.phoneNumber).orElseBlank,
+        emailAddress = consignor.ContactPerson.map(_.eMailAddress.orElseBlank).orElseBlank
       )
   }
 

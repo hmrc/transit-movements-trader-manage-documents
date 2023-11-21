@@ -79,14 +79,16 @@ object ConsignmentItemViewModel {
   )
 
   case class PackageViewModel(
+    sequenceNumber: String,
+    typeOfPackages: String,
     numberOfPackages: BigInt,
-    description: String
+    shippingMarks: Option[String]
   ) {
 
     override def toString: String = if (numberOfPackages > 0) {
-      s"$numberOfPackages - $description"
+      s"$numberOfPackages - ${shippingMarks.orElseBlank}"
     } else {
-      description
+      shippingMarks.orElseBlank
     }
   }
 
@@ -94,8 +96,10 @@ object ConsignmentItemViewModel {
 
     def apply(`package`: PackagingType02): PackageViewModel =
       new PackageViewModel(
+        sequenceNumber = `package`.sequenceNumber,
+        typeOfPackages = `package`.typeOfPackages,
         numberOfPackages = `package`.numberOfPackages.getOrElse(BigInt(0)),
-        description = `package`.typeOfPackages // In P4 we check this against reference data
+        shippingMarks = `package`.shippingMarks // In P4 we check this against reference data
       )
   }
 

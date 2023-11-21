@@ -18,13 +18,21 @@ package refactor.viewmodels.p4.tad
 
 import generated.p5.CC029CType
 import refactor.viewmodels._
-import refactor.viewmodels.p5.RichCC029CType
+import refactor.viewmodels.p5._
 
 case class Table2ViewModel(
   numberOfItems: Int,
   grossMass: String,
+  transportEquipment: String,
   printBindingItinerary: Boolean,
-  consignmentItemViewModel: Option[ConsignmentItemViewModel]
+  consignmentItemViewModel: Option[ConsignmentItemViewModel],
+  packages: String,
+  consignmentPreviousDocuments: String,
+  consignmentSupportingDocuments: String,
+  consignmentTransportDocuments: String,
+  consignmentAdditionalInformation: String,
+  consignmentAdditionalReference: String,
+  authorisation: String
 )
 
 object Table2ViewModel {
@@ -33,7 +41,15 @@ object Table2ViewModel {
     new Table2ViewModel(
       numberOfItems = ie029.numberOfItems,
       grossMass = ie029.Consignment.grossMass.asString,
+      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asP4String).toBeContinued(),
       printBindingItinerary = ie029.TransitOperation.bindingItinerary.toBoolean,
-      consignmentItemViewModel = consignmentItemViewModel
+      consignmentItemViewModel = consignmentItemViewModel,
+      packages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.map(_.asString))).toBeContinued(),
+      consignmentPreviousDocuments = ie029.Consignment.PreviousDocument.map(_.asString).toBeContinued(),
+      consignmentSupportingDocuments = ie029.Consignment.SupportingDocument.map(_.asString).toBeContinued(),
+      consignmentTransportDocuments = ie029.Consignment.TransportDocument.map(_.asString).toBeContinued(),
+      consignmentAdditionalInformation = ie029.Consignment.AdditionalInformation.map(_.asString).toBeContinued(),
+      consignmentAdditionalReference = ie029.Consignment.AdditionalReference.map(_.asString).toBeContinued(),
+      authorisation = ie029.Authorisation.map(_.asString).toBeContinued()
     )
 }

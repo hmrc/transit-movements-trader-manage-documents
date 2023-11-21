@@ -22,7 +22,7 @@
                 @vm.shippingMarks.map(block(_))
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
-                @vm.packages.map(package_item(_))
+                <fo:block/>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center">
                 @vm.containers.map(block(_))
