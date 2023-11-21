@@ -77,7 +77,7 @@ class ReferenceDataConnectorSpec
 
   private val errorStatuses = Gen.chooseNum(400, 599, 400, 499, 500, 501, 502, 503)
 
-  private val baseUrl = "/test-only/transit-movements-trader-reference-data"
+  private val baseUrl = "/transit-movements-trader-reference-data"
 
   "countries" - {
 
