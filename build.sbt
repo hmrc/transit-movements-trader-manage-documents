@@ -40,7 +40,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(customScalaxbSettings: _*)
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(
-  fork := true,
+  fork := false,
   javaOptions ++= Seq(
     "-Dconfig.resource=test.application.conf",
     "-Dlogger.resource=logback-test.xml"

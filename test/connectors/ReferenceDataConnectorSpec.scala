@@ -24,9 +24,13 @@ import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
+import org.scalatest.Assertion
 import org.scalatest.concurrent.IntegrationPatience
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.JsPath
@@ -37,14 +41,13 @@ import play.api.test.DefaultAwaitTimeout
 import play.api.test.FutureAwaits
 import services.JsonError
 import services.ReferenceDataRetrievalError
+import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.RequestId
 import utils.WireMockHelper
+
 import java.util.UUID
 import scala.concurrent.ExecutionContext.Implicits.global
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 class ReferenceDataConnectorSpec
     extends AnyFreeSpec
@@ -74,9 +77,11 @@ class ReferenceDataConnectorSpec
 
   private val errorStatuses = Gen.chooseNum(400, 599, 400, 499, 500, 501, 502, 503)
 
+  private val baseUrl = "/test-only/transit-movements-trader-reference-data"
+
   "countries" - {
 
-    val countriesUrl = "/transit-movements-trader-reference-data/countries"
+    val countriesUrl = s"$baseUrl/countries"
 
     "must return a sequence of countries" in {
 
@@ -89,7 +94,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.countries()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[Country]], Assertion](service.countries()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual countries
           }
@@ -109,7 +114,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.countries()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[Country]], Assertion](service.countries()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("country", returnStatus, "body"))
             }
@@ -132,7 +137,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.countries()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[Country]], Assertion](service.countries()(implicitly, hc)) {
               result =>
                 val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -145,7 +150,7 @@ class ReferenceDataConnectorSpec
 
   "kindsOfPackage" - {
 
-    val kindsOfPackageUrl = "/transit-movements-trader-reference-data/kinds-of-package"
+    val kindsOfPackageUrl = s"$baseUrl/kinds-of-package"
 
     "must return a sequence of kinds of package" in {
 
@@ -158,7 +163,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.kindsOfPackage()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[KindOfPackage]], Assertion](service.kindsOfPackage()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual kindsOfPackage
           }
@@ -178,7 +183,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.kindsOfPackage()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[KindOfPackage]], Assertion](service.kindsOfPackage()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("kindOfPackage", returnStatus, "body"))
             }
@@ -199,7 +204,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.kindsOfPackage()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[KindOfPackage]], Assertion](service.kindsOfPackage()(implicitly, hc)) {
             result =>
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -211,7 +216,7 @@ class ReferenceDataConnectorSpec
 
   "documentTypes" - {
 
-    val documentTypesUrl = "/transit-movements-trader-reference-data/document-types"
+    val documentTypesUrl = s"$baseUrl/document-types"
 
     "must return a sequence of kinds of package" in {
 
@@ -224,7 +229,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.documentTypes()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[DocumentType]], Assertion](service.documentTypes()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual documentTypes
           }
@@ -244,7 +249,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.documentTypes()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[DocumentType]], Assertion](service.documentTypes()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("documentType", returnStatus, "body"))
             }
@@ -265,7 +270,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.documentTypes()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[DocumentType]], Assertion](service.documentTypes()(implicitly, hc)) {
             result =>
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -277,7 +282,7 @@ class ReferenceDataConnectorSpec
 
   "additionalInformation" - {
 
-    val additionalInformationUrl = "/transit-movements-trader-reference-data/additional-information"
+    val additionalInformationUrl = s"$baseUrl/additional-information"
 
     "must return a sequence of kinds of package" in {
 
@@ -290,7 +295,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.additionalInformation()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[AdditionalInformation]], Assertion](service.additionalInformation()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual additionalInfo
           }
@@ -310,7 +315,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.additionalInformation()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[AdditionalInformation]], Assertion](service.additionalInformation()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
                   ReferenceDataRetrievalError("additionalInformation", returnStatus, "body")
@@ -333,7 +338,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.additionalInformation()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[AdditionalInformation]], Assertion](service.additionalInformation()(implicitly, hc)) {
             result =>
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -345,7 +350,7 @@ class ReferenceDataConnectorSpec
 
   "transportMode" - {
 
-    val endpoint = "/transit-movements-trader-reference-data/transport-mode"
+    val endpoint = s"$baseUrl/transport-mode"
 
     "must return a sequence" in {
 
@@ -358,7 +363,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.transportMode()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[TransportMode]], Assertion](service.transportMode()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual data
           }
@@ -378,7 +383,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.transportMode()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[TransportMode]], Assertion](service.transportMode()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("transportMode", returnStatus, "body"))
             }
@@ -399,7 +404,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.transportMode()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[TransportMode]], Assertion](service.transportMode()(implicitly, hc)) {
             result =>
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -411,7 +416,7 @@ class ReferenceDataConnectorSpec
 
   "controlResultCode" - {
 
-    val endpoint = "/transit-movements-trader-reference-data/control-results"
+    val endpoint = s"$baseUrl/control-results"
 
     "must return a sequence" in {
 
@@ -424,7 +429,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.controlResultByCode(data.code)(implicitly, hc)) {
+          whenReady[ControlResultData, Assertion](service.controlResultByCode(data.code)(implicitly, hc)) {
             result =>
               result mustEqual data
           }
@@ -468,7 +473,7 @@ class ReferenceDataConnectorSpec
 
   "previousDocumentTypes" - {
 
-    val endpoint = "/transit-movements-trader-reference-data/previous-document-types"
+    val endpoint = s"$baseUrl/previous-document-types"
 
     "must return a sequence" in {
 
@@ -481,7 +486,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.previousDocumentTypes()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[PreviousDocumentTypes]], Assertion](service.previousDocumentTypes()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual data
           }
@@ -501,7 +506,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.previousDocumentTypes()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[PreviousDocumentTypes]], Assertion](service.previousDocumentTypes()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
                   ReferenceDataRetrievalError("previousDocumentTypes", returnStatus, "body")
@@ -524,7 +529,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.previousDocumentTypes()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[PreviousDocumentTypes]], Assertion](service.previousDocumentTypes()(implicitly, hc)) {
             result =>
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -536,7 +541,7 @@ class ReferenceDataConnectorSpec
 
   "sensitiveGoodsCode" - {
 
-    val endpoint = "/transit-movements-trader-reference-data/sensitive-goods-code"
+    val endpoint = s"$baseUrl/sensitive-goods-code"
 
     "must return a sequence" in {
 
@@ -549,7 +554,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.sensitiveGoodsCode()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[SensitiveGoodsCode]], Assertion](service.sensitiveGoodsCode()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual data
           }
@@ -569,7 +574,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.sensitiveGoodsCode()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[SensitiveGoodsCode]], Assertion](service.sensitiveGoodsCode()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataRetrievalError("sensitiveGoodsCode", returnStatus, "body"))
             }
@@ -590,7 +595,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.sensitiveGoodsCode()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[SensitiveGoodsCode]], Assertion](service.sensitiveGoodsCode()(implicitly, hc)) {
             result =>
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -602,7 +607,7 @@ class ReferenceDataConnectorSpec
 
   "circumstanceIndicator" - {
 
-    val endpoint = "/transit-movements-trader-reference-data/circumstance-indicators"
+    val endpoint = s"$baseUrl/circumstance-indicators"
 
     "must return a sequence" in {
 
@@ -615,7 +620,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.circumstanceIndicators()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[CircumstanceIndicator]], Assertion](service.circumstanceIndicators()(implicitly, hc)) {
             result =>
               result.valid.value mustEqual data
           }
@@ -635,7 +640,7 @@ class ReferenceDataConnectorSpec
                 )
             )
 
-            whenReady(service.circumstanceIndicators()(implicitly, hc)) {
+            whenReady[ValidationResult[Seq[CircumstanceIndicator]], Assertion](service.circumstanceIndicators()(implicitly, hc)) {
               result =>
                 result.invalidValue.toChain.toList must contain theSameElementsAs Seq(
                   ReferenceDataRetrievalError("circumstanceIndicators", returnStatus, "body")
@@ -658,7 +663,7 @@ class ReferenceDataConnectorSpec
               )
           )
 
-          whenReady(service.circumstanceIndicators()(implicitly, hc)) {
+          whenReady[ValidationResult[Seq[CircumstanceIndicator]], Assertion](service.circumstanceIndicators()(implicitly, hc)) {
             result =>
               val expectedError = (JsPath, Seq(JsonValidationError("error.expected.jsarray")))
 
@@ -670,7 +675,7 @@ class ReferenceDataConnectorSpec
 
   "Customs office" - {
     def newRequestId: RequestId = RequestId(UUID.randomUUID().toString)
-    val endpoint                = "/transit-movements-trader-reference-data/customs-office/2345"
+    val endpoint                = s"$baseUrl/customs-office/2345"
 
     "return a Customs office if found and name is present" in {
       val requestId = newRequestId
