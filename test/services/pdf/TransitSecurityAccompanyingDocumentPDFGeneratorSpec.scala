@@ -60,11 +60,11 @@ class TransitSecurityAccompanyingDocumentPDFGeneratorSpec
     with ScalaFutures {
 
   // Spying on the tables to ensure the right values are passed in
-  lazy val spiedTable1: table_1.table    = Mockito.spy(new table_1.table())
-  lazy val spiedTable2: table_2.table    = Mockito.spy(new table_2.table())
-  lazy val spiedTable3: table_3.table    = Mockito.spy(new table_3.table())
-  lazy val spiedTable4: table_4.table    = Mockito.spy(new table_4.table())
-  lazy val spiedPage2: second_page.table = Mockito.spy(new second_page.table())
+  lazy val spiedTable1: table_1.table    = Mockito.spy[table_1.table](new table_1.table())
+  lazy val spiedTable2: table_2.table    = Mockito.spy[table_2.table](new table_2.table())
+  lazy val spiedTable3: table_3.table    = Mockito.spy[table_3.table](new table_3.table())
+  lazy val spiedTable4: table_4.table    = Mockito.spy[table_4.table](new table_4.table())
+  lazy val spiedPage2: second_page.table = Mockito.spy[second_page.table](new second_page.table())
 
   implicit override lazy val app: Application = GuiceApplicationBuilder()
     .overrides(
