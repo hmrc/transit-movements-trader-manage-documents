@@ -16,7 +16,7 @@
             <fo:table-body>
                 <fo:table-row height="7.5mm">
                 @for(i <- 0 to 5){
-                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="start" font-weight="bold" padding-left="2mm">
+                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" font-weight="bold" padding-left="2mm">
                     @if(transitOffices.isDefinedAt(i)) {
 
                         @customs_office(transitOffices(i))
