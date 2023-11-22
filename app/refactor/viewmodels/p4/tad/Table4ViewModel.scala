@@ -59,16 +59,16 @@ object Table4ViewModel {
 
     def apply(holderOfTheTransitProcedure: HolderOfTheTransitProcedureType05): PrincipalViewModel =
       new PrincipalViewModel(
-        name = holderOfTheTransitProcedure.name.orElseBlank,
+        name = holderOfTheTransitProcedure.name.orElse3Dashes,
         streetAndNumber = holderOfTheTransitProcedure.Address.map(_.streetAndNumber).orElseBlank.takeN(32, "***"),
-        postCode = holderOfTheTransitProcedure.Address.flatMap(_.postcode).orElseBlank,
-        city = holderOfTheTransitProcedure.Address.map(_.city).orElseBlank,
-        country = holderOfTheTransitProcedure.Address.map(_.country).orElseBlank,
+        postCode = holderOfTheTransitProcedure.Address.flatMap(_.postcode).orElse3Dashes,
+        city = holderOfTheTransitProcedure.Address.map(_.city).orElse3Dashes,
+        country = holderOfTheTransitProcedure.Address.map(_.country).orElse3Dashes,
         eori = holderOfTheTransitProcedure.identificationNumber,
         tir = holderOfTheTransitProcedure.TIRHolderIdentificationNumber,
-        contactName = holderOfTheTransitProcedure.ContactPerson.map(_.name).orElseBlank,
-        phoneNumber = holderOfTheTransitProcedure.ContactPerson.map(_.phoneNumber).orElseBlank,
-        emailAddress = holderOfTheTransitProcedure.ContactPerson.map(_.eMailAddress.orElseBlank).orElseBlank
+        contactName = holderOfTheTransitProcedure.ContactPerson.map(_.name).orElse3Dashes,
+        phoneNumber = holderOfTheTransitProcedure.ContactPerson.map(_.phoneNumber).orElse3Dashes,
+        emailAddress = holderOfTheTransitProcedure.ContactPerson.map(_.eMailAddress.orElse3Dashes).orElse3Dashes
       )
   }
 

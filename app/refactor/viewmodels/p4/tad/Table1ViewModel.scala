@@ -55,15 +55,15 @@ object Table1ViewModel {
 
     def apply(consignor: ConsignorType03): ConsignorViewModel =
       new ConsignorViewModel(
-        eori = consignor.identificationNumber.orElseBlank,
-        name = consignor.name.orElseBlank,
-        streetAndNumber = consignor.Address.map(_.streetAndNumber).orElseBlank,
-        postcode = consignor.Address.flatMap(_.postcode).orElseBlank,
-        city = consignor.Address.map(_.city).orElseBlank,
-        country = consignor.Address.map(_.country).orElseBlank,
-        contactName = consignor.ContactPerson.map(_.name).orElseBlank,
-        phoneNumber = consignor.ContactPerson.map(_.phoneNumber).orElseBlank,
-        emailAddress = consignor.ContactPerson.map(_.eMailAddress.orElseBlank).orElseBlank
+        eori = consignor.identificationNumber.orElse3Dashes,
+        name = consignor.name.orElse3Dashes,
+        streetAndNumber = consignor.Address.map(_.streetAndNumber).orElse3Dashes,
+        postcode = consignor.Address.flatMap(_.postcode).orElse3Dashes,
+        city = consignor.Address.map(_.city).orElse3Dashes,
+        country = consignor.Address.map(_.country).orElse3Dashes,
+        contactName = consignor.ContactPerson.map(_.name).orElse3Dashes,
+        phoneNumber = consignor.ContactPerson.map(_.phoneNumber).orElse3Dashes,
+        emailAddress = consignor.ContactPerson.map(_.eMailAddress.orElse3Dashes).orElse3Dashes
       )
   }
 
@@ -84,22 +84,22 @@ object Table1ViewModel {
 
     def apply(consignee: ConsigneeType03): ConsigneeViewModel =
       new ConsigneeViewModel(
-        eori = consignee.identificationNumber.orElseBlank,
-        name = consignee.name.orElseBlank,
-        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElseBlank,
-        postcode = consignee.Address.flatMap(_.postcode).orElseBlank,
-        city = consignee.Address.map(_.city).orElseBlank,
-        country = consignee.Address.map(_.country).orElseBlank
+        eori = consignee.identificationNumber.orElse3Dashes,
+        name = consignee.name.orElse3Dashes,
+        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElse3Dashes,
+        postcode = consignee.Address.flatMap(_.postcode).orElse3Dashes,
+        city = consignee.Address.map(_.city).orElse3Dashes,
+        country = consignee.Address.map(_.country).orElse3Dashes
       )
 
     def apply(consignee: ConsigneeType04): ConsigneeViewModel =
       new ConsigneeViewModel(
-        eori = consignee.identificationNumber.orElseBlank,
-        name = consignee.name.orElseBlank,
-        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElseBlank,
-        postcode = consignee.Address.flatMap(_.postcode).orElseBlank,
-        city = consignee.Address.map(_.city).orElseBlank,
-        country = consignee.Address.map(_.country).orElseBlank
+        eori = consignee.identificationNumber.orElse3Dashes,
+        name = consignee.name.orElse3Dashes,
+        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElse3Dashes,
+        postcode = consignee.Address.flatMap(_.postcode).orElse3Dashes,
+        city = consignee.Address.map(_.city).orElse3Dashes,
+        country = consignee.Address.map(_.country).orElse3Dashes
       )
   }
 

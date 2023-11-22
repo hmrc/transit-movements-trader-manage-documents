@@ -36,6 +36,6 @@ object Table5ViewModel {
     new Table5ViewModel(
       seals = Seq.empty,
       controlResult = None,
-      limitDate = ie015.TransitOperation.limitDate.map(_.dateString).orElseBlank
+      limitDate = ie015.TransitOperation.limitDate.map(_.dateString).orElse3Dashes
     )
 }
