@@ -23,22 +23,25 @@
                 <fo:block>
                     <fo:table width="100%" table-layout="fixed">
                         <fo:table-column column-width="45mm"/>
-                        <fo:table-column column-width="6mm"/>
+                        <fo:table-column column-width="14mm"/>
                         <fo:table-column column-width="33.36mm"/>
                         <fo:table-column column-width="10mm"/>
-                        <fo:table-column column-width="33mm"/>
+                        <fo:table-column column-width="25mm"/>
                         <fo:table-body>
                             <fo:table-row height="6.25mm">
                                 <fo:table-cell padding-left="2mm" display-align="center">
                                     <fo:block>Principal/TIR Holder (50)</fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell padding-left="2mm" display-align="center">
-                                    <fo:block>No</fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" >
                                     <fo:block>
                                         <!--output eori/tirid or eori-->
-                                        @vm.principal.toString
+                                        No  &#160; <fo:inline font-weight = "bold">@vm.principal.toString</fo:inline>
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        <!--output eori/tirid or eori-->
+                                        @vm.principal.streetAndNumber
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -50,26 +53,38 @@
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="6.25mm">
-                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        @vm.principal.streetAndNumber
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                                <fo:table-cell number-columns-spanned="1" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
                                         @vm.principal.postCode
                                     </fo:block>
                                 </fo:table-cell>
-                            </fo:table-row>
-                            <fo:table-row height="6.25mm">
                                 <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
                                         @vm.principal.city
                                     </fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                                <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
                                         @vm.principal.country
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="5" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.contactName
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                            <fo:table-row height="6.25mm">
+                                <fo:table-cell number-columns-spanned="1" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.phoneNumber
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+                                    <fo:block>
+                                        @vm.principal.emailAddress
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
@@ -101,19 +116,12 @@
                             </fo:table-row>
                             <fo:table-row height="3.6875mm">
                                 <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        @vm.acceptanceDate
-                                    </fo:block>
+                                    <fo:block/>
                                 </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row height="12mm">
                                 <fo:table-cell padding-left="2mm" padding-top="1mm" font-weight="bold">
-                                    @if(vm.isSimplifiedMovement){
-                                        @vm.authId.map(x => <fo:block>@x</fo:block>)
-                                        <fo:block>@vm.principal.name</fo:block>
-                                    } else {
-                                        <fo:block />
-                                    }
+                                   <fo:block/>
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>
@@ -140,10 +148,10 @@
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 3 -->
-            @row_3(vm.transitOffices)
+            @row_3(vm.transitOffices, vm.bindingItinerary)
         </fo:table-row>
         <fo:table-row> <!-- S1 T4 ROW 4 -->
-            @row_4(vm.guaranteeViewModels, vm.destinationOffice)
+            @row_4(vm.guaranteeType, vm.destinationOffice)
         </fo:table-row>
     </fo:table-body>
 </fo:table>

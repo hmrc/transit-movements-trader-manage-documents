@@ -25,19 +25,26 @@
     <fo:block>
       @consignorViewModel.map { consignor =>
         <fo:table width="100%" table-layout="fixed">
-          <fo:table-column column-number="1" column-width="44mm"/>
-          <fo:table-column column-number="2" column-width="8mm"/>
-          <fo:table-column column-number="3" column-width="37mm"/>
+          <fo:table-column column-number="1" column-width="30mm"/>
+          <fo:table-column column-number="2" column-width="35mm"/>
+          <fo:table-column column-number="3" column-width="24mm"/>
           <fo:table-body>
             <fo:table-row height="5mm">
-              <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="center" font-weight="bold">
+              <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
                 <fo:block>
-                  @consignor.city
+                  @consignor.contactName
+                </fo:block>
+              </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row height="3mm">
+              <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                <fo:block>
+                  @consignor.phoneNumber
                 </fo:block>
               </fo:table-cell>
               <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
                 <fo:block>
-                  @consignor.country
+                  @consignor.emailAddress
                 </fo:block>
               </fo:table-cell>
             </fo:table-row>

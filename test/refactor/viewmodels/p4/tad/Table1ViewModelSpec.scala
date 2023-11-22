@@ -37,7 +37,10 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
         streetAndNumber = "san",
         postcode = "pc",
         city = "city",
-        country = "country"
+        country = "country",
+        contactName = "ccp",
+        phoneNumber = "ccptel",
+        emailAddress = "ccpemail"
       )
     }
 
@@ -69,7 +72,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "transportIdentity" in {
-      result.transportIdentity mustBe "toi1, in1..."
+      result.transportIdentity mustBe "1, toi1, in1..."
     }
 
     "transportCountry" in {

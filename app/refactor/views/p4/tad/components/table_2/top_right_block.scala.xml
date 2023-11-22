@@ -2,7 +2,8 @@
 
 @(
     grossMass: String,
-    consignmentItemViewModel: Option[ConsignmentItemViewModel]
+    consignmentItemViewModel: Option[ConsignmentItemViewModel],
+    consignmentPreviousDocuments: String
 )
 
 <fo:table-cell number-columns-spanned="2">
@@ -103,11 +104,9 @@
                     <fo:table-cell padding-left="2mm" padding-top="1mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-columns-spanned="3">
                             <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
-                            <fo:inline font-style="italic">
+                            <fo:inline >
                                 <fo:block>
-                                    @consignmentItemViewModel.map { vm =>
-                                        @vm.previousDocuments
-                                    }
+                                    @consignmentPreviousDocuments
                                 </fo:block>
                             </fo:inline>
                         </fo:block>

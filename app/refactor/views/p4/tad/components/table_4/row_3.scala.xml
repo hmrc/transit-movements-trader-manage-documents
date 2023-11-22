@@ -2,7 +2,7 @@
 @import refactor.views.xml.p4.tad.components.customs_office
 @import refactor.viewmodels.p4.tad.Table4ViewModel.TransitOfficeViewModel
 
-@(transitOffices: Seq[TransitOfficeViewModel])
+@(transitOffices: Seq[TransitOfficeViewModel], bindingItinerary: Boolean)
 
 <fo:table-cell number-columns-spanned="2" column-number="2" padding-top="0.5mm">
     <fo:block>
@@ -16,9 +16,14 @@
             <fo:table-body>
                 <fo:table-row height="7.5mm">
                 @for(i <- 0 to 5){
-                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" display-align="center" font-weight="bold" padding-left="2mm">
+                    <fo:table-cell border-left-color="black" border-left-style="solid" border-left-width="1pt" font-weight="bold" padding-left="2mm">
                     @if(transitOffices.isDefinedAt(i)) {
+
                         @customs_office(transitOffices(i))
+
+                        @if(i == 0){
+                        <fo:block>BINDING ITINERARY: @bindingItinerary </fo:block>
+                        }
                     } else {
                         <fo:block/>
                     }

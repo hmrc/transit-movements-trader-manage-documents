@@ -1,6 +1,12 @@
-@import refactor.views.xml.p4.tad.components.binding_itinerary
+@import refactor.views.xml.p4.tad.components.second_page.item.block
 
-@(bindingItinerary: Boolean)
+@(
+  consignmentSupportingDocuments: String,
+  consignmentTransportDocuments: String,
+  consignmentAdditionalInformation: String,
+  consignmentAdditionalReference: String,
+  authorisation: String
+)
 
 <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2" wrap-option="wrap" padding-top="1mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
     <fo:block>
@@ -18,8 +24,13 @@
         </fo:list-block>
     </fo:block>
 </fo:table-cell>
-<fo:table-cell margin-left="2mm">
-    @binding_itinerary(bindingItinerary)
+<fo:table-cell margin-left="2mm" padding-top = "2mm" font-weight="bold">
+    @block(consignmentSupportingDocuments)
+    @block(consignmentTransportDocuments)
+    @block(consignmentAdditionalInformation)
+    @block(consignmentAdditionalReference)
+    @block(authorisation)
+
 </fo:table-cell>
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
 <fo:block/>
