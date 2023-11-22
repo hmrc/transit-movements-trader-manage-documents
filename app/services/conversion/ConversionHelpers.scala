@@ -47,7 +47,7 @@ trait ConversionHelpers {
     maybeConsignor match {
       case Some(consignor) =>
         ConsignorConverter
-          .toViewModel(consignor, s"Consignor", countries)
+          .toViewModel(consignor, s"consignor", countries)
           .map(
             x => Some(x)
           )
@@ -58,7 +58,7 @@ trait ConversionHelpers {
     maybeConsignee match {
       case Some(consignee) =>
         ConsigneeConverter
-          .toViewModel(consignee, s"Consignee", countries)
+          .toViewModel(consignee, s"consignee", countries)
           .map(
             x => Some(x)
           )
