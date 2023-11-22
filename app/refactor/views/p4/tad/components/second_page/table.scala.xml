@@ -15,7 +15,7 @@
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
-            @vm.consignmentItemViewModels.map(item.goods_item(_))
+            @vm.consignmentItemViewModels.map(item.goods_item(_, vm.authorisation))
         </fo:block>
         <fo:block id="A-last-page"/>
     </fo:flow>

@@ -73,11 +73,18 @@ package object p5 {
   implicit class RichPackagingType02(value: PackagingType02) {
 
     def asString: String = Seq(
+      Some(value.typeOfPackages),
+      value.numberOfPackages.map(_.toString()),
+      value.shippingMarks
+    ).flatten.commaSeparate
+
+    def asP4String: String = Seq(
       Some(value.sequenceNumber),
       Some(value.typeOfPackages),
       value.numberOfPackages.map(_.toString()),
       value.shippingMarks
     ).flatten.commaSeparate
+
   }
 
   implicit class RichPreviousDocumentType03(value: PreviousDocumentType03) {
@@ -454,8 +461,15 @@ package object p5 {
 
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
 
-    def asString: String = Seq(
+    def asP4String: String = Seq(
       Some(value.guaranteeType)
+    ).flatten.commaSeparate
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber),
+      Some(value.guaranteeType),
+      value.otherGuaranteeReference,
+      Some(value.GuaranteeReference.map(_.asString).commaSeparate)
     ).flatten.commaSeparate
   }
 

@@ -25,14 +25,6 @@ class Table5ViewModelSpec extends SpecBase with DummyData {
 
     val result = Table5ViewModel(cc015c, cc029c)
 
-    "seals" in {
-      result.seals mustBe Seq("sid1", "sid2")
-    }
-
-    "bindingItinerary" in {
-      result.bindingItinerary mustBe true
-    }
-
     "controlResult" in {
       result.controlResult mustBe None
     }

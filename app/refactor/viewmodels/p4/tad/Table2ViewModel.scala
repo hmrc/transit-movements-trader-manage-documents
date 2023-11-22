@@ -44,7 +44,7 @@ object Table2ViewModel {
       transportEquipment = ie029.Consignment.TransportEquipment.map(_.asP4String).toBeContinued(),
       printBindingItinerary = ie029.TransitOperation.bindingItinerary.toBoolean,
       consignmentItemViewModel = consignmentItemViewModel,
-      packages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.map(_.asString))).toBeContinued(),
+      packages = ie029.Consignment.HouseConsignment.flatMap(_.ConsignmentItem.flatMap(_.Packaging.map(_.asP4String))).toBeContinued(),
       consignmentPreviousDocuments = ie029.Consignment.PreviousDocument.map(_.asString).toBeContinued(),
       consignmentSupportingDocuments = ie029.Consignment.SupportingDocument.map(_.asString).toBeContinued(),
       consignmentTransportDocuments = ie029.Consignment.TransportDocument.map(_.asString).toBeContinued(),

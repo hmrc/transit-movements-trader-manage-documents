@@ -42,7 +42,11 @@ case class ConsignmentItemViewModel(
   specialMentions: Option[Seq[SpecialMention]], // TODO
   producedDocuments: Option[Seq[String]],
   consigneeViewModel: Option[ConsigneeViewModel],
-  consignorViewModel: Option[ConsignorViewModel]
+  consignorViewModel: Option[ConsignorViewModel],
+  supportingDocuments: Seq[String],
+  transportDocuments: Seq[String],
+  additionalInformation: Seq[String],
+  additionalReference: Seq[String]
 )
 
 object ConsignmentItemViewModel {
@@ -83,14 +87,7 @@ object ConsignmentItemViewModel {
     typeOfPackages: String,
     numberOfPackages: BigInt,
     shippingMarks: Option[String]
-  ) {
-
-    override def toString: String = if (numberOfPackages > 0) {
-      s"$numberOfPackages - ${shippingMarks.orElseBlank}"
-    } else {
-      shippingMarks.orElseBlank
-    }
-  }
+  )
 
   object PackageViewModel {
 
@@ -127,7 +124,7 @@ object ConsignmentItemViewModel {
       declarationType = consignmentItem.declarationType.getOrElse(ie029.TransitOperation.declarationType),
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElse2Dashes,
       sensitiveGoodsInformation = Seq(SensitiveGoodsInformationViewModel()), // Not in P5?
-      previousDocuments = consignmentItem.PreviousDocument.map(_.asP4String).addDefaultIfEmpty(),
+      previousDocuments = consignmentItem.PreviousDocument.map(_.asString),
       countryOfDispatch = consignmentItem.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
       countryOfDestination = consignmentItem.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       grossMass = consignmentItem.Commodity.GoodsMeasure.map(_.grossMass.asString).orElse3Dashes,
@@ -135,6 +132,10 @@ object ConsignmentItemViewModel {
       specialMentions = None,   // Not in P5?
       producedDocuments = None, // Not in P5?
       consigneeViewModel = consignmentItem.Consignee.map(ConsigneeViewModel(_)),
-      consignorViewModel = None
+      consignorViewModel = None,
+      supportingDocuments = consignmentItem.SupportingDocument.map(_.asString),
+      transportDocuments = consignmentItem.TransportDocument.map(_.asString),
+      additionalInformation = consignmentItem.AdditionalInformation.map(_.asString),
+      additionalReference = consignmentItem.AdditionalReference.map(_.asString)
     )
 }

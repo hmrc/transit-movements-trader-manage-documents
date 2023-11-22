@@ -1,5 +1,4 @@
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
-@import refactor.views.xml.p4.tad.components.table_2.item
 @import refactor.views.xml.p4.tad.components.second_page.item.block
 
 @(
@@ -49,8 +48,11 @@
                                 </fo:table-row>
                                 <fo:table-row height="3.9mm">
                                     <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" font-weight="bold" text-align="center">
-                                        <!-- Number and kind -->
-                                        @consignmentItemViewModel.map(_ => block(numberOfItems.toString)).getOrElse(<fo:block>-&#45;&#45;</fo:block>)
+                                        <fo:block>
+                                        @consignmentItemViewModel.map { vm =>
+                                            @vm.itemNumber
+                                        }
+                                        </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell display-align="center" text-align="center" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                         <fo:block>No</fo:block>

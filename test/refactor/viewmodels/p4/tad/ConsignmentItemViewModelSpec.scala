@@ -39,12 +39,16 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     "packages" in {
       result.packages mustBe Seq(
         PackageViewModel(
+          sequenceNumber = "1",
+          typeOfPackages = "top1",
           numberOfPackages = BigInt(100),
-          description = "top1"
+          shippingMarks = Some("sm1")
         ),
         PackageViewModel(
+          sequenceNumber = "2",
+          typeOfPackages = "top2",
           numberOfPackages = BigInt(200),
-          description = "top2"
+          shippingMarks = Some("sm2")
         )
       )
     }
@@ -70,7 +74,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "previousDocuments" in {
-      result.previousDocuments mustBe Seq("tv1 - rn1 - pcoi1", "tv2 - rn2 - pcoi2")
+      result.previousDocuments mustBe Seq("1, tv1, rn1, 1, top1, 11, muaq1, 10, pcoi1", "2, tv2, rn2, 2, top2, 22, muaq2, 20, pcoi2")
     }
 
     "countryOfDispatch" in {
@@ -103,36 +107,6 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
     "consignorViewModel" in {
       result.consignorViewModel mustBe None
-    }
-  }
-
-  "PackageViewModel" - {
-    "must format as string" - {
-      "when 0 packages" in {
-        val pvm = PackageViewModel(
-          `package` = PackagingType02(
-            sequenceNumber = "1",
-            typeOfPackages = "top",
-            numberOfPackages = Some(BigInt(0)),
-            shippingMarks = Some("sm")
-          )
-        )
-
-        pvm.toString mustBe "top"
-      }
-
-      "when more than 0 packages" in {
-        val pvm = PackageViewModel(
-          `package` = PackagingType02(
-            sequenceNumber = "1",
-            typeOfPackages = "top",
-            numberOfPackages = Some(BigInt(10)),
-            shippingMarks = Some("sm")
-          )
-        )
-
-        pvm.toString mustBe "10 - top"
-      }
     }
   }
 }

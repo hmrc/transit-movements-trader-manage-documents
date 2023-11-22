@@ -23,6 +23,7 @@ import refactor.viewmodels.p5._
 case class SecondPageViewModel(
   departureOffice: String,
   acceptanceDate: String,
+  authorisation: Seq[String],
   consignmentItemViewModels: Seq[ConsignmentItemViewModel]
 )
 
@@ -32,6 +33,7 @@ object SecondPageViewModel {
     new SecondPageViewModel(
       departureOffice = ie029.CustomsOfficeOfDeparture.asString,
       acceptanceDate = ie029.TransitOperation.declarationAcceptanceDate.dateString,
+      authorisation = ie029.Authorisation.map(_.asString),
       consignmentItemViewModels = consignmentItemViewModels
     )
 }

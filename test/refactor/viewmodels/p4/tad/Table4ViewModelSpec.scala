@@ -27,19 +27,8 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
 
     val result = Table4ViewModel(cc029c)
 
-    "guaranteeViewModels" in {
-      result.guaranteeViewModels mustBe Seq(
-        GuaranteeViewModel(
-          typeValue = "g1",
-          referenceNumbers = Seq("1grn1", "1grn2"),
-          otherReferenceNumber = "ogr1"
-        ),
-        GuaranteeViewModel(
-          typeValue = "g2",
-          referenceNumbers = Seq("2grn1", "2grn2"),
-          otherReferenceNumber = "ogr2"
-        )
-      )
+    "guaranteeType" in {
+      result.guaranteeType mustBe "g1..."
     }
 
     "principal" in {
@@ -50,7 +39,10 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
         city = "city",
         country = "country",
         eori = Some("hin"),
-        tir = Some("thin")
+        tir = Some("thin"),
+        contactName = "cp",
+        phoneNumber = "cptel",
+        emailAddress = "cpemail"
       )
     }
 
@@ -65,10 +57,12 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
     "transitOffices" in {
       result.transitOffices mustBe Seq(
         TransitOfficeViewModel(
+          sequenceNumber = Some("1"),
           reference = "cootd1",
           dateTime = Some("03/02/2010 08:45")
         ),
         TransitOfficeViewModel(
+          sequenceNumber = Some("2"),
           reference = "cootd2",
           dateTime = Some("03/02/2015 08:45")
         )
@@ -77,6 +71,7 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
 
     "destinationOffice" in {
       result.destinationOffice.value mustBe TransitOfficeViewModel(
+        sequenceNumber = None,
         reference = "coodd",
         dateTime = None
       )
@@ -86,56 +81,12 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
       result.authId mustBe None
     }
 
+    "bindingItinerary" in {
+      result.bindingItinerary mustBe true
+    }
+
     "isSimplifiedMovement" in {
       result.isSimplifiedMovement mustBe true
-    }
-  }
-
-  "GuaranteeViewModel" - {
-    "must format as string" - {
-      "when type value is 4 and more than one guarantee" - {
-        val gvm = GuaranteeViewModel(
-          typeValue = "4",
-          referenceNumbers = Seq("guaranteereference1", "guaranteereference2"),
-          otherReferenceNumber = "otherreferencenumber"
-        )
-
-        gvm.ref mustBe "guaranteereference1 - rence2"
-        gvm.otherRef mustBe ""
-      }
-
-      "when type value is not 4 and more than one guarantee" - {
-        val gvm = GuaranteeViewModel(
-          typeValue = "1",
-          referenceNumbers = Seq("guaranteereference1", "guaranteereference2"),
-          otherReferenceNumber = "otherreferencenumber"
-        )
-
-        gvm.ref mustBe "guaranteereference1 ***"
-        gvm.otherRef mustBe "otherreferencenumber ***"
-      }
-
-      "one guarantee" - {
-        val gvm = GuaranteeViewModel(
-          typeValue = Gen.oneOf("1", "4").sample.value,
-          referenceNumbers = Seq("guaranteereference1"),
-          otherReferenceNumber = "otherreferencenumber"
-        )
-
-        gvm.ref mustBe "guaranteereference1"
-        gvm.otherRef mustBe "otherreferencenumber"
-      }
-
-      "no guarantees (this should never happen)" - {
-        val gvm = GuaranteeViewModel(
-          typeValue = Gen.oneOf("1", "4").sample.value,
-          referenceNumbers = Nil,
-          otherReferenceNumber = "otherreferencenumber"
-        )
-
-        gvm.ref mustBe ""
-        gvm.otherRef mustBe ""
-      }
     }
   }
 
@@ -149,7 +100,10 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
           city = "city",
           country = "country",
           eori = Some("hin"),
-          tir = Some("thin")
+          tir = Some("thin"),
+          contactName = "contact name",
+          phoneNumber = "0492938483",
+          emailAddress = "emailPrincipal@hotmail.com"
         )
 
         pvm.toString mustBe "hin / thin"
@@ -163,7 +117,10 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
           city = "city",
           country = "country",
           eori = Some("hin"),
-          tir = None
+          tir = None,
+          contactName = "contact name",
+          phoneNumber = "0492938483",
+          emailAddress = "emailPrincipal@hotmail.com"
         )
 
         pvm.toString mustBe "hin"
@@ -177,7 +134,10 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
           city = "city",
           country = "country",
           eori = None,
-          tir = Some("thin")
+          tir = Some("thin"),
+          contactName = "contact name",
+          phoneNumber = "0492938483",
+          emailAddress = "emailPrincipal@hotmail.com"
         )
 
         pvm.toString mustBe ""
@@ -191,7 +151,10 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
           city = "city",
           country = "country",
           eori = None,
-          tir = None
+          tir = None,
+          contactName = "contact name",
+          phoneNumber = "0492938483",
+          emailAddress = "emailPrincipal@hotmail.com"
         )
 
         pvm.toString mustBe ""
