@@ -40,6 +40,7 @@ import play.api.Application
 import play.api.Environment
 import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.twirl.api.XmlFormat
 import services.pdf.TransitAccompanyingDocumentPDFGeneratorSpec.transitAccompanyingDocumentPDF
 import utils.FormattedDate
 import viewmodels._
