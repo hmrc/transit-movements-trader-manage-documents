@@ -17,7 +17,6 @@
 package services.conversion
 
 import cats.implicits._
-import models._
 import models.reference._
 import services._
 import utils.FormattedDate
@@ -28,7 +27,7 @@ object TransitAccompanyingDocumentConverter extends Converter with ConversionHel
   def toViewModel(
     transitAccompanyingDocument: models.ReleaseForTransit,
     countries: Seq[Country],
-    additionalInfo: Seq[reference.AdditionalInformation],
+    additionalInfo: Seq[AdditionalInformation],
     kindsOfPackage: Seq[KindOfPackage],
     documentTypes: Seq[DocumentType],
     departureOffice: CustomsOfficeWithOptionalDate,

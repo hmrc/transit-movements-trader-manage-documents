@@ -19,7 +19,6 @@ package services.conversion
 import cats.data.Validated.Invalid
 import cats.implicits._
 import connectors.ReferenceDataConnector
-import connectors.ReferenceDataP5Connector
 import services.ValidationResult
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.CustomsOfficeWithOptionalDate
@@ -28,7 +27,7 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class TransitAccompanyingDocumentConversionService @Inject() (referenceData: ReferenceDataConnector, referenceDataP5: ReferenceDataP5Connector) {
+class TransitAccompanyingDocumentConversionService @Inject() (referenceData: ReferenceDataConnector) {
 
   /*
    * The TAD/UL xsd files are identical, both documents share same structure

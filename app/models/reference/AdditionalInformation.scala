@@ -19,10 +19,7 @@ package models.reference
 import play.api.libs.json.Json
 import play.api.libs.json.OFormat
 
-case class AdditionalInformation(code: String, description: String) extends CodedReferenceData {
-
-  override def toString: String = s"$code,$description"
-}
+case class AdditionalInformation(code: String, description: String) extends CodedReferenceData
 
 object AdditionalInformation {
 
