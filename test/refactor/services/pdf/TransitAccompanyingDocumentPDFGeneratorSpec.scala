@@ -19,7 +19,6 @@ package refactor.services.pdf
 import base.SpecBase
 import generators.ViewModelGenerators
 import org.apache.pdfbox.pdmodel.PDDocument
-import org.apache.pdfbox.text.PDFTextStripper
 import org.mockito.Mockito
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
@@ -35,9 +34,6 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import refactor.viewmodels.DummyData
 import refactor.viewmodels.p4.tad.SecurityViewModel
 import refactor.views.xml.p4.tad.components.security
-
-import java.nio.file.Files
-import java.nio.file.Paths
 
 class TransitAccompanyingDocumentPDFGeneratorSpec
     extends SpecBase

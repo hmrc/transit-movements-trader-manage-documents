@@ -17,7 +17,6 @@
 package refactor.viewmodels.p4.tad
 
 import base.SpecBase
-import org.scalacheck.Gen
 import refactor.viewmodels.DummyData
 import refactor.viewmodels.p4.tad.Table4ViewModel._
 

@@ -17,7 +17,6 @@
 package refactor.viewmodels.p4.tad
 
 import base.SpecBase
-import generated.p5.PackagingType02
 import refactor.viewmodels.DummyData
 import refactor.viewmodels.p4.tad.ConsignmentItemViewModel.PackageViewModel
 import refactor.viewmodels.p4.tad.ConsignmentItemViewModel.SensitiveGoodsInformationViewModel
