@@ -33,6 +33,6 @@ object AppDependencies {
   val overrides: Seq[ModuleID] = Seq(
     "org.typelevel"          %% "cats-core"           % catsVersion,
     "org.typelevel"          %% "cats-kernel"         % catsVersion,
-    "org.apache.xmlgraphics" %  "xmlgraphics-commons" % "2.7"
+    "org.apache.xmlgraphics" %  "batik-bridge"        % "1.17"
   )
 }
