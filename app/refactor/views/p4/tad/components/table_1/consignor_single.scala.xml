@@ -8,31 +8,31 @@
   <fo:table-cell display-align="center" padding-left="2mm">
     <fo:block>2 Consignor/Exporter</fo:block>
   </fo:table-cell>
-  <fo:table-cell display-align="center" padding-left="2mm">
+  <fo:table-cell number-columns-spanned = "3" display-align="center" padding-left="2mm">
     <fo:block>No &#160; <fo:inline font-weight = "bold">@vm.eori</fo:inline></fo:block>
-  </fo:table-cell>
-  <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
-    <fo:block>
-      @vm.streetAndNumber
-    </fo:block>
   </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="5.33mm">
-<fo:table-cell  display-align="center" padding-left="2mm" font-weight="bold">
+<fo:table-cell number-columns-spanned = "4" display-align="center" padding-left="2mm" font-weight="bold">
   <fo:block>
     @vm.name
   </fo:block>
 </fo:table-cell>
 </fo:table-row>
 <fo:table-row height="5.33mm">
-<fo:table-cell display-align="center" padding-left="2mm"  font-weight="bold">
+<fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">
   <fo:block>
-    @vm.city
+    @vm.streetAndNumber
   </fo:block>
 </fo:table-cell>
 <fo:table-cell display-align="center" padding-left="2mm"  font-weight="bold">
   <fo:block>
     @vm.postcode
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell display-align="center" padding-left="2mm"  font-weight="bold">
+  <fo:block>
+    @vm.city
   </fo:block>
 </fo:table-cell>
 <fo:table-cell display-align="center" padding-left="2mm" font-weight="bold">

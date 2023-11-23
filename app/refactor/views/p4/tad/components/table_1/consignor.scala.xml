@@ -8,8 +8,9 @@
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
       <fo:table-column column-number="1" column-width="30mm"/>
-      <fo:table-column column-number="2" column-width="35mm"/>
-      <fo:table-column column-number="3" column-width="24mm"/>
+      <fo:table-column column-number="2" column-width="20mm"/>
+      <fo:table-column column-number="3" column-width="29mm"/>
+      <fo:table-column column-number="4" column-width="10mm"/>
       <fo:table-body>
         @consignor.map(consignor_single(_)).getOrElse(consignor_various())
       </fo:table-body>
