@@ -25,7 +25,7 @@
 @template(
     pageOne = pageOne(pageOneBody),
     intermediaryPage = vm.securityViewModel.map(x => (intermediaryPage(intermediaryPageBody(x)))),
-    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
+    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => pageTwo(vm.secondPageViewModel, vm.mrn))
 )
 
 @pageOneBody = {

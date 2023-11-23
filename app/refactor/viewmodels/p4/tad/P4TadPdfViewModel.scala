@@ -50,7 +50,7 @@ object P4TadPdfViewModel {
       lrn = Some(ie029.TransitOperation.LRN),
       secondPageViewModel = SecondPageViewModel(ie029, consignmentItemViewModels),
       table1ViewModel = Table1ViewModel(ie029),
-      table2ViewModel = Table2ViewModel(ie029, if (printListOfItems(consignmentItemViewModels)) None else consignmentItemViewModels.headOption),
+      table2ViewModel = Table2ViewModel(ie029, consignmentItemViewModels.headOption),
       table4ViewModel = Table4ViewModel(ie029),
       table5ViewModel = Table5ViewModel(ie015, ie029),
       securityViewModel = ie029.TransitOperation.security match {
@@ -60,17 +60,4 @@ object P4TadPdfViewModel {
     )
   }
 
-  private def printListOfItems(consignmentItemViewModels: Seq[ConsignmentItemViewModel]): Boolean =
-    consignmentItemViewModels match {
-      case Nil =>
-        false
-      case head :: Nil =>
-        head.containers.size > 1 ||
-          head.sensitiveGoodsInformation.size > 1 ||
-          head.packages.size > 1 ||
-          head.specialMentions.size > 4 ||
-          head.producedDocuments.size > 4
-      case _ =>
-        true
-    }
 }
