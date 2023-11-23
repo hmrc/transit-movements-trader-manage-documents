@@ -71,7 +71,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
       val sec: SecurityViewModel = SecurityViewModel.apply(cc029c)
 
       verify(spiedTable1, times(1))
-        .apply(vm = sec, mrn = cc029c.TransitOperation.MRN)
+        .apply(vm = sec, mrn = cc029c.TransitOperation.MRN, Some(cc029c.TransitOperation.LRN))
 
       verify(spiedTable2, times(1))
         .apply(vm = sec)

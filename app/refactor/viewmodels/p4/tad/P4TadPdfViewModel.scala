@@ -29,7 +29,13 @@ case class P4TadPdfViewModel(
   table4ViewModel: Table4ViewModel,
   table5ViewModel: Table5ViewModel,
   securityViewModel: Option[SecurityViewModel]
-)
+) {
+
+  val pageNumberDetails: PageNumberDetails = securityViewModel match {
+    case Some(_) => PageNumberDetails(3, 3)
+    case None    => PageNumberDetails(2, 2)
+  }
+}
 
 object P4TadPdfViewModel {
 
@@ -61,3 +67,5 @@ object P4TadPdfViewModel {
   }
 
 }
+
+case class PageNumberDetails(numberOfPages: Int, itemPageNumber: Int)

@@ -1,17 +1,18 @@
 @import refactor.views.xml.p4.tad.components.second_page.item
 @import refactor.views.xml.p4.tad.components.second_page.header_table
-@import refactor.viewmodels.p4.tad.SecondPageViewModel
-
+@import refactor.viewmodels.p4.tad._
 @this()
 
 @(
     vm: SecondPageViewModel,
-    mrn: String
+    mrn: String,
+    lrn: Option[String],
+    pageNumberDetails: PageNumberDetails
 )
 
-<fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force"> <!-- SEQ 2 -->
+<fo:page-sequence master-reference="pages"  force-page-count="no-force"> <!-- SEQ 2 -->
     <fo:static-content flow-name="xsl-region-before">
-        @header_table(vm.departureOffice, mrn, vm.acceptanceDate)
+        @header_table(vm.departureOffice, mrn, vm.acceptanceDate, lrn, pageNumberDetails)
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>

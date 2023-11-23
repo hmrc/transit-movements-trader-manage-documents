@@ -5,7 +5,8 @@
 @(
   mrn: String,
   carrierIdentificationNumber: String,
-  securityType: String
+  securityType: String,
+  lrn: Option[String]
 )
 
 <fo:table-row height="16mm">
@@ -27,9 +28,15 @@
     </fo:block>
   </fo:table-cell>
 
-  <fo:table-cell  border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" >
+  <fo:table-cell number-columns-spanned="4"  padding-top="-1mm" padding-left = "1mm" >
     <fo:block >
       @barcode(mrn)
     </fo:block>
+
+    @lrn.map { lrn =>
+    <fo:block  margin-left="2mm" font-size = "10pt" font-weight = "normal">
+      <fo:inline font-weight = "bold">LRN</fo:inline> @lrn
+    </fo:block>
+    }
   </fo:table-cell>
 </fo:table-row>
