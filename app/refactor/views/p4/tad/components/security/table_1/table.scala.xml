@@ -5,7 +5,8 @@
 
 @(
   vm: SecurityViewModel,
-  mrn: String
+  mrn: String,
+  lrn: Option[String]
 )
 
 <fo:table width="100%" table-layout="fixed" id="security-table-1">
@@ -14,13 +15,13 @@
   <fo:table-column column-number="3" column-width="5mm"/>
   <fo:table-column column-number="4" column-width="5mm"/>
   <fo:table-column column-number="5" column-width="4mm"/>
-  <fo:table-column column-number="6" column-width="39mm"/>
+  <fo:table-column column-number="6" column-width="49mm"/>
 
 
   <fo:table-body>
     @row_1(mrn)
 
-    @row_2(mrn, vm.carrierIdentificationNumber, vm.security)
+    @row_2(mrn, vm.carrierIdentificationNumber, vm.security, lrn)
 
     @row_3(vm.modeOfTransportAtTheBorder,vm.referenceNumberUcr,vm.carrierContactPerson)
 

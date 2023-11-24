@@ -17,10 +17,11 @@
         </fo:table-row>
         <fo:table-row height="5mm">
           <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" text-align="center" display-align="center">
-            <fo:block/>
+            <fo:block>2</fo:block>
+
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
-            <fo:block/>
+            <fo:block>3</fo:block>
           </fo:table-cell>
         </fo:table-row>
       </fo:table-body>

@@ -37,6 +37,7 @@ import refactor.viewmodels.p4.tad.SecurityViewModel
 import refactor.views.xml.p4.tad.components.security
 
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
 
 class TransitAccompanyingDocumentPDFGeneratorSpec
@@ -71,7 +72,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
       val sec: SecurityViewModel = SecurityViewModel.apply(cc029c)
 
       verify(spiedTable1, times(1))
-        .apply(vm = sec, mrn = cc029c.TransitOperation.MRN)
+        .apply(vm = sec, mrn = cc029c.TransitOperation.MRN, Some(cc029c.TransitOperation.LRN))
 
       verify(spiedTable2, times(1))
         .apply(vm = sec)

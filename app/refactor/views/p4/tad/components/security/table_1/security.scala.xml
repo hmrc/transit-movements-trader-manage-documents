@@ -5,9 +5,9 @@
       <fo:table width="100%" table-layout="fixed">
         <fo:table-column column-width="12.5mm"/>
         <fo:table-column column-width="6.5mm"/>
-        <fo:table-column column-width="13mm"/>
+        <fo:table-column column-width="12.8mm"/>
 
-        <fo:table-body border-top-style="solid" border-top-width="1pt" border-top-color="black">
+        <fo:table-body border-top-style="solid" border-top-width="1pt" border-top-color="black" border-right-color="black" border-right-style="solid" border-right-width="1pt">
           <fo:table-row height="5mm">
             <fo:table-cell text-align="center" number-columns-spanned="2" padding-top = "1mm">
               <fo:block>   Security <fo:inline font-size="6px">(S00)</fo:inline>  </fo:block>

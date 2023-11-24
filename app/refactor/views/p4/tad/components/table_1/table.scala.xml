@@ -1,5 +1,6 @@
 @import refactor.views.xml.p4.tad.components.table_1._
 @import refactor.viewmodels.p4.tad.Table1ViewModel
+@import refactor.viewmodels.p4.tad.PageNumberDetails
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
 @this()
@@ -9,7 +10,8 @@
   mrn: String,
   lrn: Option[String],
   consignmentItemViewModel: Option[ConsignmentItemViewModel],
-  title: String
+  title: String,
+  pageNumberDetails: PageNumberDetails
 )
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
@@ -26,7 +28,7 @@
   <fo:table-body>
     @row_1(mrn)
 
-    @row_2(vm.consignorViewModel, vm.declarationType, mrn, lrn, consignmentItemViewModel)
+    @row_2(vm.consignorViewModel, vm.declarationType, mrn, lrn, consignmentItemViewModel, pageNumberDetails)
 
     @row_3(vm.consignorViewModel, vm.numberOfItems, vm.totalNumberOfPackages, title)
 

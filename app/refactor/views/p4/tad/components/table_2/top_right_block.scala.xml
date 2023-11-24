@@ -2,7 +2,6 @@
 
 @(
     grossMass: String,
-    consignmentItemViewModel: Option[ConsignmentItemViewModel],
     consignmentPreviousDocuments: String
 )
 
@@ -27,11 +26,7 @@
                                     </fo:table-row>
                                     <fo:table-row height="4mm">
                                         <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" font-weight="bold" text-align="center">
-                                            <fo:block>
-                                                @consignmentItemViewModel.map { vm =>
-                                                    @vm.commodityCode
-                                                }
-                                            </fo:block>
+                                            <fo:block/>
                                         </fo:table-cell>
                                         <fo:table-cell>
                                             <fo:block/>
@@ -85,11 +80,7 @@
                                     </fo:table-row>
                                     <fo:table-row height="4mm">
                                         <fo:table-cell display-align="center" font-weight="bold" text-align="center">
-                                            <fo:block>
-                                                @consignmentItemViewModel.map { vm =>
-                                                    @vm.netMass
-                                                }
-                                            </fo:block>
+                                            <fo:block/>
                                         </fo:table-cell>
                                     </fo:table-row>
                                 </fo:table-body>

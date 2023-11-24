@@ -1,5 +1,7 @@
 @import refactor.views.xml.p4.tad.components.barcode_small
-@(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: String)
+@import refactor.viewmodels.p4.tad._
+
+@(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: String, lrn: Option[String], pageNumberDetails: PageNumberDetails)
 <fo:block>
     <fo:table width="100%" table-layout="fixed" font-size="12pt" font-weight="bold">
         <fo:table-column column-width="52mm"/>
@@ -39,8 +41,8 @@
                     </fo:block>
                 </fo:table-cell>
             </fo:table-row>
-            <fo:table-row height="7mm">
-                <fo:table-cell border-style="solid" border-width="1pt" border-color="black">
+            <fo:table-row height="10mm">
+                <fo:table-cell >
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
                             <fo:table-column column-width="25mm"/>
@@ -48,23 +50,23 @@
                             <fo:table-column column-width="9mm"/>
                             <fo:table-column column-width="9mm"/>
                             <fo:table-body>
-                                <fo:table-row height="7mm">
-                                    <fo:table-cell display-align="center" padding-left="1mm">
+                                <fo:table-row height="7mm" >
+                                    <fo:table-cell display-align="center" padding-left="1mm" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                         <fo:block>Sheet</fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell text-align="center" display-align="center">
+                                    <fo:table-cell text-align="center" display-align="center" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                         <fo:block>
                                             A
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center" display-align="center">
+                                    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center" display-align="center" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                         <fo:block>
-                                            <fo:page-number/>
+                                            @pageNumberDetails.itemPageNumber
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center" display-align="center">
+                                    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" text-align="center" display-align="center" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black">
                                         <fo:block>
-                                            <fo:page-number-citation ref-id="A-last-page"/>
+                                            @pageNumberDetails.numberOfPages
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
@@ -87,9 +89,14 @@
                     <fo:block>
                         @barcode_small(movementReferenceNumber)
                     </fo:block>
+                    @lrn.map { lrn =>
+                    <fo:block  margin-left="2mm" font-size = "10pt" font-weight = "normal" >
+                        <fo:inline font-weight = "bold">LRN</fo:inline> @lrn
+                    </fo:block>
+                    }
                 </fo:table-cell>
             </fo:table-row>
-            <fo:table-row height="8mm">
+            <fo:table-row height="4mm">
                 <fo:table-cell number-columns-spanned="7">
                     <fo:block/>
                 </fo:table-cell>
