@@ -3,7 +3,6 @@
 
 @(
     numberOfItems: Int,
-    consignmentItemViewModel: Option[ConsignmentItemViewModel],
     transportEquipment: String,
     packages: String
 )
@@ -48,11 +47,8 @@
                                 </fo:table-row>
                                 <fo:table-row height="3.9mm">
                                     <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" display-align="center" font-weight="bold" text-align="center">
-                                        <fo:block>
-                                        @consignmentItemViewModel.map { vm =>
-                                            @vm.itemNumber
-                                        }
-                                        </fo:block>
+
+                                        <fo:block/>
                                     </fo:table-cell>
                                     <fo:table-cell display-align="center" text-align="center" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                         <fo:block>No</fo:block>
