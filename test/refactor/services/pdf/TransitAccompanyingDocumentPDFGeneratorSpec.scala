@@ -33,6 +33,7 @@ import play.api.Environment
 import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
 import refactor.viewmodels.DummyData
+import refactor.viewmodels.p4.tad.PageNumberDetails
 import refactor.viewmodels.p4.tad.SecurityViewModel
 import refactor.views.xml.p4.tad.components.security
 
@@ -72,7 +73,12 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
       val sec: SecurityViewModel = SecurityViewModel.apply(cc029c)
 
       verify(spiedTable1, times(1))
-        .apply(vm = sec, mrn = cc029c.TransitOperation.MRN, Some(cc029c.TransitOperation.LRN))
+        .apply(
+          vm = sec,
+          mrn = cc029c.TransitOperation.MRN,
+          Some(cc029c.TransitOperation.LRN),
+          pageNumberDetails = PageNumberDetails(itemPageNumber = 3, securityDefined = true, consignmentDefined = true)
+        )
 
       verify(spiedTable2, times(1))
         .apply(vm = sec)
