@@ -37,6 +37,7 @@ import refactor.viewmodels.p4.tad.SecurityViewModel
 import refactor.views.xml.p4.tad.components.security
 
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
 
 class TransitAccompanyingDocumentPDFGeneratorSpec
