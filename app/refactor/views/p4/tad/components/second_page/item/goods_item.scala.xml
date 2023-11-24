@@ -3,8 +3,7 @@
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
 @(
-    vm: ConsignmentItemViewModel,
-    authorisation: Seq[String]
+    vm: ConsignmentItemViewModel
 )
 <fo:table width="100%" table-layout="fixed">
     <fo:table-column column-width="28mm"/>
@@ -98,12 +97,6 @@
 
                 @if(vm.additionalInformation.nonEmpty){
                     @vm.additionalInformation.map(block(_))
-                } else {
-                    <fo:block/>
-                }
-
-                @if(authorisation.nonEmpty){
-                    @authorisation.map(block(_))
                 } else {
                     <fo:block/>
                 }
