@@ -10,7 +10,7 @@
     pageNumberDetails: PageNumberDetails
 )
 
-<fo:page-sequence master-reference="pages"  force-page-count="no-force"> <!-- SEQ 2 -->
+<fo:page-sequence master-reference="pages" initial-page-number="@pageNumberDetails.itemPageNumber" force-page-count="no-force"> <!-- SEQ 2 -->
     <fo:static-content flow-name="xsl-region-before">
         @header_table(vm.departureOffice, mrn, vm.acceptanceDate, lrn, pageNumberDetails)
     </fo:static-content>

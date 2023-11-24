@@ -57,7 +57,8 @@
     @securityHeader(
         vm = securityModel,
         mrn = vm.mrn,
-        lrn = vm.lrn
+        lrn = vm.lrn,
+        pageNumberDetails = vm.pageNumberDetails
     )
     @securityTable2(securityModel)
 
