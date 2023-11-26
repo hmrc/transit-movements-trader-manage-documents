@@ -31,10 +31,8 @@ case class P4TadPdfViewModel(
   securityViewModel: Option[SecurityViewModel]
 ) {
 
-  private val itemPageNumber: Int = if (securityViewModel.isDefined) 3 else 2
-
   val pageNumberDetails: PageNumberDetails =
-    PageNumberDetails(itemPageNumber, securityViewModel.isDefined, secondPageViewModel.consignmentItemViewModels.nonEmpty)
+    PageNumberDetails(securityViewModel.isDefined, secondPageViewModel.consignmentItemViewModels.nonEmpty)
 
 }
 
@@ -69,4 +67,6 @@ object P4TadPdfViewModel {
 
 }
 
-case class PageNumberDetails(itemPageNumber: Int, securityDefined: Boolean, consignmentDefined: Boolean)
+case class PageNumberDetails(securityDefined: Boolean, consignmentDefined: Boolean) {
+  val itemPageNumber: Int = if (securityDefined) 3 else 2
+}

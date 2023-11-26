@@ -77,7 +77,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
           vm = sec,
           mrn = cc029c.TransitOperation.MRN,
           Some(cc029c.TransitOperation.LRN),
-          pageNumberDetails = PageNumberDetails(itemPageNumber = 3, securityDefined = true, consignmentDefined = true)
+          pageNumberDetails = PageNumberDetails(securityDefined = true, consignmentDefined = true)
         )
 
       verify(spiedTable2, times(1))
