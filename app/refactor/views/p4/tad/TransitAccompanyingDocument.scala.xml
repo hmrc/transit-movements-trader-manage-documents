@@ -1,8 +1,10 @@
 @import views.xml.DocumentTemplate
 @import refactor.views.xml.p4.tad.components._
-@import views.xml.PageOne
+@import refactor.views.xml.PageOne
+@import refactor.views.xml.IntermediaryPage
 @import refactor.views.xml.p4.tad.components.second_page
 @import refactor.viewmodels.p4.tad.P4TadPdfViewModel
+@import refactor.viewmodels.p4.tad.SecurityViewModel
 
 @this(
     mainHeader: table_1.table,
@@ -12,13 +14,18 @@
     table5: table_5.table,
     template: DocumentTemplate,
     pageOne: PageOne,
-    pageTwo: second_page.table
+    pageTwo: second_page.table,
+    intermediaryPage: IntermediaryPage,
+    securityHeader: security.table_1.table,
+    securityTable2: security.table_2.table,
+    securityTable3: security.table_3.table
 )
 
 @(vm: P4TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => None).getOrElse(Some(pageTwo(vm.secondPageViewModel, vm.mrn)))
+    intermediaryPage = vm.securityViewModel.map(x => (intermediaryPage(intermediaryPageBody(x)))),
+    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => pageTwo(vm.secondPageViewModel, vm.mrn, vm.lrn, vm.itemPageNumber))
 )
 
 @pageOneBody = {
@@ -27,7 +34,6 @@
         vm = vm.table1ViewModel,
         mrn = vm.mrn,
         lrn = vm.lrn,
-        consignmentItemViewModel = vm.table2ViewModel.consignmentItemViewModel,
         title = "TRANSIT - ACCOMPANYING DOCUMENT"
     )
 
@@ -43,3 +49,17 @@
     <!--control by office of departure/destination-->
     @table5(vm.table5ViewModel)
 }
+
+@intermediaryPageBody(securityModel: SecurityViewModel) = {
+    <!--main header-->
+    @securityHeader(
+        vm = securityModel,
+        mrn = vm.mrn,
+        lrn = vm.lrn
+    )
+    @securityTable2(securityModel)
+
+    @securityTable3(securityModel)
+}
+
+

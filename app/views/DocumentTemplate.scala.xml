@@ -6,7 +6,9 @@
 
 @(
     pageOne: Xml,
+    intermediaryPage: Option[Xml] = None,
     pageTwo: Option[Xml] = None
+
 )
 <?xml version='1.0' encoding='utf-8'?>
 
@@ -15,6 +17,8 @@
   @layoutMasterSet()
 
   @pageOne
+
+  @intermediaryPage
 
   @pageTwo
 

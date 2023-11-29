@@ -1,4 +1,3 @@
-@import refactor.views.xml.p4.tad.components.table_2.item
 @import refactor.views.xml.p4.tad.components.{item => componentItem}
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
@@ -18,7 +17,7 @@
                             @vm.specialMentions.map(_.map(componentItem.special_mentions(_))).getOrElse(<fo:block/>)
                         </fo:table-cell>
                         <fo:table-cell padding-left="3mm">
-                            @vm.producedDocuments.map(_.map(item.produced_document(_))).getOrElse(<fo:block/>)
+                        <fo:block/>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>

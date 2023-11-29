@@ -27,8 +27,13 @@ case class P4TadPdfViewModel(
   table1ViewModel: Table1ViewModel,
   table2ViewModel: Table2ViewModel,
   table4ViewModel: Table4ViewModel,
-  table5ViewModel: Table5ViewModel
-)
+  table5ViewModel: Table5ViewModel,
+  securityViewModel: Option[SecurityViewModel]
+) {
+
+  val itemPageNumber: Int = if (securityViewModel.isDefined) 3 else 2
+
+}
 
 object P4TadPdfViewModel {
 
@@ -49,23 +54,14 @@ object P4TadPdfViewModel {
       lrn = Some(ie029.TransitOperation.LRN),
       secondPageViewModel = SecondPageViewModel(ie029, consignmentItemViewModels),
       table1ViewModel = Table1ViewModel(ie029),
-      table2ViewModel = Table2ViewModel(ie029, if (printListOfItems(consignmentItemViewModels)) None else consignmentItemViewModels.headOption),
+      table2ViewModel = Table2ViewModel(ie029, consignmentItemViewModels.headOption),
       table4ViewModel = Table4ViewModel(ie029),
-      table5ViewModel = Table5ViewModel(ie015, ie029)
+      table5ViewModel = Table5ViewModel(ie015, ie029),
+      securityViewModel = ie029.TransitOperation.security match {
+        case "0" => None
+        case _   => Some(SecurityViewModel(ie029))
+      }
     )
   }
 
-  private def printListOfItems(consignmentItemViewModels: Seq[ConsignmentItemViewModel]): Boolean =
-    consignmentItemViewModels match {
-      case Nil =>
-        false
-      case head :: Nil =>
-        head.containers.size > 1 ||
-          head.sensitiveGoodsInformation.size > 1 ||
-          head.packages.size > 1 ||
-          head.specialMentions.size > 4 ||
-          head.producedDocuments.size > 4
-      case _ =>
-        true
-    }
 }

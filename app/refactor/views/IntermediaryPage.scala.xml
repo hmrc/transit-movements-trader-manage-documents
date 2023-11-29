@@ -1,0 +1,11 @@
+@this()
+
+
+@(content: Xml)
+<fo:page-sequence master-reference="top-page" force-page-count="no-force">
+    <fo:flow flow-name="xsl-region-body">
+        <fo:block>
+            @content
+        </fo:block>
+    </fo:flow>
+</fo:page-sequence>

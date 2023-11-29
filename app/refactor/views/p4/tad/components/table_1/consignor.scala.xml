@@ -7,9 +7,10 @@
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
-      <fo:table-column column-number="1" column-width="44mm"/>
-      <fo:table-column column-number="2" column-width="8mm"/>
-      <fo:table-column column-number="3" column-width="37mm"/>
+      <fo:table-column column-number="1" column-width="30mm"/>
+      <fo:table-column column-number="2" column-width="20mm"/>
+      <fo:table-column column-number="3" column-width="29mm"/>
+      <fo:table-column column-number="4" column-width="10mm"/>
       <fo:table-body>
         @consignor.map(consignor_single(_)).getOrElse(consignor_various())
       </fo:table-body>

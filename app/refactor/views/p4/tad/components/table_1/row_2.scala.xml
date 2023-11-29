@@ -10,8 +10,7 @@
   consignorViewModel: Option[ConsignorViewModel],
   declarationType: String,
   movementReferenceNumber: String,
-  localReferenceNumber: Option[String],
-  consignmentItemViewModel: Option[ConsignmentItemViewModel]
+  localReferenceNumber: Option[String]
 )
 
 <fo:table-row height="16mm">
@@ -45,7 +44,7 @@
                   <fo:table-body>
                     <fo:table-row height="9mm">
 
-                      @forms(consignmentItemViewModel)
+                      @forms()
                       @loading_lists()
                     </fo:table-row>
                   </fo:table-body>

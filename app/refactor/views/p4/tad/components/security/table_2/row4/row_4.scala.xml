@@ -1,0 +1,23 @@
+@import refactor.views.xml.p4.tad.components.security.table_2._
+
+@(
+    addressStreetAndNumber: String,
+    postcodeAddressHouseNumber: String,
+    contactPersonName: String
+)
+
+<fo:table-row height="20mm">
+
+
+
+  @address(addressStreetAndNumber)
+
+  <fo:table-cell  number-columns-spanned="2"  >
+    @postcode_address(postcodeAddressHouseNumber)
+  </fo:table-cell>
+
+
+  @contact_person(contactPersonName)
+
+
+</fo:table-row>

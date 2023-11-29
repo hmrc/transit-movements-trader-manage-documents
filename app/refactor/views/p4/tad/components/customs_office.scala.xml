@@ -4,13 +4,7 @@
 
 <fo:block>
     <fo:inline font-style="italic">
-        @customsOffice.reference
+        @customsOffice.sequenceNumber , @customsOffice.reference
     </fo:inline>
 </fo:block>
-<fo:block>
-    <fo:inline font-style="italic">
-    @customsOffice.dateTime.getOrElse{
-        &#160;
-    }
-    </fo:inline>
-</fo:block>
+

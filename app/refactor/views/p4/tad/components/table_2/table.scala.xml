@@ -17,21 +17,20 @@
         <fo:table-row height="32mm"> <!-- S1 T2 ROW 1-->
 
             <!--Commodity marks/containers/items-->
-            @top_left_block(vm.numberOfItems, vm.consignmentItemViewModel)
-
+            @top_left_block(vm.numberOfItems, vm.transportEquipment, vm.packages)
             <!--Commodity code/weight/documents-->
-            @top_right_block(vm.grossMass, vm.consignmentItemViewModel)
+            @top_right_block(vm.grossMass,  vm.consignmentPreviousDocuments)
 
         </fo:table-row>
 
-        <fo:table-row height="4mm"> <!-- S1 T2 ROW 3 -->
+        <fo:table-row height="7mm"> <!-- S1 T2 ROW 3 -->
 
             <!--Additional information/ BinItiHEA246???-->
-            @bottom_left_block(vm.printBindingItinerary)
+            @bottom_left_block(vm.consignmentSupportingDocuments, vm.consignmentTransportDocuments, vm.consignmentAdditionalInformation, vm.consignmentAdditionalReference, vm.authorisation)
 
         </fo:table-row>
 
-        <fo:table-row height="16mm"> <!-- S1 T2 ROW 4 -->
+        <fo:table-row height="7mm"> <!-- S1 T2 ROW 4 -->
 
             <!--Special mentions/ produced documents-->
             @bottom_right_block(vm.consignmentItemViewModel)

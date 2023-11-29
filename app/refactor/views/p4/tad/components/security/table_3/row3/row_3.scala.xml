@@ -1,0 +1,12 @@
+@import refactor.viewmodels.p4.tad.SecurityViewModel._
+@import refactor.views.xml.p4.tad.components.security.table_3.row3._
+
+@(transportCharges: String, descriptionOfGoods: String)
+
+<fo:table-row height="15mm">
+
+    @transport_charges(transportCharges)
+    @description_of_goods(descriptionOfGoods)
+
+</fo:table-row>
+

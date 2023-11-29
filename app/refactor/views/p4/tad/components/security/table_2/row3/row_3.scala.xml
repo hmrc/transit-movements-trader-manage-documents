@@ -1,0 +1,23 @@
+@import refactor.views.xml.p4.tad.components.security.table_2._
+
+@(
+    customsOffice: String,
+    gnssLatitude: String,
+    gnssLongitude: String,
+    economicOperator: String
+)
+
+<fo:table-row height="20mm">
+
+
+
+  @customs_office(customsOffice)
+
+  @gnss_latitude(gnssLatitude)
+
+  @gnss_longitude(gnssLongitude)
+
+  @economic_operator(economicOperator)
+
+
+</fo:table-row>
