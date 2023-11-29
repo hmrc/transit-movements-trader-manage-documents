@@ -7,12 +7,12 @@
     vm: SecondPageViewModel,
     mrn: String,
     lrn: Option[String],
-    pageNumberDetails: PageNumberDetails
+    pageNumber: Int
 )
 
-<fo:page-sequence master-reference="pages" initial-page-number="@pageNumberDetails.itemPageNumber" force-page-count="no-force"> <!-- SEQ 2 -->
+<fo:page-sequence master-reference="pages" initial-page-number="@pageNumber" force-page-count="no-force"> <!-- SEQ 2 -->
     <fo:static-content flow-name="xsl-region-before">
-        @header_table(vm.departureOffice, mrn, vm.acceptanceDate, lrn, pageNumberDetails)
+        @header_table(vm.departureOffice, mrn, vm.acceptanceDate, lrn)
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
