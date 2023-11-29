@@ -28,17 +28,15 @@ import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.Application
 import play.api.Environment
 import play.api.inject
-import play.api.inject.guice.GuiceApplicationBuilder
 import refactor.viewmodels.DummyData
-import refactor.viewmodels.p4.tad.PageNumberDetails
 import refactor.viewmodels.p4.tad.SecurityViewModel
 import refactor.views.xml.p4.tad.components.security
 
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
 
 class TransitAccompanyingDocumentPDFGeneratorSpec
@@ -76,8 +74,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
         .apply(
           vm = sec,
           mrn = cc029c.TransitOperation.MRN,
-          Some(cc029c.TransitOperation.LRN),
-          pageNumberDetails = PageNumberDetails(securityDefined = true, consignmentDefined = true)
+          Some(cc029c.TransitOperation.LRN)
         )
 
       verify(spiedTable2, times(1))

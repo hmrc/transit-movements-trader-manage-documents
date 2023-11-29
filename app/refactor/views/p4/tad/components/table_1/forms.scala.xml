@@ -1,7 +1,6 @@
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
-@import refactor.viewmodels.p4.tad.PageNumberDetails
 
-@(consignmentItemViewModel: Option[ConsignmentItemViewModel], pageNumberDetails: PageNumberDetails)
+@()
 
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
   <fo:block>
@@ -20,7 +19,7 @@
           </fo:table-cell>
           <fo:table-cell text-align="center" display-align="center">
             <fo:block>
-              @(if (consignmentItemViewModel.isDefined) {<fo:page-number-citation ref-id="A-last-page"/>} else if (pageNumberDetails.securityDefined) 2 else 1)
+              <fo:page-number-citation ref-id="A-last-page"/>
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

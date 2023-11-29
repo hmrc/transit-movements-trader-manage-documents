@@ -25,7 +25,7 @@
 @template(
     pageOne = pageOne(pageOneBody),
     intermediaryPage = vm.securityViewModel.map(x => (intermediaryPage(intermediaryPageBody(x)))),
-    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => pageTwo(vm.secondPageViewModel, vm.mrn, vm.lrn, vm.pageNumberDetails))
+    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => pageTwo(vm.secondPageViewModel, vm.mrn, vm.lrn, vm.itemPageNumber))
 )
 
 @pageOneBody = {
@@ -34,9 +34,7 @@
         vm = vm.table1ViewModel,
         mrn = vm.mrn,
         lrn = vm.lrn,
-        consignmentItemViewModel = vm.table2ViewModel.consignmentItemViewModel,
-        title = "TRANSIT - ACCOMPANYING DOCUMENT",
-        pageNumberDetails = vm.pageNumberDetails
+        title = "TRANSIT - ACCOMPANYING DOCUMENT"
     )
 
     <!--packages/goods description/docs/certs-->
@@ -57,8 +55,7 @@
     @securityHeader(
         vm = securityModel,
         mrn = vm.mrn,
-        lrn = vm.lrn,
-        pageNumberDetails = vm.pageNumberDetails
+        lrn = vm.lrn
     )
     @securityTable2(securityModel)
 

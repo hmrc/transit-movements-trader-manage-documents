@@ -3,7 +3,6 @@
 @import refactor.views.xml.p4.tad.components.table_1.forms
 @import refactor.views.xml.p4.tad.components.table_1.loading_lists
 @import refactor.viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
-@import refactor.viewmodels.p4.tad.PageNumberDetails
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 @import refactor.views.xml.p4.tad.components.barcode
 
@@ -11,9 +10,7 @@
   consignorViewModel: Option[ConsignorViewModel],
   declarationType: String,
   movementReferenceNumber: String,
-  localReferenceNumber: Option[String],
-  consignmentItemViewModel: Option[ConsignmentItemViewModel],
-  pageNumberDetails: PageNumberDetails
+  localReferenceNumber: Option[String]
 )
 
 <fo:table-row height="16mm">
@@ -47,7 +44,7 @@
                   <fo:table-body>
                     <fo:table-row height="9mm">
 
-                      @forms(consignmentItemViewModel, pageNumberDetails)
+                      @forms()
                       @loading_lists()
                     </fo:table-row>
                   </fo:table-body>
