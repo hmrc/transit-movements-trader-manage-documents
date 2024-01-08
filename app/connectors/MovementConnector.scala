@@ -33,13 +33,13 @@ class MovementConnector(config: AppConfig, http: HttpClient) extends HttpReadsTr
 
   def getMessage(
     movements: String,
-    arrivalId: String,
+    movementId: String,
     messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] = {
 
     val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+xml"))
 
-    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/$movements/$arrivalId/messages/$messageId/body"
+    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
 
     http.GET[HttpResponse](serviceUrl)(implicitly, headers, ec).map(_.body).map(XML.loadString)
   }

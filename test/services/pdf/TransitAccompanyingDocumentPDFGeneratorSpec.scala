@@ -18,16 +18,12 @@ package services.pdf
 
 import cats.data.NonEmptyList
 import generators.ViewModelGenerators
-import models.GuaranteeDetails
-import models.GuaranteeReference
-import models.PreviousAdministrativeReference
+import models.{GuaranteeDetails, GuaranteeReference, PreviousAdministrativeReference}
 import models.reference._
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.mockito.Mockito
-import org.mockito.Mockito.reset
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.{reset, times, verify}
 import org.scalacheck.Arbitrary.{arbitrary => arb}
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
@@ -36,20 +32,15 @@ import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks.forAll
-import play.api.Application
-import play.api.Environment
-import play.api.inject
+import play.api.{Application, Environment, inject}
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.twirl.api.XmlFormat
 import services.pdf.TransitAccompanyingDocumentPDFGeneratorSpec.transitAccompanyingDocumentPDF
 import utils.FormattedDate
 import viewmodels._
 import views.xml.components._
 
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.time.LocalDate
-import java.time.LocalDateTime
+import java.nio.file.{Files, Paths}
+import java.time.{LocalDate, LocalDateTime}
 
 class TransitAccompanyingDocumentPDFGeneratorSpec
     extends AnyFreeSpec
