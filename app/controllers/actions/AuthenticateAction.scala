@@ -16,7 +16,6 @@
 
 package controllers.actions
 
-import com.kenshoo.play.metrics.Metrics
 import config.AppConfig
 import models.requests.AuthenticatedRequest
 import play.api.Logging
@@ -29,6 +28,7 @@ import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
+import com.codahale.metrics.MetricRegistry
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
@@ -36,7 +36,7 @@ import scala.concurrent.Future
 
 class AuthenticateAction @Inject() (
   override val authConnector: AuthConnector,
-  val metrics: Metrics,
+  val metrics: MetricRegistry,
   appConfig: AppConfig
 )(implicit val executionContext: ExecutionContext)
     extends ActionRefiner[Request, AuthenticatedRequest]
