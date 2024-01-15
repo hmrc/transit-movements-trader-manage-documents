@@ -8,7 +8,7 @@ object AppDependencies {
 
   val compile: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"             %% "bootstrap-backend-play-30"  % bootstrapVersion,
-    "com.dmanchester"         %% "playfop"                    % "1.0",
+    "org.apache.xmlgraphics"  %  "fop"                        % "2.7",
     "net.sf.barcode4j"        %  "barcode4j"                  % "2.1",
     "net.sf.barcode4j"        %  "barcode4j-fop-ext"          % "2.1",
     "com.lucidchart"          %% "xtract"                     % "2.3.0"
