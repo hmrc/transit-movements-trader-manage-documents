@@ -16,7 +16,7 @@
 
 package refactor.services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
+import services.FopService
 import generated.p5.CC015CType
 import generated.p5.CC029CType
 import refactor.viewmodels.p4.tad.P4TadPdfViewModel
@@ -27,7 +27,7 @@ import refactor.views.xml.p5.tad.TransitAccompanyingDocumentP5
 import javax.inject.Inject
 
 class TADPdfGenerator @Inject() (
-  fop: PlayFop,
+  fop: FopService,
   documentP5: TransitAccompanyingDocumentP5,
   documentP5Transition: TransitAccompanyingDocument
 ) extends PdfGenerator(fop) {

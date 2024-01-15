@@ -16,7 +16,7 @@
 
 package services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
+import services.FopService
 import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
@@ -24,7 +24,7 @@ import views.xml.TransitAccompanyingDocument
 import javax.inject.Inject
 
 class TADPdfGenerator @Inject() (
-  fop: PlayFop,
+  fop: FopService,
   document: TransitAccompanyingDocument
 ) {
 

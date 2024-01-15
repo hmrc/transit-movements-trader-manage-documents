@@ -16,7 +16,7 @@
 
 package refactor.services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
+import services.FopService
 import generated.p5.CC043CType
 import refactor.viewmodels.p5.unloadingpermission.P5UnloadingPermissionPdfViewModel
 import refactor.views.xml.p5.unloadingpermission.UnloadingPermissionDocumentP5
@@ -24,7 +24,7 @@ import refactor.views.xml.p5.unloadingpermission.UnloadingPermissionDocumentP5
 import javax.inject.Inject
 
 class UnloadingPermissionPdfGenerator @Inject() (
-  fop: PlayFop,
+  fop: FopService,
   documentP5: UnloadingPermissionDocumentP5
 ) extends PdfGenerator(fop) {
 

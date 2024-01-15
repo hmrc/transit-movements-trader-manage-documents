@@ -16,7 +16,7 @@
 
 package services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
+import services.FopService
 import org.apache.xmlgraphics.util.MimeConstants
 import viewmodels.PermissionToStartUnloading
 import views.xml.UnloadingPermissionDocument
@@ -24,7 +24,7 @@ import views.xml.UnloadingPermissionDocument
 import javax.inject.Inject
 
 class UnloadingPermissionPdfGenerator @Inject() (
-  fop: PlayFop,
+  fop: FopService,
   document: UnloadingPermissionDocument
 ) {
 

@@ -16,11 +16,11 @@
 
 package refactor.services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
 import org.apache.xmlgraphics.util.MimeConstants
 import play.twirl.api.XmlFormat
+import services.FopService
 
-class PdfGenerator(fop: PlayFop) {
+class PdfGenerator(fop: FopService) {
 
   protected def processDocument(document: XmlFormat.Appendable): Array[Byte] =
     fop.processTwirlXml(document, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
