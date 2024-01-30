@@ -16,15 +16,14 @@
 
 package controllers.actions
 
-import com.kenshoo.play.metrics.Metrics
 import config.AppConfig
 import models.requests.AuthenticatedRequest
 import play.api.Logging
+import play.api.mvc.Results.Forbidden
+import play.api.mvc.Results.Unauthorized
 import play.api.mvc.ActionRefiner
 import play.api.mvc.Request
 import play.api.mvc.Result
-import play.api.mvc.Results.Forbidden
-import play.api.mvc.Results.Unauthorized
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.http.HeaderCarrier
@@ -36,7 +35,6 @@ import scala.concurrent.Future
 
 class AuthenticateAction @Inject() (
   override val authConnector: AuthConnector,
-  val metrics: Metrics,
   appConfig: AppConfig
 )(implicit val executionContext: ExecutionContext)
     extends ActionRefiner[Request, AuthenticatedRequest]

@@ -2,7 +2,7 @@ import sbtscalaxb.ScalaxbPlugin.*
 import scoverage.ScoverageKeys
 
 val appName         = "transit-movements-trader-manage-documents"
-val silencerVersion = "1.7.9"
+val silencerVersion = "1.7.14"
 
 lazy val P4 = config("p4") extend Compile
 lazy val P5 = config("p5") extend Compile
@@ -23,7 +23,7 @@ lazy val microservice = Project(appName, file("."))
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true
   )
-  .settings(scalaVersion := "2.12.15")
+  .settings(scalaVersion := "2.13.12")
   .settings(resolvers += Resolver.jcenterRepo)
   .settings(inConfig(Test)(testSettings) *)
   .settings(PlayKeys.playDefaultPort := 9484)

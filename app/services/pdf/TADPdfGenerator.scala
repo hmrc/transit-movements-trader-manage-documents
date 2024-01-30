@@ -16,23 +16,17 @@
 
 package services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
-import org.apache.xmlgraphics.util.MimeConstants
+import services.FopService
 import viewmodels.TransitAccompanyingDocumentPDF
 import views.xml.TransitAccompanyingDocument
 
 import javax.inject.Inject
 
 class TADPdfGenerator @Inject() (
-  fop: PlayFop,
+  fopService: FopService,
   document: TransitAccompanyingDocument
 ) {
 
-  def generate(permission: TransitAccompanyingDocumentPDF): Array[Byte] = {
-
-    val renderedDocument = document.render(permission)
-
-    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
-  }
-
+  def generate(permission: TransitAccompanyingDocumentPDF): Array[Byte] =
+    fopService.processTwirlXml(document.render(permission))
 }

@@ -18,19 +18,10 @@ package services.conversion
 
 import cats.data.NonEmptyList
 import cats.data.Validated.Valid
-import models.reference.AdditionalInformation
-import models.reference.CircumstanceIndicator
-import models.reference.Country
-import models.reference.DocumentType
-import models.reference.KindOfPackage
-import models.reference.PreviousDocumentTypes
-import services.ConsigneeConverter
-import services.ConsignorConverter
-import services.GoodsItemConverter
-import services.ReturnCopiesCustomsOfficeConverter
-import services.ValidationResult
-import services.conversion.TransitAccompanyingDocumentConverter.findReferenceData
 import cats.implicits._
+import models.reference._
+import services._
+import services.conversion.TransitAccompanyingDocumentConverter.findReferenceData
 
 trait ConversionHelpers {
 
@@ -117,8 +108,7 @@ trait ConversionHelpers {
     documentTypes: Seq[DocumentType],
     previousDocumentTypes: Seq[PreviousDocumentTypes]
   ): ValidationResult[NonEmptyList[viewmodels.GoodsItem]] = {
-
-    val head :: tail = items.toList.zipWithIndex.map {
+    val nonEmptyList = items.zipWithIndex.map {
       case (item, index) =>
         GoodsItemConverter.toViewModel(
           item,
@@ -133,8 +123,8 @@ trait ConversionHelpers {
     }
 
     (
-      head,
-      tail.sequence
+      nonEmptyList.head,
+      nonEmptyList.tail.sequence
     ).mapN(
       (head, tail) => NonEmptyList(head, tail)
     )

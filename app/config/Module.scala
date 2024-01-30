@@ -19,6 +19,7 @@ package config
 import com.google.inject.AbstractModule
 import controllers.actions.AuthenticateActionProvider
 import controllers.actions.AuthenticateActionProvider.AuthenticateActionProviderImpl
+import org.apache.fop.apps.FopFactory
 
 class Module extends AbstractModule {
 
@@ -26,6 +27,7 @@ class Module extends AbstractModule {
     bind(classOf[ReferenceDataConfig]).asEagerSingleton()
     bind(classOf[ReferenceDataP5Config]).asEagerSingleton()
     bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
+    bind(classOf[FopFactory]).toProvider(classOf[FopFactoryProvider]).asEagerSingleton()
   }
 
 }

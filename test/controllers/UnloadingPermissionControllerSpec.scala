@@ -66,10 +66,10 @@ class UnloadingPermissionControllerSpec
       val mockConversionService: UnloadingPermissionConversionService = mock[UnloadingPermissionConversionService]
 
       val application = applicationBuilder
-        .overrides {
-          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
+        .overrides(
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator),
           bind[UnloadingPermissionConversionService].toInstance(mockConversionService)
-        }
+        )
         .build()
 
       running(application) {
@@ -113,10 +113,10 @@ class UnloadingPermissionControllerSpec
       val mockConversionService: UnloadingPermissionConversionService = mock[UnloadingPermissionConversionService]
 
       val application = applicationBuilder
-        .overrides {
-          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
+        .overrides(
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator),
           bind[UnloadingPermissionConversionService].toInstance(mockConversionService)
-        }
+        )
         .build()
 
       running(application) {

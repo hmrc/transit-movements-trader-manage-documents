@@ -18,6 +18,7 @@ package services
 
 import play.api.libs.json.JsPath
 import play.api.libs.json.JsonValidationError
+import scala.collection.Seq
 
 trait ValidationError {
 

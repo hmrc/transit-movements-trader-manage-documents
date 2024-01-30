@@ -556,7 +556,7 @@ class TransitAccompanyingDocumentConversionServiceSpec
       val service = new TransitAccompanyingDocumentConversionService(referenceDataConnector)
 
       val header         = validModel.header.copy(countryOfDispatch = Some("non-existent code"))
-      val invalidRefData = validModel copy (header = header)
+      val invalidRefData = validModel.copy(header = header)
       val result         = service.toViewModel(invalidRefData).futureValue
 
       result.invalidValue.toChain.toList must contain theSameElementsAs Seq(ReferenceDataNotFound("countryOfDispatch", "non-existent code"))

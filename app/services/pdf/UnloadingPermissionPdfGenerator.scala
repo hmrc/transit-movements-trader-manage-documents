@@ -16,23 +16,17 @@
 
 package services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
-import org.apache.xmlgraphics.util.MimeConstants
+import services.FopService
 import viewmodels.PermissionToStartUnloading
 import views.xml.UnloadingPermissionDocument
 
 import javax.inject.Inject
 
 class UnloadingPermissionPdfGenerator @Inject() (
-  fop: PlayFop,
+  fopService: FopService,
   document: UnloadingPermissionDocument
 ) {
 
-  def generate(permission: PermissionToStartUnloading): Array[Byte] = {
-
-    val renderedDocument = document.render(permission)
-
-    fop.processTwirlXml(renderedDocument, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
-  }
-
+  def generate(permission: PermissionToStartUnloading): Array[Byte] =
+    fopService.processTwirlXml(document.render(permission))
 }

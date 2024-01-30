@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package refactor.services.pdf
+package config
 
-import com.dmanchester.playfop.sapi.PlayFop
-import org.apache.xmlgraphics.util.MimeConstants
-import play.twirl.api.XmlFormat
+import org.apache.fop.apps.FopFactory
+import org.apache.fop.apps.FopFactoryBuilder
+import play.api.Environment
 
-class PdfGenerator(fop: PlayFop) {
+import javax.inject.Inject
+import javax.inject.Provider
+import javax.inject.Singleton
 
-  protected def processDocument(document: XmlFormat.Appendable): Array[Byte] =
-    fop.processTwirlXml(document, MimeConstants.MIME_PDF, autoDetectFontsForPDF = true)
+@Singleton
+class FopFactoryProvider @Inject() (
+  environment: Environment
+) extends Provider[FopFactory] {
+
+  override def get(): FopFactory =
+    new FopFactoryBuilder(environment.rootPath.toURI)
+      .build()
 }

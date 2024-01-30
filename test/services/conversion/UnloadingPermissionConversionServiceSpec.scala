@@ -254,7 +254,7 @@ class UnloadingPermissionConversionServiceSpec
 
       val service = new UnloadingPermissionConversionService(referenceDataService)
 
-      val invalidUnloadingPermission = validUnloadingPermission copy (transportCountry = Some("non-existent code"))
+      val invalidUnloadingPermission = validUnloadingPermission.copy(transportCountry = Some("non-existent code"))
 
       val result = service.toViewModel(invalidUnloadingPermission).futureValue
 

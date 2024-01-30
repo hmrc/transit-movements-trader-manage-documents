@@ -16,10 +16,10 @@
 
 package controllers.P5
 
-import akka.util.ByteString
 import base.SpecBase
 import generated.p5.CC043CType
 import generators.ScalaxbModelGenerators
+import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.{eq => eqTo}
 import org.mockito.Mockito._

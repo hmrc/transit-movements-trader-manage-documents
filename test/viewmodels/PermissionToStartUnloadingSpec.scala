@@ -44,9 +44,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Consignor]) {
         (permission, consignor) =>
-          val goodsItemsWithConsignor = permission.goodsItems.map(_ copy (consignor = Some(consignor)))
+          val goodsItemsWithConsignor = permission.goodsItems.map(_.copy(consignor = Some(consignor)))
 
-          val permissionWithConsignors = permission copy (goodsItems = goodsItemsWithConsignor)
+          val permissionWithConsignors = permission.copy(goodsItems = goodsItemsWithConsignor)
 
           permissionWithConsignors.consignorOne.value mustEqual consignor
       }
@@ -56,9 +56,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Consignor]) {
         (permission, consignor) =>
-          val goodsItemsNoConsignor = permission.goodsItems.map(_ copy (consignor = None))
+          val goodsItemsNoConsignor = permission.goodsItems.map(_.copy(consignor = None))
 
-          val permissionWithConsignors = permission copy (
+          val permissionWithConsignors = permission.copy(
             consignor = Some(consignor),
             goodsItems = goodsItemsNoConsignor
           )
@@ -74,9 +74,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
-          val goodsItemsWithNoConsignors = permission.goodsItems.map(_ copy (consignor = None))
+          val goodsItemsWithNoConsignors = permission.goodsItems.map(_.copy(consignor = None))
 
-          val permissionWithNoConsignors = permission copy (consignor = None, goodsItems = goodsItemsWithNoConsignors)
+          val permissionWithNoConsignors = permission.copy(consignor = None, goodsItems = goodsItemsWithNoConsignors)
 
           permissionWithNoConsignors.consignorOne mustBe empty
       }
@@ -88,10 +88,10 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
         (permission, goodsItem, consignor1, consignor2) =>
           whenever(consignor1 != consignor2) {
 
-            val goodsItemWithConsignor1 = goodsItem copy (consignor = Some(consignor1))
-            val goodsItemWithConsignor2 = goodsItem copy (consignor = Some(consignor2))
+            val goodsItemWithConsignor1 = goodsItem.copy(consignor = Some(consignor1))
+            val goodsItemWithConsignor2 = goodsItem.copy(consignor = Some(consignor2))
 
-            val updatedPermission = permission copy (consignor = None, goodsItems = NonEmptyList(goodsItemWithConsignor1, List(goodsItemWithConsignor2)))
+            val updatedPermission = permission.copy(consignor = None, goodsItems = NonEmptyList(goodsItemWithConsignor1, List(goodsItemWithConsignor2)))
 
             updatedPermission.consignorOne mustBe empty
           }
@@ -109,10 +109,10 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(gen) {
         case (permission, items1, items2, consignor) =>
-          val itemsWithNoConsignor = items1.map(_ copy (consignor = None))
-          val itemsWithConsignor   = items2.map(_ copy (consignor = Some(consignor)))
+          val itemsWithNoConsignor = items1.map(_.copy(consignor = None))
+          val itemsWithConsignor   = items2.map(_.copy(consignor = Some(consignor)))
 
-          val updatedPermission = permission copy (consignor = None, goodsItems = itemsWithNoConsignor.concatNel(itemsWithConsignor))
+          val updatedPermission = permission.copy(consignor = None, goodsItems = itemsWithNoConsignor.concatNel(itemsWithConsignor))
 
           updatedPermission.consignorOne mustBe empty
       }
@@ -125,9 +125,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Consignee]) {
         (permission, consignee) =>
-          val goodsItemsWithConsignee = permission.goodsItems.map(_ copy (consignee = Some(consignee)))
+          val goodsItemsWithConsignee = permission.goodsItems.map(_.copy(consignee = Some(consignee)))
 
-          val permissionWithConsignees = permission copy (goodsItems = goodsItemsWithConsignee)
+          val permissionWithConsignees = permission.copy(goodsItems = goodsItemsWithConsignee)
 
           permissionWithConsignees.consigneeOne.value mustEqual consignee
       }
@@ -137,9 +137,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Consignee]) {
         (permission, consignee) =>
-          val goodsItemsWithNoConsignee = permission.goodsItems.map(_ copy (consignee = None))
+          val goodsItemsWithNoConsignee = permission.goodsItems.map(_.copy(consignee = None))
 
-          val permissionWithConsignees = permission copy (consignee = Some(consignee), goodsItems = goodsItemsWithNoConsignee)
+          val permissionWithConsignees = permission.copy(consignee = Some(consignee), goodsItems = goodsItemsWithNoConsignee)
 
           permissionWithConsignees.consigneeOne.value mustEqual consignee
       }
@@ -152,9 +152,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading]) {
         permission =>
-          val goodsItemsWithNoConsignees = permission.goodsItems.map(_ copy (consignee = None))
+          val goodsItemsWithNoConsignees = permission.goodsItems.map(_.copy(consignee = None))
 
-          val permissionWithNoConsignees = permission copy (consignee = None, goodsItems = goodsItemsWithNoConsignees)
+          val permissionWithNoConsignees = permission.copy(consignee = None, goodsItems = goodsItemsWithNoConsignees)
 
           permissionWithNoConsignees.consigneeOne mustBe empty
       }
@@ -166,10 +166,10 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
         (permission, goodsItem, consignee1, consignee2) =>
           whenever(consignee1 != consignee2) {
 
-            val goodsItemWithConsignee1 = goodsItem copy (consignee = Some(consignee1))
-            val goodsItemWithConsignee2 = goodsItem copy (consignee = Some(consignee2))
+            val goodsItemWithConsignee1 = goodsItem.copy(consignee = Some(consignee1))
+            val goodsItemWithConsignee2 = goodsItem.copy(consignee = Some(consignee2))
 
-            val updatedPermission = permission copy (consignee = None, goodsItems = NonEmptyList(goodsItemWithConsignee1, List(goodsItemWithConsignee2)))
+            val updatedPermission = permission.copy(consignee = None, goodsItems = NonEmptyList(goodsItemWithConsignee1, List(goodsItemWithConsignee2)))
 
             updatedPermission.consigneeOne mustBe empty
           }
@@ -187,10 +187,10 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(gen) {
         case (permission, items1, items2, consignee) =>
-          val itemsWithNoConsignee = items1.map(_ copy (consignee = None))
-          val itemsWithConsignee   = items2.map(_ copy (consignee = Some(consignee)))
+          val itemsWithNoConsignee = items1.map(_.copy(consignee = None))
+          val itemsWithConsignee   = items2.map(_.copy(consignee = Some(consignee)))
 
-          val updatedPermission = permission copy (consignee = None, goodsItems = itemsWithNoConsignee.concatNel(itemsWithConsignee))
+          val updatedPermission = permission.copy(consignee = None, goodsItems = itemsWithNoConsignee.concatNel(itemsWithConsignee))
 
           updatedPermission.consigneeOne mustBe empty
       }
@@ -203,9 +203,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Country]) {
         (permission, countryOfDispatch) =>
-          val goodsItemsWithCountryOfDispatch = permission.goodsItems.map(_ copy (countryOfDispatch = Some(countryOfDispatch)))
+          val goodsItemsWithCountryOfDispatch = permission.goodsItems.map(_.copy(countryOfDispatch = Some(countryOfDispatch)))
 
-          val permissionWithCountriesOfDispatch = permission copy (goodsItems = goodsItemsWithCountryOfDispatch)
+          val permissionWithCountriesOfDispatch = permission.copy(goodsItems = goodsItemsWithCountryOfDispatch)
 
           permissionWithCountriesOfDispatch.countryOfDispatch.value mustEqual countryOfDispatch
       }
@@ -220,10 +220,10 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
         (permission, goodsItem, countryOfDispatch1, countryOfDispatch2) =>
           whenever(countryOfDispatch1 != countryOfDispatch2) {
 
-            val goodsItemWithCountryOfDispatch1 = goodsItem copy (countryOfDispatch = Some(countryOfDispatch1))
-            val goodsItemWithCountryOfDispatch2 = goodsItem copy (countryOfDispatch = Some(countryOfDispatch2))
+            val goodsItemWithCountryOfDispatch1 = goodsItem.copy(countryOfDispatch = Some(countryOfDispatch1))
+            val goodsItemWithCountryOfDispatch2 = goodsItem.copy(countryOfDispatch = Some(countryOfDispatch2))
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithCountryOfDispatch1, List(goodsItemWithCountryOfDispatch2)))
+            val updatedPermission = permission.copy(goodsItems = NonEmptyList(goodsItemWithCountryOfDispatch1, List(goodsItemWithCountryOfDispatch2)))
 
             updatedPermission.countryOfDispatch mustBe empty
           }
@@ -237,9 +237,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[Country]) {
         (permission, countryOfDestination) =>
-          val goodsItemsWithCountryOfDestination = permission.goodsItems.map(_ copy (countryOfDestination = Some(countryOfDestination)))
+          val goodsItemsWithCountryOfDestination = permission.goodsItems.map(_.copy(countryOfDestination = Some(countryOfDestination)))
 
-          val permissionWithCountriesOfDestination = permission copy (goodsItems = goodsItemsWithCountryOfDestination)
+          val permissionWithCountriesOfDestination = permission.copy(goodsItems = goodsItemsWithCountryOfDestination)
 
           permissionWithCountriesOfDestination.countryOfDestination.value mustEqual countryOfDestination
       }
@@ -254,10 +254,10 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
         (permission, goodsItem, countryOfDestination1, countryOfDestination2) =>
           whenever(countryOfDestination1 != countryOfDestination2) {
 
-            val goodsItemWithCountryOfDestination1 = goodsItem copy (countryOfDestination = Some(countryOfDestination1))
-            val goodsItemWithCountryOfDestination2 = goodsItem copy (countryOfDestination = Some(countryOfDestination2))
+            val goodsItemWithCountryOfDestination1 = goodsItem.copy(countryOfDestination = Some(countryOfDestination1))
+            val goodsItemWithCountryOfDestination2 = goodsItem.copy(countryOfDestination = Some(countryOfDestination2))
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList(goodsItemWithCountryOfDestination1, List(goodsItemWithCountryOfDestination2)))
+            val updatedPermission = permission.copy(goodsItems = NonEmptyList(goodsItemWithCountryOfDestination1, List(goodsItemWithCountryOfDestination2)))
 
             updatedPermission.countryOfDestination mustBe empty
           }
@@ -271,7 +271,7 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
       forAll(arbitrary[PermissionToStartUnloading], arbitrary[GoodsItem]) {
         (permission, extraGoodsItem) =>
-          val updatedPermission = permission copy (goodsItems = permission.goodsItems :+ extraGoodsItem)
+          val updatedPermission = permission.copy(goodsItems = permission.goodsItems :+ extraGoodsItem)
 
           updatedPermission.printListOfItems mustEqual true
       }
@@ -283,9 +283,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
         forAll(arbitrary[PermissionToStartUnloading], stringWithMaxLength(17), stringWithMaxLength(17)) {
           (permission, container1, container2) =>
-            val updatedGoodsItem = permission.goodsItems.head copy (containers = Seq(container1, container2))
+            val updatedGoodsItem = permission.goodsItems.head.copy(containers = Seq(container1, container2))
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+            val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -295,9 +295,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
         forAll(arbitrary[PermissionToStartUnloading], arbitrary[Package], arbitrary[Package]) {
           (permission, package1, package2) =>
-            val updatedGoodsItem = permission.goodsItems.head copy (packages = NonEmptyList(package1, List(package2)))
+            val updatedGoodsItem = permission.goodsItems.head.copy(packages = NonEmptyList(package1, List(package2)))
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+            val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -313,9 +313,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
         forAll(gen) {
           case (permission, mentions) =>
-            val updatedGoodsItem = permission.goodsItems.head copy (specialMentions = mentions)
+            val updatedGoodsItem = permission.goodsItems.head.copy(specialMentions = mentions)
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+            val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -331,9 +331,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
         forAll(gen) {
           case (permission, documents) =>
-            val updatedGoodsItem = permission.goodsItems.head copy (producedDocuments = documents)
+            val updatedGoodsItem = permission.goodsItems.head.copy(producedDocuments = documents)
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+            val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -343,10 +343,10 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
 
         forAll(arbitrary[PermissionToStartUnloading], stringWithMaxLength(2), Gen.choose(1, 99999)) {
           (permission, code, quantity) =>
-            val updatedGoodsItem = permission.goodsItems.head copy (sensitiveGoodsInformation =
-              Seq(SensitiveGoodsInformation(Some(code), quantity), SensitiveGoodsInformation(Some(code), quantity)))
+            val updatedGoodsItem = permission.goodsItems.head
+              .copy(sensitiveGoodsInformation = Seq(SensitiveGoodsInformation(Some(code), quantity), SensitiveGoodsInformation(Some(code), quantity)))
 
-            val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+            val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
             updatedPermission.printListOfItems mustEqual true
         }
@@ -366,7 +366,7 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
                 sensitiveGoodsInformation = sensitiveGoodsInformation
               )
 
-              val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+              val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
               updatedPermission.printListOfItems mustEqual false
           }
@@ -385,13 +385,13 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
           (permission, goodsItem, consignor1, consignor2) =>
             whenever(consignor1 != consignor2) {
 
-              val goodsItemsWithConsignor = permission.goodsItems.map(_ copy (consignor = Some(consignor1)))
+              val goodsItemsWithConsignor = permission.goodsItems.map(_.copy(consignor = Some(consignor1)))
 
-              val updatedGoodsItem = goodsItem copy (consignor = Some(consignor2))
+              val updatedGoodsItem = goodsItem.copy(consignor = Some(consignor2))
 
               val allGoodsItems = goodsItemsWithConsignor :+ updatedGoodsItem
 
-              val updatedPermission = permission copy (goodsItems = allGoodsItems)
+              val updatedPermission = permission.copy(goodsItems = allGoodsItems)
 
               updatedPermission.printVariousConsignors mustEqual true
             }
@@ -414,7 +414,7 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
             sensitiveGoodsInformation = sensitiveGoodsInformation
           )
 
-          val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+          val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
           updatedPermission.printVariousConsignors mustEqual false
       }
@@ -428,9 +428,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
           (permission, goodsItems) =>
             val allGoodsItems = permission.goodsItems :+ goodsItems
 
-            val updatedGoodsItems = allGoodsItems.map(_ copy (consignor = None))
+            val updatedGoodsItems = allGoodsItems.map(_.copy(consignor = None))
 
-            val updatedPermission = permission copy (goodsItems = updatedGoodsItems)
+            val updatedPermission = permission.copy(goodsItems = updatedGoodsItems)
 
             updatedPermission.printVariousConsignors mustEqual false
         }
@@ -442,9 +442,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
           (permission, goodsItems, consignor) =>
             val allGoodsItems = permission.goodsItems :+ goodsItems
 
-            val updatedGoodsItems = allGoodsItems.map(_ copy (consignor = Some(consignor)))
+            val updatedGoodsItems = allGoodsItems.map(_.copy(consignor = Some(consignor)))
 
-            val updatedPermission = permission copy (goodsItems = updatedGoodsItems)
+            val updatedPermission = permission.copy(goodsItems = updatedGoodsItems)
 
             updatedPermission.printVariousConsignors mustEqual false
         }
@@ -462,13 +462,13 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
           (permission, goodsItem, consignee1, consignee2) =>
             whenever(consignee1 != consignee2) {
 
-              val goodsItemsWithConsignee = permission.goodsItems.map(_ copy (consignee = Some(consignee1)))
+              val goodsItemsWithConsignee = permission.goodsItems.map(_.copy(consignee = Some(consignee1)))
 
-              val updatedGoodsItem = goodsItem copy (consignee = Some(consignee2))
+              val updatedGoodsItem = goodsItem.copy(consignee = Some(consignee2))
 
               val allGoodsItems = goodsItemsWithConsignee :+ updatedGoodsItem
 
-              val updatedPermission = permission copy (goodsItems = allGoodsItems)
+              val updatedPermission = permission.copy(goodsItems = allGoodsItems)
 
               updatedPermission.printVariousConsignees mustEqual true
             }
@@ -491,7 +491,7 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
             sensitiveGoodsInformation = sensitiveGoodsInformation
           )
 
-          val updatedPermission = permission copy (goodsItems = NonEmptyList.one(updatedGoodsItem))
+          val updatedPermission = permission.copy(goodsItems = NonEmptyList.one(updatedGoodsItem))
 
           updatedPermission.printVariousConsignees mustEqual false
       }
@@ -505,9 +505,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
           (permission, goodsItems) =>
             val allGoodsItems = permission.goodsItems :+ goodsItems
 
-            val updatedGoodsItems = allGoodsItems.map(_ copy (consignee = None))
+            val updatedGoodsItems = allGoodsItems.map(_.copy(consignee = None))
 
-            val updatedPermission = permission copy (goodsItems = updatedGoodsItems)
+            val updatedPermission = permission.copy(goodsItems = updatedGoodsItems)
 
             updatedPermission.printVariousConsignees mustEqual false
         }
@@ -519,9 +519,9 @@ class PermissionToStartUnloadingSpec extends AnyFreeSpec with Matchers with Scal
           (permission, goodsItems, consignee) =>
             val allGoodsItems = permission.goodsItems :+ goodsItems
 
-            val updatedGoodsItems = allGoodsItems.map(_ copy (consignee = Some(consignee)))
+            val updatedGoodsItems = allGoodsItems.map(_.copy(consignee = Some(consignee)))
 
-            val updatedPermission = permission copy (goodsItems = updatedGoodsItems)
+            val updatedPermission = permission.copy(goodsItems = updatedGoodsItems)
 
             updatedPermission.printVariousConsignees mustEqual false
         }

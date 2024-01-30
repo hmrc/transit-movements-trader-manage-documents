@@ -1,6 +1,5 @@
-@import views.xml.securityComponents._
-@import views.xml.PageOne
-@import views.xml.securityComponents.second_page
+@import views.xml.securityComponents.{second_page, table_1, table_2, table_3, table_4}
+@import views.xml.{DocumentTemplate, PageOne}
 
 @this(
         mainHeader: table_1.table,
