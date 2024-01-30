@@ -26,6 +26,6 @@ object AppDependencies {
   ).map(_ % "test")
 
   val overrides: Seq[ModuleID] = Seq(
-    "avalon-framework" % "avalon-framework-impl" % "4.3"
+    "avalon-framework" % "avalon-framework-impl" % "4.3" exclude("servletapi", "servletapi")
   )
 }
