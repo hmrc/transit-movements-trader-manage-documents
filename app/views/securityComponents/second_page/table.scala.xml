@@ -1,5 +1,4 @@
-@import views.xml.components.second_page.item
-@import views.xml.components.second_page.header_table
+@import views.xml.securityComponents.second_page.{header_table, item}
 
 @import cats.data.NonEmptyList
 

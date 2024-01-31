@@ -66,10 +66,10 @@ class TransitAccompanyingDocumentControllerSpec
       val mockConversionService: TransitAccompanyingDocumentConversionService = mock[TransitAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
-        .overrides {
-          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
+        .overrides(
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator),
           bind[TransitAccompanyingDocumentConversionService].toInstance(mockConversionService)
-        }
+        )
         .build()
 
       running(application) {
@@ -113,10 +113,10 @@ class TransitAccompanyingDocumentControllerSpec
       val mockConversionService: TransitAccompanyingDocumentConversionService = mock[TransitAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
-        .overrides {
-          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator)
+        .overrides(
+          bind[UnloadingPermissionPdfGenerator].toInstance(mockPDFGenerator),
           bind[TransitAccompanyingDocumentConversionService].toInstance(mockConversionService)
-        }
+        )
         .build()
 
       running(application) {

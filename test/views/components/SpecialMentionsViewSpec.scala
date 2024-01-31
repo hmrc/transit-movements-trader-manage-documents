@@ -21,10 +21,9 @@ import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
+import play.twirl.api.TwirlHelperImports.twirlJavaCollectionToScala
 import viewmodels.SpecialMention
 import views.xml.components.item.special_mentions
-
-import scala.collection.JavaConverters.asScalaIterator
 
 class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
 
@@ -38,8 +37,8 @@ class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
 
       val block = doc.getElementsByTag("fo:block")
-      asScalaIterator(block.iterator()).toList must have length 1
-      asScalaIterator(block.iterator()).toList.head.text() mustBe "Short"
+      block.toList must have length 1
+      block.toList.head.text() mustBe "Short"
     }
     "render the additional info with EU and no the country code if exportFromEc is true and exportFromCountry is not defined" in {
       val viewmodel: SpecialMention = SpecialMention(
@@ -51,8 +50,8 @@ class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
 
       val block = doc.getElementsByTag("fo:block")
-      asScalaIterator(block.iterator()).toList must have length 1
-      asScalaIterator(block.iterator()).toList.head.text() mustBe "Export EU Longer String - AddInf"
+      block.toList must have length 1
+      block.toList.head.text() mustBe "Export EU Longer String - AddInf"
     }
 
     "render the additional info stripping export in the description" in {
@@ -64,8 +63,8 @@ class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
 
       val block = doc.getElementsByTag("fo:block")
-      asScalaIterator(block.iterator()).toList must have length 1
-      asScalaIterator(block.iterator()).toList.head.text() mustBe "Export EU Longer String - AddInf"
+      block.toList must have length 1
+      block.toList.head.text() mustBe "Export EU Longer String - AddInf"
     }
 
     "render the additional info with the country code and EU in the description if both exportForEC and exportFromCountry are defined" in {
@@ -77,8 +76,8 @@ class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
 
       val block = doc.getElementsByTag("fo:block")
-      asScalaIterator(block.iterator()).toList must have length 1
-      asScalaIterator(block.iterator()).toList.head.text() mustBe "Export EU GB Longer String - AddInf"
+      block.toList must have length 1
+      block.toList.head.text() mustBe "Export EU GB Longer String - AddInf"
     }
 
     "render the additional info with the country code without the EU text in the description if exportForEC is not defined" in {
@@ -90,8 +89,8 @@ class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
 
       val block = doc.getElementsByTag("fo:block")
-      asScalaIterator(block.iterator()).toList must have length 1
-      asScalaIterator(block.iterator()).toList.head.text() mustBe "Export GB Longer String - AddInfTwenty"
+      block.toList must have length 1
+      block.toList.head.text() mustBe "Export GB Longer String - AddInfTwenty"
     }
 
     "render the additional info without country code if exportFromCountry and exportFromEC not present" in {
@@ -103,8 +102,8 @@ class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
 
       val block = doc.getElementsByTag("fo:block")
-      asScalaIterator(block.iterator()).toList must have length 1
-      asScalaIterator(block.iterator()).toList.head.text() mustBe "Export Longer String - AddInfTwenty"
+      block.toList must have length 1
+      block.toList.head.text() mustBe "Export Longer String - AddInfTwenty"
     }
 
     "render code if description is a blank string" in {
@@ -116,8 +115,8 @@ class SpecialMentionsViewSpec extends AnyFreeSpec with Matchers {
       val doc  = Jsoup.parse(view.toString(), "", Parser.xmlParser())
 
       val block = doc.getElementsByTag("fo:block")
-      asScalaIterator(block.iterator()).toList must have length 1
-      asScalaIterator(block.iterator()).toList.head.text() mustBe "2341 GB - AddInfTwenty"
+      block.toList must have length 1
+      block.toList.head.text() mustBe "2341 GB - AddInfTwenty"
     }
   }
 }

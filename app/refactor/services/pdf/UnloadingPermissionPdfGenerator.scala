@@ -16,18 +16,18 @@
 
 package refactor.services.pdf
 
-import com.dmanchester.playfop.sapi.PlayFop
 import generated.p5.CC043CType
 import refactor.viewmodels.p5.unloadingpermission.P5UnloadingPermissionPdfViewModel
 import refactor.views.xml.p5.unloadingpermission.UnloadingPermissionDocumentP5
+import services.FopService
 
 import javax.inject.Inject
 
 class UnloadingPermissionPdfGenerator @Inject() (
-  fop: PlayFop,
+  fopService: FopService,
   documentP5: UnloadingPermissionDocumentP5
-) extends PdfGenerator(fop) {
+) {
 
   def generateP5(ie043: CC043CType): Array[Byte] =
-    processDocument(documentP5.render(P5UnloadingPermissionPdfViewModel(ie043)))
+    fopService.processTwirlXml(documentP5.render(P5UnloadingPermissionPdfViewModel(ie043)))
 }

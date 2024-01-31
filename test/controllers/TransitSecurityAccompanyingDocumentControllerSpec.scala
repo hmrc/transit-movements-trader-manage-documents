@@ -67,10 +67,10 @@ class TransitSecurityAccompanyingDocumentControllerSpec
       val mockConversionService: TransitSecurityAccompanyingDocumentConversionService = mock[TransitSecurityAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
-        .overrides {
-          bind[TSADPdfGenerator].toInstance(mockPDFGenerator)
+        .overrides(
+          bind[TSADPdfGenerator].toInstance(mockPDFGenerator),
           bind[TransitSecurityAccompanyingDocumentConversionService].toInstance(mockConversionService)
-        }
+        )
         .build()
 
       running(application) {
@@ -114,10 +114,10 @@ class TransitSecurityAccompanyingDocumentControllerSpec
       val mockConversionService: TransitSecurityAccompanyingDocumentConversionService = mock[TransitSecurityAccompanyingDocumentConversionService]
 
       val application = applicationBuilder
-        .overrides {
-          bind[TADPdfGenerator].toInstance(mockPDFGenerator)
+        .overrides(
+          bind[TADPdfGenerator].toInstance(mockPDFGenerator),
           bind[TransitSecurityAccompanyingDocumentConversionService].toInstance(mockConversionService)
-        }
+        )
         .build()
 
       running(application) {

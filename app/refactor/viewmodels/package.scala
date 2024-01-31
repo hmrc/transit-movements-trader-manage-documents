@@ -49,7 +49,7 @@ package object viewmodels {
     def dashSeparate: String      = value.mkString(" - ")
     def ellipsisSeparate: String  = value.mkString("...")
 
-    def toBeContinued(stringIfEmpty: String = ""): String = value match {
+    def toBeContinued(stringIfEmpty: String = ""): String = value.toList match {
       case Nil         => stringIfEmpty
       case head :: Nil => head
       case head :: _   => s"$head..."

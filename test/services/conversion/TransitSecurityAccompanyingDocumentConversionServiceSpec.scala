@@ -649,7 +649,7 @@ class TransitSecurityAccompanyingDocumentConversionServiceSpec
       val service = new TransitSecurityAccompanyingDocumentConversionService(referenceDataConnector)
       val header  = validModel.header.copy(countryOfDispatch = Some("non-existent code"))
 
-      val invalidRefData = validModel copy (header = header)
+      val invalidRefData = validModel.copy(header = header)
 
       val result = service.toViewModel(invalidRefData).futureValue
 
