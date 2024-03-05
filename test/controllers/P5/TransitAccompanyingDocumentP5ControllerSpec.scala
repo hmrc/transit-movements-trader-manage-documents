@@ -17,6 +17,8 @@
 package controllers.P5
 
 import base.SpecBase
+import controllers.actions.FakeVersionedAction
+import controllers.actions.VersionedAction
 import generated.p5.CC015CType
 import generated.p5.CC029CType
 import generators.ScalaxbModelGenerators
@@ -49,8 +51,9 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
   private lazy val mockMessageService = mock[DepartureMessageP5Service]
   private lazy val mockPdfGenerator   = mock[TADPdfGenerator]
 
-  private def applicationBuilder(baseApplicationBuilder: GuiceApplicationBuilder = defaultApplicationBuilder()): GuiceApplicationBuilder =
-    baseApplicationBuilder
+  override def defaultApplicationBuilder(): GuiceApplicationBuilder =
+    super
+      .defaultApplicationBuilder()
       .overrides(
         bind[DepartureMessageP5Service].toInstance(mockMessageService),
         bind[TADPdfGenerator].toInstance(mockPdfGenerator)
@@ -66,7 +69,8 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
 
     "must return OK and PDF" - {
       "when transition" in {
-        val application = applicationBuilder(p5TransitionApplicationBuilder()).build()
+        val application = defaultApplicationBuilder().build()
+
         running(application) {
           forAll(nonEmptyString, arbitrary[CC015CType], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
             (ie015MessageId, ie015, ie029, byteArray) =>
@@ -85,6 +89,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
                 .thenReturn(byteArray)
 
               val request = FakeRequest(GET, controllerRoute)
+                .withHeaders("Accept" -> "application/vnd.hmrc.transition+json")
 
               val result = route(application, request).value
 
@@ -104,7 +109,8 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
       }
 
       "when post-transition" in {
-        val application = applicationBuilder(p5PostTransitionApplicationBuilder()).build()
+        val application = defaultApplicationBuilder().build()
+
         running(application) {
           forAll(nonEmptyString, arbitrary[CC029CType], arbitrary[Array[Byte]]) {
             (ie015MessageId, ie029, byteArray) =>
@@ -120,6 +126,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
                 .thenReturn(byteArray)
 
               val request = FakeRequest(GET, controllerRoute)
+                .withHeaders("Accept" -> "application/vnd.hmrc.final+json")
 
               val result = route(application, request).value
 
@@ -141,7 +148,10 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
 
     "must return INTERNAL SERVER ERROR" - {
       "when IE015 message ID not found" in {
-        val application = applicationBuilder().build()
+        val application = defaultApplicationBuilder()
+          .overrides(bind[VersionedAction].to[FakeVersionedAction])
+          .build()
+
         running(application) {
           when(mockMessageService.getIE015MessageId(any())(any(), any()))
             .thenReturn(Future.successful(None))

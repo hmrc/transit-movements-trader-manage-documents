@@ -16,8 +16,6 @@
 
 package base
 
-import config.PostTransitionModule
-import config.TransitionModule
 import controllers.actions.AuthenticateActionProvider
 import controllers.actions.FakeAuthenticateActionProvider
 import org.scalatest.OptionValues
@@ -34,14 +32,4 @@ trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoS
       .overrides(
         bind[AuthenticateActionProvider].to[FakeAuthenticateActionProvider]
       )
-
-  def p5TransitionApplicationBuilder(): GuiceApplicationBuilder =
-    defaultApplicationBuilder()
-      .disable[PostTransitionModule]
-      .bindings(new TransitionModule)
-
-  def p5PostTransitionApplicationBuilder(): GuiceApplicationBuilder =
-    defaultApplicationBuilder()
-      .disable[TransitionModule]
-      .bindings(new PostTransitionModule)
 }

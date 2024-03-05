@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package config
+package controllers.actions
 
 import models.P5.Phase
-import models.P5.Phase.PostTransition
-import models.P5.Phase.Transition
+import models.requests.AuthenticatedRequest
+import models.requests.VersionedRequest
+import play.api.mvc._
 
-trait PhaseConfig {
-  val phase: Phase
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-}
+class FakeVersionedAction extends VersionedAction {
 
-class TransitionConfig() extends PhaseConfig {
-  override val phase: Phase = Transition
-
-}
-
-class PostTransitionConfig() extends PhaseConfig {
-  override val phase: Phase = PostTransition
-
+  override protected def refine[A](request: AuthenticatedRequest[A]): Future[Either[Result, VersionedRequest[A]]] =
+    Future.successful(Right(VersionedRequest(request, Phase.Transition)))
 }
