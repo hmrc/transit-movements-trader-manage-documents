@@ -729,6 +729,71 @@ trait DummyData extends ScalaxbModelGenerators {
     )
   )
 
+  lazy val houseConsignmentType03: HouseConsignmentType03 = HouseConsignmentType03(
+    sequenceNumber = "1",
+    countryOfDispatch = None,
+    grossMass = BigDecimal(1),
+    referenceNumberUCR = None,
+    securityIndicatorFromExportDeclaration = None,
+    Consignor = Some(
+      ConsignorType04(
+        identificationNumber = Some("hc consignor in"),
+        name = Some("hc consignor name"),
+        Address = Some(
+          AddressType07(
+            streetAndNumber = "san",
+            postcode = Some("pc"),
+            city = "city",
+            country = "country"
+          )
+        ),
+        ContactPerson = Some(
+          ContactPersonType01(
+            name = "cp",
+            phoneNumber = "cptel",
+            eMailAddress = Some("cpemail")
+          )
+        )
+      )
+    ),
+    Consignee = Some(
+      ConsigneeType04(
+        identificationNumber = Some("hc consignee in"),
+        name = Some("hc consignee name"),
+        Address = Some(
+          AddressType07(
+            streetAndNumber = "san",
+            postcode = Some("pc"),
+            city = "city",
+            country = "country"
+          )
+        )
+      )
+    ),
+    AdditionalSupplyChainActor = Nil,
+    DepartureTransportMeans = Seq(
+      DepartureTransportMeansType02(
+        sequenceNumber = "1",
+        typeOfIdentification = "toi1",
+        identificationNumber = "in1",
+        nationality = "nat1"
+      ),
+      DepartureTransportMeansType02(
+        sequenceNumber = "2",
+        typeOfIdentification = "toi2",
+        identificationNumber = "in2",
+        nationality = "nat2"
+      )
+    ),
+    PreviousDocument = Nil,
+    SupportingDocument = Nil,
+    TransportDocument = Nil,
+    AdditionalReference = Nil,
+    AdditionalInformation = Nil,
+    TransportCharges = None,
+    ConsignmentItem = Nil
+  )
+
   lazy val consignmentItemType03: ConsignmentItemType03 = ConsignmentItemType03(
     goodsItemNumber = "gin",
     declarationGoodsItemNumber = BigInt(1),

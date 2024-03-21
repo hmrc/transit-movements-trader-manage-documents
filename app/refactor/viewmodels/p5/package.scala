@@ -31,20 +31,35 @@ package object p5 {
       *  Therefore we need to roll these back down here.
       */
     val consignmentItems: Seq[ConsignmentItemType03] =
-      value.Consignment.HouseConsignment
+      value
+        .rollDown
+        .Consignment
+        .HouseConsignment
         .flatMap(_.ConsignmentItem)
-        .rollDown(value.Consignment.TransportCharges)(
-          TransportCharges => _.copy(TransportCharges = Some(TransportCharges))
-        )
-        .rollDown(value.Consignment.referenceNumberUCR)(
-          referenceNumberUCR => _.copy(referenceNumberUCR = Some(referenceNumberUCR))
-        )
-        .rollDown(value.Consignment.countryOfDispatch)(
-          countryOfDispatch => _.copy(countryOfDispatch = Some(countryOfDispatch))
-        )
-        .rollDown(value.Consignment.countryOfDestination)(
-          countryOfDestination => _.copy(countryOfDestination = Some(countryOfDestination))
-        )
+
+    def rollDown: CC029CType = {
+      val houseConsignments = value.Consignment.HouseConsignment
+        .map {
+          houseConsignment =>
+            houseConsignment.copy(ConsignmentItem =
+              houseConsignment.ConsignmentItem
+                .rollDown(value.Consignment.TransportCharges)(
+                  TransportCharges => _.copy(TransportCharges = Some(TransportCharges))
+                )
+                .rollDown(value.Consignment.referenceNumberUCR)(
+                  referenceNumberUCR => _.copy(referenceNumberUCR = Some(referenceNumberUCR))
+                )
+                .rollDown(value.Consignment.countryOfDispatch)(
+                  countryOfDispatch => _.copy(countryOfDispatch = Some(countryOfDispatch))
+                )
+                .rollDown(value.Consignment.countryOfDestination)(
+                  countryOfDestination => _.copy(countryOfDestination = Some(countryOfDestination))
+                )
+            )
+        }
+      val consignment = value.Consignment.copy(HouseConsignment = houseConsignments)
+      value.copy(Consignment = consignment)
+    }
 
     val numberOfItems: Int = consignmentItems.size
 

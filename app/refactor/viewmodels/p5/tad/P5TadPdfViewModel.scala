@@ -35,7 +35,9 @@ object P5TadPdfViewModel {
   def apply(ie029: CC029CType): P5TadPdfViewModel =
     new P5TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
-      consignmentItemViewModels = ie029.consignmentItems.map(ConsignmentItemViewModel(_)),
+      consignmentItemViewModels = ie029.rollDown.Consignment.HouseConsignment.flatMap {
+        houseConsignment => houseConsignment.ConsignmentItem.map(ConsignmentItemViewModel(houseConsignment, _))
+      },
       table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029),
       table4ViewModel = Table4ViewModel(ie029)

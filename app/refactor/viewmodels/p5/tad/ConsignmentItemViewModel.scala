@@ -17,6 +17,7 @@
 package refactor.viewmodels.p5.tad
 
 import generated.p5.ConsignmentItemType03
+import generated.p5.HouseConsignmentType03
 import refactor.viewmodels._
 import refactor.viewmodels.p5._
 
@@ -29,6 +30,8 @@ case class ConsignmentItemViewModel(
   supportingDocuments: String,
   consignee: String,
   consigneeId: String,
+  consignor: String,
+  consignorId: String,
   additionalReferences: String,
   additionalInformation: String,
   additionalSupplyChainActors: String,
@@ -36,6 +39,7 @@ case class ConsignmentItemViewModel(
   transportDocuments: String,
   referenceNumberUCR: String,
   grossMass: String,
+  departureTransportMeans: String,
   commodityCode: String,
   netMass: String,
   dangerousGoods: String,
@@ -48,7 +52,7 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(consignmentItem: ConsignmentItemType03): ConsignmentItemViewModel =
+  def apply(houseConsignment: HouseConsignmentType03, consignmentItem: ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber,
@@ -56,8 +60,10 @@ object ConsignmentItemViewModel {
       descriptionOfGoods = consignmentItem.Commodity.descriptionOfGoods,
       previousDocuments = consignmentItem.PreviousDocument.map(_.asString).semiColonSeparate,
       supportingDocuments = consignmentItem.SupportingDocument.map(_.asString).semiColonSeparate,
-      consignee = consignmentItem.Consignee.map(_.asString).orElseBlank,
-      consigneeId = consignmentItem.Consignee.flatMap(_.identificationNumber).orElseBlank,
+      consignee = houseConsignment.Consignee.map(_.asString).orElseBlank,
+      consigneeId = houseConsignment.Consignee.flatMap(_.identificationNumber).orElseBlank,
+      consignor = houseConsignment.Consignor.map(_.asString).orElseBlank,
+      consignorId = houseConsignment.Consignor.flatMap(_.identificationNumber).orElseBlank,
       additionalReferences = consignmentItem.AdditionalReference.map(_.asString).semiColonSeparate,
       additionalInformation = consignmentItem.AdditionalInformation.map(_.asString).semiColonSeparate,
       additionalSupplyChainActors = consignmentItem.AdditionalSupplyChainActor.map(_.asString).semiColonSeparate,
@@ -65,6 +71,7 @@ object ConsignmentItemViewModel {
       transportDocuments = consignmentItem.TransportDocument.map(_.asString).semiColonSeparate,
       referenceNumberUCR = consignmentItem.referenceNumberUCR.orElseBlank,
       grossMass = consignmentItem.Commodity.GoodsMeasure.map(_.grossMass.asString).orElseBlank,
+      departureTransportMeans = houseConsignment.DepartureTransportMeans.map(_.asString).semiColonSeparate,
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElseBlank,
       netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass.map(_.asString)).orElseBlank,
       dangerousGoods = consignmentItem.Commodity.DangerousGoods.map(_.asString).semiColonSeparate,
