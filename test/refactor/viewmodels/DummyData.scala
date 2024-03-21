@@ -451,6 +451,9 @@ trait DummyData extends ScalaxbModelGenerators {
             ConsignmentItemType03(
               goodsItemNumber = "1",
               declarationGoodsItemNumber = BigInt(1),
+              countryOfDispatch = Some("c of dispatch"),
+              countryOfDestination = Some("c of destination"),
+              referenceNumberUCR = Some("ucr"),
               Packaging = Seq(
                 PackagingType02(
                   sequenceNumber = "1",
@@ -490,11 +493,19 @@ trait DummyData extends ScalaxbModelGenerators {
                     netMass = Some(BigDecimal(100))
                   )
                 )
+              ),
+              TransportCharges = Some(
+                TransportChargesType(
+                  methodOfPayment = "mop"
+                )
               )
             ),
             ConsignmentItemType03(
               goodsItemNumber = "2",
               declarationGoodsItemNumber = BigInt(2),
+              countryOfDispatch = Some("c of dispatch"),
+              countryOfDestination = Some("c of destination"),
+              referenceNumberUCR = Some("ucr"),
               Packaging = Seq(
                 PackagingType02(
                   sequenceNumber = "1",
@@ -533,6 +544,11 @@ trait DummyData extends ScalaxbModelGenerators {
                     grossMass = BigDecimal(200),
                     netMass = Some(BigDecimal(100))
                   )
+                )
+              ),
+              TransportCharges = Some(
+                TransportChargesType(
+                  methodOfPayment = "mop"
                 )
               )
             )
@@ -727,6 +743,71 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       )
     )
+  )
+
+  lazy val houseConsignmentType03: HouseConsignmentType03 = HouseConsignmentType03(
+    sequenceNumber = "1",
+    countryOfDispatch = None,
+    grossMass = BigDecimal(1),
+    referenceNumberUCR = None,
+    securityIndicatorFromExportDeclaration = None,
+    Consignor = Some(
+      ConsignorType04(
+        identificationNumber = Some("hc consignor in"),
+        name = Some("hc consignor name"),
+        Address = Some(
+          AddressType07(
+            streetAndNumber = "san",
+            postcode = Some("pc"),
+            city = "city",
+            country = "country"
+          )
+        ),
+        ContactPerson = Some(
+          ContactPersonType01(
+            name = "cp",
+            phoneNumber = "cptel",
+            eMailAddress = Some("cpemail")
+          )
+        )
+      )
+    ),
+    Consignee = Some(
+      ConsigneeType04(
+        identificationNumber = Some("hc consignee in"),
+        name = Some("hc consignee name"),
+        Address = Some(
+          AddressType07(
+            streetAndNumber = "san",
+            postcode = Some("pc"),
+            city = "city",
+            country = "country"
+          )
+        )
+      )
+    ),
+    AdditionalSupplyChainActor = Nil,
+    DepartureTransportMeans = Seq(
+      DepartureTransportMeansType02(
+        sequenceNumber = "1",
+        typeOfIdentification = "toi1",
+        identificationNumber = "in1",
+        nationality = "nat1"
+      ),
+      DepartureTransportMeansType02(
+        sequenceNumber = "2",
+        typeOfIdentification = "toi2",
+        identificationNumber = "in2",
+        nationality = "nat2"
+      )
+    ),
+    PreviousDocument = Nil,
+    SupportingDocument = Nil,
+    TransportDocument = Nil,
+    AdditionalReference = Nil,
+    AdditionalInformation = Nil,
+    TransportCharges = None,
+    ConsignmentItem = Nil
   )
 
   lazy val consignmentItemType03: ConsignmentItemType03 = ConsignmentItemType03(

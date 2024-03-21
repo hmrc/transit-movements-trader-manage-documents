@@ -20,6 +20,7 @@ import connectors.DepartureMovementP5Connector
 import generated.p5.CC015CType
 import generated.p5.CC029CType
 import models.P5.departure.DepartureMessageType.DepartureNotification
+import refactor.viewmodels.p5.RichCC029CType
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -33,7 +34,7 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
     departureId: String,
     messageId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC029CType] =
-    getMessage[CC029CType](departureId, messageId)
+    getMessage[CC029CType](departureId, messageId).map(_.rollDown)
 
   def getDeclarationData(
     departureId: String,

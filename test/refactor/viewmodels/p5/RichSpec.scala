@@ -30,8 +30,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
       "when transport charges defined at consignment level" in {
         forAll(arbitrary[TransportChargesType]) {
           transportCharges =>
-            val data = cc029c.copy(Consignment = cc029c.Consignment.copy(TransportCharges = Some(transportCharges)))
-            data.consignmentItems.foreach {
+            val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(TransportCharges = Some(transportCharges)))
+            val result = data.rollDown
+            result.consignmentItems.foreach {
               _.TransportCharges.value mustBe transportCharges
             }
         }
@@ -40,8 +41,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
       "when UCR defined at consignment level" in {
         forAll(nonEmptyString) {
           referenceNumberUCR =>
-            val data = cc029c.copy(Consignment = cc029c.Consignment.copy(referenceNumberUCR = Some(referenceNumberUCR)))
-            data.consignmentItems.foreach {
+            val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(referenceNumberUCR = Some(referenceNumberUCR)))
+            val result = data.rollDown
+            result.consignmentItems.foreach {
               _.referenceNumberUCR.value mustBe referenceNumberUCR
             }
         }
@@ -50,8 +52,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
       "when country of dispatch defined at consignment level" in {
         forAll(nonEmptyString) {
           countryOfDispatch =>
-            val data = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDispatch = Some(countryOfDispatch)))
-            data.consignmentItems.foreach {
+            val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDispatch = Some(countryOfDispatch)))
+            val result = data.rollDown
+            result.consignmentItems.foreach {
               _.countryOfDispatch.value mustBe countryOfDispatch
             }
         }
@@ -60,8 +63,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
       "when country of destination defined at consignment level" in {
         forAll(nonEmptyString) {
           countryOfDestination =>
-            val data = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDestination = Some(countryOfDestination)))
-            data.consignmentItems.foreach {
+            val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDestination = Some(countryOfDestination)))
+            val result = data.rollDown
+            result.consignmentItems.foreach {
               _.countryOfDestination.value mustBe countryOfDestination
             }
         }
@@ -70,8 +74,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
 
     "must not roll down" - {
       "when transport charges undefined at consignment level" in {
-        val data = cc029c.copy(Consignment = cc029c.Consignment.copy(TransportCharges = None))
-        data.consignmentItems.zipWithIndex.foreach {
+        val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(TransportCharges = None))
+        val result = data.rollDown
+        result.consignmentItems.zipWithIndex.foreach {
           case (ci, i) =>
             ci.TransportCharges mustBe
               cc029c.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).apply(i).TransportCharges
@@ -79,8 +84,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
       }
 
       "when UCR undefined at consignment level" in {
-        val data = cc029c.copy(Consignment = cc029c.Consignment.copy(referenceNumberUCR = None))
-        data.consignmentItems.zipWithIndex.foreach {
+        val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(referenceNumberUCR = None))
+        val result = data.rollDown
+        result.consignmentItems.zipWithIndex.foreach {
           case (ci, i) =>
             ci.referenceNumberUCR mustBe
               cc029c.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).apply(i).referenceNumberUCR
@@ -88,8 +94,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
       }
 
       "when country of dispatch undefined at consignment level" in {
-        val data = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDispatch = None))
-        data.consignmentItems.zipWithIndex.foreach {
+        val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDispatch = None))
+        val result = data.rollDown
+        result.consignmentItems.zipWithIndex.foreach {
           case (ci, i) =>
             ci.countryOfDispatch mustBe
               cc029c.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).apply(i).countryOfDispatch
@@ -97,8 +104,9 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
       }
 
       "when country of destination undefined at consignment level" in {
-        val data = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDestination = None))
-        data.consignmentItems.zipWithIndex.foreach {
+        val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(countryOfDestination = None))
+        val result = data.rollDown
+        result.consignmentItems.zipWithIndex.foreach {
           case (ci, i) =>
             ci.countryOfDestination mustBe
               cc029c.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).apply(i).countryOfDestination

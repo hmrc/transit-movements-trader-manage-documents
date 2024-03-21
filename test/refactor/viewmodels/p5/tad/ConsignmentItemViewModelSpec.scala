@@ -23,7 +23,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val result = ConsignmentItemViewModel(consignmentItemType03)
+    val result = ConsignmentItemViewModel(houseConsignmentType03, consignmentItemType03)
 
     "declarationGoodsItemNumber" in {
       result.declarationGoodsItemNumber mustBe "1"
@@ -50,11 +50,19 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "consignee" in {
-      result.consignee mustBe "name, san, pc, city, country"
+      result.consignee mustBe "hc consignee name, san, pc, city, country"
     }
 
     "consigneeId" in {
-      result.consigneeId mustBe "in"
+      result.consigneeId mustBe "hc consignee in"
+    }
+
+    "consignor" in {
+      result.consignor mustBe "hc consignor name, san, pc, city, country, cp, cptel, cpemail"
+    }
+
+    "consignorId" in {
+      result.consignorId mustBe "hc consignor in"
     }
 
     "additionalReferences" in {
@@ -83,6 +91,10 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
     "grossMass" in {
       result.grossMass mustBe "200.0"
+    }
+
+    "departureTransportMeans" in {
+      result.departureTransportMeans mustBe "toi1, in1, nat1; toi2, in2, nat2"
     }
 
     "commodityCode" in {

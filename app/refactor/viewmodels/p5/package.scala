@@ -30,21 +30,32 @@ package object p5 {
       *
       *  Therefore we need to roll these back down here.
       */
+    def rollDown: CC029CType = {
+      val houseConsignments = value.Consignment.HouseConsignment
+        .map {
+          houseConsignment =>
+            val consignmentItems = houseConsignment.ConsignmentItem
+              .rollDown(value.Consignment.TransportCharges)(
+                TransportCharges => _.copy(TransportCharges = Some(TransportCharges))
+              )
+              .rollDown(value.Consignment.referenceNumberUCR)(
+                referenceNumberUCR => _.copy(referenceNumberUCR = Some(referenceNumberUCR))
+              )
+              .rollDown(value.Consignment.countryOfDispatch)(
+                countryOfDispatch => _.copy(countryOfDispatch = Some(countryOfDispatch))
+              )
+              .rollDown(value.Consignment.countryOfDestination)(
+                countryOfDestination => _.copy(countryOfDestination = Some(countryOfDestination))
+              )
+            houseConsignment.copy(ConsignmentItem = consignmentItems)
+        }
+      val consignment = value.Consignment.copy(HouseConsignment = houseConsignments)
+      value.copy(Consignment = consignment)
+    }
+
     val consignmentItems: Seq[ConsignmentItemType03] =
       value.Consignment.HouseConsignment
         .flatMap(_.ConsignmentItem)
-        .rollDown(value.Consignment.TransportCharges)(
-          TransportCharges => _.copy(TransportCharges = Some(TransportCharges))
-        )
-        .rollDown(value.Consignment.referenceNumberUCR)(
-          referenceNumberUCR => _.copy(referenceNumberUCR = Some(referenceNumberUCR))
-        )
-        .rollDown(value.Consignment.countryOfDispatch)(
-          countryOfDispatch => _.copy(countryOfDispatch = Some(countryOfDispatch))
-        )
-        .rollDown(value.Consignment.countryOfDestination)(
-          countryOfDestination => _.copy(countryOfDestination = Some(countryOfDestination))
-        )
 
     val numberOfItems: Int = consignmentItems.size
 

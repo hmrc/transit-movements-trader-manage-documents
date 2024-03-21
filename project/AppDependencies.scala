@@ -3,7 +3,7 @@ import sbt.librarymanagement.InclExclRule
 
 object AppDependencies {
 
-  private val bootstrapVersion = "8.4.0"
+  private val bootstrapVersion = "8.5.0"
 
   val compile: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"             %% "bootstrap-backend-play-30"  % bootstrapVersion,
@@ -11,7 +11,8 @@ object AppDependencies {
     "org.apache.xmlgraphics"  %  "fop"                        % "2.9",
     "net.sf.barcode4j"        %  "barcode4j"                  % "2.1",
     "net.sf.barcode4j"        %  "barcode4j-fop-ext"          % "2.1",
-    "xerces"                  %  "xercesImpl"                 % "2.12.2"
+    "xerces"                  %  "xercesImpl"                 % "2.12.2",
+    "javax.xml.bind"          %  "jaxb-api"                   % "2.3.1"
   )
 
   val test: Seq[ModuleID] = Seq(
