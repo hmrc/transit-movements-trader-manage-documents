@@ -451,6 +451,9 @@ trait DummyData extends ScalaxbModelGenerators {
             ConsignmentItemType03(
               goodsItemNumber = "1",
               declarationGoodsItemNumber = BigInt(1),
+              countryOfDispatch = Some("c of dispatch"),
+              countryOfDestination = Some("c of destination"),
+              referenceNumberUCR = Some("ucr"),
               Packaging = Seq(
                 PackagingType02(
                   sequenceNumber = "1",
@@ -490,11 +493,19 @@ trait DummyData extends ScalaxbModelGenerators {
                     netMass = Some(BigDecimal(100))
                   )
                 )
+              ),
+              TransportCharges = Some(
+                TransportChargesType(
+                  methodOfPayment = "mop"
+                )
               )
             ),
             ConsignmentItemType03(
               goodsItemNumber = "2",
               declarationGoodsItemNumber = BigInt(2),
+              countryOfDispatch = Some("c of dispatch"),
+              countryOfDestination = Some("c of destination"),
+              referenceNumberUCR = Some("ucr"),
               Packaging = Seq(
                 PackagingType02(
                   sequenceNumber = "1",
@@ -533,6 +544,11 @@ trait DummyData extends ScalaxbModelGenerators {
                     grossMass = BigDecimal(200),
                     netMass = Some(BigDecimal(100))
                   )
+                )
+              ),
+              TransportCharges = Some(
+                TransportChargesType(
+                  methodOfPayment = "mop"
                 )
               )
             )

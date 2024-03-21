@@ -30,10 +30,6 @@ package object p5 {
       *
       *  Therefore we need to roll these back down here.
       */
-    val consignmentItems: Seq[ConsignmentItemType03] =
-      rollDown.Consignment.HouseConsignment
-        .flatMap(_.ConsignmentItem)
-
     def rollDown: CC029CType = {
       val houseConsignments = value.Consignment.HouseConsignment
         .map {
@@ -56,6 +52,10 @@ package object p5 {
       val consignment = value.Consignment.copy(HouseConsignment = houseConsignments)
       value.copy(Consignment = consignment)
     }
+
+    val consignmentItems: Seq[ConsignmentItemType03] =
+      value.Consignment.HouseConsignment
+        .flatMap(_.ConsignmentItem)
 
     val numberOfItems: Int = consignmentItems.size
 
