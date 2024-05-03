@@ -7,6 +7,7 @@
     template: DocumentTemplateP5,
     pageOne: PageOne,
     table1: table_1.table,
+    table2:table_2.table,
     pageTwo: items.items
 )
 
@@ -18,4 +19,5 @@
 
 @pageOneBody = {
     @table1(vm.table1ViewModel, vm.mrn)
+    @table2(vm.table2ViewModel, vm.mrn)
 }

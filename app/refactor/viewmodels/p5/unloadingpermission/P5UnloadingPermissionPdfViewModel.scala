@@ -21,7 +21,8 @@ import generated.p5._
 case class P5UnloadingPermissionPdfViewModel(
   mrn: String,
   consignmentItemViewModels: Seq[ConsignmentItemViewModel],
-  table1ViewModel: Table1ViewModel
+  table1ViewModel: Table1ViewModel,
+  table2ViewModel: Table2ViewModel
 )
 
 object P5UnloadingPermissionPdfViewModel {
@@ -38,7 +39,8 @@ object P5UnloadingPermissionPdfViewModel {
     new P5UnloadingPermissionPdfViewModel(
       mrn = ie043.TransitOperation.MRN,
       consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(_)),
-      table1ViewModel = Table1ViewModel(ie043)
+      table1ViewModel = Table1ViewModel(ie043),
+      table2ViewModel = Table2ViewModel(ie043)
     )
   }
 }
