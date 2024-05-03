@@ -16,23 +16,12 @@
   <fo:table-column column-number="7" column-width="4mm"/>
   <fo:table-column column-number="8" column-width="42mm"/>
 
-  <fo:table-body font-family="Helvetica">
+  <fo:table-body font-family="Arial">
     @row_1(mrn)
 
     @row_2(
-      vm.consignorIdentificationNumber,
-      vm.consignor,
-      vm.consigneeIdentificationNumber,
-      vm.consignee,
-      vm.holderOfTransitID,
-      vm.holderOfTransit,
       vm.declarationType,
-      vm.totalItems,
-      vm.totalPackages,
       vm.totalGrossMass,
-      vm.tir,
-      vm.security,
-      vm.inlandModeOfTransport,
       mrn
     )
 

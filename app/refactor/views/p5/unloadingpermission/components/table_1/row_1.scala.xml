@@ -5,16 +5,9 @@
     <fo:block/>
   </fo:table-cell>
   <fo:table-cell number-columns-spanned="2">
-    <fo:block font-weight="bold" font-size="10pt">EUROPEAN UNION</fo:block>
+    <fo:block font-weight="bold" font-size="8pt">EUROPEAN UNION</fo:block>
   </fo:table-cell>
-  <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-    <fo:block font-weight="bold" font-size="6pt" text-indent="1mm" space-before="1mm">DECLARATION TYPE</fo:block>
-  </fo:table-cell>
-  <fo:table-cell number-columns-spanned="4" number-rows-spanned="1" padding-left="1mm" border-left-style="solid" border-left-width="1pt" border-left-color="black" >
-    <fo:block-container margin-right = "4mm">
-      <fo:block text-align="center" font-size = "9">
-        <fo:inline font-weight="bold">MRN</fo:inline> @(mrn)
-      </fo:block>
-    </fo:block-container>
+  <fo:table-cell number-columns-spanned="5" number-rows-spanned="1" padding-left="35mm" border-left-width="1pt" border-left-color="black">
+      <fo:block font-size="8" font-weight="bold">MRN <fo:inline font-weight="normal">@(mrn)</fo:inline></fo:block>
   </fo:table-cell>
 </fo:table-row>
