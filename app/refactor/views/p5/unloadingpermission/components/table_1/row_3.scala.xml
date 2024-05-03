@@ -2,7 +2,7 @@
 @import refactor.views.xml.p5.unloadingpermission.components._
 
 @(
-    departureTransportMeans: Seq[(String, Int)],
+    departureTransportMeans: Seq[String],
     container: String,
     transportEquipment: String,
     seals: String,
@@ -65,7 +65,7 @@
 
                     <!--   Departure means rows-->
 
-                    @departureTransportMeans.map {
+                    @departureTransportMeans.zipWithIndex.map {
                         case (transportMeans, departureMeansIndex) => {
                             <fo:table-row height="8mm" margin-left="0.5mm">
                                 <fo:table-cell >
