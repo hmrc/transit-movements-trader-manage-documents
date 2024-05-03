@@ -78,7 +78,10 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "departureTransportMeans" in {
-      result.departureTransportMeans mustBe "toi1, in1, nat1; toi2, in2, nat2"
+      result.departureTransportMeans.head._1 mustBe "toi1, in1, nat1"
+      result.departureTransportMeans.head._2 mustBe 0
+      result.departureTransportMeans(1)._1 mustBe "toi2, in2, nat2"
+      result.departureTransportMeans(1)._2 mustBe 1
     }
 
     "container" in {
