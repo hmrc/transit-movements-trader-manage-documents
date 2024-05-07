@@ -2,7 +2,7 @@
 @import refactor.views.xml.p5.unloadingpermission.components._
 
 @(
-    departureTransportMeans: String,
+    departureTransportMeans: Seq[String],
     container: String,
     transportEquipment: String,
     seals: String,
@@ -34,7 +34,7 @@
         <fo:block hyphenate="true">UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT</fo:block>
     </fo:block-container >
         <fo:block-container height = "8mm">
-        <fo:block font-size="12pt"
+        <fo:block font-size="8pt"
                   border-top-style="solid" border-top-width="1pt" border-top-color="black"
                   text-align = "center"
                   font-weight = "bold"
@@ -58,126 +58,57 @@
     >
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="35mm"/>
-                <fo:table-column column-number="2" column-width="142mm" />
-                <fo:table-body >
+                <fo:table-column column-number="1" column-width="59mm"/>
+                <fo:table-column column-number="2" column-width="59mm" />
+                <fo:table-column column-number="3" column-width="59mm" />
+                <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
 
-                    <!--   Departure means row-->
+                    <!--   Departure means rows-->
 
-                    <fo:table-row height="4mm" margin-left="0.5mm">
-                        <fo:table-cell >
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
-                                <fo:block>
-                                    <fo:inline font-weight="bold">Departure transport means</fo:inline>
-                                    <fo:inline padding-left = "1.8mm">[1302]</fo:inline>
-                                </fo:block>
+                    @departureTransportMeans.zipWithIndex.map {
+                        case (transportMeans, departureMeansIndex) => {
+                            <fo:table-row height="8mm" margin-left="0.5mm">
+                                <fo:table-cell >
+                                    <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                        <fo:block>
+                                            <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex + 1)</fo:inline>
+                                        </fo:block>
 
-                            </fo:block-container>
-                        </fo:table-cell>
-                        <fo:table-cell >
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
-                                <fo:block>
-                                    @(departureTransportMeans)
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
+                                    </fo:block-container>
+                                </fo:table-cell>
+                            </fo:table-row>
 
 
-                    <fo:table-row height="6mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
-                        <fo:table-cell  display-align="after"  number-columns-spanned="2"   >
-                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
-                                    <fo:inline font-weight="bold">Consignee reference number</fo:inline>
-                                    <fo:inline padding-left = "4mm">TESTID12345678</fo:inline>
+                            <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                                <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                                    <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                        <fo:block>
+                                            Identification type
+                                            <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                        </fo:block>
+                                    </fo:block-container>
+                                </fo:table-cell>
 
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
+                                <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                    <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                        <fo:block>
+                                            Identification number
+                                            <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                        </fo:block>
+                                    </fo:block-container>
+                                </fo:table-cell>
 
-                    </fo:table-row>
-
-                    <!--   Transport equipment row-->
-
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Transport equipment</fo:inline> [1907]</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>
-                                    <fo:inline font-weight="bold">Container</fo:inline> [1901]
-                                    <fo:inline>@(container)</fo:inline>
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-
-                    </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm" number-columns-spanned="2">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>
-                                    @(transportEquipment)
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <!-- Seals row -->
-
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Seals</fo:inline> [1910]</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row height="7mm"
-                                  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
-                    >
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(seals)</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <!-- Previous document row -->
-
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Previous document</fo:inline> [1201]</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(previousDocument)</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <!-- Transport document row -->
-
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Transport document</fo:inline> [1205]</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(transportDocument)</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
+                                <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                    <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                        <fo:block>
+                                            Registered country
+                                            <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                        </fo:block>
+                                    </fo:block-container>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        }
+                    }
                 </fo:table-body>
             </fo:table>
         </fo:block>
