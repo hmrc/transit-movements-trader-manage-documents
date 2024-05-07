@@ -1,9 +1,9 @@
 @import refactor.views.xml.p5.unloadingpermission.components.table_2._
-@import refactor.viewmodels.p5.unloadingpermission.Table2ViewModel
+@import refactor.viewmodels.p5.unloadingpermission.Table1ViewModel
 
 @this()
 
-@(vm: Table2ViewModel, mrn: String)
+@(vm: Table1ViewModel, mrn: String)
 
 <fo:table width="100%" table-layout="fixed" id="table-2">
 
@@ -17,40 +17,10 @@
   <fo:table-column column-number="8" column-width="42mm"/>
 
   <fo:table-body font-family="Helvetica">
-    @row_1(mrn)
 
-    @row_2(
-      vm.consignorIdentificationNumber,
-      vm.consignor,
-      vm.consigneeIdentificationNumber,
-      vm.consignee,
-      vm.holderOfTransitID,
-      vm.holderOfTransit,
-      vm.declarationType,
-      vm.totalItems,
-      vm.totalPackages,
-      vm.totalGrossMass,
-      vm.tir,
-      vm.security,
-      vm.inlandModeOfTransport,
-      mrn
-    )
-
-    @row_3(
-      vm.departureTransportMeans,
-      vm.container,
-      vm.transportEquipment,
-      vm.seals,
-      vm.previousDocument,
-      vm.transportDocument
-    )
 
     @row_4(
-      vm.supportingDocument,
-      vm.additionalReference,
-      vm.additionalInformation,
-      vm.customsOfficeOfDestination,
-      vm.countryOfDestination
+      vm.departureTransportMeans
     )
 
   </fo:table-body>

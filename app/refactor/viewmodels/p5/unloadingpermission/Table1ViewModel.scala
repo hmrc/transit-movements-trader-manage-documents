@@ -35,6 +35,7 @@ case class Table1ViewModel(
   security: String,
   inlandModeOfTransport: String,
   departureTransportMeans: Seq[String],
+  houseConsignmentDepartureTransportMeans: Map[Int, Seq[String]],
   container: String,
   transportEquipment: String,
   seals: String,
@@ -65,6 +66,10 @@ object Table1ViewModel {
       security = ie043.TransitOperation.security,
       inlandModeOfTransport = ie043.Consignment.flatMap(_.inlandModeOfTransport).orElseBlank,
       departureTransportMeans = ie043.Consignment.fold[Seq[String]](Nil)(_.DepartureTransportMeans.map(_.asString)),
+      houseConsignmentDepartureTransportMeans = ie043.Consignment
+        .fold[Map[Int, Seq[String]]](Map.empty)(_.HouseConsignment.zipWithIndex.map {
+          case (house, houseIndex) => (houseIndex, house.DepartureTransportMeans.map(_.asString))
+        }.toMap),
       container = ie043.Consignment.map(_.containerIndicator.asString).orElseBlank,
       transportEquipment = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.map(_.asString)).semiColonSeparate,
       seals = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.flatMap(_.Seal).map(_.asString)).semiColonSeparate,

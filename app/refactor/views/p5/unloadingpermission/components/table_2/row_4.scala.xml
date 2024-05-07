@@ -2,11 +2,7 @@
 @import refactor.views.xml.p5.unloadingpermission.components._
 
 @(
-    supportingDocument: String,
-    additionalReference: String,
-    additionalInformation: String,
-    customsOfficeOfDestination: String,
-    countryOfDestination: String
+        departureTransportMeans: Seq[String]
 )
 
 
@@ -24,99 +20,60 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
                    number-columns-spanned="6"
-
     >
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="35mm"/>
-                <fo:table-column column-number="2" column-width="142mm" />
-                <fo:table-body >
+                <fo:table-column column-number="1" column-width="59mm"/>
+                <fo:table-column column-number="2" column-width="59mm" />
+                <fo:table-column column-number="3" column-width="59mm" />
+                <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
 
-                    <!-- Supporting document row -->
+                    <!--   Departure means rows-->
 
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Supporting document</fo:inline> [1203]</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(supportingDocument)</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
+                    @departureTransportMeans.zipWithIndex.map {
+                    case (transportMeans, departureMeansIndex) => {
+                    <fo:table-row height="8mm" margin-left="0.5mm">
+                        <fo:table-cell >
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                <fo:block>
+                                    <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex + 1)</fo:inline>
+                                </fo:block>
 
-                    <!-- Additional reference row -->
-
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Additional reference</fo:inline> [1204]</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(additionalReference)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <!-- Additional information row -->
 
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Additional information </fo:inline> [1202]</fo:block>
+                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                <fo:block>
+                                    Identification type
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(additionalInformation)</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
 
-                    <!-- Customs office of destination row -->
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Identification number
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
 
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Customs office of destination</fo:inline> [1705]</fo:block>
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Registered country
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(customsOfficeOfDestination)</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <!-- Country of destination row -->
-
-                    <fo:table-row height="3mm">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Country of destination</fo:inline> [1607]</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                        <fo:table-cell  margin-left="0.5mm">
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(countryOfDestination)</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    
+                    }
+                    }
                 </fo:table-body>
             </fo:table>
         </fo:block>
