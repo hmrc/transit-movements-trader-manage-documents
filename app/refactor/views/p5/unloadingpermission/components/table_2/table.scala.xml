@@ -20,7 +20,8 @@
 
 
     @row_4(
-      vm.departureTransportMeans
+      vm.departureTransportMeans,
+    vm.houseConsignmentDepartureTransportMeans
     )
 
   </fo:table-body>

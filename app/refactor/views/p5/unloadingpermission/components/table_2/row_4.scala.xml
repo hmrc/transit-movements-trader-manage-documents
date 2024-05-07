@@ -2,7 +2,8 @@
 @import refactor.views.xml.p5.unloadingpermission.components._
 
 @(
-        departureTransportMeans: Seq[String]
+        departureTransportMeans: Seq[String],
+        houseConsignmentDepartureTransportMeans: Map[Int, Seq[String]]
 )
 
 
@@ -28,20 +29,41 @@
                 <fo:table-column column-number="3" column-width="59mm" />
                 <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
 
-                    <!--   Departure means rows-->
+                    @houseConsignmentDepartureTransportMeans.map { case (houseIndex, depTransportMeans) =>
 
-                    @departureTransportMeans.zipWithIndex.map {
-                    case (transportMeans, departureMeansIndex) => {
-                    <fo:table-row height="8mm" margin-left="0.5mm">
-                        <fo:table-cell >
-                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
-                                <fo:block>
-                                    <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex + 1)</fo:inline>
-                                </fo:block>
-
+                    <fo:table-row height="5mm">
+                        <fo:table-cell  margin-left="0.5mm" >
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">HOUSE CONSIGNMENT</fo:inline> @(houseIndex + 1)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
+
+                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="grey" margin-left="0.5mm">
+                        <fo:table-cell  number-columns-spanned="2"   >
+                            <fo:block-container overflow="hidden">
+                                <fo:block>
+                                    <fo:inline font-weight="bold">Gross weight</fo:inline>
+
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                        @depTransportMeans.zipWithIndex.map { case (transportMeans, departureMeansIndex) =>
+
+
+
+                            <fo:table-row height="8mm" margin-left="0.5mm">
+                                <fo:table-cell >
+                                    <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                        <fo:block>
+                                            <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex +1)</fo:inline>
+                                        </fo:block>
+
+                                    </fo:block-container>
+                                </fo:table-cell>
+                            </fo:table-row>
 
 
                     <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
@@ -72,8 +94,11 @@
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
+
+                                    }
+
                     }
-                    }
+
                 </fo:table-body>
             </fo:table>
         </fo:block>
