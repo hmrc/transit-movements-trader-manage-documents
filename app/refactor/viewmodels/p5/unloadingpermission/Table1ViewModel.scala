@@ -46,19 +46,7 @@ case class Table1ViewModel(
   additionalInformation: String,
   customsOfficeOfDestination: String,
   countryOfDestination: String
-) {
-
-  def hh = houseConsignmentDepartureTransportMeans.flatMap {
-    case (houseIndex, depTransportMeans) =>
-      depTransportMeans.zipWithIndex.map {
-        case (transportMeans, departureMeansIndex) =>
-          println("")
-
-      }
-
-  }.toSeq
-
-}
+)
 
 object Table1ViewModel {
 

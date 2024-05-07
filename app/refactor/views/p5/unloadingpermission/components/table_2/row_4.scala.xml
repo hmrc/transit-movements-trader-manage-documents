@@ -2,7 +2,6 @@
 @import refactor.views.xml.p5.unloadingpermission.components._
 
 @(
-        departureTransportMeans: Seq[String],
         houseConsignmentDepartureTransportMeans: Map[Int, Seq[String]]
 )
 
@@ -46,6 +45,9 @@
                                     <fo:inline font-weight="bold">Gross weight</fo:inline>
 
                                 </fo:block>
+                            </fo:block-container>
+                            <fo:block-container height="4%" overflow="hidden">
+                                <fo:block>TODO gross weight dynamic</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
