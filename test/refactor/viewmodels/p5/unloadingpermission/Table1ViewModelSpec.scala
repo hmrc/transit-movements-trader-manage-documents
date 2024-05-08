@@ -17,6 +17,7 @@
 package refactor.viewmodels.p5.unloadingpermission
 
 import base.SpecBase
+import generated.p5.DepartureTransportMeansType02
 import refactor.viewmodels.DummyData
 
 class Table1ViewModelSpec extends SpecBase with DummyData {
@@ -78,8 +79,8 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "departureTransportMeans" in {
-      result.departureTransportMeans.head mustBe "toi1, in1, nat1"
-      result.departureTransportMeans(1) mustBe "toi2, in2, nat2"
+      result.departureTransportMeans.head mustBe DepartureTransportMeansType02("1", "toi1", "in1", "nat1")
+      result.departureTransportMeans(1) mustBe DepartureTransportMeansType02("2", "toi2", "in2", "nat2")
     }
 
     "container" in {
