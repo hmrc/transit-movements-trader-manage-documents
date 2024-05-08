@@ -1,9 +1,10 @@
 @import refactor.views.xml.p5.unloadingpermission.components.table_1._
 @import refactor.views.xml.p5.unloadingpermission.components._
 @import refactor.viewmodels.p5._
+@import generated.p5.HouseConsignmentType04
 
 @(
-        houseConsignmentDepartureTransportMeans: Seq[generated.p5.HouseConsignmentType04]
+        houseConsignmentDepartureTransportMeans: Seq[HouseConsignmentType04]
 )
 
 
