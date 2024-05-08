@@ -1,8 +1,9 @@
 @import refactor.views.xml.p5.unloadingpermission.components.table_1._
 @import refactor.views.xml.p5.unloadingpermission.components._
+@import refactor.viewmodels.p5._
 
 @(
-        houseConsignmentDepartureTransportMeans: Map[Int, Seq[String]]
+        houseConsignmentDepartureTransportMeans: Seq[generated.p5.HouseConsignmentType04]
 )
 
 
@@ -28,7 +29,7 @@
                 <fo:table-column column-number="3" column-width="59mm" />
                 <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
 
-                    @houseConsignmentDepartureTransportMeans.map { case (houseIndex, depTransportMeans) =>
+                    @houseConsignmentDepartureTransportMeans.zipWithIndex.map { case (house, houseIndex) =>
 
                     <fo:table-row height="5mm">
                         <fo:table-cell  margin-left="0.5mm" >
@@ -52,7 +53,8 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                        @depTransportMeans.zipWithIndex.map { case (transportMeans, departureMeansIndex) =>
+
+                        @house.DepartureTransportMeans.map(_.asString).zipWithIndex.map { case (transportMeans, departureMeansIndex) =>
 
 
 
