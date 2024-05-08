@@ -386,6 +386,23 @@ package object p5 {
     ).commaSeparate
   }
 
+  implicit class RichConsignmentItemType04(value: ConsignmentItemType04) {
+
+    // TODO check if we can use N/A for absent optional values
+    def asString: String = Seq(
+      Some(value.goodsItemNumber),
+      Some(value.declarationGoodsItemNumber.toString),
+      value.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode),
+      value.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode),
+      value.Commodity.GoodsMeasure.flatMap(
+        gm => gm.netMass.map(_.toString)
+      ),
+      value.Commodity.GoodsMeasure.map(_.grossMass.toString),
+      Some(value.Commodity.descriptionOfGoods)
+    ).flatten.commaSeparate
+
+  }
+
   implicit class RichActiveBorderTransportMeansType01(value: ActiveBorderTransportMeansType01) {
 
     def asString: String = Seq(
