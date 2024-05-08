@@ -42,5 +42,10 @@
       vm.countryOfDestination
     )
 
+    @row_5(
+      vm.houseConsignmentDepartureTransportMeans
+    )
+
   </fo:table-body>
 </fo:table>
+

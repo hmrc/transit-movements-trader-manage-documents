@@ -1,0 +1,112 @@
+@import refactor.views.xml.p5.unloadingpermission.components.table_1._
+@import refactor.views.xml.p5.unloadingpermission.components._
+@import refactor.viewmodels.p5._
+@import generated.p5.HouseConsignmentType04
+
+@(
+        houseConsignmentDepartureTransportMeans: Seq[HouseConsignmentType04]
+)
+
+
+<fo:table-row height="30mm" font-size = "5.5pt">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+
+    <fo:table-cell >
+        <fo:block />
+    </fo:table-cell>
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                   number-columns-spanned="6"
+    >
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="59mm"/>
+                <fo:table-column column-number="2" column-width="59mm" />
+                <fo:table-column column-number="3" column-width="59mm" />
+                <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+
+                    @houseConsignmentDepartureTransportMeans.zipWithIndex.map { case (house, houseIndex) =>
+
+                    <fo:table-row height="5mm">
+                        <fo:table-cell  margin-left="0.5mm" >
+                            <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                <fo:block><fo:inline font-weight="bold">HOUSE CONSIGNMENT</fo:inline> @(houseIndex + 1)</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="grey" margin-left="0.5mm">
+                        <fo:table-cell  number-columns-spanned="2"   >
+                            <fo:block-container overflow="hidden">
+                                <fo:block>
+                                    <fo:inline font-weight="bold">Gross weight</fo:inline>
+
+                                </fo:block>
+                            </fo:block-container>
+                            <fo:block-container height="4%" overflow="hidden">
+                                <fo:block>TODO gross weight dynamic</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+
+                        @house.DepartureTransportMeans.map(_.asString).zipWithIndex.map { case (transportMeans, departureMeansIndex) =>
+
+
+
+                            <fo:table-row height="8mm" margin-left="0.5mm">
+                                <fo:table-cell >
+                                    <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                        <fo:block>
+                                            <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex +1)</fo:inline>
+                                        </fo:block>
+
+                                    </fo:block-container>
+                                </fo:table-cell>
+                            </fo:table-row>
+
+
+                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                <fo:block>
+                                    Identification type
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Identification number
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Registered country
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                                    }
+
+                    }
+
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+</fo:table-row>
