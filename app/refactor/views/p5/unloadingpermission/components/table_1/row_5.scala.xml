@@ -60,7 +60,7 @@
 
 
                             <fo:table-row height="8mm" margin-left="0.5mm">
-                                <fo:table-cell >
+                                <fo:table-cell padding-top = "2mm">
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
                                             <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex +1)</fo:inline>
@@ -99,6 +99,137 @@
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
+
+                                    }
+
+
+                        @house.ConsignmentItem.map(_.asString).zipWithIndex.map { case (item, itemIndex) =>
+                            <fo:table-row height="8mm" margin-left="0.5mm">
+                                <fo:table-cell padding-top="2mm" >
+                                    <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                        <fo:block>
+                                            <fo:inline>ITEM @(itemIndex +1)</fo:inline>
+                                        </fo:block>
+
+                                    </fo:block-container>
+                                </fo:table-cell>
+                            </fo:table-row>
+
+
+                    <fo:table-row height="8mm" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                <fo:block>
+                                    Goods item number
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Declaration goods item number
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row height="10mm" margin-left="0.5mm">
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Combined nomenclature code
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Commodity code
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row height="10mm" margin-left="0.5mm">
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Net weight
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Gross weight
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row height="10mm" margin-left="0.5mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black">
+                        <fo:table-cell  display-align="after"  number-columns-spanned="3"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Description
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at bibendum augue, id dictum sem.Donec iaculis, enim at consequat feugiat, felis diam dapibus orci</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    @house.ConsignmentItem(itemIndex).Packaging.map(_.asString).zipWithIndex.map { case (itemPackage, packageIndex) =>
+                        <fo:table-row height="8mm" margin-left="0.5mm">
+                            <fo:table-cell padding-top="2mm">
+                                <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                    <fo:block>
+                                        <fo:inline>PACKAGE @(packageIndex +1)</fo:inline>
+                                    </fo:block>
+
+                                </fo:block-container>
+                            </fo:table-cell>
+                        </fo:table-row>
+
+                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                <fo:block>
+                                    Type
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Quantity
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                <fo:block>
+                                    Shipping mark
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                </fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    }
 
                                     }
 
