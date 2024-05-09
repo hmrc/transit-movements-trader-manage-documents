@@ -60,7 +60,7 @@
 
 
                             <fo:table-row height="8mm" margin-left="0.5mm">
-                                <fo:table-cell >
+                                <fo:table-cell padding-top = "2mm">
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
                                             <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex +1)</fo:inline>
@@ -105,7 +105,7 @@
 
                         @house.ConsignmentItem.map(_.asString).zipWithIndex.map { case (item, itemIndex) =>
                             <fo:table-row height="8mm" margin-left="0.5mm">
-                                <fo:table-cell >
+                                <fo:table-cell padding-top="2mm" >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
                                             <fo:inline>ITEM @(itemIndex +1)</fo:inline>
@@ -191,7 +191,7 @@
 
                     @house.ConsignmentItem(itemIndex).Packaging.map(_.asString).zipWithIndex.map { case (itemPackage, packageIndex) =>
                         <fo:table-row height="8mm" margin-left="0.5mm">
-                            <fo:table-cell >
+                            <fo:table-cell padding-top="2mm">
                                 <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                     <fo:block>
                                         <fo:inline>PACKAGE @(packageIndex +1)</fo:inline>
