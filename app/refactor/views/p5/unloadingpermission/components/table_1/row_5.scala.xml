@@ -129,7 +129,7 @@
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
-                                    Declaration goods item number
+                                    Declaration goods number
                                     <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.declarationGoodsItemNumber)</fo:block>
                                 </fo:block>
                             </fo:block-container>
