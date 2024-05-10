@@ -142,7 +142,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Combined nomenclature code
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -151,7 +151,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Commodity code
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -163,7 +163,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Net weight
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.flatMap(_.netMass))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.flatMap(_.netMass).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -172,7 +172,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Gross weight
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.map(_.grossMass))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.map(_.grossMass).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -215,7 +215,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Quantity
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.numberOfPackages)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.numberOfPackages.getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -224,7 +224,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Shipping mark
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.shippingMarks)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.shippingMarks.getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
