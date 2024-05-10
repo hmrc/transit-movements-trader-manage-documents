@@ -84,7 +84,7 @@
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
-                                    Identification number
+                                    Identification
                                     <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
                                 </fo:block>
                             </fo:block-container>
