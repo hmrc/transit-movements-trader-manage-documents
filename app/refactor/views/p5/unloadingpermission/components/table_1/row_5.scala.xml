@@ -103,7 +103,7 @@
                                     }
 
 
-                        @house.ConsignmentItem.map(_.asString).zipWithIndex.map { case (item, itemIndex) =>
+                        @house.ConsignmentItem.zipWithIndex.map { case (item, itemIndex) =>
                             <fo:table-row height="8mm" margin-left="0.5mm">
                                 <fo:table-cell padding-top="2mm" >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
@@ -121,7 +121,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
                                 <fo:block>
                                     Goods item number
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.goodsItemNumber)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -130,7 +130,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Declaration goods item number
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.declarationGoodsItemNumber)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -142,7 +142,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Combined nomenclature code
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -151,7 +151,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Commodity code
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -163,7 +163,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Net weight
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.flatMap(_.netMass).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -172,7 +172,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Gross weight
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.map(_.grossMass).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -183,13 +183,13 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Description
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at bibendum augue, id dictum sem.Donec iaculis, enim at consequat feugiat, felis diam dapibus orci</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.descriptionOfGoods)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
-                    @house.ConsignmentItem(itemIndex).Packaging.map(_.asString).zipWithIndex.map { case (itemPackage, packageIndex) =>
+                    @house.ConsignmentItem(itemIndex).Packaging.zipWithIndex.map { case (itemPackage, packageIndex) =>
                         <fo:table-row height="8mm" margin-left="0.5mm">
                             <fo:table-cell padding-top="2mm">
                                 <fo:block-container overflow="hidden" margin-top = "0.8mm" >
@@ -206,7 +206,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
                                 <fo:block>
                                     Type
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.typeOfPackages)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -215,7 +215,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Quantity
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.numberOfPackages.getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -224,7 +224,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Shipping mark
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.shippingMarks.getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
