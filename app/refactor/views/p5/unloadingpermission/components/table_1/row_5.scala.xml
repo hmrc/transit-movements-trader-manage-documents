@@ -49,13 +49,13 @@
                                 </fo:block>
                             </fo:block-container>
                             <fo:block-container height="4%" overflow="hidden">
-                                <fo:block>TODO gross weight dynamic</fo:block>
+                                <fo:block>@(house.grossMass)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
 
-                        @house.DepartureTransportMeans.map(_.asString).zipWithIndex.map { case (transportMeans, departureMeansIndex) =>
+                        @house.DepartureTransportMeans.zipWithIndex.map { case (transportMeans, departureMeansIndex) =>
 
 
 
@@ -76,7 +76,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
                                 <fo:block>
                                     Identification type
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.typeOfIdentification)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -85,7 +85,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Identification number
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.identificationNumber)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -94,7 +94,7 @@
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block>
                                     Registered country
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">TESTID12345678</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.nationality)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
