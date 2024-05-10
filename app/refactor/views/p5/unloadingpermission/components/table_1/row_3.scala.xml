@@ -32,7 +32,7 @@
                 inline-progression-dimension.optimum="94mm"
                 margin-bottom = "4mm"
         >
-        <fo:block hyphenate="true">UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT</fo:block>
+        <fo:block hyphenate="true">Unloading permission - Accompanying document</fo:block>
     </fo:block-container >
         <fo:block-container height = "8mm">
         <fo:block font-size="8pt"
@@ -72,7 +72,7 @@
                                 <fo:table-cell >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
-                                            <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex + 1)</fo:inline>
+                                            <fo:inline>Departure means of transport @(departureMeansIndex + 1)</fo:inline>
                                         </fo:block>
 
                                     </fo:block-container>

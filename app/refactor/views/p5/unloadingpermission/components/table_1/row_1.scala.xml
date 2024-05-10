@@ -5,7 +5,7 @@
     <fo:block/>
   </fo:table-cell>
   <fo:table-cell number-columns-spanned="2">
-    <fo:block font-weight="bold" font-size="8pt">EUROPEAN UNION</fo:block>
+    <fo:block font-weight="bold" font-size="8pt">European Union</fo:block>
   </fo:table-cell>
   <fo:table-cell number-columns-spanned="5" number-rows-spanned="1" padding-left="35mm" border-left-width="1pt" border-left-color="black">
       <fo:block font-size="8" font-weight="bold">MRN <fo:inline font-weight="normal">@(mrn)</fo:inline></fo:block>
