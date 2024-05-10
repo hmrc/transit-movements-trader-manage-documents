@@ -35,7 +35,7 @@
                     <fo:table-row height="5mm">
                         <fo:table-cell  margin-left="0.5mm" >
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">HOUSE CONSIGNMENT</fo:inline> @(houseIndex + 1)</fo:block>
+                                <fo:block><fo:inline font-weight="bold">House consignment</fo:inline> @(houseIndex + 1)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -63,7 +63,7 @@
                                 <fo:table-cell padding-top = "2mm">
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
-                                            <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex +1)</fo:inline>
+                                            <fo:inline>Departure means of transport @(departureMeansIndex +1)</fo:inline>
                                         </fo:block>
 
                                     </fo:block-container>
@@ -108,7 +108,7 @@
                                 <fo:table-cell padding-top="2mm" >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
-                                            <fo:inline>ITEM @(itemIndex +1)</fo:inline>
+                                            <fo:inline>Item @(itemIndex +1)</fo:inline>
                                         </fo:block>
 
                                     </fo:block-container>
@@ -194,7 +194,7 @@
                             <fo:table-cell padding-top="2mm">
                                 <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                     <fo:block>
-                                        <fo:inline>PACKAGE @(packageIndex +1)</fo:inline>
+                                        <fo:inline>Package @(packageIndex +1)</fo:inline>
                                     </fo:block>
 
                                 </fo:block-container>
