@@ -35,7 +35,7 @@
                     <fo:table-row height="5mm">
                         <fo:table-cell  margin-left="0.5mm" >
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">House consignment</fo:inline> @(houseIndex + 1)</fo:block>
+                                <fo:block><fo:inline font-size="8">House consignment</fo:inline> @(houseIndex + 1)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -44,12 +44,12 @@
                         <fo:table-cell  number-columns-spanned="2"   >
                             <fo:block-container overflow="hidden">
                                 <fo:block>
-                                    <fo:inline font-weight="bold">Gross weight</fo:inline>
+                                    <fo:inline font-size="7">Gross weight</fo:inline>
 
                                 </fo:block>
                             </fo:block-container>
                             <fo:block-container height="4%" overflow="hidden">
-                                <fo:block>@(house.grossMass)</fo:block>
+                                <fo:block font-size="6" font-weight="bold">@(house.grossMass)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -63,7 +63,7 @@
                                 <fo:table-cell padding-top = "2mm">
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
-                                            <fo:inline>Departure means of transport @(departureMeansIndex +1)</fo:inline>
+                                            <fo:inline font-size="8">Departure means of transport @(departureMeansIndex +1)</fo:inline>
                                         </fo:block>
 
                                     </fo:block-container>
@@ -74,27 +74,27 @@
                     <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
                         <fo:table-cell  display-align="after"  number-columns-spanned="1">
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Identification type
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.typeOfIdentification)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.typeOfIdentification)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Identification
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.identificationNumber)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.identificationNumber)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Registered country
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.nationality)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.nationality)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -108,7 +108,7 @@
                                 <fo:table-cell padding-top="2mm" >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
-                                            <fo:inline>Item @(itemIndex +1)</fo:inline>
+                                            <fo:inline font-size="8">Item @(itemIndex +1)</fo:inline>
                                         </fo:block>
 
                                     </fo:block-container>
@@ -119,18 +119,18 @@
                     <fo:table-row height="8mm" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
                         <fo:table-cell  display-align="after"  number-columns-spanned="1">
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Goods item number
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.goodsItemNumber)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(item.goodsItemNumber)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Declaration goods number
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.declarationGoodsItemNumber)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(item.declarationGoodsItemNumber)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -140,18 +140,18 @@
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Combined nomenclature code
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode).getOrElse("N/A"))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(item.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Commodity code
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode).getOrElse("N/A"))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(item.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -161,18 +161,18 @@
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Net weight
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.flatMap(_.netMass).getOrElse("N/A"))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(item.Commodity.GoodsMeasure.flatMap(_.netMass).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Gross weight
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.GoodsMeasure.map(_.grossMass).getOrElse("N/A"))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(item.Commodity.GoodsMeasure.map(_.grossMass).getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -181,9 +181,9 @@
                     <fo:table-row height="10mm" margin-left="0.5mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black">
                         <fo:table-cell  display-align="after"  number-columns-spanned="3"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Description
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(item.Commodity.descriptionOfGoods)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(item.Commodity.descriptionOfGoods)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -193,7 +193,7 @@
                         <fo:table-row height="8mm" margin-left="0.5mm">
                             <fo:table-cell padding-top="2mm">
                                 <fo:block-container overflow="hidden" margin-top = "0.8mm" >
-                                    <fo:block>
+                                    <fo:block font-size="8">
                                         <fo:inline>Package @(packageIndex +1)</fo:inline>
                                     </fo:block>
 
@@ -204,27 +204,27 @@
                     <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
                         <fo:table-cell  display-align="after"  number-columns-spanned="1">
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Type
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.typeOfPackages)</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(itemPackage.typeOfPackages)</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Quantity
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.numberOfPackages.getOrElse("N/A"))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(itemPackage.numberOfPackages.getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                <fo:block>
+                                <fo:block font-size="7">
                                     Shipping mark
-                                    <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(itemPackage.shippingMarks.getOrElse("N/A"))</fo:block>
+                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(itemPackage.shippingMarks.getOrElse("N/A"))</fo:block>
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>

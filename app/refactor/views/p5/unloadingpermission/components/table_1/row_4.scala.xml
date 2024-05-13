@@ -37,14 +37,14 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Supporting document</fo:inline> [1203]</fo:block>
+                                <fo:block><fo:inline font-size="7">Supporting document</fo:inline> [1203]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(supportingDocument)</fo:block>
+                                <fo:block font-weight="bold" font-size="6">@(supportingDocument)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -54,14 +54,14 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Additional reference</fo:inline> [1204]</fo:block>
+                                <fo:block><fo:inline font-size="7">Additional reference</fo:inline> [1204]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(additionalReference)</fo:block>
+                                <fo:block font-weight="bold" font-size="6">@(additionalReference)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -71,14 +71,14 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Additional information </fo:inline> [1202]</fo:block>
+                                <fo:block><fo:inline font-size="7">Additional information </fo:inline> [1202]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(additionalInformation)</fo:block>
+                                <fo:block font-weight="bold" font-size="6">@(additionalInformation)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -88,14 +88,14 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Customs office of destination</fo:inline> [1705]</fo:block>
+                                <fo:block><fo:inline font-size="7">Customs office of destination</fo:inline> [1705]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(customsOfficeOfDestination)</fo:block>
+                                <fo:block font-weight="bold" font-size="6">@(customsOfficeOfDestination)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -105,14 +105,14 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-weight="bold">Country of destination</fo:inline> [1607]</fo:block>
+                                <fo:block><fo:inline font-size="7">Country of destination</fo:inline> [1607]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row height="7mm" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block>@(countryOfDestination)</fo:block>
+                                <fo:block font-weight="bold" font-size="6">@(countryOfDestination)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
