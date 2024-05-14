@@ -25,14 +25,14 @@
     >
 
         <fo:block-container
-                font-family="sans-serif" font-size="6"
+                font-family="Arial" font-size="6"
                 reference-orientation="90" display-align="center"
                 inline-progression-dimension.minimum="8mm"
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
                 margin-bottom = "4mm"
         >
-        <fo:block hyphenate="true">UNLOADING PERMISSIONS - ACCOMPANYING DOCUMENT</fo:block>
+        <fo:block hyphenate="true">Unloading permission - Accompanying document</fo:block>
     </fo:block-container >
         <fo:block-container height = "8mm">
         <fo:block font-size="8pt"
@@ -72,7 +72,7 @@
                                 <fo:table-cell >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
-                                            <fo:inline>DEPARTURE MEANS OF TRANSPORT @(departureMeansIndex + 1)</fo:inline>
+                                            <fo:inline font-size="8">Departure means of transport @(departureMeansIndex + 1)</fo:inline>
                                         </fo:block>
 
                                     </fo:block-container>
@@ -83,27 +83,27 @@
                             <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
                                 <fo:table-cell  display-align="after"  number-columns-spanned="1">
                                     <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
-                                        <fo:block>
+                                        <fo:block font-size="7">
                                             Identification type
-                                            <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.typeOfIdentification)</fo:block>
+                                            <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.typeOfIdentification)</fo:block>
                                         </fo:block>
                                     </fo:block-container>
                                 </fo:table-cell>
 
                                 <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                                     <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                        <fo:block>
+                                        <fo:block font-size="7">
                                             Identification
-                                            <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.identificationNumber)</fo:block>
+                                            <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.identificationNumber)</fo:block>
                                         </fo:block>
                                     </fo:block-container>
                                 </fo:table-cell>
 
                                 <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                                     <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                        <fo:block>
+                                        <fo:block font-size="7">
                                             Registered country
-                                            <fo:block padding-top="3px" padding-bottom="3px" font-weight="bold">@(transportMeans.nationality)</fo:block>
+                                            <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.nationality)</fo:block>
                                         </fo:block>
                                     </fo:block-container>
                                 </fo:table-cell>
