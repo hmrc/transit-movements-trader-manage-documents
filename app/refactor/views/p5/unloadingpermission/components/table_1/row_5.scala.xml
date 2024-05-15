@@ -24,7 +24,7 @@
                    number-columns-spanned="6"
     >
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%" table-layout="fixed" keep-together.within-page="always">
                 <fo:table-column column-number="1" column-width="59mm"/>
                 <fo:table-column column-number="2" column-width="59mm" />
                 <fo:table-column column-number="3" column-width="59mm" />
