@@ -17,6 +17,8 @@
 package controllers.P5
 
 import base.SpecBase
+import controllers.actions.AuthenticateActionProvider
+import controllers.actions.FakeAuthenticateActionProvider
 import generated.p5.CC015CType
 import generated.p5.CC029CType
 import generators.ScalaxbModelGenerators
@@ -49,9 +51,10 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
   private lazy val mockMessageService = mock[DepartureMessageP5Service]
   private lazy val mockPdfGenerator   = mock[TADPdfGenerator]
 
-  private def applicationBuilder(baseApplicationBuilder: GuiceApplicationBuilder = defaultApplicationBuilder()): GuiceApplicationBuilder =
-    baseApplicationBuilder
+  private def applicationBuilder(): GuiceApplicationBuilder =
+    new GuiceApplicationBuilder()
       .overrides(
+        bind[AuthenticateActionProvider].to[FakeAuthenticateActionProvider],
         bind[DepartureMessageP5Service].toInstance(mockMessageService),
         bind[TADPdfGenerator].toInstance(mockPdfGenerator)
       )
@@ -66,7 +69,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
 
     "must return OK and PDF" - {
       "when transition" in {
-        val application = applicationBuilder(p5TransitionApplicationBuilder()).build()
+        val application = applicationBuilder().build()
         running(application) {
           forAll(nonEmptyString, arbitrary[CC015CType], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
             (ie015MessageId, ie015, ie029, byteArray) =>
@@ -85,6 +88,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
                 .thenReturn(byteArray)
 
               val request = FakeRequest(GET, controllerRoute)
+                .withHeaders("Accept" -> "application/vnd.hmrc.transition+pdf")
 
               val result = route(application, request).value
 
@@ -104,7 +108,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
       }
 
       "when post-transition" in {
-        val application = applicationBuilder(p5PostTransitionApplicationBuilder()).build()
+        val application = applicationBuilder().build()
         running(application) {
           forAll(nonEmptyString, arbitrary[CC029CType], arbitrary[Array[Byte]]) {
             (ie015MessageId, ie029, byteArray) =>
@@ -120,6 +124,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
                 .thenReturn(byteArray)
 
               val request = FakeRequest(GET, controllerRoute)
+                .withHeaders("Accept" -> "application/vnd.hmrc.final+pdf")
 
               val result = route(application, request).value
 
@@ -147,6 +152,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
             .thenReturn(Future.successful(None))
 
           val request = FakeRequest(GET, controllerRoute)
+            .withHeaders("Accept" -> "application/vnd.hmrc.transition+pdf")
 
           val result = route(application, request).value
 

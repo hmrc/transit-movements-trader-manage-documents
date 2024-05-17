@@ -17,6 +17,8 @@
 package controllers.P5
 
 import base.SpecBase
+import controllers.actions.AuthenticateActionProvider
+import controllers.actions.FakeAuthenticateActionProvider
 import generated.p5.CC043CType
 import generators.ScalaxbModelGenerators
 import org.apache.pekko.util.ByteString
@@ -49,8 +51,9 @@ class UnloadingPermissionDocumentP5ControllerSpec extends SpecBase with ScalaxbM
   private lazy val mockPdfGenerator   = mock[UnloadingPermissionPdfGenerator]
 
   private def applicationBuilder(): GuiceApplicationBuilder =
-    defaultApplicationBuilder()
+    new GuiceApplicationBuilder()
       .overrides(
+        bind[AuthenticateActionProvider].to[FakeAuthenticateActionProvider],
         bind[UnloadingMessageP5Service].toInstance(mockMessageService),
         bind[UnloadingPermissionPdfGenerator].toInstance(mockPdfGenerator)
       )

@@ -16,8 +16,8 @@
 
 package controllers.P5
 
-import config.PhaseConfig
 import controllers.actions.AuthenticateActionProvider
+import controllers.actions.VersionedAction
 import models.P5.Phase.PostTransition
 import models.P5.Phase.Transition
 import play.api.Logging
@@ -37,36 +37,38 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
   pdf: TADPdfGenerator,
   service: DepartureMessageP5Service,
   authenticate: AuthenticateActionProvider,
+  getVersion: VersionedAction,
   cc: ControllerComponents
-)(implicit ec: ExecutionContext, phaseConfig: PhaseConfig)
+)(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
-  def get(departureId: String, messageId: String): Action[AnyContent] = authenticate().async {
-    implicit request =>
-      service.getIE015MessageId(departureId).flatMap {
-        case Some(ie015MessageId) =>
-          for {
-            ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
-            bytes <- phaseConfig.phase match {
-              case PostTransition =>
-                Future.successful(pdf.generateP5TADPostTransition(ie029))
-              case Transition =>
-                service.getDeclarationData(departureId, ie015MessageId).map {
-                  ie015 => pdf.generateP5TADTransition(ie015, ie029)
-                }
+  def get(departureId: String, messageId: String): Action[AnyContent] =
+    (authenticate() andThen getVersion).async {
+      implicit request =>
+        service.getIE015MessageId(departureId).flatMap {
+          case Some(ie015MessageId) =>
+            for {
+              ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
+              bytes <- request.phase match {
+                case PostTransition =>
+                  Future.successful(pdf.generateP5TADPostTransition(ie029))
+                case Transition =>
+                  service.getDeclarationData(departureId, ie015MessageId).map {
+                    ie015 => pdf.generateP5TADTransition(ie015, ie029)
+                  }
+              }
+            } yield {
+              val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"
+              Ok(bytes)
+                .withHeaders(
+                  CONTENT_TYPE        -> "application/pdf",
+                  CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+                )
             }
-          } yield {
-            val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"
-            Ok(bytes)
-              .withHeaders(
-                CONTENT_TYPE        -> "application/pdf",
-                CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
-              )
-          }
-        case None =>
-          logger.error(s"Failed to find IE015 message for departure $departureId")
-          Future.successful(InternalServerError)
-      }
-  }
+          case None =>
+            logger.error(s"Failed to find IE015 message for departure $departureId")
+            Future.successful(InternalServerError)
+        }
+    }
 }
