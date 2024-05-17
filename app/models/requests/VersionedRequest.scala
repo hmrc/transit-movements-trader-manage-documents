@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-package config
+package models.requests
 
 import models.P5.Phase
-import models.P5.Phase.PostTransition
-import models.P5.Phase.Transition
+import play.api.mvc.WrappedRequest
 
-trait PhaseConfig {
-  val phase: Phase
+case class VersionedRequest[A](request: AuthenticatedRequest[A], phase: Phase) extends WrappedRequest[A](request) {
 
-}
-
-class TransitionConfig() extends PhaseConfig {
-  override val phase: Phase = Transition
-
-}
-
-class PostTransitionConfig() extends PhaseConfig {
-  override val phase: Phase = PostTransition
-
+  val eoriNumber: String = request.eoriNumber
 }
