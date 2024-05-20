@@ -24,23 +24,23 @@
                    number-columns-spanned="6"
     >
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
+            <fo:table width="100%" table-layout="fixed" >
                 <fo:table-column column-number="1" column-width="59mm"/>
                 <fo:table-column column-number="2" column-width="59mm" />
                 <fo:table-column column-number="3" column-width="59mm" />
-                <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" keep-together.within-page="always">
 
                     @houseConsignmentDepartureTransportMeans.zipWithIndex.map { case (house, houseIndex) =>
 
-                    <fo:table-row height="5mm">
+                    <fo:table-row height="5mm" keep-together.within-page="always">
                         <fo:table-cell  margin-left="0.5mm" >
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-size="8">House consignment</fo:inline> @(houseIndex + 1)</fo:block>
+                                <fo:block><fo:inline font-size="8">House consignment @(houseIndex + 1) </fo:inline></fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="grey" margin-left="0.5mm">
+                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="grey" margin-left="0.5mm" >
                         <fo:table-cell  number-columns-spanned="2"   >
                             <fo:block-container overflow="hidden">
                                 <fo:block>
@@ -59,8 +59,8 @@
 
 
 
-                            <fo:table-row height="8mm" margin-left="0.5mm">
-                                <fo:table-cell padding-top = "2mm">
+                            <fo:table-row height="8mm" margin-left="0.5mm" >
+                                <fo:table-cell padding-top = "2mm" >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
                                             <fo:inline font-size="8">Departure means of transport @(departureMeansIndex +1)</fo:inline>
@@ -72,7 +72,7 @@
 
 
                     <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
-                        <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1" >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
                                 <fo:block font-size="7">
                                     Identification type
@@ -104,7 +104,7 @@
 
 
                         @house.ConsignmentItem.zipWithIndex.map { case (item, itemIndex) =>
-                            <fo:table-row height="8mm" margin-left="0.5mm">
+                            <fo:table-row height="8mm" margin-left="0.5mm" keep-together.within-page="always" >
                                 <fo:table-cell padding-top="2mm" >
                                     <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                         <fo:block>
@@ -117,7 +117,7 @@
 
 
                     <fo:table-row height="8mm" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
-                        <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1" >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
                                 <fo:block font-size="7">
                                     Goods item number
@@ -136,7 +136,7 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="10mm" margin-left="0.5mm">
+                    <fo:table-row height="10mm" margin-left="0.5mm" >
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
@@ -157,7 +157,7 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="10mm" margin-left="0.5mm">
+                    <fo:table-row height="10mm" margin-left="0.5mm" >
 
                         <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
@@ -178,7 +178,7 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="10mm" margin-left="0.5mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black">
+                    <fo:table-row height="10mm" margin-left="0.5mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" >
                         <fo:table-cell  display-align="after"  number-columns-spanned="3"   >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                 <fo:block font-size="7">
@@ -190,8 +190,8 @@
                     </fo:table-row>
 
                     @house.ConsignmentItem(itemIndex).Packaging.zipWithIndex.map { case (itemPackage, packageIndex) =>
-                        <fo:table-row height="8mm" margin-left="0.5mm">
-                            <fo:table-cell padding-top="2mm">
+                        <fo:table-row height="8mm" margin-left="0.5mm" keep-together.within-page="always" >
+                            <fo:table-cell padding-top="2mm" >
                                 <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                     <fo:block font-size="8">
                                         <fo:inline>Package @(packageIndex +1)</fo:inline>
@@ -202,7 +202,7 @@
                         </fo:table-row>
 
                     <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
-                        <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                        <fo:table-cell  display-align="after"  number-columns-spanned="1" >
                             <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
                                 <fo:block font-size="7">
                                     Type
