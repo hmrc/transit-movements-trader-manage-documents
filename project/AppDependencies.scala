@@ -33,7 +33,8 @@ object AppDependencies {
 
   val exclusions: Seq[InclExclRule] = Seq(
     ExclusionRule("servletapi", "servletapi"),
-    ExclusionRule("xml-apis", "xml-apis"),
-    ExclusionRule("xerces", "xerces")
+    ExclusionRule("xalan", "xalan"),
+    ExclusionRule("xerces", "xerces"),
+    ExclusionRule("xml-apis", "xml-apis")
   )
 }
