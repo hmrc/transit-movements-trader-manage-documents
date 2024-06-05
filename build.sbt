@@ -8,7 +8,7 @@ lazy val P4 = config("p4") extend Compile
 lazy val P5 = config("p5") extend Compile
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin, ScalaxbPlugin)
+  .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin, ScalaxbPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(
     majorVersion := 0,
