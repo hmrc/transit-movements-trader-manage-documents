@@ -1,7 +1,8 @@
 @import refactor.views.xml.p5.tad.components._
 
 @this(
-    layoutMasterSet: layout_master_set_TAD_P5
+    layoutMasterSet: layout_master_set_TAD_P5,
+    metaData: MetaData
 )
 
 @(
@@ -13,6 +14,8 @@
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="ariel-narrow" font-size="5pt" text-align="left">
 
   @layoutMasterSet()
+
+  @metaData()
 
   @pageOne
 
