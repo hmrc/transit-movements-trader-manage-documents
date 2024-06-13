@@ -72,11 +72,11 @@
     <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt"
                    border-left-color="black" border-right-style="solid" border-right-width="1pt"
                    border-right-color="black" padding-left="1%">
-        <fo:block>
+        <fo:block text-align="center" margin-top="-1mm">
             @barcode(mrn)
         </fo:block>
-        <fo:block text-align="center">
-            @mrn
+        <fo:block text-align="center" font-weight="bold" font-size="7pt">
+            MRN @mrn
         </fo:block>
     </fo:table-cell>
 </fo:table-row>
