@@ -88,17 +88,12 @@
     <fo:table-column/>
     <fo:table-body>
       <fo:table-row>
-        <fo:table-cell font-size="6pt" font-weight="bold" margin-left="2mm" padding-bottom="3mm">
-          <fo:block>MRN</fo:block>
-        </fo:table-cell>
-      </fo:table-row>
-      <fo:table-row>
-        <fo:table-cell text-align="center">
+        <fo:table-cell text-align="center" padding-top="1mm">
           <fo:block>
             @barcode(mrn)
           </fo:block>
-          <fo:block font-weight="bold" text-align="center">
-            @mrn
+          <fo:block font-weight="bold" text-align="center" font-size="7pt">
+            MRN @mrn
           </fo:block>
         </fo:table-cell>
       </fo:table-row>
