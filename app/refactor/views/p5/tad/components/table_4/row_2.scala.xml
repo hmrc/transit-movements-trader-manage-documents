@@ -2,7 +2,10 @@
 
 @import refactor.views.xml.p5.tad.components.table_1.total_gross_mass
 
-@()
+@import refactor.viewmodels.p5.tad.Table4ViewModel
+
+
+@(vm: Table4ViewModel)
 
 <fo:table-row height="16mm">
 
@@ -95,7 +98,7 @@
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm">
 
 
-                            <fo:block>Limit date[15 11]</fo:block>
+                            <fo:block>Limit date[15 11] @vm.limitDate</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"

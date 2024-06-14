@@ -27,12 +27,13 @@ case class Table4ViewModel(
   customsOfficeOfDeparture: String,
   customsOfficeOfDestinationDeclared: String,
   countryOfDispatch: String,
-  countryOfDestination: String
+  countryOfDestination: String,
+  limitDate: String
 )
 
 object Table4ViewModel {
 
-  def apply(ie029: CC029CType): Table4ViewModel =
+  def apply(ie015: CC015CType, ie029: CC029CType): Table4ViewModel =
     new Table4ViewModel(
       countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asString).semiColonSeparate.take30,
       customsOfficeOfTransitDeclared = ie029.CustomsOfficeOfTransitDeclared.map(_.asString).semiColonSeparate.take60,
@@ -40,6 +41,7 @@ object Table4ViewModel {
       customsOfficeOfDeparture = ie029.CustomsOfficeOfDeparture.asString.take10,
       customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.take10,
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,
-      countryOfDestination = ie029.Consignment.countryOfDestination.orElseBlank.take10
+      countryOfDestination = ie029.Consignment.countryOfDestination.orElseBlank.take10,
+      limitDate = ie015.TransitOperation.limitDate.map(_.limitDateString).orElseBlank
     )
 }
