@@ -9,7 +9,7 @@
 
 <fo:table-row height="4mm">
 
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+    <fo:table-cell border-left-style="solid" border-left-width="2pt" border-left-color="black"
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="2pt" border-bottom-color="black">
@@ -59,7 +59,7 @@
         </fo:block>
     </fo:table-cell>
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-right-style="solid" border-right-width="2pt" border-right-color="black"
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="2pt" border-bottom-color="black">
         <fo:block>
