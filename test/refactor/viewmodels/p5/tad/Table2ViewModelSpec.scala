@@ -30,7 +30,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "seals" in {
-      result.seals mustBe "1,[sid1]...2,[sid2]"
+      result.seals mustBe "1/sid1;2/sid2"
     }
 
     "previousDocuments" in {
