@@ -92,7 +92,7 @@
           <fo:block>
             @barcode(mrn)
           </fo:block>
-          <fo:block font-weight="bold" text-align="center" font-size="7pt">
+          <fo:block font-weight="bold" text-align="center" font-size="5pt">
             MRN @mrn
           </fo:block>
         </fo:table-cell>

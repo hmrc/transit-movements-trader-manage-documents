@@ -49,14 +49,12 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
         service.getIE015MessageId(departureId).flatMap {
           case Some(ie015MessageId) =>
             for {
+              ie015 <- service.getDeclarationData(departureId, ie015MessageId)
               ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
               bytes <- request.phase match {
                 case PostTransition =>
-                  Future.successful(pdf.generateP5TADPostTransition(ie029))
-                case Transition =>
-                  service.getDeclarationData(departureId, ie015MessageId).map {
-                    ie015 => pdf.generateP5TADTransition(ie015, ie029)
-                  }
+                  Future.successful(pdf.generateP5TADPostTransition(ie015, ie029))
+                case Transition => Future.successful(pdf.generateP5TADTransition(ie015, ie029))
               }
             } yield {
               val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"

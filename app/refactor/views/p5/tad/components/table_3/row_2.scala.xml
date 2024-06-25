@@ -10,7 +10,7 @@
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" display-align="top" margin-left="2%" padding-bottom="138%" padding-top="5%">
+                        <fo:table-cell border-top-style="solid" border-top-width="2pt" border-top-color="black" display-align="top" margin-left="2%" padding-bottom="138%" padding-top="5%">
                             <fo:block font-weight="bold" font-size="5pt">CERTIFICATE BY COMPETENT AUTHORITIES</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
