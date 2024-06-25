@@ -183,6 +183,7 @@ package object p5 {
   implicit class RichAdditionalSupplyChainActorType(value: AdditionalSupplyChainActorType) {
 
     def asString: String = value.role
+    def printingString   = s"${value.sequenceNumber},${value.role}"
   }
 
   implicit class RichAdditionalInformationType02(value: AdditionalInformationType02) {

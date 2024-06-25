@@ -27,12 +27,27 @@ package object viewmodels {
 
   implicit class RichString(value: String) {
 
+    val MaxNumberOfItemsBeforeEllipsis = 3
+
+    val Ellipsis = "..."
+
     def takeN(n: Int, chars: String = "..."): String =
       if (value.length > n) {
         value.take(n - 3) + chars
       } else {
         value
       }
+
+    def ellipsisN(n: Int, numberOfItems: Int): String =
+      if (value.length > n) {
+        value.take(n - 3) + Ellipsis
+      } else {
+        value + (if (numberOfItems > MaxNumberOfItemsBeforeEllipsis) Ellipsis else "")
+      }
+
+    def padTo2ndLine: String =
+      if (value.length >= 150) value
+      else value + " " * (300 - value.length)
 
     def take10: String  = takeN(10)
     def take20: String  = takeN(20)
@@ -41,6 +56,10 @@ package object viewmodels {
     def take60: String  = takeN(60)
     def take100: String = takeN(100)
     def take200: String = takeN(200)
+
+    def ellipsis40(numberOfItems: Int): String  = ellipsisN(40, numberOfItems)
+    def ellipsis200(numberOfItems: Int): String = ellipsisN(200, numberOfItems)
+    def ellipsis300(numberOfItems: Int): String = ellipsisN(300, numberOfItems)
   }
 
   implicit class RichStringSeq(value: Seq[String]) {

@@ -76,9 +76,23 @@ object Table1ViewModel {
       representativeIdentificationNumber = ie029.Representative.map(_.identificationNumber).orElseBlank,
       lrn = ie029.TransitOperation.LRN,
       carrierIdentificationNumber = ie029.Consignment.Carrier.map(_.identificationNumber).orElseBlank.take20,
-      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).semiColonSeparate.take30,
-      additionalSupplyChainActorIdentificationNumbers = ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate.take20,
-      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).toBeContinued().take50,
+      // TODO move these to a method
+      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor
+        .take(3)
+        .map(_.printingString)
+        .semiColonSeparate
+        .ellipsis200(ie029.Consignment.AdditionalSupplyChainActor.size),
+      additionalSupplyChainActorIdentificationNumbers = ie029.Consignment.AdditionalSupplyChainActor
+        .take(3)
+        .map(_.identificationNumber)
+        .semiColonSeparate
+        .ellipsis40(ie029.Consignment.AdditionalSupplyChainActor.size),
+      departureTransportMeans = ie029.Consignment.DepartureTransportMeans
+        .take(3)
+        .map(_.asString)
+        .semiColonSeparate
+        .ellipsis300(ie029.Consignment.DepartureTransportMeans.size)
+        .padTo2ndLine,
       activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).semiColonSeparate.take50,
       activeBorderTransportMeansConveyanceNumbers = ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).semiColonSeparate,
       placeOfLoading = ie029.Consignment.PlaceOfLoading.map(_.asString).orElseBlank.take20,
