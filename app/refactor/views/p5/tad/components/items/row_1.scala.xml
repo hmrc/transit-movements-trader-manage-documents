@@ -29,7 +29,7 @@
             </fo:table-cell>
 
             <fo:table-cell display-align="center" margin-left="0.5mm">
-              <fo:block>Type of number of packages, shipping marks [18 06]</fo:block>
+                <fo:block>Type and number of packages, shipping marks [18 06]</fo:block>
             </fo:table-cell>
           </fo:table-row>
 
