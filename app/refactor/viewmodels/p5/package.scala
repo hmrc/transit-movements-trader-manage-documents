@@ -386,6 +386,21 @@ package object p5 {
     ).commaSeparate
   }
 
+  implicit class RichDepartureTransportMeansType07(value: DepartureTransportMeansType07) {
+
+    def asString: String = Seq(
+      value.typeOfIdentification,
+      value.identificationNumber,
+      value.nationality
+    ).flatten.commaSeparate
+
+    def asP4String: String = Seq(
+      Some(value.sequenceNumber),
+      value.typeOfIdentification,
+      value.identificationNumber
+    ).flatten.commaSeparate
+  }
+
   implicit class RichConsignmentItemType04(value: ConsignmentItemType04) {
 
     // TODO check if we can use N/A for absent optional values
@@ -410,7 +425,7 @@ package object p5 {
       value.typeOfIdentification,
       value.identificationNumber,
       value.nationality
-    ).commaSeparate
+    ).flatten.commaSeparate
   }
 
   implicit class RichPlaceOfLoadingType02(value: PlaceOfLoadingType02) {
@@ -507,8 +522,8 @@ package object p5 {
       Some(value.sequenceNumber),
       value.GRN,
       value.accessCode,
-      Some(value.amountToBeCovered.asString),
-      Some(value.currency)
+      value.amountToBeCovered.map(_.asString),
+      value.currency
     ).flatten.commaSeparate
   }
 
