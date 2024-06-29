@@ -488,8 +488,8 @@ trait DummyData extends ScalaxbModelGenerators {
                   )
                 ),
                 GoodsMeasure = Some(
-                  GoodsMeasureType03(
-                    grossMass = BigDecimal(200),
+                  GoodsMeasureType06(
+                    grossMass = Some(BigDecimal(200)),
                     netMass = Some(BigDecimal(100))
                   )
                 )
@@ -540,8 +540,8 @@ trait DummyData extends ScalaxbModelGenerators {
                   )
                 ),
                 GoodsMeasure = Some(
-                  GoodsMeasureType03(
-                    grossMass = BigDecimal(200),
+                  GoodsMeasureType06(
+                    grossMass = Some(BigDecimal(200)),
                     netMass = Some(BigDecimal(100))
                   )
                 )
@@ -653,17 +653,17 @@ trait DummyData extends ScalaxbModelGenerators {
           )
         ),
         DepartureTransportMeans = Seq(
-          DepartureTransportMeansType02(
+          DepartureTransportMeansType07(
             sequenceNumber = "1",
-            typeOfIdentification = "toi1",
-            identificationNumber = "in1",
-            nationality = "nat1"
+            typeOfIdentification = Some("toi1"),
+            identificationNumber = Some("in1"),
+            nationality = Some("nat1")
           ),
-          DepartureTransportMeansType02(
+          DepartureTransportMeansType07(
             sequenceNumber = "2",
-            typeOfIdentification = "toi2",
-            identificationNumber = "in2",
-            nationality = "nat2"
+            typeOfIdentification = Some("toi2"),
+            identificationNumber = Some("in2"),
+            nationality = Some("nat2")
           )
         ),
         PreviousDocument = Seq(
@@ -863,8 +863,8 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       ),
       GoodsMeasure = Some(
-        GoodsMeasureType03(
-          grossMass = BigDecimal(200),
+        GoodsMeasureType06(
+          grossMass = Some(BigDecimal(200)),
           netMass = Some(BigDecimal(100))
         )
       )

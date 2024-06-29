@@ -70,7 +70,7 @@ object ConsignmentItemViewModel {
       supplyChainActorId = consignmentItem.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate,
       transportDocuments = consignmentItem.TransportDocument.map(_.asString).semiColonSeparate,
       referenceNumberUCR = consignmentItem.referenceNumberUCR.orElseBlank,
-      grossMass = consignmentItem.Commodity.GoodsMeasure.map(_.grossMass.asString).orElseBlank,
+      grossMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.grossMass.map(_.asString)).orElseBlank,
       departureTransportMeans = houseConsignment.DepartureTransportMeans.map(_.asString).semiColonSeparate,
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElseBlank,
       netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass.map(_.asString)).orElseBlank,
