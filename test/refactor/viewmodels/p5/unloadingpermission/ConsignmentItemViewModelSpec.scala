@@ -60,7 +60,7 @@ class ConsignmentItemViewModelSpec extends SpecBase {
         )
       ),
       GoodsMeasure = Some(
-        GoodsMeasureType06(
+        GoodsMeasureType03(
           grossMass = Some(BigDecimal(200)),
           netMass = Some(BigDecimal(100))
         )

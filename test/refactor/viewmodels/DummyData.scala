@@ -488,7 +488,7 @@ trait DummyData extends ScalaxbModelGenerators {
                   )
                 ),
                 GoodsMeasure = Some(
-                  GoodsMeasureType06(
+                  GoodsMeasureType03(
                     grossMass = Some(BigDecimal(200)),
                     netMass = Some(BigDecimal(100))
                   )
@@ -540,7 +540,7 @@ trait DummyData extends ScalaxbModelGenerators {
                   )
                 ),
                 GoodsMeasure = Some(
-                  GoodsMeasureType06(
+                  GoodsMeasureType03(
                     grossMass = Some(BigDecimal(200)),
                     netMass = Some(BigDecimal(100))
                   )
@@ -863,7 +863,7 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       ),
       GoodsMeasure = Some(
-        GoodsMeasureType06(
+        GoodsMeasureType03(
           grossMass = Some(BigDecimal(200)),
           netMass = Some(BigDecimal(100))
         )
