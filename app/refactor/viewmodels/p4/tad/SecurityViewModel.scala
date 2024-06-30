@@ -162,10 +162,10 @@ object SecurityViewModel {
     def apply(activeBorderTransportMeans: Seq[ActiveBorderTransportMeansType01]): ActiveBorderTransportMeansViewModel =
       new ActiveBorderTransportMeansViewModel(
         sequenceNumbers = activeBorderTransportMeans.map(_.sequenceNumber).toBeContinued(),
-        customsOfficeAtBorderReferenceNumbers = activeBorderTransportMeans.map(_.customsOfficeAtBorderReferenceNumber).toBeContinued(),
-        typesOfIdentification = activeBorderTransportMeans.map(_.typeOfIdentification).toBeContinued(),
-        identificationNumbers = activeBorderTransportMeans.map(_.identificationNumber).toBeContinued(),
-        nationalities = activeBorderTransportMeans.map(_.nationality).toBeContinued()
+        customsOfficeAtBorderReferenceNumbers = activeBorderTransportMeans.flatMap(_.customsOfficeAtBorderReferenceNumber).toBeContinued(),
+        typesOfIdentification = activeBorderTransportMeans.flatMap(_.typeOfIdentification).toBeContinued(),
+        identificationNumbers = activeBorderTransportMeans.flatMap(_.identificationNumber).toBeContinued(),
+        nationalities = activeBorderTransportMeans.flatMap(_.nationality).toBeContinued()
       )
   }
 

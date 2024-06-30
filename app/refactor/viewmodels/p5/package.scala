@@ -377,13 +377,13 @@ package object p5 {
       value.typeOfIdentification,
       value.identificationNumber,
       value.nationality
-    ).commaSeparate
+    ).flatten.commaSeparate
 
     def asP4String: String = Seq(
-      value.sequenceNumber,
+      Some(value.sequenceNumber),
       value.typeOfIdentification,
       value.identificationNumber
-    ).commaSeparate
+    ).flatten.commaSeparate
   }
 
   implicit class RichConsignmentItemType04(value: ConsignmentItemType04) {
@@ -410,7 +410,7 @@ package object p5 {
       value.typeOfIdentification,
       value.identificationNumber,
       value.nationality
-    ).commaSeparate
+    ).flatten.commaSeparate
   }
 
   implicit class RichPlaceOfLoadingType02(value: PlaceOfLoadingType02) {
@@ -507,8 +507,8 @@ package object p5 {
       Some(value.sequenceNumber),
       value.GRN,
       value.accessCode,
-      Some(value.amountToBeCovered.asString),
-      Some(value.currency)
+      value.amountToBeCovered.map(_.asString),
+      value.currency
     ).flatten.commaSeparate
   }
 
