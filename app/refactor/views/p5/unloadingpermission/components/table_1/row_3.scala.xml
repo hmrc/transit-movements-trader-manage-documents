@@ -4,7 +4,7 @@
 @import refactor.viewmodels.RichStringOption
 
 @(
-    departureTransportMeans: Seq[DepartureTransportMeansType07],
+    departureTransportMeans: Seq[DepartureTransportMeansType02],
     container: String,
     transportEquipment: String,
     seals: String,

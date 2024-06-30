@@ -34,7 +34,7 @@ case class Table1ViewModel(
   tir: String,
   security: String,
   inlandModeOfTransport: String,
-  departureTransportMeans: Seq[DepartureTransportMeansType07],
+  departureTransportMeans: Seq[DepartureTransportMeansType02],
   houseConsignmentDepartureTransportMeans: Seq[HouseConsignmentType04],
   container: String,
   transportEquipment: String,
@@ -65,7 +65,7 @@ object Table1ViewModel {
       tir = ie043.HolderOfTheTransitProcedure.flatMap(_.TIRHolderIdentificationNumber).orElseBlank,
       security = ie043.TransitOperation.security,
       inlandModeOfTransport = ie043.Consignment.flatMap(_.inlandModeOfTransport).orElseBlank,
-      departureTransportMeans = ie043.Consignment.fold[Seq[DepartureTransportMeansType07]](Nil)(_.DepartureTransportMeans),
+      departureTransportMeans = ie043.Consignment.fold[Seq[DepartureTransportMeansType02]](Nil)(_.DepartureTransportMeans),
       houseConsignmentDepartureTransportMeans = ie043.Consignment
         .fold[Seq[HouseConsignmentType04]](Seq.empty)(_.HouseConsignment),
       container = ie043.Consignment.map(_.containerIndicator.asString).orElseBlank,

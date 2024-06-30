@@ -317,13 +317,13 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       ),
       DepartureTransportMeans = Seq(
-        DepartureTransportMeansType07(
+        DepartureTransportMeansType02(
           sequenceNumber = "1",
           typeOfIdentification = Some("toi1"),
           identificationNumber = Some("in1"),
           nationality = Some("nat1")
         ),
-        DepartureTransportMeansType07(
+        DepartureTransportMeansType02(
           sequenceNumber = "2",
           typeOfIdentification = Some("toi2"),
           identificationNumber = Some("in2"),
@@ -653,13 +653,13 @@ trait DummyData extends ScalaxbModelGenerators {
           )
         ),
         DepartureTransportMeans = Seq(
-          DepartureTransportMeansType07(
+          DepartureTransportMeansType02(
             sequenceNumber = "1",
             typeOfIdentification = Some("toi1"),
             identificationNumber = Some("in1"),
             nationality = Some("nat1")
           ),
-          DepartureTransportMeansType07(
+          DepartureTransportMeansType02(
             sequenceNumber = "2",
             typeOfIdentification = Some("toi2"),
             identificationNumber = Some("in2"),
@@ -790,15 +790,15 @@ trait DummyData extends ScalaxbModelGenerators {
     DepartureTransportMeans = Seq(
       DepartureTransportMeansType02(
         sequenceNumber = "1",
-        typeOfIdentification = "toi1",
-        identificationNumber = "in1",
-        nationality = "nat1"
+        typeOfIdentification = Some("toi1"),
+        identificationNumber = Some("in1"),
+        nationality = Some("nat1")
       ),
       DepartureTransportMeansType02(
         sequenceNumber = "2",
-        typeOfIdentification = "toi2",
-        identificationNumber = "in2",
-        nationality = "nat2"
+        typeOfIdentification = Some("toi2"),
+        identificationNumber = Some("in2"),
+        nationality = Some("nat2")
       )
     ),
     PreviousDocument = Nil,

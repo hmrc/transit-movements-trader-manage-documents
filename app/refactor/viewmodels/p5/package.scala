@@ -377,21 +377,6 @@ package object p5 {
       value.typeOfIdentification,
       value.identificationNumber,
       value.nationality
-    ).commaSeparate
-
-    def asP4String: String = Seq(
-      value.sequenceNumber,
-      value.typeOfIdentification,
-      value.identificationNumber
-    ).commaSeparate
-  }
-
-  implicit class RichDepartureTransportMeansType07(value: DepartureTransportMeansType07) {
-
-    def asString: String = Seq(
-      value.typeOfIdentification,
-      value.identificationNumber,
-      value.nationality
     ).flatten.commaSeparate
 
     def asP4String: String = Seq(
