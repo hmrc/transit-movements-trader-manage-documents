@@ -23,7 +23,7 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val result = Table4ViewModel(cc029c)
+    val result = Table4ViewModel(cc015c, cc029c)
 
     "countryOfRoutingOfConsignment" in {
       result.countryOfRoutingOfConsignment mustBe "1, corocc1; 2, corocc2"
@@ -51,6 +51,10 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
 
     "countryOfDestination" in {
       result.countryOfDestination mustBe "c of de..."
+    }
+
+    "limitDate" in {
+      result.limitDate mustBe "2022-02-03"
     }
   }
 }

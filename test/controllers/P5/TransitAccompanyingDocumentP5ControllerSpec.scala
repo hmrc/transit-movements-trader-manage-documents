@@ -102,7 +102,7 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
               verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId))(any(), any())
               verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId))(any(), any())
               verify(mockPdfGenerator).generateP5TADTransition(eqTo(ie015), eqTo(ie029))
-              verify(mockPdfGenerator, never()).generateP5TADPostTransition(any())
+              verify(mockPdfGenerator, never()).generateP5TADPostTransition(any(), any())
           }
         }
       }
@@ -110,17 +110,20 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
       "when post-transition" in {
         val application = applicationBuilder().build()
         running(application) {
-          forAll(nonEmptyString, arbitrary[CC029CType], arbitrary[Array[Byte]]) {
-            (ie015MessageId, ie029, byteArray) =>
+          forAll(nonEmptyString, arbitrary[CC015CType], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
+            (ie015MessageId, ie015, ie029, byteArray) =>
               beforeEach()
 
               when(mockMessageService.getIE015MessageId(any())(any(), any()))
                 .thenReturn(Future.successful(Some(ie015MessageId)))
 
+              when(mockMessageService.getDeclarationData(any(), any())(any(), any()))
+                .thenReturn(Future.successful(ie015))
+
               when(mockMessageService.getReleaseForTransitNotification(any(), any())(any(), any()))
                 .thenReturn(Future.successful(ie029))
 
-              when(mockPdfGenerator.generateP5TADPostTransition(any()))
+              when(mockPdfGenerator.generateP5TADPostTransition(any(), any()))
                 .thenReturn(byteArray)
 
               val request = FakeRequest(GET, controllerRoute)
@@ -135,10 +138,10 @@ class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbM
               headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="TAD_$mrn.pdf""""
 
               verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
-              verify(mockMessageService, never()).getDeclarationData(any(), any())(any(), any())
+              verify(mockMessageService).getDeclarationData(any(), any())(any(), any())
               verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId))(any(), any())
               verify(mockPdfGenerator, never()).generateP5TADTransition(any(), any())
-              verify(mockPdfGenerator).generateP5TADPostTransition(eqTo(ie029))
+              verify(mockPdfGenerator).generateP5TADPostTransition(eqTo(ie015), eqTo(ie029))
           }
         }
       }

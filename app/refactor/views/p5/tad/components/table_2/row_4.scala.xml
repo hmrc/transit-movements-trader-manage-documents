@@ -18,7 +18,7 @@
                             <fo:block/>
                         </fo:table-cell>
                     </fo:table-row>
-                    <fo:table-row height="4%" border-bottom-style="solid" border-bottom-width="1pt"
+                    <fo:table-row height="4%" border-bottom-style="solid" border-bottom-width="2pt"
                                   border-bottom-color="black">
                         <fo:table-cell display-align="center" margin-left="2%">
                             <fo:block>Guarantee not valid for</fo:block>

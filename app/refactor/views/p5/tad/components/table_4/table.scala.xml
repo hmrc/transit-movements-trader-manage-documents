@@ -17,6 +17,6 @@
 
   <fo:table-body>
     @row_1(vm)
-    @row_2()
+    @row_2(vm)
   </fo:table-body>
 </fo:table>

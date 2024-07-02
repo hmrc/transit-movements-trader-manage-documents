@@ -42,7 +42,12 @@ object Table2ViewModel {
 
     new Table2ViewModel(
       transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).semiColonSeparate.take50,
-      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString).ellipsisSeparate.take50,
+      seals = ie029.Consignment.TransportEquipment
+        .flatMap(_.Seal)
+        .map(
+          seal => s"${seal.sequenceNumber}/${seal.identifier}"
+        )
+        .firstAndLast(";"),
       previousDocuments = combine(
         _.PreviousDocument.map(_.asString),
         _.flatMap(_.PreviousDocument).map(_.asString)

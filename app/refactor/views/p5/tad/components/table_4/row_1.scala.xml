@@ -132,7 +132,7 @@
 
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="5" padding-left="34.5%" border-bottom-style="solid"
-                                       border-bottom-width="1pt"
+                                       border-bottom-width="2pt"
                                        border-bottom-color="black">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
