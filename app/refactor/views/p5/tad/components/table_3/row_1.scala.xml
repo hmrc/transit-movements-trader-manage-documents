@@ -24,15 +24,20 @@
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-
+                <fo:table-column column-number="1" column-width="70%"/>
+                <fo:table-column column-number="2" column-width="15%"/>
+                <fo:table-column column-number="3" column-width="15%"/>
                 <fo:table-body border-right-style="solid"
                                border-right-width="1pt" border-right-color="black">
-
                     <fo:table-row>
-                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center" number-columns-spanned="3"
-                                       font-size="5"
-                                       padding-left="1%" padding-bottom="5%">
+                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
+                                       padding-left="1%" padding-bottom="5%" border-right-style="solid"
+                                       border-right-width="0.5pt" font-size="5">
                             <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
+                                       padding-left="1%" padding-bottom="5%" number-columns-spanned="2">
+                            <fo:block>Incident code</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
@@ -109,13 +114,21 @@
                                        border-bottom-color="black">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-column column-number="1" column-width="70%"/>
+                                    <fo:table-column column-number="2" column-width="15%"/>
+                                    <fo:table-column column-number="3" column-width="15%"/>
                                     <fo:table-body>
-
                                         <fo:table-row>
                                             <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
-                                                           number-columns-spanned="3"
-                                                           padding-left="1%" padding-bottom="4.5%">
+                                                           padding-left="1%" padding-bottom="4.5%"
+                                                           border-right-style="solid"
+                                                           border-right-width="0.5pt">
                                                 <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell height="2%" margin-top="0.5%" display-align="center"
+                                                           padding-left="1%" padding-bottom="5%"
+                                                           number-columns-spanned="2">
+                                                <fo:block>Incident code</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
