@@ -46,8 +46,8 @@
                                     <fo:table-body>
                                         <fo:table-row height="8%">
                                             @local_reference_number(lrn)
-                                            @tir(tirCarnet)
                                             @ucr(referenceNumberUCR)
+                                            @tir(tirCarnet)
                                         </fo:table-row>
                                         <fo:table-row height="17%"> <!-- todo extra 1% needed from somewhere else -->
                                             @bcp()
