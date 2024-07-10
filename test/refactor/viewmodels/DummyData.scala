@@ -60,6 +60,16 @@ trait DummyData extends ScalaxbModelGenerators {
         sequenceNumber = "2",
         typeValue = "tv2",
         referenceNumber = "rn2"
+      ),
+      AuthorisationType02(
+        sequenceNumber = "3",
+        typeValue = "tv3",
+        referenceNumber = "rn3"
+      ),
+      AuthorisationType02(
+        sequenceNumber = "4",
+        typeValue = "tv4",
+        referenceNumber = "rn4"
       )
     ),
     CustomsOfficeOfDeparture = CustomsOfficeOfDepartureType03(
