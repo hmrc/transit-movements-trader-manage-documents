@@ -851,6 +851,16 @@ trait DummyData extends ScalaxbModelGenerators {
         sequenceNumber = "2",
         role = "role2",
         identificationNumber = "id2"
+      ),
+      AdditionalSupplyChainActorType(
+        sequenceNumber = "3",
+        role = "role3",
+        identificationNumber = "id3"
+      ),
+      AdditionalSupplyChainActorType(
+        sequenceNumber = "4",
+        role = "role4",
+        identificationNumber = "id4"
       )
     ),
     Commodity = CommodityType08(
