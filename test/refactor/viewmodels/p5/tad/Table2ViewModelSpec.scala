@@ -62,7 +62,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "authorisations" in {
-      result.authorisations mustBe "1, C521, rn1..."
+      result.authorisations mustBe "1, C521, rn1; 2, tv2, rn2; 3, tv3, rn3..."
     }
   }
 }
