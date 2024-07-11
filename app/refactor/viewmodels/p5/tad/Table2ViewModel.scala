@@ -68,7 +68,7 @@ object Table2ViewModel {
         _.flatMap(_.AdditionalInformation).map(_.asString)
       ).take100,
       guarantees = ie029.Guarantee.map(_.asString).semiColonSeparate.take100,
-      authorisations = ie029.Authorisation.map(_.asString).semiColonSeparate.first3
+      authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate)
     )
   }
 }

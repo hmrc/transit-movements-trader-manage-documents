@@ -34,15 +34,6 @@ package object viewmodels {
         value
       }
 
-    def firstN(n: Int, chars: String = "..."): String = {
-      val occurrence = value.split(";")
-      if (occurrence.length > n) {
-        occurrence.take(n).mkString(";") + chars
-      } else {
-        value
-      }
-    }
-
     def take10: String  = takeN(10)
     def take20: String  = takeN(20)
     def take30: String  = takeN(30)
@@ -50,8 +41,6 @@ package object viewmodels {
     def take60: String  = takeN(60)
     def take100: String = takeN(100)
     def take200: String = takeN(200)
-
-    def first3: String = firstN(3)
   }
 
   implicit class RichStringSeq(value: Seq[String]) {
@@ -75,6 +64,15 @@ package object viewmodels {
     }
 
     def addDefaultIfEmpty(): Seq[String] = if (value.isEmpty) Seq("--") else value
+
+    private def takeN(n: Int)(f: Seq[String] => String): String =
+      if (value.length > n) {
+        f(value.take(n)) + "..."
+      } else {
+        f(value.take(n))
+      }
+
+    def take3(f: Seq[String] => String): String = takeN(3)(f)
   }
 
   implicit class RichOptionTSeq[T](value: Seq[Option[T]]) {
