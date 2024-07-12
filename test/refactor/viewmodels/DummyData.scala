@@ -348,6 +348,14 @@ trait DummyData extends ScalaxbModelGenerators {
         CountryOfRoutingOfConsignmentType01(
           sequenceNumber = "2",
           country = "corocc2"
+        ),
+        CountryOfRoutingOfConsignmentType01(
+          sequenceNumber = "3",
+          country = "corocc3"
+        ),
+        CountryOfRoutingOfConsignmentType01(
+          sequenceNumber = "4",
+          country = "corocc4"
         )
       ),
       ActiveBorderTransportMeans = Seq(
