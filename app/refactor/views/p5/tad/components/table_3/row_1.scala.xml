@@ -1,7 +1,7 @@
 @import refactor.views.xml.p5.tad.components.table_1.consignee
 @import refactor.views.xml.p5.tad.components.table_1.total_gross_mass
 
-@()
+@(containerIdentification: String)
 
 <fo:table-row height="16%">
 
@@ -69,6 +69,7 @@
                                        border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block-container height="4%" overflow="hidden">
                                 <fo:block>
+                                    @containerIdentification
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -158,6 +159,7 @@
                                                            border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block-container height="4%" overflow="hidden">
                                                     <fo:block>
+                                                        @containerIdentification
                                                     </fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>

@@ -30,7 +30,8 @@ case class Table2ViewModel(
   transportCharges: String,
   additionalInformation: String,
   guarantees: String,
-  authorisations: String
+  authorisations: String,
+  containerIdentification: String
 )
 
 object Table2ViewModel {
@@ -41,8 +42,9 @@ object Table2ViewModel {
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.semiColonSeparate
 
     new Table2ViewModel(
-      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).semiColonSeparate.take50,
-      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString).ellipsisSeparate.take50,
+      transportEquipment =
+        ie029.Consignment.TransportEquipment.map(_.asP5String).take3(_.semiColonSeparate) + ie029.Consignment.TransportEquipment.flatMap(_.Seal).length,
+      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString).take3(_.semiColonSeparate),
       previousDocuments = combine(
         _.PreviousDocument.map(_.asString),
         _.flatMap(_.PreviousDocument).map(_.asString)
@@ -68,7 +70,8 @@ object Table2ViewModel {
         _.flatMap(_.AdditionalInformation).map(_.asString)
       ).take100,
       guarantees = ie029.Guarantee.map(_.asString).semiColonSeparate.take100,
-      authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate)
+      authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate),
+      containerIdentification = ie029.Consignment.TransportEquipment.map(_.containerIDString).take3(_.semiColonSeparate)
     )
   }
 }

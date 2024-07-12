@@ -1,8 +1,9 @@
 @import refactor.views.xml.p5.tad.components.table_3._
+@import refactor.viewmodels.p5.tad.Table2ViewModel
 
 @this()
 
-@()
+@(vm: Table2ViewModel)
 
 <fo:table width="100%" table-layout="fixed" id="table-3">
 
@@ -16,7 +17,7 @@
   <fo:table-column column-number="8" column-width="49mm"/>
 
   <fo:table-body>
-    @row_1()
+    @row_1(vm.containerIdentification)
     @row_2()
   </fo:table-body>
 </fo:table>
