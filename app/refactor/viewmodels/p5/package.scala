@@ -468,10 +468,6 @@ package object p5 {
       value.containerIdentificationNumber
     ).flatten.commaSeparate
 
-    def containerIDString: String = Seq(
-      value.containerIdentificationNumber
-    ).flatten.commaSeparate
-
     def asP4String: String = Seq(
       Some(value.sequenceNumber),
       value.containerIdentificationNumber

@@ -18,7 +18,6 @@ package refactor.viewmodels.p5.tad
 
 import generated.p5._
 import refactor.viewmodels._
-import refactor.viewmodels.p5._
 
 case class Table3ViewModel(
   containerIdentification: String
@@ -28,6 +27,6 @@ object Table3ViewModel {
 
   def apply(ie029: CC029CType): Table3ViewModel =
     new Table3ViewModel(
-      containerIdentification = ie029.Consignment.TransportEquipment.map(_.containerIDString).take3(_.semiColonSeparate)
+      containerIdentification = ie029.Consignment.TransportEquipment.flatMap(_.containerIdentificationNumber).take3(_.semiColonSeparate)
     )
 }
