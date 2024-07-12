@@ -17,13 +17,131 @@
 package refactor.viewmodels.p5.tad
 
 import base.SpecBase
+import generated.p5.GoodsReferenceType02
+import generated.p5.SealType04
+import generated.p5.TransportEquipmentType05
 import refactor.viewmodels.DummyData
 
 class Table2ViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val result = Table2ViewModel(cc029c)
+    val cc029cP5 = cc029c.copy(Consignment =
+      cc029c.Consignment.copy(TransportEquipment =
+        Seq(
+          TransportEquipmentType05(
+            sequenceNumber = "1",
+            containerIdentificationNumber = Some("cin1"),
+            numberOfSeals = BigInt(2),
+            Seal = Seq(
+              SealType04(
+                sequenceNumber = "1",
+                identifier = "sid1"
+              ),
+              SealType04(
+                sequenceNumber = "2",
+                identifier = "sid2"
+              )
+            ),
+            GoodsReference = Seq(
+              GoodsReferenceType02(
+                sequenceNumber = "1",
+                declarationGoodsItemNumber = BigInt(1)
+              ),
+              GoodsReferenceType02(
+                sequenceNumber = "2",
+                declarationGoodsItemNumber = BigInt(3)
+              )
+            )
+          ),
+          TransportEquipmentType05(
+            sequenceNumber = "2",
+            containerIdentificationNumber = Some("cin2"),
+            numberOfSeals = BigInt(3),
+            Seal = Seq(
+              SealType04(
+                sequenceNumber = "3",
+                identifier = "sid3"
+              ),
+              SealType04(
+                sequenceNumber = "4",
+                identifier = "sid4"
+              ),
+              SealType04(
+                sequenceNumber = "5",
+                identifier = "sid5"
+              )
+            ),
+            GoodsReference = Seq(
+              GoodsReferenceType02(
+                sequenceNumber = "1",
+                declarationGoodsItemNumber = BigInt(1)
+              ),
+              GoodsReferenceType02(
+                sequenceNumber = "2",
+                declarationGoodsItemNumber = BigInt(3)
+              )
+            )
+          ),
+          TransportEquipmentType05(
+            sequenceNumber = "3",
+            containerIdentificationNumber = Some("cin3"),
+            numberOfSeals = BigInt(3),
+            Seal = Seq(
+              SealType04(
+                sequenceNumber = "6",
+                identifier = "sid6"
+              ),
+              SealType04(
+                sequenceNumber = "7",
+                identifier = "sid7"
+              ),
+              SealType04(
+                sequenceNumber = "8",
+                identifier = "sid8"
+              )
+            ),
+            GoodsReference = Seq(
+              GoodsReferenceType02(
+                sequenceNumber = "1",
+                declarationGoodsItemNumber = BigInt(1)
+              ),
+              GoodsReferenceType02(
+                sequenceNumber = "2",
+                declarationGoodsItemNumber = BigInt(3)
+              )
+            )
+          ),
+          TransportEquipmentType05(
+            sequenceNumber = "4",
+            containerIdentificationNumber = Some("cin4"),
+            numberOfSeals = BigInt(2),
+            Seal = Seq(
+              SealType04(
+                sequenceNumber = "9",
+                identifier = "sid9"
+              ),
+              SealType04(
+                sequenceNumber = "10",
+                identifier = "sid10"
+              )
+            ),
+            GoodsReference = Seq(
+              GoodsReferenceType02(
+                sequenceNumber = "1",
+                declarationGoodsItemNumber = BigInt(1)
+              ),
+              GoodsReferenceType02(
+                sequenceNumber = "2",
+                declarationGoodsItemNumber = BigInt(3)
+              )
+            )
+          )
+        )
+      )
+    )
+
+    val result = Table2ViewModel(cc029cP5)
 
     "transportEquipment" in {
       result.transportEquipment mustBe "1, cin1; 2, cin2; 3, cin3...10"

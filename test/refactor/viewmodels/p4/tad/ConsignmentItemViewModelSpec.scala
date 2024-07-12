@@ -53,7 +53,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "containers" in {
-      result.containers mustBe Seq("1, cin1", "2, cin2", "3, cin3", "4, cin4")
+      result.containers mustBe Seq("1, cin1")
     }
 
     "description" in {

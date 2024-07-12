@@ -48,9 +48,9 @@ class SecurityViewModelSpec extends SpecBase with DummyData {
     }
 
     "seals" in {
-      result.seals.sequenceNumbers mustBe "1, 10"
-      result.seals.numberOfSeals mustBe "10"
-      result.seals.identifiers mustBe "[sid1], [sid10]"
+      result.seals.sequenceNumbers mustBe "1, 2"
+      result.seals.numberOfSeals mustBe "2"
+      result.seals.identifiers mustBe "[sid1], [sid2]"
     }
 
     "locationOfGoods" in {
