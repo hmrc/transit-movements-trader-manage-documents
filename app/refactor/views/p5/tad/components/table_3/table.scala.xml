@@ -1,9 +1,9 @@
 @import refactor.views.xml.p5.tad.components.table_3._
-@import refactor.viewmodels.p5.tad.Table2ViewModel
+@import refactor.viewmodels.p5.tad.Table3ViewModel
 
 @this()
 
-@(vm: Table2ViewModel)
+@(vm: Table3ViewModel)
 
 <fo:table width="100%" table-layout="fixed" id="table-3">
 

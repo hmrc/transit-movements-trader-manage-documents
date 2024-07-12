@@ -30,8 +30,7 @@ case class Table2ViewModel(
   transportCharges: String,
   additionalInformation: String,
   guarantees: String,
-  authorisations: String,
-  containerIdentification: String
+  authorisations: String
 )
 
 object Table2ViewModel {
@@ -70,8 +69,7 @@ object Table2ViewModel {
         _.flatMap(_.AdditionalInformation).map(_.asString)
       ).take100,
       guarantees = ie029.Guarantee.map(_.asString).semiColonSeparate.take100,
-      authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate),
-      containerIdentification = ie029.Consignment.TransportEquipment.map(_.containerIDString).take3(_.semiColonSeparate)
+      authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate)
     )
   }
 }
