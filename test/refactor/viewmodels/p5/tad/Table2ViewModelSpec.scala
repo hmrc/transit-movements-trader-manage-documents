@@ -164,7 +164,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "additionalReferences" in {
-      result.additionalReferences mustBe "1, artv1, arrn1; 2, artv2, arrn2"
+      result.additionalReferences mustBe "1, artv1, arrn1; 2, artv2, arrn2; 3, artv3, arrn3..."
     }
 
     "transportCharges" in {
