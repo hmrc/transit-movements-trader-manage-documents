@@ -466,6 +466,16 @@ trait DummyData extends ScalaxbModelGenerators {
           sequenceNumber = "2",
           code = "aic2",
           text = Some("ait2")
+        ),
+        AdditionalInformationType02(
+          sequenceNumber = "3",
+          code = "aic3",
+          text = Some("ait3")
+        ),
+        AdditionalInformationType02(
+          sequenceNumber = "4",
+          code = "aic4",
+          text = Some("ait4")
         )
       ),
       TransportCharges = Some(
