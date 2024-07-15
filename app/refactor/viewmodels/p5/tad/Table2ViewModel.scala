@@ -61,10 +61,7 @@ object Table2ViewModel {
         _.TransportCharges.map(_.asString).toSeq,
         _.flatMap(_.TransportCharges).map(_.asString)
       ).take20,
-      additionalInformation = combine(
-        _.AdditionalInformation.map(_.asString),
-        _.flatMap(_.AdditionalInformation).map(_.asString)
-      ).take100,
+      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asString).take3(_.semiColonSeparate),
       guarantees = ie029.Guarantee.map(_.asString).semiColonSeparate.take100,
       authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate)
     )

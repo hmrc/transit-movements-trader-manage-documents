@@ -172,7 +172,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "additionalInformation" in {
-      result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2"
+      result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2; 3, aic3, ait3..."
     }
 
     "guarantees" in {
