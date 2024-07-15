@@ -22,7 +22,7 @@ import generated.p5.SealType04
 import generated.p5.TransportEquipmentType05
 import refactor.viewmodels.DummyData
 
-class Table2ViewModelSpec extends SpecBase with DummyData {
+class Table3ViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
@@ -141,46 +141,10 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
       )
     )
 
-    val result = Table2ViewModel(cc029cP5)
+    val result = Table3ViewModel(cc029cP5)
 
-    "transportEquipment" in {
-      result.transportEquipment mustBe "1, cin1; 2, cin2; 3, cin3...10"
-    }
-
-    "seals" in {
-      result.seals mustBe "1,[sid1]; 2,[sid2]; 3,[sid3]..."
-    }
-
-    "previousDocuments" in {
-      result.previousDocuments mustBe "1, ptv1, prn1, pcoi1; 2, ptv2, prn2, pcoi1"
-    }
-
-    "transportDocuments" in {
-      result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2"
-    }
-
-    "supportingDocuments" in {
-      result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1; 2, stv2, srn2, 1, scoi1"
-    }
-
-    "additionalReferences" in {
-      result.additionalReferences mustBe "1, artv1, arrn1; 2, artv2, arrn2"
-    }
-
-    "transportCharges" in {
-      result.transportCharges mustBe "mop"
-    }
-
-    "additionalInformation" in {
-      result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2"
-    }
-
-    "guarantees" in {
-      result.guarantees mustBe "1, g1, ogr1, 1, 1grn1, 1ac1, 11.0, 1c1, 2, 1grn2, 1ac2, 12.0, 1c2; 2, g2, ogr2, 1, 2grn1, 2ac1, 2..."
-    }
-
-    "authorisations" in {
-      result.authorisations mustBe "1, C521, rn1; 2, tv2, rn2; 3, tv3, rn3..."
+    "containerIdentification" in {
+      result.containerIdentification mustBe "cin1; cin2; cin3..."
     }
   }
 }

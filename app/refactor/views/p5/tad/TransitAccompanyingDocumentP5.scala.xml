@@ -23,6 +23,6 @@
 @pageOneBody = {
     @table1(vm.table1ViewModel, vm.mrn)
     @table2(vm.table2ViewModel)
-    @table3()
+    @table3(vm.table3ViewModel)
     @table4(vm.table4ViewModel)
 }
