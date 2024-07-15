@@ -121,7 +121,7 @@ object Table1ViewModel {
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
       countryOfDestination = ie029.Consignment.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       transportIdentity = ie029.Consignment.DepartureTransportMeans.map(_.asP4String).toBeContinued("---"),
-      transportCountry = ie029.Consignment.DepartureTransportMeans.headOption.map(_.nationality).getOrElse("---"),
+      transportCountry = ie029.Consignment.DepartureTransportMeans.headOption.flatMap(_.nationality).getOrElse("---"),
       returnCopiesCustomsOffice = None
     )
 }

@@ -1,6 +1,7 @@
 @import refactor.views.xml.p5.unloadingpermission.components.table_1._
 @import refactor.views.xml.p5.unloadingpermission.components._
 @import generated.p5._
+@import refactor.viewmodels.RichStringOption
 
 @(
     departureTransportMeans: Seq[DepartureTransportMeansType02],
@@ -58,60 +59,61 @@
                    number-columns-spanned="6"
     >
         <fo:block>
-            <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="59mm"/>
-                <fo:table-column column-number="2" column-width="59mm" />
-                <fo:table-column column-number="3" column-width="59mm" />
-                <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+            @if(departureTransportMeans.nonEmpty) {
+                <fo:table width="100%" table-layout="fixed">
+                    <fo:table-column column-number="1" column-width="59mm"/>
+                    <fo:table-column column-number="2" column-width="59mm" />
+                    <fo:table-column column-number="3" column-width="59mm" />
 
-                    <!--   Departure means rows-->
+                    <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                        <!--   Departure means rows-->
+                        @departureTransportMeans.zipWithIndex.map {
+                            case (transportMeans, departureMeansIndex) => {
+                                <fo:table-row height="8mm" margin-left="0.5mm">
+                                    <fo:table-cell >
+                                        <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                            <fo:block>
+                                                <fo:inline font-size="8">Departure means of transport @(departureMeansIndex + 1)</fo:inline>
+                                            </fo:block>
 
-                    @departureTransportMeans.zipWithIndex.map {
-                        case (transportMeans, departureMeansIndex) => {
-                            <fo:table-row height="8mm" margin-left="0.5mm">
-                                <fo:table-cell >
-                                    <fo:block-container overflow="hidden" margin-top = "0.8mm" >
-                                        <fo:block>
-                                            <fo:inline font-size="8">Departure means of transport @(departureMeansIndex + 1)</fo:inline>
-                                        </fo:block>
-
-                                    </fo:block-container>
-                                </fo:table-cell>
-                            </fo:table-row>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
 
 
-                            <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
-                                <fo:table-cell  display-align="after"  number-columns-spanned="1">
-                                    <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
-                                        <fo:block font-size="7">
-                                            Identification type
-                                            <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.typeOfIdentification)</fo:block>
-                                        </fo:block>
-                                    </fo:block-container>
-                                </fo:table-cell>
+                                <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1">
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                            <fo:block font-size="7">
+                                                Identification type
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.typeOfIdentification.orElseBlank)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
 
-                                <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
-                                    <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                        <fo:block font-size="7">
-                                            Identification
-                                            <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.identificationNumber)</fo:block>
-                                        </fo:block>
-                                    </fo:block-container>
-                                </fo:table-cell>
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Identification
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.identificationNumber.orElseBlank)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
 
-                                <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
-                                    <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                        <fo:block font-size="7">
-                                            Registered country
-                                            <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.nationality)</fo:block>
-                                        </fo:block>
-                                    </fo:block-container>
-                                </fo:table-cell>
-                            </fo:table-row>
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Registered country
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.nationality.orElseBlank)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            }
                         }
-                    }
-                </fo:table-body>
-            </fo:table>
+                    </fo:table-body>
+                </fo:table>
+            }
         </fo:block>
     </fo:table-cell>
 

@@ -24,6 +24,7 @@ case class P5TadPdfViewModel(
   consignmentItemViewModels: Seq[ConsignmentItemViewModel],
   table1ViewModel: Table1ViewModel,
   table2ViewModel: Table2ViewModel,
+  table3ViewModel: Table3ViewModel,
   table4ViewModel: Table4ViewModel
 )
 
@@ -41,6 +42,7 @@ object P5TadPdfViewModel {
       },
       table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029),
+      table3ViewModel = Table3ViewModel(ie029),
       table4ViewModel = Table4ViewModel(ie015, ie029)
     )
 }

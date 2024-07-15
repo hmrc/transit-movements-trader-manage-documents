@@ -192,7 +192,7 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryConsignmentType04: Arbitrary[ConsignmentType04] =
     Arbitrary {
       for {
-        containerIndicator <- arbitrary[Flag]
+        containerIndicator <- Gen.option(arbitrary[Flag])
         grossMass          <- arbitrary[BigDecimal]
       } yield ConsignmentType04(
         countryOfDispatch = None,

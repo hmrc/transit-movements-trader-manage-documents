@@ -64,6 +64,15 @@ package object viewmodels {
     }
 
     def addDefaultIfEmpty(): Seq[String] = if (value.isEmpty) Seq("--") else value
+
+    private def takeN(n: Int)(f: Seq[String] => String): String =
+      if (value.length > n) {
+        f(value.take(n)) + "..."
+      } else {
+        f(value.take(n))
+      }
+
+    def take3(f: Seq[String] => String): String = takeN(3)(f)
   }
 
   implicit class RichOptionTSeq[T](value: Seq[Option[T]]) {

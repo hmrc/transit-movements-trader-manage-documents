@@ -26,7 +26,7 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
     val result = Table4ViewModel(cc015c, cc029c)
 
     "countryOfRoutingOfConsignment" in {
-      result.countryOfRoutingOfConsignment mustBe "1, corocc1; 2, corocc2"
+      result.countryOfRoutingOfConsignment mustBe "1, corocc1; 2, corocc2; 3, corocc3..."
     }
 
     "customsOfficeOfTransitDeclared" in {
