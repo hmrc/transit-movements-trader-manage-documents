@@ -338,6 +338,18 @@ trait DummyData extends ScalaxbModelGenerators {
           typeOfIdentification = Some("toi2"),
           identificationNumber = Some("in2"),
           nationality = Some("nat2")
+        ),
+        DepartureTransportMeansType02(
+          sequenceNumber = "3",
+          typeOfIdentification = Some("toi3"),
+          identificationNumber = Some("in3"),
+          nationality = Some("nat3")
+        ),
+        DepartureTransportMeansType02(
+          sequenceNumber = "4",
+          typeOfIdentification = Some("toi4"),
+          identificationNumber = Some("in4"),
+          nationality = Some("nat4")
         )
       ),
       CountryOfRoutingOfConsignment = Seq(
