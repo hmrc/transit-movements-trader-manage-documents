@@ -152,15 +152,15 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "previousDocuments" in {
-      result.previousDocuments mustBe "1, ptv1, prn1, pcoi1; 2, ptv2, prn2, pcoi1"
+      result.previousDocuments mustBe "1, ptv1, prn1, pcoi1; 2, ptv2, prn2, pcoi1; 3, ptv3, prn3, pcoi1..."
     }
 
     "transportDocuments" in {
-      result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2"
+      result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2; 3, ttv3, trn3..."
     }
 
     "supportingDocuments" in {
-      result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1; 2, stv2, srn2, 1, scoi1"
+      result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1; 2, stv2, srn2, 1, scoi1; 3, stv3, srn3, 1, scoi3..."
     }
 
     "additionalReferences" in {

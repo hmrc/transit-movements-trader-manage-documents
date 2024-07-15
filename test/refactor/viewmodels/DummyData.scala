@@ -414,6 +414,18 @@ trait DummyData extends ScalaxbModelGenerators {
           typeValue = "ptv2",
           referenceNumber = "prn2",
           complementOfInformation = Some("pcoi1")
+        ),
+        PreviousDocumentType06(
+          sequenceNumber = "3",
+          typeValue = "ptv3",
+          referenceNumber = "prn3",
+          complementOfInformation = Some("pcoi1")
+        ),
+        PreviousDocumentType06(
+          sequenceNumber = "4",
+          typeValue = "ptv4",
+          referenceNumber = "prn4",
+          complementOfInformation = Some("pcoi1")
         )
       ),
       SupportingDocument = Seq(
@@ -430,6 +442,20 @@ trait DummyData extends ScalaxbModelGenerators {
           referenceNumber = "srn2",
           documentLineItemNumber = Some(BigInt(1)),
           complementOfInformation = Some("scoi1")
+        ),
+        SupportingDocumentType06(
+          sequenceNumber = "3",
+          typeValue = "stv3",
+          referenceNumber = "srn3",
+          documentLineItemNumber = Some(BigInt(1)),
+          complementOfInformation = Some("scoi3")
+        ),
+        SupportingDocumentType06(
+          sequenceNumber = "4",
+          typeValue = "stv4",
+          referenceNumber = "srn4",
+          documentLineItemNumber = Some(BigInt(1)),
+          complementOfInformation = Some("scoi4")
         )
       ),
       TransportDocument = Seq(
@@ -442,6 +468,16 @@ trait DummyData extends ScalaxbModelGenerators {
           sequenceNumber = "2",
           typeValue = "ttv2",
           referenceNumber = "trn2"
+        ),
+        TransportDocumentType02(
+          sequenceNumber = "3",
+          typeValue = "ttv3",
+          referenceNumber = "trn3"
+        ),
+        TransportDocumentType02(
+          sequenceNumber = "4",
+          typeValue = "ttv4",
+          referenceNumber = "trn4"
         )
       ),
       AdditionalReference = Seq(

@@ -38,7 +38,7 @@ object Table2ViewModel {
   def apply(ie029: CC029CType): Table2ViewModel = {
 
     def combine(consignmentLevel: ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[HouseConsignmentType03] => Seq[String]): String =
-      Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.semiColonSeparate
+      Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.take3(_.semiColonSeparate)
 
     new Table2ViewModel(
       transportEquipment =
