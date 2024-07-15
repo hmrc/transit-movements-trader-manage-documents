@@ -47,10 +47,6 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
               GoodsReferenceType02(
                 sequenceNumber = "1",
                 declarationGoodsItemNumber = BigInt(1)
-              ),
-              GoodsReferenceType02(
-                sequenceNumber = "2",
-                declarationGoodsItemNumber = BigInt(3)
               )
             )
           ),
@@ -74,12 +70,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
             ),
             GoodsReference = Seq(
               GoodsReferenceType02(
-                sequenceNumber = "1",
-                declarationGoodsItemNumber = BigInt(1)
-              ),
-              GoodsReferenceType02(
                 sequenceNumber = "2",
-                declarationGoodsItemNumber = BigInt(3)
+                declarationGoodsItemNumber = BigInt(2)
               )
             )
           ),
@@ -103,11 +95,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
             ),
             GoodsReference = Seq(
               GoodsReferenceType02(
-                sequenceNumber = "1",
-                declarationGoodsItemNumber = BigInt(1)
-              ),
-              GoodsReferenceType02(
-                sequenceNumber = "2",
+                sequenceNumber = "3",
                 declarationGoodsItemNumber = BigInt(3)
               )
             )
@@ -128,12 +116,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
             ),
             GoodsReference = Seq(
               GoodsReferenceType02(
-                sequenceNumber = "1",
-                declarationGoodsItemNumber = BigInt(1)
-              ),
-              GoodsReferenceType02(
-                sequenceNumber = "2",
-                declarationGoodsItemNumber = BigInt(3)
+                sequenceNumber = "4",
+                declarationGoodsItemNumber = BigInt(4)
               )
             )
           )
@@ -144,11 +128,11 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     val result = Table2ViewModel(cc029cP5)
 
     "transportEquipment" in {
-      result.transportEquipment mustBe "1, cin1, 2, 1:1...2:3; 2, cin2, 3, 1:1...2:3; 3..."
+      result.transportEquipment mustBe "1, cin1, 2, 1:1; 2, cin2, 3, 2:2; 3, cin3, 3, 3..."
     }
 
     "seals" in {
-      result.seals mustBe "1/sid1;10/sid10"
+      result.seals mustBe "1/sid1;10/sid10 1/1; 2/2; 3/3..."
     }
 
     "previousDocuments" in {

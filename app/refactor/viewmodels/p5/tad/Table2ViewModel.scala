@@ -47,7 +47,12 @@ object Table2ViewModel {
         .map(
           seal => s"${seal.sequenceNumber}/${seal.identifier}"
         )
-        .firstAndLast(";"),
+        .firstAndLast(";") + " " + ie029.Consignment.TransportEquipment
+        .flatMap(_.GoodsReference)
+        .map(
+          goodsReference => s"${goodsReference.sequenceNumber}/${goodsReference.declarationGoodsItemNumber}"
+        )
+        .take3(_.semiColonSeparate),
       previousDocuments = combine(
         _.PreviousDocument.map(_.asString),
         _.flatMap(_.PreviousDocument).map(_.asString)
