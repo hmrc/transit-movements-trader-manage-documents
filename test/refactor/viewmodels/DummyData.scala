@@ -454,6 +454,16 @@ trait DummyData extends ScalaxbModelGenerators {
           sequenceNumber = "2",
           typeValue = "artv2",
           referenceNumber = Some("arrn2")
+        ),
+        AdditionalReferenceType03(
+          sequenceNumber = "3",
+          typeValue = "artv3",
+          referenceNumber = Some("arrn3")
+        ),
+        AdditionalReferenceType03(
+          sequenceNumber = "4",
+          typeValue = "artv4",
+          referenceNumber = Some("arrn4")
         )
       ),
       AdditionalInformation = Seq(

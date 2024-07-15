@@ -56,10 +56,7 @@ object Table2ViewModel {
         _.SupportingDocument.map(_.asString),
         _.flatMap(_.SupportingDocument).map(_.asString)
       ).take100,
-      additionalReferences = combine(
-        _.AdditionalReference.map(_.asString),
-        _.flatMap(_.AdditionalReference).map(_.asString)
-      ).take100,
+      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asString).take3(_.semiColonSeparate),
       transportCharges = combine(
         _.TransportCharges.map(_.asString).toSeq,
         _.flatMap(_.TransportCharges).map(_.asString)
