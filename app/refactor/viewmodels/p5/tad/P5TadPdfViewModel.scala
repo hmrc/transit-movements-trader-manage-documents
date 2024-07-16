@@ -30,10 +30,11 @@ case class P5TadPdfViewModel(
 
 object P5TadPdfViewModel {
 
-  /** @param ie029 release for transit
+  /** @param ie015 declaration data
+    * @param ie029 release for transit
     * @return P5 TAD view model based on P5 (final) data
     */
-  def apply(ie029: CC029CType): P5TadPdfViewModel =
+  def apply(ie015: CC015CType, ie029: CC029CType): P5TadPdfViewModel =
     new P5TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
       consignmentItemViewModels = ie029.rollDown.Consignment.HouseConsignment.flatMap {
@@ -42,6 +43,6 @@ object P5TadPdfViewModel {
       table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029),
       table3ViewModel = Table3ViewModel(ie029),
-      table4ViewModel = Table4ViewModel(ie029)
+      table4ViewModel = Table4ViewModel(ie015, ie029)
     )
 }

@@ -16,9 +16,10 @@
         <fo:block/>
     </fo:table-cell>
 
-    <fo:table-cell padding-left="5%" text-align="center" vertical-align="top" border-top-style="solid"
-                   border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt"
-                   border-left-color="black">
+    <fo:table-cell padding-left="5%" text-align="center" vertical-align="top"
+                   border-top-style="solid" border-top-width="2pt" border-top-color="black"
+                   border-left-style="solid" border-left-width="2pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="2pt" border-right-color="black">
         <fo:block/>
     </fo:table-cell>
     SCI
@@ -69,14 +70,17 @@
         </fo:block>
     </fo:table-cell>
 
-    <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt"
-                   border-left-color="black" border-right-style="solid" border-right-width="1pt"
+    <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="2pt"
+                   border-left-color="black" border-right-style="solid" border-right-width="2pt"
+                   border-bottom-style="solid" border-bottom-width="2pt" border-bottom-color="black"
                    border-right-color="black" padding-left="1%">
+        <fo:block font-weight="bold" font-size="5pt" display-align="center" margin-left="-2.0%" margin-top="-6.0%">MRN
+        </fo:block>
         <fo:block text-align="center" margin-top="-1mm">
             @barcode(mrn)
         </fo:block>
         <fo:block text-align="center" font-weight="bold" font-size="7pt">
-            MRN @mrn
+            @mrn
         </fo:block>
     </fo:table-cell>
 </fo:table-row>

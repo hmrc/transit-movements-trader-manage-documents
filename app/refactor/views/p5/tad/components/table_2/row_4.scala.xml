@@ -18,10 +18,10 @@
                             <fo:block/>
                         </fo:table-cell>
                     </fo:table-row>
-                    <fo:table-row height="4%" border-bottom-style="solid" border-bottom-width="1pt"
+                    <fo:table-row height="4%" border-bottom-style="solid" border-bottom-width="2pt"
                                   border-bottom-color="black">
                         <fo:table-cell display-align="center" margin-left="2%">
-                            <fo:block>Guarantee not valid for</fo:block>
+                            <fo:block>Guarantee not valid in</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
@@ -94,8 +94,8 @@
                                                            border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block>
-                                                    Container [19 01]:
-                                                    <fo:inline margin-top="0.5%" border-style="solid"
+                                                    Reduced dataset [11 08]:
+                                                    <fo:inline margin-top="1%" border-style="solid"
                                                                border-width="0.5pt">
                                                         &#160;&#160;&#160;&#160;
                                                     </fo:inline>

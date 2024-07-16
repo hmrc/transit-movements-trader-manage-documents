@@ -21,9 +21,9 @@
     </fo:table-cell>
 
     <fo:table-cell number-rows-spanned="1"
-                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
-                   border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                   border-right-style="solid" border-right-width="2pt" border-right-color="black"
+                   border-left-style="solid" border-left-width="2pt" border-left-color="black"
+                   border-bottom-style="solid" border-bottom-width="2pt" border-bottom-color="black"
                    display-align="center" padding-top="-50%">
 
         <fo:block-container
@@ -34,12 +34,12 @@
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
                 margin-bottom="10%m">
-            <fo:block hyphenate="true" margin-left="10%">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
+            <fo:block hyphenate="true" margin-left="10%" font-size="7">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
         </fo:block-container>
     </fo:table-cell>
 
 
-    <fo:table-cell height="2%" border-left-style="solid" border-left-width="1pt" border-left-color="black"
+    <fo:table-cell height="2%" border-left-style="solid" border-left-width="2pt" border-left-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
@@ -239,7 +239,7 @@
                                                             <fo:table-row>
                                                                 <fo:table-cell number-columns-spanned="2">
                                                                     <fo:block margin-left="0.5%">Mode of transport at
-                                                                        border [19 03]
+                                                                        the border [19 03]
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                                 <fo:table-cell display-align="center" margin-left="0.5"

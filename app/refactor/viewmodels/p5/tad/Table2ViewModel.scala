@@ -41,9 +41,13 @@ object Table2ViewModel {
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.take3(_.semiColonSeparate)
 
     new Table2ViewModel(
-      transportEquipment =
-        ie029.Consignment.TransportEquipment.map(_.asP5String).take3(_.semiColonSeparate) + ie029.Consignment.TransportEquipment.flatMap(_.Seal).length,
-      seals = ie029.Consignment.TransportEquipment.flatMap(_.Seal).map(_.asString).take3(_.semiColonSeparate),
+      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).semiColonSeparate.take50,
+      seals = ie029.Consignment.TransportEquipment
+        .flatMap(_.Seal)
+        .map(
+          seal => s"${seal.sequenceNumber}/${seal.identifier}"
+        )
+        .firstAndLast(";"),
       previousDocuments = combine(
         _.PreviousDocument.map(_.asString),
         _.flatMap(_.PreviousDocument).map(_.asString)

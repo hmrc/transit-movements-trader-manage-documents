@@ -15,8 +15,10 @@
         <fo:block/>
     </fo:table-cell>
 
-    <fo:table-cell text-align="center" vertical-align="top" border-top-color="black" border-left-style="solid"
-                   border-left-width="1pt" border-left-color="black">
+    <fo:table-cell text-align="center" vertical-align="top"
+                   border-top-color="black"
+                   border-left-style="solid" border-left-width="2pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="2pt" border-right-color="black">
         <fo:block/>
     </fo:table-cell>
 
@@ -44,8 +46,8 @@
                                     <fo:table-body>
                                         <fo:table-row height="8%">
                                             @local_reference_number(lrn)
-                                            @tir(tirCarnet)
                                             @ucr(referenceNumberUCR)
+                                            @tir(tirCarnet)
                                         </fo:table-row>
                                         <fo:table-row height="17%"> <!-- todo extra 1% needed from somewhere else -->
                                             @bcp()

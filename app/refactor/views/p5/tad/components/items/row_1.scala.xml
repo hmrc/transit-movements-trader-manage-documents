@@ -7,7 +7,7 @@
 
 <fo:table-row height="4mm">
 
-  <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+  <fo:table-cell border-left-style="solid" border-left-width="2pt" border-left-color="black"
                  border-right-style="solid" border-right-width="1pt" border-right-color="black"
                  border-top-style="solid" border-top-width="1pt" border-top-color="black" >
     <fo:block>
@@ -17,26 +17,32 @@
         <fo:table-column column-number="3" column-width="58%"/>
 
         <fo:table-body>
-          <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
-            <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+          <fo:table-row height="2mm"
+                        border-top-style="solid" border-top-width="1pt" border-top-color="black">
+            <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid" border-right-width="2pt" border-right-color="black">
               <fo:block>Decl. goods it Nr. . [11 11]</fo:block>
             </fo:table-cell>
 
-            <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+            <fo:table-cell display-align="center" margin-left="0.5mm"
+                           border-right-style="solid" border-right-width="2pt" border-right-color="black">
               <fo:block>Goods it. Nr [11 03]</fo:block>
             </fo:table-cell>
 
             <fo:table-cell display-align="center" margin-left="0.5mm">
-              <fo:block>Type of number of packages, shipping marks [18 06]</fo:block>
+                <fo:block>Type and number of packages, shipping marks [18 06]</fo:block>
             </fo:table-cell>
           </fo:table-row>
 
           <fo:table-row>
-            <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black">
+            <fo:table-cell margin-left="0.5mm"
+                           border-right-style="solid" border-right-width="2pt" border-right-color="black"
+                           border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                 <fo:block>@declarationGoodsItemNumber</fo:block>
             </fo:table-cell>
 
-            <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
+            <fo:table-cell margin-left="0.5mm"
+                           border-right-style="solid" border-right-width="2pt" border-right-color="black"
+                           border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                 <fo:block>@goodsItemNumber</fo:block>
             </fo:table-cell>
 
@@ -50,7 +56,7 @@
   </fo:table-cell>
 
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                 border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                 border-right-style="solid" border-right-width="2pt" border-right-color="black"
                  border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                  border-bottom-width="1pt" border-bottom-color="black">
     <fo:block>

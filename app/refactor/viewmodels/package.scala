@@ -100,6 +100,7 @@ package object viewmodels {
 
     def dateAndTimeString: String = format("dd/MM/yyyy HH:mm")
     def dateString: String        = format("dd/MM/yyyy")
+    def limitDateString: String   = format("yyyy-MM-dd")
   }
 
   implicit class RichFlag(value: Flag) {

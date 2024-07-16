@@ -32,8 +32,8 @@ class TADPdfGenerator @Inject() (
   documentP5Transition: TransitAccompanyingDocument
 ) {
 
-  def generateP5TADPostTransition(ie029: CC029CType): Array[Byte] =
-    fopService.processTwirlXml(documentP5.render(P5TadPdfViewModel(ie029)))
+  def generateP5TADPostTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
+    fopService.processTwirlXml(documentP5.render(P5TadPdfViewModel(ie015, ie029)))
 
   def generateP5TADTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
     fopService.processTwirlXml(documentP5Transition.render(P4TadPdfViewModel(ie015, ie029)))
