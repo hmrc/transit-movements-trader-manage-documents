@@ -92,7 +92,7 @@
                                                             <fo:table-row>
                                                                 <fo:table-cell margin-left="0.5%" padding-bottom="10%">
                                                                     <fo:block-container height="14%" overflow="hidden">
-                                                                        <fo:block>@seals
+                                                                        <fo:block linefeed-treatment="preserve">@seals
                                                                         </fo:block>
                                                                     </fo:block-container>
                                                                 </fo:table-cell>
