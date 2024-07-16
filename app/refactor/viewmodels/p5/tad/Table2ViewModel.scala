@@ -50,7 +50,7 @@ object Table2ViewModel {
         .firstAndLast(";") + "\n" + ie029.Consignment.TransportEquipment
         .flatMap(_.GoodsReference)
         .map(
-          goodsReference => s"${goodsReference.sequenceNumber}/${goodsReference.declarationGoodsItemNumber}"
+          goodsReference => s"${goodsReference.sequenceNumber},${goodsReference.declarationGoodsItemNumber}"
         )
         .take3(_.semiColonSeparate),
       previousDocuments = combine(
