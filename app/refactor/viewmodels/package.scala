@@ -72,6 +72,8 @@ package object viewmodels {
         f(value.take(n))
       }
 
+    def take1: String                           = takeN(1)(_.mkString)
+    def take2(f: Seq[String] => String): String = takeN(2)(f)
     def take3(f: Seq[String] => String): String = takeN(3)(f)
   }
 

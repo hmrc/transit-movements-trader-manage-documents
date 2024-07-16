@@ -97,7 +97,7 @@ object Table4ViewModel {
 
   def apply(ie029: CC029CType): Table4ViewModel =
     new Table4ViewModel(
-      guaranteeType = ie029.Guarantee.map(_.asP4String).toBeContinued(),
+      guaranteeType = ie029.Guarantee.map(_.guaranteeType).toBeContinued(),
       principal = PrincipalViewModel(ie029.HolderOfTheTransitProcedure),
       departureOffice = ie029.CustomsOfficeOfDeparture.asString,
       acceptanceDate = ie029.TransitOperation.declarationAcceptanceDate.dateString,

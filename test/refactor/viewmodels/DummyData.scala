@@ -160,6 +160,13 @@ trait DummyData extends ScalaxbModelGenerators {
             accessCode = Some("1ac2"),
             amountToBeCovered = Some(BigDecimal(12)),
             currency = Some("1c2")
+          ),
+          GuaranteeReferenceType01(
+            sequenceNumber = "3",
+            GRN = Some("1grn3"),
+            accessCode = Some("1ac3"),
+            amountToBeCovered = Some(BigDecimal(13)),
+            currency = Some("1c3")
           )
         )
       ),
