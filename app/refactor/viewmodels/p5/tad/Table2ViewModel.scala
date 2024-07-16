@@ -47,7 +47,7 @@ object Table2ViewModel {
         .map(
           seal => s"${seal.sequenceNumber}/${seal.identifier}"
         )
-        .firstAndLast(";") + " " + ie029.Consignment.TransportEquipment
+        .firstAndLast(";") + "\n" + ie029.Consignment.TransportEquipment
         .flatMap(_.GoodsReference)
         .map(
           goodsReference => s"${goodsReference.sequenceNumber}/${goodsReference.declarationGoodsItemNumber}"
