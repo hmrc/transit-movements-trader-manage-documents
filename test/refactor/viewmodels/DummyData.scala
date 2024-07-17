@@ -386,6 +386,22 @@ trait DummyData extends ScalaxbModelGenerators {
           identificationNumber = Some("in2"),
           nationality = Some("nat2"),
           conveyanceReferenceNumber = Some("crn2")
+        ),
+        ActiveBorderTransportMeansType01(
+          sequenceNumber = "3",
+          customsOfficeAtBorderReferenceNumber = Some("coabrn3"),
+          typeOfIdentification = Some("toi3"),
+          identificationNumber = Some("in3"),
+          nationality = Some("nat3"),
+          conveyanceReferenceNumber = Some("crn3")
+        ),
+        ActiveBorderTransportMeansType01(
+          sequenceNumber = "4",
+          customsOfficeAtBorderReferenceNumber = Some("coabrn4"),
+          typeOfIdentification = Some("toi4"),
+          identificationNumber = Some("in4"),
+          nationality = Some("nat4"),
+          conveyanceReferenceNumber = Some("crn4")
         )
       ),
       PlaceOfLoading = Some(
