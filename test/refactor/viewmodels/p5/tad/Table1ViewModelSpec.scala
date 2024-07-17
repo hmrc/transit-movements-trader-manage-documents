@@ -86,11 +86,11 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "activeBorderTransportMeans" in {
-      result.activeBorderTransportMeans mustBe "coabrn1, toi1, in1, nat1; coabrn2, toi2, in2, nat2"
+      result.activeBorderTransportMeans mustBe "coabrn1, toi1, in1, nat1; coabrn2, toi2, in2, nat2; coabrn3, toi3, in3, nat3..."
     }
 
     "activeBorderTransportMeansConveyanceNumbers" in {
-      result.activeBorderTransportMeansConveyanceNumbers mustBe "crn1; crn2"
+      result.activeBorderTransportMeansConveyanceNumbers mustBe "crn1; crn2; crn3; crn4"
     }
 
     "placeOfLoading" in {
