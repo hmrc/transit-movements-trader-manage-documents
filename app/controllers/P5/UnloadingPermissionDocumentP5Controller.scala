@@ -46,7 +46,6 @@ class UnloadingPermissionDocumentP5Controller @Inject() (
           val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"
           Ok(bytes)
             .withHeaders(
-              CONTENT_TYPE        -> "application/pdf",
               CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
             )
       }

@@ -85,7 +85,7 @@ class UnloadingPermissionDocumentP5ControllerSpec extends SpecBase with ScalaxbM
 
             status(result) mustEqual OK
             contentAsBytes(result) mustEqual ByteString(byteArray)
-            headers(result).get(CONTENT_TYPE).value mustEqual "application/pdf"
+            contentType(result).value mustEqual "application/octet-stream"
             val mrn = ie043.TransitOperation.MRN
             headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="UPD_$mrn.pdf""""
 
