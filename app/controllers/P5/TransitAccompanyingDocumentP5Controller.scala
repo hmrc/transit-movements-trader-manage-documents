@@ -60,7 +60,6 @@ class TransitAccompanyingDocumentP5Controller @Inject() (
               val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"
               Ok(bytes)
                 .withHeaders(
-                  CONTENT_TYPE        -> "application/pdf",
                   CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
                 )
             }
