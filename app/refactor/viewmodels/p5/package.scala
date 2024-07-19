@@ -488,21 +488,15 @@ package object p5 {
       case SealType04(sequenceNumber, identifier) =>
         s"$sequenceNumber,[$identifier]"
     }
-
-    def asP4String: String = value.identifier
   }
 
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
 
-    def asP4String: String = Seq(
-      Some(value.guaranteeType)
-    ).flatten.commaSeparate
-
     def asString: String = Seq(
       Some(value.sequenceNumber),
       Some(value.guaranteeType),
-      value.otherGuaranteeReference,
-      Some(value.GuaranteeReference.map(_.asString).commaSeparate)
+      Some(value.GuaranteeReference.map(_.asString).take2(_.semiColonSeparate)),
+      value.otherGuaranteeReference
     ).flatten.commaSeparate
   }
 

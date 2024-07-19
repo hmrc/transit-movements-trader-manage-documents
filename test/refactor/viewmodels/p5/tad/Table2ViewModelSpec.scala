@@ -164,7 +164,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "guarantees" in {
-      result.guarantees mustBe "1, g1, ogr1, 1, 1grn1, 1ac1, 11.0, 1c1, 2, 1grn2, 1ac2, 12.0, 1c2; 2, g2, ogr2, 1, 2grn1, 2ac1, 2..."
+      result.guarantees mustBe "1, g1, 1, 1grn1, 1ac1, 11.0, 1c1; 2, 1grn2, 1ac2, 12.0, 1c2..., ogr1..."
     }
 
     "authorisations" in {
