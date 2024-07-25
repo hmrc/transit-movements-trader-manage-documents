@@ -49,7 +49,7 @@
 
                                         </fo:block>
                                     </fo:block-container>
-                                    <fo:block-container height="4%" overflow="hidden">
+                                    <fo:block-container  overflow="hidden">
                                         <fo:block font-size="6" font-weight="bold">@(hc.grossMass)</fo:block>
                                     </fo:block-container>
                                 </fo:table-cell>
