@@ -21,6 +21,8 @@ import refactor.viewmodels.DummyData
 
 class Table1ViewModelSpec extends SpecBase with DummyData {
 
+  val lineWithSpaces = " " * 80
+
   "must map data to view model" - {
 
     val result = Table1ViewModel(cc029c)
@@ -30,7 +32,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "consignees" in {
-      result.consignees mustBe "name, san, pc, city, country"
+      result.consignees mustBe "name, san, pc, city, country" + lineWithSpaces
     }
 
     "consigneeIdentificationNumbers" in {
@@ -38,7 +40,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "consignors" in {
-      result.consignors mustBe "name, san, pc, city, country"
+      result.consignors mustBe "name, san, pc, city, country" + lineWithSpaces * 2
     }
 
     "consignorIdentificationNumbers" in {
@@ -46,7 +48,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "consignorContactPersons" in {
-      result.consignorContactPersons mustBe "ccp, ccptel, ccpemail"
+      result.consignorContactPersons mustBe "ccp, ccptel, ccpemail" + lineWithSpaces
     }
 
     "declarationType" in {
@@ -54,7 +56,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "holderOfTransitProcedure" in {
-      result.holderOfTransitProcedure mustBe "thin, hn, san, pc, city, country"
+      result.holderOfTransitProcedure mustBe "thin, hn, san, pc, city, country" + lineWithSpaces * 2
     }
 
     "holderOfTransitProcedureIdentificationNumber" in {
@@ -78,11 +80,11 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "additionalSupplyChainActorIdentificationNumbers" in {
-      result.additionalSupplyChainActorIdentificationNumbers mustBe "id1; id2"
+      result.additionalSupplyChainActorIdentificationNumbers mustBe "id1; id2" + lineWithSpaces
     }
 
     "departureTransportMeans" in {
-      result.departureTransportMeans mustBe "toi1, in1, nat1; toi2, in2, nat2; toi3, in3, na..."
+      result.departureTransportMeans mustBe "toi1, in1, nat1; toi2, in2, nat2; toi3, in3, nat3..." + lineWithSpaces * 2
     }
 
     "activeBorderTransportMeans" in {
@@ -94,11 +96,11 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "placeOfLoading" in {
-      result.placeOfLoading mustBe "polunl, polc, poll"
+      result.placeOfLoading mustBe "polunl, polc, poll" + lineWithSpaces
     }
 
     "placeOfUnloading" in {
-      result.placeOfUnloading mustBe "pouunl, pouc, poul"
+      result.placeOfUnloading mustBe "pouunl, pouc, poul" + lineWithSpaces
     }
 
     "modeOfTransportAtBorder" in {
