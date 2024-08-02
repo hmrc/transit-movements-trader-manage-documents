@@ -106,7 +106,7 @@
 
                     <!-- Departure transport means 8% -->
 
-                    <fo:table-row height="2%" border-top-style="solid" border-top-width="1pt" border-top-color="b;ack">
+                    <fo:table-row height="2%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
