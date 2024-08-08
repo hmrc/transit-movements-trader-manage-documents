@@ -31,9 +31,9 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" padding-bottom="5%">
+                        <fo:table-cell margin-left="0.5%" padding-bottom="0%">
                             <fo:block-container height="14%" overflow="hidden">
-                                <fo:block>@supportingDocuments</fo:block>
+                                <fo:block white-space="pre" wrap-option="wrap">@supportingDocuments</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -95,8 +95,8 @@
 
 
                                         <fo:table-row>
-                                            <fo:table-cell margin-left="0.5%">
-                                                <fo:block-container height="6%" overflow="hidden" padding-bottom="5%">
+                                            <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                                                <fo:block-container height="6%" overflow="hidden" padding-bottom="2.1%">
                                                     <fo:block>@additionalInformation
                                                     </fo:block>
                                                 </fo:block-container>

@@ -45,10 +45,10 @@
 
                     <fo:table-row>
                         <fo:table-cell>
-                            <fo:block-container height="10%" overflow="hidden" padding-bottom="5%"
+                            <fo:block-container height="10%" overflow="hidden" padding-bottom="2.7%"
                                                 border-bottom-style="solid" border-bottom-width="1pt"
                                                 border-bottom-color="black">
-                                <fo:block margin-left="1%">@guarantees</fo:block>
+                                <fo:block white-space="pre" wrap-option="wrap" margin-left="1%">@guarantees</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

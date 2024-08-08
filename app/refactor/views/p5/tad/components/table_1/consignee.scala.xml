@@ -10,7 +10,7 @@
             <fo:table-body>
                 <fo:table-row height="100%">
                     <fo:table-cell display-align="center" margin-left="0.5%">
-                        <fo:block>Consignee [13 02]</fo:block>
+                        <fo:block>Consignee [13 03]</fo:block>
                     </fo:table-cell>
 
                     <fo:table-cell display-align="center" margin-left="1%">
@@ -23,7 +23,7 @@
 
                     <fo:table-cell margin-left="0.5%">
                         <fo:block-container height="2%" overflow="hidden">
-                            <fo:block>@consignee</fo:block>
+                            <fo:block white-space="pre" wrap-option="wrap">@consignee</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 

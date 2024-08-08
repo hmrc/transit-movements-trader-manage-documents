@@ -24,6 +24,8 @@ import refactor.viewmodels.DummyData
 
 class Table2ViewModelSpec extends SpecBase with DummyData {
 
+  val lineWithSpaces = " " * 160
+
   "must map data to view model" - {
 
     val cc029cP5 = cc029c.copy(Consignment =
@@ -128,7 +130,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     val result = Table2ViewModel(cc029cP5)
 
     "transportEquipment" in {
-      result.transportEquipment mustBe "1, cin1, 2, 1:1; 2, cin2, 3, 2:2; 3, cin3, 3, 3..."
+      result.transportEquipment mustBe "1, cin1, 2, 1:1; 2, cin2, 3, 2:2; 3, cin3, 3, 3:3..." + lineWithSpaces
     }
 
     "seals" in {
@@ -140,15 +142,15 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "previousDocuments" in {
-      result.previousDocuments mustBe "1, ptv1, prn1, pcoi1; 2, ptv2, prn2, pcoi1; 3, ptv3, prn3, pcoi1..."
+      result.previousDocuments mustBe "1, ptv1, prn1, pcoi1; 2, ptv2, prn2, pcoi1; 3, ptv3, prn3, pcoi1..." + lineWithSpaces
     }
 
     "transportDocuments" in {
-      result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2; 3, ttv3, trn3..."
+      result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2; 3, ttv3, trn3..." + lineWithSpaces
     }
 
     "supportingDocuments" in {
-      result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1; 2, stv2, srn2, 1, scoi1; 3, stv3, srn3, 1, scoi3..."
+      result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1; 2, stv2, srn2, 1, scoi1; 3, stv3, srn3, 1, scoi3..." + lineWithSpaces
     }
 
     "additionalReferences" in {
@@ -164,7 +166,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
     }
 
     "guarantees" in {
-      result.guarantees mustBe "1, g1, 1, 1grn1, 1ac1, 11.0, 1c1; 2, 1grn2, 1ac2, 12.0, 1c2..., ogr1..."
+      result.guarantees mustBe "1, g1, 1, 1grn1, 1ac1, 11.0, 1c1; 2, 1grn2, 1ac2, 12.0, 1c2..., ogr1..." + lineWithSpaces
     }
 
     "authorisations" in {

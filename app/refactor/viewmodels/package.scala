@@ -27,18 +27,71 @@ package object viewmodels {
 
   implicit class RichString(value: String) {
 
-    def takeN(n: Int, chars: String = "..."): String =
+    val Ellipsis = "..."
+    // approximate values since we don't use a fixed width font
+    val NarrowLineCharLength             = 45
+    val NarrowLineCharLength_2Lines      = NarrowLineCharLength * 2
+    val NarrowLineCharLength_3Lines      = NarrowLineCharLength * 3
+    val NarrowLineBlankCharLength        = 80 // a line with only spaces need approx. 80 characters
+    val NarrowLineBlankCharLength_2Lines = NarrowLineBlankCharLength * 2
+    val WideLineCharLength               = NarrowLineCharLength * 2
+    val WideLineCharLength_2Lines        = WideLineCharLength * 2
+
+    def takeN(n: Int, chars: String = Ellipsis): String =
       if (value.length > n) {
         value.take(n - 3) + chars
       } else {
         value
       }
 
+    def ellipsisAfterMax(max: Int): String =
+      if (value.length > max) {
+        value.take(max - 3) + Ellipsis
+      } else {
+        value
+      }
+
+    def adjustFor3NarrowLines: String =
+      if (value.length >= NarrowLineCharLength_3Lines) {
+        value.take(NarrowLineCharLength_3Lines - 3) + Ellipsis
+      } else {
+        padTo3rdLine_narrowCell
+      }
+
+    def adjustFor2NarrowLines: String =
+      if (value.length >= NarrowLineCharLength_2Lines) {
+        value.take(NarrowLineCharLength_2Lines - 3) + Ellipsis
+      } else {
+        padTo2ndLine_narrowCell
+      }
+
+    def adjustFor2WideLines: String =
+      if (value.length >= WideLineCharLength_2Lines) {
+        value.take(WideLineCharLength_2Lines - 3) + Ellipsis
+      } else {
+        padTo2ndLine_wideCell
+      }
+
+    def padTo2ndLine_wideCell: String =
+      if (value.length < NarrowLineCharLength_2Lines) value + " " * NarrowLineBlankCharLength_2Lines
+      else value
+
+    def padTo2ndLine_narrowCell: String =
+      if (value.length < NarrowLineCharLength) value + " " * NarrowLineBlankCharLength
+      else value
+
+    def padTo3rdLine_narrowCell: String =
+      if (value.length < NarrowLineCharLength) value + " " * NarrowLineBlankCharLength_2Lines
+      else if (value.length < NarrowLineCharLength_2Lines) value + " " * NarrowLineBlankCharLength
+      else value
+
     def take10: String  = takeN(10)
     def take20: String  = takeN(20)
     def take30: String  = takeN(30)
+    def take45: String  = takeN(45)
     def take50: String  = takeN(50)
     def take60: String  = takeN(60)
+    def take90: String  = takeN(90)
     def take100: String = takeN(100)
     def take200: String = takeN(200)
   }

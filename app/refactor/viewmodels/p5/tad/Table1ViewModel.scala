@@ -64,28 +64,29 @@ object Table1ViewModel {
 
     new Table1ViewModel(
       additionalDeclarationType = ie029.TransitOperation.additionalDeclarationType.take10,
-      consignees = consignees.map(_.asString.take200).semiColonSeparate,
-      consigneeIdentificationNumbers = consignees.flatMap(_.identificationNumber.map(_.take20)).semiColonSeparate,
-      consignors = consignors.map(_.asString.take200).semiColonSeparate,
-      consignorIdentificationNumbers = consignors.flatMap(_.identificationNumber.map(_.take20)).semiColonSeparate,
-      consignorContactPersons = consignors.flatMap(_.ContactPerson.map(_.asString.take100)).semiColonSeparate,
+      consignees = consignees.map(_.asString).semiColonSeparate.adjustFor2NarrowLines,
+      consigneeIdentificationNumbers = consignees.flatMap(_.identificationNumber).semiColonSeparate,
+      consignors = consignors.map(_.asString).semiColonSeparate.adjustFor3NarrowLines,
+      consignorIdentificationNumbers = consignors.flatMap(_.identificationNumber).semiColonSeparate,
+      consignorContactPersons = consignors.flatMap(_.ContactPerson.map(_.asString)).semiColonSeparate.adjustFor2NarrowLines,
       declarationType = ie029.TransitOperation.declarationType,
-      holderOfTransitProcedure = ie029.HolderOfTheTransitProcedure.asString,
+      holderOfTransitProcedure = ie029.HolderOfTheTransitProcedure.asString.adjustFor3NarrowLines,
       holderOfTransitProcedureIdentificationNumber = ie029.HolderOfTheTransitProcedure.identificationNumber.orElseBlank,
       representative = ie029.Representative.map(_.asString).orElseBlank,
       representativeIdentificationNumber = ie029.Representative.map(_.identificationNumber).orElseBlank,
       lrn = ie029.TransitOperation.LRN,
       carrierIdentificationNumber = ie029.Consignment.Carrier.map(_.identificationNumber).orElseBlank.take20,
       additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).semiColonSeparate.take30,
-      additionalSupplyChainActorIdentificationNumbers = ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate.take20,
-      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).take3(_.semiColonSeparate).take50,
-      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).take3(_.semiColonSeparate).take100,
-      activeBorderTransportMeansConveyanceNumbers = ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).semiColonSeparate,
-      placeOfLoading = ie029.Consignment.PlaceOfLoading.map(_.asString).orElseBlank.take20,
-      placeOfUnloading = ie029.Consignment.PlaceOfUnloading.map(_.asString).orElseBlank.take20,
+      additionalSupplyChainActorIdentificationNumbers =
+        ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate.adjustFor2NarrowLines,
+      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).take3(_.semiColonSeparate).adjustFor2WideLines,
+      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).take3(_.semiColonSeparate).take90,
+      activeBorderTransportMeansConveyanceNumbers = ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).semiColonSeparate.take45,
+      placeOfLoading = ie029.Consignment.PlaceOfLoading.map(_.asString).orElseBlank.adjustFor2NarrowLines,
+      placeOfUnloading = ie029.Consignment.PlaceOfUnloading.map(_.asString).orElseBlank.adjustFor2NarrowLines,
       modeOfTransportAtBorder = ie029.Consignment.modeOfTransportAtTheBorder.orElseBlank.take20,
       inlandModeOfTransport = ie029.Consignment.inlandModeOfTransport.orElseBlank.take20,
-      locationOfGoods = ie029.Consignment.LocationOfGoods.map(_.asString).orElseBlank.take100,
+      locationOfGoods = ie029.Consignment.LocationOfGoods.map(_.asString).orElseBlank,
       locationOfGoodsContactPerson = ie029.Consignment.LocationOfGoods.flatMap(_.ContactPerson.map(_.asString)).orElseBlank.take100,
       specificCircumstanceIndicator = ie029.TransitOperation.specificCircumstanceIndicator.orElseBlank.take10,
       security = ie029.TransitOperation.security,
@@ -93,7 +94,7 @@ object Table1ViewModel {
       totalGrossMass = ie029.Consignment.grossMass.asString,
       totalItems = ie029.numberOfItems.toString,
       totalPackages = ie029.numberOfPackages.toString(),
-      ucr = ie029.Consignment.referenceNumberUCR.orElseBlank
+      ucr = ie029.Consignment.referenceNumberUCR.orElseBlank.ellipsisAfterMax(30)
     )
   }
 }

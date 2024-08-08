@@ -28,7 +28,7 @@
 
                     <fo:table-cell margin-left="0.5%">
                         <fo:block-container height="2%" overflow="hidden">
-                            <fo:block>@holderOfTransitProcedure</fo:block>
+                            <fo:block white-space="pre" wrap-option="wrap">@holderOfTransitProcedure</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 
@@ -41,7 +41,7 @@
                 </fo:table-row>
 
                 <fo:table-row height="2%">
-                    <fo:table-cell margin-left="0.5%" padding-top="11%">
+                    <fo:table-cell margin-left="0.5%" padding-top="4.2%" padding-bottom="2%">
                         <fo:block>
                             Contact person [13 02 074]
                         </fo:block>

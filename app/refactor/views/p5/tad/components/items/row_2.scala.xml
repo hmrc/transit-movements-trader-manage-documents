@@ -28,7 +28,9 @@
 
                     <fo:table-row height="6mm">
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block>@consignor</fo:block>
+                            <fo:block-container white-space="pre" wrap-option="wrap" overflow="hidden">
+                                <fo:block>@consignor</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
                             <fo:block>@consignorId</fo:block>

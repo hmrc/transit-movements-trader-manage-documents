@@ -91,14 +91,14 @@
                     <fo:table-row>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block-container height="2%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@additionalSupplyChainActorRoles</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" padding-bottom="4%">
-                            <fo:block-container height="2%" overflow="hidden">
-                                <fo:block>@additionalSupplyChainActorIdentificationNumbers
+                        <fo:table-cell margin-left="0.5%" padding-bottom="-0.7%" number-columns-spanned="2">
+                            <fo:block-container>
+                                <fo:block white-space="pre" wrap-option="wrap">@additionalSupplyChainActorIdentificationNumbers
                                 </fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -113,9 +113,9 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" padding-bottom="4%">
+                        <fo:table-cell margin-left="0.5%" padding-bottom="1.55%" number-columns-spanned="3">
                             <fo:block-container height="6%" overflow="hidden">
-                                <fo:block>@departureTransportMeans</fo:block>
+                                <fo:block white-space="pre" wrap-option="wrap">@departureTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -142,8 +142,8 @@
                                 Conveyance reference number [19 02]
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%" padding-top="4%">
-                            <fo:block-container height="2%" overflow="hidden">
+                        <fo:table-cell margin-left="0.5%" padding-top="4%" number-columns-spanned="2">
+                            <fo:block-container height="2%">
                                 <fo:block>@activeBorderTransportMeansConveyanceNumbers
                                 </fo:block>
                             </fo:block-container>
@@ -174,25 +174,26 @@
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block>
-                                                    <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-column/>
-                                                        <fo:table-column/>
+                                                    <fo:table height="60%" width="100%" table-layout="fixed">
+                                                        <fo:table-column column-number="1" column-width="100%"/>
                                                         <fo:table-body>
-                                                            <fo:table-row height="4%">
-                                                                <fo:table-cell number-columns-spanned="1">
-                                                                    <fo:block margin-top="0.5%" margin-left="0.5%">Place
-                                                                        of loading [16 13]
-                                                                    </fo:block>
+                                                            <fo:table-row height="100%">
+                                                                <fo:table-cell display-align="center" margin-left="0.5%">
+                                                                    <fo:block>Place of loading [16 13]</fo:block>
                                                                 </fo:table-cell>
+
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="4" height="10%"
-                                                                          padding-bottom="1%">
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block padding-bottom="33%">
-                                                                        @placeOfLoading
-                                                                    </fo:block>
+
+                                                            <fo:table-row>
+
+                                                                <fo:table-cell margin-left="0.5%" padding-bottom="12.5%">
+                                                                    <fo:block-container height="2%" overflow="hidden">
+                                                                        <fo:block white-space="pre" wrap-option="wrap">@placeOfLoading</fo:block>
+                                                                    </fo:block-container>
                                                                 </fo:table-cell>
+
                                                             </fo:table-row>
+
                                                         </fo:table-body>
                                                     </fo:table>
                                                 </fo:block>
@@ -205,25 +206,26 @@
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block>
-                                                    <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-column/>
-                                                        <fo:table-column/>
+                                                    <fo:table height="60%" width="100%" table-layout="fixed">
+                                                        <fo:table-column column-number="1" column-width="100%"/>
                                                         <fo:table-body>
-                                                            <fo:table-row height="4%">
-                                                                <fo:table-cell number-columns-spanned="1">
-                                                                    <fo:block margin-top="0.5%" margin-left="0.5%">Place
-                                                                        of unloading [16 14]
-                                                                    </fo:block>
+                                                            <fo:table-row height="100%">
+                                                                <fo:table-cell display-align="center" margin-left="0.5%">
+                                                                    <fo:block>Place of unloading [16 14]</fo:block>
                                                                 </fo:table-cell>
+
                                                             </fo:table-row>
-                                                            <fo:table-row number-columns-spanned="4" height="20%"
-                                                                          padding-bottom="1%">
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block padding-bottom="33%">
-                                                                        @placeOfUnloading
-                                                                    </fo:block>
+
+                                                            <fo:table-row>
+
+                                                                <fo:table-cell margin-left="0.5%" padding-bottom="12.5%">
+                                                                    <fo:block-container height="2%" overflow="hidden">
+                                                                        <fo:block white-space="pre" wrap-option="wrap">@placeOfUnloading</fo:block>
+                                                                    </fo:block-container>
                                                                 </fo:table-cell>
+
                                                             </fo:table-row>
+
                                                         </fo:table-body>
                                                     </fo:table>
                                                 </fo:block>
