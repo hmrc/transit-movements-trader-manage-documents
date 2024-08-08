@@ -42,7 +42,7 @@ object Table2ViewModel {
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.take3(_.semiColonSeparate)
 
     new Table2ViewModel(
-      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).semiColonSeparate.take50,
+      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).take3(_.semiColonSeparate).adjustFor2WideLines,
       seals = ie029.Consignment.TransportEquipment
         .flatMap(_.Seal)
         .map(
@@ -58,22 +58,22 @@ object Table2ViewModel {
       previousDocuments = combine(
         _.PreviousDocument.map(_.asString),
         _.flatMap(_.PreviousDocument).map(_.asString)
-      ).take100,
+      ).adjustFor2WideLines,
       transportDocuments = combine(
         _.TransportDocument.map(_.asString),
         _.flatMap(_.TransportDocument).map(_.asString)
-      ).take100,
+      ).adjustFor2WideLines,
       supportingDocuments = combine(
         _.SupportingDocument.map(_.asString),
         _.flatMap(_.SupportingDocument).map(_.asString)
-      ).take100,
-      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asString).take3(_.semiColonSeparate),
+      ).adjustFor2WideLines,
+      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asString).take3(_.semiColonSeparate).take90,
       transportCharges = combine(
         _.TransportCharges.map(_.asString).toSeq,
         _.flatMap(_.TransportCharges).map(_.asString)
       ).take20,
-      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asString).take3(_.semiColonSeparate),
-      guarantees = ie029.Guarantee.map(_.asString).take2(_.semiColonSeparate),
+      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asString).take3(_.semiColonSeparate).take90,
+      guarantees = ie029.Guarantee.map(_.asString).take2(_.semiColonSeparate).adjustFor2WideLines,
       authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate)
     )
   }

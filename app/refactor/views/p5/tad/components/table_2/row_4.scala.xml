@@ -35,8 +35,8 @@
 
                                         <fo:table-row>
                                             <fo:table-cell>
-                                                <fo:block-container overflow="hidden">
-                                                    <fo:block margin-left="1%">@guarantees</fo:block>
+                                                <fo:block-container height="10%" overflow="hidden" padding-bottom="2.7%">
+                                                    <fo:block white-space="pre" wrap-option="wrap" margin-left="1%">@guarantees</fo:block>
                                                 </fo:block-container>
                                             </fo:table-cell>
                                         </fo:table-row>
