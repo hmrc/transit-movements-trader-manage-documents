@@ -17,9 +17,7 @@
 package refactor.viewmodels.p5.tad
 
 import base.SpecBase
-import generated.p5.GoodsReferenceType02
-import generated.p5.SealType04
-import generated.p5.TransportEquipmentType05
+import generated.p5._
 import refactor.viewmodels.DummyData
 
 class Table2ViewModelSpec extends SpecBase with DummyData {
@@ -163,8 +161,129 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
       result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2; 3, aic3, ait3..."
     }
 
-    "guarantees" in {
-      result.guarantees mustBe "1, g1, 1, 1grn1, 1ac1, 11.0, 1c1; 2, 1grn2, 1ac2, 12.0, 1c2..., ogr1..."
+    "guarantees" - {
+      def guaranteeReference(j: Int): Int => GuaranteeReferenceType01 = i =>
+        GuaranteeReferenceType01(
+          sequenceNumber = j.toString,
+          GRN = Some(s"${i}grn$j"),
+          accessCode = Some(s"${i}ac$j"),
+          amountToBeCovered = Some(BigDecimal(s"$i$j")),
+          currency = Some(s"${i}c$j")
+        )
+
+      def guarantee(i: Int, guaranteeReferences: Seq[Int => GuaranteeReferenceType01]): GuaranteeType03 =
+        GuaranteeType03(
+          sequenceNumber = i.toString,
+          guaranteeType = s"g$i",
+          otherGuaranteeReference = Some(s"ogr$i"),
+          GuaranteeReference = guaranteeReferences.map(_(i))
+        )
+
+      "when 1 guarantee with 1 guarantee reference" in {
+        val data = cc029c.copy(
+          Guarantee = Seq(
+            guarantee(
+              1,
+              Seq(
+                guaranteeReference(1)
+              )
+            )
+          )
+        )
+        val result = Table2ViewModel(data)
+        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1, ogr1"
+      }
+
+      "when 1 guarantee with 2 guarantee reference" in {
+        val data = cc029c.copy(
+          Guarantee = Seq(
+            guarantee(
+              1,
+              Seq(
+                guaranteeReference(1),
+                guaranteeReference(2)
+              )
+            )
+          )
+        )
+        val result = Table2ViewModel(data)
+        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2, ogr1"
+      }
+
+      "when 1 guarantee with 3 guarantee reference" in {
+        val data = cc029c.copy(
+          Guarantee = Seq(
+            guarantee(
+              1,
+              Seq(
+                guaranteeReference(1),
+                guaranteeReference(2),
+                guaranteeReference(3)
+              )
+            )
+          )
+        )
+        val result = Table2ViewModel(data)
+        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2..., ogr1"
+      }
+
+      "when 2 guarantees with 3 guarantee references" in {
+        val data = cc029c.copy(
+          Guarantee = Seq(
+            guarantee(
+              1,
+              Seq(
+                guaranteeReference(1),
+                guaranteeReference(2),
+                guaranteeReference(3)
+              )
+            ),
+            guarantee(
+              2,
+              Seq(
+                guaranteeReference(1),
+                guaranteeReference(2),
+                guaranteeReference(3)
+              )
+            )
+          )
+        )
+        val result = Table2ViewModel(data)
+        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2..., ogr1; 2, g2, 1, 2grn1, 21.0, 2c1; 2, 2grn2, 22.0, 2c2..., ogr2"
+      }
+
+      "when 3 guarantees with 3 guarantee references" in {
+        val data = cc029c.copy(
+          Guarantee = Seq(
+            guarantee(
+              1,
+              Seq(
+                guaranteeReference(1),
+                guaranteeReference(2),
+                guaranteeReference(3)
+              )
+            ),
+            guarantee(
+              2,
+              Seq(
+                guaranteeReference(1),
+                guaranteeReference(2),
+                guaranteeReference(3)
+              )
+            ),
+            guarantee(
+              3,
+              Seq(
+                guaranteeReference(1),
+                guaranteeReference(2),
+                guaranteeReference(3)
+              )
+            )
+          )
+        )
+        val result = Table2ViewModel(data)
+        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2..., ogr1; 2, g2, 1, 2grn1, 21.0, 2c1; 2, 2grn2, 22.0, 2c2..., ogr2..."
+      }
     }
 
     "authorisations" in {
