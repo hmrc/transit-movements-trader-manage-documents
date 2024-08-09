@@ -23,7 +23,7 @@ import refactor.viewmodels.p5._
 case class Table2ViewModel(
   transportEquipment: String,
   seals: String,
-  goodsReference: String,
+  goodsReferences: String,
   previousDocuments: String,
   transportDocuments: String,
   supportingDocuments: String,
@@ -49,7 +49,7 @@ object Table2ViewModel {
           seal => s"${seal.sequenceNumber}/${seal.identifier}"
         )
         .firstAndLast(";"),
-      goodsReference = ie029.Consignment.TransportEquipment
+      goodsReferences = ie029.Consignment.TransportEquipment
         .flatMap(_.GoodsReference)
         .map(
           goodsReference => s"${goodsReference.sequenceNumber},${goodsReference.declarationGoodsItemNumber}"
@@ -73,7 +73,7 @@ object Table2ViewModel {
         _.flatMap(_.TransportCharges).map(_.asString)
       ).take20,
       additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asString).take3(_.semiColonSeparate).take90,
-      guarantees = ie029.Guarantee.map(_.asString).take1.adjustFor2WideLines,
+      guarantees = ie029.Guarantee.map(_.asString).take2(_.semiColonSeparate).adjustFor2WideLines,
       authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate)
     )
   }

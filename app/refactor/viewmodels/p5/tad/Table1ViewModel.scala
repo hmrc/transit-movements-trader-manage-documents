@@ -94,7 +94,7 @@ object Table1ViewModel {
       totalGrossMass = ie029.Consignment.grossMass.asString,
       totalItems = ie029.numberOfItems.toString,
       totalPackages = ie029.numberOfPackages.toString(),
-      ucr = ie029.Consignment.referenceNumberUCR.orElseBlank.ellipsisAfterMax(30)
+      ucr = ie029.Consignment.referenceNumberUCR.orElseBlank.take30
     )
   }
 }

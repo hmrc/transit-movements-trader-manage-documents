@@ -20,7 +20,7 @@
         @row_1(
             vm.transportEquipment,
             vm.seals,
-            vm.goodsReference
+            vm.goodsReferences
         )
         
         @row_2(

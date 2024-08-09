@@ -9,7 +9,7 @@
 @(
     transportEquipment: String,
     seals: String,
-    goodsReference: String
+    goodsReferences: String
 )
 
 <fo:table-row height="16%">
@@ -95,7 +95,7 @@
                                                                     <fo:block-container height="14%" overflow="hidden">
                                                                         <fo:block>@seals
                                                                         </fo:block>
-                                                                        <fo:block>@goodsReference
+                                                                        <fo:block>@goodsReferences
                                                                         </fo:block>
                                                                     </fo:block-container>
                                                                 </fo:table-cell>

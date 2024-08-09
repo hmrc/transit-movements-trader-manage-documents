@@ -17,11 +17,15 @@
 package refactor.viewmodels.p5.tad
 
 import base.SpecBase
+import generated.p5._
+import generators.ScalaxbModelGenerators
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import refactor.viewmodels.DummyData
 
-class Table1ViewModelSpec extends SpecBase with DummyData {
+class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks with ScalaxbModelGenerators {
 
-  val lineWithSpaces = " " * 80
+  private val lineWithSpaces = " " * 80
 
   "must map data to view model" - {
 
@@ -31,16 +35,237 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
       result.additionalDeclarationType mustBe "adt"
     }
 
-    "consignees" in {
-      result.consignees mustBe "name, san, pc, city, country" + lineWithSpaces
+    "consignees" - {
+      def consignee(i: Int): ConsigneeType04 =
+        ConsigneeType04(
+          identificationNumber = Some(s"in$i"),
+          name = Some(s"name$i"),
+          Address = Some(
+            AddressType07(
+              streetAndNumber = s"san$i",
+              postcode = Some(s"pc$i"),
+              city = s"city$i",
+              country = s"country$i"
+            )
+          )
+        )
+
+      "when 1 consignee (spanning 1 narrow line out of available 2)" in {
+        val data = cc029c.copy(
+          Consignment = cc029c.Consignment.copy(
+            Consignee = Some(
+              consignee(1)
+            )
+          )
+        )
+        val result = Table1ViewModel(data)
+        result.consignees mustBe "name1, san1, pc1, city1, country1" + lineWithSpaces
+      }
+
+      "when 2 consignees (spanning 2 narrow lines out of available 2)" in {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+          (ie029, houseConsignment) =>
+            val data = ie029.copy(
+              Consignment = ie029.Consignment.copy(
+                Consignor = None,
+                HouseConsignment = Seq(
+                  houseConsignment.copy(
+                    Consignee = Some(
+                      consignee(1)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignee = Some(
+                      consignee(2)
+                    )
+                  )
+                )
+              )
+            )
+            val result = Table1ViewModel(data)
+            result.consignees mustBe "name1, san1, pc1, city1, country1; name2, san2, pc2, city2, country2"
+        }
+      }
+
+      "when 3 consignees (spanning more than the available 2 narrow lines)" in {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+          (ie029, houseConsignment) =>
+            val data = ie029.copy(
+              Consignment = ie029.Consignment.copy(
+                Consignor = None,
+                HouseConsignment = Seq(
+                  houseConsignment.copy(
+                    Consignee = Some(
+                      consignee(1)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignee = Some(
+                      consignee(2)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignee = Some(
+                      consignee(3)
+                    )
+                  )
+                )
+              )
+            )
+            val result = Table1ViewModel(data)
+            result.consignees mustBe "name1, san1, pc1, city1, country1; name2, san2, pc2, city2, country2; name3, san3, pc3,..."
+        }
+      }
     }
 
     "consigneeIdentificationNumbers" in {
       result.consigneeIdentificationNumbers mustBe "in"
     }
 
-    "consignors" in {
-      result.consignors mustBe "name, san, pc, city, country" + lineWithSpaces * 2
+    "consignors" - {
+      def consignorType03(i: Int): ConsignorType03 =
+        ConsignorType03(
+          identificationNumber = Some(s"in$i"),
+          name = Some(s"name$i"),
+          Address = Some(
+            AddressType07(
+              streetAndNumber = s"san$i",
+              postcode = Some(s"pc$i"),
+              city = s"city$i",
+              country = s"country$i"
+            )
+          ),
+          ContactPerson = Some(
+            ContactPersonType01(
+              name = s"ccp$i",
+              phoneNumber = s"ccptel$i",
+              eMailAddress = Some(s"ccpemail$i")
+            )
+          )
+        )
+
+      def consignorType04(i: Int): ConsignorType04 =
+        ConsignorType04(
+          identificationNumber = Some(s"in$i"),
+          name = Some(s"name$i"),
+          Address = Some(
+            AddressType07(
+              streetAndNumber = s"san$i",
+              postcode = Some(s"pc$i"),
+              city = s"city$i",
+              country = s"country$i"
+            )
+          ),
+          ContactPerson = Some(
+            ContactPersonType01(
+              name = s"ccp$i",
+              phoneNumber = s"ccptel$i",
+              eMailAddress = Some(s"ccpemail$i")
+            )
+          )
+        )
+
+      "when 1 consignor (spanning 1 narrow line out of available 3)" in {
+        val data = cc029c.copy(
+          Consignment = cc029c.Consignment.copy(
+            Consignor = Some(
+              consignorType03(1)
+            )
+          )
+        )
+        val result = Table1ViewModel(data)
+        result.consignors mustBe "name1, san1, pc1, city1, country1" + lineWithSpaces * 2
+      }
+
+      "when 2 consignors (spanning 2 narrow lines out of available 3)" in {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+          (ie029, houseConsignment) =>
+            val data = ie029.copy(
+              Consignment = ie029.Consignment.copy(
+                Consignor = None,
+                HouseConsignment = Seq(
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(1)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(2)
+                    )
+                  )
+                )
+              )
+            )
+            val result = Table1ViewModel(data)
+            result.consignors mustBe "name1, san1, pc1, city1, country1; name2, san2, pc2, city2, country2" + lineWithSpaces
+        }
+      }
+
+      "when 3 consignors (spanning 3 narrow lines out of available 3)" in {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+          (ie029, houseConsignment) =>
+            val data = ie029.copy(
+              Consignment = ie029.Consignment.copy(
+                Consignor = None,
+                HouseConsignment = Seq(
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(1)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(2)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(3)
+                    )
+                  )
+                )
+              )
+            )
+            val result = Table1ViewModel(data)
+            result.consignors mustBe "name1, san1, pc1, city1, country1; name2, san2, pc2, city2, country2; name3, san3, pc3, city3, country3"
+        }
+      }
+
+      "when 4 consignors (spanning more than the available 3 narrow lines)" in {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+          (ie029, houseConsignment) =>
+            val data = ie029.copy(
+              Consignment = ie029.Consignment.copy(
+                Consignor = None,
+                HouseConsignment = Seq(
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(1)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(2)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(3)
+                    )
+                  ),
+                  houseConsignment.copy(
+                    Consignor = Some(
+                      consignorType04(4)
+                    )
+                  )
+                )
+              )
+            )
+            val result = Table1ViewModel(data)
+            result.consignors mustBe "name1, san1, pc1, city1, country1; name2, san2, pc2, city2, country2; name3, san3, pc3, city3, country3; name4, san4, pc4, city4, co..."
+        }
+      }
     }
 
     "consignorIdentificationNumbers" in {
