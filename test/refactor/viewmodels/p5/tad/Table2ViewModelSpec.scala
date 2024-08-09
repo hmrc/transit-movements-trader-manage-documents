@@ -25,7 +25,7 @@ import refactor.viewmodels.DummyData
 
 class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks with ScalaxbModelGenerators {
 
-  val lineWithSpaces = " " * 160
+  private val lineWithSpaces = " " * 160
 
   "must map data to view model" - {
 
