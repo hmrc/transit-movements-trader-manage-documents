@@ -22,20 +22,19 @@ import generated.p5.Number1
 
 import java.text.SimpleDateFormat
 import javax.xml.datatype.XMLGregorianCalendar
+import scala.annotation.tailrec
 
 package object viewmodels {
 
   implicit class RichString(value: String) {
 
-    val Ellipsis = "..."
+    private val Ellipsis = "..."
+
     // approximate values since we don't use a fixed width font
-    val NarrowLineCharLength             = 45
-    val NarrowLineCharLength_2Lines      = NarrowLineCharLength * 2
-    val NarrowLineCharLength_3Lines      = NarrowLineCharLength * 3
-    val NarrowLineBlankCharLength        = 80 // a line with only spaces need approx. 80 characters
-    val NarrowLineBlankCharLength_2Lines = NarrowLineBlankCharLength * 2
-    val WideLineCharLength               = NarrowLineCharLength * 2
-    val WideLineCharLength_2Lines        = WideLineCharLength * 2
+    private val NarrowLineCharLength      = 45
+    private val NarrowLineBlankCharLength = 80                            // a narrow line with only spaces need approx. 80 characters
+    private val WideLineCharLength        = NarrowLineCharLength * 2
+    private val WideLineBlankCharLength   = NarrowLineBlankCharLength * 2 // a narrow line with only spaces need approx. 160 characters
 
     def takeN(n: Int, chars: String = Ellipsis): String =
       if (value.length > n) {
@@ -44,46 +43,41 @@ package object viewmodels {
         value
       }
 
-    def ellipsisAfterMax(max: Int): String =
-      if (value.length > max) {
-        value.take(max - 3) + Ellipsis
+    def adjustFor2NarrowLines: String = adjustForNNarrowLines(2)
+    def adjustFor3NarrowLines: String = adjustForNNarrowLines(3)
+
+    def adjustFor2WideLines: String = adjustForNWideLines(2)
+
+    private def adjustForNNarrowLines(n: Int): String =
+      adjustForNLines(n, NarrowLineCharLength, NarrowLineBlankCharLength)
+
+    private def adjustForNWideLines(n: Int): String =
+      adjustForNLines(n, WideLineCharLength, WideLineBlankCharLength)
+
+    private def adjustForNLines(n: Int, lineLength: Int, blankLineLength: Int): String = {
+      val charLength = lineLength * n
+      if (value.length >= charLength) {
+        value.take(charLength - 3) + Ellipsis
       } else {
-        value
+        pad(n, lineLength, blankLineLength)
       }
+    }
 
-    def adjustFor3NarrowLines: String =
-      if (value.length >= NarrowLineCharLength_3Lines) {
-        value.take(NarrowLineCharLength_3Lines - 3) + Ellipsis
-      } else {
-        padTo3rdLine_narrowCell
-      }
+    private def pad(lines: Int, lineLength: Int, blankLineLength: Int): String = {
+      @tailrec
+      def rec(i: Int): String =
+        if (i == lines) {
+          value
+        } else {
+          if (value.length < lineLength * i) {
+            value + (" " * blankLineLength * (lines - i))
+          } else {
+            rec(i + 1)
+          }
+        }
 
-    def adjustFor2NarrowLines: String =
-      if (value.length >= NarrowLineCharLength_2Lines) {
-        value.take(NarrowLineCharLength_2Lines - 3) + Ellipsis
-      } else {
-        padTo2ndLine_narrowCell
-      }
-
-    def adjustFor2WideLines: String =
-      if (value.length >= WideLineCharLength_2Lines) {
-        value.take(WideLineCharLength_2Lines - 3) + Ellipsis
-      } else {
-        padTo2ndLine_wideCell
-      }
-
-    def padTo2ndLine_wideCell: String =
-      if (value.length < NarrowLineCharLength_2Lines) value + " " * NarrowLineBlankCharLength_2Lines
-      else value
-
-    def padTo2ndLine_narrowCell: String =
-      if (value.length < NarrowLineCharLength) value + " " * NarrowLineBlankCharLength
-      else value
-
-    def padTo3rdLine_narrowCell: String =
-      if (value.length < NarrowLineCharLength) value + " " * NarrowLineBlankCharLength_2Lines
-      else if (value.length < NarrowLineCharLength_2Lines) value + " " * NarrowLineBlankCharLength
-      else value
+      rec(1)
+    }
 
     def take10: String  = takeN(10)
     def take20: String  = takeN(20)

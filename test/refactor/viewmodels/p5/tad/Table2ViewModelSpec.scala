@@ -209,6 +209,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
+        println(result.transportEquipment.length)
         result.transportEquipment mustBe "1, transport equipment 1 container identification number, 1, 11:11...12:12; 2, transport equipment 2 container identification number, 2, 21:21...22:22; 3, transport equipment 3 ..."
       }
     }
