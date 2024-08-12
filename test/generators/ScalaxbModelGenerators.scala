@@ -223,6 +223,31 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
+  implicit lazy val arbitraryHouseConsignmentType03: Arbitrary[HouseConsignmentType03] =
+    Arbitrary {
+      for {
+        sequenceNumber <- nonEmptyString
+        grossMass      <- arbitrary[BigDecimal]
+      } yield HouseConsignmentType03(
+        sequenceNumber = sequenceNumber,
+        countryOfDispatch = None,
+        grossMass = grossMass,
+        referenceNumberUCR = None,
+        securityIndicatorFromExportDeclaration = None,
+        Consignor = None,
+        Consignee = None,
+        AdditionalSupplyChainActor = Nil,
+        DepartureTransportMeans = Nil,
+        PreviousDocument = Nil,
+        SupportingDocument = Nil,
+        TransportDocument = Nil,
+        AdditionalReference = Nil,
+        AdditionalInformation = Nil,
+        TransportCharges = None,
+        ConsignmentItem = Nil
+      )
+    }
+
   implicit lazy val arbitraryConsignmentType20: Arbitrary[ConsignmentType20] =
     Arbitrary {
       for {
@@ -428,6 +453,21 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
         methodOfPayment <- nonEmptyString
       } yield TransportChargesType(
         methodOfPayment = methodOfPayment
+      )
+    }
+
+  implicit lazy val arbitraryTransportEquipmentType05: Arbitrary[TransportEquipmentType05] =
+    Arbitrary {
+      for {
+        sequenceNumber                <- nonEmptyString
+        containerIdentificationNumber <- Gen.option(nonEmptyString)
+        numberOfSeals                 <- arbitrary[BigInt]
+      } yield TransportEquipmentType05(
+        sequenceNumber = sequenceNumber,
+        containerIdentificationNumber = containerIdentificationNumber,
+        numberOfSeals = numberOfSeals,
+        Seal = Nil,
+        GoodsReference = Nil
       )
     }
 

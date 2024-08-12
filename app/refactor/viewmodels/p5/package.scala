@@ -505,7 +505,6 @@ package object p5 {
     def asString: String = Seq(
       Some(value.sequenceNumber),
       value.GRN,
-      value.accessCode,
       value.amountToBeCovered.map(_.asString),
       value.currency
     ).flatten.commaSeparate
