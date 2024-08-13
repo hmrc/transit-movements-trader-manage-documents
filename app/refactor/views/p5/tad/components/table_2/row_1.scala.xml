@@ -27,8 +27,8 @@
 
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="80%"/>
-                <fo:table-column column-number="2" column-width="20%"/>
+                <fo:table-column column-number="1" column-width="75%"/>
+                <fo:table-column column-number="2" column-width="25%"/>
                 <fo:table-body>
 
                     <fo:table-row height="2.5%">

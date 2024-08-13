@@ -317,7 +317,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "activeBorderTransportMeansConveyanceNumbers" in {
-      result.activeBorderTransportMeansConveyanceNumbers mustBe "crn1; crn2; crn3; crn4"
+      result.activeBorderTransportMeansConveyanceNumbers mustBe "crn1; crn2; crn3; crn4" + lineWithSpaces
     }
 
     "placeOfLoading" in {
