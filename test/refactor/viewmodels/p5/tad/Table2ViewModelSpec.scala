@@ -252,12 +252,19 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                       seal(2),
                       seal(3)
                     )
+                  ),
+                  transportEquipment.copy(
+                    Seal = Seq(
+                      seal(4),
+                      seal(5),
+                      seal(6)
+                    )
                   )
                 )
               )
             )
             val result = Table2ViewModel(data)
-            result.seals mustBe "1/sid1;3/sid3"
+            result.seals mustBe "1/sid1;6/sid6"
         }
       }
 
