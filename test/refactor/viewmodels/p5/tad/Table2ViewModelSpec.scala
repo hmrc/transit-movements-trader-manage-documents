@@ -68,7 +68,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1, cin1, 1, 11:11" + lineWithSpaces
+        result.transportEquipment mustBe "1, cin1, 1" + lineWithSpaces
       }
 
       "when 3 transport equipment" in {
@@ -112,7 +112,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1, cin1, 1, 11:11...13:13; 2, cin2, 2, 21:21...23:23; 3, cin3, 3, 31:31...33:33" + lineWithSpaces
+        result.transportEquipment mustBe "1, cin1, 1; 2, cin2, 2; 3, cin3, 3" + lineWithSpaces
       }
 
       "when more than 3 transport equipment" in {
@@ -159,7 +159,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1, cin1, 1, 11:11; 2, cin2, 2, 21:21; 3, cin3, 3, 31:31..." + lineWithSpaces
+        result.transportEquipment mustBe "1, cin1, 1; 2, cin2, 2; 3, cin3, 3..." + lineWithSpaces
       }
 
       "when transport equipment goes over 2 wide lines" in {
@@ -210,7 +210,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
         )
         val result = Table2ViewModel(data)
         println(result.transportEquipment.length)
-        result.transportEquipment mustBe "1, transport equipment 1 container identification number, 1, 11:11...12:12; 2, transport equipment 2 container identification number, 2, 21:21...22:22; 3, transport equipment 3 ..."
+        result.transportEquipment mustBe "1, transport equipment 1 container identification number, 1; 2, transport equipment 2 container identification number, 2; 3, transport equipment 3 container identification numbe..."
       }
     }
 
@@ -252,12 +252,19 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                       seal(2),
                       seal(3)
                     )
+                  ),
+                  transportEquipment.copy(
+                    Seal = Seq(
+                      seal(4),
+                      seal(5),
+                      seal(6)
+                    )
                   )
                 )
               )
             )
             val result = Table2ViewModel(data)
-            result.seals mustBe "1/sid1;3/sid3"
+            result.seals mustBe "1/sid1;6/sid6"
         }
       }
 

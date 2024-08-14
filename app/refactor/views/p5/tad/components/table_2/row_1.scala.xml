@@ -8,8 +8,7 @@
 
 @(
     transportEquipment: String,
-    seals: String,
-    goodsReferences: String
+    seals: String
 )
 
 <fo:table-row height="16%">
@@ -94,8 +93,6 @@
                                                                 <fo:table-cell margin-left="0.5%" padding-bottom="10%">
                                                                     <fo:block-container height="14%" overflow="hidden">
                                                                         <fo:block>@seals
-                                                                        </fo:block>
-                                                                        <fo:block>@goodsReferences
                                                                         </fo:block>
                                                                     </fo:block-container>
                                                                 </fo:table-cell>
