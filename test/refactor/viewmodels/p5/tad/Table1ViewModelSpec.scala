@@ -288,8 +288,16 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       result.holderOfTransitProcedureIdentificationNumber mustBe "hin"
     }
 
+    "hotPContactPerson" in {
+      result.hotPContactPerson mustBe "cp, cptel, cpemail" + lineWithSpaces
+    }
+
     "representative" in {
       result.representative mustBe "rstatus"
+    }
+
+    "representativeContactPerson" in {
+      result.representativeContactPerson mustBe "cp, cptel, cpemail"
     }
 
     "lrn" in {
@@ -298,6 +306,10 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
 
     "carrierIdentificationNumber" in {
       result.carrierIdentificationNumber mustBe "cin"
+    }
+
+    "carrierContactPerson" in {
+      result.carrierContactPerson mustBe "ccp, ccptel, ccpemail"
     }
 
     "additionalSupplyChainActorRoles" in {

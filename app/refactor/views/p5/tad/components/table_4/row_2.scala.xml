@@ -44,7 +44,7 @@
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
                                        border-left-style="solid" border-left-width="1pt" border-left-color="black"
                                        border-right-style="solid" border-right-width="1pt" border-right-color="black">
-                            <fo:block  >Date of arrival:</fo:block>
+                            <fo:block  >Date of arrival</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"
@@ -98,7 +98,7 @@
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm">
 
 
-                            <fo:block>Limit date[15 11] @vm.limitDate</fo:block>
+                            <fo:block>Limit date[15 11]: @vm.limitDate</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-top="0.5mm" display-align="top" margin-left="0.5mm"

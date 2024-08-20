@@ -1,8 +1,10 @@
 @(
         holderOfTransitProcedure: String,
         holderOfTransitProcedureIdentificationNumber: String,
+        hotPContactPerson: String,
         representative: String,
-        representativeIdentificationNumber: String
+        representativeIdentificationNumber: String,
+        representativeContactPerson: String
 )
 
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid"
@@ -43,8 +45,14 @@
                 <fo:table-row height="2%">
                     <fo:table-cell margin-left="0.5%" padding-top="4.2%" padding-bottom="2%">
                         <fo:block>
-                            Contact person [13 02 074]
+                            Contact person [13 07 074]
                         </fo:block>
+                    </fo:table-cell>
+
+                    <fo:table-cell number-columns-spanned="2" margin-left="0.5%" padding-top="3.5%">
+                        <fo:block-container white-space="pre" wrap-option="wrap">
+                            <fo:block>@hotPContactPerson</fo:block>
+                        </fo:block-container>
                     </fo:table-cell>
                 </fo:table-row>
 
@@ -79,6 +87,11 @@
                         </fo:block>
                     </fo:table-cell>
 
+                    <fo:table-cell number-columns-spanned="2" margin-left="0.5%"  padding-top="2%">
+                        <fo:block-container white-space="pre" wrap-option="wrap">
+                            <fo:block>@representativeContactPerson</fo:block>
+                        </fo:block-container>
+                    </fo:table-cell>
                 </fo:table-row>
 
             </fo:table-body>
