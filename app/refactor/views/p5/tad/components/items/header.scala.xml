@@ -10,7 +10,7 @@
     <fo:table-column column-width="35%"/>
     <fo:table-body>
       <!-- Margin -->
-      <fo:table-row height="11mm">
+      <fo:table-row height="13.3mm">
         <fo:table-cell number-columns-spanned="3">
           <fo:block/>
         </fo:table-cell>

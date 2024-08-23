@@ -3,8 +3,10 @@
 @(
     holderOfTransitProcedure: String,
     holderOfTransitProcedureIdentificationNumber: String,
+    hotPContactPerson: String,
     representative: String,
     representativeIdentificationNumber: String,
+    representativeContactPerson: String,
     lrn: String,
     tirCarnet: String,
     referenceNumberUCR: String
@@ -26,8 +28,10 @@
     @holder_of_transit_procedure(
         holderOfTransitProcedure,
         holderOfTransitProcedureIdentificationNumber,
+        hotPContactPerson,
         representative,
-        representativeIdentificationNumber
+        representativeIdentificationNumber,
+        representativeContactPerson
     )
 
     <fo:table-cell>

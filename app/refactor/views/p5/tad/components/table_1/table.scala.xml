@@ -41,8 +41,10 @@
         @row_4(
             vm.holderOfTransitProcedure,
             vm.holderOfTransitProcedureIdentificationNumber,
+            vm.hotPContactPerson,
             vm.representative,
             vm.representativeIdentificationNumber,
+            vm.representativeContactPerson,
             vm.lrn,
             vm.tir,
             vm.ucr
@@ -50,6 +52,7 @@
 
         @row_5(
             vm.carrierIdentificationNumber,
+            vm.carrierContactPerson,
             vm.additionalSupplyChainActorRoles,
             vm.additionalSupplyChainActorIdentificationNumbers,
             vm.departureTransportMeans,

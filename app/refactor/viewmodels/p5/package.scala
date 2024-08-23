@@ -463,6 +463,12 @@ package object p5 {
       Some(value.GoodsReference.map(_.asString).firstAndLast())
     ).flatten.commaSeparate
 
+    def asStringWithoutGoodsRef: String = Seq(
+      Some(value.sequenceNumber),
+      value.containerIdentificationNumber,
+      Some(value.numberOfSeals.toString)
+    ).flatten.commaSeparate
+
     def asP5String: String = Seq(
       Some(value.sequenceNumber),
       value.containerIdentificationNumber
