@@ -17,31 +17,34 @@
 package connectors
 
 import config.AppConfig
+import models.P5.Phase
 import models.P5.departure.DepartureMessages
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
+import play.api.http.HeaderNames._
 import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.StringContextOps
+import uk.gov.hmrc.http.client.HttpClientV2
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.Node
 
-class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClient) extends MovementConnector(config, http) {
+class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
 
-  def getMessages(departureId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
-
-    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+json"))
-
-    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages"
-
-    http.GET[DepartureMessages](serviceUrl)(implicitly, headers, ec)
+  def getMessages(departureId: String, phase: Phase)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
+    val url = url"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages"
+    http
+      .get(url)
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+json")
+      .execute[DepartureMessages]
   }
 
   def getMessage(
     departureId: String,
-    messageId: String
+    messageId: String,
+    phase: Phase
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("departures", departureId, messageId)
+    getMessage("departures", departureId, messageId, phase)
 
 }

@@ -22,6 +22,7 @@ import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock._
 import generators.ReferenceModelGenerators
+import models.P5.Phase
 import models.P5.departure.DepartureMessageType.DepartureNotification
 import models.P5.departure.DepartureMessageMetaData
 import models.P5.departure.DepartureMessages
@@ -110,12 +111,11 @@ class DepartureMovementP5ConnectorSpec
 
       server.stubFor(
         get(urlEqualTo(url))
-          .willReturn(
-            ok(json.toString)
-          )
+          .withHeader("Accept", equalTo("application/vnd.hmrc.2.0+json"))
+          .willReturn(ok(json.toString))
       )
 
-      val result = service.getMessages(departureId).futureValue
+      val result = service.getMessages(departureId, Phase.Transition).futureValue
 
       result mustEqual DepartureMessages(
         List(
@@ -143,12 +143,11 @@ class DepartureMovementP5ConnectorSpec
 
       server.stubFor(
         get(urlEqualTo(url))
-          .willReturn(
-            ok(xml.toString())
-          )
+          .withHeader("Accept", equalTo("application/vnd.hmrc.2.0+xml"))
+          .willReturn(ok(xml.toString()))
       )
 
-      val result = service.getMessage(departureId, messageId).futureValue
+      val result = service.getMessage(departureId, messageId, Phase.Transition).futureValue
 
       result mustBe xml
     }

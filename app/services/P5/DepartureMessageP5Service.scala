@@ -19,6 +19,7 @@ package services.P5
 import connectors.DepartureMovementP5Connector
 import generated.p5.CC015CType
 import generated.p5.CC029CType
+import models.P5.Phase
 import models.P5.departure.DepartureMessageType.DepartureNotification
 import refactor.viewmodels.p5.RichCC029CType
 import scalaxb.XMLFormat
@@ -32,26 +33,30 @@ class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connect
 
   def getReleaseForTransitNotification(
     departureId: String,
-    messageId: String
+    messageId: String,
+    phase: Phase
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC029CType] =
-    getMessage[CC029CType](departureId, messageId).map(_.rollDown)
+    getMessage[CC029CType](departureId, messageId, phase).map(_.rollDown)
 
   def getDeclarationData(
     departureId: String,
-    messageId: String
+    messageId: String,
+    phase: Phase
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC015CType] =
-    getMessage[CC015CType](departureId, messageId)
+    getMessage[CC015CType](departureId, messageId, phase)
 
   def getIE015MessageId(
-    departureId: String
+    departureId: String,
+    phase: Phase
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[String]] =
     connector
-      .getMessages(departureId)
+      .getMessages(departureId, phase)
       .map(_.find(DepartureNotification).map(_.id))
 
   private def getMessage[T](
     departureId: String,
-    messageId: String
+    messageId: String,
+    phase: Phase
   )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
-    formatResponse(connector.getMessage(departureId, messageId))
+    formatResponse(connector.getMessage(departureId, messageId, phase))
 }

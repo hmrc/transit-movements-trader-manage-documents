@@ -22,7 +22,7 @@ package object p5 {
 
   implicit class RichCC029CType(value: CC029CType) {
 
-    /** In the Ie015 submission we roll up the following to the consignment level if they are the same across all items:
+    /** In the IE015 submission we roll up the following to the consignment level if they are the same across all items:
       *  - transport charges
       *  - UCR
       *  - country of dispatch

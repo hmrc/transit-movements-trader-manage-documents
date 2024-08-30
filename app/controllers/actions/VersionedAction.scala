@@ -19,7 +19,6 @@ package controllers.actions
 import models.P5.Phase
 import models.requests.AuthenticatedRequest
 import models.requests.VersionedRequest
-import play.api.http.HeaderNames._
 import play.api.mvc.Results.BadRequest
 import play.api.mvc.ActionRefiner
 import play.api.mvc.Result
@@ -31,9 +30,8 @@ import scala.concurrent.Future
 class VersionedAction @Inject() (implicit val executionContext: ExecutionContext) extends ActionRefiner[AuthenticatedRequest, VersionedRequest] {
 
   override protected def refine[A](request: AuthenticatedRequest[A]): Future[Either[Result, VersionedRequest[A]]] =
-    request.headers.get(ACCEPT) match {
-      case Some("application/vnd.hmrc.transition+pdf") => Future.successful(Right(VersionedRequest(request, Phase.Transition)))
-      case Some("application/vnd.hmrc.final+pdf")      => Future.successful(Right(VersionedRequest(request, Phase.PostTransition)))
-      case _                                           => Future.successful(Left(BadRequest))
+    request.headers.get("APIVersion").flatMap(Phase(_)) match {
+      case Some(phase) => Future.successful(Right(VersionedRequest(request, phase)))
+      case None        => Future.successful(Left(BadRequest))
     }
 }

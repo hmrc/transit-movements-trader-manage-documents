@@ -17,20 +17,22 @@
 package connectors
 
 import config.AppConfig
+import models.P5.Phase
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.client.HttpClientV2
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.Node
 
-class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpClient) extends MovementConnector(config, http) {
+class UnloadingPermissionP5Connector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
 
   def getMessage(
     arrivalId: String,
-    messageId: String
+    messageId: String,
+    phase: Phase
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("arrivals", arrivalId, messageId)
+    getMessage("arrivals", arrivalId, messageId, phase)
 
 }

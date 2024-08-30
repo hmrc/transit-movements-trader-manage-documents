@@ -17,6 +17,7 @@
 package controllers.P5
 
 import controllers.actions.AuthenticateActionProvider
+import controllers.actions.VersionedAction
 import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -33,21 +34,23 @@ class UnloadingPermissionDocumentP5Controller @Inject() (
   pdf: UnloadingPermissionPdfGenerator,
   service: UnloadingMessageP5Service,
   authenticate: AuthenticateActionProvider,
+  getVersion: VersionedAction,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
-  def get(arrivalId: String, messageId: String): Action[AnyContent] = authenticate().async {
-    implicit request =>
-      service.getUnloadingPermissionNotification(arrivalId, messageId).map {
-        ie043 =>
-          val bytes    = pdf.generateP5(ie043)
-          val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"
-          Ok(bytes)
-            .withHeaders(
-              CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
-            )
-      }
-  }
+  def get(arrivalId: String, messageId: String): Action[AnyContent] =
+    (authenticate() andThen getVersion).async {
+      implicit request =>
+        service.getUnloadingPermissionNotification(arrivalId, messageId, request.phase).map {
+          ie043 =>
+            val bytes    = pdf.generateP5(ie043)
+            val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"
+            Ok(bytes)
+              .withHeaders(
+                CONTENT_DISPOSITION -> s"""attachment; filename="$fileName""""
+              )
+        }
+    }
 }
