@@ -17,31 +17,36 @@
 package connectors
 
 import config.AppConfig
+import models.P5.Phase
 import play.api.Logging
+import play.api.http.HeaderNames._
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
 import uk.gov.hmrc.http.HttpReadsTry
 import uk.gov.hmrc.http.HttpResponse
+import uk.gov.hmrc.http.StringContextOps
+import uk.gov.hmrc.http.client.HttpClientV2
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.Node
 import scala.xml.XML
 
-class MovementConnector(config: AppConfig, http: HttpClient) extends HttpReadsTry with Logging {
+class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReadsTry with Logging {
 
   def getMessage(
     movements: String,
     movementId: String,
-    messageId: String
+    messageId: String,
+    phase: Phase
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] = {
-
-    val headers = hc.withExtraHeaders(("Accept", "application/vnd.hmrc.2.0+xml"))
-
-    val serviceUrl = s"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
-
-    http.GET[HttpResponse](serviceUrl)(implicitly, headers, ec).map(_.body).map(XML.loadString)
+    val url = url"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
+    http
+      .get(url)
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+xml")
+      .execute[HttpResponse]
+      .map(_.body)
+      .map(XML.loadString)
   }
 
 }

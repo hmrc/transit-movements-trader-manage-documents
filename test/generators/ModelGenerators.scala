@@ -16,6 +16,7 @@
 
 package generators
 
+import models.P5.Phase
 import models._
 import models.reference._
 import org.scalacheck.Arbitrary.arbitrary
@@ -27,6 +28,11 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 trait ModelGenerators extends GeneratorHelpers {
+
+  implicit lazy val arbitraryPhase: Arbitrary[Phase] =
+    Arbitrary {
+      Gen.oneOf(Phase.Transition, Phase.PostTransition)
+    }
 
   implicit lazy val arbitraryBulkPackage: Arbitrary[BulkPackage] =
     Arbitrary {

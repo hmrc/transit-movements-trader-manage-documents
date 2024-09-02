@@ -45,7 +45,7 @@ class VersionedActionSpec extends SpecBase with ScalaFutures {
 
         val action = new Harness()
 
-        val request              = fakeRequest.withHeaders("Accept" -> "application/vnd.hmrc.transition+pdf")
+        val request              = fakeRequest.withHeaders("APIVersion" -> "2.0")
         val authenticatedRequest = AuthenticatedRequest(request, "EORINumber")
         val result               = action.callRefine(authenticatedRequest).futureValue
 
@@ -58,7 +58,7 @@ class VersionedActionSpec extends SpecBase with ScalaFutures {
 
         val action = new Harness()
 
-        val request              = fakeRequest.withHeaders("Accept" -> "application/vnd.hmrc.final+pdf")
+        val request              = fakeRequest.withHeaders("APIVersion" -> "2.1")
         val authenticatedRequest = AuthenticatedRequest(request, "EORINumber")
         val result               = action.callRefine(authenticatedRequest).futureValue
 

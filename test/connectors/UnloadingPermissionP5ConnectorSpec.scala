@@ -20,10 +20,12 @@ import base.SpecBase
 import base.UnloadingData
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
+import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import generators.ReferenceModelGenerators
+import models.P5.Phase
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
@@ -81,12 +83,11 @@ class UnloadingPermissionP5ConnectorSpec
 
       server.stubFor(
         get(urlEqualTo(url))
-          .willReturn(
-            ok(xml.toString())
-          )
+          .withHeader("Accept", equalTo("application/vnd.hmrc.2.0+xml"))
+          .willReturn(ok(xml.toString()))
       )
 
-      val result = service.getMessage(arrivalId, messageId).futureValue
+      val result = service.getMessage(arrivalId, messageId, Phase.Transition).futureValue
 
       result mustBe xml
     }
