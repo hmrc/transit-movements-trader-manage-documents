@@ -28,10 +28,10 @@ import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.Application
 import play.api.Environment
 import play.api.inject
+import play.api.inject.guice.GuiceApplicationBuilder
 import refactor.viewmodels.DummyData
 import refactor.viewmodels.p4.tad.SecurityViewModel
 import refactor.views.xml.p4.tad.components.security
@@ -87,10 +87,11 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
 
     "must match with the 'Transit Accompanying Document' template with the security page" in {
 
-      val pdfPath          = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-with-security-page")
-      val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
+      val pdfPath          = "test/resources/refactor/transit-accompanying-document-pdf-with-security-page.pdf"
+      val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029c))
+      //pdfDocument.save(pdfPath)
 
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 
@@ -106,11 +107,12 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
 
     "must match with the 'Transit Accompanying Document' template without the security page" in {
 
-      val pdfPath            = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-without-security-page")
-      val pdf: Array[Byte]   = Files.readAllBytes(pdfPath)
+      val pdfPath            = "test/resources/refactor/transit-accompanying-document-pdf-without-security-page.pdf"
+      val pdf: Array[Byte]   = Files.readAllBytes(Paths.get(pdfPath))
       val cc029cSecurityZero = cc029c.copy(TransitOperation = cc029c.TransitOperation.copy(security = "0"))
 
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029cSecurityZero))
+      // pdfDocument.save(pdfPath)
 
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 

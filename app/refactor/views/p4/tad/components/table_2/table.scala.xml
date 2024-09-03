@@ -17,7 +17,7 @@
         <fo:table-row height="32mm"> <!-- S1 T2 ROW 1-->
 
             <!--Commodity marks/containers/items-->
-            @top_left_block(vm.numberOfItems, vm.transportEquipment, vm.packages)
+            @top_left_block(vm.numberOfItems, vm.transportEquipment)
             <!--Commodity code/weight/documents-->
             @top_right_block(vm.grossMass,  vm.consignmentPreviousDocuments)
 

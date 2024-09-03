@@ -89,6 +89,11 @@ package object p5 {
       value.shippingMarks
     ).flatten.commaSeparate
 
+    def asTransitionString: String = Seq(
+      Some(value.typeOfPackages),
+      value.numberOfPackages.map(_.toString())
+    ).flatten.commaSeparate
+
     def asP4String: String = Seq(
       Some(value.sequenceNumber),
       Some(value.typeOfPackages),
@@ -467,11 +472,6 @@ package object p5 {
       Some(value.sequenceNumber),
       value.containerIdentificationNumber,
       Some(value.numberOfSeals.toString)
-    ).flatten.commaSeparate
-
-    def asP5String: String = Seq(
-      Some(value.sequenceNumber),
-      value.containerIdentificationNumber
     ).flatten.commaSeparate
 
     def asP4String: String = Seq(

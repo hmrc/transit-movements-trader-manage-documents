@@ -34,12 +34,40 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
       result.grossMass mustBe "200.0"
     }
 
+    "transportEquipment" in {
+      result.transportEquipment mustBe "1, cin1"
+    }
+
     "printBindingItinerary" in {
       result.printBindingItinerary mustBe true
     }
 
     "consignmentItemViewModel" in {
       result.consignmentItemViewModel mustBe consignmentItemViewModel
+    }
+
+    "consignmentPreviousDocuments" in {
+      result.consignmentPreviousDocuments mustBe "1, ptv1, prn1, pcoi1..."
+    }
+
+    "consignmentSupportingDocuments" in {
+      result.consignmentSupportingDocuments mustBe "1, stv1, srn1, 1, scoi1..."
+    }
+
+    "consignmentTransportDocuments" in {
+      result.consignmentTransportDocuments mustBe "1, ttv1, trn1..."
+    }
+
+    "consignmentAdditionalInformation" in {
+      result.consignmentAdditionalInformation mustBe "1, aic1, ait1..."
+    }
+
+    "consignmentAdditionalReference" in {
+      result.consignmentAdditionalReference mustBe "1, artv1, arrn1..."
+    }
+
+    "authorisation" in {
+      result.authorisation mustBe "1, C521, rn1..."
     }
   }
 }

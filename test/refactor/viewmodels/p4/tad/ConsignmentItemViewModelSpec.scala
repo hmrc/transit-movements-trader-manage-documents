@@ -18,7 +18,6 @@ package refactor.viewmodels.p4.tad
 
 import base.SpecBase
 import refactor.viewmodels.DummyData
-import refactor.viewmodels.p4.tad.ConsignmentItemViewModel.PackageViewModel
 import refactor.viewmodels.p4.tad.ConsignmentItemViewModel.SensitiveGoodsInformationViewModel
 
 class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
@@ -37,23 +36,13 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
     "packages" in {
       result.packages mustBe Seq(
-        PackageViewModel(
-          sequenceNumber = "1",
-          typeOfPackages = "top1",
-          numberOfPackages = BigInt(100),
-          shippingMarks = Some("sm1")
-        ),
-        PackageViewModel(
-          sequenceNumber = "2",
-          typeOfPackages = "top2",
-          numberOfPackages = BigInt(200),
-          shippingMarks = Some("sm2")
-        )
+        "top1, 100",
+        "top2, 200"
       )
     }
 
     "containers" in {
-      result.containers mustBe Seq("1, cin1")
+      result.containers mustBe Seq("cin1")
     }
 
     "description" in {
