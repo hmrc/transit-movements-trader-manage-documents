@@ -62,7 +62,7 @@ object ConsignmentItemViewModel {
       supportingDocuments = consignmentItem.SupportingDocument.map(_.asString).semiColonSeparate,
       consignee = houseConsignment.Consignee.map(_.asString).orElseBlank,
       consigneeId = houseConsignment.Consignee.flatMap(_.identificationNumber).orElseBlank,
-      consignor = houseConsignment.Consignor.map(_.asString).orElseBlank,
+      consignor = houseConsignment.Consignor.map(_.asStringWithoutEmail).orElseBlank,
       consignorId = houseConsignment.Consignor.flatMap(_.identificationNumber).orElseBlank,
       additionalReferences = consignmentItem.AdditionalReference.map(_.asString).semiColonSeparate,
       additionalInformation = consignmentItem.AdditionalInformation.map(_.asString).semiColonSeparate,

@@ -273,7 +273,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "consignorContactPersons" in {
-      result.consignorContactPersons mustBe "ccp, ccptel, ccpemail" + lineWithSpaces
+      result.consignorContactPersons mustBe "ccp, ccptel" + lineWithSpaces
     }
 
     "declarationType" in {
@@ -289,7 +289,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "hotPContactPerson" in {
-      result.hotPContactPerson mustBe "cp, cptel, cpemail" + lineWithSpaces
+      result.hotPContactPerson mustBe "cp, cptel" + lineWithSpaces
     }
 
     "representative" in {
@@ -297,7 +297,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "representativeContactPerson" in {
-      result.representativeContactPerson mustBe "cp, cptel, cpemail"
+      result.representativeContactPerson mustBe "cp, cptel"
     }
 
     "lrn" in {
@@ -309,7 +309,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "carrierContactPerson" in {
-      result.carrierContactPerson mustBe "ccp, ccptel, ccpemail"
+      result.carrierContactPerson mustBe "ccp, ccptel"
     }
 
     "additionalSupplyChainActorRoles" in {
@@ -353,7 +353,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "locationOfGoodsContactPerson" in {
-      result.locationOfGoodsContactPerson mustBe "logcp, logcptel, logcpemail"
+      result.locationOfGoodsContactPerson mustBe "logcp, logcptel"
     }
 
     "security" in {
