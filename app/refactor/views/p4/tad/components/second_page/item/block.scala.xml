@@ -1,5 +1,5 @@
 @(value: String)
 
 <fo:block-container white-space="pre" wrap-option="wrap" overflow="hidden">
-    <fo:block>@value</fo:block>
+    <fo:block>@value.toList.mkString("\u200b")</fo:block>
 </fo:block-container>

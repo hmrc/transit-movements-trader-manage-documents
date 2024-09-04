@@ -20,28 +20,6 @@ import generated.p5._
 
 package object p5 {
 
-  def withLineBreak(str: String, limitForAllLowerCase: Int): String = {
-    def addSpace(s: String, acc: String, limit: Int): String =
-      if (s.length <= limit) {
-        acc + s
-      } else {
-        val substring = s.take(limit)
-        if (substring.contains(" ")) {
-          val lastSpaceIndex = substring.lastIndexOf(" ")
-          addSpace(s.drop(lastSpaceIndex + 1), acc + s.take(lastSpaceIndex + 1), limit)
-        } else {
-          addSpace(s.drop(limit), acc + substring + " ", limit)
-        }
-      }
-
-    val lowerCharCount       = str.count(_.isLower) //exclude numbers as well
-    val upperCharCount       = str.length - lowerCharCount
-    val upperCharRatio       = upperCharCount.toDouble / str.length
-    val lowerCharRatio       = (str.length - upperCharCount).toDouble / str.length
-    val limitForAllUpperCase = (limitForAllLowerCase.toDouble * 0.65).floor.toInt
-    addSpace(str, "", (limitForAllLowerCase * lowerCharRatio).floor.toInt + (limitForAllUpperCase * upperCharRatio).floor.toInt)
-  }
-
   implicit class RichCC029CType(value: CC029CType) {
 
     /** In the IE015 submission we roll up the following to the consignment level if they are the same across all items:
@@ -134,22 +112,6 @@ package object p5 {
       value.complementOfInformation
     ).flatten.commaSeparate
 
-    def asStringWithLineBreak: String = Seq(
-      Some(value.sequenceNumber),
-      Some(value.typeValue),
-      Some(value.referenceNumber),
-      value.goodsItemNumber.map(_.toString),
-      value.typeOfPackages,
-      value.numberOfPackages.map(_.toString),
-      value.measurementUnitAndQualifier,
-      value.quantity.map(_.toString),
-      value.complementOfInformation
-    ).flatten
-      .map(
-        str => withLineBreak(str, 55)
-      )
-      .commaSeparate
-
     def asP4String: String = Seq(
       Some(value.typeValue),
       Some(value.referenceNumber),
@@ -176,17 +138,6 @@ package object p5 {
       Some(value.referenceNumber),
       value.complementOfInformation
     ).flatten.commaSeparate
-
-    def asStringWithLineBreak: String = Seq(
-      Some(value.sequenceNumber),
-      Some(value.typeValue),
-      Some(value.referenceNumber),
-      value.complementOfInformation
-    ).flatten
-      .map(
-        str => withLineBreak(str, 50)
-      )
-      .commaSeparate
   }
 
   implicit class RichPreviousDocumentType07(value: PreviousDocumentType07) {
@@ -218,18 +169,6 @@ package object p5 {
       value.documentLineItemNumber.map(_.toString),
       value.complementOfInformation
     ).flatten.commaSeparate
-
-    def asStringWithLineBreak: String = Seq(
-      Some(value.sequenceNumber),
-      Some(value.typeValue),
-      Some(value.referenceNumber),
-      value.documentLineItemNumber.map(_.toString),
-      value.complementOfInformation
-    ).flatten
-      .map(
-        str => withLineBreak(str, 55)
-      )
-      .commaSeparate
   }
 
   implicit class RichTransportDocumentType02(value: TransportDocumentType02) {
@@ -238,14 +177,6 @@ package object p5 {
       value.sequenceNumber,
       value.typeValue,
       value.referenceNumber
-    ).commaSeparate
-
-    def asStringWithLineBreak: String = Seq(
-      value.sequenceNumber,
-      value.typeValue,
-      value.referenceNumber
-    ).map(
-      str => withLineBreak(str, 55)
     ).commaSeparate
   }
 
@@ -261,16 +192,6 @@ package object p5 {
       Some(value.code),
       value.text
     ).flatten.commaSeparate
-
-    def asStringWithLineBreak: String = Seq(
-      Some(value.sequenceNumber),
-      Some(value.code),
-      value.text
-    ).flatten
-      .map(
-        str => withLineBreak(str, 55)
-      )
-      .commaSeparate
   }
 
   implicit class RichCommodityCodeType05(value: CommodityCodeType05) {
@@ -433,16 +354,6 @@ package object p5 {
       Some(value.typeValue),
       value.referenceNumber
     ).flatten.commaSeparate
-
-    def asStringWithLineBreak: String = Seq(
-      Some(value.sequenceNumber),
-      Some(value.typeValue),
-      value.referenceNumber
-    ).flatten
-      .map(
-        str => withLineBreak(str, 55)
-      )
-      .commaSeparate
   }
 
   implicit class RichAdditionalReferenceType03(value: AdditionalReferenceType03) {

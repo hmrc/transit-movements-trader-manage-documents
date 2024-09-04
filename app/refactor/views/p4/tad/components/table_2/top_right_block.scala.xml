@@ -97,7 +97,7 @@
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline >
                                 <fo:block>
-                                    @consignmentPreviousDocuments
+                                    @consignmentPreviousDocuments.toList.mkString("\u200b")
                                 </fo:block>
                             </fo:inline>
                         </fo:block>

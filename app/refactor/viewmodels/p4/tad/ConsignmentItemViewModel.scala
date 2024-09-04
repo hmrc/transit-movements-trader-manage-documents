@@ -124,7 +124,7 @@ object ConsignmentItemViewModel {
       declarationType = consignmentItem.declarationType.getOrElse(ie029.TransitOperation.declarationType),
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElse2Dashes,
       sensitiveGoodsInformation = Seq(SensitiveGoodsInformationViewModel()), // Not in P5?
-      previousDocuments = consignmentItem.PreviousDocument.map(_.asStringWithLineBreak),
+      previousDocuments = consignmentItem.PreviousDocument.map(_.asString),
       countryOfDispatch = consignmentItem.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
       countryOfDestination = consignmentItem.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       grossMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.grossMass.map(_.asString)).orElse3Dashes,
@@ -133,9 +133,9 @@ object ConsignmentItemViewModel {
       producedDocuments = None, // Not in P5?
       consigneeViewModel = consignmentItem.Consignee.map(ConsigneeViewModel(_)),
       consignorViewModel = None,
-      supportingDocuments = consignmentItem.SupportingDocument.map(_.asStringWithLineBreak),
-      transportDocuments = consignmentItem.TransportDocument.map(_.asStringWithLineBreak),
-      additionalInformation = consignmentItem.AdditionalInformation.map(_.asStringWithLineBreak),
-      additionalReference = consignmentItem.AdditionalReference.map(_.asStringWithLineBreak)
+      supportingDocuments = consignmentItem.SupportingDocument.map(_.asString),
+      transportDocuments = consignmentItem.TransportDocument.map(_.asString),
+      additionalInformation = consignmentItem.AdditionalInformation.map(_.asString),
+      additionalReference = consignmentItem.AdditionalReference.map(_.asString)
     )
 }
