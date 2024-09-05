@@ -28,9 +28,9 @@
                 <fo:block/>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" font-weight = "bold">
-                <fo:block-container white-space="pre" wrap-option="wrap" overflow="hidden">
-                    <fo:block>@vm.description</fo:block>
-                </fo:block-container>
+                <fo:block>
+                    @vm.description
+                </fo:block>
             </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="3.5mm">
