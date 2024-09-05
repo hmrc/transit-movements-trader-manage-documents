@@ -1,4 +1,5 @@
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
+@import refactor.views.xml.p4.tad.components.second_page.item.block
 
 @(
     grossMass: String,
@@ -96,9 +97,7 @@
                             <fo:block>40 Summary declaration/Previous document</fo:block>
                         <fo:block margin-top="1mm" font-weight="bold">
                             <fo:inline >
-                                <fo:block>
-                                    @consignmentPreviousDocuments.toList.mkString("\u200b")
-                                </fo:block>
+                                @block(consignmentPreviousDocuments)
                             </fo:inline>
                         </fo:block>
                     </fo:table-cell>
