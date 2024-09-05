@@ -154,10 +154,11 @@ class TransitAccompanyingDocumentPDFGeneratorSpec
 
     "must match with the 'Transit Accompanying Document' template" in {
 
-      val pdfPath          = Paths.get("test/resources/transit-accompanying-document-pdf")
-      val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
+      val pdfPath          = "test/resources/transit-accompanying-document-pdf.pdf"
+      val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument         = PDDocument.load(service.generate(transitAccompanyingDocumentPDF))
+      val pdfDocument: PDDocument = PDDocument.load(service.generate(transitAccompanyingDocumentPDF))
+
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 
       try {

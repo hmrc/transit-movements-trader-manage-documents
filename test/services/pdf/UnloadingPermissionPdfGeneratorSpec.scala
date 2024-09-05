@@ -63,10 +63,11 @@ class UnloadingPermissionPdfGeneratorSpec
 
     "must match with the 'Unloading Permission' template" in {
 
-      val pdfPath          = Paths.get("test/resources/unloading-permission-pdf")
-      val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
+      val pdfPath          = "test/resources/unloading-permission-pdf.pdf"
+      val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument         = PDDocument.load(service.generate(permissionToUnloadViewModel))
+      val pdfDocument: PDDocument = PDDocument.load(service.generate(permissionToUnloadViewModel))
+
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 
       try {
