@@ -296,12 +296,6 @@ package object p5 {
       value.ContactPerson.map(_.asString)
     ).flatten.commaSeparate
 
-    def asStringWithoutEmail: String = Seq(
-      value.name,
-      value.Address.map(_.asString),
-      value.ContactPerson.map(_.asStringWithoutEmail)
-    ).flatten.commaSeparate
-
     // TODO - refactor when you create generic types for duplicates
     def asConsignorType03: ConsignorType03 = ConsignorType03(
       value.identificationNumber,
@@ -323,12 +317,6 @@ package object p5 {
 
     def asString: String = Seq(
       Some(value.name),
-      Some(value.phoneNumber),
-      value.eMailAddress
-    ).flatten.commaSeparate
-
-    def asStringWithoutEmail: String = Seq(
-      Some(value.name),
       Some(value.phoneNumber)
     ).flatten.commaSeparate
   }
@@ -336,12 +324,6 @@ package object p5 {
   implicit class RichContactPersonType02(value: ContactPersonType02) {
 
     def asString: String = Seq(
-      Some(value.name),
-      Some(value.phoneNumber),
-      value.eMailAddress
-    ).flatten.commaSeparate
-
-    def asStringWithoutEmail: String = Seq(
       Some(value.name),
       Some(value.phoneNumber)
     ).flatten.commaSeparate
