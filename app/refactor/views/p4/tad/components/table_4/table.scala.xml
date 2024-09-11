@@ -1,7 +1,5 @@
 @import refactor.views.xml.p4.tad.components.table_4.row_3
 @import refactor.views.xml.p4.tad.components.table_4.row_4
-@import viewmodels.CustomsOfficeWithOptionalDate
-@import viewmodels.ControlResult
 @import refactor.viewmodels.p4.tad.Table4ViewModel
 
 @this()

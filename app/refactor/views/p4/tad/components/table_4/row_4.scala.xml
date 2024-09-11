@@ -1,4 +1,3 @@
-@import viewmodels.CustomsOfficeWithOptionalDate
 @import refactor.viewmodels.p4.tad.Table4ViewModel._
 
 @(

@@ -23,7 +23,6 @@ import generated.p5.PackagingType02
 import refactor.viewmodels._
 import refactor.viewmodels.p4.tad.ConsignmentItemViewModel._
 import refactor.viewmodels.p5._
-import viewmodels.SpecialMention
 
 case class ConsignmentItemViewModel(
   itemNumber: String,
@@ -39,7 +38,6 @@ case class ConsignmentItemViewModel(
   countryOfDestination: String,
   grossMass: String,
   netMass: String,
-  specialMentions: Option[Seq[SpecialMention]], // TODO
   producedDocuments: Option[Seq[String]],
   consigneeViewModel: Option[ConsigneeViewModel],
   consignorViewModel: Option[ConsignorViewModel],
@@ -129,7 +127,6 @@ object ConsignmentItemViewModel {
       countryOfDestination = consignmentItem.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       grossMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.grossMass.map(_.asString)).orElse3Dashes,
       netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass).map(_.asString).orElse3Dashes,
-      specialMentions = None,   // Not in P5?
       producedDocuments = None, // Not in P5?
       consigneeViewModel = consignmentItem.Consignee.map(ConsigneeViewModel(_)),
       consignorViewModel = None,

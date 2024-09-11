@@ -92,10 +92,6 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
       result.netMass mustBe "100.0"
     }
 
-    "specialMentions" in {
-      result.specialMentions mustBe None
-    }
-
     "producedDocuments" in {
       result.producedDocuments mustBe None
     }
