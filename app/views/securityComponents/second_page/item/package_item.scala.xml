@@ -1,9 +1,0 @@
-@(packageItem: viewmodels.Package)
-
-<fo:block>
-    @packageItem.countPackageAndMarks.getOrElse(packageItem.kindOfPackage.description)
-    @if(packageItem.numberOfPiecesValue > 0) {
-      @packageItem.numberOfPiecesValue pieces
-    } - @packageItem.marksAndNumbersValue
-</fo:block>
-

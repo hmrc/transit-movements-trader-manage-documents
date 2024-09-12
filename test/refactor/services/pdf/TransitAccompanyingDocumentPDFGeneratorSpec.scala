@@ -17,7 +17,6 @@
 package refactor.services.pdf
 
 import base.SpecBase
-import generators.ViewModelGenerators
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.mockito.Mockito
@@ -28,10 +27,10 @@ import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.Application
 import play.api.Environment
 import play.api.inject
+import play.api.inject.guice.GuiceApplicationBuilder
 import refactor.viewmodels.DummyData
 import refactor.viewmodels.p4.tad.SecurityViewModel
 import refactor.views.xml.p4.tad.components.security
@@ -39,14 +38,7 @@ import refactor.views.xml.p4.tad.components.security
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class TransitAccompanyingDocumentPDFGeneratorSpec
-    extends SpecBase
-    with Matchers
-    with GuiceOneAppPerSuite
-    with ViewModelGenerators
-    with OptionValues
-    with ScalaFutures
-    with DummyData {
+class TransitAccompanyingDocumentPDFGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuite with OptionValues with ScalaFutures with DummyData {
 
   lazy val spiedTable1: security.table_1.table = Mockito.spy[security.table_1.table](new security.table_1.table())
   lazy val spiedTable2: security.table_2.table = Mockito.spy[security.table_2.table](new security.table_2.table())

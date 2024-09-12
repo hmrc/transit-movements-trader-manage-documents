@@ -24,7 +24,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import generators.ReferenceModelGenerators
 import models.P5.Phase
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
@@ -50,7 +49,6 @@ class UnloadingPermissionP5ConnectorSpec
     with ScalaFutures
     with IntegrationPatience
     with ScalaCheckPropertyChecks
-    with ReferenceModelGenerators
     with ValidatedMatchers
     with ValidatedValues
     with FutureAwaits

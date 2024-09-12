@@ -1,5 +1,4 @@
 @import refactor.views.xml.p4.tad.components.second_page.item._
-@import refactor.views.xml.p4.tad.components.{item => componentItem}
 @import refactor.viewmodels.p4.tad.ConsignmentItemViewModel
 
 @(

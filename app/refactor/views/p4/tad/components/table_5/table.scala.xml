@@ -1,5 +1,4 @@
 @import refactor.views.xml.p4.tad.components.table_5.control_results
-@import viewmodels.ControlResult
 @import refactor.viewmodels.p4.tad.Table5ViewModel
 
 @this()
