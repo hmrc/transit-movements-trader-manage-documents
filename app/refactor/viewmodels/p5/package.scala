@@ -322,8 +322,7 @@ package object p5 {
 
     def asString: String = Seq(
       Some(value.name),
-      Some(value.phoneNumber),
-      value.eMailAddress
+      Some(value.phoneNumber)
     ).flatten.commaSeparate
   }
 
@@ -331,8 +330,7 @@ package object p5 {
 
     def asString: String = Seq(
       Some(value.name),
-      Some(value.phoneNumber),
-      value.eMailAddress
+      Some(value.phoneNumber)
     ).flatten.commaSeparate
   }
 

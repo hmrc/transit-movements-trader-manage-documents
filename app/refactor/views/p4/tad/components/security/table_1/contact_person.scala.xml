@@ -30,9 +30,6 @@ carrierContactPerson: ContactPersonViewModel
           <fo:table-cell  padding-left="2mm" font-weight="bold">
             <fo:block>@carrierContactPerson.phoneNumber</fo:block>
           </fo:table-cell>
-          <fo:table-cell  padding-left="8mm" font-weight="bold">
-            <fo:block>@carrierContactPerson.emailAddress</fo:block>
-          </fo:table-cell>
         </fo:table-row>
       </fo:table-body>
     </fo:table>

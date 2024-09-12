@@ -16,7 +16,6 @@
 
 package refactor.viewmodels.p4.tad
 
-import generated.p4._
 import generated.p5._
 import refactor.viewmodels.p5.RichCC029CType
 
@@ -36,11 +35,6 @@ case class P4TadPdfViewModel(
 }
 
 object P4TadPdfViewModel {
-
-  /** @param ie029 release for transit
-    * @return P4 TAD view model based on P4 data
-    */
-  def apply(ie029: CC029BType): P4TadPdfViewModel = ???
 
   /** @param ie015 declaration data
     * @param ie029 release for transit

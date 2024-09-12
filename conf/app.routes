@@ -1,10 +1,4 @@
 # microservice specific routes
 
-POST         /unloading-permission                                      controllers.UnloadingPermissionController.get
-
-POST         /transit-accompanying-document                             controllers.TransitAccompanyingDocumentController.get
-
-POST         /transit-security-accompanying-document                    controllers.TransitSecurityAccompanyingDocumentController.get()
-
 GET          /:departureId/transit-accompanying-document/:messageId     controllers.P5.TransitAccompanyingDocumentP5Controller.get(departureId, messageId)
 GET          /:arrivalId/unloading-permission-document/:messageId       controllers.P5.UnloadingPermissionDocumentP5Controller.get(arrivalId, messageId)

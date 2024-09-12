@@ -58,7 +58,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "consignor" in {
-      result.consignor mustBe "hc consignor name, san, pc, city, country, cp, cptel, cpemail"
+      result.consignor mustBe "hc consignor name, san, pc, city, country, cp, cptel"
     }
 
     "consignorId" in {

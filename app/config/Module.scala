@@ -24,8 +24,6 @@ import org.apache.fop.apps.FopFactory
 class Module extends AbstractModule {
 
   override def configure(): Unit = {
-    bind(classOf[ReferenceDataConfig]).asEagerSingleton()
-    bind(classOf[ReferenceDataP5Config]).asEagerSingleton()
     bind(classOf[AuthenticateActionProvider]).to(classOf[AuthenticateActionProviderImpl]).asEagerSingleton()
     bind(classOf[FopFactory]).toProvider(classOf[FopFactoryProvider]).asEagerSingleton()
   }

@@ -21,7 +21,6 @@ import base.SpecBase
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock._
-import generators.ReferenceModelGenerators
 import models.P5.Phase
 import models.P5.departure.DepartureMessageType.DepartureNotification
 import models.P5.departure.DepartureMessageMetaData
@@ -52,7 +51,6 @@ class DepartureMovementP5ConnectorSpec
     with ScalaFutures
     with IntegrationPatience
     with ScalaCheckPropertyChecks
-    with ReferenceModelGenerators
     with ValidatedMatchers
     with ValidatedValues
     with FutureAwaits

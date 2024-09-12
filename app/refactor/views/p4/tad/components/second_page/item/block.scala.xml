@@ -1,5 +1,8 @@
 @(value: String)
 
-<fo:block>
-    @value
-</fo:block>
+<fo:block-container white-space="pre" wrap-option="wrap" overflow="hidden">
+<!-- Long text without any spaces, such as ids, cannot fit in the box and Apache FOP library doesn't know how to break it into multiple lines -->
+<!-- as it doesn't have a break point like a space, newline etc. For this reason we add zero width spaces (\u200b) after each character -->
+<!-- This will allow Apache FOP library to break the long text when it reaches to the right border of the box -->
+    <fo:block>@value.toList.mkString("\u200b")</fo:block>
+</fo:block-container>

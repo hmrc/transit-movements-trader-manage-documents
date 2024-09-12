@@ -2,8 +2,7 @@
 
 @(
   addressCity: String,
-  addressCountry: String,
-  emailAddress: String
+  addressCountry: String
 )
 
 <fo:table-row height="15mm">
@@ -16,7 +15,7 @@
     @country(addressCountry)
   </fo:table-cell>
 
-  @email_address(emailAddress)
+  @email_address()
 
 
 </fo:table-row>

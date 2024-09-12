@@ -42,11 +42,6 @@
                   @consignor.phoneNumber
                 </fo:block>
               </fo:table-cell>
-              <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
-                <fo:block>
-                  @consignor.emailAddress
-                </fo:block>
-              </fo:table-cell>
             </fo:table-row>
           </fo:table-body>
         </fo:table>

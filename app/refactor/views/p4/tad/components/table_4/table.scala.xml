@@ -1,7 +1,5 @@
 @import refactor.views.xml.p4.tad.components.table_4.row_3
 @import refactor.views.xml.p4.tad.components.table_4.row_4
-@import viewmodels.CustomsOfficeWithOptionalDate
-@import viewmodels.ControlResult
 @import refactor.viewmodels.p4.tad.Table4ViewModel
 
 @this()
@@ -83,11 +81,6 @@
                                 <fo:table-cell number-columns-spanned="1" padding-left="2mm" display-align="center" font-weight="bold">
                                     <fo:block>
                                         @vm.principal.phoneNumber
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell number-columns-spanned="3"  display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        @vm.principal.emailAddress
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
