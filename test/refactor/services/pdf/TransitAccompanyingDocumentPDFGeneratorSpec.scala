@@ -79,7 +79,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec extends SpecBase with Matchers
 
     "must match with the 'Transit Accompanying Document' template with the security page" in {
 
-      val pdfPath          = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-with-security-page")
+      val pdfPath          = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-with-security-page.pdf")
       val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
 
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029c))
@@ -98,7 +98,7 @@ class TransitAccompanyingDocumentPDFGeneratorSpec extends SpecBase with Matchers
 
     "must match with the 'Transit Accompanying Document' template without the security page" in {
 
-      val pdfPath            = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-without-security-page")
+      val pdfPath            = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-without-security-page.pdf")
       val pdf: Array[Byte]   = Files.readAllBytes(pdfPath)
       val cc029cSecurityZero = cc029c.copy(TransitOperation = cc029c.TransitOperation.copy(security = "0"))
 

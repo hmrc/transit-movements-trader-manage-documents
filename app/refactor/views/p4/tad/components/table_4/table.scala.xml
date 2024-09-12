@@ -83,11 +83,6 @@
                                         @vm.principal.phoneNumber
                                     </fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell number-columns-spanned="3"  display-align="center" font-weight="bold">
-                                    <fo:block>
-                                        @vm.principal.emailAddress
-                                    </fo:block>
-                                </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>
                     </fo:table>
