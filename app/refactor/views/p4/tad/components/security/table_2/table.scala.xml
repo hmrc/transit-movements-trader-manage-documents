@@ -51,8 +51,7 @@
       vm.locationOfGoods.postcodeAddressPostcode,
       vm.locationOfGoods.contactPerson.phoneNumber)
     @row_6(vm.locationOfGoods.addressCity,
-      vm.locationOfGoods.postcodeAddressCountry,
-      vm.locationOfGoods.contactPerson.emailAddress
+      vm.locationOfGoods.postcodeAddressCountry
     )
     @row_7(vm.locationOfGoods.addressCountry)
 
