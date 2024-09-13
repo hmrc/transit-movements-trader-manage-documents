@@ -38,7 +38,7 @@ import refactor.views.xml.p4.tad.components.security
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class TransitAccompanyingDocumentPDFGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuite with OptionValues with ScalaFutures with DummyData {
+class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuite with OptionValues with ScalaFutures with DummyData {
 
   lazy val spiedTable1: security.table_1.table = Mockito.spy[security.table_1.table](new security.table_1.table())
   lazy val spiedTable2: security.table_2.table = Mockito.spy[security.table_2.table](new security.table_2.table())
@@ -79,10 +79,11 @@ class TransitAccompanyingDocumentPDFGeneratorSpec extends SpecBase with Matchers
 
     "must match with the 'Transit Accompanying Document' template with the security page" in {
 
-      val pdfPath          = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-with-security-page.pdf")
-      val pdf: Array[Byte] = Files.readAllBytes(pdfPath)
+      val pdfPath          = "test/resources/refactor/transit-accompanying-document-pdf-with-security-page.pdf"
+      val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029c))
+      //pdfDocument.save(pdfPath)
 
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 
@@ -98,11 +99,13 @@ class TransitAccompanyingDocumentPDFGeneratorSpec extends SpecBase with Matchers
 
     "must match with the 'Transit Accompanying Document' template without the security page" in {
 
-      val pdfPath            = Paths.get("test/resources/refactor/transit-accompanying-document-pdf-without-security-page.pdf")
-      val pdf: Array[Byte]   = Files.readAllBytes(pdfPath)
       val cc029cSecurityZero = cc029c.copy(TransitOperation = cc029c.TransitOperation.copy(security = "0"))
 
+      val pdfPath          = "test/resources/refactor/transit-accompanying-document-pdf-without-security-page.pdf"
+      val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
+
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029cSecurityZero))
+      //pdfDocument.save(pdfPath)
 
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 

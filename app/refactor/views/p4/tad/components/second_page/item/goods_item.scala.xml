@@ -18,13 +18,19 @@
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" font-weight = "bold">
-                <fo:block/>
+                <fo:block>
+                    @vm.shippingMarks.map(block(_))
+                </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" font-weight = "bold">
-                <fo:block/>
+                <fo:block>
+                    @vm.packages.map(block(_))
+                </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" font-weight = "bold">
-                <fo:block/>
+                <fo:block>
+                    @vm.containers.map(block(_))
+                </fo:block>
             </fo:table-cell>
             <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" display-align="center" font-weight = "bold">
                 @block(vm.description)

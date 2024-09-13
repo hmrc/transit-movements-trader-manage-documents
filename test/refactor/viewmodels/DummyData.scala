@@ -845,8 +845,20 @@ trait DummyData extends ScalaxbModelGenerators {
             sequenceNumber = "1",
             grossMass = BigDecimal(100),
             ConsignmentItem = Seq(
-              arbitrary[ConsignmentItemType04].sample.value,
-              arbitrary[ConsignmentItemType04].sample.value
+              ConsignmentItemType04(
+                goodsItemNumber = "1",
+                declarationGoodsItemNumber = 1,
+                Commodity = CommodityType08(
+                  descriptionOfGoods = "dog1"
+                )
+              ),
+              ConsignmentItemType04(
+                goodsItemNumber = "2",
+                declarationGoodsItemNumber = 2,
+                Commodity = CommodityType08(
+                  descriptionOfGoods = "dog2"
+                )
+              )
             )
           )
         )
