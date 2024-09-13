@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.P5
+package controllers
 
 import base.SpecBase
 import controllers.actions.AuthenticateActionProvider
@@ -22,7 +22,7 @@ import controllers.actions.FakeAuthenticateActionProvider
 import generated.p5.CC015CType
 import generated.p5.CC029CType
 import generators.ScalaxbModelGenerators
-import models.P5.Phase
+import models.Phase
 import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.{eq => eqTo}
@@ -35,7 +35,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import services.P5.DepartureMessageP5Service
+import services.messages.DepartureMessageP5Service
 import services.pdf.TADPdfGenerator
 
 import scala.concurrent.Future

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package services.P5
+package services.messages
 
 import connectors.DepartureMovementP5Connector
 import generated.p5.CC015CType
 import generated.p5.CC029CType
-import models.P5.Phase
-import models.P5.departure.DepartureMessageType.DepartureNotification
+import models.DepartureMessageType.DepartureNotification
+import models.Phase
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.RichCC029CType

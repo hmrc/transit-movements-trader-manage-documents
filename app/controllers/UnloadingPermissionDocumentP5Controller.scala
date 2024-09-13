@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.P5
+package controllers
 
 import controllers.actions.AuthenticateActionProvider
 import controllers.actions.VersionedAction
@@ -22,7 +22,7 @@ import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
-import services.P5.UnloadingMessageP5Service
+import services.messages.UnloadingMessageP5Service
 import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer

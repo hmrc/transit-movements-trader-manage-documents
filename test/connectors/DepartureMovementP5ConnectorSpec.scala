@@ -21,10 +21,10 @@ import base.SpecBase
 import cats.scalatest.ValidatedMatchers
 import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock._
-import models.P5.Phase
-import models.P5.departure.DepartureMessageType.DepartureNotification
-import models.P5.departure.DepartureMessageMetaData
-import models.P5.departure.DepartureMessages
+import models.DepartureMessageType.DepartureNotification
+import models.DepartureMessageMetaData
+import models.DepartureMessages
+import models.Phase
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience

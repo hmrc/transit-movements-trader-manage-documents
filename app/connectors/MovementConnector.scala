@@ -17,7 +17,7 @@
 package connectors
 
 import config.AppConfig
-import models.P5.Phase
+import models.Phase
 import play.api.Logging
 import play.api.http.HeaderNames._
 import uk.gov.hmrc.http.HttpReads.Implicits._

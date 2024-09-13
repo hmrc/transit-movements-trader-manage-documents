@@ -18,7 +18,6 @@ package services.pdf
 
 import generated.p5.CC015CType
 import generated.p5.CC029CType
-import services.FopService
 import viewmodels.tad.posttransition.P5TadPdfViewModel
 import viewmodels.tad.transition.P4TadPdfViewModel
 import views.xml.tad.posttransition.TransitAccompanyingDocumentP5

@@ -16,7 +16,7 @@
 
 package controllers.actions
 
-import models.P5.Phase
+import models.Phase
 import models.requests.AuthenticatedRequest
 import models.requests.VersionedRequest
 import play.api.mvc.ActionRefiner

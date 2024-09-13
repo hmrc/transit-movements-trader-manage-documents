@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package services.P5
+package services.messages
 
 import connectors.UnloadingPermissionP5Connector
 import generated.p5.CC043CType
-import models.P5.Phase
+import models.Phase
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 

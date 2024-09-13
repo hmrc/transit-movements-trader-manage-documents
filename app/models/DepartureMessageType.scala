@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package models
 
-import models.Enumerable
-import models.WithName
 import play.api.libs.json.JsError
 import play.api.libs.json.JsString
 import play.api.libs.json.JsSuccess

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package services.P5
+package services.messages
 
 import base.SpecBase
 import connectors.DepartureMovementP5Connector
 import generated.p5.CC029CType
 import generators.ModelGenerators
-import models.P5.Phase
-import models.P5.departure.DepartureMessageType.DepartureNotification
-import models.P5.departure.DepartureMessageMetaData
-import models.P5.departure.DepartureMessages
+import models.DepartureMessageType.DepartureNotification
+import models.DepartureMessageMetaData
+import models.DepartureMessages
+import models.Phase
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary

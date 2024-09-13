@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.P5
+package models
 
 sealed trait Phase {
   val version: String

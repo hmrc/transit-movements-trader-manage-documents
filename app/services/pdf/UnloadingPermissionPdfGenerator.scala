@@ -17,7 +17,6 @@
 package services.pdf
 
 import generated.p5.CC043CType
-import services.FopService
 import viewmodels.unloadingpermission.P5UnloadingPermissionPdfViewModel
 import views.xml.unloadingpermission.UnloadingPermissionDocumentP5
 

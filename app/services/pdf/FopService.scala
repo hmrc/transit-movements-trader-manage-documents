@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package services
+package services.pdf
 
 import org.apache.commons.io.output.ByteArrayOutputStream
 import org.apache.fop.apps.FopFactory

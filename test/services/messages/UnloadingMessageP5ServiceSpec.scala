@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package services.P5
+package services.messages
 
 import base.SpecBase
 import connectors.UnloadingPermissionP5Connector
 import generated.p5.CC043CType
 import generators.ModelGenerators
-import models.P5.Phase
+import models.Phase
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary

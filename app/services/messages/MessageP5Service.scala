@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package services.P5
+package services.messages
 
 import scalaxb.XMLFormat
 import scalaxb.`package`.fromXML

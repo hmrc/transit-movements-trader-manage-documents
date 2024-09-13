@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package models.P5.departure
+package models
 
-import play.api.libs.json.Json
 import play.api.libs.json.Reads
+import play.api.libs.json.__
 
-case class DepartureMessages(messages: List[DepartureMessageMetaData]) {
+import java.time.LocalDateTime
 
-  def find(`type`: DepartureMessageType): Option[DepartureMessageMetaData] = messages.find(_.messageType == `type`)
-}
+case class DepartureMessageMetaData(id: String, received: LocalDateTime, messageType: DepartureMessageType, path: String)
 
-object DepartureMessages {
-  implicit val reads: Reads[DepartureMessages] = Json.reads[DepartureMessages]
+object DepartureMessageMetaData {
+
+  implicit lazy val reads: Reads[DepartureMessageMetaData] = {
+    import play.api.libs.functional.syntax._
+    (
+      (__ \ "id").read[String] and
+        (__ \ "received").read[LocalDateTime] and
+        (__ \ "type").read[DepartureMessageType] and
+        (__ \ "_links" \ "self" \ "href").read[String].map(_.replace("/customs/transits/", ""))
+    )(DepartureMessageMetaData.apply _)
+  }
 }
