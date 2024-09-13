@@ -16,7 +16,7 @@
 
 package generators
 
-import models.P5.Phase
+import models.Phase
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 

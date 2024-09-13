@@ -16,7 +16,7 @@
 
 package models.requests
 
-import models.P5.Phase
+import models.Phase
 import play.api.mvc.WrappedRequest
 
 case class VersionedRequest[A](request: AuthenticatedRequest[A], phase: Phase) extends WrappedRequest[A](request) {

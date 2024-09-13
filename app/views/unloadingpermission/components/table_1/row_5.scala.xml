@@ -1,0 +1,239 @@
+@import views.xml.unloadingpermission.components.table_1._
+@import views.xml.unloadingpermission.components._
+@import viewmodels._
+@import generated.rfc37.HouseConsignmentType04
+
+@(
+    houseConsignments: Seq[HouseConsignmentType04]
+)
+
+
+<fo:table-row height="30mm" font-size = "5.5pt">
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+
+    <fo:table-cell >
+        <fo:block />
+    </fo:table-cell>
+
+    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                   border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
+                   number-columns-spanned="6"
+    >
+        <fo:block>
+            @if(houseConsignments.nonEmpty) {
+                <fo:table width="100%" table-layout="fixed" >
+                    <fo:table-column column-number="1" column-width="59mm"/>
+                    <fo:table-column column-number="2" column-width="59mm" />
+                    <fo:table-column column-number="3" column-width="59mm" />
+                    <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" keep-together.within-page="always">
+
+                        @houseConsignments.zipWithIndex.map { case (hc, hcIndex) =>
+
+                            <fo:table-row height="5mm" keep-together.within-page="always">
+                                <fo:table-cell  margin-left="0.5mm" >
+                                    <fo:block-container overflow="hidden" margin-top = "0.8mm">
+                                        <fo:block><fo:inline font-size="8">House consignment @(hcIndex + 1) </fo:inline></fo:block>
+                                    </fo:block-container>
+                                </fo:table-cell>
+                            </fo:table-row>
+
+                            <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="grey" margin-left="0.5mm" >
+                                <fo:table-cell  number-columns-spanned="2"   >
+                                    <fo:block-container overflow="hidden">
+                                        <fo:block>
+                                            <fo:inline font-size="7">Gross weight</fo:inline>
+
+                                        </fo:block>
+                                    </fo:block-container>
+                                    <fo:block-container  overflow="hidden">
+                                        <fo:block font-size="6" font-weight="bold">@(hc.grossMass)</fo:block>
+                                    </fo:block-container>
+                                </fo:table-cell>
+                            </fo:table-row>
+
+
+                            @hc.DepartureTransportMeans.zipWithIndex.map { case (dtm, dtmIndex) =>
+
+                                <fo:table-row height="8mm" margin-left="0.5mm" >
+                                    <fo:table-cell padding-top = "2mm" >
+                                        <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                            <fo:block>
+                                                <fo:inline font-size="8">Departure means of transport @(dtmIndex + 1)</fo:inline>
+                                            </fo:block>
+
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+
+                                <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                                    <fo:table-cell display-align="after" number-columns-spanned="1" >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                            <fo:block font-size="7">
+                                                Identification type
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(dtm.typeOfIdentification)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+
+                                    <fo:table-cell display-align="after" number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Identification
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(dtm.identificationNumber)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Registered country
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(dtm.nationality)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+
+                            }
+
+                            @hc.ConsignmentItem.zipWithIndex.map { case (ci, ciIndex) =>
+                                <fo:table-row height="8mm" margin-left="0.5mm" keep-together.within-page="always" >
+                                    <fo:table-cell padding-top="2mm" >
+                                        <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                            <fo:block>
+                                                <fo:inline font-size="8">Item @(ciIndex +1)</fo:inline>
+                                            </fo:block>
+
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+
+
+                                <fo:table-row height="8mm" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1" >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                            <fo:block font-size="7">
+                                                Goods item number
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.goodsItemNumber)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Declaration goods number
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.declarationGoodsItemNumber)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+
+                                <fo:table-row height="10mm" margin-left="0.5mm" >
+
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Combined nomenclature code
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode).getOrElse("N/A"))</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Commodity code
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode).getOrElse("N/A"))</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+
+                                <fo:table-row height="10mm" margin-left="0.5mm" >
+
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Net weight
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.GoodsMeasure.flatMap(_.netMass).getOrElse("N/A"))</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Gross weight
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.GoodsMeasure.map(_.grossMass).getOrElse("N/A"))</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+
+                                <fo:table-row height="10mm" margin-left="0.5mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" >
+                                    <fo:table-cell  display-align="after"  number-columns-spanned="3"   >
+                                        <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                            <fo:block font-size="7">
+                                                Description
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.descriptionOfGoods)</fo:block>
+                                            </fo:block>
+                                        </fo:block-container>
+                                    </fo:table-cell>
+                                </fo:table-row>
+
+                                @ci.Packaging.zipWithIndex.map { case (p, pIndex) =>
+                                    <fo:table-row height="8mm" margin-left="0.5mm" keep-together.within-page="always" >
+                                        <fo:table-cell padding-top="2mm" >
+                                            <fo:block-container overflow="hidden" margin-top = "0.8mm" >
+                                                <fo:block font-size="8">
+                                                    <fo:inline>Package @(pIndex + 1)</fo:inline>
+                                                </fo:block>
+
+                                            </fo:block-container>
+                                        </fo:table-cell>
+                                    </fo:table-row>
+
+                                    <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
+                                        <fo:table-cell  display-align="after"  number-columns-spanned="1" >
+                                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
+                                                <fo:block font-size="7">
+                                                    Type
+                                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(p.typeOfPackages)</fo:block>
+                                                </fo:block>
+                                            </fo:block-container>
+                                        </fo:table-cell>
+
+                                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                                <fo:block font-size="7">
+                                                    Quantity
+                                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(p.numberOfPackages.getOrElse("N/A"))</fo:block>
+                                                </fo:block>
+                                            </fo:block-container>
+                                        </fo:table-cell>
+
+                                        <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
+                                            <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
+                                                <fo:block font-size="7">
+                                                    Shipping mark
+                                                    <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(p.shippingMarks.getOrElse("N/A"))</fo:block>
+                                                </fo:block>
+                                            </fo:block-container>
+                                        </fo:table-cell>
+                                    </fo:table-row>
+                                }
+                            }
+                        }
+
+                    </fo:table-body>
+                </fo:table>
+            }
+        </fo:block>
+    </fo:table-cell>
+
+</fo:table-row>

@@ -1,0 +1,10 @@
+@import viewmodels.tad.transition.Table4ViewModel.TransitOfficeViewModel
+
+@(customsOffice: TransitOfficeViewModel)
+
+<fo:block>
+    <fo:inline font-style="italic">
+        @customsOffice.sequenceNumber , @customsOffice.reference
+    </fo:inline>
+</fo:block>
+

@@ -1,0 +1,11 @@
+@import viewmodels.tad.transition.SecurityViewModel._
+@import views.xml.tad.transition.components.security.table_3.row4._
+
+@(dangerousGoods: DangerousGoodsViewModel )
+
+<fo:table-row height="20mm">
+
+    @dangerous_goods(dangerousGoods)
+
+</fo:table-row>
+

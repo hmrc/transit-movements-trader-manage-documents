@@ -18,7 +18,7 @@ package controllers.actions
 
 import base.SpecBase
 import cats.scalatest.EitherValues.convertEitherToEitherable
-import models.P5.Phase
+import models.Phase
 import models.requests.AuthenticatedRequest
 import models.requests.VersionedRequest
 import org.scalatest.concurrent.ScalaFutures

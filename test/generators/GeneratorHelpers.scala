@@ -17,10 +17,10 @@
 package generators
 
 import cats.data.NonEmptyList
-import org.scalacheck.Arbitrary
-import org.scalacheck.Gen
 import org.scalacheck.Gen.choose
 import org.scalacheck.Gen.listOfN
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 import org.scalacheck.Shrink
 
 import java.time.Instant

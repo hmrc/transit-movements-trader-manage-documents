@@ -17,8 +17,8 @@
 package connectors
 
 import config.AppConfig
-import models.P5.Phase
-import models.P5.departure.DepartureMessages
+import models.DepartureMessages
+import models.Phase
 import play.api.http.HeaderNames._
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.HeaderCarrier

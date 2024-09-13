@@ -1,0 +1,17 @@
+@import views.xml.tad.transition.components.security.table_2._
+
+@(
+  additionalIdentifier: String,
+  unLocode: String,
+)
+
+<fo:table-row height="15mm">
+
+
+
+  @additional_identifier(additionalIdentifier)
+
+  @un_locode(unLocode)
+
+
+</fo:table-row>

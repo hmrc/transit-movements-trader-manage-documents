@@ -1,0 +1,23 @@
+@import views.xml.tad.posttransition.components.table_3._
+@import viewmodels.tad.posttransition.Table3ViewModel
+
+@this()
+
+@(vm: Table3ViewModel)
+
+<fo:table width="100%" table-layout="fixed" id="table-3">
+
+  <fo:table-column column-number="1" column-width="8mm" />
+  <fo:table-column column-number="2" column-width="8mm"/>
+  <fo:table-column column-number="3" column-width="89mm"/>
+  <fo:table-column column-number="4" column-width="32mm"/>
+  <fo:table-column column-number="5" column-width="5mm"/>
+  <fo:table-column column-number="6" column-width="5mm"/>
+  <fo:table-column column-number="7" column-width="4mm"/>
+  <fo:table-column column-number="8" column-width="49mm"/>
+
+  <fo:table-body>
+    @row_1(vm.containerIdentification)
+    @row_2()
+  </fo:table-body>
+</fo:table>

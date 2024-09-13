@@ -1,0 +1,87 @@
+@import viewmodels.tad.transition.Table1ViewModel.ConsignorViewModel
+
+@(
+  consignorViewModel: Option[ConsignorViewModel],
+  numberOfItems: Int,
+  totalNumberOfPackages: String,
+  formName: String
+)
+
+<fo:table-row height="8mm">
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+  <fo:table-cell number-rows-spanned="5" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" padding-top="-10mm">
+    <fo:block-container
+          font-family="sans-serif" font-size="8" font-weight="bold"
+          reference-orientation="90" display-align="center"
+          inline-progression-dimension.minimum="8mm"
+          inline-progression-dimension.optimum="80mm"
+          inline-progression-dimension.maximum="auto">
+      <fo:block hyphenate="true">@formName</fo:block>
+    </fo:block-container>
+  </fo:table-cell>
+  <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">
+    <fo:block>
+      @consignorViewModel.map { consignor =>
+        <fo:table width="100%" table-layout="fixed">
+          <fo:table-column column-number="1" column-width="30mm"/>
+          <fo:table-column column-number="2" column-width="35mm"/>
+          <fo:table-column column-number="3" column-width="24mm"/>
+          <fo:table-body>
+            <fo:table-row height="5mm">
+              <fo:table-cell number-columns-spanned="3" padding-left="2mm" display-align="center" font-weight="bold">
+                <fo:block>
+                  @consignor.contactName
+                </fo:block>
+              </fo:table-cell>
+            </fo:table-row>
+            <fo:table-row height="3mm">
+              <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+                <fo:block>
+                  @consignor.phoneNumber
+                </fo:block>
+              </fo:table-cell>
+            </fo:table-row>
+          </fo:table-body>
+        </fo:table>
+      }
+    </fo:block>
+  </fo:table-cell>
+  <fo:table-cell alignment-adjust="auto" border-style="solid" border-width="1pt" border-color="black" number-columns-spanned="3">
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column column-width="16mm"/>
+        <fo:table-column border-left-width="1pt" border-left-style="solid" border-left-color="black"/>
+        <fo:table-body>
+          <fo:table-row height="4mm">
+            <fo:table-cell display-align="center" text-align="center">
+              <fo:block>5 Items</fo:block>
+            </fo:table-cell>
+            <fo:table-cell padding-left="2mm" text-align="left" display-align="center">
+              <fo:block>6 Total packages</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="4mm">
+            <fo:table-cell text-align="center" display-align="center" font-weight="bold">
+              <fo:block>
+                @numberOfItems
+              </fo:block>
+            </fo:table-cell>
+            <fo:table-cell text-align="center" display-align="center" font-weight="bold">
+              <fo:block>
+                @totalNumberOfPackages
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+</fo:table-row>

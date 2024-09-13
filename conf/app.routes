@@ -1,4 +1,4 @@
 # microservice specific routes
 
-GET          /:departureId/transit-accompanying-document/:messageId     controllers.P5.TransitAccompanyingDocumentP5Controller.get(departureId, messageId)
-GET          /:arrivalId/unloading-permission-document/:messageId       controllers.P5.UnloadingPermissionDocumentP5Controller.get(arrivalId, messageId)
+GET          /:departureId/transit-accompanying-document/:messageId     controllers.TransitAccompanyingDocumentP5Controller.get(departureId, messageId)
+GET          /:arrivalId/unloading-permission-document/:messageId       controllers.UnloadingPermissionDocumentP5Controller.get(arrivalId, messageId)

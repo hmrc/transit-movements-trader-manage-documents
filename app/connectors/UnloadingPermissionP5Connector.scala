@@ -17,7 +17,7 @@
 package connectors
 
 import config.AppConfig
-import models.P5.Phase
+import models.Phase
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.client.HttpClientV2
 

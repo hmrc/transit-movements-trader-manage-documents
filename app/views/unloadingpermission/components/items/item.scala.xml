@@ -1,0 +1,223 @@
+@import viewmodels.unloadingpermission.ConsignmentItemViewModel
+
+@(vm: ConsignmentItemViewModel)
+<fo:table width="100%" table-layout="fixed" margin-bottom="12mm" font-size="7pt">
+    <fo:table-column column-width="30%"/>
+    <fo:table-column column-width="15%"/>
+    <fo:table-column column-width="15%"/>
+    <fo:table-column column-width="35%"/>
+    <fo:table-body>
+        @firstRow
+        @consignee
+        @goods
+        @previousDocument
+        @supportingDocument
+        @additionalReference
+        @additionalInformation
+        @transportDocument
+        @lastRow
+    </fo:table-body>
+</fo:table>
+
+@firstRow = {
+    <fo:table-row height="12mm" display-align="before" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Decl.good.Nr.</fo:inline> [1111]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.declarationGoodsItemNumber
+            </fo:block>
+        </fo:table-cell>
+        <fo:table-cell number-columns-spanned="2" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Goodit.Nr.</fo:inline> [1102]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.goodsItemNumber
+            </fo:block>
+        </fo:table-cell>
+        <fo:table-cell padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Type and number of packages, shipping marks</fo:inline> [1806]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.packaging
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@consignee = {
+    <fo:table-row height="8mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="2" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Consignee </fo:inline><fo:inline font-weight="bold" font-size="6">[1303] @vm.consignee</fo:inline>
+            </fo:block>
+        </fo:table-cell>
+        <fo:table-cell number-columns-spanned="2" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">ID </fo:inline><fo:inline font-weight="bold" font-size="6">@vm.consigneeId</fo:inline>
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@goods = {
+    <fo:table-row height="22mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="4">
+            <fo:block>
+                <fo:table width="100%" table-layout="fixed">
+                    <fo:table-column column-width="40%"/>
+                    <fo:table-column column-width="60%"/>
+                    <fo:table-body>
+                        <fo:table-row height="12mm">
+                            <fo:table-cell padding-left="2mm">
+                                <fo:block>
+                                    <fo:inline font-size="7">UDNG</fo:inline> [1807]
+                                </fo:block>
+                                <fo:block font-weight="bold" font-size="6">
+                                    @vm.udng
+                                </fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding-left="2mm">
+                                <fo:block>
+                                    <fo:inline font-size="7">CUS code</fo:inline> [1808]
+                                </fo:block>
+                                <fo:block font-weight="bold" font-size="6">
+                                    @vm.cusCode
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                        <fo:table-row height="10mm">
+                            <fo:table-cell number-columns-spanned="2" padding-left="2mm">
+                                <fo:block>
+                                    <fo:inline font-size="7">Description of goods</fo:inline> [1805]
+                                </fo:block>
+                                <fo:block font-weight="bold" font-size="6">
+                                    @vm.descriptionOfGoods
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@previousDocument = {
+    <fo:table-row height="9mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="4" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Previous document</fo:inline> [1201]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.previousDocuments
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@supportingDocument = {
+    <fo:table-row height="9mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="4" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Supporting document</fo:inline> [1203]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.supportingDocuments
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@additionalReference = {
+    <fo:table-row height="9mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="4" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Additional reference</fo:inline> [1204]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.additionalReferences
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@additionalInformation = {
+    <fo:table-row height="9mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="4" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Additional information</fo:inline> [1202]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.additionalInformation
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@transportDocument = {
+    <fo:table-row height="9mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="4" padding-left="2mm">
+            <fo:block>
+                <fo:inline font-size="7">Transport document</fo:inline> [1205]
+            </fo:block>
+            <fo:block font-weight="bold" font-size="6">
+                @vm.transportDocuments
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}
+
+@lastRow = {
+    <fo:table-row height="20mm" display-align="center" border-style="solid" border-width="1pt" border-color="black">
+        <fo:table-cell number-columns-spanned="4">
+            <fo:block>
+                <fo:table width="100%" table-layout="fixed">
+                    <fo:table-column column-width="40%"/>
+                    <fo:table-column column-width="60%"/>
+                    <fo:table-body>
+                        <fo:table-row height="10mm">
+                            <fo:table-cell padding-left="2mm">
+                                <fo:block>
+                                    <fo:inline font-size="7">Commodity code</fo:inline> [1809]
+                                </fo:block>
+                                <fo:block font-weight="bold" font-size="6">
+                                    @vm.commodityCode
+                                </fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding-left="2mm">
+                                <fo:block>
+                                    <fo:inline font-size="7">Gross mass</fo:inline> [1804]
+                                </fo:block>
+                                <fo:block font-weight="bold" font-size="6">
+                                    @vm.grossMass
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                        <fo:table-row height="10mm">
+                            <fo:table-cell padding-left="2mm">
+                                <fo:block>
+                                    <fo:inline font-size="7">C.of dest</fo:inline> [1607]
+                                </fo:block>
+                                <fo:block font-weight="bold" font-size="6">
+                                    @vm.cOfDest
+                                </fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding-left="2mm">
+                                <fo:block>
+                                    <fo:inline font-size="7">Net mass</fo:inline> [1801]
+                                </fo:block>
+                                <fo:block font-weight="bold" font-size="6">
+                                    @vm.netMass
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:block>
+        </fo:table-cell>
+    </fo:table-row>
+}

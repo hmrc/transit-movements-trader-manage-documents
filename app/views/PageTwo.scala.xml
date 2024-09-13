@@ -1,0 +1,17 @@
+@import views.xml.tad.posttransition.components.items._
+@import viewmodels.tad.posttransition.ConsignmentItemViewModel
+
+@this()
+
+@(items: Seq[ConsignmentItemViewModel], mrn: String)
+<fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
+    <fo:static-content flow-name="xsl-region-before">
+        @header(mrn)
+    </fo:static-content>
+    <fo:flow flow-name="xsl-region-body">
+        <fo:block>
+            @items.map(table(_))
+        </fo:block>
+        <fo:block id="tloi-pages"/>
+    </fo:flow>
+</fo:page-sequence>
