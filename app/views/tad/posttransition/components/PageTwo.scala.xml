@@ -1,0 +1,17 @@
+@import viewmodels.p5.tad.P5TadPdfViewModel
+@import views.xml.tad.posttransition.components.items._
+
+@this()
+
+@(vm: P5TadPdfViewModel)
+<fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
+    <fo:static-content flow-name="xsl-region-before">
+        @header(vm.mrn)
+    </fo:static-content>
+    <fo:flow flow-name="xsl-region-body">
+        <fo:block>
+          @vm.consignmentItemViewModels.map(table(_))
+        </fo:block>
+        <fo:block id="tloi-pages"/>
+    </fo:flow>
+</fo:page-sequence>

@@ -21,7 +21,7 @@ import generated.p5.CC015CType
 import generated.p5.CC029CType
 import models.P5.Phase
 import models.P5.departure.DepartureMessageType.DepartureNotification
-import refactor.viewmodels.p5.RichCC029CType
+import viewmodels.p5.RichCC029CType
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 

@@ -1,0 +1,21 @@
+@import views.xml.DocumentTemplateP5
+@import views.xml.unloadingpermission.components._
+@import views.xml.PageOne
+@import viewmodels.p5.unloadingpermission.P5UnloadingPermissionPdfViewModel
+
+@this(
+    template: DocumentTemplateP5,
+    pageOne: PageOne,
+    table1: table_1.table,
+    pageTwo: items.items
+)
+
+@(vm: P5UnloadingPermissionPdfViewModel)
+@template(
+    pageOne = pageOne(pageOneBody),
+    pageTwo = Some(pageTwo(vm.consignmentItemViewModels, vm.mrn))
+)
+
+@pageOneBody = {
+    @table1(vm.table1ViewModel, vm.mrn)
+}

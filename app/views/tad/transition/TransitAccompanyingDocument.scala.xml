@@ -1,0 +1,65 @@
+@import views.xml.tad.transition.DocumentTemplate
+@import views.xml.tad.transition.components._
+@import views.xml.PageOne
+@import views.xml.IntermediaryPage
+@import views.xml.tad.transition.components.second_page
+@import viewmodels.p4.tad.P4TadPdfViewModel
+@import viewmodels.p4.tad.SecurityViewModel
+
+@this(
+    mainHeader: table_1.table,
+    table2: table_2.table,
+    table3: table_3.table,
+    table4: table_4.table,
+    table5: table_5.table,
+    template: DocumentTemplate,
+    pageOne: PageOne,
+    pageTwo: second_page.table,
+    intermediaryPage: IntermediaryPage,
+    securityHeader: security.table_1.table,
+    securityTable2: security.table_2.table,
+    securityTable3: security.table_3.table
+)
+
+@(vm: P4TadPdfViewModel)
+@template(
+    pageOne = pageOne(pageOneBody),
+    intermediaryPage = vm.securityViewModel.map(x => (intermediaryPage(intermediaryPageBody(x)))),
+    pageTwo = vm.table2ViewModel.consignmentItemViewModel.map(_ => pageTwo(vm.secondPageViewModel, vm.mrn, vm.lrn, vm.itemPageNumber))
+)
+
+@pageOneBody = {
+    <!--main header-->
+    @mainHeader(
+        vm = vm.table1ViewModel,
+        mrn = vm.mrn,
+        lrn = vm.lrn,
+        title = "TRANSIT - ACCOMPANYING DOCUMENT"
+    )
+
+    <!--packages/goods description/docs/certs-->
+    @table2(vm.table2ViewModel)
+
+    <!--transhipment/certification-->
+    @table3()
+
+    <!--Principal/TIR Holder/Office of departure-->
+    @table4(vm.table4ViewModel)
+
+    <!--control by office of departure/destination-->
+    @table5(vm.table5ViewModel)
+}
+
+@intermediaryPageBody(securityModel: SecurityViewModel) = {
+    <!--main header-->
+    @securityHeader(
+        vm = securityModel,
+        mrn = vm.mrn,
+        lrn = vm.lrn
+    )
+    @securityTable2(securityModel)
+
+    @securityTable3(securityModel)
+}
+
+

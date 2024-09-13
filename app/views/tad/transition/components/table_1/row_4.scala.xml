@@ -1,0 +1,56 @@
+@import views.xml.tad.transition.components.table_1.consignee
+@import viewmodels.p4.tad.Table1ViewModel._
+
+
+@(
+  consigneeViewModel: Option[ConsigneeViewModel],
+  returnCopiesCustomsOffice: Option[CustomsOfficeViewModel]
+)
+
+<fo:table-row height="25mm">
+  <fo:table-cell>
+    <fo:block/>
+  </fo:table-cell>
+
+  @consignee(consigneeViewModel)
+
+  <fo:table-cell alignment-adjust="auto" number-columns-spanned="5">
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column/>
+        <fo:table-body>
+          <fo:table-row height="4.25mm">
+            <fo:table-cell padding-left="2mm" display-align="center">
+              <fo:block>Return copy has to be sent to the Office</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="4.25mm">
+            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+              <fo:block>@returnCopiesCustomsOffice.map(_.name)</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="4.25mm">
+            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+              <fo:block>@returnCopiesCustomsOffice.map(_.streetAndNumber)</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="4.25mm">
+            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+              <fo:block>@returnCopiesCustomsOffice.map(_.postcode)</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="4.25mm">
+            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+              <fo:block>@returnCopiesCustomsOffice.map(_.city)</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row height="4.25mm">
+            <fo:table-cell padding-left="2mm" display-align="center" font-weight="bold">
+              <fo:block>@returnCopiesCustomsOffice.map(_.country)</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+</fo:table-row>

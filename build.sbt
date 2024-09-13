@@ -4,7 +4,6 @@ import scoverage.ScoverageKeys
 val appName         = "transit-movements-trader-manage-documents"
 val silencerVersion = "1.7.14"
 
-lazy val P4 = config("p4") extend Compile
 lazy val P5 = config("p5") extend Compile
 
 lazy val microservice = Project(appName, file("."))
@@ -49,10 +48,8 @@ lazy val testSettings: Seq[Def.Setting[?]] = Seq(
 )
 
 def customScalaxbSettings: Seq[Def.Setting[_]] =
-  inConfig(P4)(baseScalaxbSettings ++ inTask(scalaxb)(customScalaxbSettingsFor("p4"))) ++
-    inConfig(P5)(baseScalaxbSettings ++ inTask(scalaxb)(customScalaxbSettingsFor("p5"))) ++
+  inConfig(P5)(baseScalaxbSettings ++ inTask(scalaxb)(customScalaxbSettingsFor("p5"))) ++
     Seq(
-      Compile / sourceGenerators += (P4 / scalaxb).taskValue,
       Compile / sourceGenerators += (P5 / scalaxb).taskValue
     )
 

@@ -1,0 +1,13 @@
+@import viewmodels.p4.tad.SecurityViewModel.CountriesOfRoutingOfConsignmentViewModel
+@import viewmodels.p4.tad.SecurityViewModel.ActiveBorderTransportMeansViewModel
+@import views.xml.tad.transition.components.security.table_3.row1._
+
+@(countriesOfRoutingOfConsignment: CountriesOfRoutingOfConsignmentViewModel, activeBorderTransportMeans: ActiveBorderTransportMeansViewModel)
+
+<fo:table-row height="36mm">
+
+    @country_of_routing(countriesOfRoutingOfConsignment)
+    @active_border_transport_means(activeBorderTransportMeans)
+
+</fo:table-row>
+

@@ -1,0 +1,42 @@
+@import views.xml.tad.transition.components.security.table_1._
+@import viewmodels.p4.tad.SecurityViewModel
+@import views.xml.tad.transition.components.barcode
+
+@(
+  mrn: String,
+  carrierIdentificationNumber: String,
+  securityType: String,
+  lrn: Option[String]
+)
+
+<fo:table-row height="16mm">
+
+  @carrier(carrierIdentificationNumber)
+
+  <fo:table-cell>
+    <fo:block>
+      <fo:table width="100%" table-layout="fixed">
+        <fo:table-column/>
+
+        <fo:table-body>
+
+          @security(securityType)
+
+          @forms()
+        </fo:table-body>
+      </fo:table>
+    </fo:block>
+  </fo:table-cell>
+
+  <fo:table-cell number-columns-spanned="4"  padding-top="-1mm" padding-left = "1mm" >
+    <fo:block >
+      @barcode(mrn)
+    </fo:block>
+
+    @lrn.map { lrn =>
+    <fo:block  margin-left="2mm" font-size = "10pt" font-weight = "normal">
+      <fo:inline font-weight = "bold">LRN</fo:inline> @lrn
+    </fo:block>
+    }
+  </fo:table-cell>
+</fo:table-row>

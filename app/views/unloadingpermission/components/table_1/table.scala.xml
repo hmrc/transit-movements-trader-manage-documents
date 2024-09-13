@@ -1,0 +1,51 @@
+@import views.xml.unloadingpermission.components.table_1._
+@import viewmodels.p5.unloadingpermission.Table1ViewModel
+
+@this()
+
+@(vm: Table1ViewModel, mrn: String)
+
+<fo:table width="100%" table-layout="fixed" id="table-1">
+
+  <fo:table-column column-number="1" column-width="8mm" />
+  <fo:table-column column-number="2" column-width="8mm"/>
+  <fo:table-column column-number="3" column-width="89mm"/>
+  <fo:table-column column-number="4" column-width="32mm"/>
+  <fo:table-column column-number="5" column-width="5mm"/>
+  <fo:table-column column-number="6" column-width="5mm"/>
+  <fo:table-column column-number="7" column-width="4mm"/>
+  <fo:table-column column-number="8" column-width="42mm"/>
+
+  <fo:table-body font-family="Arial">
+    @row_1(mrn)
+
+    @row_2(
+      vm.declarationType,
+      vm.totalGrossMass,
+      mrn
+    )
+
+    @row_3(
+      vm.departureTransportMeans,
+      vm.container,
+      vm.transportEquipment,
+      vm.seals,
+      vm.previousDocument,
+      vm.transportDocument
+    )
+
+    @row_4(
+      vm.supportingDocument,
+      vm.additionalReference,
+      vm.additionalInformation,
+      vm.customsOfficeOfDestination,
+      vm.countryOfDestination
+    )
+
+    @row_5(
+      vm.houseConsignmentDepartureTransportMeans
+    )
+
+  </fo:table-body>
+</fo:table>
+

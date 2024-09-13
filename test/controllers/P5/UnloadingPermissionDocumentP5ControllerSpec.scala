@@ -34,8 +34,8 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import refactor.services.pdf.UnloadingPermissionPdfGenerator
 import services.P5.UnloadingMessageP5Service
+import services.pdf.UnloadingPermissionPdfGenerator
 
 import scala.concurrent.Future
 

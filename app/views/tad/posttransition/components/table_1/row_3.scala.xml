@@ -1,0 +1,62 @@
+@import views.xml.tad.posttransition.components.table_1.consignee
+@import views.xml.tad.posttransition.components.table_1.total_gross_mass
+
+@(
+    consignees: String,
+    consigneeIdentificationNumbers: String,
+    totalItems: String,
+    totalPackages: String,
+    totalGrossMass: String,
+    securityString: String
+)
+
+<fo:table-row height="8%">
+
+    <fo:table-cell>
+        <fo:block/>
+    </fo:table-cell>
+
+    <fo:table-cell text-align="center" vertical-align="top"
+                   border-left-style="solid" border-left-width="2pt" border-left-color="black"
+                   border-right-style="solid" border-right-width="2pt" border-right-color="black">
+        <fo:block/>
+    </fo:table-cell>
+
+    @consignee(consignees, consigneeIdentificationNumbers)
+
+    <fo:table-cell>
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column/>
+
+                <fo:table-body>
+
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+
+                                    <fo:table-column column-width="31.3%"/>
+                                    <fo:table-column column-width="47%"/>
+                                    <fo:table-column column-width="47%"/>
+                                    <fo:table-column column-width="47%"/>
+
+                                    <fo:table-body>
+                                        <fo:table-row height="8%">
+                                            @total_items(totalItems)
+                                            @total_packages(totalPackages)
+                                            @total_gross_mass(totalGrossMass)
+                                            @security(securityString)
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+
+
+</fo:table-row>
