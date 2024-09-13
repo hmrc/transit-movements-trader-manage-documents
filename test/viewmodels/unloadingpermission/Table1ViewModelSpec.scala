@@ -17,7 +17,7 @@
 package viewmodels.unloadingpermission
 
 import base.SpecBase
-import generated.p5.DepartureTransportMeansType02
+import generated.rfc37.DepartureTransportMeansType02
 import viewmodels.DummyData
 
 class Table1ViewModelSpec extends SpecBase with DummyData {

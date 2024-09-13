@@ -16,9 +16,9 @@
 
 package viewmodels.tad.transition
 
-import generated.p5.CC029CType
-import generated.p5.ConsigneeType03
-import generated.p5.ConsignmentItemType03
+import generated.rfc37.CC029CType
+import generated.rfc37.ConsigneeType03
+import generated.rfc37.ConsignmentItemType03
 import viewmodels._
 import viewmodels.tad.transition.ConsignmentItemViewModel._
 

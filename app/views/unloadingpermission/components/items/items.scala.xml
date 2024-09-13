@@ -1,5 +1,5 @@
 @import views.xml.unloadingpermission.components.items._
-@import viewmodels.p5.unloadingpermission.ConsignmentItemViewModel
+@import viewmodels.unloadingpermission.ConsignmentItemViewModel
 
 @this()
 

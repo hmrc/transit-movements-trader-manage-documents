@@ -16,7 +16,7 @@
 
 package viewmodels.unloadingpermission
 
-import generated.p5._
+import generated.rfc37._
 
 case class P5UnloadingPermissionPdfViewModel(
   mrn: String,

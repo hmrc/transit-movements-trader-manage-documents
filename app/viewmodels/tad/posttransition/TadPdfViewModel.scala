@@ -16,10 +16,10 @@
 
 package viewmodels.tad.posttransition
 
-import generated.p5._
+import generated.rfc37._
 import viewmodels._
 
-case class P5TadPdfViewModel(
+case class TadPdfViewModel(
   mrn: String,
   consignmentItemViewModels: Seq[ConsignmentItemViewModel],
   table1ViewModel: Table1ViewModel,
@@ -28,14 +28,14 @@ case class P5TadPdfViewModel(
   table4ViewModel: Table4ViewModel
 )
 
-object P5TadPdfViewModel {
+object TadPdfViewModel {
 
   /** @param ie015 declaration data
     * @param ie029 release for transit
     * @return P5 TAD view model based on P5 (final) data
     */
-  def apply(ie015: CC015CType, ie029: CC029CType): P5TadPdfViewModel =
-    new P5TadPdfViewModel(
+  def apply(ie015: CC015CType, ie029: CC029CType): TadPdfViewModel =
+    new TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
       consignmentItemViewModels = ie029.rollDown.Consignment.HouseConsignment.flatMap {
         houseConsignment => houseConsignment.ConsignmentItem.map(ConsignmentItemViewModel(houseConsignment, _))

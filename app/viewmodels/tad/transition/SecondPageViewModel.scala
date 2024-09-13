@@ -16,7 +16,7 @@
 
 package viewmodels.tad.transition
 
-import generated.p5._
+import generated.rfc37._
 import viewmodels._
 
 case class SecondPageViewModel(

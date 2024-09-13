@@ -1,4 +1,4 @@
-@import viewmodels.p5.unloadingpermission.ConsignmentItemViewModel
+@import viewmodels.unloadingpermission.ConsignmentItemViewModel
 
 @(vm: ConsignmentItemViewModel)
 <fo:table width="100%" table-layout="fixed" margin-bottom="12mm" font-size="7pt">

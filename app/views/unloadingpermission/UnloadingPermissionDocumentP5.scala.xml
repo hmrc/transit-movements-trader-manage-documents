@@ -1,7 +1,7 @@
 @import views.xml.DocumentTemplateP5
 @import views.xml.unloadingpermission.components._
 @import views.xml.PageOne
-@import viewmodels.p5.unloadingpermission.P5UnloadingPermissionPdfViewModel
+@import viewmodels.unloadingpermission.P5UnloadingPermissionPdfViewModel
 
 @this(
     template: DocumentTemplateP5,

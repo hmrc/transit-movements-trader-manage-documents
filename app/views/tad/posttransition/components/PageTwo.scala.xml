@@ -1,9 +1,9 @@
-@import viewmodels.tad.posttransition.P5TadPdfViewModel
+@import viewmodels.tad.posttransition.TadPdfViewModel
 @import views.xml.tad.posttransition.components.items._
 
 @this()
 
-@(vm: P5TadPdfViewModel)
+@(vm: TadPdfViewModel)
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
     <fo:static-content flow-name="xsl-region-before">
         @header(vm.mrn)

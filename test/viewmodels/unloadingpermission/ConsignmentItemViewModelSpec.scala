@@ -17,7 +17,7 @@
 package viewmodels.unloadingpermission
 
 import base.SpecBase
-import generated.p5._
+import generated.rfc37._
 
 class ConsignmentItemViewModelSpec extends SpecBase {
 

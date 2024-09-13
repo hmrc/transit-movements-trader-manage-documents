@@ -17,7 +17,7 @@
 package viewmodels.tad.posttransition
 
 import base.SpecBase
-import generated.p5._
+import generated.rfc37._
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

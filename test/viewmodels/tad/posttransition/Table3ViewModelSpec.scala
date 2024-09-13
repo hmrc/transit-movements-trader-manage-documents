@@ -17,9 +17,9 @@
 package viewmodels.tad.posttransition
 
 import base.SpecBase
-import generated.p5.GoodsReferenceType02
-import generated.p5.SealType04
-import generated.p5.TransportEquipmentType05
+import generated.rfc37.GoodsReferenceType02
+import generated.rfc37.SealType04
+import generated.rfc37.TransportEquipmentType05
 import viewmodels.DummyData
 
 class Table3ViewModelSpec extends SpecBase with DummyData {

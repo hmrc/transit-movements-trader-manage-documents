@@ -16,10 +16,9 @@
 
 package services.pdf
 
-import generated.p5.CC015CType
-import generated.p5.CC029CType
-import viewmodels.tad.posttransition.P5TadPdfViewModel
-import viewmodels.tad.transition.P4TadPdfViewModel
+import generated.rfc37.CC015CType
+import generated.rfc37.CC029CType
+import viewmodels.tad._
 import views.xml.tad.posttransition.TransitAccompanyingDocumentP5
 import views.xml.tad.transition.TransitAccompanyingDocument
 
@@ -32,8 +31,8 @@ class TADPdfGenerator @Inject() (
 ) {
 
   def generateP5TADPostTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
-    fopService.processTwirlXml(documentP5.render(P5TadPdfViewModel(ie015, ie029)))
+    fopService.processTwirlXml(documentP5.render(posttransition.TadPdfViewModel(ie015, ie029)))
 
   def generateP5TADTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
-    fopService.processTwirlXml(documentP5Transition.render(P4TadPdfViewModel(ie015, ie029)))
+    fopService.processTwirlXml(documentP5Transition.render(transition.TadPdfViewModel(ie015, ie029)))
 }

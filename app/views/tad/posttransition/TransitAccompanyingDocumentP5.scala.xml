@@ -2,7 +2,7 @@
 @import views.xml.tad.posttransition.components._
 @import views.xml.PageOne
 @import views.xml.PageTwo
-@import viewmodels.tad.posttransition.P5TadPdfViewModel
+@import viewmodels.tad.posttransition.TadPdfViewModel
 
 @this(
     table1: table_1.table,
@@ -14,7 +14,7 @@
     pageTwo: PageTwo
 )
 
-@(vm: P5TadPdfViewModel)
+@(vm: TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo = Some(pageTwo(items = vm.consignmentItemViewModels, mrn = vm.mrn))

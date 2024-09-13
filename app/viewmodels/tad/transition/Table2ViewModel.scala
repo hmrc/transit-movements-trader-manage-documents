@@ -16,7 +16,7 @@
 
 package viewmodels.tad.transition
 
-import generated.p5.CC029CType
+import generated.rfc37.CC029CType
 import viewmodels._
 
 case class Table2ViewModel(

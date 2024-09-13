@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import controllers.actions.AuthenticateActionProvider
 import controllers.actions.FakeAuthenticateActionProvider
-import generated.p5.CC043CType
+import generated.rfc37.CC043CType
 import generators.ScalaxbModelGenerators
 import models.Phase
 import org.apache.pekko.util.ByteString

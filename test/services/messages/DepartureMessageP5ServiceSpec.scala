@@ -18,7 +18,7 @@ package services.messages
 
 import base.SpecBase
 import connectors.DepartureMovementP5Connector
-import generated.p5.CC029CType
+import generated.rfc37.CC029CType
 import generators.ModelGenerators
 import models.DepartureMessageType.DepartureNotification
 import models.DepartureMessageMetaData

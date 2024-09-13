@@ -1,7 +1,7 @@
 @import views.xml.unloadingpermission.components.table_1._
 @import views.xml.unloadingpermission.components._
 @import viewmodels._
-@import generated.p5.HouseConsignmentType04
+@import generated.rfc37.HouseConsignmentType04
 
 @(
     houseConsignments: Seq[HouseConsignmentType04]

@@ -16,7 +16,7 @@
 
 package viewmodels.unloadingpermission
 
-import generated.p5.ConsignmentItemType04
+import generated.rfc37.ConsignmentItemType04
 import viewmodels._
 
 case class ConsignmentItemViewModel(

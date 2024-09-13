@@ -17,21 +17,21 @@
 package viewmodels.tad.transition
 
 import base.SpecBase
-import generated.p5.CC015CType
-import generated.p5.CC029CType
+import generated.rfc37.CC015CType
+import generated.rfc37.CC029CType
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class P4TadPdfViewModelSpec extends SpecBase with ScalaCheckPropertyChecks with ScalaxbModelGenerators {
+class TadPdfViewModelSpec extends SpecBase with ScalaCheckPropertyChecks with ScalaxbModelGenerators {
 
   "when security is 0" - {
     "there should be no security view model" in {
       forAll(arbitrary[CC015CType], arbitrary[CC029CType]) {
         (ie015, ie029) =>
           val ie029WithNoSecurity = ie029.copy(TransitOperation = ie029.TransitOperation.copy(security = "0"))
-          val viewModel           = P4TadPdfViewModel(ie015, ie029WithNoSecurity)
+          val viewModel           = TadPdfViewModel(ie015, ie029WithNoSecurity)
           viewModel.securityViewModel must not be defined
       }
     }
@@ -42,7 +42,7 @@ class P4TadPdfViewModelSpec extends SpecBase with ScalaCheckPropertyChecks with 
       forAll(arbitrary[CC015CType], arbitrary[CC029CType], Gen.oneOf("1", "2", "3")) {
         (ie015, ie029, security) =>
           val ie029WithNoSecurity = ie029.copy(TransitOperation = ie029.TransitOperation.copy(security = security))
-          val viewModel           = P4TadPdfViewModel(ie015, ie029WithNoSecurity)
+          val viewModel           = TadPdfViewModel(ie015, ie029WithNoSecurity)
           viewModel.securityViewModel must be(defined)
       }
     }

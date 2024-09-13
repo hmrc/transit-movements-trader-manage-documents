@@ -1,5 +1,5 @@
 @import views.xml.unloadingpermission.components.table_1._
-@import viewmodels.p5.unloadingpermission.Table1ViewModel
+@import viewmodels.unloadingpermission.Table1ViewModel
 
 @this()
 

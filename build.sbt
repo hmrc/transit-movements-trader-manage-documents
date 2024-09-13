@@ -4,7 +4,8 @@ import scoverage.ScoverageKeys
 val appName         = "transit-movements-trader-manage-documents"
 val silencerVersion = "1.7.14"
 
-lazy val P5 = config("p5") extend Compile
+lazy val RFC37 = "rfc37"
+lazy val RFC37Config = config(RFC37) extend Compile
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin, ScalaxbPlugin)
@@ -48,9 +49,9 @@ lazy val testSettings: Seq[Def.Setting[?]] = Seq(
 )
 
 def customScalaxbSettings: Seq[Def.Setting[_]] =
-  inConfig(P5)(baseScalaxbSettings ++ inTask(scalaxb)(customScalaxbSettingsFor("p5"))) ++
+  inConfig(RFC37Config)(baseScalaxbSettings ++ inTask(scalaxb)(customScalaxbSettingsFor(RFC37))) ++
     Seq(
-      Compile / sourceGenerators += (P5 / scalaxb).taskValue
+      Compile / sourceGenerators += (RFC37Config / scalaxb).taskValue
     )
 
 def customScalaxbSettingsFor(base: String): Seq[Def.Setting[_]] = Seq(

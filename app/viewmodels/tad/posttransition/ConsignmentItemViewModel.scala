@@ -16,8 +16,8 @@
 
 package viewmodels.tad.posttransition
 
-import generated.p5.ConsignmentItemType03
-import generated.p5.HouseConsignmentType03
+import generated.rfc37.ConsignmentItemType03
+import generated.rfc37.HouseConsignmentType03
 import viewmodels._
 
 case class ConsignmentItemViewModel(

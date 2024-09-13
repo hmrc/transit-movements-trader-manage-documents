@@ -16,10 +16,10 @@
 
 package viewmodels.tad.transition
 
-import generated.p5._
+import generated.rfc37._
 import viewmodels.RichCC029CType
 
-case class P4TadPdfViewModel(
+case class TadPdfViewModel(
   mrn: String,
   lrn: Option[String],
   secondPageViewModel: SecondPageViewModel,
@@ -34,16 +34,16 @@ case class P4TadPdfViewModel(
 
 }
 
-object P4TadPdfViewModel {
+object TadPdfViewModel {
 
   /** @param ie015 declaration data
     * @param ie029 release for transit
     * @return P4 TAD view model based on P5 (transition) data
     */
-  def apply(ie015: CC015CType, ie029: CC029CType): P4TadPdfViewModel = {
+  def apply(ie015: CC015CType, ie029: CC029CType): TadPdfViewModel = {
     val consignmentItemViewModels = ie029.consignmentItems.map(ConsignmentItemViewModel(ie029, _))
 
-    new P4TadPdfViewModel(
+    new TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
       lrn = Some(ie029.TransitOperation.LRN),
       secondPageViewModel = SecondPageViewModel(ie029, consignmentItemViewModels),
