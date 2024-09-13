@@ -17,6 +17,7 @@
 package viewmodels.tad.transition
 
 import base.SpecBase
+import generated.rfc37.PreviousDocumentType06
 import viewmodels.DummyData
 
 class Table2ViewModelSpec extends SpecBase with DummyData {
@@ -48,6 +49,25 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
 
     "consignmentPreviousDocuments" in {
       result.consignmentPreviousDocuments mustBe "1, ptv1, prn1, pcoi1..."
+    }
+
+    "consignmentPreviousDocuments with long text" in {
+      val result = Table2ViewModel(
+        cc029c.copy(Consignment =
+          cc029c.Consignment.copy(PreviousDocument =
+            Seq(
+              PreviousDocumentType06(
+                sequenceNumber = "1",
+                typeValue = "ptv1",
+                referenceNumber = "AbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyz",
+                complementOfInformation = Some("pcoi1")
+              )
+            )
+          )
+        ),
+        consignmentItemViewModel
+      )
+      result.consignmentPreviousDocuments mustBe "1, ptv1, AbcdefghijklmnopqrstuvwxyzAbcdefghijkl..."
     }
 
     "consignmentSupportingDocuments" in {
