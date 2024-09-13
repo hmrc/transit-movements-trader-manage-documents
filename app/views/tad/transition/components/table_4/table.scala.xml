@@ -1,6 +1,6 @@
 @import views.xml.tad.transition.components.table_4.row_3
 @import views.xml.tad.transition.components.table_4.row_4
-@import viewmodels.p4.tad.Table4ViewModel
+@import viewmodels.tad.transition.Table4ViewModel
 
 @this()
 

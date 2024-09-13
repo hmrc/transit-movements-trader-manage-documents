@@ -1,4 +1,4 @@
-@import viewmodels.p5.tad.Table4ViewModel
+@import viewmodels.tad.posttransition.Table4ViewModel
 
 @this()
 

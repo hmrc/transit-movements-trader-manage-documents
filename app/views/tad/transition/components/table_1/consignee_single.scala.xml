@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.Table1ViewModel.ConsigneeViewModel
+@import viewmodels.tad.transition.Table1ViewModel.ConsigneeViewModel
 
 @(vm: ConsigneeViewModel)
 

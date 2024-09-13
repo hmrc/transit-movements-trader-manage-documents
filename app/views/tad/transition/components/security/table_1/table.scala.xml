@@ -1,5 +1,5 @@
 @import views.xml.tad.transition.components.security.table_1._
-@import viewmodels.p4.tad.SecurityViewModel
+@import viewmodels.tad.transition.SecurityViewModel
 @this()
 
 @(

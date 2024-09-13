@@ -2,7 +2,7 @@
 @import views.xml.tad.transition.components.table_2.top_right_block
 @import views.xml.tad.transition.components.table_2.bottom_left_block
 @import views.xml.tad.transition.components.table_2.bottom_right_block
-@import viewmodels.p4.tad.Table2ViewModel
+@import viewmodels.tad.transition.Table2ViewModel
 
 @this()
 

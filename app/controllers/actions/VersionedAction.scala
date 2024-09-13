@@ -19,9 +19,9 @@ package controllers.actions
 import models.P5.Phase
 import models.requests.AuthenticatedRequest
 import models.requests.VersionedRequest
-import play.api.mvc.Results.BadRequest
 import play.api.mvc.ActionRefiner
 import play.api.mvc.Result
+import play.api.mvc.Results.BadRequest
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext

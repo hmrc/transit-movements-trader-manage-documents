@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.ConsignmentItemViewModel
+@import viewmodels.tad.transition.ConsignmentItemViewModel
 
 @(
     consignmentItemViewModel: Option[ConsignmentItemViewModel]

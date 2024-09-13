@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.Table4ViewModel._
+@import viewmodels.tad.transition.Table4ViewModel._
 
 @(
     guaranteeType: String,

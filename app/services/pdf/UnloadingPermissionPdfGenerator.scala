@@ -18,7 +18,7 @@ package services.pdf
 
 import generated.p5.CC043CType
 import services.FopService
-import viewmodels.p5.unloadingpermission.P5UnloadingPermissionPdfViewModel
+import viewmodels.unloadingpermission.P5UnloadingPermissionPdfViewModel
 import views.xml.unloadingpermission.UnloadingPermissionDocumentP5
 
 import javax.inject.Inject

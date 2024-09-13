@@ -19,11 +19,11 @@ package controllers.actions
 import config.AppConfig
 import models.requests.AuthenticatedRequest
 import play.api.Logging
-import play.api.mvc.Results.Forbidden
-import play.api.mvc.Results.Unauthorized
 import play.api.mvc.ActionRefiner
 import play.api.mvc.Request
 import play.api.mvc.Result
+import play.api.mvc.Results.Forbidden
+import play.api.mvc.Results.Unauthorized
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.http.HeaderCarrier

@@ -1,5 +1,5 @@
-@import viewmodels.p4.tad.SecurityViewModel.CountriesOfRoutingOfConsignmentViewModel
-@import viewmodels.p4.tad.SecurityViewModel.ActiveBorderTransportMeansViewModel
+@import viewmodels.tad.transition.SecurityViewModel.CountriesOfRoutingOfConsignmentViewModel
+@import viewmodels.tad.transition.SecurityViewModel.ActiveBorderTransportMeansViewModel
 @import views.xml.tad.transition.components.security.table_3.row1._
 
 @(countriesOfRoutingOfConsignment: CountriesOfRoutingOfConsignmentViewModel, activeBorderTransportMeans: ActiveBorderTransportMeansViewModel)

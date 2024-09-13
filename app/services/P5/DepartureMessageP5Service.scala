@@ -21,9 +21,9 @@ import generated.p5.CC015CType
 import generated.p5.CC029CType
 import models.P5.Phase
 import models.P5.departure.DepartureMessageType.DepartureNotification
-import viewmodels.p5.RichCC029CType
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.RichCC029CType
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext

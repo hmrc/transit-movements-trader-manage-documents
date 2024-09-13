@@ -19,7 +19,7 @@ package views.tad.transition.components.table_2
 import base.SpecBase
 import play.api.test.Helpers._
 import viewmodels.DummyData
-import viewmodels.p4.tad.SecurityViewModel
+import viewmodels.tad.transition.SecurityViewModel
 import views.xml.tad.transition.components.security.table_2
 
 class AuthorisationNumberSpec extends SpecBase with DummyData {

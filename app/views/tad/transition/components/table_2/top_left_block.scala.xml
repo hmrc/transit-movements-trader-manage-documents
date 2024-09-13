@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.ConsignmentItemViewModel
+@import viewmodels.tad.transition.ConsignmentItemViewModel
 @import views.xml.tad.transition.components.second_page.item.block
 
 @(

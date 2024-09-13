@@ -19,8 +19,8 @@ package views.tad.transition.components.table_1
 import base.SpecBase
 import play.api.test.Helpers._
 import play.twirl.api.XmlFormat
-import views.xml.tad.transition.components.security.table_1
 import viewmodels.DummyData
+import views.xml.tad.transition.components.security.table_1
 
 class FormsSpec extends SpecBase with DummyData {
 

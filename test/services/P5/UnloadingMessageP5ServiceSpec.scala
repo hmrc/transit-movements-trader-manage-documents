@@ -29,9 +29,9 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
 import scala.concurrent.Await
 import scala.concurrent.Future
+import scala.concurrent.duration.Duration
 import scala.xml.Node
 
 class UnloadingMessageP5ServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {

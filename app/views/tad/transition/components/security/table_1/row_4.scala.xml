@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.SecurityViewModel.SealsViewModel
+@import viewmodels.tad.transition.SecurityViewModel.SealsViewModel
 
 
 @(

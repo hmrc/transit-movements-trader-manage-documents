@@ -1,5 +1,5 @@
 @import views.xml.tad.transition.components.table_1.consignee
-@import viewmodels.p4.tad.Table1ViewModel._
+@import viewmodels.tad.transition.Table1ViewModel._
 
 
 @(

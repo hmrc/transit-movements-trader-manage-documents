@@ -1,5 +1,5 @@
 @import views.xml.tad.transition.components.second_page.item._
-@import viewmodels.p4.tad.ConsignmentItemViewModel
+@import viewmodels.tad.transition.ConsignmentItemViewModel
 
 @(
     vm: ConsignmentItemViewModel

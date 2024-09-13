@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.ConsignmentItemViewModel.ConsigneeViewModel
+@import viewmodels.tad.transition.ConsignmentItemViewModel.ConsigneeViewModel
 
 @(
     consignee: ConsigneeViewModel

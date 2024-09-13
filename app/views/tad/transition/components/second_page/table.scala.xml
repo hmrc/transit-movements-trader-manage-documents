@@ -1,6 +1,6 @@
 @import views.xml.tad.transition.components.second_page.item
 @import views.xml.tad.transition.components.second_page.header_table
-@import viewmodels.p4.tad._
+@import viewmodels.tad.transition._
 @this()
 
 @(

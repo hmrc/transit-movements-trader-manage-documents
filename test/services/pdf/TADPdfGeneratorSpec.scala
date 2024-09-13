@@ -32,7 +32,7 @@ import play.api.Environment
 import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
 import viewmodels.DummyData
-import viewmodels.p4.tad.SecurityViewModel
+import viewmodels.tad.transition.SecurityViewModel
 import views.xml.tad.transition.components.security
 
 import java.nio.file.Files

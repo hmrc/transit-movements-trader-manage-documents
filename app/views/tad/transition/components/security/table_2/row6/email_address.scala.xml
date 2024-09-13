@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.Table1ViewModel.ConsignorViewModel
+@import viewmodels.tad.transition.Table1ViewModel.ConsignorViewModel
 
 <fo:table-cell  >
   <fo:block>

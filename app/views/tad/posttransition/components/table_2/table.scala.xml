@@ -1,5 +1,5 @@
 @import views.xml.tad.posttransition.components.table_2._
-@import viewmodels.p5.tad.Table2ViewModel
+@import viewmodels.tad.posttransition.Table2ViewModel
 
 @this()
 

@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.SecurityViewModel.ContactPersonViewModel
+@import viewmodels.tad.transition.SecurityViewModel.ContactPersonViewModel
 
 
 @(

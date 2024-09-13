@@ -2,7 +2,7 @@
 @import views.xml.tad.posttransition.components._
 @import views.xml.PageOne
 @import views.xml.PageTwo
-@import viewmodels.p5.tad.P5TadPdfViewModel
+@import viewmodels.tad.posttransition.P5TadPdfViewModel
 
 @this(
     table1: table_1.table,

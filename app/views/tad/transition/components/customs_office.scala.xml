@@ -1,4 +1,4 @@
-@import viewmodels.p4.tad.Table4ViewModel.TransitOfficeViewModel
+@import viewmodels.tad.transition.Table4ViewModel.TransitOfficeViewModel
 
 @(customsOffice: TransitOfficeViewModel)
 

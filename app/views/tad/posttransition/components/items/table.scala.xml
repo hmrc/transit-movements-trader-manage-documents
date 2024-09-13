@@ -1,4 +1,4 @@
-@import viewmodels.p5.tad.ConsignmentItemViewModel
+@import viewmodels.tad.posttransition.ConsignmentItemViewModel
 
 @(vm: ConsignmentItemViewModel)
 <fo:table width="100%">
