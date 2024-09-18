@@ -28,7 +28,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(resolvers += Resolver.jcenterRepo)
   .settings(inConfig(Test)(testSettings) *)
   .settings(PlayKeys.playDefaultPort := 9484)
-  .settings(scalacOptions += "-Wconf:src=routes/.*:s")
+  .settings(scalacOptions := Seq("-Wconf:src=routes/.*:s", "-Wconf:src=src_managed/.*:s"))
   .settings(customScalaxbSettings *)
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(
