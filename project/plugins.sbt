@@ -12,6 +12,6 @@ addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.5")
 
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.6")
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.1.1")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.2.0")
 
 addSbtPlugin("org.scalaxb" % "sbt-scalaxb" % "1.12.1" exclude("org.scala-lang.modules", "scala-xml_2.12"))
