@@ -73,9 +73,10 @@ object DepartureMessageType extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[DepartureMessageType] =
     Enumerable(
-      values.map(
-        v => v.toString -> v
-      ): _*
+      values
+        .map(
+          v => v.toString -> v
+        ) *
     )
 
   implicit def readsDepartureMessageType(implicit ev: Enumerable[DepartureMessageType]): Reads[DepartureMessageType] =

@@ -19,6 +19,8 @@ package services.messages
 import connectors.DepartureMovementP5Connector
 import generated.rfc37.CC015CType
 import generated.rfc37.CC029CType
+import generated.rfc37.Generatedrfc37_CC015CTypeFormat
+import generated.rfc37.Generatedrfc37_CC029CTypeFormat
 import models.DepartureMessageType.DepartureNotification
 import models.Phase
 import scalaxb.XMLFormat

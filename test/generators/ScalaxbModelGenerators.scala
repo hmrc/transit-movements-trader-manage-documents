@@ -16,7 +16,6 @@
 
 package generators
 
-import generated.rfc37.CORRELATION_IDENTIFIERSequence
 import generated.rfc37._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary

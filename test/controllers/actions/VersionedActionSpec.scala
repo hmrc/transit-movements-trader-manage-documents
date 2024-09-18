@@ -17,13 +17,13 @@
 package controllers.actions
 
 import base.SpecBase
-import cats.scalatest.EitherValues.convertEitherToEitherable
 import models.Phase
 import models.requests.AuthenticatedRequest
 import models.requests.VersionedRequest
 import org.scalatest.concurrent.ScalaFutures
 import play.api.mvc._
 import play.api.test.FakeRequest
+import org.scalatest.EitherValues.convertEitherToValuable
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -49,7 +49,7 @@ class VersionedActionSpec extends SpecBase with ScalaFutures {
         val authenticatedRequest = AuthenticatedRequest(request, "EORINumber")
         val result               = action.callRefine(authenticatedRequest).futureValue
 
-        result.value mustBe VersionedRequest(authenticatedRequest, Phase.Transition)
+        result.value `mustBe` VersionedRequest(authenticatedRequest, Phase.Transition)
       }
     }
 
@@ -62,7 +62,7 @@ class VersionedActionSpec extends SpecBase with ScalaFutures {
         val authenticatedRequest = AuthenticatedRequest(request, "EORINumber")
         val result               = action.callRefine(authenticatedRequest).futureValue
 
-        result.value mustBe VersionedRequest(authenticatedRequest, Phase.PostTransition)
+        result.value `mustBe` VersionedRequest(authenticatedRequest, Phase.PostTransition)
       }
     }
   }
