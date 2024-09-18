@@ -18,8 +18,6 @@ package connectors
 
 import base.DepartureData
 import base.SpecBase
-import cats.scalatest.ValidatedMatchers
-import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock._
 import models.DepartureMessageType.DepartureNotification
 import models.DepartureMessageMetaData
@@ -51,8 +49,6 @@ class DepartureMovementP5ConnectorSpec
     with ScalaFutures
     with IntegrationPatience
     with ScalaCheckPropertyChecks
-    with ValidatedMatchers
-    with ValidatedValues
     with FutureAwaits
     with DefaultAwaitTimeout {
 

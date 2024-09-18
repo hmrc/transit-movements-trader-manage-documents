@@ -18,8 +18,6 @@ package connectors
 
 import base.SpecBase
 import base.UnloadingData
-import cats.scalatest.ValidatedMatchers
-import cats.scalatest.ValidatedValues
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.ok
@@ -49,8 +47,6 @@ class UnloadingPermissionP5ConnectorSpec
     with ScalaFutures
     with IntegrationPatience
     with ScalaCheckPropertyChecks
-    with ValidatedMatchers
-    with ValidatedValues
     with FutureAwaits
     with DefaultAwaitTimeout {
 
