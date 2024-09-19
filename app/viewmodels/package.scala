@@ -78,6 +78,7 @@ package object viewmodels {
     def take10: String  = takeN(10)
     def take20: String  = takeN(20)
     def take30: String  = takeN(30)
+    def take40: String  = takeN(40)
     def take45: String  = takeN(45)
     def take50: String  = takeN(50)
     def take60: String  = takeN(60)
