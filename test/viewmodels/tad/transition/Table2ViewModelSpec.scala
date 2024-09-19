@@ -67,7 +67,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
         ),
         consignmentItemViewModel
       )
-      result.consignmentPreviousDocuments mustBe "1, ptv1, AbcdefghijklmnopqrstuvwxyzAbcdefghijkl..."
+      result.consignmentPreviousDocuments mustBe "1, ptv1, AbcdefghijklmnopqrstuvwxyzAb..."
     }
 
     "consignmentSupportingDocuments" in {
