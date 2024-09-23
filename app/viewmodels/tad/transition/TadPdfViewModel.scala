@@ -36,9 +36,12 @@ case class TadPdfViewModel(
 
 object TadPdfViewModel {
 
-  /** @param ie015 declaration data
-    * @param ie029 release for transit
-    * @return TAD view model based on P5 (transition) data
+  /** @param ie015
+    *   declaration data
+    * @param ie029
+    *   release for transit
+    * @return
+    *   TAD view model based on P5 (transition) data
     */
   def apply(ie015: CC015CType, ie029: CC029CType): TadPdfViewModel = {
     val consignmentItemViewModels = ie029.consignmentItems.map(ConsignmentItemViewModel(ie029, _))

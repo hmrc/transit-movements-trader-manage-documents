@@ -26,8 +26,10 @@ case class P5UnloadingPermissionPdfViewModel(
 
 object P5UnloadingPermissionPdfViewModel {
 
-  /** @param ie043 unloading permission
-    * @return P5 unloading permission view model
+  /** @param ie043
+    *   unloading permission
+    * @return
+    *   P5 unloading permission view model
     */
   def apply(ie043: CC043CType): P5UnloadingPermissionPdfViewModel = {
     val consignmentItems: Seq[ConsignmentItemType04] =

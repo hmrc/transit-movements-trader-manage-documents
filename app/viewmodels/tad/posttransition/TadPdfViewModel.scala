@@ -30,9 +30,12 @@ case class TadPdfViewModel(
 
 object TadPdfViewModel {
 
-  /** @param ie015 declaration data
-    * @param ie029 release for transit
-    * @return TAD view model based on P5 (final) data
+  /** @param ie015
+    *   declaration data
+    * @param ie029
+    *   release for transit
+    * @return
+    *   TAD view model based on P5 (final) data
     */
   def apply(ie015: CC015CType, ie029: CC029CType): TadPdfViewModel =
     new TadPdfViewModel(

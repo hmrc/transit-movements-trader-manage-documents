@@ -102,7 +102,7 @@ object ConsignmentItemViewModel {
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElse2Dashes,
       sensitiveGoodsInformation = Seq(SensitiveGoodsInformationViewModel()), // Not in P5?
       previousDocuments = consignmentItem.PreviousDocument.map(_.asString),
-      countryOfDispatch = consignmentItem.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
+      countryOfDispatch = consignmentItem.countryOfDispatch.orElse3Dashes, // In P4 we check this against reference data
       countryOfDestination = consignmentItem.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       grossMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.grossMass.map(_.asString)).orElse3Dashes,
       netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass).map(_.asString).orElse3Dashes,

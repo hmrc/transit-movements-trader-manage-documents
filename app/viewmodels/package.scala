@@ -28,7 +28,7 @@ package object viewmodels {
 
     // approximate values since we don't use a fixed width font
     private val NarrowLineCharLength      = 45
-    private val NarrowLineBlankCharLength = 80                            // a narrow line with only spaces need approx. 80 characters
+    private val NarrowLineBlankCharLength = 80 // a narrow line with only spaces need approx. 80 characters
     private val WideLineCharLength        = NarrowLineCharLength * 2
     private val WideLineBlankCharLength   = NarrowLineBlankCharLength * 2 // a narrow line with only spaces need approx. 160 characters
 
@@ -165,12 +165,12 @@ package object viewmodels {
   implicit class RichCC029CType(value: CC029CType) {
 
     /** In the IE015 submission we roll up the following to the consignment level if they are the same across all items:
-      *  - transport charges
-      *  - UCR
-      *  - country of dispatch
-      *  - country of destination
+      *   - transport charges
+      *   - UCR
+      *   - country of dispatch
+      *   - country of destination
       *
-      *  Therefore we need to roll these back down here.
+      * Therefore we need to roll these back down here.
       */
     def rollDown: CC029CType = {
       val houseConsignments = value.Consignment.HouseConsignment
