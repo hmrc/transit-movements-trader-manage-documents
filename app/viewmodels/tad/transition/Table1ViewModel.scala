@@ -117,7 +117,7 @@ object Table1ViewModel {
       numberOfItems = ie029.numberOfItems,
       totalNumberOfPackages = ie029.numberOfPackages.toString(),
       consigneeViewModel = ConsigneeViewModel(ie029),
-      countryOfDispatch = ie029.Consignment.countryOfDispatch.orElse3Dashes,       // In P4 we check this against reference data
+      countryOfDispatch = ie029.Consignment.countryOfDispatch.orElse3Dashes, // In P4 we check this against reference data
       countryOfDestination = ie029.Consignment.countryOfDestination.orElse3Dashes, // In P4 we check this against reference data
       transportIdentity = ie029.Consignment.DepartureTransportMeans.map(_.asP4String).toBeContinued("---"),
       transportCountry = ie029.Consignment.DepartureTransportMeans.headOption.flatMap(_.nationality).getOrElse("---"),
