@@ -24,7 +24,7 @@ import viewmodels.tad.transition.Table1ViewModel.*
 class Table1ViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
-    
+
     val consignor = Some(
       ConsignorType03(
         identificationNumber = Some("in"),
@@ -46,7 +46,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
         )
       )
     )
-    
+
     val consignee = Some(
       ConsigneeType04(
         identificationNumber = Some("in"),
