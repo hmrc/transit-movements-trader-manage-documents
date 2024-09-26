@@ -17,14 +17,52 @@
 package viewmodels.tad.transition
 
 import base.SpecBase
+import generated.rfc37.{AddressType07, ConsigneeType04, ConsignorType03, ContactPersonType01}
 import viewmodels.DummyData
-import viewmodels.tad.transition.Table1ViewModel._
+import viewmodels.tad.transition.Table1ViewModel.*
 
 class Table1ViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
+    
+    val consignor = Some(
+      ConsignorType03(
+        identificationNumber = Some("in"),
+        name = Some("namenamename namenamename namenamename namenamename namenamename name"),
+        Address = Some(
+          AddressType07(
+            streetAndNumber = "Street and no Street and no Street and no Street and no",
+            postcode = Some("12345678901234567"),
+            city = "city1234567890city1234567890",
+            country = "country"
+          )
+        ),
+        ContactPerson = Some(
+          ContactPersonType01(
+            name = "contact person namenamename namenamename namenamename namenamename namenamename name",
+            phoneNumber = "contact person phone 1234567890",
+            eMailAddress = Some("ccpemail")
+          )
+        )
+      )
+    )
+    
+    val consignee = Some(
+      ConsigneeType04(
+        identificationNumber = Some("in"),
+        name = Some("namenamename namenamename namenamename namenamename namenamename name"),
+        Address = Some(
+          AddressType07(
+            streetAndNumber = "Street and no Street and no Street and no Street and no",
+            postcode = Some("pc"),
+            city = "city",
+            country = "country"
+          )
+        )
+      )
+    )
 
-    val result = Table1ViewModel(cc029c)
+    val result = Table1ViewModel(cc029c.copy(Consignment = cc029c.Consignment.copy(Consignor = consignor, Consignee = consignee)))
 
     "declarationType" in {
       result.declarationType mustBe "T"
@@ -33,13 +71,13 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     "consignorViewModel" in {
       result.consignorViewModel.value mustBe ConsignorViewModel(
         eori = "in",
-        name = "name",
-        streetAndNumber = "san",
-        postcode = "pc",
-        city = "city",
+        name = "namenamename namenamename namenamename namename...",
+        streetAndNumber = "Street and no Street and no...",
+        postcode = "1234567...",
+        city = "city1234567890cit...",
         country = "country",
-        contactName = "ccp",
-        phoneNumber = "ccptel",
+        contactName = "contact person namenamename namenamename namena...",
+        phoneNumber = "contact person phone 1234567890",
         emailAddress = "ccpemail"
       )
     }
@@ -55,8 +93,8 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     "consigneeViewModel" in {
       result.consigneeViewModel.value mustBe ConsigneeViewModel(
         eori = "in",
-        name = "name",
-        streetAndNumber = "san",
+        name = "namenamename namenamename namenamename namename...",
+        streetAndNumber = "Street and no Street and no...",
         postcode = "pc",
         city = "city",
         country = "country"

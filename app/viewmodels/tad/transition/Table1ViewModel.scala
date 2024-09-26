@@ -55,12 +55,12 @@ object Table1ViewModel {
     def apply(consignor: ConsignorType03): ConsignorViewModel =
       new ConsignorViewModel(
         eori = consignor.identificationNumber.orElse3Dashes,
-        name = consignor.name.orElse3Dashes,
-        streetAndNumber = consignor.Address.map(_.streetAndNumber).orElse3Dashes,
-        postcode = consignor.Address.flatMap(_.postcode).orElse3Dashes,
-        city = consignor.Address.map(_.city).orElse3Dashes,
+        name = consignor.name.map(_.take50).orElse3Dashes,
+        streetAndNumber = consignor.Address.map(_.streetAndNumber.take30).orElse3Dashes,
+        postcode = consignor.Address.flatMap(_.postcode.map(_.take10)).orElse3Dashes,
+        city = consignor.Address.map(_.city.take20).orElse3Dashes,
         country = consignor.Address.map(_.country).orElse3Dashes,
-        contactName = consignor.ContactPerson.map(_.name).orElse3Dashes,
+        contactName = consignor.ContactPerson.map(_.name.take50).orElse3Dashes,
         phoneNumber = consignor.ContactPerson.map(_.phoneNumber).orElse3Dashes,
         emailAddress = consignor.ContactPerson.map(_.eMailAddress.orElse3Dashes).orElse3Dashes
       )
@@ -84,8 +84,8 @@ object Table1ViewModel {
     def apply(consignee: ConsigneeType03): ConsigneeViewModel =
       new ConsigneeViewModel(
         eori = consignee.identificationNumber.orElse3Dashes,
-        name = consignee.name.orElse3Dashes,
-        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElse3Dashes,
+        name = consignee.name.map(_.take50).orElse3Dashes,
+        streetAndNumber = consignee.Address.map(_.streetAndNumber.take30).orElse3Dashes,
         postcode = consignee.Address.flatMap(_.postcode).orElse3Dashes,
         city = consignee.Address.map(_.city).orElse3Dashes,
         country = consignee.Address.map(_.country).orElse3Dashes
@@ -94,8 +94,8 @@ object Table1ViewModel {
     def apply(consignee: ConsigneeType04): ConsigneeViewModel =
       new ConsigneeViewModel(
         eori = consignee.identificationNumber.orElse3Dashes,
-        name = consignee.name.orElse3Dashes,
-        streetAndNumber = consignee.Address.map(_.streetAndNumber).orElse3Dashes,
+        name = consignee.name.map(_.take50).orElse3Dashes,
+        streetAndNumber = consignee.Address.map(_.streetAndNumber.take30).orElse3Dashes,
         postcode = consignee.Address.flatMap(_.postcode).orElse3Dashes,
         city = consignee.Address.map(_.city).orElse3Dashes,
         country = consignee.Address.map(_.country).orElse3Dashes
