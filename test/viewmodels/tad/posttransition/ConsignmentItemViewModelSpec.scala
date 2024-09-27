@@ -30,7 +30,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "goodsItemNumber" in {
-      result.goodsItemNumber mustBe "gin"
+      result.goodsItemNumber mustBe "1"
     }
 
     "packagesType" in {

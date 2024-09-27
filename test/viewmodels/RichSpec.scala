@@ -17,7 +17,7 @@
 package viewmodels
 
 import base.SpecBase
-import generated.rfc37._
+import generated._
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

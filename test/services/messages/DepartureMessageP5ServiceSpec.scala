@@ -18,7 +18,7 @@ package services.messages
 
 import base.SpecBase
 import connectors.DepartureMovementP5Connector
-import generated.rfc37.CC029CType
+import generated.CC029CType
 import generators.ModelGenerators
 import models.DepartureMessageType.DepartureNotification
 import models.DepartureMessageMetaData
@@ -115,7 +115,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
           </TransitOperation>
           <!--0 to 9 repetitions:-->
           <Authorisation>
-            <sequenceNumber>token</sequenceNumber>
+            <sequenceNumber>1</sequenceNumber>
             <type>token</type>
             <referenceNumber>string</referenceNumber>
           </Authorisation>
@@ -127,14 +127,14 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
           </CustomsOfficeOfDestinationDeclared>
           <!--0 to 9 repetitions:-->
           <CustomsOfficeOfTransitDeclared>
-            <sequenceNumber>token</sequenceNumber>
+            <sequenceNumber>1</sequenceNumber>
             <referenceNumber>stringst</referenceNumber>
             <!--Optional:-->
             <arrivalDateAndTimeEstimated>2002-11-05T08:01:03+00:00</arrivalDateAndTimeEstimated>
           </CustomsOfficeOfTransitDeclared>
           <!--0 to 9 repetitions:-->
           <CustomsOfficeOfExitForTransitDeclared>
-            <sequenceNumber>token</sequenceNumber>
+            <sequenceNumber>1</sequenceNumber>
             <referenceNumber>stringst</referenceNumber>
           </CustomsOfficeOfExitForTransitDeclared>
           <HolderOfTheTransitProcedure>
@@ -182,13 +182,13 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
           </ControlResult>
           <!--1 to 9 repetitions:-->
           <Guarantee>
-            <sequenceNumber>token</sequenceNumber>
+            <sequenceNumber>1</sequenceNumber>
             <guaranteeType>s</guaranteeType>
             <!--Optional:-->
             <otherGuaranteeReference>string</otherGuaranteeReference>
             <!--0 to 99 repetitions:-->
             <GuaranteeReference>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <!--Optional:-->
               <GRN>string</GRN>
               <!--Optional:-->
@@ -260,25 +260,25 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
             </Consignee>
             <!--0 to 99 repetitions:-->
             <AdditionalSupplyChainActor>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <role>token</role>
               <identificationNumber>string</identificationNumber>
             </AdditionalSupplyChainActor>
             <!--0 to 9999 repetitions:-->
             <TransportEquipment>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <!--Optional:-->
               <containerIdentificationNumber>string</containerIdentificationNumber>
               <numberOfSeals>100</numberOfSeals>
               <!--0 to 99 repetitions:-->
               <Seal>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <identifier>string</identifier>
               </Seal>
               <!--0 to 9999 repetitions:-->
               <GoodsReference>
-                <sequenceNumber>token</sequenceNumber>
-                <declarationGoodsItemNumber>100</declarationGoodsItemNumber>
+                <sequenceNumber>1</sequenceNumber>
+                <declarationGoodsItemNumber>1</declarationGoodsItemNumber>
               </GoodsReference>
             </TransportEquipment>
             <!--Optional:-->
@@ -329,19 +329,19 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
             </LocationOfGoods>
             <!--0 to 999 repetitions:-->
             <DepartureTransportMeans>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <typeOfIdentification>token</typeOfIdentification>
               <identificationNumber>string</identificationNumber>
               <nationality>st</nationality>
             </DepartureTransportMeans>
             <!--0 to 99 repetitions:-->
             <CountryOfRoutingOfConsignment>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <country>st</country>
             </CountryOfRoutingOfConsignment>
             <!--0 to 9 repetitions:-->
             <ActiveBorderTransportMeans>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <customsOfficeAtBorderReferenceNumber>token</customsOfficeAtBorderReferenceNumber>
               <typeOfIdentification>token</typeOfIdentification>
               <identificationNumber>string</identificationNumber>
@@ -368,7 +368,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
             </PlaceOfUnloading>
             <!--0 to 9999 repetitions:-->
             <PreviousDocument>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <type>token</type>
               <referenceNumber>string</referenceNumber>
               <!--Optional:-->
@@ -376,7 +376,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
             </PreviousDocument>
             <!--0 to 99 repetitions:-->
             <SupportingDocument>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <type>token</type>
               <referenceNumber>string</referenceNumber>
               <!--Optional:-->
@@ -386,20 +386,20 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
             </SupportingDocument>
             <!--0 to 99 repetitions:-->
             <TransportDocument>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <type>token</type>
               <referenceNumber>string</referenceNumber>
             </TransportDocument>
             <!--0 to 99 repetitions:-->
             <AdditionalReference>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <type>token</type>
               <!--Optional:-->
               <referenceNumber>string</referenceNumber>
             </AdditionalReference>
             <!--0 to 99 repetitions:-->
             <AdditionalInformation>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <code>token</code>
               <!--Optional:-->
               <text>string</text>
@@ -410,7 +410,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
             </TransportCharges>
             <!--1 to 99 repetitions:-->
             <HouseConsignment>
-              <sequenceNumber>token</sequenceNumber>
+              <sequenceNumber>1</sequenceNumber>
               <!--Optional:-->
               <countryOfDispatch>st</countryOfDispatch>
               <grossMass>1000.000000000000</grossMass>
@@ -457,20 +457,20 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
               </Consignee>
               <!--0 to 99 repetitions:-->
               <AdditionalSupplyChainActor>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <role>token</role>
                 <identificationNumber>string</identificationNumber>
               </AdditionalSupplyChainActor>
               <!--0 to 999 repetitions:-->
               <DepartureTransportMeans>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <typeOfIdentification>token</typeOfIdentification>
                 <identificationNumber>string</identificationNumber>
                 <nationality>st</nationality>
               </DepartureTransportMeans>
               <!--0 to 99 repetitions:-->
               <PreviousDocument>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <type>token</type>
                 <referenceNumber>string</referenceNumber>
                 <!--Optional:-->
@@ -478,7 +478,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
               </PreviousDocument>
               <!--0 to 99 repetitions:-->
               <SupportingDocument>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <type>token</type>
                 <referenceNumber>string</referenceNumber>
                 <!--Optional:-->
@@ -488,20 +488,20 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
               </SupportingDocument>
               <!--0 to 99 repetitions:-->
               <TransportDocument>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <type>token</type>
                 <referenceNumber>string</referenceNumber>
               </TransportDocument>
               <!--0 to 99 repetitions:-->
               <AdditionalReference>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <type>token</type>
                 <!--Optional:-->
                 <referenceNumber>string</referenceNumber>
               </AdditionalReference>
               <!--0 to 99 repetitions:-->
               <AdditionalInformation>
-                <sequenceNumber>token</sequenceNumber>
+                <sequenceNumber>1</sequenceNumber>
                 <code>token</code>
                 <!--Optional:-->
                 <text>string</text>
@@ -512,8 +512,8 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
               </TransportCharges>
               <!--1 to 999 repetitions:-->
               <ConsignmentItem>
-                <goodsItemNumber>token</goodsItemNumber>
-                <declarationGoodsItemNumber>100</declarationGoodsItemNumber>
+                <goodsItemNumber>1</goodsItemNumber>
+                <declarationGoodsItemNumber>1</declarationGoodsItemNumber>
                 <!--Optional:-->
                 <declarationType>token</declarationType>
                 <!--Optional:-->
@@ -539,7 +539,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
                 </Consignee>
                 <!--0 to 99 repetitions:-->
                 <AdditionalSupplyChainActor>
-                  <sequenceNumber>token</sequenceNumber>
+                  <sequenceNumber>1</sequenceNumber>
                   <role>token</role>
                   <identificationNumber>string</identificationNumber>
                 </AdditionalSupplyChainActor>
@@ -555,7 +555,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
                   </CommodityCode>
                   <!--0 to 99 repetitions:-->
                   <DangerousGoods>
-                    <sequenceNumber>token</sequenceNumber>
+                    <sequenceNumber>1</sequenceNumber>
                     <UNNumber>token</UNNumber>
                   </DangerousGoods>
                   <GoodsMeasure>
@@ -566,7 +566,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
                 </Commodity>
                 <!--1 to 99 repetitions:-->
                 <Packaging>
-                  <sequenceNumber>token</sequenceNumber>
+                  <sequenceNumber>1</sequenceNumber>
                   <typeOfPackages>token</typeOfPackages>
                   <!--Optional:-->
                   <numberOfPackages>100</numberOfPackages>
@@ -575,11 +575,11 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
                 </Packaging>
                 <!--0 to 99 repetitions:-->
                 <PreviousDocument>
-                  <sequenceNumber>token</sequenceNumber>
+                  <sequenceNumber>1</sequenceNumber>
                   <type>token</type>
                   <referenceNumber>string</referenceNumber>
                   <!--Optional:-->
-                  <goodsItemNumber>100</goodsItemNumber>
+                  <goodsItemNumber>1</goodsItemNumber>
                   <!--Optional:-->
                   <typeOfPackages>token</typeOfPackages>
                   <!--Optional:-->
@@ -593,7 +593,7 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
                 </PreviousDocument>
                 <!--0 to 99 repetitions:-->
                 <SupportingDocument>
-                  <sequenceNumber>token</sequenceNumber>
+                  <sequenceNumber>1</sequenceNumber>
                   <type>token</type>
                   <referenceNumber>string</referenceNumber>
                   <!--Optional:-->
@@ -603,20 +603,20 @@ class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with Scal
                 </SupportingDocument>
                 <!--0 to 99 repetitions:-->
                 <TransportDocument>
-                  <sequenceNumber>token</sequenceNumber>
+                  <sequenceNumber>1</sequenceNumber>
                   <type>token</type>
                   <referenceNumber>string</referenceNumber>
                 </TransportDocument>
                 <!--0 to 99 repetitions:-->
                 <AdditionalReference>
-                  <sequenceNumber>token</sequenceNumber>
+                  <sequenceNumber>1</sequenceNumber>
                   <type>token</type>
                   <!--Optional:-->
                   <referenceNumber>string</referenceNumber>
                 </AdditionalReference>
                 <!--0 to 99 repetitions:-->
                 <AdditionalInformation>
-                  <sequenceNumber>token</sequenceNumber>
+                  <sequenceNumber>1</sequenceNumber>
                   <code>token</code>
                   <!--Optional:-->
                   <text>string</text>

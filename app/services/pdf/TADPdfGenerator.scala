@@ -16,8 +16,8 @@
 
 package services.pdf
 
-import generated.rfc37.CC015CType
-import generated.rfc37.CC029CType
+import generated.CC015CType
+import generated.CC029CType
 import viewmodels.tad._
 import views.xml.tad.posttransition.TransitAccompanyingDocumentP5
 import views.xml.tad.transition.TransitAccompanyingDocument

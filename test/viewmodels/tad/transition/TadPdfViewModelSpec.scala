@@ -17,8 +17,8 @@
 package viewmodels.tad.transition
 
 import base.SpecBase
-import generated.rfc37.CC015CType
-import generated.rfc37.CC029CType
+import generated.CC015CType
+import generated.CC029CType
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen

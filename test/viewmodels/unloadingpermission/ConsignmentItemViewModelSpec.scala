@@ -17,12 +17,12 @@
 package viewmodels.unloadingpermission
 
 import base.SpecBase
-import generated.rfc37._
+import generated._
 
 class ConsignmentItemViewModelSpec extends SpecBase {
 
-  private val data: ConsignmentItemType04 = ConsignmentItemType04(
-    goodsItemNumber = "gin",
+  private val data: CUSTOM_ConsignmentItemType04 = CUSTOM_ConsignmentItemType04(
+    goodsItemNumber = 1,
     declarationGoodsItemNumber = BigInt(1),
     declarationType = Some("T"),
     countryOfDestination = Some("cod"),
@@ -40,7 +40,7 @@ class ConsignmentItemViewModelSpec extends SpecBase {
         )
       )
     ),
-    Commodity = CommodityType08(
+    Commodity = CUSTOM_CommodityType08(
       descriptionOfGoods = "dog",
       cusCode = Some("cus"),
       CommodityCode = Some(
@@ -51,16 +51,16 @@ class ConsignmentItemViewModelSpec extends SpecBase {
       ),
       DangerousGoods = Seq(
         DangerousGoodsType01(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           UNNumber = "unn1"
         ),
         DangerousGoodsType01(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           UNNumber = "unn2"
         )
       ),
       GoodsMeasure = Some(
-        GoodsMeasureType03(
+        CUSTOM_GoodsMeasureType03(
           grossMass = Some(BigDecimal(200)),
           netMass = Some(BigDecimal(100))
         )
@@ -68,13 +68,13 @@ class ConsignmentItemViewModelSpec extends SpecBase {
     ),
     Packaging = Seq(
       PackagingType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeOfPackages = "top1",
         numberOfPackages = Some(BigInt(100)),
         shippingMarks = Some("sm1")
       ),
       PackagingType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeOfPackages = "top2",
         numberOfPackages = Some(BigInt(200)),
         shippingMarks = Some("sm2")
@@ -82,29 +82,29 @@ class ConsignmentItemViewModelSpec extends SpecBase {
     ),
     PreviousDocument = Seq(
       PreviousDocumentType04(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "ptv1",
         referenceNumber = "prn1",
-        goodsItemNumber = Some("pgin1"),
+        goodsItemNumber = Some(1),
         complementOfInformation = Some("pcoi1")
       ),
       PreviousDocumentType04(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "ptv2",
         referenceNumber = "prn2",
-        goodsItemNumber = Some("pgin2"),
+        goodsItemNumber = Some(2),
         complementOfInformation = Some("pcoi2")
       )
     ),
     SupportingDocument = Seq(
       SupportingDocumentType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "stv1",
         referenceNumber = "srn1",
         complementOfInformation = Some("scoi1")
       ),
       SupportingDocumentType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "stv2",
         referenceNumber = "srn2",
         complementOfInformation = Some("scoi2")
@@ -112,36 +112,36 @@ class ConsignmentItemViewModelSpec extends SpecBase {
     ),
     TransportDocument = Seq(
       TransportDocumentType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "ttv1",
         referenceNumber = "trn1"
       ),
       TransportDocumentType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "ttv2",
         referenceNumber = "trn2"
       )
     ),
     AdditionalReference = Seq(
       AdditionalReferenceType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "artv1",
         referenceNumber = Some("arrn1")
       ),
       AdditionalReferenceType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "artv2",
         referenceNumber = Some("arrn2")
       )
     ),
     AdditionalInformation = Seq(
       AdditionalInformationType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         code = "aic1",
         text = Some("ait1")
       ),
       AdditionalInformationType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         code = "aic2",
         text = Some("ait2")
       )
@@ -157,7 +157,7 @@ class ConsignmentItemViewModelSpec extends SpecBase {
     }
 
     "goodsItemNumber" in {
-      result.goodsItemNumber mustBe "gin"
+      result.goodsItemNumber mustBe "1"
     }
 
     "packaging" in {
@@ -185,7 +185,7 @@ class ConsignmentItemViewModelSpec extends SpecBase {
     }
 
     "previousDocuments" in {
-      result.previousDocuments mustBe "1, ptv1, prn1, pgin1, pcoi1; 2, ptv2, prn2, pgin2, pcoi2"
+      result.previousDocuments mustBe "1, ptv1, prn1, 1, pcoi1; 2, ptv2, prn2, 2, pcoi2"
     }
 
     "supportingDocuments" in {

@@ -16,7 +16,7 @@
 
 package viewmodels.unloadingpermission
 
-import generated.rfc37._
+import generated._
 import viewmodels._
 
 case class Table1ViewModel(
@@ -33,8 +33,8 @@ case class Table1ViewModel(
   tir: String,
   security: String,
   inlandModeOfTransport: String,
-  departureTransportMeans: Seq[DepartureTransportMeansType02],
-  houseConsignmentDepartureTransportMeans: Seq[HouseConsignmentType04],
+  departureTransportMeans: Seq[CUSTOM_DepartureTransportMeansType02],
+  houseConsignmentDepartureTransportMeans: Seq[CUSTOM_HouseConsignmentType04],
   container: String,
   transportEquipment: String,
   seals: String,
@@ -64,9 +64,9 @@ object Table1ViewModel {
       tir = ie043.HolderOfTheTransitProcedure.flatMap(_.TIRHolderIdentificationNumber).orElseBlank,
       security = ie043.TransitOperation.security,
       inlandModeOfTransport = ie043.Consignment.flatMap(_.inlandModeOfTransport).orElseBlank,
-      departureTransportMeans = ie043.Consignment.fold[Seq[DepartureTransportMeansType02]](Nil)(_.DepartureTransportMeans),
+      departureTransportMeans = ie043.Consignment.fold[Seq[CUSTOM_DepartureTransportMeansType02]](Nil)(_.DepartureTransportMeans),
       houseConsignmentDepartureTransportMeans = ie043.Consignment
-        .fold[Seq[HouseConsignmentType04]](Seq.empty)(_.HouseConsignment),
+        .fold[Seq[CUSTOM_HouseConsignmentType04]](Seq.empty)(_.HouseConsignment),
       container = ie043.Consignment.map(_.containerIndicator.asString).orElseBlank,
       transportEquipment = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.map(_.asString)).semiColonSeparate,
       seals = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.flatMap(_.Seal).map(_.asString)).semiColonSeparate,

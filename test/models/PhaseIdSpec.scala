@@ -17,7 +17,7 @@
 package models
 
 import base.SpecBase
-import generated.rfc37._
+import generated._
 
 class PhaseIdSpec extends SpecBase {
 

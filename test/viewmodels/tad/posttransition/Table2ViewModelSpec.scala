@@ -17,7 +17,7 @@
 package viewmodels.tad.posttransition
 
 import base.SpecBase
-import generated.rfc37._
+import generated._
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -32,19 +32,19 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "transportEquipment" - {
       def seal(j: Int): Int => SealType04 = i =>
         SealType04(
-          sequenceNumber = s"$i$j",
+          sequenceNumber = i,
           identifier = s"${i}sid$j"
         )
 
       def goodsReference(j: Int): Int => GoodsReferenceType02 = i =>
         GoodsReferenceType02(
-          sequenceNumber = s"$i$j",
+          sequenceNumber = i,
           declarationGoodsItemNumber = BigInt(s"$i$j")
         )
 
       def transportEquipment(i: Int, seals: Seq[Int => SealType04], goodsReferences: Seq[Int => GoodsReferenceType02]): TransportEquipmentType05 =
         TransportEquipmentType05(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           containerIdentificationNumber = Some(s"cin$i"),
           numberOfSeals = i,
           Seal = seals.map(_(i)),
@@ -165,7 +165,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       "when transport equipment goes over 2 wide lines" in {
         def transportEquipment(i: Int, seals: Seq[Int => SealType04], goodsReferences: Seq[Int => GoodsReferenceType02]): TransportEquipmentType05 =
           TransportEquipmentType05(
-            sequenceNumber = i.toString,
+            sequenceNumber = i,
             containerIdentificationNumber = Some(s"transport equipment $i container identification number"),
             numberOfSeals = i,
             Seal = seals.map(_(i)),
@@ -217,7 +217,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "seals" - {
       def seal(i: Int): SealType04 =
         SealType04(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           identifier = s"sid$i"
         )
 
@@ -294,7 +294,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "goodsReference" - {
       def goodsReference(i: Int): GoodsReferenceType02 =
         GoodsReferenceType02(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           declarationGoodsItemNumber = i
         )
 
@@ -364,7 +364,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "previousDocuments" - {
       def previousDocumentType06(i: Int): PreviousDocumentType06 =
         PreviousDocumentType06(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           typeValue = s"ptv$i",
           referenceNumber = s"prn$i",
           complementOfInformation = Some(s"pcoi$i")
@@ -372,7 +372,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
 
       def previousDocumentType07(i: Int): PreviousDocumentType07 =
         PreviousDocumentType07(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           typeValue = s"ptv$i",
           referenceNumber = s"prn$i",
           complementOfInformation = Some(s"pcoi$i")
@@ -394,7 +394,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are previous documents for a single house consignment" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -413,7 +413,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are previous documents at consignment and house consignment level" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -436,7 +436,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are more than 3 previous documents in total" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -470,7 +470,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       "when previous documents goes over 2 wide lines" in {
         def previousDocumentType06(i: Int): PreviousDocumentType06 =
           PreviousDocumentType06(
-            sequenceNumber = i.toString,
+            sequenceNumber = i,
             typeValue = s"previous document $i type value",
             referenceNumber = s"previous document $i reference number",
             complementOfInformation = Some(s"previous document $i complement of information")
@@ -478,13 +478,13 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
 
         def previousDocumentType07(i: Int): PreviousDocumentType07 =
           PreviousDocumentType07(
-            sequenceNumber = i.toString,
+            sequenceNumber = i,
             typeValue = s"previous document $i type value",
             referenceNumber = s"previous document $i reference number",
             complementOfInformation = Some(s"previous document $i complement of information")
           )
 
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -519,7 +519,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "transportDocuments" - {
       def transportDocument(i: Int): TransportDocumentType02 =
         TransportDocumentType02(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           typeValue = s"ttv$i",
           referenceNumber = s"trn$i"
         )
@@ -540,7 +540,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are transport documents for a single house consignment" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -559,7 +559,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are transport documents at consignment and house consignment level" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -582,7 +582,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are more than 3 transport documents in total" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -616,12 +616,12 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       "when transport documents goes over 2 wide lines" in {
         def transportDocument(i: Int): TransportDocumentType02 =
           TransportDocumentType02(
-            sequenceNumber = i.toString,
+            sequenceNumber = i,
             typeValue = s"transport document $i type value",
             referenceNumber = s"transport document $i reference number"
           )
 
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -656,7 +656,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "supportingDocuments" - {
       def supportingDocument(i: Int): SupportingDocumentType06 =
         SupportingDocumentType06(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           typeValue = s"stv$i",
           referenceNumber = s"srn$i",
           documentLineItemNumber = Some(i),
@@ -679,7 +679,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are supporting documents for a single house consignment" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -698,7 +698,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are supporting documents at consignment and house consignment level" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -721,7 +721,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are more than 3 supporting documents in total" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -755,14 +755,14 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       "when supporting documents goes over 2 wide lines" in {
         def supportingDocument(i: Int): SupportingDocumentType06 =
           SupportingDocumentType06(
-            sequenceNumber = i.toString,
+            sequenceNumber = i,
             typeValue = s"supporting document $i type value",
             referenceNumber = s"supporting document $i reference number",
             documentLineItemNumber = Some(i),
             complementOfInformation = Some(s"supporting document $i complement of information")
           )
 
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -797,7 +797,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "additionalReferences" - {
       def additionalReference(i: Int): AdditionalReferenceType03 =
         AdditionalReferenceType03(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           typeValue = s"artv$i",
           referenceNumber = Some(s"arrn$i")
         )
@@ -846,7 +846,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       "when more than 90 characters" in {
         def additionalReference(i: Int): AdditionalReferenceType03 =
           AdditionalReferenceType03(
-            sequenceNumber = i.toString,
+            sequenceNumber = i,
             typeValue = s"additional reference $i type value",
             referenceNumber = Some(s"additional reference $i reference number")
           )
@@ -880,7 +880,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are transport charges for a single house consignment" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -901,7 +901,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are transport charges for three house consignments" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -936,7 +936,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are transport charges for four house consignments" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -978,7 +978,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when there are transport charges at consignment level and one house consignment" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -1004,7 +1004,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when more than 20 characters" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -1047,7 +1047,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "additionalInformation" - {
       def additionalInformation(i: Int): AdditionalInformationType02 =
         AdditionalInformationType02(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           code = s"aic$i",
           text = Some(s"ait$i")
         )
@@ -1096,7 +1096,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       "when more than 90 characters" in {
         def additionalInformation(i: Int): AdditionalInformationType02 =
           AdditionalInformationType02(
-            sequenceNumber = i.toString,
+            sequenceNumber = i,
             code = s"additional information $i code",
             text = Some(s"additional information $i text")
           )
@@ -1114,18 +1114,18 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "guarantees" - {
-      def guaranteeReference(j: Int): Int => GuaranteeReferenceType01 = i =>
-        GuaranteeReferenceType01(
-          sequenceNumber = j.toString,
+      def guaranteeReference(j: Int): Int => CUSTOM_GuaranteeReferenceType01 = i =>
+        CUSTOM_GuaranteeReferenceType01(
+          sequenceNumber = j,
           GRN = Some(s"${i}grn$j"),
           accessCode = Some(s"${i}ac$j"),
           amountToBeCovered = Some(BigDecimal(s"$i$j")),
           currency = Some(s"${i}c$j")
         )
 
-      def guarantee(i: Int, guaranteeReferences: Seq[Int => GuaranteeReferenceType01]): GuaranteeType03 =
+      def guarantee(i: Int, guaranteeReferences: Seq[Int => CUSTOM_GuaranteeReferenceType01]): GuaranteeType03 =
         GuaranteeType03(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           guaranteeType = s"g$i",
           otherGuaranteeReference = Some(s"ogr$i"),
           GuaranteeReference = guaranteeReferences.map(_(i))
@@ -1241,7 +1241,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     "authorisations" - {
       def authorisation(i: Int): AuthorisationType02 =
         AuthorisationType02(
-          sequenceNumber = i.toString,
+          sequenceNumber = i,
           typeValue = s"tv$i",
           referenceNumber = s"rn$i"
         )

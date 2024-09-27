@@ -17,7 +17,7 @@
 package viewmodels.tad.posttransition
 
 import base.SpecBase
-import generated.rfc37._
+import generated._
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -63,7 +63,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 2 consignees (spanning 2 narrow lines out of available 2)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -88,7 +88,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 3 consignees (spanning more than the available 2 narrow lines)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -178,7 +178,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 2 consignors (spanning 2 narrow lines out of available 3)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -203,7 +203,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 3 consignors (spanning 3 narrow lines out of available 3)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -233,7 +233,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 4 consignors (spanning more than the available 3 narrow lines)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[CUSTOM_HouseConsignmentType03]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(

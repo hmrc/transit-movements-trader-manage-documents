@@ -17,7 +17,7 @@
 package viewmodels
 
 import base.SpecBase
-import generated.rfc37._
+import generated._
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import scalaxb.XMLCalendar
@@ -52,22 +52,22 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     Authorisation = Seq(
       AuthorisationType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "C521",
         referenceNumber = "rn1"
       ),
       AuthorisationType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "tv2",
         referenceNumber = "rn2"
       ),
       AuthorisationType02(
-        sequenceNumber = "3",
+        sequenceNumber = 3,
         typeValue = "tv3",
         referenceNumber = "rn3"
       ),
       AuthorisationType02(
-        sequenceNumber = "4",
+        sequenceNumber = 4,
         typeValue = "tv4",
         referenceNumber = "rn4"
       )
@@ -80,23 +80,23 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     CustomsOfficeOfTransitDeclared = Seq(
       CustomsOfficeOfTransitDeclaredType04(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         referenceNumber = "cootd1",
         arrivalDateAndTimeEstimated = Some(calendar("2010-02-03T08:45:00.000000"))
       ),
       CustomsOfficeOfTransitDeclaredType04(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         referenceNumber = "cootd2",
         arrivalDateAndTimeEstimated = Some(calendar("2015-02-03T08:45:00.000000"))
       )
     ),
     CustomsOfficeOfExitForTransitDeclared = Seq(
       CustomsOfficeOfExitForTransitDeclaredType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         referenceNumber = "cooeftd1"
       ),
       CustomsOfficeOfExitForTransitDeclaredType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         referenceNumber = "cooeftd2"
       )
     ),
@@ -143,26 +143,26 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     Guarantee = Seq(
       GuaranteeType03(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         guaranteeType = "g1",
         otherGuaranteeReference = Some("ogr1"),
         GuaranteeReference = Seq(
-          GuaranteeReferenceType01(
-            sequenceNumber = "1",
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 1,
             GRN = Some("1grn1"),
             accessCode = Some("1ac1"),
             amountToBeCovered = Some(BigDecimal(11)),
             currency = Some("1c1")
           ),
-          GuaranteeReferenceType01(
-            sequenceNumber = "2",
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 2,
             GRN = Some("1grn2"),
             accessCode = Some("1ac2"),
             amountToBeCovered = Some(BigDecimal(12)),
             currency = Some("1c2")
           ),
-          GuaranteeReferenceType01(
-            sequenceNumber = "3",
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 3,
             GRN = Some("1grn3"),
             accessCode = Some("1ac3"),
             amountToBeCovered = Some(BigDecimal(13)),
@@ -171,19 +171,19 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       ),
       GuaranteeType03(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         guaranteeType = "g2",
         otherGuaranteeReference = Some("ogr2"),
         GuaranteeReference = Seq(
-          GuaranteeReferenceType01(
-            sequenceNumber = "1",
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 1,
             GRN = Some("2grn1"),
             accessCode = Some("2ac1"),
             amountToBeCovered = Some(BigDecimal(21)),
             currency = Some("2c1")
           ),
-          GuaranteeReferenceType01(
-            sequenceNumber = "2",
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 2,
             GRN = Some("2grn2"),
             accessCode = Some("2ac2"),
             amountToBeCovered = Some(BigDecimal(22)),
@@ -192,10 +192,10 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       )
     ),
-    Consignment = ConsignmentType04(
+    Consignment = CUSTOM_ConsignmentType04(
       countryOfDispatch = Some("c of dispatch"),
       countryOfDestination = Some("c of destination"),
-      containerIndicator = Some(Number1),
+      containerIndicator = Number1,
       inlandModeOfTransport = Some("imot"),
       modeOfTransportAtTheBorder = Some("motatb"),
       grossMass = BigDecimal(200),
@@ -249,38 +249,38 @@ trait DummyData extends ScalaxbModelGenerators {
       ),
       AdditionalSupplyChainActor = Seq(
         AdditionalSupplyChainActorType(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           role = "role1",
           identificationNumber = "id1"
         ),
         AdditionalSupplyChainActorType(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           role = "role2",
           identificationNumber = "id2"
         )
       ),
       TransportEquipment = Seq(
         TransportEquipmentType05(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           containerIdentificationNumber = Some("cin1"),
           numberOfSeals = BigInt(2),
           Seal = Seq(
             SealType04(
-              sequenceNumber = "1",
+              sequenceNumber = 1,
               identifier = "sid1"
             ),
             SealType04(
-              sequenceNumber = "2",
+              sequenceNumber = 2,
               identifier = "sid2"
             )
           ),
           GoodsReference = Seq(
             GoodsReferenceType02(
-              sequenceNumber = "1",
+              sequenceNumber = 1,
               declarationGoodsItemNumber = BigInt(1)
             ),
             GoodsReferenceType02(
-              sequenceNumber = "2",
+              sequenceNumber = 2,
               declarationGoodsItemNumber = BigInt(3)
             )
           )
@@ -334,26 +334,26 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       ),
       DepartureTransportMeans = Seq(
-        DepartureTransportMeansType02(
-          sequenceNumber = "1",
+        CUSTOM_DepartureTransportMeansType02(
+          sequenceNumber = 1,
           typeOfIdentification = Some("toi1"),
           identificationNumber = Some("in1"),
           nationality = Some("nat1")
         ),
-        DepartureTransportMeansType02(
-          sequenceNumber = "2",
+        CUSTOM_DepartureTransportMeansType02(
+          sequenceNumber = 2,
           typeOfIdentification = Some("toi2"),
           identificationNumber = Some("in2"),
           nationality = Some("nat2")
         ),
-        DepartureTransportMeansType02(
-          sequenceNumber = "3",
+        CUSTOM_DepartureTransportMeansType02(
+          sequenceNumber = 3,
           typeOfIdentification = Some("toi3"),
           identificationNumber = Some("in3"),
           nationality = Some("nat3")
         ),
-        DepartureTransportMeansType02(
-          sequenceNumber = "4",
+        CUSTOM_DepartureTransportMeansType02(
+          sequenceNumber = 4,
           typeOfIdentification = Some("toi4"),
           identificationNumber = Some("in4"),
           nationality = Some("nat4")
@@ -361,49 +361,49 @@ trait DummyData extends ScalaxbModelGenerators {
       ),
       CountryOfRoutingOfConsignment = Seq(
         CountryOfRoutingOfConsignmentType01(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           country = "corocc1"
         ),
         CountryOfRoutingOfConsignmentType01(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           country = "corocc2"
         ),
         CountryOfRoutingOfConsignmentType01(
-          sequenceNumber = "3",
+          sequenceNumber = 3,
           country = "corocc3"
         ),
         CountryOfRoutingOfConsignmentType01(
-          sequenceNumber = "4",
+          sequenceNumber = 4,
           country = "corocc4"
         )
       ),
       ActiveBorderTransportMeans = Seq(
-        ActiveBorderTransportMeansType01(
-          sequenceNumber = "1",
+        CUSTOM_ActiveBorderTransportMeansType01(
+          sequenceNumber = 1,
           customsOfficeAtBorderReferenceNumber = Some("coabrn1"),
           typeOfIdentification = Some("toi1"),
           identificationNumber = Some("in1"),
           nationality = Some("nat1"),
           conveyanceReferenceNumber = Some("crn1")
         ),
-        ActiveBorderTransportMeansType01(
-          sequenceNumber = "2",
+        CUSTOM_ActiveBorderTransportMeansType01(
+          sequenceNumber = 2,
           customsOfficeAtBorderReferenceNumber = Some("coabrn2"),
           typeOfIdentification = Some("toi2"),
           identificationNumber = Some("in2"),
           nationality = Some("nat2"),
           conveyanceReferenceNumber = Some("crn2")
         ),
-        ActiveBorderTransportMeansType01(
-          sequenceNumber = "3",
+        CUSTOM_ActiveBorderTransportMeansType01(
+          sequenceNumber = 3,
           customsOfficeAtBorderReferenceNumber = Some("coabrn3"),
           typeOfIdentification = Some("toi3"),
           identificationNumber = Some("in3"),
           nationality = Some("nat3"),
           conveyanceReferenceNumber = Some("crn3")
         ),
-        ActiveBorderTransportMeansType01(
-          sequenceNumber = "4",
+        CUSTOM_ActiveBorderTransportMeansType01(
+          sequenceNumber = 4,
           customsOfficeAtBorderReferenceNumber = Some("coabrn4"),
           typeOfIdentification = Some("toi4"),
           identificationNumber = Some("in4"),
@@ -427,25 +427,25 @@ trait DummyData extends ScalaxbModelGenerators {
       ),
       PreviousDocument = Seq(
         PreviousDocumentType06(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           typeValue = "ptv1",
           referenceNumber = "prn1",
           complementOfInformation = Some("pcoi1")
         ),
         PreviousDocumentType06(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           typeValue = "ptv2",
           referenceNumber = "prn2",
           complementOfInformation = Some("pcoi1")
         ),
         PreviousDocumentType06(
-          sequenceNumber = "3",
+          sequenceNumber = 3,
           typeValue = "ptv3",
           referenceNumber = "prn3",
           complementOfInformation = Some("pcoi1")
         ),
         PreviousDocumentType06(
-          sequenceNumber = "4",
+          sequenceNumber = 4,
           typeValue = "ptv4",
           referenceNumber = "prn4",
           complementOfInformation = Some("pcoi1")
@@ -453,28 +453,28 @@ trait DummyData extends ScalaxbModelGenerators {
       ),
       SupportingDocument = Seq(
         SupportingDocumentType06(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           typeValue = "stv1",
           referenceNumber = "srn1",
           documentLineItemNumber = Some(BigInt(1)),
           complementOfInformation = Some("scoi1")
         ),
         SupportingDocumentType06(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           typeValue = "stv2",
           referenceNumber = "srn2",
           documentLineItemNumber = Some(BigInt(1)),
           complementOfInformation = Some("scoi1")
         ),
         SupportingDocumentType06(
-          sequenceNumber = "3",
+          sequenceNumber = 3,
           typeValue = "stv3",
           referenceNumber = "srn3",
           documentLineItemNumber = Some(BigInt(1)),
           complementOfInformation = Some("scoi3")
         ),
         SupportingDocumentType06(
-          sequenceNumber = "4",
+          sequenceNumber = 4,
           typeValue = "stv4",
           referenceNumber = "srn4",
           documentLineItemNumber = Some(BigInt(1)),
@@ -483,66 +483,66 @@ trait DummyData extends ScalaxbModelGenerators {
       ),
       TransportDocument = Seq(
         TransportDocumentType02(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           typeValue = "ttv1",
           referenceNumber = "trn1"
         ),
         TransportDocumentType02(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           typeValue = "ttv2",
           referenceNumber = "trn2"
         ),
         TransportDocumentType02(
-          sequenceNumber = "3",
+          sequenceNumber = 3,
           typeValue = "ttv3",
           referenceNumber = "trn3"
         ),
         TransportDocumentType02(
-          sequenceNumber = "4",
+          sequenceNumber = 4,
           typeValue = "ttv4",
           referenceNumber = "trn4"
         )
       ),
       AdditionalReference = Seq(
         AdditionalReferenceType03(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           typeValue = "artv1",
           referenceNumber = Some("arrn1")
         ),
         AdditionalReferenceType03(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           typeValue = "artv2",
           referenceNumber = Some("arrn2")
         ),
         AdditionalReferenceType03(
-          sequenceNumber = "3",
+          sequenceNumber = 3,
           typeValue = "artv3",
           referenceNumber = Some("arrn3")
         ),
         AdditionalReferenceType03(
-          sequenceNumber = "4",
+          sequenceNumber = 4,
           typeValue = "artv4",
           referenceNumber = Some("arrn4")
         )
       ),
       AdditionalInformation = Seq(
         AdditionalInformationType02(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           code = "aic1",
           text = Some("ait1")
         ),
         AdditionalInformationType02(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           code = "aic2",
           text = Some("ait2")
         ),
         AdditionalInformationType02(
-          sequenceNumber = "3",
+          sequenceNumber = 3,
           code = "aic3",
           text = Some("ait3")
         ),
         AdditionalInformationType02(
-          sequenceNumber = "4",
+          sequenceNumber = 4,
           code = "aic4",
           text = Some("ait4")
         )
@@ -553,31 +553,31 @@ trait DummyData extends ScalaxbModelGenerators {
         )
       ),
       HouseConsignment = Seq(
-        HouseConsignmentType03(
-          sequenceNumber = "1",
+        CUSTOM_HouseConsignmentType03(
+          sequenceNumber = 1,
           grossMass = BigDecimal(100),
           ConsignmentItem = Seq(
-            ConsignmentItemType03(
-              goodsItemNumber = "1",
+            CUSTOM_ConsignmentItemType03(
+              goodsItemNumber = 1,
               declarationGoodsItemNumber = BigInt(1),
               countryOfDispatch = Some("c of dispatch"),
               countryOfDestination = Some("c of destination"),
               referenceNumberUCR = Some("ucr"),
               Packaging = Seq(
                 PackagingType02(
-                  sequenceNumber = "1",
+                  sequenceNumber = 1,
                   typeOfPackages = "1top1",
                   numberOfPackages = Some(BigInt(11)),
                   shippingMarks = Some("1sm1")
                 ),
                 PackagingType02(
-                  sequenceNumber = "2",
+                  sequenceNumber = 2,
                   typeOfPackages = "1top2",
                   numberOfPackages = Some(BigInt(12)),
                   shippingMarks = Some("1sm2")
                 )
               ),
-              Commodity = CommodityType08(
+              Commodity = CUSTOM_CommodityType08(
                 descriptionOfGoods = "dog",
                 cusCode = Some("cus"),
                 CommodityCode = Some(
@@ -588,16 +588,16 @@ trait DummyData extends ScalaxbModelGenerators {
                 ),
                 DangerousGoods = Seq(
                   DangerousGoodsType01(
-                    sequenceNumber = "1",
+                    sequenceNumber = 1,
                     UNNumber = "unn1"
                   ),
                   DangerousGoodsType01(
-                    sequenceNumber = "2",
+                    sequenceNumber = 2,
                     UNNumber = "unn2"
                   )
                 ),
                 GoodsMeasure = Some(
-                  GoodsMeasureType03(
+                  CUSTOM_GoodsMeasureType03(
                     grossMass = Some(BigDecimal(200)),
                     netMass = Some(BigDecimal(100))
                   )
@@ -609,27 +609,27 @@ trait DummyData extends ScalaxbModelGenerators {
                 )
               )
             ),
-            ConsignmentItemType03(
-              goodsItemNumber = "2",
+            CUSTOM_ConsignmentItemType03(
+              goodsItemNumber = 2,
               declarationGoodsItemNumber = BigInt(2),
               countryOfDispatch = Some("c of dispatch"),
               countryOfDestination = Some("c of destination"),
               referenceNumberUCR = Some("ucr"),
               Packaging = Seq(
                 PackagingType02(
-                  sequenceNumber = "1",
+                  sequenceNumber = 1,
                   typeOfPackages = "2top1",
                   numberOfPackages = Some(BigInt(21)),
                   shippingMarks = Some("2sm1")
                 ),
                 PackagingType02(
-                  sequenceNumber = "2",
+                  sequenceNumber = 2,
                   typeOfPackages = "2top2",
                   numberOfPackages = Some(BigInt(22)),
                   shippingMarks = Some("2sm2")
                 )
               ),
-              Commodity = CommodityType08(
+              Commodity = CUSTOM_CommodityType08(
                 descriptionOfGoods = "dog",
                 cusCode = Some("cus"),
                 CommodityCode = Some(
@@ -640,16 +640,16 @@ trait DummyData extends ScalaxbModelGenerators {
                 ),
                 DangerousGoods = Seq(
                   DangerousGoodsType01(
-                    sequenceNumber = "1",
+                    sequenceNumber = 1,
                     UNNumber = "unn1"
                   ),
                   DangerousGoodsType01(
-                    sequenceNumber = "2",
+                    sequenceNumber = 2,
                     UNNumber = "unn2"
                   )
                 ),
                 GoodsMeasure = Some(
-                  GoodsMeasureType03(
+                  CUSTOM_GoodsMeasureType03(
                     grossMass = Some(BigDecimal(200)),
                     netMass = Some(BigDecimal(100))
                   )
@@ -701,7 +701,7 @@ trait DummyData extends ScalaxbModelGenerators {
       )
     ),
     Consignment = Some(
-      ConsignmentType05(
+      CUSTOM_ConsignmentType05(
         countryOfDestination = Some("cod"),
         containerIndicator = Number1,
         inlandModeOfTransport = Some("imot"),
@@ -736,40 +736,40 @@ trait DummyData extends ScalaxbModelGenerators {
         ),
         TransportEquipment = Seq(
           TransportEquipmentType05(
-            sequenceNumber = "1",
+            sequenceNumber = 1,
             containerIdentificationNumber = Some("cin1"),
             numberOfSeals = BigInt(2),
             Seal = Seq(
               SealType04(
-                sequenceNumber = "1",
+                sequenceNumber = 1,
                 identifier = "sid1"
               ),
               SealType04(
-                sequenceNumber = "2",
+                sequenceNumber = 2,
                 identifier = "sid2"
               )
             ),
             GoodsReference = Seq(
               GoodsReferenceType02(
-                sequenceNumber = "1",
+                sequenceNumber = 1,
                 declarationGoodsItemNumber = BigInt(1)
               ),
               GoodsReferenceType02(
-                sequenceNumber = "2",
+                sequenceNumber = 2,
                 declarationGoodsItemNumber = BigInt(3)
               )
             )
           )
         ),
         DepartureTransportMeans = Seq(
-          DepartureTransportMeansType02(
-            sequenceNumber = "1",
+          CUSTOM_DepartureTransportMeansType02(
+            sequenceNumber = 1,
             typeOfIdentification = Some("toi1"),
             identificationNumber = Some("in1"),
             nationality = Some("nat1")
           ),
-          DepartureTransportMeansType02(
-            sequenceNumber = "2",
+          CUSTOM_DepartureTransportMeansType02(
+            sequenceNumber = 2,
             typeOfIdentification = Some("toi2"),
             identificationNumber = Some("in2"),
             nationality = Some("nat2")
@@ -777,13 +777,13 @@ trait DummyData extends ScalaxbModelGenerators {
         ),
         PreviousDocument = Seq(
           PreviousDocumentType06(
-            sequenceNumber = "1",
+            sequenceNumber = 1,
             typeValue = "ptv1",
             referenceNumber = "prn1",
             complementOfInformation = Some("pcoi1")
           ),
           PreviousDocumentType06(
-            sequenceNumber = "2",
+            sequenceNumber = 2,
             typeValue = "ptv2",
             referenceNumber = "prn2",
             complementOfInformation = Some("pcoi1")
@@ -791,13 +791,13 @@ trait DummyData extends ScalaxbModelGenerators {
         ),
         SupportingDocument = Seq(
           SupportingDocumentType02(
-            sequenceNumber = "1",
+            sequenceNumber = 1,
             typeValue = "stv1",
             referenceNumber = "srn1",
             complementOfInformation = Some("scoi1")
           ),
           SupportingDocumentType02(
-            sequenceNumber = "2",
+            sequenceNumber = 2,
             typeValue = "stv2",
             referenceNumber = "srn2",
             complementOfInformation = Some("scoi1")
@@ -805,57 +805,57 @@ trait DummyData extends ScalaxbModelGenerators {
         ),
         TransportDocument = Seq(
           TransportDocumentType02(
-            sequenceNumber = "1",
+            sequenceNumber = 1,
             typeValue = "ttv1",
             referenceNumber = "trn1"
           ),
           TransportDocumentType02(
-            sequenceNumber = "2",
+            sequenceNumber = 2,
             typeValue = "ttv2",
             referenceNumber = "trn2"
           )
         ),
         AdditionalReference = Seq(
           AdditionalReferenceType03(
-            sequenceNumber = "1",
+            sequenceNumber = 1,
             typeValue = "artv1",
             referenceNumber = Some("arrn1")
           ),
           AdditionalReferenceType03(
-            sequenceNumber = "2",
+            sequenceNumber = 2,
             typeValue = "artv2",
             referenceNumber = Some("arrn2")
           )
         ),
         AdditionalInformation = Seq(
           AdditionalInformationType02(
-            sequenceNumber = "1",
+            sequenceNumber = 1,
             code = "aic1",
             text = Some("ait1")
           ),
           AdditionalInformationType02(
-            sequenceNumber = "2",
+            sequenceNumber = 2,
             code = "aic2",
             text = Some("ait2")
           )
         ),
         Incident = Nil,
         HouseConsignment = Seq(
-          HouseConsignmentType04(
-            sequenceNumber = "1",
+          CUSTOM_HouseConsignmentType04(
+            sequenceNumber = 1,
             grossMass = BigDecimal(100),
             ConsignmentItem = Seq(
-              ConsignmentItemType04(
-                goodsItemNumber = "1",
+              CUSTOM_ConsignmentItemType04(
+                goodsItemNumber = 1,
                 declarationGoodsItemNumber = 1,
-                Commodity = CommodityType08(
+                Commodity = CUSTOM_CommodityType08(
                   descriptionOfGoods = "dog1"
                 )
               ),
-              ConsignmentItemType04(
-                goodsItemNumber = "2",
+              CUSTOM_ConsignmentItemType04(
+                goodsItemNumber = 2,
                 declarationGoodsItemNumber = 2,
-                Commodity = CommodityType08(
+                Commodity = CUSTOM_CommodityType08(
                   descriptionOfGoods = "dog2"
                 )
               )
@@ -866,8 +866,8 @@ trait DummyData extends ScalaxbModelGenerators {
     )
   )
 
-  lazy val houseConsignmentType03: HouseConsignmentType03 = HouseConsignmentType03(
-    sequenceNumber = "1",
+  lazy val houseConsignmentType03: CUSTOM_HouseConsignmentType03 = CUSTOM_HouseConsignmentType03(
+    sequenceNumber = 1,
     countryOfDispatch = None,
     grossMass = BigDecimal(1),
     referenceNumberUCR = None,
@@ -910,16 +910,16 @@ trait DummyData extends ScalaxbModelGenerators {
     AdditionalSupplyChainActor = Nil,
     DepartureTransportMeans = Seq(
       DepartureTransportMeansType02(
-        sequenceNumber = "1",
-        typeOfIdentification = Some("toi1"),
-        identificationNumber = Some("in1"),
-        nationality = Some("nat1")
+        sequenceNumber = 1,
+        typeOfIdentification = "toi1",
+        identificationNumber = "in1",
+        nationality = "nat1"
       ),
       DepartureTransportMeansType02(
-        sequenceNumber = "2",
-        typeOfIdentification = Some("toi2"),
-        identificationNumber = Some("in2"),
-        nationality = Some("nat2")
+        sequenceNumber = 2,
+        typeOfIdentification = "toi2",
+        identificationNumber = "in2",
+        nationality = "nat2"
       )
     ),
     PreviousDocument = Nil,
@@ -931,8 +931,8 @@ trait DummyData extends ScalaxbModelGenerators {
     ConsignmentItem = Nil
   )
 
-  lazy val consignmentItemType03: ConsignmentItemType03 = ConsignmentItemType03(
-    goodsItemNumber = "gin",
+  lazy val consignmentItemType03: CUSTOM_ConsignmentItemType03 = CUSTOM_ConsignmentItemType03(
+    goodsItemNumber = 1,
     declarationGoodsItemNumber = BigInt(1),
     declarationType = Some("T"),
     countryOfDispatch = Some("c of dispatch"),
@@ -954,27 +954,27 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     AdditionalSupplyChainActor = Seq(
       AdditionalSupplyChainActorType(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         role = "role1",
         identificationNumber = "id1"
       ),
       AdditionalSupplyChainActorType(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         role = "role2",
         identificationNumber = "id2"
       ),
       AdditionalSupplyChainActorType(
-        sequenceNumber = "3",
+        sequenceNumber = 3,
         role = "role3",
         identificationNumber = "id3"
       ),
       AdditionalSupplyChainActorType(
-        sequenceNumber = "4",
+        sequenceNumber = 4,
         role = "role4",
         identificationNumber = "id4"
       )
     ),
-    Commodity = CommodityType08(
+    Commodity = CUSTOM_CommodityType08(
       descriptionOfGoods = "dog",
       cusCode = Some("cus"),
       CommodityCode = Some(
@@ -985,16 +985,16 @@ trait DummyData extends ScalaxbModelGenerators {
       ),
       DangerousGoods = Seq(
         DangerousGoodsType01(
-          sequenceNumber = "1",
+          sequenceNumber = 1,
           UNNumber = "unn1"
         ),
         DangerousGoodsType01(
-          sequenceNumber = "2",
+          sequenceNumber = 2,
           UNNumber = "unn2"
         )
       ),
       GoodsMeasure = Some(
-        GoodsMeasureType03(
+        CUSTOM_GoodsMeasureType03(
           grossMass = Some(BigDecimal(200)),
           netMass = Some(BigDecimal(100))
         )
@@ -1002,13 +1002,13 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     Packaging = Seq(
       PackagingType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeOfPackages = "top1",
         numberOfPackages = Some(BigInt(100)),
         shippingMarks = Some("sm1")
       ),
       PackagingType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeOfPackages = "top2",
         numberOfPackages = Some(BigInt(200)),
         shippingMarks = Some("sm2")
@@ -1016,7 +1016,7 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     PreviousDocument = Seq(
       PreviousDocumentType03(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "tv1",
         referenceNumber = "rn1",
         goodsItemNumber = Some(BigInt(1)),
@@ -1027,7 +1027,7 @@ trait DummyData extends ScalaxbModelGenerators {
         complementOfInformation = Some("pcoi1")
       ),
       PreviousDocumentType03(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "tv2",
         referenceNumber = "rn2",
         goodsItemNumber = Some(BigInt(2)),
@@ -1040,14 +1040,14 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     SupportingDocument = Seq(
       SupportingDocumentType06(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "stv1",
         referenceNumber = "srn1",
         documentLineItemNumber = Some(BigInt(11)),
         complementOfInformation = Some("scoi1")
       ),
       SupportingDocumentType06(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "stv2",
         referenceNumber = "srn2",
         documentLineItemNumber = Some(BigInt(22)),
@@ -1056,36 +1056,36 @@ trait DummyData extends ScalaxbModelGenerators {
     ),
     TransportDocument = Seq(
       TransportDocumentType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "ttv1",
         referenceNumber = "trn1"
       ),
       TransportDocumentType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "ttv2",
         referenceNumber = "trn2"
       )
     ),
     AdditionalReference = Seq(
       AdditionalReferenceType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         typeValue = "artv1",
         referenceNumber = Some("arrn1")
       ),
       AdditionalReferenceType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         typeValue = "artv2",
         referenceNumber = Some("arrn2")
       )
     ),
     AdditionalInformation = Seq(
       AdditionalInformationType02(
-        sequenceNumber = "1",
+        sequenceNumber = 1,
         code = "aic1",
         text = Some("ait1")
       ),
       AdditionalInformationType02(
-        sequenceNumber = "2",
+        sequenceNumber = 2,
         code = "aic2",
         text = Some("ait2")
       )

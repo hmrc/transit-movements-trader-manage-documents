@@ -18,7 +18,7 @@ package services.messages
 
 import base.SpecBase
 import connectors.UnloadingPermissionP5Connector
-import generated.rfc37.CC043CType
+import generated.CC043CType
 import generators.ModelGenerators
 import models.Phase
 import org.mockito.ArgumentMatchers.any

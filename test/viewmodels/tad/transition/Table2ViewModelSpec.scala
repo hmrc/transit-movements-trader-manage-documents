@@ -17,7 +17,7 @@
 package viewmodels.tad.transition
 
 import base.SpecBase
-import generated.rfc37.PreviousDocumentType06
+import generated.PreviousDocumentType06
 import viewmodels.DummyData
 
 class Table2ViewModelSpec extends SpecBase with DummyData {
@@ -57,7 +57,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
           cc029c.Consignment.copy(PreviousDocument =
             Seq(
               PreviousDocumentType06(
-                sequenceNumber = "1",
+                sequenceNumber = 1,
                 typeValue = "ptv1",
                 referenceNumber = "AbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyz",
                 complementOfInformation = Some("pcoi1")

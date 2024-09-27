@@ -16,7 +16,7 @@
 
 package viewmodels.unloadingpermission
 
-import generated.rfc37.ConsignmentItemType04
+import generated.CUSTOM_ConsignmentItemType04
 import viewmodels._
 
 case class ConsignmentItemViewModel(
@@ -41,10 +41,10 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(consignmentItem: ConsignmentItemType04): ConsignmentItemViewModel =
+  def apply(consignmentItem: CUSTOM_ConsignmentItemType04): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
-      goodsItemNumber = consignmentItem.goodsItemNumber,
+      goodsItemNumber = consignmentItem.goodsItemNumber.toString,
       packaging = consignmentItem.Packaging.map(_.asString).semiColonSeparate,
       consignee = consignmentItem.Consignee.map(_.asString).orElseBlank,
       consigneeId = consignmentItem.Consignee.flatMap(_.identificationNumber).orElseBlank,
