@@ -17,7 +17,7 @@
 package viewmodels.tad.transition
 
 import base.SpecBase
-import generated.rfc37.{AddressType07, ConsigneeType04, ConsignorType03, ContactPersonType01}
+import generated.{AddressType07, ConsigneeType04, ConsignorType03, ContactPersonType01}
 import viewmodels.DummyData
 import viewmodels.tad.transition.Table1ViewModel.*
 
