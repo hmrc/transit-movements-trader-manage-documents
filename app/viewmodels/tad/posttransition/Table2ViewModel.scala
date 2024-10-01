@@ -16,7 +16,7 @@
 
 package viewmodels.tad.posttransition
 
-import generated.rfc37._
+import generated._
 import viewmodels._
 
 case class Table2ViewModel(
@@ -37,7 +37,7 @@ object Table2ViewModel {
 
   def apply(ie029: CC029CType): Table2ViewModel = {
 
-    def combine(consignmentLevel: ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[HouseConsignmentType03] => Seq[String]): String =
+    def combine(consignmentLevel: CUSTOM_ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[CUSTOM_HouseConsignmentType03] => Seq[String]): String =
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.take3(_.semiColonSeparate)
 
     new Table2ViewModel(

@@ -27,7 +27,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     val result = ConsignmentItemViewModel(cc029c, consignmentItemType03)
 
     "itemNumber" in {
-      result.itemNumber mustBe "gin/1"
+      result.itemNumber mustBe "1/1"
     }
 
     "shippingMarks" in {

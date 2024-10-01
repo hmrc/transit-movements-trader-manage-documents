@@ -16,7 +16,7 @@
 
 package services.pdf
 
-import generated.rfc37.CC043CType
+import generated.CC043CType
 import viewmodels.unloadingpermission.P5UnloadingPermissionPdfViewModel
 import views.xml.unloadingpermission.UnloadingPermissionDocumentP5
 

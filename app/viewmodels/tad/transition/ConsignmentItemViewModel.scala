@@ -16,11 +16,9 @@
 
 package viewmodels.tad.transition
 
-import generated.rfc37.CC029CType
-import generated.rfc37.ConsigneeType03
-import generated.rfc37.ConsignmentItemType03
-import viewmodels._
-import viewmodels.tad.transition.ConsignmentItemViewModel._
+import generated.{CC029CType, CUSTOM_ConsignmentItemType03, ConsigneeType03, ConsignmentItemType03}
+import viewmodels.*
+import viewmodels.tad.transition.ConsignmentItemViewModel.*
 
 case class ConsignmentItemViewModel(
   itemNumber: String,
@@ -89,7 +87,7 @@ object ConsignmentItemViewModel {
       new SensitiveGoodsInformationViewModel("--", "--")
   }
 
-  def apply(ie029: CC029CType, consignmentItem: ConsignmentItemType03): ConsignmentItemViewModel =
+  def apply(ie029: CC029CType, consignmentItem: CUSTOM_ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       itemNumber = s"${consignmentItem.goodsItemNumber}/${consignmentItem.declarationGoodsItemNumber}",
       shippingMarks = consignmentItem.Packaging.flatMap(_.shippingMarks),

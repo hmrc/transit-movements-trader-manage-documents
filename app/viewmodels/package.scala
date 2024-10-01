@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import generated.rfc37._
+import generated._
 
 import java.text.SimpleDateFormat
 import javax.xml.datatype.XMLGregorianCalendar
@@ -195,7 +195,7 @@ package object viewmodels {
       value.copy(Consignment = consignment)
     }
 
-    val consignmentItems: Seq[ConsignmentItemType03] =
+    val consignmentItems: Seq[CUSTOM_ConsignmentItemType03] =
       value.Consignment.HouseConsignment
         .flatMap(_.ConsignmentItem)
 
@@ -204,9 +204,9 @@ package object viewmodels {
     val numberOfPackages: BigInt = consignmentItems.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
   }
 
-  implicit class RichConsignmentItems(consignmentItems: Seq[ConsignmentItemType03]) {
+  implicit class RichConsignmentItems(consignmentItems: Seq[CUSTOM_ConsignmentItemType03]) {
 
-    def rollDown[T](value: Option[T])(rollDown: T => ConsignmentItemType03 => ConsignmentItemType03): Seq[ConsignmentItemType03] =
+    def rollDown[T](value: Option[T])(rollDown: T => CUSTOM_ConsignmentItemType03 => CUSTOM_ConsignmentItemType03): Seq[CUSTOM_ConsignmentItemType03] =
       value match {
         case Some(t) => consignmentItems.map(rollDown(t))
         case None    => consignmentItems
@@ -215,8 +215,8 @@ package object viewmodels {
 
   implicit class RichCC043CType(value: CC043CType) {
 
-    private val consignmentItems: Seq[ConsignmentItemType04] =
-      value.Consignment.fold[Seq[ConsignmentItemType04]](Nil)(_.HouseConsignment.flatMap(_.ConsignmentItem))
+    private val consignmentItems: Seq[CUSTOM_ConsignmentItemType04] =
+      value.Consignment.fold[Seq[CUSTOM_ConsignmentItemType04]](Nil)(_.HouseConsignment.flatMap(_.ConsignmentItem))
 
     val numberOfItems: Int = consignmentItems.size
 
@@ -237,7 +237,7 @@ package object viewmodels {
     ).flatten.commaSeparate
 
     def asP4String: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeOfPackages),
       value.numberOfPackages.map(_.toString()),
       value.shippingMarks
@@ -248,7 +248,7 @@ package object viewmodels {
   implicit class RichPreviousDocumentType03(value: PreviousDocumentType03) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
       value.goodsItemNumber.map(_.toString),
@@ -269,10 +269,10 @@ package object viewmodels {
   implicit class RichPreviousDocumentType04(value: PreviousDocumentType04) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
-      value.goodsItemNumber,
+      value.goodsItemNumber.map(_.toString),
       value.complementOfInformation
     ).flatten.commaSeparate
   }
@@ -280,7 +280,7 @@ package object viewmodels {
   implicit class RichPreviousDocumentType06(value: PreviousDocumentType06) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
       value.complementOfInformation
@@ -290,7 +290,7 @@ package object viewmodels {
   implicit class RichPreviousDocumentType07(value: PreviousDocumentType07) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
       value.complementOfInformation
@@ -300,7 +300,7 @@ package object viewmodels {
   implicit class RichSupportingDocumentType02(value: SupportingDocumentType02) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
       value.complementOfInformation
@@ -310,7 +310,7 @@ package object viewmodels {
   implicit class RichSupportingDocumentType06(value: SupportingDocumentType06) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
       value.documentLineItemNumber.map(_.toString),
@@ -321,7 +321,7 @@ package object viewmodels {
   implicit class RichTransportDocumentType02(value: TransportDocumentType02) {
 
     def asString: String = Seq(
-      value.sequenceNumber,
+      value.sequenceNumber.toString,
       value.typeValue,
       value.referenceNumber
     ).commaSeparate
@@ -335,7 +335,7 @@ package object viewmodels {
   implicit class RichAdditionalInformationType02(value: AdditionalInformationType02) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.code),
       value.text
     ).flatten.commaSeparate
@@ -352,7 +352,7 @@ package object viewmodels {
   implicit class RichDangerousGoodsType01(value: DangerousGoodsType01) {
 
     def asString: String = Seq(
-      value.sequenceNumber,
+      value.sequenceNumber.toString,
       value.UNNumber
     ).commaSeparate
   }
@@ -479,7 +479,7 @@ package object viewmodels {
   implicit class RichAdditionalReferenceType02(value: AdditionalReferenceType02) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       value.referenceNumber
     ).flatten.commaSeparate
@@ -488,7 +488,7 @@ package object viewmodels {
   implicit class RichAdditionalReferenceType03(value: AdditionalReferenceType03) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       value.referenceNumber
     ).flatten.commaSeparate
@@ -522,20 +522,35 @@ package object viewmodels {
       value.typeOfIdentification,
       value.identificationNumber,
       value.nationality
+    ).commaSeparate
+
+    def asP4String: String = Seq(
+      value.sequenceNumber.toString,
+      value.typeOfIdentification,
+      value.identificationNumber
+    ).commaSeparate
+  }
+
+  implicit class RichCustomDepartureTransportMeansType02(value: CUSTOM_DepartureTransportMeansType02) {
+
+    def asString: String = Seq(
+      value.typeOfIdentification,
+      value.identificationNumber,
+      value.nationality
     ).flatten.commaSeparate
 
     def asP4String: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       value.typeOfIdentification,
       value.identificationNumber
     ).flatten.commaSeparate
   }
 
-  implicit class RichConsignmentItemType04(value: ConsignmentItemType04) {
+  implicit class RichConsignmentItemType04(value: CUSTOM_ConsignmentItemType04) {
 
     // TODO check if we can use N/A for absent optional values
     def asString: String = Seq(
-      Some(value.goodsItemNumber),
+      Some(value.goodsItemNumber.toString),
       Some(value.declarationGoodsItemNumber.toString),
       value.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode),
       value.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode),
@@ -548,7 +563,7 @@ package object viewmodels {
 
   }
 
-  implicit class RichActiveBorderTransportMeansType01(value: ActiveBorderTransportMeansType01) {
+  implicit class RichActiveBorderTransportMeansType01(value: CUSTOM_ActiveBorderTransportMeansType01) {
 
     def asString: String = Seq(
       value.customsOfficeAtBorderReferenceNumber,
@@ -602,20 +617,20 @@ package object viewmodels {
   implicit class RichTransportEquipmentType05(value: TransportEquipmentType05) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       value.containerIdentificationNumber,
       Some(value.numberOfSeals.toString),
       Some(value.GoodsReference.map(_.asString).firstAndLast())
     ).flatten.commaSeparate
 
     def asStringWithoutGoodsRef: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       value.containerIdentificationNumber,
       Some(value.numberOfSeals.toString)
     ).flatten.commaSeparate
 
     def asP4String: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       value.containerIdentificationNumber
     ).flatten.commaSeparate
   }
@@ -639,17 +654,17 @@ package object viewmodels {
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.guaranteeType),
       Some(value.GuaranteeReference.map(_.asString).take2(_.semiColonSeparate)),
       value.otherGuaranteeReference
     ).flatten.commaSeparate
   }
 
-  implicit class RichGuaranteeReferenceType01(value: GuaranteeReferenceType01) {
+  implicit class RichGuaranteeReferenceType01(value: CUSTOM_GuaranteeReferenceType01) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       value.GRN,
       value.amountToBeCovered.map(_.asString),
       value.currency
@@ -659,7 +674,7 @@ package object viewmodels {
   implicit class RichAuthorisationType02(value: AuthorisationType02) {
 
     def asString: String = Seq(
-      value.sequenceNumber,
+      value.sequenceNumber.toString,
       value.typeValue,
       value.referenceNumber
     ).commaSeparate
@@ -668,7 +683,7 @@ package object viewmodels {
   implicit class RichCountryOfRoutingOfConsignmentType01(value: CountryOfRoutingOfConsignmentType01) {
 
     def asString: String = Seq(
-      value.sequenceNumber,
+      value.sequenceNumber.toString,
       value.country
     ).commaSeparate
   }
@@ -676,7 +691,7 @@ package object viewmodels {
   implicit class RichCustomsOfficeOfTransitDeclaredType04(value: CustomsOfficeOfTransitDeclaredType04) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.referenceNumber),
       value.arrivalDateAndTimeEstimated.map(_.dateAndTimeString)
     ).flatten.commaSeparate
@@ -685,7 +700,7 @@ package object viewmodels {
   implicit class RichCustomsOfficeOfExitForTransitDeclaredType02(value: CustomsOfficeOfExitForTransitDeclaredType02) {
 
     def asString: String = Seq(
-      Some(value.sequenceNumber),
+      Some(value.sequenceNumber.toString),
       Some(value.referenceNumber)
     ).flatten.commaSeparate
   }

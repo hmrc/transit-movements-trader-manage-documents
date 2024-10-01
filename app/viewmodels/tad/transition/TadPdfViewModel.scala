@@ -16,7 +16,7 @@
 
 package viewmodels.tad.transition
 
-import generated.rfc37._
+import generated._
 import viewmodels.RichCC029CType
 
 case class TadPdfViewModel(

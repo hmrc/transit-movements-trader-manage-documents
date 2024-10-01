@@ -16,7 +16,7 @@
 
 package viewmodels.tad.transition
 
-import generated.rfc37._
+import generated._
 import viewmodels._
 import viewmodels.tad.transition.SecurityViewModel._
 
@@ -80,7 +80,7 @@ object SecurityViewModel {
 
     def apply(seals: Seq[SealType04]): SealsViewModel =
       new SealsViewModel(
-        sequenceNumbers = seals.map(_.sequenceNumber).firstAndLast(", "),
+        sequenceNumbers = seals.map(_.sequenceNumber.toString).firstAndLast(", "),
         numberOfSeals = seals.length.toString,
         identifiers = seals
           .map(
@@ -143,7 +143,7 @@ object SecurityViewModel {
 
     def apply(countriesOfRoutingOfConsignment: Seq[CountryOfRoutingOfConsignmentType01]): CountriesOfRoutingOfConsignmentViewModel =
       new CountriesOfRoutingOfConsignmentViewModel(
-        sequenceNumbers = countriesOfRoutingOfConsignment.map(_.sequenceNumber).toBeContinued(),
+        sequenceNumbers = countriesOfRoutingOfConsignment.map(_.sequenceNumber.toString).toBeContinued(),
         countries = countriesOfRoutingOfConsignment.map(_.country).toBeContinued()
       )
   }
@@ -158,9 +158,9 @@ object SecurityViewModel {
 
   object ActiveBorderTransportMeansViewModel {
 
-    def apply(activeBorderTransportMeans: Seq[ActiveBorderTransportMeansType01]): ActiveBorderTransportMeansViewModel =
+    def apply(activeBorderTransportMeans: Seq[CUSTOM_ActiveBorderTransportMeansType01]): ActiveBorderTransportMeansViewModel =
       new ActiveBorderTransportMeansViewModel(
-        sequenceNumbers = activeBorderTransportMeans.map(_.sequenceNumber).toBeContinued(),
+        sequenceNumbers = activeBorderTransportMeans.map(_.sequenceNumber.toString).toBeContinued(),
         customsOfficeAtBorderReferenceNumbers = activeBorderTransportMeans.flatMap(_.customsOfficeAtBorderReferenceNumber).toBeContinued(),
         typesOfIdentification = activeBorderTransportMeans.flatMap(_.typeOfIdentification).toBeContinued(),
         identificationNumbers = activeBorderTransportMeans.flatMap(_.identificationNumber).toBeContinued(),
@@ -207,7 +207,7 @@ object SecurityViewModel {
 
     def apply(dangerousGoods: Seq[DangerousGoodsType01]): DangerousGoodsViewModel =
       new DangerousGoodsViewModel(
-        sequenceNumbers = dangerousGoods.map(_.sequenceNumber).toBeContinued(),
+        sequenceNumbers = dangerousGoods.map(_.sequenceNumber.toString).toBeContinued(),
         unNumbers = dangerousGoods.map(_.UNNumber).toBeContinued()
       )
   }

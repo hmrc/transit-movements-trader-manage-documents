@@ -17,8 +17,8 @@
 package services.messages
 
 import connectors.UnloadingPermissionP5Connector
-import generated.rfc37.CC043CType
-import generated.rfc37.Generatedrfc37_CC043CTypeFormat
+import generated.CC043CType
+import generated.Generated_CC043CTypeFormat
 import models.Phase
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier

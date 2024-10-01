@@ -16,9 +16,8 @@
 
 package viewmodels.tad.posttransition
 
-import generated.rfc37.ConsignmentItemType03
-import generated.rfc37.HouseConsignmentType03
-import viewmodels._
+import generated.{CUSTOM_ConsignmentItemType03, CUSTOM_HouseConsignmentType03, ConsignmentItemType03, HouseConsignmentType03}
+import viewmodels.*
 
 case class ConsignmentItemViewModel(
   declarationGoodsItemNumber: String,
@@ -51,10 +50,10 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(houseConsignment: HouseConsignmentType03, consignmentItem: ConsignmentItemType03): ConsignmentItemViewModel =
+  def apply(houseConsignment: CUSTOM_HouseConsignmentType03, consignmentItem: CUSTOM_ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
-      goodsItemNumber = consignmentItem.goodsItemNumber,
+      goodsItemNumber = consignmentItem.goodsItemNumber.toString(),
       packagesType = consignmentItem.Packaging.map(_.asString).semiColonSeparate,
       descriptionOfGoods = consignmentItem.Commodity.descriptionOfGoods,
       previousDocuments = consignmentItem.PreviousDocument.map(_.asString).semiColonSeparate,

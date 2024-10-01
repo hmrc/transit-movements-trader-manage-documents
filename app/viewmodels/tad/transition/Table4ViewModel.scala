@@ -16,7 +16,7 @@
 
 package viewmodels.tad.transition
 
-import generated.rfc37._
+import generated._
 import viewmodels._
 import viewmodels.tad.transition.Table4ViewModel._
 
@@ -88,7 +88,7 @@ object Table4ViewModel {
 
     def apply(customsOffice: CustomsOfficeOfTransitDeclaredType04): TransitOfficeViewModel =
       new TransitOfficeViewModel(
-        sequenceNumber = Some(customsOffice.sequenceNumber),
+        sequenceNumber = Some(customsOffice.sequenceNumber.toString),
         reference = customsOffice.referenceNumber,
         dateTime = customsOffice.arrivalDateAndTimeEstimated.map(_.dateAndTimeString)
       )

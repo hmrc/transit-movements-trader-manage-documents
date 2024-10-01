@@ -1,10 +1,10 @@
 @import views.xml.unloadingpermission.components.table_1._
 @import views.xml.unloadingpermission.components._
-@import generated.rfc37._
+@import generated._
 @import viewmodels.RichStringOption
 
 @(
-    departureTransportMeans: Seq[DepartureTransportMeansType02],
+    departureTransportMeans: Seq[CUSTOM_DepartureTransportMeansType02],
     container: String,
     transportEquipment: String,
     seals: String,
