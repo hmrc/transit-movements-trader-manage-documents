@@ -22,42 +22,34 @@
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
                    border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
-                   display-align="center" padding-top="-57mm"
-    >
+                   display-align="center" padding-top="-57mm">
 
         <fo:block-container
-                font-family="Arial" font-size="6"
+                font-size="6"
                 reference-orientation="90" display-align="center"
                 inline-progression-dimension.minimum="8mm"
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
-                margin-bottom = "4mm"
-        >
-        <fo:block hyphenate="true">Unloading permission - Accompanying document</fo:block>
-    </fo:block-container >
+                margin-bottom = "4mm">
+            <fo:block hyphenate="true">Unloading permission - Accompanying document</fo:block>
+        </fo:block-container >
         <fo:block-container height = "8mm">
-        <fo:block font-size="8pt"
-                  border-top-style="solid" border-top-width="1pt" border-top-color="black"
-                  text-align = "center"
-                  font-weight = "bold"
-                  line-height = "8mm"
-                  vertical-align="middle"
-
-        >
-            A
-        </fo:block>
+            <fo:block font-size="8pt"
+                      border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                      text-align = "center"
+                      font-weight = "bold"
+                      line-height = "8mm"
+                      vertical-align="middle">
+                A
+            </fo:block>
         </fo:block-container>
-
-
-
-</fo:table-cell>
+    </fo:table-cell>
 
     <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
                    border-right-style="solid" border-right-width="1pt" border-right-color="black"
                    border-top-style="solid" border-top-width="1pt" border-top-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
-                   number-columns-spanned="6"
-    >
+                   number-columns-spanned="6">
         <fo:block>
             @if(departureTransportMeans.nonEmpty) {
                 <fo:table width="100%" table-layout="fixed">
