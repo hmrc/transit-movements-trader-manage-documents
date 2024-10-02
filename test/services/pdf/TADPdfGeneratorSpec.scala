@@ -79,7 +79,7 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
 
     "must match with the 'Transit Accompanying Document' template with the security page" in {
 
-      val pdfPath          = "test/resources/refactor/transit-accompanying-document-pdf-with-security-page.pdf"
+      val pdfPath          = "test/resources/transit-accompanying-document-pdf-with-security-page.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029c))
@@ -90,6 +90,8 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
       try {
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
         val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
+
+        pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
         pdfData mustBe expectedPdfData
       } finally {
         pdfDocument.close()
@@ -101,7 +103,7 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
 
       val cc029cSecurityZero = cc029c.copy(TransitOperation = cc029c.TransitOperation.copy(security = "0"))
 
-      val pdfPath          = "test/resources/refactor/transit-accompanying-document-pdf-without-security-page.pdf"
+      val pdfPath          = "test/resources/transit-accompanying-document-pdf-without-security-page.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029cSecurityZero))
@@ -112,6 +114,8 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
       try {
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
         val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
+
+        pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
         pdfData mustBe expectedPdfData
       } finally {
         pdfDocument.close()

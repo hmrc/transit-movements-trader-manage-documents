@@ -38,7 +38,7 @@ class UnloadingPermissionPdfGeneratorSpec extends SpecBase with Matchers with Gu
 
     "must match with the 'Unloading Permission' template" in {
 
-      val pdfPath          = "test/resources/refactor/unloading-permission-pdf.pdf"
+      val pdfPath          = "test/resources/unloading-permission-pdf.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
       val pdfDocument: PDDocument = PDDocument.load(service.generateP5(cc043c))
@@ -49,6 +49,8 @@ class UnloadingPermissionPdfGeneratorSpec extends SpecBase with Matchers with Gu
       try {
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
         val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
+
+        pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
         pdfData mustBe expectedPdfData
       } finally {
         pdfDocument.close()

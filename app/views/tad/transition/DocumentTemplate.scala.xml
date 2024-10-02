@@ -1,7 +1,8 @@
 @import views.xml.components.layout_master_set
 
 @this(
-    layoutMasterSet: layout_master_set
+    layoutMasterSet: layout_master_set,
+    metaData: MetaData
 )
 
 @(
@@ -15,6 +16,8 @@
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="sans-serif" font-size="7pt" text-align="left">
 
   @layoutMasterSet()
+
+  @metaData()
 
   @pageOne
 

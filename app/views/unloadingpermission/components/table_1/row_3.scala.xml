@@ -31,7 +31,7 @@
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
                 margin-bottom = "4mm">
-            <fo:block hyphenate="true">Unloading permission - Accompanying document</fo:block>
+            <fo:block>Unloading permission - Accompanying document</fo:block>
         </fo:block-container >
         <fo:block-container height = "8mm">
             <fo:block font-size="8pt"
