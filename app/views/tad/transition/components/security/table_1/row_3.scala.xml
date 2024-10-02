@@ -16,7 +16,6 @@
 >
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
-      <fo:table-column/>
       <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:table-row height="5mm">
           <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black"   border-top-style="solid" border-top-width="1pt" border-top-color="black">
@@ -48,7 +47,6 @@
 >
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
-      <fo:table-column/>
       <fo:table-body border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:table-row height="5mm">
           <fo:table-cell padding-top="1mm" padding-left="1mm"  border-left-style="solid" border-left-width="1pt" border-left-color="black"   border-top-style="solid" border-top-width="1pt" border-top-color="black">

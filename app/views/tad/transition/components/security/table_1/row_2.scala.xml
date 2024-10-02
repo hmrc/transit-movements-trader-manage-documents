@@ -16,10 +16,7 @@
   <fo:table-cell>
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
-
         <fo:table-body>
-
           @security(securityType)
 
           @forms()

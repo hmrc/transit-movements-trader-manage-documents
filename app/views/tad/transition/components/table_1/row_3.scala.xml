@@ -18,7 +18,7 @@
           inline-progression-dimension.minimum="8mm"
           inline-progression-dimension.optimum="80mm"
           inline-progression-dimension.maximum="auto">
-      <fo:block hyphenate="true">@formName</fo:block>
+      <fo:block>@formName</fo:block>
     </fo:block-container>
   </fo:table-cell>
   <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black">
@@ -52,7 +52,7 @@
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
         <fo:table-column column-width="16mm"/>
-        <fo:table-column border-left-width="1pt" border-left-style="solid" border-left-color="black"/>
+        <fo:table-column column-width="24mm" border-left-width="1pt" border-left-style="solid" border-left-color="black"/>
         <fo:table-body>
           <fo:table-row height="4mm">
             <fo:table-cell display-align="center" text-align="center">

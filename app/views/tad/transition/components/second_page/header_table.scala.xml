@@ -114,7 +114,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -133,7 +132,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -152,7 +150,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -171,7 +168,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -190,7 +186,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -211,7 +206,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -230,7 +224,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -249,7 +242,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -268,7 +260,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -287,7 +278,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="3.5mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -308,7 +298,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="8mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -327,7 +316,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="8mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -346,7 +334,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="8mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -365,7 +352,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="8mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">
@@ -384,7 +370,6 @@
                 <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm">
                     <fo:block>
                         <fo:table width="100%" table-layout="fixed">
-                            <fo:table-column/>
                             <fo:table-body>
                                 <fo:table-row height="8mm">
                                     <fo:table-cell display-align="before" padding-top="1mm">

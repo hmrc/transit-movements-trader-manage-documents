@@ -34,7 +34,6 @@
   <fo:table-cell alignment-adjust="auto" border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" number-columns-spanned="4" number-rows-spanned="2">
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
         <fo:table-body>
           <fo:table-row height="8mm">
             <fo:table-cell padding-top="1mm" padding-left="2mm">
@@ -54,7 +53,6 @@
   <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" border-top-style="solid" border-top-width="1pt" border-top-color="black" number-rows-spanned="2">
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
         <fo:table-body>
           <fo:table-row height="8mm">
             <fo:table-cell padding-top="1mm" padding-left="2mm">

@@ -169,11 +169,9 @@
                                 <fo:table-cell padding-bottom="2mm" number-columns-spanned="3">
                                     <fo:block>
                                         <fo:table width="100%" table-layout="fixed">
-                                            <fo:table-column column-width="3.5mm"/>
-                                            <fo:table-column/>
                                             <fo:table-body>
                                                 <fo:table-row>
-                                                    <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" height="4.5mm">
+                                                    <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" height="4.5mm" width="3.5mm">
                                                         <fo:block/>
                                                     </fo:table-cell>
                                                     <fo:table-cell padding-left="3mm" >
@@ -216,11 +214,9 @@
                                 <fo:table-cell padding-bottom="2mm" number-columns-spanned="3">
                                     <fo:block>
                                         <fo:table width="100%" table-layout="fixed">
-                                            <fo:table-column column-width="3.5mm"/>
-                                            <fo:table-column/>
                                             <fo:table-body>
                                                 <fo:table-row>
-                                                    <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" height="4.5mm">
+                                                    <fo:table-cell border-style="solid" border-width="1pt" border-color="black" padding-left="2mm" height="4.5mm" width="3.5mm">
                                                         <fo:block/>
                                                     </fo:table-cell>
                                                     <fo:table-cell padding-left="3mm">
