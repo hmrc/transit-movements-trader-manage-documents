@@ -13,7 +13,7 @@
     <fo:table-cell
             number-columns-spanned="8">
         <fo:block>
-            <fo:table width="100%">
+            <fo:table width="100%" table-layout="fixed">
 
                 <fo:table-body>
 

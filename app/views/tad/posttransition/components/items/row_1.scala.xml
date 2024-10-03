@@ -11,7 +11,7 @@
                  border-right-style="solid" border-right-width="1pt" border-right-color="black"
                  border-top-style="solid" border-top-width="1pt" border-top-color="black" >
     <fo:block>
-      <fo:table width="100%">
+      <fo:table width="100%" table-layout="fixed">
         <fo:table-column column-number="1" column-width="25%"/>
         <fo:table-column column-number="2" column-width="17%"/>
         <fo:table-column column-number="3" column-width="58%"/>
@@ -60,7 +60,7 @@
                  border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                  border-bottom-width="1pt" border-bottom-color="black">
     <fo:block>
-      <fo:table width="100%">
+      <fo:table width="100%" table-layout="fixed">
         <fo:table-body>
           <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black" >
             <fo:table-cell display-align="center" margin-left="0.5mm">

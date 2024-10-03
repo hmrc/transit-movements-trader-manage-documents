@@ -44,7 +44,7 @@
                 <fo:table-column column-number="1" column-width="50%"/>
                 <fo:table-column column-number="2" column-width="10%"/>
                 <fo:table-column column-number="3" column-width="40%"/>
-                <fo:table-body padding-bottom="4%">
+                <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Carrier [13 12]</fo:block>
@@ -173,7 +173,7 @@
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block>
-                                                    <fo:table height="60%" width="100%" table-layout="fixed">
+                                                    <fo:table width="100%" table-layout="fixed">
                                                         <fo:table-column column-number="1" column-width="100%"/>
                                                         <fo:table-body>
                                                             <fo:table-row>
@@ -205,7 +205,7 @@
                                                            border-bottom-style="solid" border-bottom-width="1pt"
                                                            border-bottom-color="black">
                                                 <fo:block>
-                                                    <fo:table height="60%" width="100%" table-layout="fixed">
+                                                    <fo:table width="100%" table-layout="fixed">
                                                         <fo:table-column column-number="1" column-width="100%"/>
                                                         <fo:table-body>
                                                             <fo:table-row>

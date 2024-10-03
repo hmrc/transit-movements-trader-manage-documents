@@ -13,7 +13,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%">
+            <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="44mm"/>
                 <fo:table-column column-number="2" column-width="8mm"/>
                 <fo:table-column column-number="3" column-width="37mm"/>
@@ -48,7 +48,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%">
+            <fo:table width="100%" table-layout="fixed">
 
                 <fo:table-column column-number="1" column-width="68%"/>
                 <fo:table-column column-number="2" column-width="32%"/>
@@ -82,13 +82,13 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt"
                                        border-right-color="black">
-                            <fo:block-container height="2mm" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@referenceNumberUCR</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@grossMass</fo:block>
                             </fo:block-container>
                         </fo:table-cell>

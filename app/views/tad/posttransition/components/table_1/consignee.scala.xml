@@ -3,7 +3,7 @@
 <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black" border-bottom-style="solid"
                border-bottom-width="1pt" border-bottom-color="black">
     <fo:block>
-        <fo:table height="60%" width="100%" table-layout="fixed">
+        <fo:table width="100%" table-layout="fixed">
             <fo:table-column column-number="1" column-width="50%"/>
             <fo:table-column column-number="2" column-width="10%"/>
             <fo:table-column column-number="3" column-width="40%"/>

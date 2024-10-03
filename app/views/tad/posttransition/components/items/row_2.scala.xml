@@ -12,7 +12,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%">
+            <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="44mm"/>
                 <fo:table-column column-number="2" column-width="8mm"/>
                 <fo:table-column column-number="3" column-width="37mm"/>
@@ -45,7 +45,7 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
                    border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
-            <fo:table width="100%">
+            <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
                     <fo:table-row height="2mm">
                         <fo:table-cell display-align="center" margin-left="0.5mm">

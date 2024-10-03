@@ -1,7 +1,7 @@
 @import viewmodels.tad.posttransition.ConsignmentItemViewModel
 
 @(vm: ConsignmentItemViewModel)
-<fo:table width="100%">
+<fo:table width="100%" table-layout="fixed">
 
   <fo:table-column column-width="50%"/>
   <fo:table-column column-width="50%"/>

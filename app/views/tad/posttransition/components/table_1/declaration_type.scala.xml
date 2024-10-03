@@ -10,7 +10,7 @@
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row number-columns-spanned="2" border-bottom-style="solid"
-                              border-bottom-width="1pt" border-bottom-color="black" padding-bottom="10%">
+                              border-bottom-width="1pt" border-bottom-color="black">
                     <fo:table-cell margin-left="3.5%" text-align="center" display-align="center">
                         <fo:block>
                             @declarationType

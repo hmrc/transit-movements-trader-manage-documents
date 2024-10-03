@@ -21,7 +21,7 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@departureTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -53,13 +53,13 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt" border-right-color="black">
-                            <fo:block-container height="2mm" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@commodityCode</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container height="2mm" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@netMass</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
