@@ -33,7 +33,7 @@
                 margin-bottom = "4mm">
             <fo:block>Unloading permission - Accompanying document</fo:block>
         </fo:block-container >
-        <fo:block-container height = "8mm">
+        <fo:block-container>
             <fo:block font-size="8pt"
                       border-top-style="solid" border-top-width="1pt" border-top-color="black"
                       text-align = "center"
