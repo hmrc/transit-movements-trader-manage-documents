@@ -10,7 +10,7 @@
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell border-top-style="solid" border-top-width="2pt" border-top-color="black" display-align="top" margin-left="2%" padding-bottom="138%" padding-top="5%">
+                        <fo:table-cell border-top-style="solid" border-top-width="2pt" border-top-color="black" margin-left="2%" padding-bottom="138%" padding-top="5%">
                             <fo:block font-weight="bold" font-size="5pt">CERTIFICATION BY COMPETENT AUTHORITIES
                             </fo:block>
                         </fo:table-cell>
@@ -29,7 +29,7 @@
                                border-right-width="1pt" border-right-color="black">
 
                     <fo:table-row>
-                        <fo:table-cell display-align="top" number-columns-spanned="2" padding-left="1%"
+                        <fo:table-cell number-columns-spanned="2" padding-left="1%"
                                        padding-bottom="2%">
                             <fo:block>New seals: Number:</fo:block>
                         </fo:table-cell>
@@ -111,7 +111,7 @@
                                     <fo:table-body>
 
                                         <fo:table-row>
-                                            <fo:table-cell display-align="top" margin-top="0.1%"
+                                            <fo:table-cell margin-top="0.1%"
                                                            number-columns-spanned="2" padding-left="1%"
                                                            padding-bottom="2%">
                                                 <fo:block>New seals: Number:</fo:block>

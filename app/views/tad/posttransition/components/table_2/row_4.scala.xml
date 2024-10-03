@@ -6,7 +6,7 @@
     authorisations: String
 )
 
-<fo:table-row height="16%">
+<fo:table-row>
     <fo:table-cell number-columns-spanned="3"
                    border-right-style="solid" border-right-width="1pt" border-right-color="black">
         <fo:block>
@@ -17,8 +17,7 @@
                 <fo:table-column column-number="3" column-width="89mm"/>
 
                 <fo:table-body>
-                    <fo:table-row height="12%"
-                                  border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                    <fo:table-row border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block/>
                         </fo:table-cell>
@@ -27,7 +26,7 @@
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="2%">
+                                        <fo:table-row>
                                             <fo:table-cell margin-top="0.5%" margin-left="0.5%">
                                                 <fo:block>Guarantee [99 02 - 99 03 - 99 04]</fo:block>
                                             </fo:table-cell>
@@ -47,7 +46,7 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="4%">
+                    <fo:table-row>
                         <fo:table-cell display-align="center" margin-left="1pt" number-columns-spanned="2"
                                        border-bottom-style="solid" border-bottom-width="2pt" border-bottom-color="black">
                             <fo:block>Guarantee not valid in</fo:block>
@@ -78,7 +77,7 @@
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
 
-                                        <fo:table-row height="3.5%">
+                                        <fo:table-row>
                                             <fo:table-cell margin-top="0.5%" margin-bottom="5%" display-align="center"
                                                            margin-left="0.5%">
                                                 <fo:block>Authorisation [12 12]</fo:block>

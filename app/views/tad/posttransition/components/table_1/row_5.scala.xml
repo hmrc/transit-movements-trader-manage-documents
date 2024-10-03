@@ -16,7 +16,7 @@
     locationOfGoodsContactPerson: String
 )
 
-<fo:table-row height="32%">
+<fo:table-row>
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>
@@ -33,14 +33,13 @@
                 reference-orientation="90" display-align="center"
                 inline-progression-dimension.minimum="5%"
                 inline-progression-dimension.maximum="auto"
-                inline-progression-dimension.optimum="94mm"
-                margin-bottom="10%m">
-            <fo:block hyphenate="true" margin-left="10%" font-size="7">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
+                inline-progression-dimension.optimum="94mm">
+            <fo:block margin-left="10%" font-size="7">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
         </fo:block-container>
     </fo:table-cell>
 
 
-    <fo:table-cell height="2%" border-left-style="solid" border-left-width="2pt" border-left-color="black"
+    <fo:table-cell border-left-style="solid" border-left-width="2pt" border-left-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
@@ -48,7 +47,7 @@
                 <fo:table-column column-number="2" column-width="10%"/>
                 <fo:table-column column-number="3" column-width="40%"/>
                 <fo:table-body padding-bottom="4%">
-                    <fo:table-row padding-bottom="4%">
+                    <fo:table-row>
                         <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Carrier [13 12]</fo:block>
                         </fo:table-cell>
@@ -57,7 +56,7 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="4%">
+                    <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>
                             </fo:block>
@@ -69,7 +68,7 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="2%">
+                    <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-top="2%">
                             <fo:block>
                                 Contact person [13 06 074]
@@ -84,8 +83,8 @@
                     </fo:table-row>
 
 
-                    <fo:table-row height="4%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                        <fo:table-cell display-align="center" margin-left="0.5%" height="4%">
+                    <fo:table-row border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                        <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Additional supply chain actor [13 12]</fo:block>
                         </fo:table-cell>
 
@@ -110,9 +109,9 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <!-- Departure transport means 8% -->
+                    <!-- The `getContentAreaBPD called on unknown BPD` looks to be getting triggered somewhere between here...  -->
 
-                    <fo:table-row height="2%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                    <fo:table-row border-top-style="solid" border-top-width="1pt" border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
@@ -126,9 +125,10 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <!-- Active border transport mean 8% -->
+                    <!-- and here! -->
+                    <!-- And between here... -->
 
-                    <fo:table-row height="2%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                    <fo:table-row border-top-style="solid" border-top-width="1pt" border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Active border transport means [19 08]</fo:block>
                         </fo:table-cell>
@@ -142,7 +142,9 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <fo:table-row height="2%">
+                    <!-- and here! -->
+
+                    <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-top="2%">
                             <fo:block>
                                 Conveyance reference number [19 02]
@@ -174,7 +176,7 @@
 
                                     <fo:table-body>
 
-                                        <fo:table-row height="200%">
+                                        <fo:table-row>
                                             <fo:table-cell alignment-adjust="auto" border-left-style="solid"
                                                            border-left-width="1pt" border-left-color="black"
                                                            border-bottom-style="solid" border-bottom-width="1pt"
@@ -183,7 +185,7 @@
                                                     <fo:table height="60%" width="100%" table-layout="fixed">
                                                         <fo:table-column column-number="1" column-width="100%"/>
                                                         <fo:table-body>
-                                                            <fo:table-row height="100%">
+                                                            <fo:table-row>
                                                                 <fo:table-cell display-align="center" margin-left="0.5%">
                                                                     <fo:block>Place of loading [16 13]</fo:block>
                                                                 </fo:table-cell>
@@ -206,7 +208,7 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-                                        <fo:table-row height="24%">
+                                        <fo:table-row>
                                             <fo:table-cell alignment-adjust="auto" border-left-style="solid"
                                                            border-left-width="1pt" border-left-color="black"
                                                            border-bottom-style="solid" border-bottom-width="1pt"
@@ -215,7 +217,7 @@
                                                     <fo:table height="60%" width="100%" table-layout="fixed">
                                                         <fo:table-column column-number="1" column-width="100%"/>
                                                         <fo:table-body>
-                                                            <fo:table-row height="100%">
+                                                            <fo:table-row>
                                                                 <fo:table-cell display-align="center" margin-left="0.5%">
                                                                     <fo:block>Place of unloading [16 14]</fo:block>
                                                                 </fo:table-cell>
@@ -238,7 +240,7 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-                                        <fo:table-row height="8%">
+                                        <fo:table-row>
                                             <fo:table-cell alignment-adjust="auto" border-left-style="solid"
                                                            border-left-width="1pt" border-left-color="black">
                                                 <fo:block>
@@ -246,8 +248,8 @@
                                                         <fo:table-body>
                                                             <fo:table-row>
                                                                 <fo:table-cell number-columns-spanned="2">
-                                                                    <fo:block margin-left="0.5%">Mode of transport at
-                                                                        the border [19 03]:
+                                                                    <fo:block margin-left="0.5%">
+                                                                        Mode of transport at the border [19 03]:
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                                 <fo:table-cell display-align="center" margin-left="0.5"
@@ -263,7 +265,7 @@
                                             </fo:table-cell>
                                         </fo:table-row>
 
-                                        <fo:table-row height="8%">
+                                        <fo:table-row>
                                             <fo:table-cell alignment-adjust="auto" border-left-style="solid"
                                                            border-left-width="1pt" border-left-color="black"
                                                            border-top-style="solid" border-top-width="1pt"
@@ -274,8 +276,8 @@
                                                         <fo:table-body>
                                                             <fo:table-row>
                                                                 <fo:table-cell number-columns-spanned="2">
-                                                                    <fo:block margin-left="0.5%">Inland mode of
-                                                                        transport [19 04]:
+                                                                    <fo:block margin-left="0.5%">
+                                                                        Inland mode of transport [19 04]:
                                                                     </fo:block>
                                                                 </fo:table-cell>
                                                                 <fo:table-cell display-align="center" margin-left="0.5"
@@ -302,28 +304,28 @@
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="4%">
+                                        <fo:table-row>
                                             <fo:table-cell number-columns-spanned="1">
-                                                <fo:block margin-top="0.5%" margin-left="0.5%">Location of goods [16
-                                                    15]
+                                                <fo:block margin-top="0.5%" margin-left="0.5%">
+                                                    Location of goods [16 15]
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
-                                        <fo:table-row height="28%">
+                                        <fo:table-row>
                                             <fo:table-cell margin-left="0.5%">
                                                 <fo:block>
                                                     @locationOfGoods
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
-                                        <fo:table-row height="4%">
+                                        <fo:table-row>
                                             <fo:table-cell padding-top="20%">
-                                                <fo:block margin-top="0.5%" margin-left="0.5%">Contact person [16 15
-                                                    074]
+                                                <fo:block margin-top="0.5%" margin-left="0.5%">
+                                                    Contact person [16 15 074]
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
-                                        <fo:table-row height="28%">
+                                        <fo:table-row>
                                             <fo:table-cell margin-left="0.5%">
                                                 <fo:block>
                                                     @locationOfGoodsContactPerson

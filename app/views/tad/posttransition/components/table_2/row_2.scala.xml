@@ -6,7 +6,7 @@
     transportDocuments: String
 )
 
-<fo:table-row height="16%">
+<fo:table-row>
 
     <fo:table-cell>
         <fo:block/>
@@ -22,7 +22,7 @@
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
 
-                    <fo:table-row height="2%">
+                    <fo:table-row>
                         <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%">
                             <fo:block>Previous Document [12 01]</fo:block>
                         </fo:table-cell>
@@ -50,7 +50,7 @@
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="16%">
+                                        <fo:table-row>
                                             <fo:table-cell border-left-style="solid" border-left-width="1pt"
                                                            border-left-color="black" border-right-style="solid"
                                                            border-right-width="1pt" border-right-color="black"
@@ -61,7 +61,7 @@
                                                     <fo:table width="100%" table-layout="fixed">
                                                         <fo:table-body>
 
-                                                            <fo:table-row height="2%">
+                                                            <fo:table-row>
                                                                 <fo:table-cell margin-top="0.5%" display-align="center" margin-left="1%">
                                                                     <fo:block>Transport document [12 05]</fo:block>
                                                                 </fo:table-cell>

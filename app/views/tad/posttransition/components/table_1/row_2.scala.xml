@@ -11,7 +11,7 @@
     mrn: String
 )
 
-<fo:table-row height="16%">
+<fo:table-row>
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>
@@ -22,7 +22,6 @@
                    border-right-style="solid" border-right-width="2pt" border-right-color="black">
         <fo:block/>
     </fo:table-cell>
-    SCI
 
     @consignor(consignors, consignorIdentificationNumbers, consignorContactPersons)
 
@@ -36,7 +35,7 @@
                                 <fo:table width="100%" table-layout="fixed">
 
                                     <fo:table-body>
-                                        <fo:table-row height="8%">
+                                        <fo:table-row>
                                             @declaration_type(declarationType)
                                             @additional_declaration_type(additionalDeclarationType)
                                         </fo:table-row>
@@ -52,7 +51,7 @@
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-body>
-                                        <fo:table-row height="8%">
+                                        <fo:table-row>
                                             @forms()
                                             @sci(specificCircumstanceIndicator)
                                         </fo:table-row>

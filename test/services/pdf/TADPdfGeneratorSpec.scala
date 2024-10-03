@@ -77,36 +77,59 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
       reset(spiedTable1, spiedTable2, spiedTable3)
     }
 
-    "must match with the 'Transit Accompanying Document' template with the security page" in {
+    "must match with the transition 'Transit Accompanying Document' template" - {
 
-      val pdfPath          = "test/resources/transit-accompanying-document-pdf-with-security-page.pdf"
-      val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
+      "with the security page" in {
+        val pdfPath          = "test/resources/documents/tad/transition/sample-with-security-page.pdf"
+        val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029c))
-      // pdfDocument.save(pdfPath)
+        val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029c))
+        // pdfDocument.save(pdfPath)
 
-      val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
+        val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 
-      try {
-        val pdfData         = new PDFTextStripper().getText(pdfDocument)
-        val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
+        try {
+          val pdfData         = new PDFTextStripper().getText(pdfDocument)
+          val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
 
-        pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
-        pdfData mustBe expectedPdfData
-      } finally {
-        pdfDocument.close()
-        expectedPdfDocument.close()
+          pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
+          pdfData mustBe expectedPdfData
+        } finally {
+          pdfDocument.close()
+          expectedPdfDocument.close()
+        }
+      }
+
+      "without the security page" in {
+
+        val cc029cSecurityZero = cc029c.copy(TransitOperation = cc029c.TransitOperation.copy(security = "0"))
+
+        val pdfPath          = "test/resources/documents/tad/transition/sample-without-security-page.pdf"
+        val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
+
+        val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029cSecurityZero))
+        // pdfDocument.save(pdfPath)
+
+        val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
+
+        try {
+          val pdfData         = new PDFTextStripper().getText(pdfDocument)
+          val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
+
+          pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
+          pdfData mustBe expectedPdfData
+        } finally {
+          pdfDocument.close()
+          expectedPdfDocument.close()
+        }
       }
     }
 
-    "must match with the 'Transit Accompanying Document' template without the security page" in {
-
-      val cc029cSecurityZero = cc029c.copy(TransitOperation = cc029c.TransitOperation.copy(security = "0"))
-
-      val pdfPath          = "test/resources/transit-accompanying-document-pdf-without-security-page.pdf"
+    "must match with the final 'Transit Accompanying Document' template" in {
+      val pdfPath          = "test/resources/documents/tad/final/sample.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(cc015c, cc029cSecurityZero))
+      val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADPostTransition(cc015c, cc029c))
       // pdfDocument.save(pdfPath)
 
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)

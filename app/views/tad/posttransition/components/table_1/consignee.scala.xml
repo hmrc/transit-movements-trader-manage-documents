@@ -8,7 +8,7 @@
             <fo:table-column column-number="2" column-width="10%"/>
             <fo:table-column column-number="3" column-width="40%"/>
             <fo:table-body>
-                <fo:table-row height="100%">
+                <fo:table-row>
                     <fo:table-cell display-align="center" margin-left="0.5%">
                         <fo:block>Consignee [13 03]</fo:block>
                     </fo:table-cell>
