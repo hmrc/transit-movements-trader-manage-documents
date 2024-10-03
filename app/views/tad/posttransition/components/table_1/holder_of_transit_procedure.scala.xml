@@ -29,13 +29,13 @@
                 <fo:table-row>
 
                     <fo:table-cell margin-left="0.5%">
-                        <fo:block-container height="2%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block white-space="pre" wrap-option="wrap">@holderOfTransitProcedure</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 
                     <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
-                        <fo:block-container height="4%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block>@holderOfTransitProcedureIdentificationNumber</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
@@ -68,13 +68,13 @@
 
                 <fo:table-row>
                     <fo:table-cell margin-left="0.5%">
-                        <fo:block-container height="4%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block>@representative</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 
                     <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
-                        <fo:block-container height="4%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block>@representativeIdentificationNumber</fo:block>
                         </fo:block-container>
                     </fo:table-cell>

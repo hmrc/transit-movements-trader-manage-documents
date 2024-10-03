@@ -129,7 +129,7 @@
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
-                                                <fo:block-container height="4%" overflow="hidden">
+                                                <fo:block-container overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>

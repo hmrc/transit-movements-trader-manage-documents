@@ -32,7 +32,7 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-bottom="0%">
-                            <fo:block-container height="14%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block white-space="pre" wrap-option="wrap">@supportingDocuments</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -69,7 +69,7 @@
                                                            border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black"
                                                            padding-bottom="4%">
-                                                <fo:block-container height="6%" overflow="hidden">
+                                                <fo:block-container overflow="hidden">
                                                     <fo:block>
                                                         @additionalReferences
                                                     </fo:block>
@@ -96,7 +96,7 @@
 
                                         <fo:table-row>
                                             <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                                                <fo:block-container height="6%" overflow="hidden" padding-bottom="2.1%">
+                                                <fo:block-container overflow="hidden" padding-bottom="2.1%">
                                                     <fo:block>@additionalInformation
                                                     </fo:block>
                                                 </fo:block-container>

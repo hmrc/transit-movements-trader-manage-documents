@@ -22,13 +22,13 @@
                 <fo:table-row>
 
                     <fo:table-cell margin-left="0.5%">
-                        <fo:block-container height="2%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block white-space="pre" wrap-option="wrap">@consignee</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 
                     <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
-                        <fo:block-container height="6%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block>@consigneeIdentificationNumber</fo:block>
                         </fo:block-container>
                     </fo:table-cell>

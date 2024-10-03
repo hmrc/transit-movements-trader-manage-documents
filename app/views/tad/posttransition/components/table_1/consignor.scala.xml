@@ -23,7 +23,7 @@
 
                 <fo:table-row>
                     <fo:table-cell margin-left="0.5%">
-                        <fo:block-container height="2%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block white-space="pre" wrap-option="wrap">@consignor</fo:block>
                         </fo:block-container>
                     </fo:table-cell>

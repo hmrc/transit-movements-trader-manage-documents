@@ -43,7 +43,7 @@
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
                                        border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
@@ -58,7 +58,7 @@
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
                                        border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
@@ -73,7 +73,7 @@
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
                                        border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container height="4%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>
                                     @containerIdentification
                                 </fo:block>
@@ -88,7 +88,7 @@
                     </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
-                            <fo:block-container height="14%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>
                                 </fo:block>
                             </fo:block-container>
@@ -136,7 +136,7 @@
                                             <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
                                                            border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="3.85%" overflow="hidden">
+                                                <fo:block-container overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
@@ -154,7 +154,7 @@
                                             <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
                                                            border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="4%" overflow="hidden">
+                                                <fo:block-container overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>
@@ -171,7 +171,7 @@
                                             <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
                                                            border-bottom-style="solid"
                                                            border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container height="4%" overflow="hidden">
+                                                <fo:block-container overflow="hidden">
                                                     <fo:block>
                                                         @containerIdentification
                                                     </fo:block>
@@ -189,7 +189,7 @@
                                         </fo:table-row>
                                         <fo:table-row>
                                             <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
-                                                <fo:block-container height="20%" overflow="hidden">
+                                                <fo:block-container overflow="hidden">
                                                     <fo:block>
                                                     </fo:block>
                                                 </fo:block-container>

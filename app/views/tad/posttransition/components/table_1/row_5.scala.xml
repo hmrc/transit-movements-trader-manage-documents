@@ -1,5 +1,3 @@
-@import views.xml.tad.posttransition.components.table_1._
-
 @(
     carrierIdentificationNumber: String,
     carrierContactPerson: String,
@@ -62,7 +60,7 @@
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
-                            <fo:block-container height="4%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@carrierIdentificationNumber</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
@@ -109,8 +107,6 @@
                         </fo:table-cell>
                     </fo:table-row>
 
-                    <!-- The `getContentAreaBPD called on unknown BPD` looks to be getting triggered somewhere between here...  -->
-
                     <fo:table-row border-top-style="solid" border-top-width="1pt" border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5%">
                             <fo:block>Departure transport means [19 05]</fo:block>
@@ -119,14 +115,11 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-bottom="1.55%" number-columns-spanned="3">
-                            <fo:block-container height="6%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block white-space="pre" wrap-option="wrap">@departureTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
-
-                    <!-- and here! -->
-                    <!-- And between here... -->
 
                     <fo:table-row border-top-style="solid" border-top-width="1pt" border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5%">
@@ -136,13 +129,11 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="3">
-                            <fo:block-container height="4%" overflow="hidden">
+                            <fo:block-container overflow="hidden">
                                 <fo:block>@activeBorderTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
-
-                    <!-- and here! -->
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-top="2%">
@@ -151,7 +142,7 @@
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" padding-top="2%" number-columns-spanned="2">
-                            <fo:block-container height="2%">
+                            <fo:block-container>
                                 <fo:block>@activeBorderTransportMeansConveyanceNumbers
                                 </fo:block>
                             </fo:block-container>
@@ -195,7 +186,7 @@
                                                             <fo:table-row>
 
                                                                 <fo:table-cell margin-left="0.5%" padding-bottom="12.5%">
-                                                                    <fo:block-container height="2%" overflow="hidden">
+                                                                    <fo:block-container overflow="hidden">
                                                                         <fo:block white-space="pre" wrap-option="wrap">@placeOfLoading</fo:block>
                                                                     </fo:block-container>
                                                                 </fo:table-cell>
@@ -227,7 +218,7 @@
                                                             <fo:table-row>
 
                                                                 <fo:table-cell margin-left="0.5%" padding-bottom="12.5%">
-                                                                    <fo:block-container height="2%" overflow="hidden">
+                                                                    <fo:block-container overflow="hidden">
                                                                         <fo:block white-space="pre" wrap-option="wrap">@placeOfUnloading</fo:block>
                                                                     </fo:block-container>
                                                                 </fo:table-cell>
