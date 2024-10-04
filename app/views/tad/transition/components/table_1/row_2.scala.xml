@@ -61,8 +61,8 @@
     </fo:block>
 
     @localReferenceNumber.map { lrn =>
-      <fo:block margin-left="2mm" font-size = "10pt" >
-        <fo:inline font-weight = "bold">LRN</fo:inline> @lrn
+      <fo:block margin-left="2mm" font-size="10pt">
+        <fo:inline font-weight="bold">LRN</fo:inline> @lrn
       </fo:block>
     }
   </fo:table-cell>

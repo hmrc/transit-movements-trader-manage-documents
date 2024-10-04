@@ -7,12 +7,9 @@
   <fo:table-cell >
     <fo:block/>
   </fo:table-cell>
-  <fo:table-cell number-columns-spanned="2" padding-left="3mm">
-    <fo:block font-weight="bold" font-size="11pt">MRN</fo:block>
-  </fo:table-cell>
-  <fo:table-cell number-columns-spanned="2" padding-left="3mm">
-    <fo:block font-size="11pt" id="sec_table_1_row_1_mrn">
-      @mrn
+  <fo:table-cell number-columns-spanned="4" padding-left="1mm">
+    <fo:block margin-left="2mm" font-size="11pt" id="sec_table_1_row_1_mrn">
+      <fo:inline font-weight="bold">MRN</fo:inline> @mrn
     </fo:block>
   </fo:table-cell>
 </fo:table-row>
