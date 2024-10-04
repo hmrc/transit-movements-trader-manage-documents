@@ -12,8 +12,9 @@
         <fo:block/>
     </fo:table-cell>
 
-    <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top" border-top-style="solid" border-top-width="1pt" border-top-color="black" border-left-style="solid" border-left-width="1pt" border-left-color="black"
-    >
+    <fo:table-cell padding-top="1mm" text-align="center" vertical-align="top"
+                   border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                   border-left-style="solid" border-left-width="1pt" border-left-color="black">
         <fo:block font-size="12pt" >
             A
         </fo:block>
@@ -48,10 +49,9 @@
         </fo:block>
     </fo:table-cell>
 
-
     <!-- Barcode -->
 
-    <fo:table-cell number-columns-spanned="1" padding-left="30mm">
+    <fo:table-cell number-columns-spanned="5" text-align="right">
         <fo:block >
             @barcode(mrn)
         </fo:block>
