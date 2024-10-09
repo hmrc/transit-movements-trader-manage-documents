@@ -70,7 +70,7 @@
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                        <fo:table-cell border-style="solid" border-color="red">
+                        <fo:table-cell>
                             <fo:block>
                                 @barcode(mrn)
                             </fo:block>
