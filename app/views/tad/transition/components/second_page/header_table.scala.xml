@@ -1,4 +1,4 @@
-@import views.xml.tad.transition.components.barcode
+@import views.xml.tad.transition.components.{barcode_small => barcode}
 @import viewmodels.tad.transition._
 
 @(departureOffice: String, movementReferenceNumber: String, acceptanceDateFormatted: String, lrn: Option[String])
