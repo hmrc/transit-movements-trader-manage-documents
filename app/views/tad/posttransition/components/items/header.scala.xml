@@ -1,4 +1,4 @@
-@import views.xml.tad.posttransition.components.barcode
+@import views.xml.components.barcode
 
 @(mrn: String)
 

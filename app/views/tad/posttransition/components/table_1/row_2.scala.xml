@@ -1,5 +1,6 @@
 @import views.xml.tad.posttransition.components.table_1._
 @import views.xml.tad.posttransition.components._
+@import views.xml.components.barcode
 
 @(
     consignors: String,

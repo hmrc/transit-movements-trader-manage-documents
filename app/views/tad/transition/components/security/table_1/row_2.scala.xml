@@ -1,6 +1,6 @@
 @import views.xml.tad.transition.components.security.table_1._
 @import viewmodels.tad.transition.SecurityViewModel
-@import views.xml.tad.transition.components.barcode
+@import views.xml.components.barcode
 
 @(
   mrn: String,

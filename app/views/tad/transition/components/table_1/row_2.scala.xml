@@ -4,7 +4,7 @@
 @import views.xml.tad.transition.components.table_1.loading_lists
 @import viewmodels.tad.transition.Table1ViewModel.ConsignorViewModel
 @import viewmodels.tad.transition.ConsignmentItemViewModel
-@import views.xml.tad.transition.components.barcode
+@import views.xml.components.barcode
 
 @(
   consignorViewModel: Option[ConsignorViewModel],

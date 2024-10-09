@@ -1,5 +1,6 @@
 @import views.xml.unloadingpermission.components.table_1._
 @import views.xml.unloadingpermission.components._
+@import views.xml.components.barcode
 
 @(
     declarationType: String,
