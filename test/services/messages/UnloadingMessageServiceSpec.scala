@@ -17,7 +17,7 @@
 package services.messages
 
 import base.SpecBase
-import connectors.UnloadingPermissionP5Connector
+import connectors.UnloadingPermissionConnector
 import generated.CC043CType
 import generators.ModelGenerators
 import models.Phase
@@ -34,11 +34,11 @@ import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import scala.xml.Node
 
-class UnloadingMessageP5ServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {
+class UnloadingMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {
 
-  private val mockConnector = mock[UnloadingPermissionP5Connector]
+  private val mockConnector = mock[UnloadingPermissionConnector]
 
-  private val service = new UnloadingMessageP5Service(mockConnector)
+  private val service = new UnloadingMessageService(mockConnector)
 
   private val arrivalId = "arrivalId"
   private val messageId = "messageId"

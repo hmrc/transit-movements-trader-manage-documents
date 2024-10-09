@@ -17,7 +17,7 @@
 package services.messages
 
 import base.SpecBase
-import connectors.DepartureMovementP5Connector
+import connectors.DepartureMovementConnector
 import generated.CC029CType
 import generators.ModelGenerators
 import models.DepartureMessageType.DepartureNotification
@@ -38,11 +38,11 @@ import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import scala.xml.Node
 
-class DepartureMessageP5ServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {
+class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {
 
-  private val mockConnector = mock[DepartureMovementP5Connector]
+  private val mockConnector = mock[DepartureMovementConnector]
 
-  private val service = new DepartureMessageP5Service(mockConnector)
+  private val service = new DepartureMessageService(mockConnector)
 
   private val departureId = "departureId"
   private val messageId   = "messageId"

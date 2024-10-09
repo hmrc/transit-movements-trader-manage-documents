@@ -24,7 +24,7 @@ import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
-import services.messages.DepartureMessageP5Service
+import services.messages.DepartureMessageService
 import services.pdf.TADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
@@ -33,9 +33,9 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class TransitAccompanyingDocumentP5Controller @Inject() (
+class TransitAccompanyingDocumentController @Inject() (
   pdf: TADPdfGenerator,
-  service: DepartureMessageP5Service,
+  service: DepartureMessageService,
   authenticate: AuthenticateActionProvider,
   getVersion: VersionedAction,
   cc: ControllerComponents

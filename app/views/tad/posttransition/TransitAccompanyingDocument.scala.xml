@@ -1,4 +1,4 @@
-@import views.xml.DocumentTemplateP5
+@import views.xml.DocumentTemplate
 @import views.xml.tad.posttransition.components._
 @import views.xml.PageOne
 @import views.xml.PageTwo
@@ -9,7 +9,7 @@
     table2: table_2.table,
     table3: table_3.table,
     table4: table_4.table,
-    template: DocumentTemplateP5,
+    template: DocumentTemplate,
     pageOne: PageOne,
     pageTwo: PageTwo
 )
@@ -17,7 +17,8 @@
 @(vm: TadPdfViewModel)
 @template(
     pageOne = pageOne(pageOneBody),
-    pageTwo = Some(pageTwo(items = vm.consignmentItemViewModels, mrn = vm.mrn))
+    pageTwo = Some(pageTwo(items = vm.consignmentItemViewModels, mrn = vm.mrn)),
+    pagesMarginTop = "31mm"
 )
 
 @pageOneBody = {

@@ -39,7 +39,7 @@ import utils.WireMockHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.Node
 
-class UnloadingPermissionP5ConnectorSpec
+class UnloadingPermissionConnectorSpec
     extends SpecBase
     with UnloadingData
     with GuiceOneAppPerSuite
@@ -60,7 +60,7 @@ class UnloadingPermissionP5ConnectorSpec
       )
       .build()
 
-  private lazy val service: UnloadingPermissionP5Connector = app.injector.instanceOf[UnloadingPermissionP5Connector]
+  private lazy val service: UnloadingPermissionConnector = app.injector.instanceOf[UnloadingPermissionConnector]
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 

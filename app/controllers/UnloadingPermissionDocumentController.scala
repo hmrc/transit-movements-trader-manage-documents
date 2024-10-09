@@ -22,7 +22,7 @@ import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.ControllerComponents
-import services.messages.UnloadingMessageP5Service
+import services.messages.UnloadingMessageService
 import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
@@ -30,9 +30,9 @@ import utils.FileNameSanitizer
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
-class UnloadingPermissionDocumentP5Controller @Inject() (
+class UnloadingPermissionDocumentController @Inject() (
   pdf: UnloadingPermissionPdfGenerator,
-  service: UnloadingMessageP5Service,
+  service: UnloadingMessageService,
   authenticate: AuthenticateActionProvider,
   getVersion: VersionedAction,
   cc: ControllerComponents

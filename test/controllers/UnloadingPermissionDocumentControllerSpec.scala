@@ -34,28 +34,28 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import services.messages.UnloadingMessageP5Service
+import services.messages.UnloadingMessageService
 import services.pdf.UnloadingPermissionPdfGenerator
 
 import scala.concurrent.Future
 
-class UnloadingPermissionDocumentP5ControllerSpec extends SpecBase with ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
+class UnloadingPermissionDocumentControllerSpec extends SpecBase with ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
 
   def onwardRoute: Call = Call("GET", "/foo")
 
   private val arrivalId = "arrivalId"
   private val messageId = "messageId"
 
-  lazy val controllerRoute: String = routes.UnloadingPermissionDocumentP5Controller.get(arrivalId, messageId).url
+  lazy val controllerRoute: String = routes.UnloadingPermissionDocumentController.get(arrivalId, messageId).url
 
-  private lazy val mockMessageService = mock[UnloadingMessageP5Service]
+  private lazy val mockMessageService = mock[UnloadingMessageService]
   private lazy val mockPdfGenerator   = mock[UnloadingPermissionPdfGenerator]
 
   private def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[AuthenticateActionProvider].to[FakeAuthenticateActionProvider],
-        bind[UnloadingMessageP5Service].toInstance(mockMessageService),
+        bind[UnloadingMessageService].toInstance(mockMessageService),
         bind[UnloadingPermissionPdfGenerator].toInstance(mockPdfGenerator)
       )
 

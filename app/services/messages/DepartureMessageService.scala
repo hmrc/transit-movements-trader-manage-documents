@@ -16,7 +16,7 @@
 
 package services.messages
 
-import connectors.DepartureMovementP5Connector
+import connectors.DepartureMovementConnector
 import generated.CC015CType
 import generated.CC029CType
 import generated.Generated_CC015CTypeFormat
@@ -31,7 +31,7 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class DepartureMessageP5Service @Inject() (connector: DepartureMovementP5Connector) extends MessageP5Service {
+class DepartureMessageService @Inject() (connector: DepartureMovementConnector) extends MessageService {
 
   def getReleaseForTransitNotification(
     departureId: String,

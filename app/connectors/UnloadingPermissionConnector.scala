@@ -17,12 +17,8 @@
 package connectors
 
 import config.AppConfig
-import models.DepartureMessages
 import models.Phase
-import play.api.http.HeaderNames._
-import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.StringContextOps
 import uk.gov.hmrc.http.client.HttpClientV2
 
 import javax.inject.Inject
@@ -30,21 +26,13 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.xml.Node
 
-class DepartureMovementP5Connector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
-
-  def getMessages(departureId: String, phase: Phase)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
-    val url = url"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages"
-    http
-      .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+json")
-      .execute[DepartureMessages]
-  }
+class UnloadingPermissionConnector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
 
   def getMessage(
-    departureId: String,
+    arrivalId: String,
     messageId: String,
     phase: Phase
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("departures", departureId, messageId, phase)
+    getMessage("arrivals", arrivalId, messageId, phase)
 
 }

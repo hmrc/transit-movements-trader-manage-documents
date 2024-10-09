@@ -16,20 +16,20 @@
 
 package config
 
-import org.apache.fop.apps.FopFactory
-import org.apache.fop.apps.FopFactoryBuilder
+import org.apache.fop.apps.{FopConfParser, FopFactory}
 import play.api.Environment
 
-import javax.inject.Inject
-import javax.inject.Provider
-import javax.inject.Singleton
+import javax.inject.{Inject, Provider, Singleton}
 
 @Singleton
 class FopFactoryProvider @Inject() (
   environment: Environment
 ) extends Provider[FopFactory] {
 
-  override def get(): FopFactory =
-    new FopFactoryBuilder(environment.rootPath.toURI)
-      .build()
+  override def get(): FopFactory = {
+    val xconf   = environment.getFile("/conf/fop.xconf")
+    val parser  = new FopConfParser(xconf)
+    val builder = parser.getFopFactoryBuilder
+    builder.build()
+  }
 }

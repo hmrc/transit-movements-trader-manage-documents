@@ -35,28 +35,28 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import services.messages.DepartureMessageP5Service
+import services.messages.DepartureMessageService
 import services.pdf.TADPdfGenerator
 
 import scala.concurrent.Future
 
-class TransitAccompanyingDocumentP5ControllerSpec extends SpecBase with ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
+class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
 
   def onwardRoute: Call = Call("GET", "/foo")
 
   private val departureId = "departureId"
   private val messageId   = "messageId"
 
-  lazy val controllerRoute: String = routes.TransitAccompanyingDocumentP5Controller.get(departureId, messageId).url
+  lazy val controllerRoute: String = routes.TransitAccompanyingDocumentController.get(departureId, messageId).url
 
-  private lazy val mockMessageService = mock[DepartureMessageP5Service]
+  private lazy val mockMessageService = mock[DepartureMessageService]
   private lazy val mockPdfGenerator   = mock[TADPdfGenerator]
 
   private def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[AuthenticateActionProvider].to[FakeAuthenticateActionProvider],
-        bind[DepartureMessageP5Service].toInstance(mockMessageService),
+        bind[DepartureMessageService].toInstance(mockMessageService),
         bind[TADPdfGenerator].toInstance(mockPdfGenerator)
       )
 

@@ -16,7 +16,7 @@
 
 package services.messages
 
-import connectors.UnloadingPermissionP5Connector
+import connectors.UnloadingPermissionConnector
 import generated.CC043CType
 import generated.Generated_CC043CTypeFormat
 import models.Phase
@@ -27,7 +27,7 @@ import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 
-class UnloadingMessageP5Service @Inject() (connector: UnloadingPermissionP5Connector) extends MessageP5Service {
+class UnloadingMessageService @Inject() (connector: UnloadingPermissionConnector) extends MessageService {
 
   def getUnloadingPermissionNotification(
     arrivalId: String,

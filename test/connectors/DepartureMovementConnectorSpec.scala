@@ -41,7 +41,7 @@ import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml._
 
-class DepartureMovementP5ConnectorSpec
+class DepartureMovementConnectorSpec
     extends SpecBase
     with DepartureData
     with GuiceOneAppPerSuite
@@ -62,7 +62,7 @@ class DepartureMovementP5ConnectorSpec
       )
       .build()
 
-  private lazy val service: DepartureMovementP5Connector = app.injector.instanceOf[DepartureMovementP5Connector]
+  private lazy val service: DepartureMovementConnector = app.injector.instanceOf[DepartureMovementConnector]
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
