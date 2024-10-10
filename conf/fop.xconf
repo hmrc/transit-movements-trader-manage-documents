@@ -3,7 +3,12 @@
   <renderers>
     <renderer mime="application/pdf">
       <fonts>
-        <auto-detect/>
+        <font embed-url="fonts/Arial Narrow.ttf" simulate-style="true">
+          <font-triplet name="Arial Narrow" style="normal" weight="normal"/>
+          <font-triplet name="Arial Narrow" style="italic" weight="normal"/>
+          <font-triplet name="Arial Narrow" style="normal" weight="bold"/>
+          <font-triplet name="Arial Narrow" style="italic" weight="bold"/>
+        </font>
       </fonts>
     </renderer>
   </renderers>
