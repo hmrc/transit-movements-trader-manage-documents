@@ -9,11 +9,12 @@
     pageOne: Xml,
     intermediaryPage: Option[Xml] = None,
     pageTwo: Option[Xml] = None,
-    pagesMarginTop: String
+    pagesMarginTop: String,
+    fontSize: String = "7pt"
 )
 <?xml version='1.0' encoding='utf-8'?>
 
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="Arial Narrow" font-size="7pt" text-align="left">
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="Arial Narrow" font-size="@fontSize" text-align="left">
 
   @layoutMasterSet(pagesMarginTop)
 
