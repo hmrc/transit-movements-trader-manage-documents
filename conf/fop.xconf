@@ -9,6 +9,27 @@
           <font-triplet name="Arial Narrow" style="normal" weight="bold"/>
           <font-triplet name="Arial Narrow" style="italic" weight="bold"/>
         </font>
+
+        <font embed-url="fonts/Impact.ttf" simulate-style="true">
+          <font-triplet name="Impact" style="normal" weight="normal"/>
+          <font-triplet name="Impact" style="italic" weight="normal"/>
+          <font-triplet name="Impact" style="normal" weight="bold"/>
+          <font-triplet name="Impact" style="italic" weight="bold"/>
+        </font>
+
+        <font embed-url="fonts/Haettenschweiler.ttf" simulate-style="true">
+          <font-triplet name="Haettenschweiler" style="normal" weight="normal"/>
+          <font-triplet name="Haettenschweiler" style="italic" weight="normal"/>
+          <font-triplet name="Haettenschweiler" style="normal" weight="bold"/>
+          <font-triplet name="Haettenschweiler" style="italic" weight="bold"/>
+        </font>
+
+        <font embed-url="fonts/Helvetica.ttf" simulate-style="true">
+          <font-triplet name="Helvetica" style="normal" weight="normal"/>
+          <font-triplet name="Helvetica" style="italic" weight="normal"/>
+          <font-triplet name="Helvetica" style="normal" weight="bold"/>
+          <font-triplet name="Helvetica" style="italic" weight="bold"/>
+        </font>
       </fonts>
     </renderer>
   </renderers>
