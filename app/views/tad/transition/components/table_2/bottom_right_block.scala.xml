@@ -7,7 +7,7 @@
 <fo:table-cell border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-columns-spanned="2" padding-top="2mm" font-weight="bold">
     <fo:block>
         @consignmentItemViewModel.map { vm =>
-            <fo:table width="100%">
+            <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-width="74mm"/>
                 <fo:table-column column-width="74mm"/>
                 <fo:table-body>

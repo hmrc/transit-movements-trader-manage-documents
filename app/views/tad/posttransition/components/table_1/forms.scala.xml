@@ -3,11 +3,9 @@
 <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
   <fo:block>
     <fo:table width="100%" table-layout="fixed">
-      <fo:table-column/>
-      <fo:table-column/>
       <fo:table-body>
-        <fo:table-row height="2%">
-          <fo:table-cell number-columns-spanned="2" text-align="left" display-align="left">
+        <fo:table-row>
+          <fo:table-cell number-columns-spanned="2" text-align="left" display-align="before">
             <fo:block margin-top="0.5%" margin-left="0.5%">Forms</fo:block>
           </fo:table-cell>
         </fo:table-row>

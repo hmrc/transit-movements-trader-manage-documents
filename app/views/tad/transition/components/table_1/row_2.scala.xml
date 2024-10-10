@@ -4,7 +4,7 @@
 @import views.xml.tad.transition.components.table_1.loading_lists
 @import viewmodels.tad.transition.Table1ViewModel.ConsignorViewModel
 @import viewmodels.tad.transition.ConsignmentItemViewModel
-@import views.xml.tad.transition.components.barcode
+@import views.xml.components.barcode
 
 @(
   consignorViewModel: Option[ConsignorViewModel],
@@ -28,8 +28,6 @@
   <fo:table-cell>
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
-
         <fo:table-body>
 
           @declaration_type(declarationType)
@@ -57,14 +55,14 @@
     </fo:block>
   </fo:table-cell>
 
-  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-top="-1mm" padding-left="1mm">
+  <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="1pt" border-left-color="black" padding-left="1mm">
     <fo:block>
       @barcode(movementReferenceNumber)
     </fo:block>
 
     @localReferenceNumber.map { lrn =>
-      <fo:block margin-left="2mm" font-size = "10pt" >
-        <fo:inline font-weight = "bold">LRN</fo:inline> @lrn
+      <fo:block margin-left="2mm" font-size="10pt">
+        <fo:inline font-weight="bold">LRN</fo:inline> @lrn
       </fo:block>
     }
   </fo:table-cell>

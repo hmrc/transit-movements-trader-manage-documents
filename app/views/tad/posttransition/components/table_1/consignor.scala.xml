@@ -10,7 +10,7 @@
             <fo:table-column column-number="2" column-width="10%"/>
             <fo:table-column column-number="3" column-width="40%"/>
             <fo:table-body>
-                <fo:table-row height="98%">
+                <fo:table-row>
                     <fo:table-cell display-align="center" margin-left="0.5%">
                         <fo:block>Consignor [13 02]</fo:block>
                     </fo:table-cell>
@@ -23,7 +23,7 @@
 
                 <fo:table-row>
                     <fo:table-cell margin-left="0.5%">
-                        <fo:block-container height="2%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block white-space="pre" wrap-option="wrap">@consignor</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
@@ -36,7 +36,7 @@
 
                 </fo:table-row>
 
-                <fo:table-row height="2%">
+                <fo:table-row>
                     <fo:table-cell margin-left="0.5%" padding-top="4.2%">
                         <fo:block>
                             Contact person [13 02 074]

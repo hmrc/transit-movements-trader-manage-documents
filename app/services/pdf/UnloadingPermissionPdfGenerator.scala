@@ -17,16 +17,16 @@
 package services.pdf
 
 import generated.CC043CType
-import viewmodels.unloadingpermission.P5UnloadingPermissionPdfViewModel
-import views.xml.unloadingpermission.UnloadingPermissionDocumentP5
+import viewmodels.unloadingpermission.UnloadingPermissionPdfViewModel
+import views.xml.unloadingpermission.UnloadingPermissionDocument
 
 import javax.inject.Inject
 
 class UnloadingPermissionPdfGenerator @Inject() (
   fopService: FopService,
-  documentP5: UnloadingPermissionDocumentP5
+  document: UnloadingPermissionDocument
 ) {
 
   def generateP5(ie043: CC043CType): Array[Byte] =
-    fopService.processTwirlXml(documentP5.render(P5UnloadingPermissionPdfViewModel(ie043)))
+    fopService.processTwirlXml(document.render(UnloadingPermissionPdfViewModel(ie043)))
 }

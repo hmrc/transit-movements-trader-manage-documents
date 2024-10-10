@@ -1,6 +1,6 @@
 @()
 
-<fo:table-row height="4%">
+<fo:table-row>
     <fo:table-cell>
         <fo:block/>
     </fo:table-cell>

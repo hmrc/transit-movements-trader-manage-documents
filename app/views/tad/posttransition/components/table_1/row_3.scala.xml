@@ -10,7 +10,7 @@
     securityString: String
 )
 
-<fo:table-row height="8%">
+<fo:table-row>
 
     <fo:table-cell>
         <fo:block/>
@@ -27,10 +27,7 @@
     <fo:table-cell>
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column/>
-
                 <fo:table-body>
-
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
@@ -42,7 +39,7 @@
                                     <fo:table-column column-width="47%"/>
 
                                     <fo:table-body>
-                                        <fo:table-row height="8%">
+                                        <fo:table-row>
                                             @total_items(totalItems)
                                             @total_packages(totalPackages)
                                             @total_gross_mass(totalGrossMass)

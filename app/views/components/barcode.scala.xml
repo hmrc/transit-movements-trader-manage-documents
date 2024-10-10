@@ -1,0 +1,5 @@
+@import views.xml.components.barcode_common
+
+@(movementReferenceNumber: String)
+
+@barcode_common(movementReferenceNumber, "15mm")

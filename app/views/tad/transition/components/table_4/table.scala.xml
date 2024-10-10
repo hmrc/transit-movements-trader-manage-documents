@@ -88,10 +88,9 @@
                     </fo:table>
                 </fo:block>
             </fo:table-cell>
-            <fo:table-cell border-top-style="solid" border-top-width="0.5pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2">
+            <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black" number-rows-spanned="2">
                 <fo:block>
                     <fo:table width="100%" table-layout="fixed">
-                        <fo:table-column/>
                         <fo:table-body>
                             <fo:table-row height="3.6875mm">
                                 <fo:table-cell padding-left="2mm" display-align="center">

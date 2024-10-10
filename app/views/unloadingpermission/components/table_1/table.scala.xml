@@ -16,7 +16,7 @@
   <fo:table-column column-number="7" column-width="4mm"/>
   <fo:table-column column-number="8" column-width="42mm"/>
 
-  <fo:table-body font-family="Arial">
+  <fo:table-body>
     @row_1(mrn)
 
     @row_2(

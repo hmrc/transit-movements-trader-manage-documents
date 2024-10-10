@@ -16,7 +16,7 @@
             <fo:table-column column-number="3" column-width="40%"/>
             <fo:table-body>
 
-                <fo:table-row height="98%">
+                <fo:table-row>
                     <fo:table-cell display-align="center" margin-left="0.5%">
                         <fo:block>Holder of transit procedure [13 07]</fo:block>
                     </fo:table-cell>
@@ -29,20 +29,20 @@
                 <fo:table-row>
 
                     <fo:table-cell margin-left="0.5%">
-                        <fo:block-container height="2%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block white-space="pre" wrap-option="wrap">@holderOfTransitProcedure</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 
                     <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
-                        <fo:block-container height="4%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block>@holderOfTransitProcedureIdentificationNumber</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 
                 </fo:table-row>
 
-                <fo:table-row height="2%">
+                <fo:table-row>
                     <fo:table-cell margin-left="0.5%" padding-top="4.2%" padding-bottom="2%">
                         <fo:block>
                             Contact person [13 07 074]
@@ -56,7 +56,7 @@
                     </fo:table-cell>
                 </fo:table-row>
 
-                <fo:table-row height="2%" border-top-style="solid" border-top-width="1pt" border-top-color="black">
+                <fo:table-row border-top-style="solid" border-top-width="1pt" border-top-color="black">
                     <fo:table-cell display-align="center" margin-left="0.5%">
                         <fo:block>Representative [13 06]</fo:block>
                     </fo:table-cell>
@@ -68,19 +68,19 @@
 
                 <fo:table-row>
                     <fo:table-cell margin-left="0.5%">
-                        <fo:block-container height="4%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block>@representative</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
 
                     <fo:table-cell number-columns-spanned="2" margin-left="0.5%">
-                        <fo:block-container height="4%" overflow="hidden">
+                        <fo:block-container overflow="hidden">
                             <fo:block>@representativeIdentificationNumber</fo:block>
                         </fo:block-container>
                     </fo:table-cell>
                 </fo:table-row>
 
-                <fo:table-row height="2%">
+                <fo:table-row>
                     <fo:table-cell margin-left="0.5%" padding-top="2%">
                         <fo:block>
                             Contact person [13 06 074]

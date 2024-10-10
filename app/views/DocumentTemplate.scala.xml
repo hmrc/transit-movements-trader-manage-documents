@@ -1,0 +1,29 @@
+@import views.xml.components.layout_master_set
+
+@this(
+    layoutMasterSet: layout_master_set,
+    metaData: MetaData
+)
+
+@(
+    pageOne: Xml,
+    intermediaryPage: Option[Xml] = None,
+    pageTwo: Option[Xml] = None,
+    pagesMarginTop: String,
+    fontSize: String = "7pt"
+)
+<?xml version='1.0' encoding='utf-8'?>
+
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="Helvetica" font-size="@fontSize" text-align="left">
+
+  @layoutMasterSet(pagesMarginTop)
+
+  @metaData()
+
+  @pageOne
+
+  @intermediaryPage
+
+  @pageTwo
+
+</fo:root>

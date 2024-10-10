@@ -65,7 +65,6 @@
 <fo:table-cell border-top-style="solid" border-top-width="1pt" border-top-color="black">
     <fo:block>
         <fo:table width="100%" table-layout="fixed">
-            <fo:table-column/>
             <fo:table-body>
                 <fo:table-row height="2mm">
                     <fo:table-cell padding-left="2mm" display-align="center">

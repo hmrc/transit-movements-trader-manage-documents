@@ -1,6 +1,6 @@
 @import views.xml.tad.transition.components.security.table_1._
 @import viewmodels.tad.transition.SecurityViewModel
-@import views.xml.tad.transition.components.barcode
+@import views.xml.components.barcode
 
 @(
   mrn: String,
@@ -16,10 +16,7 @@
   <fo:table-cell>
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column/>
-
         <fo:table-body>
-
           @security(securityType)
 
           @forms()

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fop>
+  <renderers>
+    <renderer mime="application/pdf">
+      <fonts>
+        <font embed-url="fonts/Helvetica.ttf" simulate-style="true">
+          <font-triplet name="Helvetica" style="normal" weight="normal"/>
+          <font-triplet name="Helvetica" style="italic" weight="normal"/>
+          <font-triplet name="Helvetica" style="normal" weight="bold"/>
+          <font-triplet name="Helvetica" style="italic" weight="bold"/>
+        </font>
+      </fonts>
+    </renderer>
+  </renderers>
+</fop>
