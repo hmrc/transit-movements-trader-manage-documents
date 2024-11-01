@@ -8,8 +8,7 @@
                         <fo:block margin-left="12.5%">Add.type [1102]</fo:block>
                     </fo:table-cell>
                 </fo:table-row>
-                <fo:table-row number-columns-spanned="2" border-bottom-style="solid"
-                              border-bottom-width="1pt" border-bottom-color="black">
+                <fo:table-row number-columns-spanned="2">
                     <fo:table-cell margin-left="3.5%" text-align="center" display-align="center">
                         <fo:block>
                             @additionalDeclarationType

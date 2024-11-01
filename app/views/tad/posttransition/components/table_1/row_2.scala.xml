@@ -31,7 +31,7 @@
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell>
+                        <fo:table-cell border-bottom-style="solid" border-bottom-width="2pt" border-bottom-color="black">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
 
