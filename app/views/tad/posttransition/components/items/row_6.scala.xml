@@ -1,10 +1,11 @@
 @(
-        dangerousGoods: String,
-        cusCode: String,
-        transportCharges: String,
-        declarationType: String,
-        countryOfDispatch: String,
-        countryOfDestination: String
+    dangerousGoods: String,
+    cusCode: String,
+    transportCharges: String,
+    declarationType: String,
+    countryOfDispatch: String,
+    countryOfDestination: String,
+    supplementaryUnits: String
 )
 
 <fo:table-row height="4mm">
@@ -110,7 +111,7 @@
 
                         <fo:table-cell margin-left="0.5mm">
                             <fo:block-container overflow="hidden">
-                                <fo:block>Supp unit</fo:block>
+                                <fo:block>@supplementaryUnits</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

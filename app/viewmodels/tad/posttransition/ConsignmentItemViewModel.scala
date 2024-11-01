@@ -45,7 +45,8 @@ case class ConsignmentItemViewModel(
   transportCharges: String,
   declarationType: String,
   countryOfDispatch: String,
-  countryOfDestination: String
+  countryOfDestination: String,
+  supplementaryUnits: String
 )
 
 object ConsignmentItemViewModel {
@@ -77,6 +78,7 @@ object ConsignmentItemViewModel {
       transportCharges = consignmentItem.TransportCharges.map(_.asString).orElseBlank,
       declarationType = consignmentItem.declarationType.orElseBlank,
       countryOfDispatch = consignmentItem.countryOfDispatch.orElseBlank,
-      countryOfDestination = consignmentItem.countryOfDestination.orElseBlank
+      countryOfDestination = consignmentItem.countryOfDestination.orElseBlank,
+      supplementaryUnits = "" // TODO - should these come from IE015?
     )
 }
