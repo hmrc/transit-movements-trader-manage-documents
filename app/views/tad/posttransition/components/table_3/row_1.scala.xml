@@ -3,7 +3,7 @@
 
 @(containerIdentification: String)
 
-<fo:table-row>
+<fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
 
     <fo:table-cell number-columns-spanned="2">
         <fo:block>
@@ -108,11 +108,11 @@
                 <fo:table-column column-number="2" column-width="117.25%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
-                                       border-left-color="black" border-right-style="solid" border-right-width="1pt"
-                                       border-right-color="black" border-top-style="solid" border-top-width="1pt"
-                                       border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt"
-                                       border-bottom-color="black">
+                        <fo:table-cell number-columns-spanned="2"
+                                       border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                                       border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                                       border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                                       border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-column column-number="1" column-width="70%"/>
