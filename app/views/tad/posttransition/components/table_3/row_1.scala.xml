@@ -83,7 +83,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="3"
                                        padding-left="1%" padding-bottom="5%">
-                            <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
+                            <fo:block>Other incidents during carriage / Details and measures taken (text)</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
@@ -182,8 +182,7 @@
                                             <fo:table-cell margin-top="0.5%" display-align="center"
                                                            number-columns-spanned="3"
                                                            padding-left="1%" padding-bottom="13%">
-                                                <fo:block>Other incidents during carriage / Details and measures
-                                                    taken(text)
+                                                <fo:block>Other incidents during carriage / Details and measures taken (text)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>

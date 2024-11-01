@@ -61,7 +61,7 @@
                                                       border-right-style="solid" border-right-width="1pt"
                                                       border-right-color="black">
                                             <fo:table-cell margin-left="1%" padding-bottom="11%">
-                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF TRANSIT[17 04]</fo:block>
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF TRANSIT [17 04]</fo:block>
                                                 <fo:block font-size="5pt">@(vm.customsOfficeOfTransitDeclared)
                                                 </fo:block>
                                             </fo:table-cell>
@@ -76,7 +76,7 @@
                                     <fo:table-body>
                                         <fo:table-row>
                                             <fo:table-cell margin-left="15%">
-                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT[17 06]
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT [17 06]
                                                 </fo:block>
                                                 <fo:block font-size="5pt">
                                                     @(vm.customsOfficeOfExitForTransitDeclared)
@@ -97,7 +97,7 @@
                                         <fo:table-row border-right-style="solid" border-right-width="1pt"
                                                       border-right-color="black">
                                             <fo:table-cell margin-left="1%" padding-bottom="11%">
-                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DEPARTURE[17 03]</fo:block>
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DEPARTURE [17 03]</fo:block>
                                                 <fo:block font-size="5pt">@(vm.customsOfficeOfDeparture)
                                                 </fo:block>
                                             </fo:table-cell>
@@ -113,7 +113,7 @@
                                         <fo:table-row border-top-style="solid" border-top-width="1pt"
                                                       border-top-color="black">
                                             <fo:table-cell margin-left="15%">
-                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION[17 05]
+                                                <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION [17 05]
                                                 </fo:block>
                                                 <fo:block font-size="5pt">
                                                     @(vm.customsOfficeOfDestinationDeclared)
@@ -139,25 +139,19 @@
                                                 <fo:block/>
                                             </fo:table-cell>
 
-                                            <fo:table-cell width="60mm"
-                                                           border-top-style="solid" border-top-width="1pt"
-                                                           border-top-color="black"
-                                                           border-left-style="solid" border-left-width="1pt"
-                                                           border-left-color="black"
-                                                           border-bottom-style="solid" border-bottom-width="1pt"
-                                                           border-bottom-color="black" margin-left="1%">
-                                                <fo:block font-size="5pt">Country of dispatch[16 06]
+                                            <fo:table-cell width="60mm" margin-left="1mm"
+                                                           border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                                                           border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                                                           border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                                                <fo:block font-size="5pt">Country of dispatch [16 06]
                                                     @(vm.countryOfDispatch)
                                                 </fo:block>
                                             </fo:table-cell>
-                                            <fo:table-cell margin-left="1mm"
-                                                           border-top-style="solid" border-top-width="1pt"
-                                                           border-top-color="black"
-                                                           border-left-style="solid" border-left-width="1pt"
-                                                           border-left-color="black"
-                                                           border-bottom-style="solid" border-bottom-width="1pt"
-                                                           border-bottom-color="black">
-                                                <fo:block font-size="5pt">Country of destination[16 03]
+                                            <fo:table-cell width="60mm" margin-left="1mm"
+                                                           border-top-style="solid" border-top-width="1pt" border-top-color="black"
+                                                           border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                                                           border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
+                                                <fo:block font-size="5pt">Country of destination [16 03]
                                                     @(vm.countryOfDestination)
                                                 </fo:block>
                                             </fo:table-cell>
