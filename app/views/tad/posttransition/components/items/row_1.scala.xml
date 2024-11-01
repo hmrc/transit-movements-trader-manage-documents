@@ -20,12 +20,12 @@
           <fo:table-row height="2mm"
                         border-top-style="solid" border-top-width="1pt" border-top-color="black">
             <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid" border-right-width="2pt" border-right-color="black">
-              <fo:block>Decl. goods it Nr. . [11 11]</fo:block>
+              <fo:block>Decl. goods it. Nr. [11 11]</fo:block>
             </fo:table-cell>
 
             <fo:table-cell display-align="center" margin-left="0.5mm"
                            border-right-style="solid" border-right-width="2pt" border-right-color="black">
-              <fo:block>Goods it. Nr [11 03]</fo:block>
+              <fo:block>Goods it. Nr. [11 03]</fo:block>
             </fo:table-cell>
 
             <fo:table-cell display-align="center" margin-left="0.5mm">
