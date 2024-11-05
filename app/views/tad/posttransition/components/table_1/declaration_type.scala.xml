@@ -7,7 +7,7 @@
                 <fo:table-row>
                     <fo:table-cell number-columns-spanned="2" text-align="left" display-align="before"
                                    padding-bottom="20%">
-                        <fo:block margin-left="3.5%" font-size="5pt">Type [1101]</fo:block>
+                        <fo:block margin-left="3.5%" font-size="5pt">Type [11 01]</fo:block>
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row number-columns-spanned="2">

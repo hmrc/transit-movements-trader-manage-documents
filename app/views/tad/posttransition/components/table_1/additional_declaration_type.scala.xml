@@ -5,7 +5,7 @@
             <fo:table-body>
                 <fo:table-row>
                     <fo:table-cell number-columns-spanned="2" padding-bottom="20%">
-                        <fo:block margin-left="12.5%">Add.type [1102]</fo:block>
+                        <fo:block margin-left="12.5%">Add.type [11 02]</fo:block>
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row number-columns-spanned="2">
