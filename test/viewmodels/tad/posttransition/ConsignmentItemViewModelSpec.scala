@@ -128,5 +128,9 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     "countryOfDestination" in {
       result.countryOfDestination mustBe "c of destination"
     }
+
+    "supplementaryUnits" in {
+      result.supplementaryUnits mustBe ""
+    }
   }
 }

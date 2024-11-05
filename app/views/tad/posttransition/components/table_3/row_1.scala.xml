@@ -3,7 +3,7 @@
 
 @(containerIdentification: String)
 
-<fo:table-row>
+<fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
 
     <fo:table-cell number-columns-spanned="2">
         <fo:block>
@@ -27,8 +27,7 @@
                 <fo:table-column column-number="1" column-width="70%"/>
                 <fo:table-column column-number="2" column-width="15%"/>
                 <fo:table-column column-number="3" column-width="15%"/>
-                <fo:table-body border-right-style="solid"
-                               border-right-width="1pt" border-right-color="black">
+                <fo:table-body border-right-style="solid" border-right-width="1pt" border-right-color="black">
                     <fo:table-row>
                         <fo:table-cell margin-top="0.5%" display-align="center"
                                        padding-left="1%" padding-bottom="5%" border-right-style="solid"
@@ -67,7 +66,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="3"
                                        padding-left="1%" padding-bottom="5%">
-                            <fo:block>Container ID[19 07]</fo:block>
+                            <fo:block>Container ID [19 07]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
@@ -83,7 +82,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="3"
                                        padding-left="1%" padding-bottom="5%">
-                            <fo:block>Other incidents during carriage / Details and measures taken(text)</fo:block>
+                            <fo:block>Other incidents during carriage / Details and measures taken (text)</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
@@ -108,11 +107,10 @@
                 <fo:table-column column-number="2" column-width="117.25%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="2" border-left-style="solid" border-left-width="1pt"
-                                       border-left-color="black" border-right-style="solid" border-right-width="1pt"
-                                       border-right-color="black" border-top-style="solid" border-top-width="1pt"
-                                       border-top-color="black" border-bottom-style="solid" border-bottom-width="1pt"
-                                       border-bottom-color="black">
+                        <fo:table-cell number-columns-spanned="2"
+                                       border-left-style="solid" border-left-width="1pt" border-left-color="black"
+                                       border-right-style="solid" border-right-width="1pt" border-right-color="black"
+                                       border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
                                     <fo:table-column column-number="1" column-width="70%"/>
@@ -164,7 +162,7 @@
                                             <fo:table-cell margin-top="0.5%" display-align="center"
                                                            number-columns-spanned="3"
                                                            padding-left="1%" padding-bottom="4.75%">
-                                                <fo:block>Container ID[19 07]</fo:block>
+                                                <fo:block>Container ID [19 07]</fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>
                                         <fo:table-row>
@@ -182,8 +180,7 @@
                                             <fo:table-cell margin-top="0.5%" display-align="center"
                                                            number-columns-spanned="3"
                                                            padding-left="1%" padding-bottom="13%">
-                                                <fo:block>Other incidents during carriage / Details and measures
-                                                    taken(text)
+                                                <fo:block>Other incidents during carriage / Details and measures taken (text)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>

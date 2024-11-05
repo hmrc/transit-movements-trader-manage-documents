@@ -1,16 +1,16 @@
 @(declarationType: String)
-<fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black">
+<fo:table-cell border-right-style="solid" border-right-width="2pt" border-right-color="black"
+               border-left-style="solid" border-left-width="2pt" border-left-color="black">
     <fo:block>
         <fo:table width="100%" table-layout="fixed">
             <fo:table-body>
                 <fo:table-row>
                     <fo:table-cell number-columns-spanned="2" text-align="left" display-align="before"
                                    padding-bottom="20%">
-                        <fo:block margin-left="3.5%" font-size="5pt">Type [1101]</fo:block>
+                        <fo:block margin-left="3.5%" font-size="5pt">Type [11 01]</fo:block>
                     </fo:table-cell>
                 </fo:table-row>
-                <fo:table-row number-columns-spanned="2" border-bottom-style="solid"
-                              border-bottom-width="1pt" border-bottom-color="black">
+                <fo:table-row number-columns-spanned="2">
                     <fo:table-cell margin-left="3.5%" text-align="center" display-align="center">
                         <fo:block>
                             @declarationType

@@ -48,7 +48,8 @@
       vm.transportCharges,
       vm.declarationType,
       vm.countryOfDispatch,
-      vm.countryOfDestination
+      vm.countryOfDestination,
+      vm.supplementaryUnits
     )
     
   </fo:table-body>
