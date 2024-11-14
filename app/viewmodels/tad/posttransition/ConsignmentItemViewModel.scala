@@ -80,15 +80,9 @@ object ConsignmentItemViewModel {
       countryOfDispatch = consignmentItem.countryOfDispatch.orElseBlank,
       countryOfDestination = consignmentItem.countryOfDestination.orElseBlank,
       supplementaryUnits = ie015.Consignment.HouseConsignment
-        .find(_.sequenceNumber == houseConsignment.sequenceNumber)
-        .flatMap {
-          hc =>
-            hc.ConsignmentItem.find(_.goodsItemNumber == consignmentItem.goodsItemNumber).flatMap {
-              ci =>
-                ci.Commodity.GoodsMeasure.flatMap(_.supplementaryUnits)
-            }
-        }
-        .map(_.asString)
+        .flatMap(_.ConsignmentItem)
+        .find(_.declarationGoodsItemNumber == consignmentItem.declarationGoodsItemNumber)
+        .flatMap(_.Commodity.GoodsMeasure.flatMap(_.supplementaryUnits.map(_.asString)))
         .getOrElse("")
     )
 }
