@@ -17,13 +17,14 @@
 package viewmodels.tad.posttransition
 
 import base.SpecBase
+import generated.{CommodityType07, ConsignmentItemType09, GoodsMeasureType02, HouseConsignmentType10}
 import viewmodels.DummyData
 
 class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val result = ConsignmentItemViewModel(houseConsignmentType03, consignmentItemType03)
+    val result = ConsignmentItemViewModel(cc015c, houseConsignmentType03, consignmentItemType03)
 
     "declarationGoodsItemNumber" in {
       result.declarationGoodsItemNumber mustBe "1"
@@ -129,8 +130,78 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
       result.countryOfDestination mustBe "c of destination"
     }
 
-    "supplementaryUnits" in {
-      result.supplementaryUnits mustBe ""
+    "supplementaryUnits returns" - {
+
+      "ie15 data for the matching consignment item" in {
+        val hcSeqNo     = 2
+        val goodsItemNo = 4
+        val ie15CI = ConsignmentItemType09(
+          goodsItemNumber = goodsItemNo,
+          declarationGoodsItemNumber = 5,
+          Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = Some(GoodsMeasureType02(supplementaryUnits = Some(BigDecimal(4.8)))))
+        )
+        val ie15HC = HouseConsignmentType10(sequenceNumber = hcSeqNo, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI))
+        val viewModel = ConsignmentItemViewModel(
+          cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
+          houseConsignmentType03.copy(sequenceNumber = hcSeqNo),
+          consignmentItemType03.copy(goodsItemNumber = goodsItemNo)
+        )
+        viewModel.supplementaryUnits mustBe "4.8"
+      }
+
+      "empty when house consignment item sequence numbers do not match" in {
+        val ie15HC = HouseConsignmentType10(sequenceNumber = 2, grossMass = BigDecimal(2.1))
+        val viewModel = ConsignmentItemViewModel(cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
+                                                 houseConsignmentType03.copy(sequenceNumber = 3),
+                                                 consignmentItemType03
+        )
+        viewModel.supplementaryUnits mustBe ""
+      }
+
+      "empty when consignment item goods items numbers do not match" in {
+        val hcSeqNo = 2
+        val ie15CI = ConsignmentItemType09(goodsItemNumber = 4, declarationGoodsItemNumber = 5, Commodity = CommodityType07(descriptionOfGoods = "description"))
+        val ie15HC = HouseConsignmentType10(sequenceNumber = hcSeqNo, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI))
+        val viewModel = ConsignmentItemViewModel(
+          cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
+          houseConsignmentType03.copy(sequenceNumber = hcSeqNo),
+          consignmentItemType03.copy(goodsItemNumber = 6)
+        )
+        viewModel.supplementaryUnits mustBe ""
+      }
+
+      "empty when there is no GoodsMeasure" in {
+        val hcSeqNo     = 2
+        val goodsItemNo = 4
+        val ie15CI = ConsignmentItemType09(goodsItemNumber = goodsItemNo,
+                                           declarationGoodsItemNumber = 5,
+                                           Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = None)
+        )
+        val ie15HC = HouseConsignmentType10(sequenceNumber = hcSeqNo, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI))
+        val viewModel = ConsignmentItemViewModel(
+          cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
+          houseConsignmentType03.copy(sequenceNumber = hcSeqNo),
+          consignmentItemType03.copy(goodsItemNumber = goodsItemNo)
+        )
+        viewModel.supplementaryUnits mustBe ""
+      }
+
+      "empty when there is no supplementaryUnits" in {
+        val hcSeqNo     = 2
+        val goodsItemNo = 4
+        val ie15CI = ConsignmentItemType09(
+          goodsItemNumber = goodsItemNo,
+          declarationGoodsItemNumber = 5,
+          Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = Some(GoodsMeasureType02(supplementaryUnits = None)))
+        )
+        val ie15HC = HouseConsignmentType10(sequenceNumber = hcSeqNo, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI))
+        val viewModel = ConsignmentItemViewModel(
+          cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
+          houseConsignmentType03.copy(sequenceNumber = hcSeqNo),
+          consignmentItemType03.copy(goodsItemNumber = goodsItemNo)
+        )
+        viewModel.supplementaryUnits mustBe ""
+      }
     }
   }
 }
