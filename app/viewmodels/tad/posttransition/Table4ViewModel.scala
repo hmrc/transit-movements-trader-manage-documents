@@ -39,12 +39,14 @@ object Table4ViewModel {
         .map(
           x => s"${x.sequenceNumber}/${x.referenceNumber}"
         )
-        .semiColonSeparate,
+        .semiColonSeparate
+        .appendPeriod,
       customsOfficeOfExitForTransitDeclared = ie029.CustomsOfficeOfExitForTransitDeclared
         .map(
           x => s"${x.sequenceNumber}/${x.referenceNumber}"
         )
-        .semiColonSeparate,
+        .semiColonSeparate
+        .appendPeriod,
       customsOfficeOfDeparture = ie029.CustomsOfficeOfDeparture.asString.appendPeriod.take10,
       customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.appendPeriod.take10,
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,
