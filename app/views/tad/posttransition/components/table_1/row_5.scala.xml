@@ -69,7 +69,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" padding-top="2%">
                             <fo:block>
-                                Contact person [13 06 074]
+                                Contact person [13 12 074]
                             </fo:block>
                         </fo:table-cell>
 
@@ -83,7 +83,7 @@
 
                     <fo:table-row border-top-style="solid" border-top-width="1pt" border-top-color="black">
                         <fo:table-cell display-align="center" margin-left="0.5%">
-                            <fo:block>Additional supply chain actor [13 12]</fo:block>
+                            <fo:block>Additional supply chain actor [13 14]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell display-align="center" margin-left="1%">

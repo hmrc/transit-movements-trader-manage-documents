@@ -38,11 +38,11 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
     }
 
     "customsOfficeOfDeparture" in {
-      result.customsOfficeOfDeparture mustBe "cood"
+      result.customsOfficeOfDeparture mustBe "cood."
     }
 
     "customsOfficeOfDestinationDeclared" in {
-      result.customsOfficeOfDestinationDeclared mustBe "coodd"
+      result.customsOfficeOfDestinationDeclared mustBe "coodd."
     }
 
     "countryOfDispatch" in {

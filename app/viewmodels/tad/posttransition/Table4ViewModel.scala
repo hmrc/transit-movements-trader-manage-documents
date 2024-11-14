@@ -45,8 +45,8 @@ object Table4ViewModel {
           x => s"${x.sequenceNumber}/${x.referenceNumber}"
         )
         .semiColonSeparate,
-      customsOfficeOfDeparture = ie029.CustomsOfficeOfDeparture.asString.take10,
-      customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.take10,
+      customsOfficeOfDeparture = ie029.CustomsOfficeOfDeparture.asString.appendPeriod.take10,
+      customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.appendPeriod.take10,
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,
       countryOfDestination = ie029.Consignment.countryOfDestination.orElseBlank.take10,
       limitDate = ie015.TransitOperation.limitDate.map(_.limitDateString).orElseBlank

@@ -39,6 +39,7 @@ package object viewmodels {
         value
       }
 
+    def appendPeriod: String          = if (value.nonEmpty) s"$value." else value
     def adjustFor2NarrowLines: String = adjustForNNarrowLines(2)
     def adjustFor3NarrowLines: String = adjustForNNarrowLines(3)
 
@@ -88,10 +89,11 @@ package object viewmodels {
   }
 
   implicit class RichStringSeq(value: Seq[String]) {
-    def commaSeparate: String     = value.mkString(", ")
-    def semiColonSeparate: String = value.mkString("; ")
-    def dashSeparate: String      = value.mkString(" - ")
-    def ellipsisSeparate: String  = value.mkString("...")
+    def commaSeparate: String        = value.mkString(", ")
+    def semiColonSeparate: String    = value.mkString("; ")
+    def dashSeparate: String         = value.mkString(" - ")
+    def ellipsisSeparate: String     = value.mkString("...")
+    def forwardSlashSeparate: String = value.mkString(" / ")
 
     def toBeContinued(stringIfEmpty: String = ""): String = value.toList match {
       case Nil         => stringIfEmpty
@@ -424,6 +426,11 @@ package object viewmodels {
     def asString: String = Seq(
       value.name,
       value.Address.map(_.asString)
+    ).flatten.forwardSlashSeparate
+
+    def asUnloadingPermissionString: String = Seq(
+      value.name,
+      value.Address.map(_.asString)
     ).flatten.commaSeparate
   }
 
@@ -432,7 +439,7 @@ package object viewmodels {
     def asString: String = Seq(
       value.name,
       value.Address.map(_.asString)
-    ).flatten.commaSeparate
+    ).flatten.forwardSlashSeparate
   }
 
   implicit class RichConsignorType04(value: ConsignorType04) {
@@ -441,7 +448,7 @@ package object viewmodels {
       value.name,
       value.Address.map(_.asString),
       value.ContactPerson.map(_.asString)
-    ).flatten.commaSeparate
+    ).flatten.forwardSlashSeparate
 
     // TODO - refactor when you create generic types for duplicates
     def asConsignorType03: ConsignorType03 = ConsignorType03(
@@ -465,7 +472,7 @@ package object viewmodels {
     def asString: String = Seq(
       Some(value.name),
       Some(value.phoneNumber)
-    ).flatten.commaSeparate
+    ).flatten.forwardSlashSeparate
   }
 
   implicit class RichContactPersonType02(value: ContactPersonType02) {
@@ -500,7 +507,7 @@ package object viewmodels {
       value.TIRHolderIdentificationNumber,
       value.name,
       value.Address.map(_.asString)
-    ).flatten.commaSeparate
+    ).flatten.forwardSlashSeparate
   }
 
   implicit class RichHolderOfTheTransitProcedureType06(value: HolderOfTheTransitProcedureType06) {
