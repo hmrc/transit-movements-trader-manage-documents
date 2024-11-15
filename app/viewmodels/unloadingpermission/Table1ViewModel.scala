@@ -54,7 +54,7 @@ object Table1ViewModel {
       consignorIdentificationNumber = ie043.Consignment.flatMap(_.Consignor.flatMap(_.identificationNumber)).orElseBlank,
       consignor = ie043.Consignment.flatMap(_.Consignor.map(_.asString)).orElseBlank,
       consigneeIdentificationNumber = ie043.Consignment.flatMap(_.Consignee.flatMap(_.identificationNumber)).orElseBlank,
-      consignee = ie043.Consignment.flatMap(_.Consignee.map(_.asUnloadingPermissionString)).orElseBlank,
+      consignee = ie043.Consignment.flatMap(_.Consignee.map(_.asString)).orElseBlank,
       holderOfTransitID = ie043.HolderOfTheTransitProcedure.flatMap(_.identificationNumber).orElseBlank,
       holderOfTransit = ie043.HolderOfTheTransitProcedure.map(_.asString).orElseBlank,
       declarationType = ie043.TransitOperation.declarationType.orElseBlank,
