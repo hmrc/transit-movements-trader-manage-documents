@@ -389,7 +389,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.previousDocuments mustBe "1, ptv1, prn1, pcoi1" + lineWithSpaces
+            result.previousDocuments mustBe "1/ptv1/prn1/pcoi1." + lineWithSpaces
         }
       }
 
@@ -408,7 +408,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.previousDocuments mustBe "1, ptv1, prn1, pcoi1" + lineWithSpaces
+            result.previousDocuments mustBe "1/ptv1/prn1/pcoi1." + lineWithSpaces
         }
       }
 
@@ -431,7 +431,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.previousDocuments mustBe "1, ptv1, prn1, pcoi1; 2, ptv2, prn2, pcoi2; 3, ptv3, prn3, pcoi3" + lineWithSpaces
+            result.previousDocuments mustBe "1/ptv1/prn1/pcoi1; 2/ptv2/prn2/pcoi2; 3/ptv3/prn3/pcoi3." + lineWithSpaces
         }
       }
 
@@ -463,7 +463,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.previousDocuments mustBe "1, ptv1, prn1, pcoi1; 2, ptv2, prn2, pcoi2; 3, ptv3, prn3, pcoi3..." + lineWithSpaces
+            result.previousDocuments mustBe "1/ptv1/prn1/pcoi1;...; 4/ptv4/prn4/pcoi4." + lineWithSpaces
         }
       }
 
@@ -511,7 +511,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.previousDocuments mustBe "1, previous document 1 type value, previous document 1 reference number, previous document 1 complement of information; 2, previous document 2 type value, previous document 2 re..."
+            result.previousDocuments mustBe "1/previous document 1 type value/previous document 1 reference number/previous document 1 complement of information;...; 4/previous document 4 type value/previous document 4 ref..."
         }
       }
     }
@@ -535,7 +535,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.transportDocuments mustBe "1, ttv1, trn1" + lineWithSpaces
+            result.transportDocuments mustBe "1/ttv1/trn1." + lineWithSpaces
         }
       }
 
@@ -554,7 +554,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.transportDocuments mustBe "1, ttv1, trn1" + lineWithSpaces
+            result.transportDocuments mustBe "1/ttv1/trn1." + lineWithSpaces
         }
       }
 
@@ -577,7 +577,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2; 3, ttv3, trn3" + lineWithSpaces
+            result.transportDocuments mustBe "1/ttv1/trn1; 2/ttv2/trn2; 3/ttv3/trn3." + lineWithSpaces
         }
       }
 
@@ -609,7 +609,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2; 3, ttv3, trn3..." + lineWithSpaces
+            result.transportDocuments mustBe "1/ttv1/trn1;...; 4/ttv4/trn4." + lineWithSpaces
         }
       }
 
@@ -648,7 +648,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.transportDocuments mustBe "1, transport document 1 type value, transport document 1 reference number; 2, transport document 2 type value, transport document 2 reference number; 3, transport document 3 typ..."
+            result.transportDocuments mustBe "1/transport document 1 type value/transport document 1 reference number;...; 4/transport document 4 type value/transport document 4 reference number."
         }
       }
     }
@@ -674,7 +674,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1" + lineWithSpaces
+            result.supportingDocuments mustBe "1/stv1/srn1/1/scoi1." + lineWithSpaces
         }
       }
 
@@ -693,7 +693,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1" + lineWithSpaces
+            result.supportingDocuments mustBe "1/stv1/srn1/1/scoi1." + lineWithSpaces
         }
       }
 
@@ -716,7 +716,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1; 2, stv2, srn2, 2, scoi2; 3, stv3, srn3, 3, scoi3" + lineWithSpaces
+            result.supportingDocuments mustBe "1/stv1/srn1/1/scoi1; 2/stv2/srn2/2/scoi2; 3/stv3/srn3/3/scoi3." + lineWithSpaces
         }
       }
 
@@ -748,7 +748,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.supportingDocuments mustBe "1, stv1, srn1, 1, scoi1; 2, stv2, srn2, 2, scoi2; 3, stv3, srn3, 3, scoi3..." + lineWithSpaces
+            result.supportingDocuments mustBe "1/stv1/srn1/1/scoi1;...; 4/stv4/srn4/4/scoi4." + lineWithSpaces
         }
       }
 
@@ -789,7 +789,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.supportingDocuments mustBe "1, supporting document 1 type value, supporting document 1 reference number, 1, supporting document 1 complement of information; 2, supporting document 2 type value, supporting ..."
+            result.supportingDocuments mustBe "1/supporting document 1 type value/supporting document 1 reference number/1/supporting document 1 complement of information;...; 4/supporting document 4 type value/supporting do..."
         }
       }
     }
@@ -811,7 +811,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalReferences mustBe "1, artv1, arrn1"
+        result.additionalReferences mustBe "1/artv1/arrn1."
       }
 
       "when 3 additional references" in {
@@ -825,7 +825,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalReferences mustBe "1, artv1, arrn1; 2, artv2, arrn2; 3, artv3, arrn3"
+        result.additionalReferences mustBe "1/artv1/arrn1; 2/artv2/arrn2; 3/artv3/arrn3."
       }
 
       "when 4 additional references" in {
@@ -840,7 +840,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalReferences mustBe "1, artv1, arrn1; 2, artv2, arrn2; 3, artv3, arrn3..."
+        result.additionalReferences mustBe "1/artv1/arrn1;...; 4/artv4/arrn4."
       }
 
       "when more than 90 characters" in {
@@ -860,7 +860,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalReferences mustBe "1, additional reference 1 type value, additional reference 1 reference number; 2, addit..."
+        result.additionalReferences mustBe "1/additional reference 1 type value/additional reference 1 reference number; 2/addition..."
       }
     }
 
@@ -1061,7 +1061,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalInformation mustBe "1, aic1, ait1"
+        result.additionalInformation mustBe "1/aic1/ait1."
       }
 
       "when 3 additional information" in {
@@ -1075,7 +1075,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2; 3, aic3, ait3"
+        result.additionalInformation mustBe "1/aic1/ait1; 2/aic2/ait2; 3/aic3/ait3."
       }
 
       "when 4 additional information" in {
@@ -1090,7 +1090,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2; 3, aic3, ait3..."
+        result.additionalInformation mustBe "1/aic1/ait1;...; 4/aic4/ait4."
       }
 
       "when more than 90 characters" in {
@@ -1109,7 +1109,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalInformation mustBe "1, additional information 1 code, additional information 1 text; 2, additional informat..."
+        result.additionalInformation mustBe "1/additional information 1 code/additional information 1 text; 2/additional information..."
       }
     }
 
@@ -1253,7 +1253,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.authorisations mustBe "1, tv1, rn1"
+        result.authorisations mustBe "1/tv1/rn1."
       }
 
       "when 3 authorisations" in {
@@ -1265,7 +1265,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.authorisations mustBe "1, tv1, rn1; 2, tv2, rn2; 3, tv3, rn3"
+        result.authorisations mustBe "1/tv1/rn1; 2/tv2/rn2; 3/tv3/rn3."
       }
 
       "when 4 authorisations" in {
@@ -1278,7 +1278,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.authorisations mustBe "1, tv1, rn1; 2, tv2, rn2; 3, tv3, rn3..."
+        result.authorisations mustBe "1/tv1/rn1;...; 4/tv4/rn4."
       }
     }
   }
