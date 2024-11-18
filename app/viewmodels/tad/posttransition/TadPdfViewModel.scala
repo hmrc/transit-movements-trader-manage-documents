@@ -41,7 +41,7 @@ object TadPdfViewModel {
     new TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
       consignmentItemViewModels = ie029.rollDown.Consignment.HouseConsignment.flatMap {
-        houseConsignment => houseConsignment.ConsignmentItem.map(ConsignmentItemViewModel(houseConsignment, _))
+        houseConsignment => houseConsignment.ConsignmentItem.map(ConsignmentItemViewModel(ie015, houseConsignment, _))
       },
       table1ViewModel = Table1ViewModel(ie029),
       table2ViewModel = Table2ViewModel(ie029),

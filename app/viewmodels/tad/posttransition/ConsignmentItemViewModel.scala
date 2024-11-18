@@ -16,7 +16,7 @@
 
 package viewmodels.tad.posttransition
 
-import generated.{CUSTOM_ConsignmentItemType03, CUSTOM_HouseConsignmentType03, ConsignmentItemType03, HouseConsignmentType03}
+import generated.{CC015CType, CUSTOM_ConsignmentItemType03, CUSTOM_HouseConsignmentType03, ConsignmentItemType03, HouseConsignmentType03}
 import viewmodels.*
 
 case class ConsignmentItemViewModel(
@@ -51,7 +51,7 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(houseConsignment: CUSTOM_HouseConsignmentType03, consignmentItem: CUSTOM_ConsignmentItemType03): ConsignmentItemViewModel =
+  def apply(ie015: CC015CType, houseConsignment: CUSTOM_HouseConsignmentType03, consignmentItem: CUSTOM_ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber.toString(),
@@ -79,6 +79,10 @@ object ConsignmentItemViewModel {
       declarationType = consignmentItem.declarationType.orElseBlank,
       countryOfDispatch = consignmentItem.countryOfDispatch.orElseBlank,
       countryOfDestination = consignmentItem.countryOfDestination.orElseBlank,
-      supplementaryUnits = "" // TODO - should these come from IE015?
+      supplementaryUnits = ie015.Consignment.HouseConsignment
+        .flatMap(_.ConsignmentItem)
+        .find(_.declarationGoodsItemNumber == consignmentItem.declarationGoodsItemNumber)
+        .flatMap(_.Commodity.GoodsMeasure.flatMap(_.supplementaryUnits.map(_.asString)))
+        .getOrElse("")
     )
 }
