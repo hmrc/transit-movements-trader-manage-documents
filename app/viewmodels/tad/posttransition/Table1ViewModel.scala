@@ -84,10 +84,10 @@ object Table1ViewModel {
       additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).semiColonSeparate.take30,
       additionalSupplyChainActorIdentificationNumbers =
         ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate.adjustFor2NarrowLines,
-      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).take3(_.semiColonSeparate).adjustFor2WideLines,
-      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).take3(_.semiColonSeparate).take90,
+      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).takeSample.adjustFor2WideLines,
+      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asSlashSeparatedString).takeSample.take90,
       activeBorderTransportMeansConveyanceNumbers =
-        ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).semiColonSeparate.adjustFor2NarrowLines,
+        ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).takeSample.adjustFor2NarrowLines,
       placeOfLoading = ie029.Consignment.PlaceOfLoading.map(_.asString).orElseBlank.adjustFor2NarrowLines,
       placeOfUnloading = ie029.Consignment.PlaceOfUnloading.map(_.asString).orElseBlank.adjustFor2NarrowLines,
       modeOfTransportAtBorder = ie029.Consignment.modeOfTransportAtTheBorder.orElseBlank.take20,

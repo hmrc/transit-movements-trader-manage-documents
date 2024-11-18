@@ -321,15 +321,15 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "departureTransportMeans" in {
-      result.departureTransportMeans mustBe "toi1, in1, nat1; toi2, in2, nat2; toi3, in3, nat3..." + lineWithSpaces * 2
+      result.departureTransportMeans mustBe "toi1/in1/nat1;...; toi4/in4/nat4." + lineWithSpaces * 2
     }
 
     "activeBorderTransportMeans" in {
-      result.activeBorderTransportMeans mustBe "coabrn1, toi1, in1, nat1; coabrn2, toi2, in2, nat2; coabrn3, toi3, in3, nat3..."
+      result.activeBorderTransportMeans mustBe "coabrn1/toi1/in1/nat1;...; coabrn4/toi4/in4/nat4."
     }
 
     "activeBorderTransportMeansConveyanceNumbers" in {
-      result.activeBorderTransportMeansConveyanceNumbers mustBe "crn1; crn2; crn3; crn4" + lineWithSpaces
+      result.activeBorderTransportMeansConveyanceNumbers mustBe "crn1;...; crn4." + lineWithSpaces
     }
 
     "placeOfLoading" in {
