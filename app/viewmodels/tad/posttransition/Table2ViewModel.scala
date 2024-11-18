@@ -40,6 +40,11 @@ object Table2ViewModel {
     def combine(consignmentLevel: CUSTOM_ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[CUSTOM_HouseConsignmentType03] => Seq[String]): String =
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.take3(_.semiColonSeparate)
 
+    def combineWithSampling(consignmentLevel: CUSTOM_ConsignmentType04 => Seq[String],
+                            houseConsignmentLevel: Seq[CUSTOM_HouseConsignmentType03] => Seq[String]
+    ): String =
+      Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.takeSample
+
     new Table2ViewModel(
       transportEquipment = ie029.Consignment.TransportEquipment.map(_.asStringWithoutGoodsRef).take3(_.semiColonSeparate).adjustFor2WideLines,
       seals = ie029.Consignment.TransportEquipment
@@ -54,26 +59,26 @@ object Table2ViewModel {
           goodsReference => s"${goodsReference.sequenceNumber},${goodsReference.declarationGoodsItemNumber}"
         )
         .take3(_.semiColonSeparate),
-      previousDocuments = combine(
-        _.PreviousDocument.map(_.asString),
-        _.flatMap(_.PreviousDocument).map(_.asString)
+      previousDocuments = combineWithSampling(
+        _.PreviousDocument.map(_.asSlashSeparatedString),
+        _.flatMap(_.PreviousDocument).map(_.asSlashSeparatedString)
       ).adjustFor2WideLines,
-      transportDocuments = combine(
-        _.TransportDocument.map(_.asString),
-        _.flatMap(_.TransportDocument).map(_.asString)
+      transportDocuments = combineWithSampling(
+        _.TransportDocument.map(_.asSlashSeparatedString),
+        _.flatMap(_.TransportDocument).map(_.asSlashSeparatedString)
       ).adjustFor2WideLines,
-      supportingDocuments = combine(
-        _.SupportingDocument.map(_.asString),
-        _.flatMap(_.SupportingDocument).map(_.asString)
+      supportingDocuments = combineWithSampling(
+        _.SupportingDocument.map(_.asSlashSeparatedString),
+        _.flatMap(_.SupportingDocument).map(_.asSlashSeparatedString)
       ).adjustFor2WideLines,
-      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asString).take3(_.semiColonSeparate).take90,
+      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asSlashSeparatedString).takeSample.take90,
       transportCharges = combine(
         _.TransportCharges.map(_.asString).toSeq,
         _.flatMap(_.TransportCharges).map(_.asString)
       ).take20,
-      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asString).take3(_.semiColonSeparate).take90,
+      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asSlashSeparatedString).takeSample.take90,
       guarantees = ie029.Guarantee.map(_.asString).take2(_.semiColonSeparate).adjustFor2WideLines,
-      authorisations = ie029.Authorisation.map(_.asString).take3(_.semiColonSeparate)
+      authorisations = ie029.Authorisation.map(_.asSlashSeparatedString).takeSample
     )
   }
 }
