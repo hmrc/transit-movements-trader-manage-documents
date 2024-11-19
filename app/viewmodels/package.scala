@@ -93,11 +93,11 @@ package object viewmodels {
   }
 
   implicit class RichStringSeq(value: Seq[String]) {
-    def commaSeparate: String        = value.mkString(", ")
-    def semiColonSeparate: String    = value.mkString("; ")
-    def dashSeparate: String         = value.mkString(" - ")
-    def ellipsisSeparate: String     = value.mkString("...")
-    def forwardSlashSeparate: String = value.mkString(" / ")
+    def commaSeparate: String     = value.mkString(", ")
+    def slashSeparate: String     = value.mkString("/")
+    def semiColonSeparate: String = value.mkString("; ")
+    def dashSeparate: String      = value.mkString(" - ")
+    def ellipsisSeparate: String  = value.mkString("...")
 
     def toBeContinued(stringIfEmpty: String = ""): String = value.toList match {
       case Nil         => stringIfEmpty
@@ -231,17 +231,15 @@ package object viewmodels {
 
   implicit class RichPackagingType02(value: PackagingType02) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       Some(value.typeOfPackages),
       value.numberOfPackages.map(_.toString()),
       value.shippingMarks
-    ).flatten.commaSeparate
+    ).flatten
 
-    def asSlashSeparatedString: String = Seq(
-      Some(value.typeOfPackages),
-      value.numberOfPackages.map(_.toString()),
-      value.shippingMarks
-    ).flatten.forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
 
     def asTransitionString: String = Seq(
       Some(value.typeOfPackages),
@@ -259,7 +257,7 @@ package object viewmodels {
 
   implicit class RichPreviousDocumentType03(value: PreviousDocumentType03) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
@@ -269,19 +267,11 @@ package object viewmodels {
       value.measurementUnitAndQualifier,
       value.quantity.map(_.toString),
       value.complementOfInformation
-    ).flatten.commaSeparate
+    ).flatten
 
-    def asSlashSeparatedString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.typeValue),
-      Some(value.referenceNumber),
-      value.goodsItemNumber.map(_.toString),
-      value.typeOfPackages,
-      value.numberOfPackages.map(_.toString),
-      value.measurementUnitAndQualifier,
-      value.quantity.map(_.toString),
-      value.complementOfInformation
-    ).flatten.forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
 
     def asP4String: String = Seq(
       Some(value.typeValue),
@@ -313,19 +303,16 @@ package object viewmodels {
 
   implicit class RichPreviousDocumentType07(value: PreviousDocumentType07) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
       value.complementOfInformation
-    ).flatten.commaSeparate
+    ).flatten
 
-    def asSlashSeparatedString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.typeValue),
-      Some(value.referenceNumber),
-      value.complementOfInformation
-    ).flatten.forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
   }
 
   implicit class RichSupportingDocumentType02(value: SupportingDocumentType02) {
@@ -340,36 +327,30 @@ package object viewmodels {
 
   implicit class RichSupportingDocumentType06(value: SupportingDocumentType06) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       Some(value.referenceNumber),
       value.documentLineItemNumber.map(_.toString),
       value.complementOfInformation
-    ).flatten.commaSeparate
+    ).flatten
 
-    def asSlashSeparatedString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.typeValue),
-      Some(value.referenceNumber),
-      value.documentLineItemNumber.map(_.toString),
-      value.complementOfInformation
-    ).flatten.forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
   }
 
   implicit class RichTransportDocumentType02(value: TransportDocumentType02) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       value.sequenceNumber.toString,
       value.typeValue,
       value.referenceNumber
-    ).commaSeparate
+    )
 
-    def asSlashSeparatedString: String = Seq(
-      value.sequenceNumber.toString,
-      value.typeValue,
-      value.referenceNumber
-    ).forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
   }
 
   implicit class RichAdditionalSupplyChainActorType(value: AdditionalSupplyChainActorType) {
@@ -379,17 +360,15 @@ package object viewmodels {
 
   implicit class RichAdditionalInformationType02(value: AdditionalInformationType02) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       Some(value.sequenceNumber.toString),
       Some(value.code),
       value.text
-    ).flatten.commaSeparate
+    ).flatten
 
-    def asSlashSeparatedString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.code),
-      value.text
-    ).flatten.forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
   }
 
   implicit class RichCommodityCodeType05(value: CommodityCodeType05) {
@@ -472,15 +451,14 @@ package object viewmodels {
 
   implicit class RichConsigneeType04(value: ConsigneeType04) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       value.name,
       value.Address.map(_.asString)
-    ).flatten.commaSeparate
+    ).flatten
 
-    def asSlashSeparatedString: String = Seq(
-      value.name,
-      value.Address.map(_.asString)
-    ).flatten.forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
   }
 
   implicit class RichConsignorType03(value: ConsignorType03) {
@@ -488,7 +466,7 @@ package object viewmodels {
     def asString: String = Seq(
       value.name,
       value.Address.map(_.asString)
-    ).flatten.forwardSlashSeparate
+    ).flatten.slashSeparate
   }
 
   implicit class RichConsignorType04(value: ConsignorType04) {
@@ -497,7 +475,7 @@ package object viewmodels {
       value.name,
       value.Address.map(_.asString),
       value.ContactPerson.map(_.asString)
-    ).flatten.forwardSlashSeparate
+    ).flatten.slashSeparate
 
     // TODO - refactor when you create generic types for duplicates
     def asConsignorType03: ConsignorType03 = ConsignorType03(
@@ -521,7 +499,7 @@ package object viewmodels {
     def asString: String = Seq(
       Some(value.name),
       Some(value.phoneNumber)
-    ).flatten.forwardSlashSeparate
+    ).flatten.slashSeparate
   }
 
   implicit class RichContactPersonType02(value: ContactPersonType02) {
@@ -534,17 +512,15 @@ package object viewmodels {
 
   implicit class RichAdditionalReferenceType02(value: AdditionalReferenceType02) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       Some(value.sequenceNumber.toString),
       Some(value.typeValue),
       value.referenceNumber
-    ).flatten.commaSeparate
+    ).flatten
 
-    def asSlashSeparatedString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.typeValue),
-      value.referenceNumber
-    ).flatten.forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
   }
 
   implicit class RichAdditionalReferenceType03(value: AdditionalReferenceType03) {
@@ -562,7 +538,7 @@ package object viewmodels {
       value.TIRHolderIdentificationNumber,
       value.name,
       value.Address.map(_.asString)
-    ).flatten.forwardSlashSeparate
+    ).flatten.slashSeparate
   }
 
   implicit class RichHolderOfTheTransitProcedureType06(value: HolderOfTheTransitProcedureType06) {
@@ -580,17 +556,15 @@ package object viewmodels {
 
   implicit class RichDepartureTransportMeansType02(value: DepartureTransportMeansType02) {
 
-    def asString: String = Seq(
+    private val values = Seq(
       value.typeOfIdentification,
       value.identificationNumber,
       value.nationality
-    ).commaSeparate
+    )
 
-    def asSlashSeparatedString: String = Seq(
-      value.typeOfIdentification,
-      value.identificationNumber,
-      value.nationality
-    ).forwardSlashSeparate
+    def asString: String = values.commaSeparate
+
+    def asSlashSeparatedString: String = values.slashSeparate
 
     def asP4String: String = Seq(
       value.sequenceNumber.toString,
