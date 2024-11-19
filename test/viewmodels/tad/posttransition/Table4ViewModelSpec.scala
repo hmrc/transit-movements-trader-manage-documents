@@ -30,19 +30,19 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
     }
 
     "customsOfficeOfTransitDeclared" in {
-      result.customsOfficeOfTransitDeclared mustBe "1/cootd1; 2/cootd2"
+      result.customsOfficeOfTransitDeclared mustBe "1/cootd1; 2/cootd2."
     }
 
     "customsOfficeOfExitForTransitDeclared" in {
-      result.customsOfficeOfExitForTransitDeclared mustBe "1/cooeftd1; 2/cooeftd2"
+      result.customsOfficeOfExitForTransitDeclared mustBe "1/cooeftd1; 2/cooeftd2."
     }
 
     "customsOfficeOfDeparture" in {
-      result.customsOfficeOfDeparture mustBe "cood"
+      result.customsOfficeOfDeparture mustBe "cood."
     }
 
     "customsOfficeOfDestinationDeclared" in {
-      result.customsOfficeOfDestinationDeclared mustBe "coodd"
+      result.customsOfficeOfDestinationDeclared mustBe "coodd."
     }
 
     "countryOfDispatch" in {
