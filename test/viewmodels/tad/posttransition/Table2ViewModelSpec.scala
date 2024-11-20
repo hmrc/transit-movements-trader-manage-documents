@@ -17,9 +17,10 @@
 package viewmodels.tad.posttransition
 
 import base.SpecBase
-import generated._
+import generated.*
 import generators.ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import viewmodels.DummyData
 
@@ -1123,118 +1124,328 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           currency = Some(s"${i}c$j")
         )
 
-      def guarantee(i: Int, guaranteeReferences: Seq[Int => CUSTOM_GuaranteeReferenceType01]): GuaranteeType03 =
+      def guarantee(i: Int,
+                    guaranteeType: String,
+                    guaranteeReferences: Seq[Int => CUSTOM_GuaranteeReferenceType01],
+                    otherGuaranteeRef: Option[String] = None
+      ): GuaranteeType03 =
         GuaranteeType03(
           sequenceNumber = i,
-          guaranteeType = s"g$i",
-          otherGuaranteeReference = Some(s"ogr$i"),
+          guaranteeType = guaranteeType,
+          otherGuaranteeReference = otherGuaranteeRef.orElse(Some(s"ogr$i")),
           GuaranteeReference = guaranteeReferences.map(_(i))
         )
 
-      "when 1 guarantee with 1 guarantee reference" in {
-        val data = cc029c.copy(
-          Guarantee = Seq(
-            guarantee(
-              1,
-              Seq(
-                guaranteeReference(1)
+      "Guarantee Type 0/1/2/4/9" - {
+        "when 1 guarantee with 3 guarantee references" in {
+          forAll(Gen.oneOf("0", "1", "2", "4", "9")) {
+            guaranteeType =>
+              val data = cc029c.copy(
+                Guarantee = Seq(
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(
+                      guaranteeReference(1),
+                      guaranteeReference(2),
+                      guaranteeReference(3)
+                    )
+                  )
+                )
               )
-            )
-          )
-        )
-        val result = Table2ViewModel(data)
-        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1, ogr1" + lineWithSpaces
+              val result = Table2ViewModel(data)
+              result.guarantees mustBe s"1/$guaranteeType/1grn1; 1grn2; 1grn3." + lineWithSpaces
+          }
+        }
+
+        "when 1 guarantee with 4 guarantee references" in {
+          forAll(Gen.oneOf("0", "1", "2", "4", "9")) {
+            guaranteeType =>
+              val data = cc029c.copy(
+                Guarantee = Seq(
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(
+                      guaranteeReference(1),
+                      guaranteeReference(2),
+                      guaranteeReference(3),
+                      guaranteeReference(4)
+                    )
+                  )
+                )
+              )
+              val result = Table2ViewModel(data)
+              result.guarantees mustBe s"1/$guaranteeType/1grn1;...; 1grn4." + lineWithSpaces
+          }
+        }
       }
 
-      "when 1 guarantee with 2 guarantee references" in {
-        val data = cc029c.copy(
-          Guarantee = Seq(
-            guarantee(
-              1,
-              Seq(
-                guaranteeReference(1),
-                guaranteeReference(2)
+      "Guarantee Type 3 or 8" - {
+        "when 1 guarantee with 3 other guarantee references" in {
+          forAll(Gen.oneOf("3", "8")) {
+            guaranteeType =>
+              val data = cc029c.copy(
+                Guarantee = Seq(
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(),
+                    otherGuaranteeRef = Some("other1")
+                  ),
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(),
+                    otherGuaranteeRef = Some("other2")
+                  ),
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(),
+                    otherGuaranteeRef = Some("other3")
+                  )
+                )
               )
-            )
-          )
-        )
-        val result = Table2ViewModel(data)
-        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2, ogr1" + lineWithSpaces
+              val result = Table2ViewModel(data)
+              result.guarantees mustBe s"1/$guaranteeType/other1; other2; other3." + lineWithSpaces
+          }
+        }
+
+        "when 1 guarantee with 4 guarantee references" in {
+          forAll(Gen.oneOf("3", "8")) {
+            guaranteeType =>
+              val data = cc029c.copy(
+                Guarantee = Seq(
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(),
+                    otherGuaranteeRef = Some("other1")
+                  ),
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(),
+                    otherGuaranteeRef = Some("other2")
+                  ),
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(),
+                    otherGuaranteeRef = Some("other3")
+                  ),
+                  guarantee(
+                    1,
+                    guaranteeType,
+                    Seq(),
+                    otherGuaranteeRef = Some("other4")
+                  )
+                )
+              )
+              val result = Table2ViewModel(data)
+              result.guarantees mustBe s"1/$guaranteeType/other1;...; other4." + lineWithSpaces
+          }
+        }
       }
 
-      "when 1 guarantee with 3 guarantee references" in {
-        val data = cc029c.copy(
-          Guarantee = Seq(
-            guarantee(
-              1,
-              Seq(
-                guaranteeReference(1),
-                guaranteeReference(2),
-                guaranteeReference(3)
+      "Guarantee Type 5 or A" in {
+        forAll(Gen.oneOf("5", "A")) {
+          guaranteeType =>
+            val data = cc029c.copy(
+              Guarantee = Seq(
+                guarantee(
+                  1,
+                  guaranteeType,
+                  Seq(
+                    guaranteeReference(1),
+                    guaranteeReference(2),
+                    guaranteeReference(3)
+                  )
+                )
               )
             )
-          )
-        )
-        val result = Table2ViewModel(data)
-        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2..., ogr1" + lineWithSpaces
+            val result = Table2ViewModel(data)
+            result.guarantees mustBe s"1/$guaranteeType." + lineWithSpaces
+        }
       }
 
-      "when 2 guarantees with 3 guarantee references" in {
-        val data = cc029c.copy(
-          Guarantee = Seq(
-            guarantee(
-              1,
-              Seq(
-                guaranteeReference(1),
-                guaranteeReference(2),
-                guaranteeReference(3)
-              )
-            ),
-            guarantee(
-              2,
-              Seq(
-                guaranteeReference(1),
-                guaranteeReference(2),
-                guaranteeReference(3)
+      "Mixed Guarantee Types" - {
+        "less than or equal to 3 types" - {
+          "types 1/3/5 with less than or equal to 3 guarantee references" in {
+            val data = cc029c.copy(
+              Guarantee = Seq(
+                guarantee(
+                  1,
+                  "1",
+                  Seq(
+                    guaranteeReference(1),
+                    guaranteeReference(2),
+                    guaranteeReference(3)
+                  )
+                ),
+                guarantee(
+                  2,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other1")
+                ),
+                guarantee(
+                  3,
+                  "5",
+                  Seq()
+                )
               )
             )
-          )
-        )
-        val result = Table2ViewModel(data)
-        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2..., ogr1; 2, g2, 1, 2grn1, 21.0, 2c1; 2, 2grn2, 22.0, 2c2..., ogr2"
-      }
+            val result = Table2ViewModel(data)
+            result.guarantees mustBe "1/1/1grn1; 1grn2; 1grn3; 2/3/other1; 3/5." + lineWithSpaces
+          }
 
-      "when 3 guarantees with 3 guarantee references" in {
-        val data = cc029c.copy(
-          Guarantee = Seq(
-            guarantee(
-              1,
-              Seq(
-                guaranteeReference(1),
-                guaranteeReference(2),
-                guaranteeReference(3)
-              )
-            ),
-            guarantee(
-              2,
-              Seq(
-                guaranteeReference(1),
-                guaranteeReference(2),
-                guaranteeReference(3)
-              )
-            ),
-            guarantee(
-              3,
-              Seq(
-                guaranteeReference(1),
-                guaranteeReference(2),
-                guaranteeReference(3)
+          "types 1/3/5 with more than 3 guarantee references" in {
+            val data = cc029c.copy(
+              Guarantee = Seq(
+                guarantee(
+                  1,
+                  "1",
+                  Seq(
+                    guaranteeReference(1),
+                    guaranteeReference(2),
+                    guaranteeReference(3),
+                    guaranteeReference(4)
+                  )
+                ),
+                guarantee(
+                  2,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other1")
+                ),
+                guarantee(
+                  2,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other2")
+                ),
+                guarantee(
+                  2,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other3")
+                ),
+                guarantee(
+                  2,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other4")
+                ),
+                guarantee(
+                  3,
+                  "5",
+                  Seq()
+                )
               )
             )
-          )
-        )
-        val result = Table2ViewModel(data)
-        result.guarantees mustBe "1, g1, 1, 1grn1, 11.0, 1c1; 2, 1grn2, 12.0, 1c2..., ogr1; 2, g2, 1, 2grn1, 21.0, 2c1; 2, 2grn2, 22.0, 2c2..., ogr2..."
+            val result = Table2ViewModel(data)
+            result.guarantees mustBe "1/1/1grn1;...; 1grn4; 2/3/other1;...; other4; 3/5." + lineWithSpaces
+          }
+        }
+        "more than 3 types" - {
+          "types 0/1/3/5 with less than or equal to 3 guarantee references" in {
+            val data = cc029c.copy(
+              Guarantee = Seq(
+                guarantee(
+                  1,
+                  "0",
+                  Seq(
+                    guaranteeReference(1),
+                    guaranteeReference(2),
+                    guaranteeReference(3)
+                  )
+                ),
+                guarantee(
+                  2,
+                  "1",
+                  Seq(
+                    guaranteeReference(1),
+                    guaranteeReference(2),
+                    guaranteeReference(3)
+                  )
+                ),
+                guarantee(
+                  3,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other1")
+                ),
+                guarantee(
+                  4,
+                  "5",
+                  Seq()
+                )
+              )
+            )
+            val result = Table2ViewModel(data)
+            result.guarantees mustBe "1/0/1grn1; 1grn2; 1grn3;...; 4/5." + lineWithSpaces
+          }
+
+          "types 0/1/3/5 with more than 3 guarantee references" in {
+            val data = cc029c.copy(
+              Guarantee = Seq(
+                guarantee(
+                  1,
+                  "0",
+                  Seq(
+                    guaranteeReference(1),
+                    guaranteeReference(2),
+                    guaranteeReference(3),
+                    guaranteeReference(4)
+                  )
+                ),
+                guarantee(
+                  2,
+                  "1",
+                  Seq(
+                    guaranteeReference(1),
+                    guaranteeReference(2),
+                    guaranteeReference(3),
+                    guaranteeReference(4)
+                  )
+                ),
+                guarantee(
+                  3,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other1")
+                ),
+                guarantee(
+                  3,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other2")
+                ),
+                guarantee(
+                  3,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other3")
+                ),
+                guarantee(
+                  3,
+                  "3",
+                  Seq(),
+                  otherGuaranteeRef = Some("other4")
+                ),
+                guarantee(
+                  4,
+                  "5",
+                  Seq()
+                )
+              )
+            )
+            val result = Table2ViewModel(data)
+            result.guarantees mustBe "1/0/1grn1;...; 1grn4;...; 4/5." + lineWithSpaces
+          }
+        }
       }
     }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import generated._
+import generated.*
 
 import java.text.SimpleDateFormat
 import javax.xml.datatype.XMLGregorianCalendar
@@ -121,12 +121,14 @@ package object viewmodels {
     def take2(f: Seq[String] => String): String = takeN(2)(f)
     def take3(f: Seq[String] => String): String = takeN(3)(f)
 
-    def takeSample: String =
+    def takeSampleWithoutPeriod: String =
       if (value.length > 3) {
-        (Nil :+ value.head :+ ";...; " :+ value.last :+ ".").mkString
+        (Nil :+ value.head :+ ";...; " :+ value.last).mkString
       } else {
-        takeN(3)(_.mkString("; ")) + "."
+        takeN(3)(_.mkString("; "))
       }
+
+    def takeSample: String = s"$takeSampleWithoutPeriod."
   }
 
   implicit class RichOptionTSeq[T](value: Seq[Option[T]]) {
@@ -695,24 +697,50 @@ package object viewmodels {
     }
   }
 
+  implicit class RichRichGuaranteeTypeSeq(value: Seq[generated.GuaranteeType03]) {
+
+    def normaliseOtherGuaranteeRefs: Seq[generated.GuaranteeType03] =
+      value
+        .groupBy(_.sequenceNumber)
+        .map {
+          (_, list) =>
+            val combinedOtherGuaranteeRefs = {
+              val refs = list.flatMap(_.otherGuaranteeReference)
+              if (refs.isEmpty) None
+              else Some(refs.takeSampleWithoutPeriod)
+            }
+            list.head.copy(otherGuaranteeReference = combinedOtherGuaranteeRefs)
+        }
+        .toSeq
+
+  }
+
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
 
-    def asString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.guaranteeType),
-      Some(value.GuaranteeReference.map(_.asString).take2(_.semiColonSeparate)),
-      value.otherGuaranteeReference
-    ).flatten.commaSeparate
+    def asString: String = value.guaranteeType match {
+      case "5" | "A" =>
+        Seq(
+          value.sequenceNumber.toString,
+          value.guaranteeType
+        ).slashSeparate
+      case "0" | "1" | "2" | "4" | "9" =>
+        Seq(
+          value.sequenceNumber.toString,
+          value.guaranteeType,
+          value.GuaranteeReference.flatMap(_.asString).takeSampleWithoutPeriod
+        ).slashSeparate
+      case "3" | "8" =>
+        Seq(
+          Some(value.sequenceNumber.toString),
+          Some(value.guaranteeType),
+          value.otherGuaranteeReference
+        ).flatten.slashSeparate
+    }
   }
 
   implicit class RichGuaranteeReferenceType01(value: CUSTOM_GuaranteeReferenceType01) {
 
-    def asString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      value.GRN,
-      value.amountToBeCovered.map(_.asString),
-      value.currency
-    ).flatten.commaSeparate
+    def asString: Option[String] = value.GRN
   }
 
   implicit class RichAuthorisationType02(value: AuthorisationType02) {
