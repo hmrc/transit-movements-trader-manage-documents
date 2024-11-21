@@ -464,7 +464,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.previousDocuments mustBe "1/ptv1/prn1/pcoi1;...; 4/ptv4/prn4/pcoi4." + lineWithSpaces
+            result.previousDocuments mustBe "1/ptv1/prn1/pcoi1;...;4/ptv4/prn4/pcoi4." + lineWithSpaces
         }
       }
 
@@ -512,7 +512,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.previousDocuments mustBe "1/previous document 1 type value/previous document 1 reference number/previous document 1 complement of information;...; 4/previous document 4 type value/previous document 4 ref..."
+            result.previousDocuments mustBe "1/previous document 1 type value/previous document 1 reference number/previous document 1 complement of information;...;4/previous document 4 type value/previous document 4 refe..."
         }
       }
     }
@@ -610,7 +610,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.transportDocuments mustBe "1/ttv1/trn1;...; 4/ttv4/trn4." + lineWithSpaces
+            result.transportDocuments mustBe "1/ttv1/trn1;...;4/ttv4/trn4." + lineWithSpaces
         }
       }
 
@@ -649,7 +649,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.transportDocuments mustBe "1/transport document 1 type value/transport document 1 reference number;...; 4/transport document 4 type value/transport document 4 reference number."
+            result.transportDocuments mustBe "1/transport document 1 type value/transport document 1 reference number;...;4/transport document 4 type value/transport document 4 reference number."
         }
       }
     }
@@ -749,7 +749,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.supportingDocuments mustBe "1/stv1/srn1/1/scoi1;...; 4/stv4/srn4/4/scoi4." + lineWithSpaces
+            result.supportingDocuments mustBe "1/stv1/srn1/1/scoi1;...;4/stv4/srn4/4/scoi4." + lineWithSpaces
         }
       }
 
@@ -790,7 +790,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.supportingDocuments mustBe "1/supporting document 1 type value/supporting document 1 reference number/1/supporting document 1 complement of information;...; 4/supporting document 4 type value/supporting do..."
+            result.supportingDocuments mustBe "1/supporting document 1 type value/supporting document 1 reference number/1/supporting document 1 complement of information;...;4/supporting document 4 type value/supporting doc..."
         }
       }
     }
@@ -841,7 +841,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalReferences mustBe "1/artv1/arrn1;...; 4/artv4/arrn4."
+        result.additionalReferences mustBe "1/artv1/arrn1;...;4/artv4/arrn4."
       }
 
       "when more than 90 characters" in {
@@ -1091,7 +1091,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.additionalInformation mustBe "1/aic1/ait1;...; 4/aic4/ait4."
+        result.additionalInformation mustBe "1/aic1/ait1;...;4/aic4/ait4."
       }
 
       "when more than 90 characters" in {
@@ -1132,7 +1132,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
         GuaranteeType03(
           sequenceNumber = i,
           guaranteeType = guaranteeType,
-          otherGuaranteeReference = otherGuaranteeRef.orElse(Some(s"ogr$i")),
+          otherGuaranteeReference = otherGuaranteeRef,
           GuaranteeReference = guaranteeReferences.map(_(i))
         )
 
@@ -1149,7 +1149,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                       guaranteeReference(1),
                       guaranteeReference(2),
                       guaranteeReference(3)
-                    )
+                    ),
+                    None
                   )
                 )
               )
@@ -1171,12 +1172,13 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                       guaranteeReference(2),
                       guaranteeReference(3),
                       guaranteeReference(4)
-                    )
+                    ),
+                    None
                   )
                 )
               )
               val result = Table2ViewModel(data)
-              result.guarantees mustBe s"1/$guaranteeType/1grn1;...; 1grn4." + lineWithSpaces
+              result.guarantees mustBe s"1/$guaranteeType/1grn1;...;1grn4." + lineWithSpaces
           }
         }
       }
@@ -1244,7 +1246,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 )
               )
               val result = Table2ViewModel(data)
-              result.guarantees mustBe s"1/$guaranteeType/other1;...; other4." + lineWithSpaces
+              result.guarantees mustBe s"1/$guaranteeType/other1;...;other4." + lineWithSpaces
           }
         }
       }
@@ -1257,11 +1259,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 guarantee(
                   1,
                   guaranteeType,
-                  Seq(
-                    guaranteeReference(1),
-                    guaranteeReference(2),
-                    guaranteeReference(3)
-                  )
+                  Seq(),
+                  None
                 )
               )
             )
@@ -1282,7 +1281,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                     guaranteeReference(1),
                     guaranteeReference(2),
                     guaranteeReference(3)
-                  )
+                  ),
+                  None
                 ),
                 guarantee(
                   2,
@@ -1293,7 +1293,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 guarantee(
                   3,
                   "5",
-                  Seq()
+                  Seq(),
+                  None
                 )
               )
             )
@@ -1312,7 +1313,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                     guaranteeReference(2),
                     guaranteeReference(3),
                     guaranteeReference(4)
-                  )
+                  ),
+                  None
                 ),
                 guarantee(
                   2,
@@ -1341,12 +1343,13 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 guarantee(
                   3,
                   "5",
-                  Seq()
+                  Seq(),
+                  None
                 )
               )
             )
             val result = Table2ViewModel(data)
-            result.guarantees mustBe "1/1/1grn1;...; 1grn4; 2/3/other1;...; other4; 3/5." + lineWithSpaces
+            result.guarantees mustBe "1/1/1grn1;...;1grn4; 2/3/other1;...;other4; 3/5." + lineWithSpaces
           }
         }
         "more than 3 types" - {
@@ -1360,7 +1363,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                     guaranteeReference(1),
                     guaranteeReference(2),
                     guaranteeReference(3)
-                  )
+                  ),
+                  None
                 ),
                 guarantee(
                   2,
@@ -1369,7 +1373,8 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                     guaranteeReference(1),
                     guaranteeReference(2),
                     guaranteeReference(3)
-                  )
+                  ),
+                  None
                 ),
                 guarantee(
                   3,
@@ -1380,12 +1385,13 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 guarantee(
                   4,
                   "5",
-                  Seq()
+                  Seq(),
+                  None
                 )
               )
             )
             val result = Table2ViewModel(data)
-            result.guarantees mustBe "1/0/1grn1; 1grn2; 1grn3;...; 4/5." + lineWithSpaces
+            result.guarantees mustBe "1/0/1grn1; 1grn2; 1grn3;...;4/5." + lineWithSpaces
           }
 
           "types 0/1/3/5 with more than 3 guarantee references" in {
@@ -1443,7 +1449,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.guarantees mustBe "1/0/1grn1;...; 1grn4;...; 4/5." + lineWithSpaces
+            result.guarantees mustBe "1/0/1grn1;...;1grn4;...;4/5." + lineWithSpaces
           }
         }
       }
@@ -1489,7 +1495,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.authorisations mustBe "1/tv1/rn1;...; 4/tv4/rn4."
+        result.authorisations mustBe "1/tv1/rn1;...;4/tv4/rn4."
       }
     }
   }

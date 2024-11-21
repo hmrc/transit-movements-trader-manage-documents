@@ -123,9 +123,9 @@ package object viewmodels {
 
     def takeSampleWithoutPeriod: String =
       if (value.length > 3) {
-        (Nil :+ value.head :+ ";...; " :+ value.last).mkString
+        firstAndLast(";...;")
       } else {
-        takeN(3)(_.mkString("; "))
+        value.mkString("; ")
       }
 
     def takeSample: String = s"$takeSampleWithoutPeriod."
@@ -706,8 +706,7 @@ package object viewmodels {
           (_, list) =>
             val combinedOtherGuaranteeRefs = {
               val refs = list.flatMap(_.otherGuaranteeReference)
-              if (refs.isEmpty) None
-              else Some(refs.takeSampleWithoutPeriod)
+              Option.when(refs.nonEmpty)(refs.takeSampleWithoutPeriod)
             }
             list.head.copy(otherGuaranteeReference = combinedOtherGuaranteeRefs)
         }
@@ -717,25 +716,13 @@ package object viewmodels {
 
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
 
-    def asString: String = value.guaranteeType match {
-      case "5" | "A" =>
-        Seq(
-          value.sequenceNumber.toString,
-          value.guaranteeType
-        ).slashSeparate
-      case "0" | "1" | "2" | "4" | "9" =>
-        Seq(
-          value.sequenceNumber.toString,
-          value.guaranteeType,
-          value.GuaranteeReference.flatMap(_.asString).takeSampleWithoutPeriod
-        ).slashSeparate
-      case "3" | "8" =>
-        Seq(
-          Some(value.sequenceNumber.toString),
-          Some(value.guaranteeType),
-          value.otherGuaranteeReference
-        ).flatten.slashSeparate
-    }
+    def asString: String =
+      Seq(
+        Some(value.sequenceNumber.toString),
+        Some(value.guaranteeType),
+        Option.when(value.GuaranteeReference.nonEmpty)(value.GuaranteeReference.flatMap(_.asString).takeSampleWithoutPeriod),
+        value.otherGuaranteeReference
+      ).flatten.slashSeparate
   }
 
   implicit class RichGuaranteeReferenceType01(value: CUSTOM_GuaranteeReferenceType01) {
