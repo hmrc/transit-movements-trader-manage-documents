@@ -17,7 +17,7 @@
 package viewmodels.tad.posttransition
 
 import generated.*
-import viewmodels.{RichRichGuaranteeTypeSeq, *}
+import viewmodels.*
 
 case class Table2ViewModel(
   transportEquipment: String,
@@ -77,7 +77,7 @@ object Table2ViewModel {
         _.flatMap(_.TransportCharges).map(_.asString)
       ).take20,
       additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asSlashSeparatedString).takeSample.take90,
-      guarantees = ie029.Guarantee.normaliseOtherGuaranteeRefs.map(_.asString).takeSample.adjustFor2WideLines,
+      guarantees = ie029.Guarantee.map(_.asString).takeSample.adjustFor2WideLines,
       authorisations = ie029.Authorisation.map(_.asSlashSeparatedString).takeSample
     )
   }

@@ -697,23 +697,6 @@ package object viewmodels {
     }
   }
 
-  implicit class RichRichGuaranteeTypeSeq(value: Seq[generated.GuaranteeType03]) {
-
-    def normaliseOtherGuaranteeRefs: Seq[generated.GuaranteeType03] =
-      value
-        .groupBy(_.sequenceNumber)
-        .map {
-          (_, list) =>
-            val combinedOtherGuaranteeRefs = {
-              val refs = list.flatMap(_.otherGuaranteeReference)
-              Option.when(refs.nonEmpty)(refs.takeSampleWithoutPeriod)
-            }
-            list.head.copy(otherGuaranteeReference = combinedOtherGuaranteeRefs)
-        }
-        .toSeq
-
-  }
-
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
 
     def asString: String =

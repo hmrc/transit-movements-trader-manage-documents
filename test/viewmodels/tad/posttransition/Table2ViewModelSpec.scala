@@ -1183,71 +1183,21 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
         }
       }
 
-      "Guarantee Type 3 or 8" - {
-        "when 1 guarantee with 3 other guarantee references" in {
-          forAll(Gen.oneOf("3", "8")) {
-            guaranteeType =>
-              val data = cc029c.copy(
-                Guarantee = Seq(
-                  guarantee(
-                    1,
-                    guaranteeType,
-                    Seq(),
-                    otherGuaranteeRef = Some("other1")
-                  ),
-                  guarantee(
-                    1,
-                    guaranteeType,
-                    Seq(),
-                    otherGuaranteeRef = Some("other2")
-                  ),
-                  guarantee(
-                    1,
-                    guaranteeType,
-                    Seq(),
-                    otherGuaranteeRef = Some("other3")
-                  )
+      "Guarantee Type 3 or 8" in {
+        forAll(Gen.oneOf("3", "8")) {
+          guaranteeType =>
+            val data = cc029c.copy(
+              Guarantee = Seq(
+                guarantee(
+                  1,
+                  guaranteeType,
+                  Seq(),
+                  otherGuaranteeRef = Some("other1")
                 )
               )
-              val result = Table2ViewModel(data)
-              result.guarantees mustBe s"1/$guaranteeType/other1; other2; other3." + lineWithSpaces
-          }
-        }
-
-        "when 1 guarantee with 4 guarantee references" in {
-          forAll(Gen.oneOf("3", "8")) {
-            guaranteeType =>
-              val data = cc029c.copy(
-                Guarantee = Seq(
-                  guarantee(
-                    1,
-                    guaranteeType,
-                    Seq(),
-                    otherGuaranteeRef = Some("other1")
-                  ),
-                  guarantee(
-                    1,
-                    guaranteeType,
-                    Seq(),
-                    otherGuaranteeRef = Some("other2")
-                  ),
-                  guarantee(
-                    1,
-                    guaranteeType,
-                    Seq(),
-                    otherGuaranteeRef = Some("other3")
-                  ),
-                  guarantee(
-                    1,
-                    guaranteeType,
-                    Seq(),
-                    otherGuaranteeRef = Some("other4")
-                  )
-                )
-              )
-              val result = Table2ViewModel(data)
-              result.guarantees mustBe s"1/$guaranteeType/other1;...;other4." + lineWithSpaces
-          }
+            )
+            val result = Table2ViewModel(data)
+            result.guarantees mustBe s"1/$guaranteeType/other1." + lineWithSpaces
         }
       }
 
@@ -1323,24 +1273,6 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                   otherGuaranteeRef = Some("other1")
                 ),
                 guarantee(
-                  2,
-                  "3",
-                  Seq(),
-                  otherGuaranteeRef = Some("other2")
-                ),
-                guarantee(
-                  2,
-                  "3",
-                  Seq(),
-                  otherGuaranteeRef = Some("other3")
-                ),
-                guarantee(
-                  2,
-                  "3",
-                  Seq(),
-                  otherGuaranteeRef = Some("other4")
-                ),
-                guarantee(
                   3,
                   "5",
                   Seq(),
@@ -1349,7 +1281,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.guarantees mustBe "1/1/1grn1;...;1grn4; 2/3/other1;...;other4; 3/5." + lineWithSpaces
+            result.guarantees mustBe "1/1/1grn1;...;1grn4; 2/3/other1; 3/5." + lineWithSpaces
           }
         }
         "more than 3 types" - {
