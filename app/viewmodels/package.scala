@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import generated._
+import generated.*
 
 import java.text.SimpleDateFormat
 import javax.xml.datatype.XMLGregorianCalendar
@@ -126,12 +126,14 @@ package object viewmodels {
     def take2(f: Seq[String] => String): String = takeN(2)(f)
     def take3(f: Seq[String] => String): String = takeN(3)(f)
 
-    def takeSample: String =
+    def takeSampleWithoutPeriod: String =
       if (value.length > 3) {
-        (Nil :+ value.head :+ ";...; " :+ value.last :+ ".").mkString
+        firstAndLast(";...;")
       } else {
-        takeN(3)(_.mkString("; ")) + "."
+        value.mkString("; ")
       }
+
+    def takeSample: String = s"$takeSampleWithoutPeriod."
   }
 
   implicit class RichOptionTSeq[T](value: Seq[Option[T]]) {
@@ -575,7 +577,7 @@ package object viewmodels {
       value.typeOfIdentification,
       value.identificationNumber,
       value.nationality
-    ).slashSeparate
+    )
 
     def asString: String = values.commaSeparate
 
@@ -714,22 +716,18 @@ package object viewmodels {
 
   implicit class RichGuaranteeType03(value: GuaranteeType03) {
 
-    def asString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.guaranteeType),
-      Some(value.GuaranteeReference.map(_.asString).take2(_.semiColonSeparate)),
-      value.otherGuaranteeReference
-    ).flatten.commaSeparate
+    def asString: String =
+      Seq(
+        Some(value.sequenceNumber.toString),
+        Some(value.guaranteeType),
+        Option.when(value.GuaranteeReference.nonEmpty)(value.GuaranteeReference.flatMap(_.asString).takeSampleWithoutPeriod),
+        value.otherGuaranteeReference
+      ).flatten.slashSeparate
   }
 
   implicit class RichGuaranteeReferenceType01(value: CUSTOM_GuaranteeReferenceType01) {
 
-    def asString: String = Seq(
-      Some(value.sequenceNumber.toString),
-      value.GRN,
-      value.amountToBeCovered.map(_.asString),
-      value.currency
-    ).flatten.commaSeparate
+    def asString: Option[String] = value.GRN
   }
 
   implicit class RichAuthorisationType02(value: AuthorisationType02) {

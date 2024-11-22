@@ -81,9 +81,9 @@ object Table1ViewModel {
       lrn = ie029.TransitOperation.LRN,
       carrierIdentificationNumber = ie029.Consignment.Carrier.map(_.identificationNumber).orElseBlank.appendPeriod.take20,
       carrierContactPerson = ie029.Consignment.Carrier.flatMap(_.ContactPerson.map(_.asString)).orElseBlank.appendPeriod.take45,
-      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).semiColonSeparate.take30,
+      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).takeSample,
       additionalSupplyChainActorIdentificationNumbers =
-        ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate.adjustFor2NarrowLines,
+        ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).takeSample.adjustFor2NarrowLines,
       departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).takeSample.adjustFor2WideLines,
       activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asSlashSeparatedString).takeSample.take90,
       activeBorderTransportMeansConveyanceNumbers =
