@@ -59,7 +59,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table1ViewModel(data)
-        result.consignees mustBe "name1 / san1, pc1, city1, country1." + lineWithSpaces
+        result.consignees mustBe "name1/san1, pc1, city1, country1." + lineWithSpaces
       }
 
       "when 2 consignees (spanning 2 narrow lines out of available 2)" in {
@@ -83,7 +83,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignees mustBe "name1 / san1, pc1, city1, country1; name2 / san2, pc2, city2, country2."
+            result.consignees mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2."
         }
       }
 
@@ -113,7 +113,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignees mustBe "name1 / san1, pc1, city1, country1; name2 / san2, pc2, city2, country2; name3 / san3, p..."
+            result.consignees mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, ci..."
         }
       }
     }
@@ -174,7 +174,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table1ViewModel(data)
-        result.consignors mustBe "name1 / san1, pc1, city1, country1." + lineWithSpaces * 2
+        result.consignors mustBe "name1/san1, pc1, city1, country1." + lineWithSpaces * 2
       }
 
       "when 2 consignors (spanning 2 narrow lines out of available 3)" in {
@@ -198,7 +198,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignors mustBe "name1 / san1, pc1, city1, country1; name2 / san2, pc2, city2, country2." + lineWithSpaces
+            result.consignors mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2." + lineWithSpaces
         }
       }
 
@@ -228,7 +228,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignors mustBe "name1 / san1, pc1, city1, country1; name2 / san2, pc2, city2, country2; name3 / san3, pc3, city3, country3."
+            result.consignors mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, city3, country3."
         }
       }
 
@@ -263,7 +263,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignors mustBe "name1 / san1, pc1, city1, country1; name2 / san2, pc2, city2, country2; name3 / san3, pc3, city3, country3; name4 / san4, pc4, city4..."
+            result.consignors mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, city3, country3; name4/san4, pc4, city4, countr..."
         }
       }
     }
@@ -273,7 +273,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "consignorContactPersons" in {
-      result.consignorContactPersons mustBe "ccp / ccptel." + lineWithSpaces
+      result.consignorContactPersons mustBe "ccp/ccptel." + lineWithSpaces
     }
 
     "declarationType" in {
@@ -281,7 +281,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "holderOfTransitProcedure" in {
-      result.holderOfTransitProcedure mustBe "thin / hn / san, pc, city, country." + lineWithSpaces * 2
+      result.holderOfTransitProcedure mustBe "thin/hn/san, pc, city, country." + lineWithSpaces * 2
     }
 
     "holderOfTransitProcedureIdentificationNumber" in {
@@ -289,7 +289,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "hotPContactPerson" in {
-      result.hotPContactPerson mustBe "cp / cptel." + lineWithSpaces
+      result.hotPContactPerson mustBe "cp/cptel." + lineWithSpaces
     }
 
     "representative" in {
@@ -297,7 +297,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "representativeContactPerson" in {
-      result.representativeContactPerson mustBe "cp / cptel."
+      result.representativeContactPerson mustBe "cp/cptel."
     }
 
     "lrn" in {
@@ -309,7 +309,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "carrierContactPerson" in {
-      result.carrierContactPerson mustBe "ccp / ccptel."
+      result.carrierContactPerson mustBe "ccp/ccptel."
     }
 
     "additionalSupplyChainActorRoles" in {
