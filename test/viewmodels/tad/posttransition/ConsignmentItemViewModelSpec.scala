@@ -75,11 +75,11 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "additionalSupplyChainActors" in {
-      result.additionalSupplyChainActors mustBe "role1;...; role4."
+      result.additionalSupplyChainActors mustBe "role1;...;role4."
     }
 
     "supplyChainActorId" in {
-      result.supplyChainActorId mustBe "id1; id2; id3..."
+      result.supplyChainActorId mustBe "id1;...;id4."
     }
 
     "transportDocuments" in {

@@ -27,7 +27,7 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
     val result = Table4ViewModel(cc029c)
 
     "guaranteeType" in {
-      result.guaranteeType mustBe "g1..."
+      result.guaranteeType mustBe "5..."
     }
 
     "principal" in {
