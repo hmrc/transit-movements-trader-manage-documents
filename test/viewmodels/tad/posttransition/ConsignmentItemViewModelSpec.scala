@@ -22,6 +22,8 @@ import viewmodels.DummyData
 
 class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
+  private val lineWithSpaces = " " * 80
+
   "must map data to view model" - {
 
     val result = ConsignmentItemViewModel(cc015c, houseConsignmentType03, consignmentItemType03)
@@ -75,7 +77,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "additionalSupplyChainActors" in {
-      result.additionalSupplyChainActors mustBe "role1;...; role4."
+      result.additionalSupplyChainActors mustBe "role1; role2; role3..."
     }
 
     "supplyChainActorId" in {

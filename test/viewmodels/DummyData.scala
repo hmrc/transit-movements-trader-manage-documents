@@ -144,7 +144,7 @@ trait DummyData extends ScalaxbModelGenerators {
     Guarantee = Seq(
       GuaranteeType03(
         sequenceNumber = 1,
-        guaranteeType = "g1",
+        guaranteeType = "5",
         otherGuaranteeReference = Some("ogr1"),
         GuaranteeReference = Seq(
           CUSTOM_GuaranteeReferenceType01(
@@ -172,7 +172,7 @@ trait DummyData extends ScalaxbModelGenerators {
       ),
       GuaranteeType03(
         sequenceNumber = 2,
-        guaranteeType = "g2",
+        guaranteeType = "1",
         otherGuaranteeReference = Some("ogr2"),
         GuaranteeReference = Seq(
           CUSTOM_GuaranteeReferenceType01(
