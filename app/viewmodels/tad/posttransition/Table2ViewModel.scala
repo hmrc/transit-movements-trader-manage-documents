@@ -46,7 +46,7 @@ object Table2ViewModel {
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.takeSample
 
     new Table2ViewModel(
-      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asStringWithoutGoodsRef).take3(_.semiColonSeparate).adjustFor2WideLines,
+      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asPostTransitionString).takeSample.adjustFor2WideLines,
       seals = ie029.Consignment.TransportEquipment
         .flatMap(_.Seal)
         .map(
