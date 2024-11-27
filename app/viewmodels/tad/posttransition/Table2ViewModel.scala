@@ -48,11 +48,16 @@ object Table2ViewModel {
     new Table2ViewModel(
       transportEquipment = ie029.Consignment.TransportEquipment.map(_.asPostTransitionString).takeSample.adjustFor2WideLines,
       seals = ie029.Consignment.TransportEquipment
-        .flatMap(_.Seal)
         .map(
-          seal => s"${seal.sequenceNumber}/${seal.identifier}"
+          te => (te.sequenceNumber, te.Seal)
         )
-        .firstAndLast(";"),
+        .filter(
+          (_, seals) => seals.nonEmpty
+        )
+        .map(
+          (teSeqNo, seals) => s"""$teSeqNo/${seals.map(_.identifier).firstAndLast("-")}"""
+        )
+        .takeSample,
       goodsReferences = ie029.Consignment.TransportEquipment
         .flatMap(_.GoodsReference)
         .map(
