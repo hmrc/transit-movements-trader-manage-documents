@@ -31,29 +31,39 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
   "must map data to view model" - {
 
     "transportEquipment" - {
-      def seal(j: Int): Int => SealType04 = i =>
+      def seal(i: Int)(j: Int): SealType04 =
         SealType04(
           sequenceNumber = i,
           identifier = s"${i}sid$j"
         )
 
-      def goodsReference(j: Int, declarationGoodsItemNumber: Option[BigInt] = None): Int => GoodsReferenceType02 = i =>
+      /** @param i
+        *   goods reference sequence number
+        * @param j
+        *   transport equipment sequence number
+        * @param k
+        *   number of goods references in this transport equipment
+        * @return
+        *   a GoodsReferenceType02
+        */
+      def goodsReference(i: Int)(j: Int)(k: Int): GoodsReferenceType02 =
         GoodsReferenceType02(
           sequenceNumber = i,
-          declarationGoodsItemNumber = declarationGoodsItemNumber.getOrElse(BigInt(s"$i$j"))
+          declarationGoodsItemNumber = BigInt((k * (j - 1)) + i)
         )
 
-      def transportEquipment(i: Int,
-                             seals: Seq[Int => SealType04],
-                             goodsReferences: Seq[Int => GoodsReferenceType02],
-                             useCIN: Boolean = true
+      def transportEquipment(
+        i: Int,
+        containerIdentificationNumber: Int => Option[String],
+        seals: Seq[Int => SealType04],
+        goodsReferences: Seq[Int => Int => GoodsReferenceType02]
       ): TransportEquipmentType05 =
         TransportEquipmentType05(
           sequenceNumber = i,
-          containerIdentificationNumber = if (useCIN) Some(s"cin$i") else None,
+          containerIdentificationNumber = containerIdentificationNumber(i),
           numberOfSeals = seals.length,
           Seal = seals.map(_(i)),
-          GoodsReference = goodsReferences.map(_(i))
+          GoodsReference = goodsReferences.map(_(i)(goodsReferences.length))
         )
 
       "when 1 transport equipment and 1 declarationGoodsItemNumber" in {
@@ -62,11 +72,12 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             TransportEquipment = Seq(
               transportEquipment(
                 1,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
                 Seq(
-                  goodsReference(1, declarationGoodsItemNumber = Some(1))
+                  goodsReference(1)
                 )
               )
             )
@@ -82,9 +93,10 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             TransportEquipment = Seq(
               transportEquipment(
                 1,
+                i => Some(s"cin$i"),
                 Seq(),
                 Seq(
-                  goodsReference(1, declarationGoodsItemNumber = Some(1))
+                  goodsReference(1)
                 )
               )
             )
@@ -100,13 +112,13 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             TransportEquipment = Seq(
               transportEquipment(
                 1,
+                _ => None,
                 Seq(
                   seal(1)
                 ),
                 Seq(
-                  goodsReference(1, declarationGoodsItemNumber = Some(1))
-                ),
-                useCIN = false
+                  goodsReference(1)
+                )
               )
             )
           )
@@ -121,20 +133,21 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             TransportEquipment = Seq(
               transportEquipment(
                 1,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
                 Seq(
-                  goodsReference(1, declarationGoodsItemNumber = Some(1)),
-                  goodsReference(2, declarationGoodsItemNumber = Some(2)),
-                  goodsReference(3, declarationGoodsItemNumber = Some(15))
+                  goodsReference(1),
+                  goodsReference(2),
+                  goodsReference(3)
                 )
               )
             )
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/1/range (1-15)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/1/range (1-3)." + lineWithSpaces
       }
 
       "when 3 transport equipment" in {
@@ -143,6 +156,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             TransportEquipment = Seq(
               transportEquipment(
                 1,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
@@ -154,6 +168,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               ),
               transportEquipment(
                 2,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
@@ -165,6 +180,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               ),
               transportEquipment(
                 3,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
@@ -178,7 +194,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/1/range (11-13); 2/cin2/1/range (21-23); 3/cin3/1/range (31-33)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/1/range (1-3); 2/cin2/1/range (4-6); 3/cin3/1/range (7-9)." + lineWithSpaces
       }
 
       "when more than 3 transport equipment" in {
@@ -187,6 +203,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             TransportEquipment = Seq(
               transportEquipment(
                 1,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
@@ -196,6 +213,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               ),
               transportEquipment(
                 2,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
@@ -205,6 +223,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               ),
               transportEquipment(
                 3,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
@@ -214,6 +233,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               ),
               transportEquipment(
                 4,
+                i => Some(s"cin$i"),
                 Seq(
                   seal(1)
                 ),
@@ -225,24 +245,16 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/1/range (11-11);...;4/cin4/1/range (41-41)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/1/range (1-1);...;4/cin4/1/range (4-4)." + lineWithSpaces
       }
 
       "when transport equipment goes over 2 wide lines" in {
-        def transportEquipment(i: Int, seals: Seq[Int => SealType04], goodsReferences: Seq[Int => GoodsReferenceType02]): TransportEquipmentType05 =
-          TransportEquipmentType05(
-            sequenceNumber = i,
-            containerIdentificationNumber = Some(s"transport equipment $i container identification number"),
-            numberOfSeals = i,
-            Seal = seals.map(_(i)),
-            GoodsReference = goodsReferences.map(_(i))
-          )
-
         val data = cc029c.copy(
           Consignment = cc029c.Consignment.copy(
             TransportEquipment = Seq(
               transportEquipment(
                 1,
+                i => Some(s"transport equipment $i container identification number"),
                 Seq(
                   seal(1)
                 ),
@@ -253,6 +265,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               ),
               transportEquipment(
                 2,
+                i => Some(s"transport equipment $i container identification number"),
                 Seq(
                   seal(1)
                 ),
@@ -263,6 +276,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               ),
               transportEquipment(
                 3,
+                i => Some(s"transport equipment $i container identification number"),
                 Seq(
                   seal(1)
                 ),
@@ -275,8 +289,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        println(result.transportEquipment.length)
-        result.transportEquipment mustBe "1/transport equipment 1 container identification number/1/range (11-12); 2/transport equipment 2 container identification number/2/range (21-22); 3/transport equipment 3 contain..."
+        result.transportEquipment mustBe "1/transport equipment 1 container identification number/1/range (1-2); 2/transport equipment 2 container identification number/1/range (3-4); 3/transport equipment 3 container i..."
       }
     }
 
