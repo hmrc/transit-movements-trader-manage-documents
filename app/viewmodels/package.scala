@@ -113,11 +113,11 @@ package object viewmodels {
       Seq(headOption, lastOption).flatten.mkString(separator)
     }
 
-    def firstAndLastRange(separator: String = "..."): String = {
+    def firstAndLastRange(separator: String): String = {
       val (headOption, lastOption) = value match {
-        case head :: _ if value.size == 1 => (Some(head), value.lastOption)
-        case head :: tail                 => (Some(head), tail.lastOption)
-        case _                            => (None, None)
+        case head :: Nil  => (Some(head), Some(head))
+        case head :: tail => (Some(head), tail.lastOption)
+        case _            => (None, None)
       }
       Seq(headOption, lastOption).flatten.mkString(separator)
     }
