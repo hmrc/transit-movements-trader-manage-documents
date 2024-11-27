@@ -48,11 +48,11 @@ object Table2ViewModel {
     new Table2ViewModel(
       transportEquipment = ie029.Consignment.TransportEquipment.map(_.asPostTransitionString).takeSample.adjustFor2WideLines,
       seals = ie029.Consignment.TransportEquipment
+        .filter(
+          _.Seal.nonEmpty
+        )
         .map(
           te => (te.sequenceNumber, te.Seal)
-        )
-        .filter(
-          (_, seals) => seals.nonEmpty
         )
         .map(
           (teSeqNo, seals) => s"""$teSeqNo/${seals.map(_.identifier).firstAndLast("-")}"""
