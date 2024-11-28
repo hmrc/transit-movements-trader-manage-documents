@@ -66,7 +66,7 @@ object Table1ViewModel {
 
     new Table1ViewModel(
       additionalDeclarationType = ie029.TransitOperation.additionalDeclarationType.take10,
-      consignees = consignees.map(_.asString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
+      consignees = consignees.map(_.asSlashSeparatedString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
       consigneeIdentificationNumbers = consignees.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
       consignors = consignors.map(_.asString).semiColonSeparate.appendPeriod.adjustFor3NarrowLines,
       consignorIdentificationNumbers = consignors.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
@@ -81,13 +81,13 @@ object Table1ViewModel {
       lrn = ie029.TransitOperation.LRN,
       carrierIdentificationNumber = ie029.Consignment.Carrier.map(_.identificationNumber).orElseBlank.appendPeriod.take20,
       carrierContactPerson = ie029.Consignment.Carrier.flatMap(_.ContactPerson.map(_.asString)).orElseBlank.appendPeriod.take45,
-      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).semiColonSeparate.take30,
+      additionalSupplyChainActorRoles = ie029.Consignment.AdditionalSupplyChainActor.map(_.asString).takeSample,
       additionalSupplyChainActorIdentificationNumbers =
-        ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate.adjustFor2NarrowLines,
-      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).take3(_.semiColonSeparate).adjustFor2WideLines,
-      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).take3(_.semiColonSeparate).take90,
+        ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).takeSample.adjustFor2NarrowLines,
+      departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).takeSample.adjustFor2WideLines,
+      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asSlashSeparatedString).takeSample.take90,
       activeBorderTransportMeansConveyanceNumbers =
-        ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).semiColonSeparate.adjustFor2NarrowLines,
+        ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).takeSample.adjustFor2NarrowLines,
       placeOfLoading = ie029.Consignment.PlaceOfLoading.map(_.asString).orElseBlank.adjustFor2NarrowLines,
       placeOfUnloading = ie029.Consignment.PlaceOfUnloading.map(_.asString).orElseBlank.adjustFor2NarrowLines,
       modeOfTransportAtBorder = ie029.Consignment.modeOfTransportAtTheBorder.orElseBlank.take20,

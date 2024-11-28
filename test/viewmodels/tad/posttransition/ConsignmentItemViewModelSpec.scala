@@ -22,6 +22,8 @@ import viewmodels.DummyData
 
 class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
+  private val lineWithSpaces = " " * 80
+
   "must map data to view model" - {
 
     val result = ConsignmentItemViewModel(cc015c, houseConsignmentType03, consignmentItemType03)
@@ -35,7 +37,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "packagesType" in {
-      result.packagesType mustBe "top1, 100, sm1; top2, 200, sm2"
+      result.packagesType mustBe "top1/100/sm1; top2/200/sm2."
     }
 
     "descriptionOfGoods" in {
@@ -43,15 +45,15 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "previousDocuments" in {
-      result.previousDocuments mustBe "1, tv1, rn1, 1, top1, 11, muaq1, 10, pcoi1; 2, tv2, rn2, 2, top2, 22, muaq2, 20, pcoi2"
+      result.previousDocuments mustBe "1/tv1/rn1/1/top1/11/muaq1/10/pcoi1; 2/tv2/rn2/2/top2/22/muaq2/20/pcoi2."
     }
 
     "supportingDocuments" in {
-      result.supportingDocuments mustBe "1, stv1, srn1, 11, scoi1; 2, stv2, srn2, 22, scoi2"
+      result.supportingDocuments mustBe "1/stv1/srn1/11/scoi1; 2/stv2/srn2/22/scoi2."
     }
 
     "consignee" in {
-      result.consignee mustBe "hc consignee name / san, pc, city, country."
+      result.consignee mustBe "hc consignee name/san, pc, city, country."
     }
 
     "consigneeId" in {
@@ -59,7 +61,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "consignor" in {
-      result.consignor mustBe "hc consignor name / san, pc, city, country / cp / cptel."
+      result.consignor mustBe "hc consignor name/san, pc, city, country/cp/cptel."
     }
 
     "consignorId" in {
@@ -67,11 +69,11 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "additionalReferences" in {
-      result.additionalReferences mustBe "1, artv1, arrn1; 2, artv2, arrn2"
+      result.additionalReferences mustBe "1/artv1/arrn1; 2/artv2/arrn2."
     }
 
     "additionalInformation" in {
-      result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2"
+      result.additionalInformation mustBe "1/aic1/ait1; 2/aic2/ait2."
     }
 
     "additionalSupplyChainActors" in {
@@ -83,7 +85,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "transportDocuments" in {
-      result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2"
+      result.transportDocuments mustBe "1/ttv1/trn1; 2/ttv2/trn2."
     }
 
     "referenceNumberUCR" in {
@@ -95,7 +97,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "departureTransportMeans" in {
-      result.departureTransportMeans mustBe "toi1, in1, nat1; toi2, in2, nat2"
+      result.departureTransportMeans mustBe "toi1/in1/nat1; toi2/in2/nat2."
     }
 
     "commodityCode" in {
