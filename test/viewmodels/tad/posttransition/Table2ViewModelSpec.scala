@@ -300,13 +300,14 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           identifier = s"sid$i"
         )
 
-      "when 1 seal" in {
+      "when 1 transport equipment and 1 seal" in {
         forAll(arbitrary[CC029CType], arbitrary[TransportEquipmentType05]) {
           (ie029, transportEquipment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
                 TransportEquipment = Seq(
                   transportEquipment.copy(
+                    sequenceNumber = 1,
                     Seal = Seq(
                       seal(1)
                     )
@@ -315,17 +316,18 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.seals mustBe "1/sid1"
+            result.seals mustBe "1/sid1."
         }
       }
 
-      "when 3 seals" in {
+      "when <=3 transport equipment and multiple seals" in {
         forAll(arbitrary[CC029CType], arbitrary[TransportEquipmentType05]) {
           (ie029, transportEquipment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
                 TransportEquipment = Seq(
                   transportEquipment.copy(
+                    sequenceNumber = 1,
                     Seal = Seq(
                       seal(1),
                       seal(2),
@@ -333,27 +335,64 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                     )
                   ),
                   transportEquipment.copy(
+                    sequenceNumber = 2,
                     Seal = Seq(
                       seal(4),
                       seal(5),
                       seal(6)
+                    )
+                  ),
+                  transportEquipment.copy(
+                    sequenceNumber = 3,
+                    Seal = Seq(
+                      seal(7),
+                      seal(8),
+                      seal(9)
                     )
                   )
                 )
               )
             )
             val result = Table2ViewModel(data)
-            result.seals mustBe "1/sid1;6/sid6"
+            result.seals mustBe "1/sid1-sid3; 2/sid4-sid6; 3/sid7-sid9."
         }
       }
 
-      "when more than 3 seals" in {
+      "when more than 3 transport equipments and multiple seals" in {
         forAll(arbitrary[CC029CType], arbitrary[TransportEquipmentType05]) {
           (ie029, transportEquipment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
                 TransportEquipment = Seq(
                   transportEquipment.copy(
+                    sequenceNumber = 1,
+                    Seal = Seq(
+                      seal(1),
+                      seal(2),
+                      seal(3),
+                      seal(4)
+                    )
+                  ),
+                  transportEquipment.copy(
+                    sequenceNumber = 2,
+                    Seal = Seq(
+                      seal(1),
+                      seal(2),
+                      seal(3),
+                      seal(4)
+                    )
+                  ),
+                  transportEquipment.copy(
+                    sequenceNumber = 3,
+                    Seal = Seq(
+                      seal(1),
+                      seal(2),
+                      seal(3),
+                      seal(4)
+                    )
+                  ),
+                  transportEquipment.copy(
+                    sequenceNumber = 4,
                     Seal = Seq(
                       seal(1),
                       seal(2),
@@ -365,7 +404,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table2ViewModel(data)
-            result.seals mustBe "1/sid1;4/sid4"
+            result.seals mustBe "1/sid1-sid4;...;4/sid1-sid4."
         }
       }
     }
