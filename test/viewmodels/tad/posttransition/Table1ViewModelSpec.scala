@@ -313,7 +313,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "additionalSupplyChainActorRoles" in {
-      result.additionalSupplyChainActorRoles mustBe "role1; role2."
+      result.additionalSupplyChainActorRoles mustBe "1/role1; 2/role2."
     }
 
     "additionalSupplyChainActorIdentificationNumbers" in {

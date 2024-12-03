@@ -368,7 +368,7 @@ package object viewmodels {
 
   implicit class RichAdditionalSupplyChainActorType(value: AdditionalSupplyChainActorType) {
 
-    def asString: String = value.role
+    def asString: String = Seq(value.sequenceNumber.toString, value.role).slashSeparate
   }
 
   implicit class RichAdditionalInformationType02(value: AdditionalInformationType02) {
