@@ -56,7 +56,7 @@ object ConsignmentItemViewModel {
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber.toString(),
       packagesType = consignmentItem.Packaging.map(_.asSlashSeparatedString).semiColonSeparate.appendPeriod,
-      descriptionOfGoods = consignmentItem.Commodity.descriptionOfGoods,
+      descriptionOfGoods = if (consignmentItem.goodsItemNumber == 1) houseConsignment.grossMass.asString else consignmentItem.Commodity.descriptionOfGoods,
       previousDocuments = consignmentItem.PreviousDocument.map(_.asSlashSeparatedString).semiColonSeparate.appendPeriod,
       supportingDocuments = consignmentItem.SupportingDocument.map(_.asSlashSeparatedString).semiColonSeparate.appendPeriod,
       consignee = houseConsignment.Consignee.map(_.asSlashSeparatedString).orElseBlank.appendPeriod,

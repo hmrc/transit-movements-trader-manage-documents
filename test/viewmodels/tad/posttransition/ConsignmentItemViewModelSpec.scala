@@ -40,8 +40,14 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
       result.packagesType mustBe "top1/100/sm1; top2/200/sm2."
     }
 
-    "descriptionOfGoods" in {
-      result.descriptionOfGoods mustBe "dog"
+    "descriptionOfGoods" - {
+      "must be house consignment gross mass for the first item in HC" in {
+        result.descriptionOfGoods mustBe houseConsignmentType03.grossMass.toDouble.toString
+      }
+
+      "must be description of goods for the rest of the other consignment items in HC" in {
+        ConsignmentItemViewModel(cc015c, houseConsignmentType03, consignmentItemType03.copy(goodsItemNumber = 2)).descriptionOfGoods mustBe "dog"
+      }
     }
 
     "previousDocuments" in {

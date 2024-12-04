@@ -46,13 +46,18 @@ object Table2ViewModel {
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.takeSample
 
     new Table2ViewModel(
-      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asStringWithoutGoodsRef).take3(_.semiColonSeparate).adjustFor2WideLines,
+      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asPostTransitionString).takeSample.adjustFor2WideLines,
       seals = ie029.Consignment.TransportEquipment
-        .flatMap(_.Seal)
-        .map(
-          seal => s"${seal.sequenceNumber}/${seal.identifier}"
+        .filter(
+          _.Seal.nonEmpty
         )
-        .firstAndLast(";"),
+        .map(
+          te => (te.sequenceNumber, te.Seal)
+        )
+        .map(
+          (teSeqNo, seals) => s"""$teSeqNo/${seals.map(_.identifier).firstAndLast("-")}"""
+        )
+        .takeSample,
       goodsReferences = ie029.Consignment.TransportEquipment
         .flatMap(_.GoodsReference)
         .map(
