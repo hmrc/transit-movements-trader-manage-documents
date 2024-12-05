@@ -113,15 +113,6 @@ package object viewmodels {
       Seq(headOption, lastOption).flatten.mkString(separator)
     }
 
-    def firstAndLastRange(separator: String): String = {
-      val (headOption, lastOption) = value match {
-        case head :: Nil  => (Some(head), Some(head))
-        case head :: tail => (Some(head), tail.lastOption)
-        case _            => (None, None)
-      }
-      Seq(headOption, lastOption).flatten.mkString(separator)
-    }
-
     def addDefaultIfEmpty(): Seq[String] = if (value.isEmpty) Seq("--") else value
 
     private def takeN(n: Int)(f: Seq[String] => String): String =
@@ -699,7 +690,7 @@ package object viewmodels {
       value.sequenceNumber.toString,
       value.containerIdentificationNumber.getOrElse("-"),
       if (value.numberOfSeals == 0) "-" else value.numberOfSeals.toString,
-      s"""range (${value.GoodsReference.map(_.declarationGoodsItemNumber.toString).firstAndLastRange("-")})"""
+      value.GoodsReference.map(_.declarationGoodsItemNumber.toString).firstAndLast("-")
     ).slashSeparate
 
     def asP4String: String = Seq(
