@@ -84,7 +84,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/1/range (1-1)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/1/1." + lineWithSpaces
       }
 
       "when 1 transport equipment and no seals" in {
@@ -103,7 +103,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/-/range (1-1)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/-/1." + lineWithSpaces
       }
 
       "when 1 transport equipment and no container identification number" in {
@@ -124,7 +124,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/-/1/range (1-1)." + lineWithSpaces
+        result.transportEquipment mustBe "1/-/1/1." + lineWithSpaces
       }
 
       "when 1 transport equipment and multiple declarationGoodsItemNumber" in {
@@ -147,7 +147,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/1/range (1-3)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/1/1-3." + lineWithSpaces
       }
 
       "when 3 transport equipment" in {
@@ -194,7 +194,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/1/range (1-3); 2/cin2/1/range (4-6); 3/cin3/1/range (7-9)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/1/1-3; 2/cin2/1/4-6; 3/cin3/1/7-9." + lineWithSpaces
       }
 
       "when more than 3 transport equipment" in {
@@ -245,7 +245,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/cin1/1/range (1-1);...;4/cin4/1/range (4-4)." + lineWithSpaces
+        result.transportEquipment mustBe "1/cin1/1/1;...;4/cin4/1/4." + lineWithSpaces
       }
 
       "when transport equipment goes over 2 wide lines" in {
@@ -289,7 +289,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table2ViewModel(data)
-        result.transportEquipment mustBe "1/transport equipment 1 container identification number/1/range (1-2); 2/transport equipment 2 container identification number/1/range (3-4); 3/transport equipment 3 container i..."
+        result.transportEquipment mustBe "1/transport equipment 1 container identification number/1/1-2; 2/transport equipment 2 container identification number/1/3-4; 3/transport equipment 3 container identification nu..."
       }
     }
 
