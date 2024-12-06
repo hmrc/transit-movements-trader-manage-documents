@@ -30,7 +30,9 @@ case class Table2ViewModel(
   transportCharges: String,
   additionalInformation: String,
   guarantees: String,
-  authorisations: String
+  authorisations: String,
+  containerIndicator: String,
+  reducedDatasetIndicator: String
 )
 
 object Table2ViewModel {
@@ -83,7 +85,9 @@ object Table2ViewModel {
       ).take20,
       additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asSlashSeparatedString).takeSample.take90,
       guarantees = ie029.Guarantee.map(_.asString).takeSample.adjustFor2WideLines,
-      authorisations = ie029.Authorisation.map(_.asSlashSeparatedString).takeSample
+      authorisations = ie029.Authorisation.map(_.asSlashSeparatedString).takeSample,
+      containerIndicator = ie029.Consignment.containerIndicator.toString,
+      reducedDatasetIndicator = ie029.TransitOperation.reducedDatasetIndicator.toString
     )
   }
 }

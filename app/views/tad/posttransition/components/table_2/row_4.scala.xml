@@ -1,8 +1,8 @@
-@import views.xml.tad.posttransition.components.table_1.consignee
-@import views.xml.tad.posttransition.components.table_1.total_gross_mass
+@import views.xml.components.box
 
 @(
     guarantees: String,
+    reducedDatasetIndicator: String,
     authorisations: String
 )
 
@@ -88,10 +88,7 @@
                                                            border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
                                                 <fo:block>
                                                     Reduced dataset [11 08]:
-                                                    <fo:inline margin-top="1%" border-style="solid"
-                                                               border-width="0.5pt">
-                                                        &#160;&#160;&#160;&#160;
-                                                    </fo:inline>
+                                                    @box(reducedDatasetIndicator)
                                                 </fo:block>
                                             </fo:table-cell>
                                         </fo:table-row>

@@ -1,12 +1,7 @@
-@import views.xml.tad.posttransition.components.table_1.consignee
-@import views.xml.tad.posttransition.components.table_1.total_gross_mass
-@import views.xml.tad.posttransition.components.table_1.declaration_type
-
-@import views.xml.tad.posttransition.components.table_1._
-@import views.xml.tad.posttransition.components.table_2._
-@import views.xml.tad.posttransition.components._
+@import views.xml.components.box
 
 @(
+    containerIndicator: String,
     transportEquipment: String,
     seals: String
 )
@@ -40,9 +35,7 @@
                                        border-bottom-style="solid" border-bottom-width="1pt"
                                        border-bottom-color="black" padding-left="0.5%">
                             <fo:block>Container [19 01]:
-                                <fo:inline margin-top="1%" border-style="solid" border-width="0.5pt">
-                                    &#160;&#160;&#160;&#160;
-                                </fo:inline>
+                                @box(containerIndicator)
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>

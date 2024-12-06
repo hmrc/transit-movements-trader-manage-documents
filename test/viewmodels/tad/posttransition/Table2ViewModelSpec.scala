@@ -1547,5 +1547,57 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
         result.authorisations mustBe "1/tv1/rn1;...;4/tv4/rn4."
       }
     }
+
+    "containerIndicator" - {
+      "when false" - {
+        "must return 0" in {
+          val data = cc029c.copy(
+            Consignment = cc029c.Consignment.copy(
+              containerIndicator = Number0
+            )
+          )
+          val result = Table2ViewModel(data)
+          result.containerIndicator mustBe "0"
+        }
+      }
+
+      "when true" - {
+        "must return 1" in {
+          val data = cc029c.copy(
+            Consignment = cc029c.Consignment.copy(
+              containerIndicator = Number1
+            )
+          )
+          val result = Table2ViewModel(data)
+          result.containerIndicator mustBe "1"
+        }
+      }
+    }
+
+    "reducedDatasetIndicator" - {
+      "when false" - {
+        "must return 0" in {
+          val data = cc029c.copy(
+            TransitOperation = cc029c.TransitOperation.copy(
+              reducedDatasetIndicator = Number0
+            )
+          )
+          val result = Table2ViewModel(data)
+          result.reducedDatasetIndicator mustBe "0"
+        }
+      }
+
+      "when true" - {
+        "must return 1" in {
+          val data = cc029c.copy(
+            TransitOperation = cc029c.TransitOperation.copy(
+              reducedDatasetIndicator = Number1
+            )
+          )
+          val result = Table2ViewModel(data)
+          result.reducedDatasetIndicator mustBe "1"
+        }
+      }
+    }
   }
 }

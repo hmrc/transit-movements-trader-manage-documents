@@ -27,7 +27,8 @@ case class Table4ViewModel(
   customsOfficeOfDestinationDeclared: String,
   countryOfDispatch: String,
   countryOfDestination: String,
-  limitDate: String
+  limitDate: String,
+  bindingItinerary: String
 )
 
 object Table4ViewModel {
@@ -51,6 +52,7 @@ object Table4ViewModel {
       customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.appendPeriod.take10,
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,
       countryOfDestination = ie029.Consignment.countryOfDestination.orElseBlank.take10,
-      limitDate = ie015.TransitOperation.limitDate.map(_.limitDateString).orElseBlank
+      limitDate = ie015.TransitOperation.limitDate.map(_.limitDateString).orElseBlank,
+      bindingItinerary = ie029.TransitOperation.bindingItinerary.toString
     )
 }
