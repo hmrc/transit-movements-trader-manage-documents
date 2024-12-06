@@ -56,5 +56,9 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
     "limitDate" in {
       result.limitDate mustBe "2022-02-03"
     }
+
+    "bindingItinerary" in {
+      result.bindingItinerary mustBe "1"
+    }
   }
 }

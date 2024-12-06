@@ -18,6 +18,7 @@
 
     <fo:table-body>
         @row_1(
+            vm.containerIndicator,
             vm.transportEquipment,
             vm.seals
         )
@@ -36,6 +37,7 @@
         
         @row_4(
             vm.guarantees,
+            vm.reducedDatasetIndicator,
             vm.authorisations
         )
         
