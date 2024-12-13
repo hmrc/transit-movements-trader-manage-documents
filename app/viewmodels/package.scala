@@ -690,11 +690,11 @@ package object viewmodels {
     ).flatten.commaSeparate
 
     def asPostTransitionString: String = Seq(
-      value.sequenceNumber.toString,
-      value.containerIdentificationNumber.getOrElse("-"),
-      if (value.numberOfSeals == 0) "-" else value.numberOfSeals.toString,
-      value.GoodsReference.map(_.declarationGoodsItemNumber.toString).firstAndLast("-")
-    ).slashSeparate
+      Some(value.sequenceNumber.toString),
+      Some(value.containerIdentificationNumber.getOrElse("-")),
+      if (value.numberOfSeals == 0) None else Some(value.numberOfSeals.toString),
+      Some(value.GoodsReference.map(_.declarationGoodsItemNumber.toString).firstAndLast("-"))
+    ).flatten.slashSeparate
 
     def asP4String: String = Seq(
       Some(value.sequenceNumber.toString),
