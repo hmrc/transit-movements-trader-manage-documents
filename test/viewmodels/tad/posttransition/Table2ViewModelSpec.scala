@@ -104,6 +104,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
         )
         val result = Table2ViewModel(data)
         result.transportEquipment mustBe "1/cin1/-/1." + lineWithSpaces
+        result.seals mustBe ""
       }
 
       "when 1 transport equipment and no container identification number" in {

@@ -133,7 +133,10 @@ package object viewmodels {
         value.mkString("; ")
       }
 
-    def takeSample: String = s"$takeSampleWithoutPeriod."
+    def takeSample: String = {
+      val sample = takeSampleWithoutPeriod
+      if (sample.trim.isEmpty) sample else s"$sample."
+    }
   }
 
   implicit class RichOptionTSeq[T](value: Seq[Option[T]]) {
