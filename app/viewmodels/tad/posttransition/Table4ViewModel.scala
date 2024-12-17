@@ -53,6 +53,6 @@ object Table4ViewModel {
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,
       countryOfDestination = ie029.Consignment.countryOfDestination.orElseBlank.take10,
       limitDate = ie015.TransitOperation.limitDate.map(_.limitDateString).orElseBlank,
-      bindingItinerary = ie029.TransitOperation.bindingItinerary.toString
+      bindingItinerary = ie029.TransitOperation.bindingItinerary.asString
     )
 }

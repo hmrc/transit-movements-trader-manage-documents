@@ -58,7 +58,7 @@ class Table4ViewModelSpec extends SpecBase with DummyData {
     }
 
     "bindingItinerary" in {
-      result.bindingItinerary mustBe "1"
+      result.bindingItinerary mustBe "X"
     }
   }
 }

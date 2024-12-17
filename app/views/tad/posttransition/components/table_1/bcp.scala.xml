@@ -19,7 +19,7 @@
                                    font-size="5"
                                    padding-bottom="15%">
                         <fo:block>BCP:
-                            @box(" ")
+                            @box()
                         </fo:block>
                     </fo:table-cell>
 

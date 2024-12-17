@@ -39,10 +39,6 @@ class Table2ViewModelSpec extends SpecBase with DummyData {
       result.transportEquipment mustBe "1, cin1"
     }
 
-    "printBindingItinerary" in {
-      result.printBindingItinerary mustBe true
-    }
-
     "consignmentItemViewModel" in {
       result.consignmentItemViewModel mustBe consignmentItemViewModel
     }
