@@ -86,8 +86,8 @@ object Table2ViewModel {
       additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asSlashSeparatedString).takeSample.take90,
       guarantees = ie029.Guarantee.map(_.asString).takeSample.adjustFor2WideLines,
       authorisations = ie029.Authorisation.map(_.asSlashSeparatedString).takeSample,
-      containerIndicator = ie029.Consignment.containerIndicator.toString,
-      reducedDatasetIndicator = ie029.TransitOperation.reducedDatasetIndicator.toString
+      containerIndicator = ie029.Consignment.containerIndicator.asString,
+      reducedDatasetIndicator = ie029.TransitOperation.reducedDatasetIndicator.asString
     )
   }
 }

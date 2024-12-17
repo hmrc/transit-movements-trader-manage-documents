@@ -168,7 +168,11 @@ package object viewmodels {
   }
 
   implicit class RichFlag(value: Flag) {
-    def asString: String = value.toString
+
+    def asString: String = value match {
+      case Number0 => ""
+      case Number1 => "X"
+    }
 
     def toBoolean: Boolean = value match {
       case Number0 => false

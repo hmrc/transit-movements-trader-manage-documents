@@ -1558,7 +1558,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             )
           )
           val result = Table2ViewModel(data)
-          result.containerIndicator mustBe "0"
+          result.containerIndicator mustBe ""
         }
       }
 
@@ -1570,7 +1570,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             )
           )
           val result = Table2ViewModel(data)
-          result.containerIndicator mustBe "1"
+          result.containerIndicator mustBe "X"
         }
       }
     }
@@ -1584,7 +1584,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             )
           )
           val result = Table2ViewModel(data)
-          result.reducedDatasetIndicator mustBe "0"
+          result.reducedDatasetIndicator mustBe ""
         }
       }
 
@@ -1596,7 +1596,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             )
           )
           val result = Table2ViewModel(data)
-          result.reducedDatasetIndicator mustBe "1"
+          result.reducedDatasetIndicator mustBe "X"
         }
       }
     }
