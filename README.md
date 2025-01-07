@@ -3,7 +3,6 @@
 
 This is a service for generating PDFs for the following documents:
 * TAD (Transit Accompanying Document)
-* TSAD (Transit and Safety and Security Declaration)
 * Unloading permission
 
 ## Download
@@ -32,7 +31,7 @@ In order to download these documents, submit the following messages through post
     * `2.0` for transition rules
     * `2.1` for final rules
 * The IE015 message ID is retrieved for the given departure ID in the endpoint
-* The IE015 message is retrieved for the given IE015 message ID
+* The IE015 message is retrieved for the given IE015 message ID (the IE015 is needed for certain data items that are not included in the IE029, like the limit date and supplementary units)
 * The IE029 message is retrieved for the given IE029 message ID in the endpoint
 * The response contains the generated PDF as a byte array
 
