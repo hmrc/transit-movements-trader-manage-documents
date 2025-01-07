@@ -39,7 +39,7 @@ In order to download these documents, submit the following messages through post
 ### Unsuccessful responses (with possible causes)
 
 #### 400 BAD_REQUEST
-* `APIVersion` header was missing or did not align with saved answers
+* `APIVersion` header was missing
 
 #### 401 UNAUTHORIZED
 * A generic authorization error occurred. The likely cause of this is an invalid or missing bearer token.
@@ -73,7 +73,7 @@ In order to download these documents, submit the following messages through post
 ### Unsuccessful responses (with possible causes)
 
 #### 400 BAD_REQUEST
-* `APIVersion` header was missing or did not align with saved answers
+* `APIVersion` header was missing
 
 #### 401 UNAUTHORIZED
 * A generic authorization error occurred. The likely cause of this is an invalid or missing bearer token.
