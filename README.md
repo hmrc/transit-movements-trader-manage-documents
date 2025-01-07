@@ -3,10 +3,9 @@
 
 This is a service for generating PDFs for the following documents:
 * TAD (Transit Accompanying Document)
-* TSAD (Transit and Safety and Security Declaration)
 * Unloading permission
 
-### Download
+## Download
 In order to download these documents, submit the following messages through postman then download the document through the UI from the relevant view departures / view arrivals page:
 * TAD
     * IE015
@@ -15,7 +14,79 @@ In order to download these documents, submit the following messages through post
     * IE007
     * IE043
 
-### Development
+## Endpoints
+
+---
+
+## `GET /:departureId/transit-accompanying-document/:messageId`
+
+### Successful response
+
+#### 200 OK
+
+* A call is made to the `GET` endpoint with:
+  * a valid bearer token
+  * a valid `HMRC-CTC-ORG` enrolment with `EoriNumber` identifier
+  * an `APIVersion` header with either:
+    * `2.0` for transition rules
+    * `2.1` for final rules
+* The IE015 message ID is retrieved for the given departure ID in the endpoint
+* The IE015 message is retrieved for the given IE015 message ID (the IE015 is needed for certain data items that are not included in the IE029, like the limit date and supplementary units)
+* The IE029 message is retrieved for the given IE029 message ID in the endpoint
+* The response contains the generated PDF as a byte array
+
+### Unsuccessful responses (with possible causes)
+
+#### 400 BAD_REQUEST
+* `APIVersion` header was missing
+
+#### 401 UNAUTHORIZED
+* A generic authorization error occurred. The likely cause of this is an invalid or missing bearer token.
+
+#### 403 FORBIDDEN
+* User has insufficient enrolments
+
+#### 500 INTERNAL_SERVER_ERROR
+* An error occurred retrieving the IE015 message ID
+* An error occurred retrieving the IE015
+* An error occurred retrieving the IE029
+* An error occurred generating the PDF
+
+---
+
+## `GET /:arrivalId/unloading-permission-document/:messageId`
+
+### Successful response
+
+#### 200 OK
+
+* A call is made to the `GET` endpoint with:
+  * a valid bearer token
+  * a valid `HMRC-CTC-ORG` enrolment with `EoriNumber` identifier
+  * an `APIVersion` header with either:
+    * `2.0` for transition rules
+    * `2.1` for final rules
+* The IE043 message is retrieved for the given arrival ID and IE043 message ID in the endpoint
+* The response contains the generated PDF as a byte array
+
+### Unsuccessful responses (with possible causes)
+
+#### 400 BAD_REQUEST
+* `APIVersion` header was missing
+
+#### 401 UNAUTHORIZED
+* A generic authorization error occurred. The likely cause of this is an invalid or missing bearer token.
+
+#### 403 FORBIDDEN
+* User has insufficient enrolments
+
+#### 500 INTERNAL_SERVER_ERROR
+* An error occurred retrieving the IE043
+* An error occurred generating the PDF
+
+---
+
+## Development
 Here is a list of logs that have been encountered during development and the likely causes:
 
 | Error                                                                                                                                                                                | Cause                                                                                                                                                                                                                                                                                                                                | Fix                                                        |
