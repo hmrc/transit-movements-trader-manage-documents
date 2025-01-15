@@ -497,7 +497,6 @@ package object viewmodels {
       value.ContactPerson.map(_.asString)
     ).flatten.slashSeparate
 
-    // TODO - refactor when you create generic types for duplicates
     def asConsignorType03: ConsignorType03 = ConsignorType03(
       value.identificationNumber,
       value.name,
@@ -614,7 +613,6 @@ package object viewmodels {
 
   implicit class RichConsignmentItemType04(value: CUSTOM_ConsignmentItemType04) {
 
-    // TODO check if we can use N/A for absent optional values
     def asString: String = Seq(
       Some(value.goodsItemNumber.toString),
       Some(value.declarationGoodsItemNumber.toString),

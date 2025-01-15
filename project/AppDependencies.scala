@@ -3,11 +3,11 @@ import sbt.librarymanagement.InclExclRule
 
 object AppDependencies {
 
-  private val bootstrapVersion = "9.5.0"
+  private val bootstrapVersion = "9.6.0"
 
   val compile: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"             %% "bootstrap-backend-play-30"  % bootstrapVersion,
-    "org.apache.xmlgraphics"  %  "fop"                        % "2.9",
+    "org.apache.xmlgraphics"  %  "fop"                        % "2.10",
     "net.sf.barcode4j"        %  "barcode4j"                  % "2.1",
     "net.sf.barcode4j"        %  "barcode4j-fop-ext"          % "2.1",
     "xerces"                  %  "xercesImpl"                 % "2.12.2",
@@ -27,7 +27,8 @@ object AppDependencies {
   ).map(_ % "test")
 
   val overrides: Seq[ModuleID] = Seq(
-    "avalon-framework" % "avalon-framework-impl" % "4.3"
+    "avalon-framework" % "avalon-framework-impl" % "4.3",
+    "commons-io"       % "commons-io"            % "2.18.0"
   )
 
   val exclusions: Seq[InclExclRule] = Seq(
