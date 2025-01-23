@@ -17,6 +17,7 @@
 package services.pdf
 
 import base.SpecBase
+import org.apache.pdfbox.Loader
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.mockito.Mockito
@@ -83,10 +84,10 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
         val pdfPath          = "test/resources/documents/tad/transition/sample-with-security-page.pdf"
         val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-        val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(ie015, cc029c))
+        val pdfDocument: PDDocument = Loader.loadPDF(service.generateP5TADTransition(ie015, cc029c))
         // pdfDocument.save(pdfPath)
 
-        val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
+        val expectedPdfDocument: PDDocument = Loader.loadPDF(pdf)
 
         try {
           val pdfData         = new PDFTextStripper().getText(pdfDocument)
@@ -107,10 +108,10 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
         val pdfPath          = "test/resources/documents/tad/transition/sample-without-security-page.pdf"
         val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-        val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADTransition(ie015, cc029cSecurityZero))
+        val pdfDocument: PDDocument = Loader.loadPDF(service.generateP5TADTransition(ie015, cc029cSecurityZero))
         // pdfDocument.save(pdfPath)
 
-        val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
+        val expectedPdfDocument: PDDocument = Loader.loadPDF(pdf)
 
         try {
           val pdfData         = new PDFTextStripper().getText(pdfDocument)
@@ -129,10 +130,10 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
       val pdfPath          = "test/resources/documents/tad/final/sample.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADPostTransition(ie015, cc029c))
+      val pdfDocument: PDDocument = Loader.loadPDF(service.generateP5TADPostTransition(ie015, cc029c))
       // pdfDocument.save(pdfPath)
 
-      val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
+      val expectedPdfDocument: PDDocument = Loader.loadPDF(pdf)
 
       try {
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
