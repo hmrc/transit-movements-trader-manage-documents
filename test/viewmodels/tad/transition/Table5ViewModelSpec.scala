@@ -23,7 +23,7 @@ class Table5ViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val result = Table5ViewModel(cc015c, cc029c)
+    val result = Table5ViewModel(ie015, cc029c)
 
     "controlResult" in {
       result.controlResult mustBe None

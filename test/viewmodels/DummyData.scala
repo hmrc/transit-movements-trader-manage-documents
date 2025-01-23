@@ -17,8 +17,9 @@
 package viewmodels
 
 import base.SpecBase
-import generated._
+import generated.*
 import generators.ScalaxbModelGenerators
+import models.IE015
 import org.scalacheck.Arbitrary.arbitrary
 import scalaxb.XMLCalendar
 
@@ -29,10 +30,17 @@ trait DummyData extends ScalaxbModelGenerators {
 
   private def calendar(date: String): XMLGregorianCalendar = XMLCalendar(date)
 
+  private val limitDate = calendar("2022-02-03T08:45:00.000000")
+
   lazy val cc015c: CC015CType = {
     val generated = arbitrary[CC015CType].sample.value
-    generated.copy(TransitOperation = generated.TransitOperation.copy(limitDate = Some(calendar("2022-02-03T08:45:00.000000"))))
+    generated.copy(TransitOperation = generated.TransitOperation.copy(limitDate = Some(limitDate)))
   }
+
+  lazy val ie015: IE015 = IE015(
+    limitDate = Some(limitDate),
+    supplementaryUnits = Map()
+  )
 
   lazy val cc029c: CC029CType = CC029CType(
     messageSequence1 = arbitrary[MESSAGESequence].sample.value,

@@ -16,8 +16,9 @@
 
 package viewmodels.tad.posttransition
 
-import generated._
-import viewmodels._
+import generated.*
+import models.IE015
+import viewmodels.*
 
 case class Table4ViewModel(
   countryOfRoutingOfConsignment: String,
@@ -33,7 +34,7 @@ case class Table4ViewModel(
 
 object Table4ViewModel {
 
-  def apply(ie015: CC015CType, ie029: CC029CType): Table4ViewModel =
+  def apply(ie015: IE015, ie029: CC029CType): Table4ViewModel =
     new Table4ViewModel(
       countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asSlashSeparatedString).takeSample,
       customsOfficeOfTransitDeclared = ie029.CustomsOfficeOfTransitDeclared
@@ -52,7 +53,7 @@ object Table4ViewModel {
       customsOfficeOfDestinationDeclared = ie029.CustomsOfficeOfDestinationDeclared.asString.appendPeriod.take10,
       countryOfDispatch = ie029.Consignment.countryOfDispatch.orElseBlank.take10,
       countryOfDestination = ie029.Consignment.countryOfDestination.orElseBlank.take10,
-      limitDate = ie015.TransitOperation.limitDate.map(_.limitDateString).orElseBlank,
+      limitDate = ie015.limitDate.map(_.limitDateString).orElseBlank,
       bindingItinerary = ie029.TransitOperation.bindingItinerary.asString
     )
 }
