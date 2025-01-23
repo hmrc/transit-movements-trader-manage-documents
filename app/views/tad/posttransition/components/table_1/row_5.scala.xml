@@ -27,12 +27,11 @@
 
         <fo:block-container
                 font-weight="bold"
-                font-size="7"
                 reference-orientation="90" display-align="center"
                 inline-progression-dimension.minimum="5%"
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm">
-            <fo:block margin-left="10%" font-size="7">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
+            <fo:block margin-left="10%" font-size="7pt">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
         </fo:block-container>
     </fo:table-cell>
 

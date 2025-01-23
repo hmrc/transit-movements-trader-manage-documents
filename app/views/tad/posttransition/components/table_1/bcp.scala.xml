@@ -16,7 +16,7 @@
                 <fo:table-row>
                     <fo:table-cell margin-top="1%" display-align="center" padding-left="1%"
                                    font-weight="bold"
-                                   font-size="5"
+                                   font-size="5pt"
                                    padding-bottom="15%">
                         <fo:block>BCP:
                             @box()
@@ -24,7 +24,7 @@
                     </fo:table-cell>
 
                     <fo:table-cell margin-top="3%" display-align="center" padding-left="2%"
-                                   font-weight="bold" font-size="5"
+                                   font-weight="bold" font-size="5pt"
                                    number-columns-spanned="2" padding-bottom="15%">
                         <fo:block>Return copy has to be sent to office:</fo:block>
                     </fo:table-cell>

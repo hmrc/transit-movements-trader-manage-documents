@@ -71,12 +71,13 @@
                    border-left-color="black" border-right-style="solid" border-right-width="2pt"
                    border-bottom-style="solid" border-bottom-width="2pt" border-bottom-color="black"
                    border-right-color="black" padding-left="1%">
-        <fo:block font-weight="bold" font-size="5pt" display-align="center" margin-left="-2.0%" margin-top="-6.0%">MRN
+        <fo:block font-weight="bold" font-size="5pt" display-align="center" margin-left="-2.0%" margin-top="-6.0%">
+            MRN
         </fo:block>
         <fo:block text-align="center" margin-top="-1mm">
             @barcode(mrn)
         </fo:block>
-        <fo:block text-align="center" font-weight="bold" font-size="7pt">
+        <fo:block text-align="center" font-weight="bold">
             @mrn
         </fo:block>
     </fo:table-cell>

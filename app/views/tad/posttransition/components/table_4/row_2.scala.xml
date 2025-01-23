@@ -18,7 +18,7 @@
 
                     <fo:table-row height="4mm">
                         <fo:table-cell margin-top="0.5mm" margin-left="0.5mm" padding-top="2mm"
-                                       width="80mm">
+                                       width="80mm" font-size="5pt">
                             <fo:block>CONTROL BY OFFICE OF DEPARTURE</fo:block>
                         </fo:table-cell>
 
@@ -28,7 +28,7 @@
                                        width="190px">
 
 
-                            <fo:block>CONTROL BY OFFICE OF DESTINATION</fo:block>
+                            <fo:block font-size="5pt">CONTROL BY OFFICE OF DESTINATION</fo:block>
                         </fo:table-cell>
 
                     </fo:table-row>

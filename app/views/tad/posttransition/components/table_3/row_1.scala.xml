@@ -31,7 +31,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-top="0.5%" display-align="center"
                                        padding-left="1%" padding-bottom="5%" border-right-style="solid"
-                                       border-right-width="0.5pt" font-size="5">
+                                       border-right-width="0.5pt" font-size="5pt">
                             <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-top="0.5%" display-align="center"
@@ -120,8 +120,8 @@
                                         <fo:table-row>
                                             <fo:table-cell margin-top="0.5%" display-align="center"
                                                            padding-left="1%" padding-bottom="4.5%"
-                                                           border-right-style="solid"
-                                                           border-right-width="0.5pt">
+                                                           border-right-style="solid" border-right-width="0.5pt"
+                                                           font-size="5pt">
                                                 <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                                             </fo:table-cell>
                                             <fo:table-cell margin-top="0.5%" display-align="center"
