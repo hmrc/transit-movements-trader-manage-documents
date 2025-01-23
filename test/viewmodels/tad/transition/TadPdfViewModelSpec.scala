@@ -20,6 +20,7 @@ import base.SpecBase
 import generated.CC015CType
 import generated.CC029CType
 import generators.ScalaxbModelGenerators
+import models.IE015
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -28,7 +29,7 @@ class TadPdfViewModelSpec extends SpecBase with ScalaCheckPropertyChecks with Sc
 
   "when security is 0" - {
     "there should be no security view model" in {
-      forAll(arbitrary[CC015CType], arbitrary[CC029CType]) {
+      forAll(arbitrary[IE015], arbitrary[CC029CType]) {
         (ie015, ie029) =>
           val ie029WithNoSecurity = ie029.copy(TransitOperation = ie029.TransitOperation.copy(security = "0"))
           val viewModel           = TadPdfViewModel(ie015, ie029WithNoSecurity)
@@ -39,7 +40,7 @@ class TadPdfViewModelSpec extends SpecBase with ScalaCheckPropertyChecks with Sc
 
   "when security is not 0" - {
     "there should be a security view model" in {
-      forAll(arbitrary[CC015CType], arbitrary[CC029CType], Gen.oneOf("1", "2", "3")) {
+      forAll(arbitrary[IE015], arbitrary[CC029CType], Gen.oneOf("1", "2", "3")) {
         (ie015, ie029, security) =>
           val ie029WithNoSecurity = ie029.copy(TransitOperation = ie029.TransitOperation.copy(security = security))
           val viewModel           = TadPdfViewModel(ie015, ie029WithNoSecurity)
