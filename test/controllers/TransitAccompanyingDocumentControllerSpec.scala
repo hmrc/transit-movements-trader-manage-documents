@@ -17,13 +17,16 @@
 package controllers
 
 import base.SpecBase
-import controllers.actions.{AuthenticateActionProvider, FakeAuthenticateActionProvider}
+import controllers.actions.AuthenticateActionProvider
+import controllers.actions.FakeAuthenticateActionProvider
+import generated.CC015CType
 import generated.CC029CType
 import generators.ScalaxbModelGenerators
-import models.{IE015, Phase}
+import models.Phase
 import org.apache.pekko.util.ByteString
-import org.mockito.ArgumentMatchers.{any, eq as eqTo}
-import org.mockito.Mockito.*
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.{eq => eqTo}
+import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -31,7 +34,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
 import play.api.test.FakeRequest
-import play.api.test.Helpers.*
+import play.api.test.Helpers._
 import services.messages.DepartureMessageService
 import services.pdf.TADPdfGenerator
 
@@ -69,7 +72,7 @@ class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbMod
       "when transition" in {
         val application = applicationBuilder().build()
         running(application) {
-          forAll(nonEmptyString, arbitrary[IE015], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
+          forAll(nonEmptyString, arbitrary[CC015CType], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
             (ie015MessageId, ie015, ie029, byteArray) =>
               beforeEach()
 
@@ -108,7 +111,7 @@ class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbMod
       "when post-transition" in {
         val application = applicationBuilder().build()
         running(application) {
-          forAll(nonEmptyString, arbitrary[IE015], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
+          forAll(nonEmptyString, arbitrary[CC015CType], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
             (ie015MessageId, ie015, ie029, byteArray) =>
               beforeEach()
 

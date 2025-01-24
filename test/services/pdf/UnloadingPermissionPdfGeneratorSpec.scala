@@ -17,7 +17,6 @@
 package services.pdf
 
 import base.SpecBase
-import org.apache.pdfbox.Loader
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.scalatest.OptionValues
@@ -27,7 +26,8 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Environment
 import viewmodels.DummyData
 
-import java.nio.file.{Files, Paths}
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class UnloadingPermissionPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuite with OptionValues with ScalaFutures with DummyData {
 
@@ -41,10 +41,10 @@ class UnloadingPermissionPdfGeneratorSpec extends SpecBase with Matchers with Gu
       val pdfPath          = "test/resources/documents/unloadingpermission/sample.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument = Loader.loadPDF(service.generateP5(cc043c))
+      val pdfDocument: PDDocument = PDDocument.load(service.generateP5(cc043c))
       // pdfDocument.save(pdfPath)
 
-      val expectedPdfDocument: PDDocument = Loader.loadPDF(pdf)
+      val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
 
       try {
         val pdfData         = new PDFTextStripper().getText(pdfDocument)

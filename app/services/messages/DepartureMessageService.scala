@@ -17,15 +17,19 @@
 package services.messages
 
 import connectors.DepartureMovementConnector
-import generated.{CC015CType, CC029CType, Generated_CC015CTypeFormat, Generated_CC029CTypeFormat}
+import generated.CC015CType
+import generated.CC029CType
+import generated.Generated_CC015CTypeFormat
+import generated.Generated_CC029CTypeFormat
 import models.DepartureMessageType.DepartureNotification
-import models.{IE015, Phase}
+import models.Phase
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.RichCC029CType
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
 class DepartureMessageService @Inject() (connector: DepartureMovementConnector) extends MessageService {
 
@@ -40,8 +44,8 @@ class DepartureMessageService @Inject() (connector: DepartureMovementConnector) 
     departureId: String,
     messageId: String,
     phase: Phase
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[IE015] =
-    getMessage[CC015CType](departureId, messageId, phase).map(IE015.apply)
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC015CType] =
+    getMessage[CC015CType](departureId, messageId, phase)
 
   def getIE015MessageId(
     departureId: String,
