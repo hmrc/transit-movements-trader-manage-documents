@@ -16,8 +16,7 @@
 
 package generators
 
-import generated.*
-import models.IE015
+import generated._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
@@ -27,17 +26,6 @@ import java.time.LocalDateTime
 import javax.xml.datatype.XMLGregorianCalendar
 
 trait ScalaxbModelGenerators extends GeneratorHelpers {
-
-  implicit lazy val arbitraryIE015: Arbitrary[IE015] =
-    Arbitrary {
-      for {
-        limitDate          <- Gen.option(arbitrary[XMLGregorianCalendar])
-        supplementaryUnits <- arbitrary[Map[BigInt, Option[BigDecimal]]]
-      } yield IE015(
-        limitDate = limitDate,
-        supplementaryUnits = supplementaryUnits
-      )
-    }
 
   implicit lazy val arbitraryCC015CType: Arbitrary[CC015CType] =
     Arbitrary {

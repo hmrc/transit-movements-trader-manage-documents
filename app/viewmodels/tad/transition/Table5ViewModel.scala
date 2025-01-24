@@ -16,9 +16,8 @@
 
 package viewmodels.tad.transition
 
-import generated.*
-import models.IE015
-import viewmodels.*
+import generated._
+import viewmodels._
 
 case class Table5ViewModel(
   seals: Seq[String],
@@ -33,10 +32,10 @@ case class Table5ViewModel(
 
 object Table5ViewModel {
 
-  def apply(ie015: IE015, ie029: CC029CType): Table5ViewModel =
+  def apply(ie015: CC015CType, ie029: CC029CType): Table5ViewModel =
     new Table5ViewModel(
       seals = Seq.empty,
       controlResult = None,
-      limitDate = ie015.limitDate.map(_.dateString).orElse3Dashes
+      limitDate = ie015.TransitOperation.limitDate.map(_.dateString).orElse3Dashes
     )
 }
