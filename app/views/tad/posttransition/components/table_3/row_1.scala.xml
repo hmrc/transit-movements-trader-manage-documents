@@ -29,25 +29,25 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        font-size="5pt">
                             <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                             <fo:block>&#160;</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="2">
                             <fo:block>Incident code</fo:block>
                             <fo:block>&#160;</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        font-size="5pt">
                             <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                             <fo:block>&#160;</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="2">
                             <fo:block>Incident code</fo:block>
                             <fo:block>&#160;</fo:block>
@@ -55,13 +55,13 @@
                     </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="3">
                             <fo:block>Identity and Nationality new transport means</fo:block>
                             <fo:block>&#160;</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="3">
                             <fo:block>Identity and Nationality new transport means</fo:block>
                             <fo:block>&#160;</fo:block>
@@ -69,13 +69,13 @@
                     </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="3">
                             <fo:block>Container ID [19 07]</fo:block>
                             <fo:block>@containerIdentification</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="3">
                             <fo:block>Container ID [19 07]</fo:block>
                             <fo:block>@containerIdentification</fo:block>
@@ -83,14 +83,14 @@
                     </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="3">
                             <fo:block>Other incidents during carriage / Details and measures taken (text)</fo:block>
                             <fo:block>&#160;</fo:block>
                             <fo:block>&#160;</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                       margin-top="0.5%" margin-left="0.5%"
+                                       margin-left="0.5%"
                                        number-columns-spanned="3">
                             <fo:block>Other incidents during carriage / Details and measures taken (text)</fo:block>
                             <fo:block>&#160;</fo:block>
