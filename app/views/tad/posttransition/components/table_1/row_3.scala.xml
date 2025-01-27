@@ -22,28 +22,64 @@
         <fo:block/>
     </fo:table-cell>
 
-    @consignee(consignees, consigneeIdentificationNumbers)
-
-    <fo:table-cell>
+    <fo:table-cell number-columns-spanned="6">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="50%"/>
+                <fo:table-column column-number="2" column-width="50%"/>
                 <fo:table-body>
                     <fo:table-row>
+                        <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block>
+                                <fo:table width="100%" table-layout="fixed">
+                                    <fo:table-column column-number="1" column-width="50%"/>
+                                    <fo:table-column column-number="2" column-width="50%"/>
+                                    <fo:table-body>
+                                        <fo:table-row>
+                                            <fo:table-cell margin-left="0.5%">
+                                                <fo:block>Consignee [13 03]</fo:block>
+                                                <fo:block>@consignees</fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell margin-left="0.5%">
+                                                <fo:block>ID</fo:block>
+                                                <fo:block>@consigneeIdentificationNumbers</fo:block>
+                                            </fo:table-cell>
+                                        </fo:table-row>
+                                    </fo:table-body>
+                                </fo:table>
+                            </fo:block>
+                        </fo:table-cell>
+
                         <fo:table-cell>
                             <fo:block>
                                 <fo:table width="100%" table-layout="fixed">
-
-                                    <fo:table-column column-width="31.3%"/>
-                                    <fo:table-column column-width="47%"/>
-                                    <fo:table-column column-width="47%"/>
-                                    <fo:table-column column-width="47%"/>
-
+                                    <fo:table-column column-number="1" column-width="17%"/>
+                                    <fo:table-column column-number="2" column-width="22%"/>
+                                    <fo:table-column column-number="3" column-width="31%"/>
+                                    <fo:table-column column-number="4" column-width="30%"/>
                                     <fo:table-body>
                                         <fo:table-row>
-                                            @total_items(totalItems)
-                                            @total_packages(totalPackages)
-                                            @total_gross_mass(totalGrossMass)
-                                            @security(securityString)
+                                            <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
+                                                           margin-left="0.5%">
+                                                <fo:block>Total items</fo:block>
+                                                <fo:block>@totalItems</fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
+                                                           margin-left="0.5%">
+                                                <fo:block>Total packages</fo:block>
+                                                <fo:block>@totalPackages</fo:block>
+                                            </fo:table-cell>
+                                            <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
+                                                           margin-left="0.5%">
+                                                <fo:block>Total gross mass (Kg)</fo:block>
+                                                <fo:block>@totalGrossMass</fo:block>
+                                            </fo:table-cell>
+
+                                            <fo:table-cell border-color="black" border-style="solid" border-width="2pt"
+                                                           margin-left="0.5%">
+                                                <fo:block>Security [11 07]</fo:block>
+                                                <fo:block>@securityString</fo:block>
+                                            </fo:table-cell>
                                         </fo:table-row>
                                     </fo:table-body>
                                 </fo:table>
@@ -54,6 +90,4 @@
             </fo:table>
         </fo:block>
     </fo:table-cell>
-
-
 </fo:table-row>
