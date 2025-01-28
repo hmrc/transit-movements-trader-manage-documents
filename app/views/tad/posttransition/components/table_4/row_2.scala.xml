@@ -1,9 +1,4 @@
-@import views.xml.tad.posttransition.components.table_1.consignee
-
-@import views.xml.tad.posttransition.components.table_1.total_gross_mass
-
 @import viewmodels.tad.posttransition.Table4ViewModel
-
 
 @(vm: Table4ViewModel)
 

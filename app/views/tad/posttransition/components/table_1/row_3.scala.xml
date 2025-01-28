@@ -1,6 +1,3 @@
-@import views.xml.tad.posttransition.components.table_1.consignee
-@import views.xml.tad.posttransition.components.table_1.total_gross_mass
-
 @(
     consignees: String,
     consigneeIdentificationNumbers: String,
