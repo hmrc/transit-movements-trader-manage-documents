@@ -31,8 +31,12 @@ class TADPdfGenerator @Inject() (
   transitionDocument: TransitionTad
 ) {
 
-  def generateP5TADPostTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
-    fopService.processTwirlXml(finalDocument.render(FinalTadPdfViewModel(ie015, ie029)))
+  def generateP5TADPostTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] = {
+    val xml = finalDocument.render(FinalTadPdfViewModel(ie015, ie029))
+    println("***")
+    println(xml.toString)
+    fopService.processTwirlXml(xml)
+  }
 
   def generateP5TADTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
     fopService.processTwirlXml(transitionDocument.render(TransitionTadPdfViewModel(ie015, ie029)))
