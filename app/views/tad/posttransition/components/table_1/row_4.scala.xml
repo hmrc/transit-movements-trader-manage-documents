@@ -24,157 +24,111 @@
         <fo:block/>
     </fo:table-cell>
 
-    <fo:table-cell number-columns-spanned="6">
+    <fo:table-cell number-columns-spanned="6"
+                   border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="50%"/>
-                <fo:table-column column-number="2" column-width="50%"/>
+                <fo:table-column column-number="1" column-width="25%"/>
+                <fo:table-column column-number="2" column-width="25%"/>
+                <fo:table-column column-number="3" column-width="20%"/>
+                <fo:table-column column-number="4" column-width="15%"/>
+                <fo:table-column column-number="5" column-width="15%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
-                                    <fo:table-column column-number="1" column-width="100%"/>
-                                    <fo:table-body>
-                                        <fo:table-row>
-                                            <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
-                                                <fo:block>
-                                                    <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-column column-number="1" column-width="50%"/>
-                                                        <fo:table-column column-number="2" column-width="50%"/>
-                                                        <fo:table-body>
-                                                            <fo:table-row>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>Holder of transit procedure [13 07]</fo:block>
-                                                                    <fo:block>@holderOfTransitProcedure</fo:block>
-                                                                </fo:table-cell>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>ID</fo:block>
-                                                                    <fo:block>@holderOfTransitProcedureIdentificationNumber</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-
-                                                            <fo:table-row>
-                                                                <fo:table-cell>
-                                                                    <fo:block>&#160;</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-
-                                                            <fo:table-row>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>Contact person [13 07 074]</fo:block>
-                                                                </fo:table-cell>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>@hotPContactPerson</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-                                                        </fo:table-body>
-                                                    </fo:table>
-                                                </fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-
-                                        <fo:table-row>
-                                            <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
-                                                <fo:block>
-                                                    <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-column column-number="1" column-width="50%"/>
-                                                        <fo:table-column column-number="2" column-width="50%"/>
-                                                        <fo:table-body>
-                                                            <fo:table-row>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>Representative [13 06]</fo:block>
-                                                                    <fo:block>@representative</fo:block>
-                                                                </fo:table-cell>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>ID</fo:block>
-                                                                    <fo:block>@representativeIdentificationNumber</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-
-                                                            <fo:table-row>
-                                                                <fo:table-cell>
-                                                                    <fo:block>&#160;</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-
-                                                            <fo:table-row>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>Contact person [13 06 074]</fo:block>
-                                                                </fo:table-cell>
-                                                                <fo:table-cell margin-left="0.5%">
-                                                                    <fo:block>@representativeContactPerson</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-                                                        </fo:table-body>
-                                                    </fo:table>
-                                                </fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                    </fo:table-body>
-                                </fo:table>
-                            </fo:block>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>Holder of transit procedure [13 07]</fo:block>
                         </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>ID @holderOfTransitProcedureIdentificationNumber</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block>LRN [12 09]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block>UCR [12 08]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block>TIR [12 06]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
 
-                        <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
-                            <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
-                                    <fo:table-column column-number="1" column-width="100%"/>
-                                    <fo:table-body>
-                                        <fo:table-row>
-                                            <fo:table-cell>
-                                                <fo:block>
-                                                    <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-column column-number="1" column-width="40%"/>
-                                                        <fo:table-column column-number="2" column-width="30%"/>
-                                                        <fo:table-column column-number="3" column-width="30%"/>
-                                                        <fo:table-body>
-                                                            <fo:table-row>
-                                                                <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                                                               margin-left="0.5%">
-                                                                    <fo:block>LRN [12 09]</fo:block>
-                                                                    <fo:block>@lrn</fo:block>
-                                                                </fo:table-cell>
-                                                                <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                                                               margin-left="0.5%">
-                                                                    <fo:block>UCR [12 08]</fo:block>
-                                                                    <fo:block>@referenceNumberUCR</fo:block>
-                                                                </fo:table-cell>
-                                                                <fo:table-cell border-color="black" border-style="solid" border-width="1pt"
-                                                                               margin-left="0.5%">
-                                                                    <fo:block>TIR [12 06]</fo:block>
-                                                                    <fo:block>@tirCarnet</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-                                                        </fo:table-body>
-                                                    </fo:table>
-                                                </fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                            <fo:block>@holderOfTransitProcedure</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block>@lrn</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block>@referenceNumberUCR</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block>@tirCarnet</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
 
-                                        <fo:table-row>
-                                            <fo:table-cell>
-                                                <fo:block>
-                                                    <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-column column-number="1" column-width="40%"/>
-                                                        <fo:table-column column-number="2" column-width="60%"/>
-                                                        <fo:table-body>
-                                                            <fo:table-row>
-                                                                <fo:table-cell margin-top="1%" margin-left="1%" font-weight="bold" font-size="5pt">
-                                                                    <fo:block>BCP: @box()</fo:block>
-                                                                </fo:table-cell>
-                                                                <fo:table-cell margin-top="1%" margin-left="1%" font-weight="bold" font-size="5pt">
-                                                                    <fo:block>Return copy has to be sent to office:</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-                                                        </fo:table-body>
-                                                    </fo:table>
-                                                </fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                    </fo:table-body>
-                                </fo:table>
-                            </fo:block>
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                            <fo:block>&#160;</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                            <fo:block>&#160;</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="5"
+                                       font-weight="bold" font-size="5pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block>BCP: @box()</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="5" number-columns-spanned="2"
+                                       font-weight="bold" font-size="5pt">
+                            <fo:block>Return copy has to be sent to the office:</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block>Contact person [13 07 074]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block>@hotPContactPerson</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>Representative [13 06]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>ID @representativeIdentificationNumber</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                            <fo:block>@representative</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>Contact person [13 06 074]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>@representativeContactPerson</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
