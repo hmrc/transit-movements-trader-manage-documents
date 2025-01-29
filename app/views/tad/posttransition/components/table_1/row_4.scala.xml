@@ -57,22 +57,30 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>@holderOfTransitProcedure</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@holderOfTransitProcedure</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>@lrn</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@lrn</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>@referenceNumberUCR</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@referenceNumberUCR</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>@tirCarnet</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@tirCarnet</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -119,7 +127,9 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>@representative</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@representative</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 

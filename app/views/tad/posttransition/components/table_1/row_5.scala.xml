@@ -67,11 +67,15 @@
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>@placeOfLoading</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@placeOfLoading</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="4"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>@locationOfGoods</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@locationOfGoods</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -98,7 +102,9 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>@additionalSupplyChainActorRoles</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@additionalSupplyChainActorRoles</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
@@ -116,7 +122,9 @@
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>@placeOfUnloading</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@placeOfUnloading</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
@@ -127,11 +135,15 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>@departureTransportMeans</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@departureTransportMeans</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%" number-rows-spanned="4"
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="5"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>@locationOfGoodsContactPerson</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@locationOfGoodsContactPerson</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -143,14 +155,17 @@
                             <fo:block>&#160;</fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
-                                       border-color="black" border-style="solid" border-width="1pt">
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block>Mode of transport at the border [19 03]: @modeOfTransportAtBorder</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>@activeBorderTransportMeans</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@activeBorderTransportMeans</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -162,14 +177,16 @@
                             <fo:block>&#160;</fo:block>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
-                                       border-color="black" border-style="solid" border-width="1pt">
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Inland mode of transport [19 04]: @inlandModeOfTransport</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>@activeBorderTransportMeansConveyanceNumbers</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@activeBorderTransportMeansConveyanceNumbers</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>

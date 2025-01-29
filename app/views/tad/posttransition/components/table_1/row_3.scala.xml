@@ -59,25 +59,35 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>@consignees</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@consignees</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>@totalItems</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@totalItems</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>@totalPackages</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@totalPackages</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>@totalGrossMass</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@totalGrossMass</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="2pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="2pt">
-                            <fo:block>@securityString</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@securityString</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
