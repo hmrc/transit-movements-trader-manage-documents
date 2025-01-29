@@ -4,13 +4,13 @@
 
 <fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
 
-    <fo:table-cell number-columns-spanned="8">
+    <fo:table-cell number-columns-spanned="2">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="46%"/>
-                <fo:table-column column-number="2" column-width="27%"/>
-                <fo:table-column column-number="3" column-width="13.5%"/>
-                <fo:table-column column-number="4" column-width="13.5%"/>
+                <fo:table-column column-number="1" column-width="44.8%"/>
+                <fo:table-column column-number="2" column-width="27.6%"/>
+                <fo:table-column column-number="3" column-width="13.8%"/>
+                <fo:table-column column-number="4" column-width="13.8%"/>
                 <fo:table-column column-number="5" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>

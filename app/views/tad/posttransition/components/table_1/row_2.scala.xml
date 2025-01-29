@@ -13,72 +13,113 @@
 )
 
 <fo:table-row>
-    <fo:table-cell>
-        <fo:block/>
-    </fo:table-cell>
-
-    <fo:table-cell padding-left="5%" text-align="center" vertical-align="top"
-                   border-top-style="solid" border-top-width="2pt" border-top-color="black"
-                   border-left-style="solid" border-left-width="2pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="2pt" border-right-color="black">
-        <fo:block/>
-    </fo:table-cell>
-
-    @consignor(consignors, consignorIdentificationNumbers, consignorContactPersons)
 
     <fo:table-cell>
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="25%"/>
+                <fo:table-column column-number="2" column-width="25%"/>
+                <fo:table-column column-number="3" column-width="4%"/>
+                <fo:table-column column-number="4" column-width="4%"/>
+                <fo:table-column column-number="5" column-width="8%"/>
+                <fo:table-column column-number="6" column-width="34%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell border-bottom-style="solid" border-bottom-width="2pt" border-bottom-color="black">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-top-color="black" border-top-style="solid" border-top-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block>Consignor [13 02]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-top-color="black" border-top-style="solid" border-top-width="1pt">
+                            <fo:block>ID @consignorIdentificationNumbers</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="2pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="2pt">
+                            <fo:block>Type [11 01]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>Add.type [11 02]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell number-rows-spanned="3" text-align="center"
+                                       border-left-color="black" border-left-style="solid" border-left-width="2pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="2pt">
                             <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
-
-                                    <fo:table-body>
-                                        <fo:table-row>
-                                            @declaration_type(declarationType)
-                                            @additional_declaration_type(additionalDeclarationType)
-                                        </fo:table-row>
-                                    </fo:table-body>
-                                </fo:table>
+                                @barcode(mrn)
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
-
 
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
-                                    <fo:table-body>
-                                        <fo:table-row>
-                                            @forms()
-                                            @sci(specificCircumstanceIndicator)
-                                        </fo:table-row>
-                                    </fo:table-body>
-                                </fo:table>
-                            </fo:block>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2" number-columns-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@consignors</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="2pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="2pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@declarationType</fo:block>
+                                <fo:block>&#160;</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="2pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="2pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@additionalDeclarationType</fo:block>
+                                <fo:block>&#160;</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block>Forms</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>SCI [11 04]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block>Contact person [13 02 074]</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block>@consignorContactPersons</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell text-align="center"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block>1</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell text-align="center"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block>
+                                <fo:page-number-citation-last ref-id="tloi-pages"/>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@specificCircumstanceIndicator</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                        <fo:table-cell text-align="center"
+                                       border-left-color="black" border-left-style="solid" border-left-width="2pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="2pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="2pt">
+                            <fo:block>@mrn</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
                 </fo:table-body>
             </fo:table>
-        </fo:block>
-    </fo:table-cell>
-
-    <fo:table-cell number-columns-spanned="4" border-left-style="solid" border-left-width="2pt"
-                   border-left-color="black" border-right-style="solid" border-right-width="2pt"
-                   border-bottom-style="solid" border-bottom-width="2pt" border-bottom-color="black"
-                   border-right-color="black" padding-left="1%">
-        <fo:block font-weight="bold" font-size="5pt" display-align="center" margin-left="-2.0%" margin-top="-6.0%">
-            MRN
-        </fo:block>
-        <fo:block text-align="center" margin-top="-1mm">
-            @barcode(mrn)
-        </fo:block>
-        <fo:block text-align="center" font-weight="bold">
-            @mrn
         </fo:block>
     </fo:table-cell>
 </fo:table-row>

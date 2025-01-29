@@ -2,20 +2,20 @@
 
 <fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
 
-    <fo:table-cell number-columns-spanned="8">
+    <fo:table-cell>
+        <fo:block font-weight="bold" font-size="5pt">INCIDENTS DURING TRANSPORT (BCP)</fo:block>
+    </fo:table-cell>
+
+    <fo:table-cell>
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="8%"/>
-                <fo:table-column column-number="2" column-width="32.2%"/>
-                <fo:table-column column-number="3" column-width="13.8%"/>
-                <fo:table-column column-number="4" column-width="32.2%"/>
-                <fo:table-column column-number="5" column-width="13.8%"/>
-                <fo:table-column column-number="6" column-width="0%"/>
+                <fo:table-column column-number="1" column-width="35%"/>
+                <fo:table-column column-number="2" column-width="15%"/>
+                <fo:table-column column-number="3" column-width="35%"/>
+                <fo:table-column column-number="4" column-width="15%"/>
+                <fo:table-column column-number="5" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell number-rows-spanned="7">
-                            <fo:block font-weight="bold" font-size="5pt">INCIDENTS DURING TRANSPORT (BCP)</fo:block>
-                        </fo:table-cell>
                         <fo:table-cell margin-left="0.5%"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>

@@ -7,64 +7,82 @@
 
 <fo:table width="100%" table-layout="fixed" id="table-1">
 
-    <fo:table-column column-number="1" column-width="8mm"/>
-    <fo:table-column column-number="2" column-width="8mm"/>
-    <fo:table-column column-number="3" column-width="89mm"/>
-    <fo:table-column column-number="4" column-width="32mm"/>
-    <fo:table-column column-number="5" column-width="5mm"/>
-    <fo:table-column column-number="6" column-width="5mm"/>
-    <fo:table-column column-number="7" column-width="4mm"/>
-    <fo:table-column column-number="8" column-width="49mm"/>
+    <fo:table-column column-number="1" column-width="4%"/>
+    <fo:table-column column-number="2" column-width="4%"/>
+    <fo:table-column column-number="3" column-width="92%"/>
 
     <fo:table-body>
         @row_1()
 
-        @row_2(
-            vm.consignors,
-            vm.consignorIdentificationNumbers,
-            vm.consignorContactPersons,
-            vm.declarationType,
-            vm.additionalDeclarationType,
-            vm.specificCircumstanceIndicator,
-            mrn
-        )
+        <fo:table-row>
+            <fo:table-cell>
+                <fo:block/>
+            </fo:table-cell>
 
-        @row_3(
-            vm.consignees,
-            vm.consigneeIdentificationNumbers,
-            vm.totalItems,
-            vm.totalPackages,
-            vm.totalGrossMass,
-            vm.security
-        )
+            <fo:table-cell display-align="center" padding-left="1%"
+                           border-left-color="black" border-left-style="solid" border-left-width="2pt"
+                           border-bottom-color="black" border-bottom-style="solid" border-bottom-width="2pt"
+                           border-right-color="black" border-right-style="solid" border-right-width="1pt"
+                           border-top-color="black" border-top-style="solid" border-top-width="1pt">
+                <fo:block-container height="100%"
+                                    inline-progression-dimension="50mm"
+                                    reference-orientation="90">
+                    <fo:block font-weight="bold" font-size="7pt">TRANSIT ACCOMPANYING DOCUMENT</fo:block>
+                </fo:block-container>
+            </fo:table-cell>
 
-        @row_4(
-            vm.holderOfTransitProcedure,
-            vm.holderOfTransitProcedureIdentificationNumber,
-            vm.hotPContactPerson,
-            vm.representative,
-            vm.representativeIdentificationNumber,
-            vm.representativeContactPerson,
-            vm.lrn,
-            vm.tir,
-            vm.ucr
-        )
+            <fo:table-cell>
+                <fo:table width="100%" table-layout="fixed">
+                    <fo:table-body>
+                        @row_2(
+                            vm.consignors,
+                            vm.consignorIdentificationNumbers,
+                            vm.consignorContactPersons,
+                            vm.declarationType,
+                            vm.additionalDeclarationType,
+                            vm.specificCircumstanceIndicator,
+                            mrn
+                        )
 
-        @row_5(
-            vm.carrierIdentificationNumber,
-            vm.carrierContactPerson,
-            vm.additionalSupplyChainActorRoles,
-            vm.additionalSupplyChainActorIdentificationNumbers,
-            vm.departureTransportMeans,
-            vm.activeBorderTransportMeans,
-            vm.activeBorderTransportMeansConveyanceNumbers,
-            vm.placeOfLoading,
-            vm.placeOfUnloading,
-            vm.modeOfTransportAtBorder,
-            vm.inlandModeOfTransport,
-            vm.locationOfGoods,
-            vm.locationOfGoodsContactPerson
-        )
+                        @row_3(
+                            vm.consignees,
+                            vm.consigneeIdentificationNumbers,
+                            vm.totalItems,
+                            vm.totalPackages,
+                            vm.totalGrossMass,
+                            vm.security
+                        )
 
+                        @row_4(
+                            vm.holderOfTransitProcedure,
+                            vm.holderOfTransitProcedureIdentificationNumber,
+                            vm.hotPContactPerson,
+                            vm.representative,
+                            vm.representativeIdentificationNumber,
+                            vm.representativeContactPerson,
+                            vm.lrn,
+                            vm.tir,
+                            vm.ucr
+                        )
+
+                        @row_5(
+                            vm.carrierIdentificationNumber,
+                            vm.carrierContactPerson,
+                            vm.additionalSupplyChainActorRoles,
+                            vm.additionalSupplyChainActorIdentificationNumbers,
+                            vm.departureTransportMeans,
+                            vm.activeBorderTransportMeans,
+                            vm.activeBorderTransportMeansConveyanceNumbers,
+                            vm.placeOfLoading,
+                            vm.placeOfUnloading,
+                            vm.modeOfTransportAtBorder,
+                            vm.inlandModeOfTransport,
+                            vm.locationOfGoods,
+                            vm.locationOfGoodsContactPerson
+                        )
+                    </fo:table-body>
+                </fo:table>
+            </fo:table-cell>
+        </fo:table-row>
     </fo:table-body>
 </fo:table>
