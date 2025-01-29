@@ -27,17 +27,21 @@
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Holder of transit procedure [13 07]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>ID @holderOfTransitProcedureIdentificationNumber</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>LRN [12 09]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>UCR [12 08]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>TIR [12 06]</fo:block>
@@ -50,6 +54,7 @@
                                 <fo:block>@holderOfTransitProcedure</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
@@ -57,6 +62,7 @@
                                 <fo:block>@lrn</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
@@ -64,6 +70,7 @@
                                 <fo:block>@referenceNumberUCR</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
@@ -74,20 +81,22 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>&#160;</fo:block>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>&#8203;</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>&#160;</fo:block>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>&#8203;</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="5"
                                        font-weight="bold" font-size="5pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>BCP: @box()</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="5" number-columns-spanned="2"
                                        font-weight="bold" font-size="5pt">
                             <fo:block>Return copy has to be sent to the office:</fo:block>
@@ -99,6 +108,7 @@
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block>Contact person [13 07 074]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block>@hotPContactPerson</fo:block>
@@ -109,6 +119,7 @@
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Representative [13 06]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>ID @representativeIdentificationNumber</fo:block>
                         </fo:table-cell>
@@ -126,6 +137,7 @@
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Contact person [13 06 074]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>@representativeContactPerson</fo:block>
                         </fo:table-cell>

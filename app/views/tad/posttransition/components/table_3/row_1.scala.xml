@@ -1,3 +1,5 @@
+@import views.xml.components.empty_cell
+
 @(containerIdentification: String)
 
 <fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
@@ -20,21 +22,23 @@
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Incident code</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Incident code</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
@@ -42,13 +46,13 @@
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Identity and Nationality new transport means</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Identity and Nationality new transport means</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
@@ -56,13 +60,13 @@
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Container ID [19 07] @containerIdentification</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Container ID [19 07] @containerIdentification</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
@@ -70,31 +74,25 @@
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Other incidents during carriage / Details and measures taken (text)</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="4"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block>Other incidents during carriage / Details and measures taken (text)</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>

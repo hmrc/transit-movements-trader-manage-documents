@@ -1,3 +1,5 @@
+@import views.xml.components.empty_cell
+
 @(
     previousDocuments: String,
     transportDocuments: String
@@ -14,20 +16,19 @@
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="50%"/>
                 <fo:table-column column-number="2" column-width="50%"/>
-                <!-- This invisible column is a hack to allow bottom cells to span multiple rows-->
                 <fo:table-column column-number="3" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Previous Document [12 01]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Transport document [12 05]</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
@@ -43,19 +44,16 @@
                                 <fo:block>@transportDocuments</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
+
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
+
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>

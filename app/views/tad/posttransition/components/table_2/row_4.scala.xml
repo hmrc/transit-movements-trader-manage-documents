@@ -17,17 +17,19 @@
                 <fo:table-column column-number="4" column-width="23%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%"
-                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>&#160;</fo:block>
+                        <fo:table-cell border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block>&#8203;</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Guarantee [99 02 - 99 03 - 99 04]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Authorisation [12 12]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
@@ -37,16 +39,17 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%"
-                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>&#160;</fo:block>
+                        <fo:table-cell border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block>&#8203;</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@guarantees</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="3"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
@@ -57,9 +60,8 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%"
-                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>&#160;</fo:block>
+                        <fo:table-cell border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block>&#8203;</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 

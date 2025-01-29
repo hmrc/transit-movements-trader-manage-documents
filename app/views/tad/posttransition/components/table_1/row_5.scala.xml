@@ -28,13 +28,16 @@
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Carrier [13 12]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>ID @carrierIdentificationNumber</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Place of loading [16 13]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Location of goods [16 15]</fo:block>
@@ -42,9 +45,10 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>&#160;</fo:block>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block>&#8203;</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
@@ -52,6 +56,7 @@
                                 <fo:block>@placeOfLoading</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="4"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
@@ -65,6 +70,7 @@
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block>Contact person [13 02 074]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block>@carrierContactPerson</fo:block>
@@ -75,6 +81,7 @@
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Additional supply chain actor [13 14]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>ID @additionalSupplyChainActorIdentificationNumbers</fo:block>
                         </fo:table-cell>
@@ -87,6 +94,7 @@
                                 <fo:block>@additionalSupplyChainActorRoles</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Place of unloading [16 14]</fo:block>
@@ -94,12 +102,10 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block>Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
@@ -107,6 +113,7 @@
                                 <fo:block>@placeOfUnloading</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Contact person [16 05 074]</fo:block>
@@ -120,6 +127,7 @@
                                 <fo:block>@departureTransportMeans</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="5"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
@@ -129,12 +137,10 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block>Active border transport means [19 08]</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
@@ -151,12 +157,10 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block>Conveyance reference numbers [19 02]</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Inland mode of transport [19 04]: @inlandModeOfTransport</fo:block>

@@ -1,4 +1,5 @@
 @import views.xml.components.box
+@import views.xml.components.empty_cell
 
 @()
 
@@ -22,58 +23,56 @@
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2">
                             <fo:block>New seals: Number:</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2">
                             <fo:block>New seals: Number:</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>ID</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-left="0.5%">
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell >
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3">
                             <fo:block>Signature:</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>Stamp:</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3">
                             <fo:block>Signature:</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>Stamp:</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell >
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell >
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell >
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
@@ -81,19 +80,17 @@
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>@box() Data already recorded into the system</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>@box() Data already recorded into the system</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell >
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell >
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>

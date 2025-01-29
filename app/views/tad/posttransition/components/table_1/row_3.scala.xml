@@ -23,21 +23,26 @@
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Consignee [13 03]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>ID @consigneeIdentificationNumbers</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Total items</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Total packages</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Total gross mass (Kg)</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="2pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt"
@@ -52,24 +57,28 @@
                                 <fo:block>@consignees</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@totalItems</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@totalPackages</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@totalGrossMass</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="2pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt"

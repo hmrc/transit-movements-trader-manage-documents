@@ -1,4 +1,5 @@
 @import views.xml.components.box
+@import views.xml.components.empty_cell
 
 @(
     containerIndicator: String,
@@ -18,25 +19,25 @@
                 <fo:table-column column-number="1" column-width="35%"/>
                 <fo:table-column column-number="2" column-width="15%"/>
                 <fo:table-column column-number="3" column-width="50%"/>
-                <!-- This invisible column is a hack to allow bottom cells to span multiple rows-->
                 <fo:table-column column-number="4" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
                             <fo:block>Transport equipment [19 07]</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Container [19 01]: @box(containerIndicator)</fo:block>
                         </fo:table-cell>
+
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block>Seals [19 10]</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
@@ -52,14 +53,12 @@
                                 <fo:block>@seals</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
+
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>&#160;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
