@@ -105,11 +105,11 @@ class DepartureMovementConnectorSpec
 
       server.stubFor(
         get(urlEqualTo(url))
-          .withHeader("Accept", equalTo("application/vnd.hmrc.2.0+json"))
+          .withHeader("Accept", equalTo("application/vnd.hmrc.2.1+json"))
           .willReturn(ok(json.toString))
       )
 
-      val result = service.getMessages(departureId, Phase.Transition).futureValue
+      val result = service.getMessages(departureId).futureValue
 
       result mustEqual DepartureMessages(
         List(
@@ -137,11 +137,11 @@ class DepartureMovementConnectorSpec
 
       server.stubFor(
         get(urlEqualTo(url))
-          .withHeader("Accept", equalTo("application/vnd.hmrc.2.0+xml"))
+          .withHeader("Accept", equalTo("application/vnd.hmrc.2.1+xml"))
           .willReturn(ok(xml.toString()))
       )
 
-      val result = service.getMessage(departureId, messageId, Phase.Transition).futureValue
+      val result = service.getMessage(departureId, messageId).futureValue
 
       result mustBe xml
     }

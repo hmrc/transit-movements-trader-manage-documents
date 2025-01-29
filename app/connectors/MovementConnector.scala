@@ -37,13 +37,12 @@ class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReads
   def getMessage(
     movements: String,
     movementId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] = {
     val url = url"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
     http
       .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+xml")
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.${Phase.version}+xml")
       .execute[HttpResponse]
       .map(_.body)
       .map(XML.loadString)

@@ -77,11 +77,11 @@ class UnloadingPermissionConnectorSpec
 
       server.stubFor(
         get(urlEqualTo(url))
-          .withHeader("Accept", equalTo("application/vnd.hmrc.2.0+xml"))
+          .withHeader("Accept", equalTo("application/vnd.hmrc.2.1+xml"))
           .willReturn(ok(xml.toString()))
       )
 
-      val result = service.getMessage(arrivalId, messageId, Phase.Transition).futureValue
+      val result = service.getMessage(arrivalId, messageId).futureValue
 
       result mustBe xml
     }

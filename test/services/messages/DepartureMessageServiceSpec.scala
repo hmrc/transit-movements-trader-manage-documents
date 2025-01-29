@@ -19,7 +19,6 @@ package services.messages
 import base.SpecBase
 import connectors.DepartureMovementConnector
 import generated.CC029CType
-import generators.ModelGenerators
 import models.DepartureMessageType.DepartureNotification
 import models.DepartureMessageMetaData
 import models.DepartureMessages
@@ -38,7 +37,7 @@ import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import scala.xml.Node
 
-class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {
+class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks {
 
   private val mockConnector = mock[DepartureMovementConnector]
 
@@ -52,35 +51,29 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
   "getIE015MessageId" - {
     "must return None" - {
       "when IE015 message not found" in {
-        forAll(arbitrary[Phase]) {
-          phase =>
-            val messages = DepartureMessages(List.empty)
+        val messages = DepartureMessages(List.empty)
 
-            when(mockConnector.getMessages(any(), any())(any(), any()))
-              .thenReturn(Future.successful(messages))
+        when(mockConnector.getMessages(any())(any(), any()))
+          .thenReturn(Future.successful(messages))
 
-            val result = service.getIE015MessageId(departureId, phase).futureValue
+        val result = service.getIE015MessageId(departureId).futureValue
 
-            result mustBe None
-        }
+        result mustBe None
       }
     }
 
     "must return IE015 message ID" - {
       "when IE015 message found" in {
-        forAll(arbitrary[Phase]) {
-          phase =>
-            val messageId = "ie015 id"
-            val ie015     = DepartureMessageMetaData(messageId, LocalDateTime.now(), DepartureNotification, "")
-            val messages  = DepartureMessages(List(ie015))
+        val messageId = "ie015 id"
+        val ie015     = DepartureMessageMetaData(messageId, LocalDateTime.now(), DepartureNotification, "")
+        val messages  = DepartureMessages(List(ie015))
 
-            when(mockConnector.getMessages(any(), any())(any(), any()))
-              .thenReturn(Future.successful(messages))
+        when(mockConnector.getMessages(any())(any(), any()))
+          .thenReturn(Future.successful(messages))
 
-            val result = service.getIE015MessageId(departureId, phase).futureValue
+        val result = service.getIE015MessageId(departureId).futureValue
 
-            result mustBe Some(messageId)
-        }
+        result mustBe Some(messageId)
       }
     }
   }
@@ -630,15 +623,11 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           </Consignment>
         </ncts:CC029C>
 
-      forAll(arbitrary[Phase]) {
-        phase =>
-          when(mockConnector.getMessage(any(), any(), any())(any(), any()))
-            .thenReturn(Future.successful(message))
+      when(mockConnector.getMessage(any(), any())(any(), any())).thenReturn(Future.successful(message))
 
-          val result = Await.result(service.getReleaseForTransitNotification(departureId, messageId, phase), Duration.Inf)
+      val result = Await.result(service.getReleaseForTransitNotification(departureId, messageId), Duration.Inf)
 
-          result mustBe a[CC029CType]
-      }
+      result mustBe a[CC029CType]
     }
   }
 }

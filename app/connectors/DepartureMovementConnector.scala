@@ -32,19 +32,18 @@ import scala.xml.Node
 
 class DepartureMovementConnector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
 
-  def getMessages(departureId: String, phase: Phase)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
+  def getMessages(departureId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
     val url = url"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages"
     http
       .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+json")
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.${Phase.version}+json")
       .execute[DepartureMessages]
   }
 
   def getMessage(
     departureId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("departures", departureId, messageId, phase)
+    getMessage("departures", departureId, messageId)
 
 }
