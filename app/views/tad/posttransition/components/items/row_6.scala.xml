@@ -8,108 +8,99 @@
     supplementaryUnits: String
 )
 
-<fo:table-row height="4mm">
+<fo:table-row>
 
-    <fo:table-cell border-left-style="solid" border-left-width="2pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
-                   border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
-                   border-bottom-width="2pt" border-bottom-color="black">
+    <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-
-                <fo:table-column column-number="1" column-width="33.3%"/>
-                <fo:table-column column-number="2" column-width="33.3%"/>
-                <fo:table-column column-number="3" column-width="33.3%"/>
-
+                <fo:table-column column-number="1" column-width="16%"/>
+                <fo:table-column column-number="2" column-width="16%"/>
+                <fo:table-column column-number="3" column-width="18%"/>
+                <fo:table-column column-number="4" column-width="12.5%"/>
+                <fo:table-column column-number="5" column-width="10%"/>
+                <fo:table-column column-number="6" column-width="10%"/>
+                <fo:table-column column-number="7" column-width="17.5%"/>
                 <fo:table-body>
-                    <fo:table-row height="2mm">
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" margin-left="0.5mm">
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>UNDG [18 07]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" margin-left="0.5mm">
-                            <fo:block>Cus code [18 08]</fo:block>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block>CUS code [18 08]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>Transport charges [14 02]</fo:block>
                         </fo:table-cell>
-                    </fo:table-row>
 
-                    <fo:table-row>
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>@dangerousGoods</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>@cusCode</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>@transportCharges</fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                </fo:table-body>
-            </fo:table>
-        </fo:block>
-    </fo:table-cell>
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="2pt" border-right-color="black"
-                   border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
-                   border-bottom-width="2pt" border-bottom-color="black">
-        <fo:block>
-            <fo:table width="100%" table-layout="fixed">
-
-                <fo:table-column column-number="1" column-width="28%"/>
-                <fo:table-column column-number="2" column-width="20%"/>
-                <fo:table-column column-number="3" column-width="20%"/>
-                <fo:table-column column-number="4" column-width="32%"/>
-
-                <fo:table-body>
-                    <fo:table-row height="2mm">
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>Type [11 01]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>C. of disp. [16 06]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" display-align="center" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block>C. of dest. [16 03]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%">
                             <fo:block>Supplementary units [18 02]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@dangerousGoods</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@cusCode</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@transportCharges</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@declarationType</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@countryOfDispatch</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell border-right-style="solid" border-right-width="1pt" border-right-color="black" margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@countryOfDestination</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@supplementaryUnits</fo:block>
                             </fo:block-container>
@@ -120,4 +111,3 @@
         </fo:block>
     </fo:table-cell>
 </fo:table-row>
-
