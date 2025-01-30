@@ -21,33 +21,33 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Consignee [13 03]</fo:block>
+                            <fo:block font-size="5pt">Consignee [13 03]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>ID @consigneeIdentificationNumbers</fo:block>
+                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @consigneeIdentificationNumbers</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Total items</fo:block>
+                            <fo:block font-size="5pt">Total items</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Total packages</fo:block>
+                            <fo:block font-size="5pt">Total packages</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Total gross mass (Kg)</fo:block>
+                            <fo:block font-size="5pt">Total gross mass (Kg)</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="2pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt"
                                        border-top-color="black" border-top-style="solid" border-top-width="2pt">
-                            <fo:block>Security [11 07]</fo:block>
+                            <fo:block font-size="5pt">Security [11 07]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 

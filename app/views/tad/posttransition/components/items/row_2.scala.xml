@@ -16,16 +16,16 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Consignor [13 02]</fo:block>
+                            <fo:block font-size="5pt">Consignor [13 02]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>ID @consignorId</fo:block>
+                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @consignorId</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Previous document [12 01]</fo:block>
+                            <fo:block font-size="5pt">Previous document [12 01]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -47,7 +47,7 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Supporting document [12 03]</fo:block>
+                            <fo:block font-size="5pt">Supporting document [12 03]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 

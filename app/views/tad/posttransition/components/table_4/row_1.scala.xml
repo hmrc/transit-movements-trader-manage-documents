@@ -22,14 +22,14 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="4">
-                            <fo:block>Country of routing of consignment [16 12]</fo:block>
+                            <fo:block font-size="5pt">Country of routing of consignment [16 12]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-right-style="solid" border-right-width="1pt" border-right-color="black">
-                            <fo:block>Prescribed Itinerary [16 17]: @box(vm.bindingItinerary)</fo:block>
+                            <fo:block><fo:inline font-size="5pt">Prescribed Itinerary [16 17]:</fo:inline> @box(vm.bindingItinerary)</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
@@ -131,14 +131,14 @@
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-left-style="solid" border-left-width="1pt" border-left-color="black"
                                        border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                            <fo:block>Country of dispatch [16 06] @(vm.countryOfDispatch)</fo:block>
+                            <fo:block><fo:inline font-size="5pt">Country of dispatch [16 06]</fo:inline> @(vm.countryOfDispatch)</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-left-style="solid" border-left-width="1pt" border-left-color="black"
                                        border-top-style="solid" border-top-width="1pt" border-top-color="black"
                                        border-right-style="solid" border-right-width="1pt" border-right-color="black">
-                            <fo:block>Country of destination [16 03] @(vm.countryOfDestination)</fo:block>
+                            <fo:block><fo:inline font-size="5pt">Country of destination [16 03]</fo:inline> @(vm.countryOfDestination)</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()

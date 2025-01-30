@@ -11,28 +11,28 @@
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
                 <fo:table-column column-number="1" column-width="12.5%"/>
-                <fo:table-column column-number="2" column-width="8.5%"/>
-                <fo:table-column column-number="3" column-width="29%"/>
+                <fo:table-column column-number="2" column-width="10%"/>
+                <fo:table-column column-number="3" column-width="27.5%"/>
                 <fo:table-column column-number="4" column-width="50%"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt">
-                            <fo:block>Decl.goods it. Nr. [11 11]</fo:block>
+                            <fo:block font-size="5pt">Decl.goods it. Nr. [11 11]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt">
-                            <fo:block>Goods it. Nr [11 03]</fo:block>
+                            <fo:block font-size="5pt">Goods it. Nr [11 03]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Type and number of packages, shipping marks [18 06]</fo:block>
+                            <fo:block font-size="5pt">Type and number of packages, shipping marks [18 06]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Description of goods [18 05]</fo:block>
+                            <fo:block font-size="5pt">Description of goods [18 05]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 

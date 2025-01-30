@@ -26,21 +26,21 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Carrier [13 12]</fo:block>
+                            <fo:block font-size="5pt">Carrier [13 12]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>ID @carrierIdentificationNumber</fo:block>
+                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @carrierIdentificationNumber</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Place of loading [16 13]</fo:block>
+                            <fo:block font-size="5pt">Place of loading [16 13]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Location of goods [16 15]</fo:block>
+                            <fo:block font-size="5pt">Location of goods [16 15]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -68,7 +68,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>Contact person [13 02 074]</fo:block>
+                            <fo:block font-size="5pt">Contact person [13 02 074]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
@@ -79,11 +79,11 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Additional supply chain actor [13 14]</fo:block>
+                            <fo:block font-size="5pt">Additional supply chain actor [13 14]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>ID @additionalSupplyChainActorIdentificationNumbers</fo:block>
+                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @additionalSupplyChainActorIdentificationNumbers</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -97,13 +97,13 @@
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Place of unloading [16 14]</fo:block>
+                            <fo:block font-size="5pt">Place of unloading [16 14]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>Departure transport means [19 05]</fo:block>
+                            <fo:block font-size="5pt">Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
@@ -116,7 +116,7 @@
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Contact person [16 05 074]</fo:block>
+                            <fo:block font-size="5pt">Contact person [16 05 074]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -138,13 +138,13 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>Active border transport means [19 08]</fo:block>
+                            <fo:block font-size="5pt">Active border transport means [19 08]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>Mode of transport at the border [19 03]: @modeOfTransportAtBorder</fo:block>
+                            <fo:block><fo:inline font-size="5pt">Mode of transport at the border [19 03]:</fo:inline> @modeOfTransportAtBorder</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -158,12 +158,12 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>Conveyance reference numbers [19 02]</fo:block>
+                            <fo:block font-size="5pt">Conveyance reference numbers [19 02]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Inland mode of transport [19 04]: @inlandModeOfTransport</fo:block>
+                            <fo:block><fo:inline font-size="5pt">Inland mode of transport [19 04]:</fo:inline> @inlandModeOfTransport</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 

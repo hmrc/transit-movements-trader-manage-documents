@@ -20,12 +20,12 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Previous Document [12 01]</fo:block>
+                            <fo:block font-size="5pt">Previous Document [12 01]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Transport document [12 05]</fo:block>
+                            <fo:block font-size="5pt">Transport document [12 05]</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()

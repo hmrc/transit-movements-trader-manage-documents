@@ -23,18 +23,18 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Transport equipment [19 07]</fo:block>
+                            <fo:block font-size="5pt">Transport equipment [19 07]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Container [19 01]: @box(containerIndicator)</fo:block>
+                            <fo:block><fo:inline font-size="5pt">Container [19 01]:</fo:inline> @box(containerIndicator)</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block>Seals [19 10]</fo:block>
+                            <fo:block font-size="5pt">Seals [19 10]</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()

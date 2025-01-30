@@ -18,16 +18,16 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Additional supply chain actor [13 14]</fo:block>
+                            <fo:block font-size="5pt">Additional supply chain actor [13 14]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>ID @supplyChainActorId</fo:block>
+                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @supplyChainActorId</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>Transport document [12 05]</fo:block>
+                            <fo:block font-size="5pt">Transport document [12 05]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -50,11 +50,11 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>UCR [12 08]</fo:block>
+                            <fo:block font-size="5pt">UCR [12 08]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Gross mass [18 04]</fo:block>
+                            <fo:block font-size="5pt">Gross mass [18 04]</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 

@@ -30,16 +30,16 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Result:</fo:block>
+                            <fo:block font-size="5pt">Result:</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Date of arrival:</fo:block>
+                            <fo:block font-size="5pt">Date of arrival:</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2">
-                            <fo:block>Return copy sent on</fo:block>
+                            <fo:block font-size="5pt">Return copy sent on</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
@@ -48,12 +48,12 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Seals affixed: Number:</fo:block>
+                            <fo:block font-size="5pt">Seals affixed: Number:</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Examination of seals:</fo:block>
+                            <fo:block font-size="5pt">Examination of seals:</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
@@ -62,11 +62,11 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Identity:</fo:block>
+                            <fo:block font-size="5pt">Identity:</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2">
-                            <fo:block>after registration under ID</fo:block>
+                            <fo:block font-size="5pt">after registration under ID</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
@@ -75,12 +75,12 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Limit date [15 11]: @(vm.limitDate)</fo:block>
+                            <fo:block><fo:inline font-size="5pt">Limit date [15 11]:</fo:inline> @(vm.limitDate)</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>Remarks:</fo:block>
+                            <fo:block font-size="5pt">Remarks:</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
@@ -88,11 +88,11 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Signature:</fo:block>
+                            <fo:block font-size="5pt">Signature:</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block>Stamp:</fo:block>
+                            <fo:block font-size="5pt">Stamp:</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
