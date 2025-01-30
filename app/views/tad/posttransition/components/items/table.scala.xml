@@ -2,7 +2,7 @@
 
 @(vm: ConsignmentItemViewModel)
 
-<fo:table width="100%" table-layout="fixed">
+<fo:table width="100%" table-layout="fixed" keep-together.within-page="always">
 
     <fo:table-column column-width="100%"/>
 
