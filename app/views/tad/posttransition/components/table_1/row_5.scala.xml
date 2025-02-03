@@ -1,3 +1,5 @@
+@import views.xml.components.empty_cell
+
 @(
     carrierIdentificationNumber: String,
     carrierContactPerson: String,
@@ -19,13 +21,14 @@
     <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="25%"/>
-                <fo:table-column column-number="2" column-width="25%"/>
-                <fo:table-column column-number="3" column-width="25%"/>
+                <fo:table-column column-number="1" column-width="17%"/>
+                <fo:table-column column-number="2" column-width="17%"/>
+                <fo:table-column column-number="3" column-width="16%"/>
                 <fo:table-column column-number="4" column-width="25%"/>
+                <fo:table-column column-number="5" column-width="25%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block font-size="5pt">Carrier [13 12]</fo:block>
                         </fo:table-cell>
 
@@ -45,9 +48,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="2">
-                            <fo:block>&#8203;</fo:block>
-                        </fo:table-cell>
+                        @empty_cell(3)
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
@@ -71,14 +72,14 @@
                             <fo:block font-size="5pt">Contact person [13 02 074]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%"
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block>@carrierContactPerson</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block font-size="5pt">Additional supply chain actor [13 14]</fo:block>
                         </fo:table-cell>
 
@@ -88,12 +89,13 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
-                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@additionalSupplyChainActorRoles</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
+                        @empty_cell()
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
@@ -102,7 +104,8 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="3"
+                                       border-top-color="black" border-top-style="solid" border-top-width="1pt">
                             <fo:block font-size="5pt">Departure transport means [19 05]</fo:block>
                         </fo:table-cell>
 
@@ -121,7 +124,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="3"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@departureTransportMeans</fo:block>
@@ -137,7 +140,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="3">
                             <fo:block font-size="5pt">Active border transport means [19 08]</fo:block>
                         </fo:table-cell>
 
@@ -149,7 +152,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="3">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@activeBorderTransportMeans</fo:block>
                             </fo:block-container>
@@ -157,7 +160,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="3">
                             <fo:block font-size="5pt">Conveyance reference numbers [19 02]</fo:block>
                         </fo:table-cell>
 
@@ -168,7 +171,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="3">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@activeBorderTransportMeansConveyanceNumbers</fo:block>
                             </fo:block-container>

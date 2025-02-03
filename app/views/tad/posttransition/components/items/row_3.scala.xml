@@ -1,3 +1,5 @@
+@import views.xml.components.empty_cell
+
 @(
         consignee: String,
         consigneeId: String,
@@ -10,12 +12,14 @@
     <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="25%"/>
-                <fo:table-column column-number="2" column-width="25%"/>
-                <fo:table-column column-number="3" column-width="50%"/>
+                <fo:table-column column-number="1" column-width="17%"/>
+                <fo:table-column column-number="2" column-width="17%"/>
+                <fo:table-column column-number="3" column-width="16%"/>
+                <fo:table-column column-number="4" column-width="50%"/>
+                <fo:table-column column-number="5" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block font-size="5pt">Consignee [13 03]</fo:block>
                         </fo:table-cell>
 
@@ -24,39 +28,56 @@
                             <fo:block><fo:inline font-size="5pt">ID</fo:inline> @consigneeId</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block font-size="5pt">Additional reference [12 04]</fo:block>
                         </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="3"
-                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="3">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@consignee</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
+                        @empty_cell()
+
                         <fo:table-cell margin-left="0.5%"
-                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@additionalReferences</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        @empty_cell()
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block font-size="5pt">Additional information [12 02]</fo:block>
                         </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        @empty_cell()
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@additionalInformation</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>

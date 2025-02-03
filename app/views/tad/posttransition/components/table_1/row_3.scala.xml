@@ -1,3 +1,5 @@
+@import views.xml.components.empty_cell
+
 @(
     consignees: String,
     consigneeIdentificationNumbers: String,
@@ -12,15 +14,16 @@
     <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="25%"/>
-                <fo:table-column column-number="2" column-width="25%"/>
-                <fo:table-column column-number="3" column-width="10%"/>
+                <fo:table-column column-number="1" column-width="17%"/>
+                <fo:table-column column-number="2" column-width="17%"/>
+                <fo:table-column column-number="3" column-width="16%"/>
                 <fo:table-column column-number="4" column-width="10%"/>
-                <fo:table-column column-number="5" column-width="15%"/>
+                <fo:table-column column-number="5" column-width="10%"/>
                 <fo:table-column column-number="6" column-width="15%"/>
+                <fo:table-column column-number="7" column-width="15%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
                             <fo:block font-size="5pt">Consignee [13 03]</fo:block>
                         </fo:table-cell>
 
@@ -57,6 +60,8 @@
                                 <fo:block>@consignees</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
+                        @empty_cell()
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
