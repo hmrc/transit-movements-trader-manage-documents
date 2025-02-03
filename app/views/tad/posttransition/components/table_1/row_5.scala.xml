@@ -33,7 +33,7 @@
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @carrierIdentificationNumber</fo:block>
+                            <fo:block font-size="5pt">ID</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
@@ -48,7 +48,13 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        @empty_cell(3)
+                        @empty_cell(2)
+
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@carrierIdentificationNumber</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
@@ -84,7 +90,7 @@
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @additionalSupplyChainActorIdentificationNumbers</fo:block>
+                            <fo:block font-size="5pt">ID</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -95,7 +101,11 @@
                             </fo:block-container>
                         </fo:table-cell>
 
-                        @empty_cell()
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@additionalSupplyChainActorIdentificationNumbers</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">

@@ -28,7 +28,7 @@
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @consigneeIdentificationNumbers</fo:block>
+                            <fo:block font-size="5pt">ID</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
@@ -61,7 +61,11 @@
                             </fo:block-container>
                         </fo:table-cell>
 
-                        @empty_cell()
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@consigneeIdentificationNumbers</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">

@@ -25,7 +25,7 @@
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block><fo:inline font-size="5pt">ID</fo:inline> @consigneeId</fo:block>
+                            <fo:block font-size="5pt">ID</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
@@ -43,7 +43,11 @@
                             </fo:block-container>
                         </fo:table-cell>
 
-                        @empty_cell()
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="3">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@consigneeId</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
@@ -57,8 +61,6 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        @empty_cell()
-
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block font-size="5pt">Additional information [12 02]</fo:block>
@@ -68,8 +70,6 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        @empty_cell()
-
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
