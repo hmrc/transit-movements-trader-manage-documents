@@ -21,7 +21,6 @@ import controllers.actions.AuthenticateActionProvider
 import controllers.actions.FakeAuthenticateActionProvider
 import generated.CC043CType
 import generators.ScalaxbModelGenerators
-import models.Phase
 import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.{eq => eqTo}

@@ -22,7 +22,6 @@ import generated.CC029CType
 import models.DepartureMessageType.DepartureNotification
 import models.DepartureMessageMetaData
 import models.DepartureMessages
-import models.Phase
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary

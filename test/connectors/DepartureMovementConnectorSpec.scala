@@ -22,7 +22,6 @@ import com.github.tomakehurst.wiremock.client.WireMock._
 import models.DepartureMessageType.DepartureNotification
 import models.DepartureMessageMetaData
 import models.DepartureMessages
-import models.Phase
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
