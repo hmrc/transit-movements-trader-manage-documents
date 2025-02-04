@@ -35,7 +35,7 @@ object Table4ViewModel {
 
   def apply(ie015: CC015CType, ie029: CC029CType): Table4ViewModel =
     new Table4ViewModel(
-      countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asSlashSeparatedString).takeSample,
+      countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asString).takeSample,
       customsOfficeOfTransitDeclared = ie029.CustomsOfficeOfTransitDeclared
         .map(
           x => s"${x.sequenceNumber}/${x.referenceNumber}"

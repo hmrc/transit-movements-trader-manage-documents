@@ -66,7 +66,7 @@ object Table1ViewModel {
 
     new Table1ViewModel(
       additionalDeclarationType = ie029.TransitOperation.additionalDeclarationType.take10,
-      consignees = consignees.map(_.asSlashSeparatedString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
+      consignees = consignees.map(_.asTadString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
       consigneeIdentificationNumbers = consignees.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
       consignors = consignors.map(_.asString).semiColonSeparate.appendPeriod.adjustFor3NarrowLines,
       consignorIdentificationNumbers = consignors.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
@@ -85,7 +85,7 @@ object Table1ViewModel {
       additionalSupplyChainActorIdentificationNumbers =
         ie029.Consignment.AdditionalSupplyChainActor.map(_.identificationNumber).takeSample.adjustFor2NarrowLines,
       departureTransportMeans = ie029.Consignment.DepartureTransportMeans.map(_.asString).takeSample.adjustFor2WideLines,
-      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asSlashSeparatedString).takeSample.take90,
+      activeBorderTransportMeans = ie029.Consignment.ActiveBorderTransportMeans.map(_.asString).takeSample.take90,
       activeBorderTransportMeansConveyanceNumbers =
         ie029.Consignment.ActiveBorderTransportMeans.flatMap(_.conveyanceReferenceNumber).takeSample.adjustFor2NarrowLines,
       placeOfLoading = ie029.Consignment.PlaceOfLoading.map(_.asString).orElseBlank.adjustFor2NarrowLines,

@@ -253,9 +253,9 @@ package object viewmodels {
       value.shippingMarks
     ).flatten
 
-    def asString: String = values.commaSeparate
+    def asUnloadingPermissionString: String = values.commaSeparate
 
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asTadString: String = values.slashSeparate
   }
 
   implicit class RichPreviousDocumentType03(value: PreviousDocumentType03) {
@@ -272,9 +272,7 @@ package object viewmodels {
       value.complementOfInformation
     ).flatten
 
-    def asString: String = values.commaSeparate
-
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asString: String = values.slashSeparate
   }
 
   implicit class RichPreviousDocumentType04(value: PreviousDocumentType04) {
@@ -297,9 +295,9 @@ package object viewmodels {
       value.complementOfInformation
     ).flatten
 
-    def asString: String = values.commaSeparate
+    def asUnloadingPermissionString: String = values.commaSeparate
 
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asTadString: String = values.slashSeparate
   }
 
   implicit class RichPreviousDocumentType07(value: PreviousDocumentType07) {
@@ -311,9 +309,7 @@ package object viewmodels {
       value.complementOfInformation
     ).flatten
 
-    def asString: String = values.commaSeparate
-
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asString: String = values.slashSeparate
   }
 
   implicit class RichSupportingDocumentType02(value: SupportingDocumentType02) {
@@ -336,9 +332,7 @@ package object viewmodels {
       value.complementOfInformation
     ).flatten
 
-    def asString: String = values.commaSeparate
-
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asString: String = values.slashSeparate
   }
 
   implicit class RichTransportDocumentType02(value: TransportDocumentType02) {
@@ -349,9 +343,9 @@ package object viewmodels {
       value.referenceNumber
     )
 
-    def asString: String = values.commaSeparate
+    def asUnloadingPermissionString: String = values.commaSeparate
 
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asTadString: String = values.slashSeparate
   }
 
   implicit class RichAdditionalSupplyChainActorType(value: AdditionalSupplyChainActorType) {
@@ -367,9 +361,9 @@ package object viewmodels {
       value.text
     ).flatten
 
-    def asString: String = values.commaSeparate
+    def asUnloadingPermissionString: String = values.commaSeparate
 
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asTadString: String = values.slashSeparate
   }
 
   implicit class RichCommodityCodeType05(value: CommodityCodeType05) {
@@ -457,9 +451,9 @@ package object viewmodels {
       value.Address.map(_.asString)
     ).flatten
 
-    def asString: String = values.commaSeparate
+    def asUnloadingPermissionString: String = values.commaSeparate
 
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asTadString: String = values.slashSeparate
   }
 
   implicit class RichConsignorType03(value: ConsignorType03) {
@@ -518,9 +512,9 @@ package object viewmodels {
       value.referenceNumber
     ).flatten
 
-    def asString: String = values.commaSeparate
+    def asUnloadingPermissionString: String = values.commaSeparate
 
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asTadString: String = values.slashSeparate
   }
 
   implicit class RichAdditionalReferenceType03(value: AdditionalReferenceType03) {
@@ -531,9 +525,9 @@ package object viewmodels {
       value.referenceNumber
     ).flatten
 
-    def asString: String = values.commaSeparate
+    def asUnloadingPermissionString: String = values.commaSeparate
 
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asTadString: String = values.slashSeparate
   }
 
   implicit class RichHolderOfTheTransitProcedureType05(value: HolderOfTheTransitProcedureType05) {
@@ -566,9 +560,7 @@ package object viewmodels {
       value.nationality
     )
 
-    def asString: String = values.commaSeparate
-
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asString: String = values.slashSeparate
   }
 
   implicit class RichCustomDepartureTransportMeansType02(value: CUSTOM_DepartureTransportMeansType02) {
@@ -605,9 +597,7 @@ package object viewmodels {
       value.nationality
     ).flatten
 
-    def asString: String = values.commaSeparate
-
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asString: String = values.slashSeparate
   }
 
   implicit class RichPlaceOfLoadingType02(value: PlaceOfLoadingType02) {
@@ -708,9 +698,7 @@ package object viewmodels {
       value.referenceNumber
     )
 
-    def asString: String = values.commaSeparate
-
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asString: String = values.slashSeparate
   }
 
   implicit class RichCountryOfRoutingOfConsignmentType01(value: CountryOfRoutingOfConsignmentType01) {
@@ -720,9 +708,7 @@ package object viewmodels {
       value.country
     )
 
-    def asString: String = values.commaSeparate
-
-    def asSlashSeparatedString: String = values.slashSeparate
+    def asString: String = values.slashSeparate
   }
 
   implicit class RichCustomsOfficeOfTransitDeclaredType04(value: CustomsOfficeOfTransitDeclaredType04) {

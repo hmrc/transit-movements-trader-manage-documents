@@ -67,25 +67,25 @@ object Table2ViewModel {
         )
         .take3(_.semiColonSeparate),
       previousDocuments = combineWithSampling(
-        _.PreviousDocument.map(_.asSlashSeparatedString),
-        _.flatMap(_.PreviousDocument).map(_.asSlashSeparatedString)
+        _.PreviousDocument.map(_.asTadString),
+        _.flatMap(_.PreviousDocument).map(_.asString)
       ).adjustFor2WideLines,
       transportDocuments = combineWithSampling(
-        _.TransportDocument.map(_.asSlashSeparatedString),
-        _.flatMap(_.TransportDocument).map(_.asSlashSeparatedString)
+        _.TransportDocument.map(_.asTadString),
+        _.flatMap(_.TransportDocument).map(_.asTadString)
       ).adjustFor2WideLines,
       supportingDocuments = combineWithSampling(
-        _.SupportingDocument.map(_.asSlashSeparatedString),
-        _.flatMap(_.SupportingDocument).map(_.asSlashSeparatedString)
+        _.SupportingDocument.map(_.asString),
+        _.flatMap(_.SupportingDocument).map(_.asString)
       ).adjustFor2WideLines,
-      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asSlashSeparatedString).takeSample.take90,
+      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asTadString).takeSample.take90,
       transportCharges = combine(
         _.TransportCharges.map(_.asString).toSeq,
         _.flatMap(_.TransportCharges).map(_.asString)
       ).take20,
-      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asSlashSeparatedString).takeSample.take90,
+      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asTadString).takeSample.take90,
       guarantees = ie029.Guarantee.map(_.asString).takeSample.adjustFor2WideLines,
-      authorisations = ie029.Authorisation.map(_.asSlashSeparatedString).takeSample,
+      authorisations = ie029.Authorisation.map(_.asString).takeSample,
       containerIndicator = ie029.Consignment.containerIndicator.asString,
       reducedDatasetIndicator = ie029.TransitOperation.reducedDatasetIndicator.asString
     )
