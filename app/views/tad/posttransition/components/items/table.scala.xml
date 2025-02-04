@@ -1,56 +1,66 @@
 @import viewmodels.tad.posttransition.ConsignmentItemViewModel
 
 @(vm: ConsignmentItemViewModel)
-<fo:table width="100%" table-layout="fixed">
 
-  <fo:table-column column-width="50%"/>
-  <fo:table-column column-width="50%"/>
+<fo:table width="100%" table-layout="fixed" keep-together.within-page="always">
 
-  <fo:table-body>
-    @row_1(
-      vm.declarationGoodsItemNumber,
-      vm.goodsItemNumber,
-      vm.packagesType,
-      vm.descriptionOfGoods
-    )
+    <fo:table-column column-width="100%"/>
 
-    @row_2(
-      vm.consignor,
-      vm.consignorId,
-      vm.previousDocuments,
-      vm.supportingDocuments
-    )
+    <fo:table-body>
+        <fo:table-row>
+            <fo:table-cell border-color="black" border-style="solid" border-width="2pt">
+                <fo:block>
+                    <fo:table width="100%" table-layout="fixed">
+                        <fo:table-column column-width="100%"/>
+                        <fo:table-body>
+                            @row_1(
+                                vm.declarationGoodsItemNumber,
+                                vm.goodsItemNumber,
+                                vm.packagesType,
+                                vm.descriptionOfGoods
+                            )
 
-    @row_3(
-      vm.consignee,
-      vm.consigneeId,
-      vm.additionalReferences,
-      vm.additionalInformation
-    )
+                            @row_2(
+                                vm.consignor,
+                                vm.consignorId,
+                                vm.previousDocuments,
+                                vm.supportingDocuments
+                            )
 
-    @row_4(
-      vm.additionalSupplyChainActors,
-      vm.supplyChainActorId,
-      vm.transportDocuments,
-      vm.referenceNumberUCR,
-      vm.grossMass
-    )
+                            @row_3(
+                                vm.consignee,
+                                vm.consigneeId,
+                                vm.additionalReferences,
+                                vm.additionalInformation
+                            )
 
-    @row_5(
-      vm.departureTransportMeans,
-      vm.commodityCode,
-      vm.netMass
-    )
+                            @row_4(
+                                vm.additionalSupplyChainActors,
+                                vm.supplyChainActorId,
+                                vm.transportDocuments,
+                                vm.referenceNumberUCR,
+                                vm.grossMass
+                            )
 
-    @row_6(
-      vm.dangerousGoods,
-      vm.cusCode,
-      vm.transportCharges,
-      vm.declarationType,
-      vm.countryOfDispatch,
-      vm.countryOfDestination,
-      vm.supplementaryUnits
-    )
-    
-  </fo:table-body>
+                            @row_5(
+                                vm.departureTransportMeans,
+                                vm.commodityCode,
+                                vm.netMass
+                            )
+
+                            @row_6(
+                                vm.dangerousGoods,
+                                vm.cusCode,
+                                vm.transportCharges,
+                                vm.declarationType,
+                                vm.countryOfDispatch,
+                                vm.countryOfDestination,
+                                vm.supplementaryUnits
+                            )
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+    </fo:table-body>
 </fo:table>

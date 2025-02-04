@@ -1,0 +1,8 @@
+@(numberColumnsSpanned: Int = 1)
+<!-- This can be used with 0% width (invisible) columns as a hack to allow bottom row cells to span multiple rows -->
+<!-- &#8203; is a non-width space, same as U+200B -->
+<fo:table-cell number-columns-spanned="@numberColumnsSpanned">
+    <fo:block-container overflow="hidden">
+        <fo:block>&#8203;</fo:block>
+    </fo:block-container>
+</fo:table-cell>

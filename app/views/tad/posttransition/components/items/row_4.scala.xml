@@ -1,3 +1,5 @@
+@import views.xml.components.empty_cell
+
 @(
         additionalSupplyChainActors: String,
         supplyChainActorId: String,
@@ -6,96 +8,93 @@
         grossMass: String
 )
 
-<fo:table-row height="8mm">
+<fo:table-row>
 
-    <fo:table-cell border-left-style="solid" border-left-width="2pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="1pt" border-right-color="black"
-                   border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
-                   border-bottom-width="1pt" border-bottom-color="black">
+    <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="44mm"/>
-                <fo:table-column column-number="2" column-width="8mm"/>
-                <fo:table-column column-number="3" column-width="37mm"/>
+                <fo:table-column column-number="1" column-width="17%"/>
+                <fo:table-column column-number="2" column-width="17%"/>
+                <fo:table-column column-number="3" column-width="16%"/>
+                <fo:table-column column-number="4" column-width="32.5%"/>
+                <fo:table-column column-number="5" column-width="17.5%"/>
+                <fo:table-column column-number="6" column-width="0%"/>
                 <fo:table-body>
-                    <fo:table-row height="2mm">
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Additional supply chain actor [13 14]</fo:block>
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                            <fo:block font-size="5pt">Additional supply chain actor [13 14]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell display-align="center" margin-left="1mm">
-                            <fo:block>ID</fo:block>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">ID</fo:block>
                         </fo:table-cell>
 
-                    </fo:table-row>
-
-                    <fo:table-row height="6mm">
-                        <fo:table-cell margin-left="0.5mm">
-                            <fo:block>@additionalSupplyChainActors</fo:block>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block font-size="5pt">Transport document [12 05]</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block>@supplyChainActorId</fo:block>
-                        </fo:table-cell>
-
-                    </fo:table-row>
-                </fo:table-body>
-            </fo:table>
-        </fo:block>
-    </fo:table-cell>
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="2pt" border-right-color="black"
-                   border-top-style="solid" border-top-width="1pt" border-top-color="black" border-bottom-style="solid"
-                   border-bottom-width="1pt" border-bottom-color="black">
-        <fo:block>
-            <fo:table width="100%" table-layout="fixed">
-
-                <fo:table-column column-number="1" column-width="68%"/>
-                <fo:table-column column-number="2" column-width="32%"/>
-
-                <fo:table-body>
-
-
-                    <fo:table-row height="2mm">
-                        <fo:table-cell number-columns-spanned="2" display-align="center" margin-left="0.5mm">
-                            <fo:block>Transport document [12 05]</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <fo:table-row height="2mm">
-                        <fo:table-cell number-columns-spanned="2" margin-left="0.5mm">
-                            <fo:block>@transportDocuments</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                    <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt" border-top-color="black">
-                        <fo:table-cell display-align="center" margin-left="0.5mm" border-right-style="solid"
-                                       border-right-width="1pt" border-right-color="black">
-                            <fo:block>UCR [12 08]</fo:block>
-                        </fo:table-cell>
-
-                        <fo:table-cell display-align="center" margin-left="0.5mm">
-                            <fo:block>Gross mass [18 04]</fo:block>
-                        </fo:table-cell>
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5mm" border-right-style="solid" border-right-width="1pt"
-                                       border-right-color="black">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="3">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@additionalSupplyChainActors</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="3">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@supplyChainActorId</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@transportDocuments</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block font-size="5pt">UCR [12 08]</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Gross mass [18 04]</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@referenceNumberUCR</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5mm">
+                        <fo:table-cell margin-left="0.5%">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@grossMass</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
         </fo:block>
     </fo:table-cell>
 </fo:table-row>
-

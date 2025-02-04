@@ -1,208 +1,137 @@
-@import views.xml.tad.posttransition.components.table_1.consignee
-@import views.xml.tad.posttransition.components.table_1.total_gross_mass
+@import views.xml.components.empty_cell
 
 @(containerIdentification: String)
 
 <fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
 
-    <fo:table-cell number-columns-spanned="2">
-        <fo:block>
-            <fo:table width="100%" table-layout="fixed">
-                <fo:table-body>
-                    <fo:table-row>
-                        <fo:table-cell margin-left="2%" padding-top="5%">
-                            <fo:block font-weight="bold" font-size="5pt">INCIDENTS DURING TRANSPORT (BCP)</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                </fo:table-body>
-            </fo:table>
-        </fo:block>
-    </fo:table-cell>
-
-
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-        <fo:block>
-            <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="70%"/>
-                <fo:table-column column-number="2" column-width="15%"/>
-                <fo:table-column column-number="3" column-width="15%"/>
-                <fo:table-body border-right-style="solid" border-right-width="1pt" border-right-color="black">
-                    <fo:table-row>
-                        <fo:table-cell margin-top="0.5%" display-align="center"
-                                       padding-left="1%" padding-bottom="5%" border-right-style="solid"
-                                       border-right-width="0.5pt" font-size="5">
-                            <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell margin-top="0.5%" display-align="center"
-                                       padding-left="1%" padding-bottom="5%" number-columns-spanned="2">
-                            <fo:block>Incident code</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
-                                       border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="3"
-                                       padding-left="1%" padding-bottom="5%">
-                            <fo:block>Identity and Nationality new transport means</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
-                                       border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="3"
-                                       padding-left="1%" padding-bottom="5%">
-                            <fo:block>Container ID [19 07]</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%" border-bottom-style="solid"
-                                       border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>
-                                    @containerIdentification
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell margin-top="0.5%" display-align="center" number-columns-spanned="3"
-                                       padding-left="1%" padding-bottom="5%">
-                            <fo:block>Other incidents during carriage / Details and measures taken (text)</fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
-                            <fo:block-container overflow="hidden">
-                                <fo:block>
-                                </fo:block>
-                            </fo:block-container>
-                        </fo:table-cell>
-                    </fo:table-row>
-
-                </fo:table-body>
-
-            </fo:table>
-        </fo:block>
+    <fo:table-cell>
+        <fo:block font-weight="bold" font-size="5pt">INCIDENTS DURING TRANSPORT (BCP)</fo:block>
     </fo:table-cell>
 
     <fo:table-cell>
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="55%"/>
-                <fo:table-column column-number="2" column-width="117.25%"/>
+                <fo:table-column column-number="1" column-width="35%"/>
+                <fo:table-column column-number="2" column-width="15%"/>
+                <fo:table-column column-number="3" column-width="35%"/>
+                <fo:table-column column-number="4" column-width="15%"/>
+                <fo:table-column column-number="5" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="2"
-                                       border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                                       border-right-style="solid" border-right-width="1pt" border-right-color="black"
-                                       border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-                            <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
-                                    <fo:table-column column-number="1" column-width="70%"/>
-                                    <fo:table-column column-number="2" column-width="15%"/>
-                                    <fo:table-column column-number="3" column-width="15%"/>
-                                    <fo:table-body>
-                                        <fo:table-row>
-                                            <fo:table-cell margin-top="0.5%" display-align="center"
-                                                           padding-left="1%" padding-bottom="4.5%"
-                                                           border-right-style="solid"
-                                                           border-right-width="0.5pt">
-                                                <fo:block>CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell margin-top="0.5%" display-align="center"
-                                                           padding-left="1%" padding-bottom="5%"
-                                                           number-columns-spanned="2">
-                                                <fo:block>Incident code</fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
-                                                           border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container overflow="hidden">
-                                                    <fo:block>
-                                                    </fo:block>
-                                                </fo:block-container>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell margin-top="0.5%" display-align="center"
-                                                           number-columns-spanned="3"
-                                                           padding-left="1%" border-top-style="solid"
-                                                           border-top-width="1pt" padding-bottom="4.75%">
-                                                <fo:block>Identity and Nationality new transport means</fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
-                                                           border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container overflow="hidden">
-                                                    <fo:block>
-                                                    </fo:block>
-                                                </fo:block-container>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell margin-top="0.5%" display-align="center"
-                                                           number-columns-spanned="3"
-                                                           padding-left="1%" padding-bottom="4.75%">
-                                                <fo:block>Container ID [19 07]</fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%"
-                                                           border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block-container overflow="hidden">
-                                                    <fo:block>
-                                                        @containerIdentification
-                                                    </fo:block>
-                                                </fo:block-container>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell margin-top="0.5%" display-align="center"
-                                                           number-columns-spanned="3"
-                                                           padding-left="1%" padding-bottom="13%">
-                                                <fo:block>Other incidents during carriage / Details and measures taken (text)
-                                                </fo:block>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            <fo:table-cell number-columns-spanned="3" margin-left="0.5%">
-                                                <fo:block-container overflow="hidden">
-                                                    <fo:block>
-                                                    </fo:block>
-                                                </fo:block-container>
-                                            </fo:table-cell>
-                                        </fo:table-row>
-
-                                    </fo:table-body>
-                                </fo:table>
-                            </fo:block>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                         </fo:table-cell>
 
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">Incident code</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">Incident code</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">Identity and Nationality new transport means</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">Identity and Nationality new transport means</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Container ID [19 07]</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Container ID [19 07]</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@containerIdentification</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@containerIdentification</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="5"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">Other incidents during carriage / Details and measures taken (text)</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="5"
+                                       border-color="black" border-style="solid" border-width="1pt">
+                            <fo:block font-size="5pt">Other incidents during carriage / Details and measures taken (text)</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-
         </fo:block>
     </fo:table-cell>
-
 </fo:table-row>
