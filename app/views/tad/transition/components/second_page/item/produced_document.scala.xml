@@ -1,9 +1,0 @@
-@(producedDocument: String)
-
-<fo:block>
-    <fo:inline font-style="italic">
-        <fo:inline margin-left="3mm">
-            @producedDocument
-        </fo:inline>
-    </fo:inline>
-</fo:block>

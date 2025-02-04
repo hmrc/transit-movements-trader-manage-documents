@@ -17,7 +17,6 @@
 package connectors
 
 import config.AppConfig
-import models.Phase
 import play.api.Logging
 import play.api.http.HeaderNames._
 import uk.gov.hmrc.http.HttpReads.Implicits._
@@ -34,16 +33,17 @@ import scala.xml.XML
 
 class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReadsTry with Logging {
 
+  final val version: String = "2.1"
+
   def getMessage(
     movements: String,
     movementId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] = {
     val url = url"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
     http
       .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+xml")
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.$version+xml")
       .execute[HttpResponse]
       .map(_.body)
       .map(XML.loadString)
