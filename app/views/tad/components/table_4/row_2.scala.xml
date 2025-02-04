@@ -1,5 +1,5 @@
 @import views.xml.components.empty_cell
-@import viewmodels.tad.posttransition.Table4ViewModel
+@import viewmodels.tad.Table4ViewModel
 
 @(vm: Table4ViewModel)
 

@@ -19,22 +19,15 @@ package services.pdf
 import base.SpecBase
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
-import org.mockito.Mockito
-import org.mockito.Mockito.reset
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.Application
-import play.api.Environment
-import play.api.inject
+import play.api.{Application, Environment}
 import play.api.inject.guice.GuiceApplicationBuilder
 import viewmodels.DummyData
 
-import java.nio.file.Files
-import java.nio.file.Paths
+import java.nio.file.{Files, Paths}
 
 class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuite with OptionValues with ScalaFutures with DummyData {
 
@@ -47,10 +40,10 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
   "TransitAccompanyingDocumentPDFGenerator" - {
 
     "must match with the final 'Transit Accompanying Document' template" in {
-      val pdfPath          = "test/resources/documents/tad/final/sample.pdf"
+      val pdfPath          = "test/resources/documents/tad/sample.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument = PDDocument.load(service.generateP5TADPostTransition(cc015c, cc029c))
+      val pdfDocument: PDDocument = PDDocument.load(service.generate(cc015c, cc029c))
       // pdfDocument.save(pdfPath)
 
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)

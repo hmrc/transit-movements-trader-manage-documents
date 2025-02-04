@@ -68,7 +68,7 @@ object Table1ViewModel {
       houseConsignmentDepartureTransportMeans = ie043.Consignment
         .fold[Seq[CUSTOM_HouseConsignmentType04]](Seq.empty)(_.HouseConsignment),
       container = ie043.Consignment.map(_.containerIndicator.toString).orElseBlank,
-      transportEquipment = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.map(_.asString)).semiColonSeparate,
+      transportEquipment = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.map(_.asUnloadingPermissionString)).semiColonSeparate,
       seals = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.flatMap(_.Seal).map(_.asString)).semiColonSeparate,
       previousDocument = ie043.Consignment.fold[Seq[String]](Nil)(_.PreviousDocument.map(_.asString)).semiColonSeparate,
       transportDocument = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportDocument.map(_.asString)).semiColonSeparate,

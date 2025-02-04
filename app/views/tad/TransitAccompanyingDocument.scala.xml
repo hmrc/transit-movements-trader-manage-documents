@@ -1,8 +1,8 @@
 @import views.xml.DocumentTemplate
-@import views.xml.tad.posttransition.components._
+@import views.xml.tad.components._
 @import views.xml.PageOne
 @import views.xml.PageTwo
-@import viewmodels.tad.posttransition.TadPdfViewModel
+@import viewmodels.tad.TadPdfViewModel
 
 @this(
     table1: table_1.table,

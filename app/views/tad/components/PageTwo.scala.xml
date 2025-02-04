@@ -1,5 +1,5 @@
-@import viewmodels.tad.posttransition.TadPdfViewModel
-@import views.xml.tad.posttransition.components.items._
+@import viewmodels.tad.TadPdfViewModel
+@import views.xml.tad.components.items._
 
 @this()
 

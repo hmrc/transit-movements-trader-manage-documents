@@ -41,7 +41,7 @@ class UnloadingPermissionPdfGeneratorSpec extends SpecBase with Matchers with Gu
       val pdfPath          = "test/resources/documents/unloadingpermission/sample.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument = PDDocument.load(service.generateP5(cc043c))
+      val pdfDocument: PDDocument = PDDocument.load(service.generate(cc043c))
       // pdfDocument.save(pdfPath)
 
       val expectedPdfDocument: PDDocument = PDDocument.load(pdf)

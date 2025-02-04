@@ -48,7 +48,7 @@ class TransitAccompanyingDocumentController @Inject() (
               ie015 <- service.getDeclarationData(departureId, ie015MessageId)
               ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
               bytes <- Future.successful {
-                pdf.generateP5TADPostTransition(ie015, ie029)
+                pdf.generate(ie015, ie029)
               }
             } yield {
               val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"

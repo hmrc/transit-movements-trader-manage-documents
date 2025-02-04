@@ -27,6 +27,6 @@ class UnloadingPermissionPdfGenerator @Inject() (
   document: UnloadingPermissionDocument
 ) {
 
-  def generateP5(ie043: CC043CType): Array[Byte] =
+  def generate(ie043: CC043CType): Array[Byte] =
     fopService.processTwirlXml(document.render(UnloadingPermissionPdfViewModel(ie043)))
 }

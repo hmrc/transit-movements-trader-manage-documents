@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewmodels.tad.posttransition
+package viewmodels.tad
 
 import generated._
 import viewmodels._

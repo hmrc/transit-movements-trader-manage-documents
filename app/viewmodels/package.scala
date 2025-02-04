@@ -256,19 +256,6 @@ package object viewmodels {
     def asString: String = values.commaSeparate
 
     def asSlashSeparatedString: String = values.slashSeparate
-
-    def asTransitionString: String = Seq(
-      Some(value.typeOfPackages),
-      value.numberOfPackages.map(_.toString())
-    ).flatten.commaSeparate
-
-    def asP4String: String = Seq(
-      Some(value.sequenceNumber.toString),
-      Some(value.typeOfPackages),
-      value.numberOfPackages.map(_.toString()),
-      value.shippingMarks
-    ).flatten.commaSeparate
-
   }
 
   implicit class RichPreviousDocumentType03(value: PreviousDocumentType03) {
@@ -288,12 +275,6 @@ package object viewmodels {
     def asString: String = values.commaSeparate
 
     def asSlashSeparatedString: String = values.slashSeparate
-
-    def asP4String: String = Seq(
-      Some(value.typeValue),
-      Some(value.referenceNumber),
-      value.complementOfInformation
-    ).flatten.dashSeparate
   }
 
   implicit class RichPreviousDocumentType04(value: PreviousDocumentType04) {
@@ -588,12 +569,6 @@ package object viewmodels {
     def asString: String = values.commaSeparate
 
     def asSlashSeparatedString: String = values.slashSeparate
-
-    def asP4String: String = Seq(
-      value.sequenceNumber.toString,
-      value.typeOfIdentification,
-      value.identificationNumber
-    ).commaSeparate
   }
 
   implicit class RichCustomDepartureTransportMeansType02(value: CUSTOM_DepartureTransportMeansType02) {
@@ -603,12 +578,6 @@ package object viewmodels {
       value.identificationNumber,
       value.nationality
     ).flatten.slashSeparate
-
-    def asP4String: String = Seq(
-      Some(value.sequenceNumber.toString),
-      value.typeOfIdentification,
-      value.identificationNumber
-    ).flatten.commaSeparate
   }
 
   implicit class RichConsignmentItemType04(value: CUSTOM_ConsignmentItemType04) {
@@ -684,24 +653,19 @@ package object viewmodels {
 
   implicit class RichTransportEquipmentType05(value: TransportEquipmentType05) {
 
-    def asString: String = Seq(
+    def asUnloadingPermissionString: String = Seq(
       Some(value.sequenceNumber.toString),
       value.containerIdentificationNumber,
       Some(value.numberOfSeals.toString),
       Some(value.GoodsReference.map(_.asString).firstAndLast())
     ).flatten.commaSeparate
 
-    def asPostTransitionString: String = Seq(
+    def asTadString: String = Seq(
       Some(value.sequenceNumber.toString),
       Some(value.containerIdentificationNumber.getOrElse("-")),
       if (value.numberOfSeals == 0) None else Some(value.numberOfSeals.toString),
       Some(value.GoodsReference.map(_.declarationGoodsItemNumber.toString).firstAndLast("-"))
     ).flatten.slashSeparate
-
-    def asP4String: String = Seq(
-      Some(value.sequenceNumber.toString),
-      value.containerIdentificationNumber
-    ).flatten.commaSeparate
   }
 
   implicit class RichGoodsReferenceType02(value: GoodsReferenceType02) {

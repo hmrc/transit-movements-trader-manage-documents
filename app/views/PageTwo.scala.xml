@@ -1,5 +1,5 @@
-@import views.xml.tad.posttransition.components.items._
-@import viewmodels.tad.posttransition.ConsignmentItemViewModel
+@import views.xml.tad.components.items._
+@import viewmodels.tad.ConsignmentItemViewModel
 
 @this()
 

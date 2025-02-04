@@ -43,7 +43,7 @@ class UnloadingPermissionDocumentController @Inject() (
       implicit request =>
         service.getUnloadingPermissionNotification(arrivalId, messageId).map {
           ie043 =>
-            val bytes    = pdf.generateP5(ie043)
+            val bytes    = pdf.generate(ie043)
             val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"
             Ok(bytes)
               .withHeaders(

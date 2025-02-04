@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewmodels.tad.posttransition
+package viewmodels.tad
 
 import generated.{CC015CType, CUSTOM_ConsignmentItemType03, CUSTOM_HouseConsignmentType03, ConsignmentItemType03, HouseConsignmentType03}
 import viewmodels.*

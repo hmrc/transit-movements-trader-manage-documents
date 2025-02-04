@@ -77,7 +77,7 @@ class UnloadingPermissionDocumentControllerSpec extends SpecBase with ScalaxbMod
             when(mockMessageService.getUnloadingPermissionNotification(any(), any())(any(), any()))
               .thenReturn(Future.successful(ie043))
 
-            when(mockPdfGenerator.generateP5(any()))
+            when(mockPdfGenerator.generate(any()))
               .thenReturn(byteArray)
 
             val request = FakeRequest(GET, controllerRoute)
@@ -92,7 +92,7 @@ class UnloadingPermissionDocumentControllerSpec extends SpecBase with ScalaxbMod
             headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="UPD_$mrn.pdf""""
 
             verify(mockMessageService).getUnloadingPermissionNotification(eqTo(arrivalId), eqTo(messageId))(any(), any())
-            verify(mockPdfGenerator).generateP5(eqTo(ie043))
+            verify(mockPdfGenerator).generate(eqTo(ie043))
         }
       }
     }
