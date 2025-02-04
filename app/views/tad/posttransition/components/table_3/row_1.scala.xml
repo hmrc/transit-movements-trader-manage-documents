@@ -18,22 +18,22 @@
                 <fo:table-column column-number="5" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%"
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%"
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">Incident code</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%"
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">CUSTOMS OFFICE OF INCIDENT REGISTRATION</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%"
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">Incident code</fo:block>
                         </fo:table-cell>
@@ -42,12 +42,16 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">Identity and Nationality new transport means</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">Identity and Nationality new transport means</fo:block>
                         </fo:table-cell>
@@ -56,30 +60,62 @@
                     </fo:table-row>
 
                     <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
-                                       border-color="black" border-style="solid" border-width="1pt">
-                            <fo:block><fo:inline font-size="5pt">Container ID [19 07]</fo:inline> @containerIdentification</fo:block>
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Container ID [19 07]</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
-                                       border-color="black" border-style="solid" border-width="1pt">
-                            <fo:block><fo:inline font-size="5pt">Container ID [19 07]</fo:inline> @containerIdentification</fo:block>
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Container ID [19 07]</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="4"
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@containerIdentification</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@containerIdentification</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="5"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">Other incidents during carriage / Details and measures taken (text)</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="4"
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="5"
                                        border-color="black" border-style="solid" border-width="1pt">
                             <fo:block font-size="5pt">Other incidents during carriage / Details and measures taken (text)</fo:block>
                         </fo:table-cell>
 
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
                         @empty_cell()
                     </fo:table-row>
 

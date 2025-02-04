@@ -18,15 +18,15 @@
     <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="17%"/>
+                <fo:table-column column-number="1" column-width="33%"/>
                 <fo:table-column column-number="2" column-width="17%"/>
-                <fo:table-column column-number="3" column-width="16%"/>
-                <fo:table-column column-number="4" column-width="20%"/>
+                <fo:table-column column-number="3" column-width="20%"/>
+                <fo:table-column column-number="4" column-width="15%"/>
                 <fo:table-column column-number="5" column-width="15%"/>
-                <fo:table-column column-number="6" column-width="15%"/>
+                <fo:table-column column-number="6" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%">
                             <fo:block font-size="5pt">Holder of transit procedure [13 07]</fo:block>
                         </fo:table-cell>
 
@@ -48,22 +48,25 @@
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block font-size="5pt">TIR [12 06]</fo:block>
                         </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@holderOfTransitProcedure</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="4"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@holderOfTransitProcedureIdentificationNumber</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                        <fo:table-cell margin-left="0.5%" display-align="center" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block-container overflow="hidden">
@@ -71,7 +74,7 @@
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                        <fo:table-cell margin-left="0.5%" display-align="center" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block-container overflow="hidden">
@@ -79,7 +82,7 @@
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                        <fo:table-cell margin-left="0.5%" display-align="center" number-rows-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block-container overflow="hidden">
@@ -89,18 +92,20 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        @empty_cell(3)
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        @empty_cell(3)
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Contact person [13 07 074]</fo:block>
+                        </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" number-rows-spanned="5"
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="7"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
                             <fo:block><fo:inline font-weight="bold" font-size="5pt">BCP:</fo:inline> @box()</fo:block>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%" number-rows-spanned="5" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="7" number-columns-spanned="2">
                             <fo:block font-weight="bold" font-size="5pt">Return copy has to be sent to the office:</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -108,17 +113,12 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block font-size="5pt">Contact person [13 07 074]</fo:block>
-                        </fo:table-cell>
-
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
-                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
                             <fo:block>@hotPContactPerson</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%">
                             <fo:block font-size="5pt">Representative [13 06]</fo:block>
                         </fo:table-cell>
 
@@ -134,7 +134,7 @@
                             </fo:block-container>
                         </fo:table-cell>
 
-                        <fo:table-cell margin-left="0.5%">
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="4">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@representativeIdentificationNumber</fo:block>
                             </fo:block-container>
@@ -142,12 +142,20 @@
                     </fo:table-row>
 
                     <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
                             <fo:block font-size="5pt">Contact person [13 06 074]</fo:block>
                         </fo:table-cell>
+                    </fo:table-row>
 
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block>@representativeContactPerson</fo:block>
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@representativeContactPerson</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
