@@ -85,7 +85,6 @@ class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbMod
               .thenReturn(byteArray)
 
             val request = FakeRequest(GET, controllerRoute)
-              .withHeaders("APIVersion" -> "2.1")
 
             val result = route(application, request).value
 
@@ -111,7 +110,6 @@ class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbMod
             .thenReturn(Future.successful(None))
 
           val request = FakeRequest(GET, controllerRoute)
-            .withHeaders("APIVersion" -> "2.1")
 
           val result = route(application, request).value
 
