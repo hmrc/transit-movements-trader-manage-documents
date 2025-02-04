@@ -113,7 +113,9 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block>@hotPContactPerson</fo:block>
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@hotPContactPerson</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
 
