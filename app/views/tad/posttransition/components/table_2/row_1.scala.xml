@@ -1,4 +1,5 @@
 @import views.xml.components.box
+@import views.xml.components.empty_cell
 
 @(
     containerIndicator: String,
@@ -12,100 +13,55 @@
         <fo:block/>
     </fo:table-cell>
 
-    <fo:table-cell>
-        <fo:block/>
-    </fo:table-cell>
-
-    <fo:table-cell border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                   border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black">
-
+    <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
-                <fo:table-column column-number="1" column-width="75%"/>
-                <fo:table-column column-number="2" column-width="25%"/>
+                <fo:table-column column-number="1" column-width="35%"/>
+                <fo:table-column column-number="2" column-width="15%"/>
+                <fo:table-column column-number="3" column-width="50%"/>
+                <fo:table-column column-number="4" column-width="0%"/>
                 <fo:table-body>
-
                     <fo:table-row>
-                        <fo:table-cell margin-top="0.5%" display-align="center" margin-left="0.5%">
-                            <fo:block>Transport equipment [19 07]</fo:block>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Transport equipment [19 07]</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell margin-bottom="0.5%" margin-top="0.5%" display-align="center"
-                                       margin-left="0.1%"
-                                       border-left-style="solid" border-left-width="1pt" border-left-color="black"
-                                       border-bottom-style="solid" border-bottom-width="1pt"
-                                       border-bottom-color="black" padding-left="0.5%">
-                            <fo:block>Container [19 01]:
-                                @box(containerIndicator)
-                            </fo:block>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block><fo:inline font-size="5pt">Container [19 01]:</fo:inline> @box(containerIndicator)</fo:block>
                         </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block font-size="5pt">Seals [19 10]</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" padding-bottom="7%">
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2">
                             <fo:block-container overflow="hidden">
-                                <fo:block>
-                                    @transportEquipment
-                                </fo:block>
+                                <fo:block>@transportEquipment</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
-                    </fo:table-row>
-                </fo:table-body>
-            </fo:table>
-        </fo:block>
-    </fo:table-cell>
 
-    <fo:table-cell number-columns-spanned="5">
-        <fo:block>
-            <fo:table width="100%" table-layout="fixed">
-                <fo:table-body>
-                    <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>
-                                <fo:table width="100%" table-layout="fixed">
-
-                                    <fo:table-body>
-                                        <fo:table-row>
-                                            <fo:table-cell border-left-style="solid" border-left-width="1pt"
-                                                           border-left-color="black" border-right-style="solid"
-                                                           border-right-width="1pt" border-right-color="black"
-                                                           border-top-style="solid" border-top-width="1pt"
-                                                           border-top-color="black" border-bottom-style="solid"
-                                                           border-bottom-width="1pt" border-bottom-color="black">
-                                                <fo:block>
-                                                    <fo:table width="100%" table-layout="fixed">
-                                                        <fo:table-body>
-
-                                                            <fo:table-row>
-                                                                <fo:table-cell margin-top="0.5%" display-align="center"
-                                                                               padding-left="1%">
-                                                                    <fo:block>Seal [19 10]</fo:block>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-
-                                                            <fo:table-row>
-                                                                <fo:table-cell margin-left="0.5%" padding-bottom="10%">
-                                                                    <fo:block-container overflow="hidden">
-                                                                        <fo:block>@seals
-                                                                        </fo:block>
-                                                                    </fo:block-container>
-                                                                </fo:table-cell>
-                                                            </fo:table-row>
-
-
-                                                        </fo:table-body>
-                                                    </fo:table>
-                                                </fo:block>
-                                            </fo:table-cell>
-
-                                        </fo:table-row>
-                                    </fo:table-body>
-                                </fo:table>
-                            </fo:block>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@seals</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
         </fo:block>
     </fo:table-cell>
-
 </fo:table-row>

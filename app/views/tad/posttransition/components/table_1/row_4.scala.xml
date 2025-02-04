@@ -1,4 +1,5 @@
-@import views.xml.tad.posttransition.components.table_1.local_reference_number
+@import views.xml.components.box
+@import views.xml.components.empty_cell
 
 @(
     holderOfTransitProcedure: String,
@@ -13,57 +14,154 @@
 )
 
 <fo:table-row>
-    <fo:table-cell>
-        <fo:block/>
-    </fo:table-cell>
 
-    <fo:table-cell text-align="center" vertical-align="top"
-                   border-top-color="black"
-                   border-left-style="solid" border-left-width="2pt" border-left-color="black"
-                   border-right-style="solid" border-right-width="2pt" border-right-color="black">
-        <fo:block/>
-    </fo:table-cell>
-
-    <!--  change name of xml-->
-    @holder_of_transit_procedure(
-        holderOfTransitProcedure,
-        holderOfTransitProcedureIdentificationNumber,
-        hotPContactPerson,
-        representative,
-        representativeIdentificationNumber,
-        representativeContactPerson
-    )
-
-    <fo:table-cell>
+    <fo:table-cell border-color="black" border-style="solid" border-width="1pt">
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="33%"/>
+                <fo:table-column column-number="2" column-width="17%"/>
+                <fo:table-column column-number="3" column-width="20%"/>
+                <fo:table-column column-number="4" column-width="15%"/>
+                <fo:table-column column-number="5" column-width="15%"/>
+                <fo:table-column column-number="6" column-width="0%"/>
                 <fo:table-body>
                     <fo:table-row>
-                        <fo:table-cell>
-                            <fo:block>
-                                <fo:table width="99.75%" table-layout="fixed">
-                                    <fo:table-column column-width="57.5%"/>
-                                    <fo:table-column column-width="57.5%"/>
-                                    <fo:table-column column-width="57.5%"/>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Holder of transit procedure [13 07]</fo:block>
+                        </fo:table-cell>
 
-                                    <fo:table-body>
-                                        <fo:table-row>
-                                            @local_reference_number(lrn)
-                                            @ucr(referenceNumberUCR)
-                                            @tir(tirCarnet)
-                                        </fo:table-row>
-                                        <fo:table-row>
-                                            @bcp()
-                                        </fo:table-row>
-                                    </fo:table-body>
-                                </fo:table>
-                            </fo:block>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">ID</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block font-size="5pt">LRN [12 09]</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block font-size="5pt">UCR [12 08]</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block font-size="5pt">TIR [12 06]</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@holderOfTransitProcedure</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="4"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@holderOfTransitProcedureIdentificationNumber</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" display-align="center" number-rows-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@lrn</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" display-align="center" number-rows-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@referenceNumberUCR</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" display-align="center" number-rows-spanned="2"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@tirCarnet</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Contact person [13 07 074]</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="7"
+                                       border-left-color="black" border-left-style="solid" border-left-width="1pt">
+                            <fo:block><fo:inline font-weight="bold" font-size="5pt">BCP:</fo:inline> @box()</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="7" number-columns-spanned="2">
+                            <fo:block font-weight="bold" font-size="5pt">Return copy has to be sent to the office:</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@hotPContactPerson</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Representative [13 06]</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">ID</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@representative</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="4">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@representativeIdentificationNumber</fo:block>
+                            </fo:block-container>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Contact person [13 06 074]</fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block-container overflow="hidden">
+                                <fo:block>@representativeContactPerson</fo:block>
+                            </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
         </fo:block>
     </fo:table-cell>
-
-
 </fo:table-row>
