@@ -16,8 +16,8 @@
 
 package viewmodels.unloadingpermission
 
-import generated.CUSTOM_ConsignmentItemType04
-import viewmodels._
+import generated.{CUSTOM_ConsignmentItemType04, CUSTOM_HouseConsignmentType04}
+import viewmodels.*
 
 case class ConsignmentItemViewModel(
   declarationGoodsItemNumber: String,
@@ -41,7 +41,7 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(consignmentItem: CUSTOM_ConsignmentItemType04): ConsignmentItemViewModel =
+  def apply(houseConsignment: CUSTOM_HouseConsignmentType04, consignmentItem: CUSTOM_ConsignmentItemType04): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber.toString,
@@ -50,7 +50,9 @@ object ConsignmentItemViewModel {
       consigneeId = consignmentItem.Consignee.flatMap(_.identificationNumber).orElseBlank,
       udng = consignmentItem.Commodity.DangerousGoods.map(_.asString).semiColonSeparate,
       cusCode = consignmentItem.Commodity.cusCode.orElseBlank,
-      descriptionOfGoods = consignmentItem.Commodity.descriptionOfGoods,
+      descriptionOfGoods =
+        if (consignmentItem.goodsItemNumber == 1) s"${houseConsignment.grossMass.asString} / ${consignmentItem.Commodity.descriptionOfGoods}"
+        else consignmentItem.Commodity.descriptionOfGoods,
       previousDocuments = consignmentItem.PreviousDocument.map(_.asString).semiColonSeparate,
       supportingDocuments = consignmentItem.SupportingDocument.map(_.asString).semiColonSeparate,
       additionalReferences = consignmentItem.AdditionalReference.map(_.asString).semiColonSeparate,

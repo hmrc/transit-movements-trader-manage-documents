@@ -17,9 +17,10 @@
 package viewmodels.unloadingpermission
 
 import base.SpecBase
-import generated._
+import generated.*
+import viewmodels.DummyData
 
-class ConsignmentItemViewModelSpec extends SpecBase {
+class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
   private val data: CUSTOM_ConsignmentItemType04 = CUSTOM_ConsignmentItemType04(
     goodsItemNumber = 1,
@@ -150,7 +151,7 @@ class ConsignmentItemViewModelSpec extends SpecBase {
 
   "must map data to view model" - {
 
-    val result = ConsignmentItemViewModel(data)
+    val result = ConsignmentItemViewModel(cc043c.Consignment.get.HouseConsignment.head, data)
 
     "declarationGoodsItemNumber" in {
       result.declarationGoodsItemNumber mustBe "1"
@@ -180,8 +181,13 @@ class ConsignmentItemViewModelSpec extends SpecBase {
       result.cusCode mustBe "cus"
     }
 
-    "descriptionOfGoods" in {
-      result.descriptionOfGoods mustBe "dog"
+    "descriptionOfGoods for the first one in consignment items" in {
+      result.descriptionOfGoods mustBe "100.0 / dog"
+    }
+
+    "descriptionOfGoods for the rest of consignment items" in {
+      val res = ConsignmentItemViewModel(cc043c.Consignment.get.HouseConsignment.head, data.copy(goodsItemNumber = 2))
+      res.descriptionOfGoods mustBe "dog"
     }
 
     "previousDocuments" in {

@@ -16,7 +16,7 @@
 
 package viewmodels.unloadingpermission
 
-import generated._
+import generated.*
 
 case class UnloadingPermissionPdfViewModel(
   mrn: String,
@@ -32,14 +32,13 @@ object UnloadingPermissionPdfViewModel {
     *   P5 unloading permission view model
     */
   def apply(ie043: CC043CType): UnloadingPermissionPdfViewModel = {
-    val consignmentItems: Seq[CUSTOM_ConsignmentItemType04] =
-      ie043.Consignment.fold[Seq[CUSTOM_ConsignmentItemType04]](Nil) {
-        _.HouseConsignment.flatMap(_.ConsignmentItem)
-      }
+    val houseConsignments = ie043.Consignment.map(_.HouseConsignment.filter(_.ConsignmentItem.nonEmpty)).getOrElse(Nil)
 
     new UnloadingPermissionPdfViewModel(
       mrn = ie043.TransitOperation.MRN,
-      consignmentItemViewModels = consignmentItems.map(ConsignmentItemViewModel(_)),
+      consignmentItemViewModels = houseConsignments.flatMap(
+        hc => hc.ConsignmentItem.map(ConsignmentItemViewModel(hc, _))
+      ),
       table1ViewModel = Table1ViewModel(ie043)
     )
   }
