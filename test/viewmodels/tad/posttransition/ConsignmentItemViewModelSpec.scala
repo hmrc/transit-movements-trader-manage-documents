@@ -41,8 +41,8 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "descriptionOfGoods" - {
-      "must be house consignment gross mass for the first item in HC" in {
-        result.descriptionOfGoods mustBe houseConsignmentType03.grossMass.toDouble.toString
+      "must be house consignment gross mass and description for the first item in HC" in {
+        result.descriptionOfGoods mustBe s"${houseConsignmentType03.grossMass.toDouble.toString} / ${consignmentItemType03.Commodity.descriptionOfGoods}"
       }
 
       "must be description of goods for the rest of the other consignment items in HC" in {
