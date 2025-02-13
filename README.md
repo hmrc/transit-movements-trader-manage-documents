@@ -14,7 +14,7 @@ In order to download these documents, submit the following messages through post
     * IE007
     * IE043
 
-## EndpointsSS
+## Endpoints
 
 ---
 
