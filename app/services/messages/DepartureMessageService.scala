@@ -22,7 +22,6 @@ import generated.CC029CType
 import generated.Generated_CC015CTypeFormat
 import generated.Generated_CC029CTypeFormat
 import models.DepartureMessageType.DepartureNotification
-import models.Phase
 import scalaxb.XMLFormat
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.RichCC029CType
@@ -35,30 +34,26 @@ class DepartureMessageService @Inject() (connector: DepartureMovementConnector) 
 
   def getReleaseForTransitNotification(
     departureId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC029CType] =
-    getMessage[CC029CType](departureId, messageId, phase).map(_.rollDown)
+    getMessage[CC029CType](departureId, messageId).map(_.rollDown)
 
   def getDeclarationData(
     departureId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC015CType] =
-    getMessage[CC015CType](departureId, messageId, phase)
+    getMessage[CC015CType](departureId, messageId)
 
   def getIE015MessageId(
-    departureId: String,
-    phase: Phase
+    departureId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[String]] =
     connector
-      .getMessages(departureId, phase)
+      .getMessages(departureId)
       .map(_.find(DepartureNotification).map(_.id))
 
   private def getMessage[T](
     departureId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
-    formatResponse(connector.getMessage(departureId, messageId, phase))
+    formatResponse(connector.getMessage(departureId, messageId))
 }
