@@ -17,7 +17,6 @@
 package controllers
 
 import controllers.actions.AuthenticateActionProvider
-import controllers.actions.VersionedAction
 import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -34,18 +33,17 @@ class UnloadingPermissionDocumentController @Inject() (
   pdf: UnloadingPermissionPdfGenerator,
   service: UnloadingMessageService,
   authenticate: AuthenticateActionProvider,
-  getVersion: VersionedAction,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
   def get(arrivalId: String, messageId: String): Action[AnyContent] =
-    (authenticate() andThen getVersion).async {
+    authenticate() async {
       implicit request =>
-        service.getUnloadingPermissionNotification(arrivalId, messageId, request.phase).map {
+        service.getUnloadingPermissionNotification(arrivalId, messageId).map {
           ie043 =>
-            val bytes    = pdf.generateP5(ie043)
+            val bytes    = pdf.generate(ie043)
             val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"
             Ok(bytes)
               .withHeaders(

@@ -1,0 +1,38 @@
+@import views.xml.tad.components.table_2._
+@import viewmodels.tad.Table2ViewModel
+
+@this()
+
+@(vm: Table2ViewModel)
+
+<fo:table width="100%" table-layout="fixed" id="table-2">
+
+    <fo:table-column column-number="1" column-width="8%"/>
+    <fo:table-column column-number="2" column-width="92%"/>
+
+    <fo:table-body>
+        @row_1(
+            vm.containerIndicator,
+            vm.transportEquipment,
+            vm.seals
+        )
+        
+        @row_2(
+            vm.previousDocuments,
+            vm.transportDocuments
+        )
+        
+        @row_3(
+            vm.supportingDocuments,
+            vm.additionalReferences,
+            vm.transportCharges,
+            vm.additionalInformation
+        )
+        
+        @row_4(
+            vm.guarantees,
+            vm.reducedDatasetIndicator,
+            vm.authorisations
+        )
+    </fo:table-body>
+</fo:table>

@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package connectors
+package viewmodels.tad
 
-import config.AppConfig
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.client.HttpClientV2
+import generated._
+import viewmodels._
 
-import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.xml.Node
+case class Table3ViewModel(
+  containerIdentification: String
+)
 
-class UnloadingPermissionConnector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
+object Table3ViewModel {
 
-  def getMessage(
-    arrivalId: String,
-    messageId: String
-  )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("arrivals", arrivalId, messageId)
-
+  def apply(ie029: CC029CType): Table3ViewModel =
+    new Table3ViewModel(
+      containerIdentification = ie029.Consignment.TransportEquipment.flatMap(_.containerIdentificationNumber).take3(_.semiColonSeparate)
+    )
 }
