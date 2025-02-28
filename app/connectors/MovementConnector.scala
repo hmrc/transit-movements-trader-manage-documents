@@ -18,17 +18,24 @@ package connectors
 
 import config.AppConfig
 import models.Phase
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.{Source, StreamConverters}
+import org.apache.pekko.util.ByteString
 import play.api.Logging
 import play.api.http.HeaderNames.*
-import uk.gov.hmrc.http.HttpReads.Implicits.*
-import uk.gov.hmrc.http.{HeaderCarrier, HttpReadsTry, HttpResponse, StringContextOps}
-import uk.gov.hmrc.http.client.HttpClientV2
+import uk.gov.hmrc.http.client.{HttpClientV2, given}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReadsTry, StringContextOps}
 
 import javax.xml.parsers.{SAXParser, SAXParserFactory}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.xml.{Node, XML}
 
-class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReadsTry with Logging {
+trait MovementConnector extends HttpReadsTry with Logging {
+
+  val config: AppConfig
+  val http: HttpClientV2
+  implicit val mat: Materializer
+  implicit val ec: ExecutionContext
 
   private val saxParser: SAXParser = {
     val saxParserFactory = SAXParserFactory.newInstance()
@@ -45,9 +52,9 @@ class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReads
     http
       .get(url)
       .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+xml")
-      .execute[HttpResponse]
-      .map(_.body)
-      .map(XML.withSAXParser(saxParser).loadString(_))
+      .stream[Source[ByteString, ?]]
+      .map(_.runWith(StreamConverters.asInputStream()))
+      .map(XML.withSAXParser(saxParser).load(_))
   }
 
 }

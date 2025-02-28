@@ -17,20 +17,23 @@
 package connectors
 
 import config.AppConfig
-import models.DepartureMessages
-import models.Phase
-import play.api.http.HeaderNames._
-import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.StringContextOps
+import models.{DepartureMessages, Phase}
+import org.apache.pekko.stream.Materializer
+import play.api.http.HeaderNames.*
+import uk.gov.hmrc.http.HttpReads.Implicits.*
+import uk.gov.hmrc.http.{HeaderCarrier, StringContextOps}
 import uk.gov.hmrc.http.client.HttpClientV2
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.xml.Node
 
-class DepartureMovementConnector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
+class DepartureMovementConnector @Inject() (
+  override val config: AppConfig,
+  override val http: HttpClientV2,
+  implicit override val mat: Materializer,
+  implicit override val ec: ExecutionContext
+) extends MovementConnector {
 
   def getMessages(departureId: String, phase: Phase)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
     val url = url"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages"

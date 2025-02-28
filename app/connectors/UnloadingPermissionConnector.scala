@@ -18,15 +18,20 @@ package connectors
 
 import config.AppConfig
 import models.Phase
+import org.apache.pekko.stream.Materializer
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.client.HttpClientV2
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.xml.Node
 
-class UnloadingPermissionConnector @Inject() (config: AppConfig, http: HttpClientV2) extends MovementConnector(config, http) {
+class UnloadingPermissionConnector @Inject() (
+  override val config: AppConfig,
+  override val http: HttpClientV2,
+  implicit override val mat: Materializer,
+  implicit override val ec: ExecutionContext
+) extends MovementConnector {
 
   def getMessage(
     arrivalId: String,
