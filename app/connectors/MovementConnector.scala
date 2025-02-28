@@ -19,20 +19,21 @@ package connectors
 import config.AppConfig
 import models.Phase
 import play.api.Logging
-import play.api.http.HeaderNames._
-import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpReadsTry
-import uk.gov.hmrc.http.HttpResponse
-import uk.gov.hmrc.http.StringContextOps
+import play.api.http.HeaderNames.*
+import uk.gov.hmrc.http.HttpReads.Implicits.*
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReadsTry, HttpResponse, StringContextOps}
 import uk.gov.hmrc.http.client.HttpClientV2
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.xml.Node
-import scala.xml.XML
+import javax.xml.parsers.{SAXParser, SAXParserFactory}
+import scala.concurrent.{ExecutionContext, Future}
+import scala.xml.{Node, XML}
 
 class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReadsTry with Logging {
+
+  private val saxParser: SAXParser = {
+    val saxParserFactory = SAXParserFactory.newInstance()
+    saxParserFactory.newSAXParser()
+  }
 
   def getMessage(
     movements: String,
@@ -46,7 +47,7 @@ class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReads
       .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+xml")
       .execute[HttpResponse]
       .map(_.body)
-      .map(XML.loadString)
+      .map(XML.withSAXParser(saxParser).loadString(_))
   }
 
 }
