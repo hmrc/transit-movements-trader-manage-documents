@@ -16,31 +16,26 @@
 
 package generators
 
-import generated._
+import generated.*
+import models.IE015
+import models.IE015.*
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.Arbitrary
-import org.scalacheck.Gen
+import org.scalacheck.{Arbitrary, Gen}
 import scalaxb.XMLCalendar
 
-import java.time.LocalDateTime
+import java.time.{LocalDate, LocalDateTime}
 import javax.xml.datatype.XMLGregorianCalendar
 
 trait ScalaxbModelGenerators extends GeneratorHelpers {
 
-  implicit lazy val arbitraryCC015CType: Arbitrary[CC015CType] =
+  implicit lazy val arbitraryIE015: Arbitrary[IE015] =
     Arbitrary {
       for {
-        messageSequence1                         <- arbitrary[MESSAGESequence]
-        transitOperation                         <- arbitrary[TransitOperationType06]
-        customsOfficeOfDeparture                 <- arbitrary[CustomsOfficeOfDepartureType03]
-        customsOfficeOfDestinationDeclaredType01 <- arbitrary[CustomsOfficeOfDestinationDeclaredType01]
-        holderOfTheTransitProcedure              <- arbitrary[HolderOfTheTransitProcedureType14]
-        consignment                              <- arbitrary[ConsignmentType20]
-      } yield CC015CType(
-        messageSequence1 = messageSequence1,
+        transitOperation <- arbitrary[TransitOperation]
+        consignment      <- arbitrary[Consignment]
+      } yield IE015(
         TransitOperation = transitOperation,
-        Consignment = consignment,
-        attributes = Map.empty
+        Consignment = consignment
       )
     }
 
@@ -239,49 +234,49 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
-  implicit lazy val arbitraryConsignmentType20: Arbitrary[ConsignmentType20] =
+  implicit lazy val arbitraryConsignment: Arbitrary[Consignment] =
     Arbitrary {
       for {
-        houseConsignments <- listWithMaxSize[HouseConsignmentType10]()
-      } yield ConsignmentType20(
+        houseConsignments <- listWithMaxSize[HouseConsignment]()
+      } yield Consignment(
         HouseConsignment = houseConsignments
       )
     }
 
-  implicit lazy val arbitraryHouseConsignmentType10: Arbitrary[HouseConsignmentType10] =
+  implicit lazy val arbitraryHouseConsignment: Arbitrary[HouseConsignment] =
     Arbitrary {
       for {
-        consignmentItems <- listWithMaxSize[ConsignmentItemType09]()
-      } yield HouseConsignmentType10(
+        consignmentItems <- listWithMaxSize[ConsignmentItem]()
+      } yield HouseConsignment(
         ConsignmentItem = consignmentItems
       )
     }
 
-  implicit lazy val arbitraryConsignmentItemType09: Arbitrary[ConsignmentItemType09] =
+  implicit lazy val arbitraryConsignmentItem: Arbitrary[ConsignmentItem] =
     Arbitrary {
       for {
         declarationGoodsItemNumber <- arbitrary[BigInt]
-        commodity                  <- arbitrary[CommodityType07]
-      } yield ConsignmentItemType09(
+        commodity                  <- arbitrary[Commodity]
+      } yield ConsignmentItem(
         declarationGoodsItemNumber = declarationGoodsItemNumber,
         Commodity = commodity
       )
     }
 
-  implicit lazy val arbitraryCommodityType07: Arbitrary[CommodityType07] =
+  implicit lazy val arbitraryCommodity: Arbitrary[Commodity] =
     Arbitrary {
       for {
-        goodsMeasure <- Gen.option(arbitrary[GoodsMeasureType02])
-      } yield CommodityType07(
+        goodsMeasure <- Gen.option(arbitrary[GoodsMeasure])
+      } yield Commodity(
         GoodsMeasure = goodsMeasure
       )
     }
 
-  implicit lazy val arbitraryGoodsMeasureType02: Arbitrary[GoodsMeasureType02] =
+  implicit lazy val arbitraryGoodsMeasure: Arbitrary[GoodsMeasure] =
     Arbitrary {
       for {
         supplementaryUnits <- Gen.option(arbitrary[BigDecimal])
-      } yield GoodsMeasureType02(
+      } yield GoodsMeasure(
         supplementaryUnits = supplementaryUnits
       )
     }
@@ -322,11 +317,11 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
-  implicit lazy val arbitraryTransitOperationType06: Arbitrary[TransitOperationType06] =
+  implicit lazy val arbitraryTransitOperation: Arbitrary[TransitOperation] =
     Arbitrary {
       for {
-        limitDate <- Gen.option(arbitrary[XMLGregorianCalendar])
-      } yield TransitOperationType06(
+        limitDate <- Gen.option(arbitrary[LocalDate])
+      } yield TransitOperation(
         limitDate = limitDate
       )
     }

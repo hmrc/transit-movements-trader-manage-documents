@@ -17,7 +17,7 @@
 package connectors
 
 import config.AppConfig
-import models.{DepartureMessages, Phase}
+import models.{DepartureMessages, IE015, Phase}
 import org.apache.pekko.stream.Materializer
 import play.api.http.HeaderNames.*
 import uk.gov.hmrc.http.HttpReads.Implicits.*

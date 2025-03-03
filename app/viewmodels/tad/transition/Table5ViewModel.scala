@@ -16,8 +16,9 @@
 
 package viewmodels.tad.transition
 
-import generated._
-import viewmodels._
+import generated.*
+import models.IE015
+import viewmodels.*
 
 case class Table5ViewModel(
   seals: Seq[String],
@@ -32,7 +33,7 @@ case class Table5ViewModel(
 
 object Table5ViewModel {
 
-  def apply(ie015: CC015CType, ie029: CC029CType): Table5ViewModel =
+  def apply(ie015: IE015, ie029: CC029CType): Table5ViewModel =
     new Table5ViewModel(
       seals = Seq.empty,
       controlResult = None,

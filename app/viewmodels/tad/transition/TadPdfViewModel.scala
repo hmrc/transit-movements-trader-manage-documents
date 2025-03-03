@@ -16,7 +16,8 @@
 
 package viewmodels.tad.transition
 
-import generated._
+import generated.*
+import models.IE015
 import viewmodels.RichCC029CType
 
 case class TadPdfViewModel(
@@ -43,7 +44,7 @@ object TadPdfViewModel {
     * @return
     *   TAD view model based on P5 (transition) data
     */
-  def apply(ie015: CC015CType, ie029: CC029CType): TadPdfViewModel = {
+  def apply(ie015: IE015, ie029: CC029CType): TadPdfViewModel = {
     val consignmentItemViewModels = ie029.consignmentItems.map(ConsignmentItemViewModel(ie029, _))
 
     new TadPdfViewModel(

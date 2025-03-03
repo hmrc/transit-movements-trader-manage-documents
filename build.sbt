@@ -30,8 +30,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(
     Compile / scalaxb / scalaxbXsdSource := new File("./conf/xsd"),
     Compile / scalaxb / scalaxbDispatchVersion := "1.1.3",
-    Compile / scalaxb / scalaxbPackageName := "generated",
-    Compile / scalaxb / scalaxbIgnoreUnknown := true // Needed since we have removed some fields from IE015 XSD
+    Compile / scalaxb / scalaxbPackageName := "generated"
   )
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(

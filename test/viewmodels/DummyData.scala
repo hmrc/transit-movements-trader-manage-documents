@@ -17,11 +17,13 @@
 package viewmodels
 
 import base.SpecBase
-import generated._
+import generated.*
 import generators.ScalaxbModelGenerators
+import models.IE015
 import org.scalacheck.Arbitrary.arbitrary
 import scalaxb.XMLCalendar
 
+import java.time.LocalDate
 import javax.xml.datatype.XMLGregorianCalendar
 
 trait DummyData extends ScalaxbModelGenerators {
@@ -29,9 +31,16 @@ trait DummyData extends ScalaxbModelGenerators {
 
   private def calendar(date: String): XMLGregorianCalendar = XMLCalendar(date)
 
-  lazy val cc015c: CC015CType = {
-    val generated = arbitrary[CC015CType].sample.value
-    generated.copy(TransitOperation = generated.TransitOperation.copy(limitDate = Some(calendar("2022-02-03T08:45:00.000000"))))
+  lazy val cc015c: IE015 = {
+    val generated = arbitrary[IE015].sample.value
+    generated.copy(
+      TransitOperation = generated.TransitOperation.copy(
+        limitDate = Some(LocalDate.of(2022, 2, 3))
+      ),
+      Consignment = generated.Consignment.copy(
+        HouseConsignment = Nil
+      )
+    )
   }
 
   lazy val cc029c: CC029CType = CC029CType(
