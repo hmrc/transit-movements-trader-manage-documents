@@ -2574,6 +2574,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
+      <!-- Not needed. Removed to optimise performance.
       <xs:element name="descriptionOfGoods" type="DescriptionOfGoodsContentType02">
         <xs:annotation>
           <xs:documentation>
@@ -2609,7 +2610,7 @@
             <optionality value="O" />
           </xs:documentation>
         </xs:annotation>
-      </xs:element>
+      </xs:element>-->
       <xs:element name="GoodsMeasure" minOccurs="0" type="GoodsMeasureType02">
         <xs:annotation>
           <xs:documentation>
@@ -4136,16 +4137,6 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="goodsItemNumber" type="GoodsItemNumberContentType">
-        <xs:annotation>
-          <xs:documentation>
-            <description value="Goods item number" />
-            <format value="n..5" />
-            <optionality value="R" />
-            <xsdBaseType value="NumericWithoutZero_5" />
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element name="declarationGoodsItemNumber" type="DeclarationGoodsItemNumberContentType01">
         <xs:annotation>
           <xs:documentation>
@@ -4153,6 +4144,25 @@
             <format value="n..5" />
             <optionality value="R" />
             <xsdBaseType value="DeclarationGoodsItemNumberType" />
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Commodity" type="CommodityType07">
+        <xs:annotation>
+          <xs:documentation>
+            <description value="COMMODITY" />
+            <optionality value="R" />
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- Not needed. Removed to optimise performance.
+      <xs:element name="goodsItemNumber" type="GoodsItemNumberContentType">
+        <xs:annotation>
+          <xs:documentation>
+            <description value="Goods item number" />
+            <format value="n..5" />
+            <optionality value="R" />
+            <xsdBaseType value="NumericWithoutZero_5" />
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -4214,14 +4224,6 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Commodity" type="CommodityType07">
-        <xs:annotation>
-          <xs:documentation>
-            <description value="COMMODITY" />
-            <optionality value="R" />
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element name="Packaging" maxOccurs="99" type="PackagingType03">
         <xs:annotation>
           <xs:documentation>
@@ -4277,7 +4279,7 @@
             <optionality value="O" />
           </xs:documentation>
         </xs:annotation>
-      </xs:element>
+      </xs:element>-->
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ConsignmentItemType10">
@@ -7267,6 +7269,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
+      <!-- Not needed. Removed to optimise performance.
       <xs:element name="countryOfDispatch" minOccurs="0" type="CountryOfDispatchContentType">
         <xs:annotation>
           <xs:documentation>
@@ -7474,7 +7477,7 @@
             <optionality value="D" />
           </xs:documentation>
         </xs:annotation>
-      </xs:element>
+      </xs:element>-->
       <xs:element name="HouseConsignment" maxOccurs="1999" type="HouseConsignmentType10">
         <xs:annotation>
           <xs:documentation>
@@ -11142,6 +11145,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
+      <!-- Not needed. Removed to optimise performance.
       <xs:element name="grossMass" minOccurs="0" type="GrossMassContentType02">
         <xs:annotation>
           <xs:documentation>
@@ -11161,7 +11165,7 @@
             <xsdBaseType value="DecimalWithoutZero_16_6" />
           </xs:documentation>
         </xs:annotation>
-      </xs:element>
+      </xs:element>-->
       <xs:element name="supplementaryUnits" minOccurs="0" type="SupplementaryUnitsContentType">
         <xs:annotation>
           <xs:documentation>
@@ -14770,6 +14774,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
+      <!-- Not needed. Removed to optimise performance.
       <xs:element name="sequenceNumber" type="SequenceNumberContentType">
         <xs:annotation>
           <xs:documentation>
@@ -14901,7 +14906,7 @@
             <optionality value="D" />
           </xs:documentation>
         </xs:annotation>
-      </xs:element>
+      </xs:element>-->
       <xs:element name="ConsignmentItem" maxOccurs="999" type="ConsignmentItemType09">
         <xs:annotation>
           <xs:documentation>
@@ -19521,6 +19526,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
+      <!-- Not needed. Removed to optimise performance.
       <xs:element name="LRN" type="LRNContentType03">
         <xs:annotation>
           <xs:documentation>
@@ -19621,7 +19627,7 @@
             <optionality value="R" />
           </xs:documentation>
         </xs:annotation>
-      </xs:element>
+      </xs:element>-->
       <xs:element name="limitDate" minOccurs="0" type="LimitDateContentType">
         <xs:annotation>
           <xs:documentation>

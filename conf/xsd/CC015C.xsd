@@ -29,6 +29,7 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
+      <!-- Not needed. Removed to optimise performance.
       <xs:element name="Authorisation" minOccurs="0" maxOccurs="9" type="AuthorisationType03">
         <xs:annotation>
           <xs:documentation>
@@ -92,7 +93,7 @@
             <optionality value="R" />
           </xs:documentation>
         </xs:annotation>
-      </xs:element>
+      </xs:element>-->
       <xs:element name="Consignment" type="ConsignmentType20">
         <xs:annotation>
           <xs:documentation>

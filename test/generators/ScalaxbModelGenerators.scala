@@ -39,14 +39,6 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       } yield CC015CType(
         messageSequence1 = messageSequence1,
         TransitOperation = transitOperation,
-        Authorisation = Nil,
-        CustomsOfficeOfDeparture = customsOfficeOfDeparture,
-        CustomsOfficeOfDestinationDeclared = customsOfficeOfDestinationDeclaredType01,
-        CustomsOfficeOfTransitDeclared = Nil,
-        CustomsOfficeOfExitForTransitDeclared = Nil,
-        HolderOfTheTransitProcedure = holderOfTheTransitProcedure,
-        Representative = None,
-        Guarantee = Nil,
         Consignment = consignment,
         attributes = Map.empty
       )
@@ -250,33 +242,47 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryConsignmentType20: Arbitrary[ConsignmentType20] =
     Arbitrary {
       for {
-        grossMass <- arbitrary[BigDecimal]
+        houseConsignments <- listWithMaxSize[HouseConsignmentType10]()
       } yield ConsignmentType20(
-        countryOfDispatch = None,
-        countryOfDestination = None,
-        containerIndicator = None,
-        inlandModeOfTransport = None,
-        modeOfTransportAtTheBorder = None,
-        grossMass = grossMass,
-        referenceNumberUCR = None,
-        Carrier = None,
-        Consignor = None,
-        Consignee = None,
-        AdditionalSupplyChainActor = Nil,
-        TransportEquipment = Nil,
-        LocationOfGoods = None,
-        DepartureTransportMeans = Nil,
-        CountryOfRoutingOfConsignment = Nil,
-        ActiveBorderTransportMeans = Nil,
-        PlaceOfLoading = None,
-        PlaceOfUnloading = None,
-        PreviousDocument = Nil,
-        SupportingDocument = Nil,
-        TransportDocument = Nil,
-        AdditionalReference = Nil,
-        AdditionalInformation = Nil,
-        TransportCharges = None,
-        HouseConsignment = Nil
+        HouseConsignment = houseConsignments
+      )
+    }
+
+  implicit lazy val arbitraryHouseConsignmentType10: Arbitrary[HouseConsignmentType10] =
+    Arbitrary {
+      for {
+        consignmentItems <- listWithMaxSize[ConsignmentItemType09]()
+      } yield HouseConsignmentType10(
+        ConsignmentItem = consignmentItems
+      )
+    }
+
+  implicit lazy val arbitraryConsignmentItemType09: Arbitrary[ConsignmentItemType09] =
+    Arbitrary {
+      for {
+        declarationGoodsItemNumber <- arbitrary[BigInt]
+        commodity                  <- arbitrary[CommodityType07]
+      } yield ConsignmentItemType09(
+        declarationGoodsItemNumber = declarationGoodsItemNumber,
+        Commodity = commodity
+      )
+    }
+
+  implicit lazy val arbitraryCommodityType07: Arbitrary[CommodityType07] =
+    Arbitrary {
+      for {
+        goodsMeasure <- Gen.option(arbitrary[GoodsMeasureType02])
+      } yield CommodityType07(
+        GoodsMeasure = goodsMeasure
+      )
+    }
+
+  implicit lazy val arbitraryGoodsMeasureType02: Arbitrary[GoodsMeasureType02] =
+    Arbitrary {
+      for {
+        supplementaryUnits <- Gen.option(arbitrary[BigDecimal])
+      } yield GoodsMeasureType02(
+        supplementaryUnits = supplementaryUnits
       )
     }
 
@@ -319,24 +325,9 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
   implicit lazy val arbitraryTransitOperationType06: Arbitrary[TransitOperationType06] =
     Arbitrary {
       for {
-        lrn                       <- nonEmptyString
-        declarationType           <- nonEmptyString
-        additionalDeclarationType <- nonEmptyString
-        security                  <- nonEmptyString
-        reducedDatasetIndicator   <- arbitrary[Flag]
-        bindingItinerary          <- arbitrary[Flag]
+        limitDate <- Gen.option(arbitrary[XMLGregorianCalendar])
       } yield TransitOperationType06(
-        LRN = lrn,
-        declarationType = declarationType,
-        additionalDeclarationType = additionalDeclarationType,
-        TIRCarnetNumber = None,
-        presentationOfTheGoodsDateAndTime = None,
-        security = security,
-        reducedDatasetIndicator = reducedDatasetIndicator,
-        specificCircumstanceIndicator = None,
-        communicationLanguageAtDeparture = None,
-        bindingItinerary = bindingItinerary,
-        limitDate = None
+        limitDate = limitDate
       )
     }
 
