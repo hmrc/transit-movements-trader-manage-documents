@@ -45,6 +45,17 @@ class IE015Spec extends SpecBase {
 
         result mustEqual GoodsMeasure(None)
       }
+
+      "when supplementaryUnits invalid" in {
+        val xml = <GoodsMeasure>
+          <grossMass>1000</grossMass>
+          <supplementaryUnits>foo</supplementaryUnits>
+        </GoodsMeasure>
+
+        val result = GoodsMeasure.reads(xml)
+
+        result mustEqual GoodsMeasure(None)
+      }
     }
   }
 
@@ -77,21 +88,40 @@ class IE015Spec extends SpecBase {
   }
 
   "ConsignmentItem" - {
-    "must deserialise" in {
-      val xml = <ConsignmentItem>
-        <declarationGoodsItemNumber>1</declarationGoodsItemNumber>
-        <Commodity>
-          <descriptionOfGoods>Toys</descriptionOfGoods>
-          <GoodsMeasure>
-            <grossMass>1000</grossMass>
-            <supplementaryUnits>11</supplementaryUnits>
-          </GoodsMeasure>
-        </Commodity>
-      </ConsignmentItem>
+    "must deserialise" - {
+      "when declarationGoodsItemNumber valid" in {
+        val xml = <ConsignmentItem>
+          <declarationGoodsItemNumber>1</declarationGoodsItemNumber>
+          <Commodity>
+            <descriptionOfGoods>Toys</descriptionOfGoods>
+            <GoodsMeasure>
+              <grossMass>1000</grossMass>
+              <supplementaryUnits>11</supplementaryUnits>
+            </GoodsMeasure>
+          </Commodity>
+        </ConsignmentItem>
 
-      val result = ConsignmentItem.reads(xml)
+        val result = ConsignmentItem.reads(xml)
 
-      result mustEqual ConsignmentItem(1, Commodity(Some(GoodsMeasure(Some(11)))))
+        result mustEqual ConsignmentItem(1, Commodity(Some(GoodsMeasure(Some(11)))))
+      }
+    }
+
+    "must fail to deserialise" - {
+      "when declarationGoodsItemNumber invalid" in {
+        val xml = <ConsignmentItem>
+          <declarationGoodsItemNumber>foo</declarationGoodsItemNumber>
+          <Commodity>
+            <descriptionOfGoods>Toys</descriptionOfGoods>
+            <GoodsMeasure>
+              <grossMass>1000</grossMass>
+              <supplementaryUnits>11</supplementaryUnits>
+            </GoodsMeasure>
+          </Commodity>
+        </ConsignmentItem>
+
+        an[Exception] mustBe thrownBy(ConsignmentItem.reads(xml))
+      }
     }
   }
 
@@ -251,6 +281,17 @@ class IE015Spec extends SpecBase {
       "when limitDate undefined" in {
         val xml = <TransitOperation>
           <lrn>LRN123</lrn>
+        </TransitOperation>
+
+        val result = TransitOperation.reads(xml)
+
+        result mustEqual TransitOperation(None)
+      }
+
+      "when limitDate invalid" in {
+        val xml = <TransitOperation>
+          <lrn>LRN123</lrn>
+          <limitDate>foo</limitDate>
         </TransitOperation>
 
         val result = TransitOperation.reads(xml)
