@@ -17,6 +17,8 @@
 import generated.*
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.xml.datatype.XMLGregorianCalendar
 import scala.annotation.tailrec
 
@@ -165,6 +167,17 @@ package object viewmodels {
     def dateAndTimeString: String = format("dd/MM/yyyy HH:mm")
     def dateString: String        = format("dd/MM/yyyy")
     def limitDateString: String   = format("yyyy-MM-dd")
+  }
+
+  implicit class RichLocalDate(value: LocalDate) {
+
+    private def format(pattern: String): String = {
+      val formatter = DateTimeFormatter.ofPattern(pattern)
+      formatter.format(value)
+    }
+
+    def dateString: String      = format("dd/MM/yyyy")
+    def limitDateString: String = format("yyyy-MM-dd")
   }
 
   implicit class RichFlag(value: Flag) {

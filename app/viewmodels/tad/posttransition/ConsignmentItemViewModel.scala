@@ -16,7 +16,8 @@
 
 package viewmodels.tad.posttransition
 
-import generated.{CC015CType, CUSTOM_ConsignmentItemType03, CUSTOM_HouseConsignmentType03, ConsignmentItemType03, HouseConsignmentType03}
+import generated.{CUSTOM_ConsignmentItemType03, CUSTOM_HouseConsignmentType03}
+import models.IE015
 import viewmodels.*
 
 case class ConsignmentItemViewModel(
@@ -51,7 +52,7 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(ie015: CC015CType, houseConsignment: CUSTOM_HouseConsignmentType03, consignmentItem: CUSTOM_ConsignmentItemType03): ConsignmentItemViewModel =
+  def apply(ie015: IE015, houseConsignment: CUSTOM_HouseConsignmentType03, consignmentItem: CUSTOM_ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber.toString(),

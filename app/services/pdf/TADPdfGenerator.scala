@@ -16,12 +16,12 @@
 
 package services.pdf
 
-import generated.CC015CType
 import generated.CC029CType
-import viewmodels.tad.posttransition.{TadPdfViewModel => FinalTadPdfViewModel}
-import viewmodels.tad.transition.{TadPdfViewModel => TransitionTadPdfViewModel}
-import views.xml.tad.posttransition.{TransitAccompanyingDocument => FinalTad}
-import views.xml.tad.transition.{TransitAccompanyingDocument => TransitionTad}
+import models.IE015
+import viewmodels.tad.posttransition.TadPdfViewModel as FinalTadPdfViewModel
+import viewmodels.tad.transition.TadPdfViewModel as TransitionTadPdfViewModel
+import views.xml.tad.posttransition.TransitAccompanyingDocument as FinalTad
+import views.xml.tad.transition.TransitAccompanyingDocument as TransitionTad
 
 import javax.inject.Inject
 
@@ -31,9 +31,9 @@ class TADPdfGenerator @Inject() (
   transitionDocument: TransitionTad
 ) {
 
-  def generateP5TADPostTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
+  def generateP5TADPostTransition(ie015: IE015, ie029: CC029CType): Array[Byte] =
     fopService.processTwirlXml(finalDocument.render(FinalTadPdfViewModel(ie015, ie029)))
 
-  def generateP5TADTransition(ie015: CC015CType, ie029: CC029CType): Array[Byte] =
+  def generateP5TADTransition(ie015: IE015, ie029: CC029CType): Array[Byte] =
     fopService.processTwirlXml(transitionDocument.render(TransitionTadPdfViewModel(ie015, ie029)))
 }

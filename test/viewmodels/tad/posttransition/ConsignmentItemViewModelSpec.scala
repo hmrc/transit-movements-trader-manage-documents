@@ -17,7 +17,7 @@
 package viewmodels.tad.posttransition
 
 import base.SpecBase
-import generated.{CommodityType07, ConsignmentItemType09, GoodsMeasureType02, HouseConsignmentType10}
+import models.IE015.*
 import viewmodels.DummyData
 
 class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
@@ -142,24 +142,21 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
       "ie15 data for the matching consignment item" in {
         val searchedDeclarationGoodsItemNo = 4
-        val ie15CI_1 = ConsignmentItemType09(
-          goodsItemNumber = 1,
+        val ie15CI_1 = ConsignmentItem(
           declarationGoodsItemNumber = searchedDeclarationGoodsItemNo,
-          Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = Some(GoodsMeasureType02(supplementaryUnits = Some(BigDecimal(4.8)))))
+          Commodity = Commodity(GoodsMeasure = Some(GoodsMeasure(supplementaryUnits = Some(BigDecimal(4.8)))))
         )
-        val ie15CI_2 = ConsignmentItemType09(
-          goodsItemNumber = 2,
+        val ie15CI_2 = ConsignmentItem(
           declarationGoodsItemNumber = searchedDeclarationGoodsItemNo + 1,
-          Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = Some(GoodsMeasureType02(supplementaryUnits = Some(BigDecimal(7.6)))))
+          Commodity = Commodity(GoodsMeasure = Some(GoodsMeasure(supplementaryUnits = Some(BigDecimal(7.6)))))
         )
-        val ie15CI_3 = ConsignmentItemType09(
-          goodsItemNumber = 1,
+        val ie15CI_3 = ConsignmentItem(
           declarationGoodsItemNumber = searchedDeclarationGoodsItemNo + 1,
-          Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = Some(GoodsMeasureType02(supplementaryUnits = Some(BigDecimal(9.5)))))
+          Commodity = Commodity(GoodsMeasure = Some(GoodsMeasure(supplementaryUnits = Some(BigDecimal(9.5)))))
         )
 
-        val ie15HC_1 = HouseConsignmentType10(sequenceNumber = 1, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI_1, ie15CI_2))
-        val ie15HC_2 = HouseConsignmentType10(sequenceNumber = 2, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI_3))
+        val ie15HC_1 = HouseConsignment(ConsignmentItem = Seq(ie15CI_1, ie15CI_2))
+        val ie15HC_2 = HouseConsignment(ConsignmentItem = Seq(ie15CI_3))
 
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC_1, ie15HC_2))),
@@ -172,8 +169,11 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
       "empty when there is no matching consignment item by declarationGoodsItemNumber" in {
         val hcSeqNo = 2
-        val ie15CI = ConsignmentItemType09(goodsItemNumber = 4, declarationGoodsItemNumber = 5, Commodity = CommodityType07(descriptionOfGoods = "description"))
-        val ie15HC = HouseConsignmentType10(sequenceNumber = hcSeqNo, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI))
+        val ie15CI = ConsignmentItem(
+          declarationGoodsItemNumber = 5,
+          Commodity = Commodity(GoodsMeasure = None)
+        )
+        val ie15HC = HouseConsignment(ConsignmentItem = Seq(ie15CI))
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
           houseConsignmentType03.copy(sequenceNumber = hcSeqNo),
@@ -184,11 +184,11 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
       "empty when there is no GoodsMeasure" in {
         val declarationGoodsItemNo = 4
-        val ie15CI = ConsignmentItemType09(goodsItemNumber = 1,
-                                           declarationGoodsItemNumber = declarationGoodsItemNo,
-                                           Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = None)
+        val ie15CI = ConsignmentItem(
+          declarationGoodsItemNumber = declarationGoodsItemNo,
+          Commodity = Commodity(GoodsMeasure = None)
         )
-        val ie15HC = HouseConsignmentType10(sequenceNumber = 2, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI))
+        val ie15HC = HouseConsignment(ConsignmentItem = Seq(ie15CI))
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
           houseConsignmentType03.copy(sequenceNumber = 2),
@@ -199,12 +199,11 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
       "empty when there is no supplementaryUnits" in {
         val declarationGoodsItemNo = 4
-        val ie15CI = ConsignmentItemType09(
-          goodsItemNumber = 1,
+        val ie15CI = ConsignmentItem(
           declarationGoodsItemNumber = declarationGoodsItemNo,
-          Commodity = CommodityType07(descriptionOfGoods = "description", GoodsMeasure = Some(GoodsMeasureType02(supplementaryUnits = None)))
+          Commodity = Commodity(GoodsMeasure = Some(GoodsMeasure(supplementaryUnits = None)))
         )
-        val ie15HC = HouseConsignmentType10(sequenceNumber = 2, grossMass = BigDecimal(2.1), ConsignmentItem = Seq(ie15CI))
+        val ie15HC = HouseConsignment(ConsignmentItem = Seq(ie15CI))
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
           houseConsignmentType03.copy(sequenceNumber = 2),
