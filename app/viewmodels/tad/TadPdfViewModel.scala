@@ -16,8 +16,9 @@
 
 package viewmodels.tad
 
-import generated._
-import viewmodels._
+import generated.*
+import models.IE015
+import viewmodels.*
 
 case class TadPdfViewModel(
   mrn: String,
@@ -37,7 +38,7 @@ object TadPdfViewModel {
     * @return
     *   TAD view model based on P5 (final) data
     */
-  def apply(ie015: CC015CType, ie029: CC029CType): TadPdfViewModel =
+  def apply(ie015: IE015, ie029: CC029CType): TadPdfViewModel =
     new TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
       consignmentItemViewModels = ie029.rollDown.Consignment.HouseConsignment.flatMap {

@@ -17,23 +17,29 @@
 package connectors
 
 import config.AppConfig
+import org.apache.pekko.stream.Materializer
+import org.apache.pekko.stream.scaladsl.{Source, StreamConverters}
+import org.apache.pekko.util.ByteString
 import play.api.Logging
-import play.api.http.HeaderNames._
-import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpReadsTry
-import uk.gov.hmrc.http.HttpResponse
-import uk.gov.hmrc.http.StringContextOps
-import uk.gov.hmrc.http.client.HttpClientV2
+import play.api.http.HeaderNames.*
+import uk.gov.hmrc.http.client.{HttpClientV2, given}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReadsTry, StringContextOps}
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.xml.Node
-import scala.xml.XML
+import javax.xml.parsers.{SAXParser, SAXParserFactory}
+import scala.concurrent.{ExecutionContext, Future}
+import scala.xml.{Node, XML}
 
-class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReadsTry with Logging {
+trait MovementConnector extends HttpReadsTry with Logging {
 
-  final val version: String = "2.1"
+  val config: AppConfig
+  val http: HttpClientV2
+  implicit val mat: Materializer
+  implicit val ec: ExecutionContext
+
+  private val saxParser: SAXParser = {
+    val saxParserFactory = SAXParserFactory.newInstance()
+    saxParserFactory.newSAXParser()
+  }
 
   def getMessage(
     movements: String,
@@ -43,10 +49,10 @@ class MovementConnector(config: AppConfig, http: HttpClientV2) extends HttpReads
     val url = url"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
     http
       .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.$version+xml")
-      .execute[HttpResponse]
-      .map(_.body)
-      .map(XML.loadString)
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.2.1+xml")
+      .stream[Source[ByteString, ?]]
+      .map(_.runWith(StreamConverters.asInputStream()))
+      .map(XML.withSAXParser(saxParser).load(_))
   }
 
 }

@@ -17,32 +17,34 @@
 package services.messages
 
 import connectors.DepartureMovementConnector
-import generated.CC015CType
-import generated.CC029CType
-import generated.Generated_CC015CTypeFormat
-import generated.Generated_CC029CTypeFormat
+import generated.{CC029CType, Generated_CC029CTypeFormat}
 import models.DepartureMessageType.DepartureNotification
-import scalaxb.XMLFormat
+import models.IE015
+import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.RichCC029CType
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class DepartureMessageService @Inject() (connector: DepartureMovementConnector) extends MessageService {
+class DepartureMessageService @Inject() (connector: DepartureMovementConnector) {
 
   def getReleaseForTransitNotification(
     departureId: String,
     messageId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC029CType] =
-    getMessage[CC029CType](departureId, messageId).map(_.rollDown)
+    connector
+      .getMessage(departureId, messageId)
+      .map(fromXML(_))
+      .map(_.rollDown)
 
   def getDeclarationData(
     departureId: String,
     messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC015CType] =
-    getMessage[CC015CType](departureId, messageId)
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[IE015] =
+    connector
+      .getMessage(departureId, messageId)
+      .map(IE015.reads)
 
   def getIE015MessageId(
     departureId: String
@@ -50,10 +52,4 @@ class DepartureMessageService @Inject() (connector: DepartureMovementConnector) 
     connector
       .getMessages(departureId)
       .map(_.find(DepartureNotification).map(_.id))
-
-  private def getMessage[T](
-    departureId: String,
-    messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
-    formatResponse(connector.getMessage(departureId, messageId))
 }

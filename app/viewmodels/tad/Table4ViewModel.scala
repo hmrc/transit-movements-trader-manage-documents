@@ -16,8 +16,9 @@
 
 package viewmodels.tad
 
-import generated._
-import viewmodels._
+import generated.*
+import models.IE015
+import viewmodels.*
 
 case class Table4ViewModel(
   countryOfRoutingOfConsignment: String,
@@ -33,7 +34,7 @@ case class Table4ViewModel(
 
 object Table4ViewModel {
 
-  def apply(ie015: CC015CType, ie029: CC029CType): Table4ViewModel =
+  def apply(ie015: IE015, ie029: CC029CType): Table4ViewModel =
     new Table4ViewModel(
       countryOfRoutingOfConsignment = ie029.Consignment.CountryOfRoutingOfConsignment.map(_.asString).takeSample,
       customsOfficeOfTransitDeclared = ie029.CustomsOfficeOfTransitDeclared

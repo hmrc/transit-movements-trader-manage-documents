@@ -17,26 +17,20 @@
 package services.messages
 
 import connectors.UnloadingPermissionConnector
-import generated.CC043CType
-import generated.Generated_CC043CTypeFormat
-import scalaxb.XMLFormat
+import generated.{CC043CType, Generated_CC043CTypeFormat}
+import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class UnloadingMessageService @Inject() (connector: UnloadingPermissionConnector) extends MessageService {
+class UnloadingMessageService @Inject() (connector: UnloadingPermissionConnector) {
 
   def getUnloadingPermissionNotification(
     arrivalId: String,
     messageId: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC043CType] =
-    getMessage[CC043CType](arrivalId, messageId)
-
-  private def getMessage[T](
-    arrivalId: String,
-    messageId: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext, format: XMLFormat[T]): Future[T] =
-    formatResponse(connector.getMessage(arrivalId, messageId))
+    connector
+      .getMessage(arrivalId, messageId)
+      .map(fromXML(_))
 }

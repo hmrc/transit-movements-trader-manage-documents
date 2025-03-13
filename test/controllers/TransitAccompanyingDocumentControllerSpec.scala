@@ -18,8 +18,9 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.{AuthenticateActionProvider, FakeAuthenticateActionProvider}
-import generated.{CC015CType, CC029CType}
+import generated.CC029CType
 import generators.ScalaxbModelGenerators
+import models.IE015
 import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.{any, eq as eqTo}
 import org.mockito.Mockito.*
@@ -67,7 +68,7 @@ class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbMod
     "must return OK and PDF" in {
       val application = applicationBuilder().build()
       running(application) {
-        forAll(nonEmptyString, arbitrary[CC015CType], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
+        forAll(nonEmptyString, arbitrary[IE015], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
           (ie015MessageId, ie015, ie029, byteArray) =>
             beforeEach()
 

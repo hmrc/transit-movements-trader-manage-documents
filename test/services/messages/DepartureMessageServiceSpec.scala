@@ -18,22 +18,20 @@ package services.messages
 
 import base.SpecBase
 import connectors.DepartureMovementConnector
-import generated.CC029CType
+import generated.*
 import models.DepartureMessageType.DepartureNotification
-import models.DepartureMessageMetaData
-import models.DepartureMessages
+import models.{DepartureMessageMetaData, DepartureMessages}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import scalaxb.XMLCalendar
 import uk.gov.hmrc.http.HeaderCarrier
 
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Await
-import scala.concurrent.Future
 import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.xml.Node
 
 class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks {
@@ -80,553 +78,121 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
   "getReleaseForTransitNotification" - {
     "must parse CC029CType" in {
       val message: Node =
-        <ncts:CC029C PhaseID="NCTS5.0" xmlns:ncts="http://ncts.dgtaxud.ec">
-          <messageSender>token</messageSender>
-          <messageRecipient>token</messageRecipient>
-          <preparationDateAndTime>2007-10-26T07:36:28</preparationDateAndTime>
-          <messageIdentification>token</messageIdentification>
+        <ncts:CC029C xmlns:ncts="http://ncts.dgtaxud.ec">
+          <messageSender>NTA.GB</messageSender>
+          <messageRecipient>1234567</messageRecipient>
+          <preparationDateAndTime>2024-12-04T15:31:57</preparationDateAndTime>
+          <messageIdentification>83ONFTMIOXMT11</messageIdentification>
           <messageType>CC029C</messageType>
-          <!--Optional:-->
-          <correlationIdentifier>token</correlationIdentifier>
           <TransitOperation>
-            <LRN>string</LRN>
-            <MRN>string</MRN>
-            <declarationType>token</declarationType>
-            <additionalDeclarationType>token</additionalDeclarationType>
-            <!--Optional:-->
-            <TIRCarnetNumber>string</TIRCarnetNumber>
-            <declarationAcceptanceDate>2014-06-09+01:00</declarationAcceptanceDate>
-            <releaseDate>2008-11-15</releaseDate>
-            <security>token</security>
+            <LRN>GB8d53f132d00045f3c154</LRN>
+            <MRN>24GB000246J8NY33L7</MRN>
+            <declarationType>T1</declarationType>
+            <additionalDeclarationType>A</additionalDeclarationType>
+            <declarationAcceptanceDate>2024-12-04</declarationAcceptanceDate>
+            <releaseDate>2024-12-04</releaseDate>
+            <security>2</security>
             <reducedDatasetIndicator>0</reducedDatasetIndicator>
-            <!--Optional:-->
-            <specificCircumstanceIndicator>token</specificCircumstanceIndicator>
-            <!--Optional:-->
-            <communicationLanguageAtDeparture>st</communicationLanguageAtDeparture>
             <bindingItinerary>1</bindingItinerary>
           </TransitOperation>
-          <!--0 to 9 repetitions:-->
-          <Authorisation>
-            <sequenceNumber>1</sequenceNumber>
-            <type>token</type>
-            <referenceNumber>string</referenceNumber>
-          </Authorisation>
           <CustomsOfficeOfDeparture>
-            <referenceNumber>stringst</referenceNumber>
+            <referenceNumber>GB000246</referenceNumber>
           </CustomsOfficeOfDeparture>
           <CustomsOfficeOfDestinationDeclared>
-            <referenceNumber>stringst</referenceNumber>
+            <referenceNumber>XI000142</referenceNumber>
           </CustomsOfficeOfDestinationDeclared>
-          <!--0 to 9 repetitions:-->
-          <CustomsOfficeOfTransitDeclared>
-            <sequenceNumber>1</sequenceNumber>
-            <referenceNumber>stringst</referenceNumber>
-            <!--Optional:-->
-            <arrivalDateAndTimeEstimated>2002-11-05T08:01:03+00:00</arrivalDateAndTimeEstimated>
-          </CustomsOfficeOfTransitDeclared>
-          <!--0 to 9 repetitions:-->
-          <CustomsOfficeOfExitForTransitDeclared>
-            <sequenceNumber>1</sequenceNumber>
-            <referenceNumber>stringst</referenceNumber>
-          </CustomsOfficeOfExitForTransitDeclared>
           <HolderOfTheTransitProcedure>
-            <!--Optional:-->
-            <identificationNumber>string</identificationNumber>
-            <!--Optional:-->
-            <TIRHolderIdentificationNumber>string</TIRHolderIdentificationNumber>
-            <!--Optional:-->
-            <name>string</name>
-            <!--Optional:-->
-            <Address>
-              <streetAndNumber>string</streetAndNumber>
-              <!--Optional:-->
-              <postcode>string</postcode>
-              <city>string</city>
-              <country>st</country>
-            </Address>
-            <!--Optional:-->
-            <ContactPerson>
-              <name>string</name>
-              <phoneNumber>string</phoneNumber>
-              <!--Optional:-->
-              <eMailAddress>string</eMailAddress>
-            </ContactPerson>
+            <identificationNumber>GB201909015000</identificationNumber>
           </HolderOfTheTransitProcedure>
-          <!--Optional:-->
-          <Representative>
-            <identificationNumber>string</identificationNumber>
-            <status>token</status>
-            <!--Optional:-->
-            <ContactPerson>
-              <name>string</name>
-              <phoneNumber>string</phoneNumber>
-              <!--Optional:-->
-              <eMailAddress>string</eMailAddress>
-            </ContactPerson>
-          </Representative>
-          <!--Optional:-->
-          <ControlResult>
-            <code>token</code>
-            <date>2002-06-24+01:00</date>
-            <controlledBy>string</controlledBy>
-            <!--Optional:-->
-            <text>string</text>
-          </ControlResult>
-          <!--1 to 9 repetitions:-->
           <Guarantee>
             <sequenceNumber>1</sequenceNumber>
-            <guaranteeType>s</guaranteeType>
-            <!--Optional:-->
-            <otherGuaranteeReference>string</otherGuaranteeReference>
-            <!--0 to 99 repetitions:-->
-            <GuaranteeReference>
-              <sequenceNumber>1</sequenceNumber>
-              <!--Optional:-->
-              <GRN>string</GRN>
-              <!--Optional:-->
-              <accessCode>stri</accessCode>
-              <amountToBeCovered>1000.000000000000</amountToBeCovered>
-              <currency>token</currency>
-            </GuaranteeReference>
+            <guaranteeType>1</guaranteeType>
           </Guarantee>
           <Consignment>
-            <!--Optional:-->
-            <countryOfDispatch>st</countryOfDispatch>
-            <!--Optional:-->
-            <countryOfDestination>token</countryOfDestination>
-            <containerIndicator>0</containerIndicator>
-            <!--Optional:-->
-            <inlandModeOfTransport>token</inlandModeOfTransport>
-            <!--Optional:-->
-            <modeOfTransportAtTheBorder>token</modeOfTransportAtTheBorder>
-            <grossMass>1000.000000000000</grossMass>
-            <!--Optional:-->
-            <referenceNumberUCR>string</referenceNumberUCR>
-            <!--Optional:-->
-            <Carrier>
-              <identificationNumber>string</identificationNumber>
-              <!--Optional:-->
-              <ContactPerson>
-                <name>string</name>
-                <phoneNumber>string</phoneNumber>
-                <!--Optional:-->
-                <eMailAddress>string</eMailAddress>
-              </ContactPerson>
-            </Carrier>
-            <!--Optional:-->
-            <Consignor>
-              <!--Optional:-->
-              <identificationNumber>string</identificationNumber>
-              <!--Optional:-->
-              <name>string</name>
-              <!--Optional:-->
-              <Address>
-                <streetAndNumber>string</streetAndNumber>
-                <!--Optional:-->
-                <postcode>string</postcode>
-                <city>string</city>
-                <country>st</country>
-              </Address>
-              <!--Optional:-->
-              <ContactPerson>
-                <name>string</name>
-                <phoneNumber>string</phoneNumber>
-                <!--Optional:-->
-                <eMailAddress>string</eMailAddress>
-              </ContactPerson>
-            </Consignor>
-            <!--Optional:-->
-            <Consignee>
-              <!--Optional:-->
-              <identificationNumber>string</identificationNumber>
-              <!--Optional:-->
-              <name>string</name>
-              <!--Optional:-->
-              <Address>
-                <streetAndNumber>string</streetAndNumber>
-                <!--Optional:-->
-                <postcode>string</postcode>
-                <city>string</city>
-                <country>st</country>
-              </Address>
-            </Consignee>
-            <!--0 to 99 repetitions:-->
-            <AdditionalSupplyChainActor>
-              <sequenceNumber>1</sequenceNumber>
-              <role>token</role>
-              <identificationNumber>string</identificationNumber>
-            </AdditionalSupplyChainActor>
-            <!--0 to 9999 repetitions:-->
-            <TransportEquipment>
-              <sequenceNumber>1</sequenceNumber>
-              <!--Optional:-->
-              <containerIdentificationNumber>string</containerIdentificationNumber>
-              <numberOfSeals>100</numberOfSeals>
-              <!--0 to 99 repetitions:-->
-              <Seal>
-                <sequenceNumber>1</sequenceNumber>
-                <identifier>string</identifier>
-              </Seal>
-              <!--0 to 9999 repetitions:-->
-              <GoodsReference>
-                <sequenceNumber>1</sequenceNumber>
-                <declarationGoodsItemNumber>1</declarationGoodsItemNumber>
-              </GoodsReference>
-            </TransportEquipment>
-            <!--Optional:-->
-            <LocationOfGoods>
-              <typeOfLocation>token</typeOfLocation>
-              <qualifierOfIdentification>token</qualifierOfIdentification>
-              <!--Optional:-->
-              <authorisationNumber>string</authorisationNumber>
-              <!--Optional:-->
-              <additionalIdentifier>stri</additionalIdentifier>
-              <!--Optional:-->
-              <UNLocode>token</UNLocode>
-              <!--Optional:-->
-              <CustomsOffice>
-                <referenceNumber>stringst</referenceNumber>
-              </CustomsOffice>
-              <!--Optional:-->
-              <GNSS>
-                <latitude>string</latitude>
-                <longitude>string</longitude>
-              </GNSS>
-              <!--Optional:-->
-              <EconomicOperator>
-                <identificationNumber>string</identificationNumber>
-              </EconomicOperator>
-              <!--Optional:-->
-              <Address>
-                <streetAndNumber>string</streetAndNumber>
-                <!--Optional:-->
-                <postcode>string</postcode>
-                <city>string</city>
-                <country>st</country>
-              </Address>
-              <!--Optional:-->
-              <PostcodeAddress>
-                <!--Optional:-->
-                <houseNumber>string</houseNumber>
-                <postcode>string</postcode>
-                <country>st</country>
-              </PostcodeAddress>
-              <!--Optional:-->
-              <ContactPerson>
-                <name>string</name>
-                <phoneNumber>string</phoneNumber>
-                <!--Optional:-->
-                <eMailAddress>string</eMailAddress>
-              </ContactPerson>
-            </LocationOfGoods>
-            <!--0 to 999 repetitions:-->
-            <DepartureTransportMeans>
-              <sequenceNumber>1</sequenceNumber>
-              <typeOfIdentification>token</typeOfIdentification>
-              <identificationNumber>string</identificationNumber>
-              <nationality>st</nationality>
-            </DepartureTransportMeans>
-            <!--0 to 99 repetitions:-->
-            <CountryOfRoutingOfConsignment>
-              <sequenceNumber>1</sequenceNumber>
-              <country>st</country>
-            </CountryOfRoutingOfConsignment>
-            <!--0 to 9 repetitions:-->
-            <ActiveBorderTransportMeans>
-              <sequenceNumber>1</sequenceNumber>
-              <customsOfficeAtBorderReferenceNumber>token</customsOfficeAtBorderReferenceNumber>
-              <typeOfIdentification>token</typeOfIdentification>
-              <identificationNumber>string</identificationNumber>
-              <nationality>st</nationality>
-              <!--Optional:-->
-              <conveyanceReferenceNumber>string</conveyanceReferenceNumber>
-            </ActiveBorderTransportMeans>
-            <PlaceOfLoading>
-              <!--Optional:-->
-              <UNLocode>token</UNLocode>
-              <!--Optional:-->
-              <country>st</country>
-              <!--Optional:-->
-              <location>string</location>
-            </PlaceOfLoading>
-            <!--Optional:-->
-            <PlaceOfUnloading>
-              <!--Optional:-->
-              <UNLocode>token</UNLocode>
-              <!--Optional:-->
-              <country>st</country>
-              <!--Optional:-->
-              <location>string</location>
-            </PlaceOfUnloading>
-            <!--0 to 9999 repetitions:-->
-            <PreviousDocument>
-              <sequenceNumber>1</sequenceNumber>
-              <type>token</type>
-              <referenceNumber>string</referenceNumber>
-              <!--Optional:-->
-              <complementOfInformation>string</complementOfInformation>
-            </PreviousDocument>
-            <!--0 to 99 repetitions:-->
-            <SupportingDocument>
-              <sequenceNumber>1</sequenceNumber>
-              <type>token</type>
-              <referenceNumber>string</referenceNumber>
-              <!--Optional:-->
-              <documentLineItemNumber>100</documentLineItemNumber>
-              <!--Optional:-->
-              <complementOfInformation>string</complementOfInformation>
-            </SupportingDocument>
-            <!--0 to 99 repetitions:-->
-            <TransportDocument>
-              <sequenceNumber>1</sequenceNumber>
-              <type>token</type>
-              <referenceNumber>string</referenceNumber>
-            </TransportDocument>
-            <!--0 to 99 repetitions:-->
-            <AdditionalReference>
-              <sequenceNumber>1</sequenceNumber>
-              <type>token</type>
-              <!--Optional:-->
-              <referenceNumber>string</referenceNumber>
-            </AdditionalReference>
-            <!--0 to 99 repetitions:-->
-            <AdditionalInformation>
-              <sequenceNumber>1</sequenceNumber>
-              <code>token</code>
-              <!--Optional:-->
-              <text>string</text>
-            </AdditionalInformation>
-            <!--Optional:-->
-            <TransportCharges>
-              <methodOfPayment>s</methodOfPayment>
-            </TransportCharges>
-            <!--1 to 99 repetitions:-->
+            <countryOfDispatch>XI</countryOfDispatch>
+            <countryOfDestination>US</countryOfDestination>
+            <containerIndicator>1</containerIndicator>
+            <grossMass>5500</grossMass>
+            <referenceNumberUCR>AB1234</referenceNumberUCR>
             <HouseConsignment>
               <sequenceNumber>1</sequenceNumber>
-              <!--Optional:-->
-              <countryOfDispatch>st</countryOfDispatch>
-              <grossMass>1000.000000000000</grossMass>
-              <!--Optional:-->
-              <referenceNumberUCR>string</referenceNumberUCR>
-              <!--Optional:-->
-              <securityIndicatorFromExportDeclaration>token</securityIndicatorFromExportDeclaration>
-              <!--Optional:-->
-              <Consignor>
-                <!--Optional:-->
-                <identificationNumber>string</identificationNumber>
-                <!--Optional:-->
-                <name>string</name>
-                <!--Optional:-->
-                <Address>
-                  <streetAndNumber>string</streetAndNumber>
-                  <!--Optional:-->
-                  <postcode>string</postcode>
-                  <city>string</city>
-                  <country>st</country>
-                </Address>
-                <!--Optional:-->
-                <ContactPerson>
-                  <name>string</name>
-                  <phoneNumber>string</phoneNumber>
-                  <!--Optional:-->
-                  <eMailAddress>string</eMailAddress>
-                </ContactPerson>
-              </Consignor>
-              <!--Optional:-->
-              <Consignee>
-                <!--Optional:-->
-                <identificationNumber>string</identificationNumber>
-                <!--Optional:-->
-                <name>string</name>
-                <!--Optional:-->
-                <Address>
-                  <streetAndNumber>string</streetAndNumber>
-                  <!--Optional:-->
-                  <postcode>string</postcode>
-                  <city>string</city>
-                  <country>st</country>
-                </Address>
-              </Consignee>
-              <!--0 to 99 repetitions:-->
-              <AdditionalSupplyChainActor>
-                <sequenceNumber>1</sequenceNumber>
-                <role>token</role>
-                <identificationNumber>string</identificationNumber>
-              </AdditionalSupplyChainActor>
-              <!--0 to 999 repetitions:-->
-              <DepartureTransportMeans>
-                <sequenceNumber>1</sequenceNumber>
-                <typeOfIdentification>token</typeOfIdentification>
-                <identificationNumber>string</identificationNumber>
-                <nationality>st</nationality>
-              </DepartureTransportMeans>
-              <!--0 to 99 repetitions:-->
-              <PreviousDocument>
-                <sequenceNumber>1</sequenceNumber>
-                <type>token</type>
-                <referenceNumber>string</referenceNumber>
-                <!--Optional:-->
-                <complementOfInformation>string</complementOfInformation>
-              </PreviousDocument>
-              <!--0 to 99 repetitions:-->
-              <SupportingDocument>
-                <sequenceNumber>1</sequenceNumber>
-                <type>token</type>
-                <referenceNumber>string</referenceNumber>
-                <!--Optional:-->
-                <documentLineItemNumber>100</documentLineItemNumber>
-                <!--Optional:-->
-                <complementOfInformation>string</complementOfInformation>
-              </SupportingDocument>
-              <!--0 to 99 repetitions:-->
-              <TransportDocument>
-                <sequenceNumber>1</sequenceNumber>
-                <type>token</type>
-                <referenceNumber>string</referenceNumber>
-              </TransportDocument>
-              <!--0 to 99 repetitions:-->
-              <AdditionalReference>
-                <sequenceNumber>1</sequenceNumber>
-                <type>token</type>
-                <!--Optional:-->
-                <referenceNumber>string</referenceNumber>
-              </AdditionalReference>
-              <!--0 to 99 repetitions:-->
-              <AdditionalInformation>
-                <sequenceNumber>1</sequenceNumber>
-                <code>token</code>
-                <!--Optional:-->
-                <text>string</text>
-              </AdditionalInformation>
-              <!--Optional:-->
-              <TransportCharges>
-                <methodOfPayment>s</methodOfPayment>
-              </TransportCharges>
-              <!--1 to 999 repetitions:-->
+              <grossMass>5500</grossMass>
               <ConsignmentItem>
                 <goodsItemNumber>1</goodsItemNumber>
                 <declarationGoodsItemNumber>1</declarationGoodsItemNumber>
-                <!--Optional:-->
-                <declarationType>token</declarationType>
-                <!--Optional:-->
-                <countryOfDispatch>st</countryOfDispatch>
-                <!--Optional:-->
-                <countryOfDestination>token</countryOfDestination>
-                <!--Optional:-->
-                <referenceNumberUCR>string</referenceNumberUCR>
-                <!--Optional:-->
-                <Consignee>
-                  <!--Optional:-->
-                  <identificationNumber>string</identificationNumber>
-                  <!--Optional:-->
-                  <name>string</name>
-                  <!--Optional:-->
-                  <Address>
-                    <streetAndNumber>string</streetAndNumber>
-                    <!--Optional:-->
-                    <postcode>string</postcode>
-                    <city>string</city>
-                    <country>st</country>
-                  </Address>
-                </Consignee>
-                <!--0 to 99 repetitions:-->
-                <AdditionalSupplyChainActor>
-                  <sequenceNumber>1</sequenceNumber>
-                  <role>token</role>
-                  <identificationNumber>string</identificationNumber>
-                </AdditionalSupplyChainActor>
                 <Commodity>
-                  <descriptionOfGoods>string</descriptionOfGoods>
-                  <!--Optional:-->
-                  <cusCode>token</cusCode>
-                  <!--Optional:-->
-                  <CommodityCode>
-                    <harmonizedSystemSubHeadingCode>token</harmonizedSystemSubHeadingCode>
-                    <!--Optional:-->
-                    <combinedNomenclatureCode>st</combinedNomenclatureCode>
-                  </CommodityCode>
-                  <!--0 to 99 repetitions:-->
-                  <DangerousGoods>
-                    <sequenceNumber>1</sequenceNumber>
-                    <UNNumber>token</UNNumber>
-                  </DangerousGoods>
-                  <GoodsMeasure>
-                    <grossMass>1000.000000000000</grossMass>
-                    <!--Optional:-->
-                    <netMass>1000.000000000000</netMass>
-                  </GoodsMeasure>
+                  <descriptionOfGoods>Toddlers Wooden Toy</descriptionOfGoods>
                 </Commodity>
-                <!--1 to 99 repetitions:-->
-                <Packaging>
-                  <sequenceNumber>1</sequenceNumber>
-                  <typeOfPackages>token</typeOfPackages>
-                  <!--Optional:-->
-                  <numberOfPackages>100</numberOfPackages>
-                  <!--Optional:-->
-                  <shippingMarks>string</shippingMarks>
-                </Packaging>
-                <!--0 to 99 repetitions:-->
-                <PreviousDocument>
-                  <sequenceNumber>1</sequenceNumber>
-                  <type>token</type>
-                  <referenceNumber>string</referenceNumber>
-                  <!--Optional:-->
-                  <goodsItemNumber>1</goodsItemNumber>
-                  <!--Optional:-->
-                  <typeOfPackages>token</typeOfPackages>
-                  <!--Optional:-->
-                  <numberOfPackages>100</numberOfPackages>
-                  <!--Optional:-->
-                  <measurementUnitAndQualifier>token</measurementUnitAndQualifier>
-                  <!--Optional:-->
-                  <quantity>1000.000000000000</quantity>
-                  <!--Optional:-->
-                  <complementOfInformation>string</complementOfInformation>
-                </PreviousDocument>
-                <!--0 to 99 repetitions:-->
-                <SupportingDocument>
-                  <sequenceNumber>1</sequenceNumber>
-                  <type>token</type>
-                  <referenceNumber>string</referenceNumber>
-                  <!--Optional:-->
-                  <documentLineItemNumber>100</documentLineItemNumber>
-                  <!--Optional:-->
-                  <complementOfInformation>string</complementOfInformation>
-                </SupportingDocument>
-                <!--0 to 99 repetitions:-->
-                <TransportDocument>
-                  <sequenceNumber>1</sequenceNumber>
-                  <type>token</type>
-                  <referenceNumber>string</referenceNumber>
-                </TransportDocument>
-                <!--0 to 99 repetitions:-->
-                <AdditionalReference>
-                  <sequenceNumber>1</sequenceNumber>
-                  <type>token</type>
-                  <!--Optional:-->
-                  <referenceNumber>string</referenceNumber>
-                </AdditionalReference>
-                <!--0 to 99 repetitions:-->
-                <AdditionalInformation>
-                  <sequenceNumber>1</sequenceNumber>
-                  <code>token</code>
-                  <!--Optional:-->
-                  <text>string</text>
-                </AdditionalInformation>
-                <!--Optional:-->
-                <TransportCharges>
-                  <methodOfPayment>s</methodOfPayment>
-                </TransportCharges>
               </ConsignmentItem>
             </HouseConsignment>
           </Consignment>
         </ncts:CC029C>
 
-      when(mockConnector.getMessage(any(), any())(any(), any())).thenReturn(Future.successful(message))
+      when(mockConnector.getMessage(any(), any())(any(), any()))
+        .thenReturn(Future.successful(message))
 
       val result = Await.result(service.getReleaseForTransitNotification(departureId, messageId), Duration.Inf)
 
-      result mustBe a[CC029CType]
+      result mustEqual CC029CType(
+        messageSequence1 = MESSAGESequence(
+          messageSender = "NTA.GB",
+          messageRecipient = "1234567",
+          preparationDateAndTime = XMLCalendar("2024-12-04T15:31:57"),
+          messageIdentification = "83ONFTMIOXMT11",
+          messageType = CC029C
+        ),
+        TransitOperation = TransitOperationType12(
+          LRN = "GB8d53f132d00045f3c154",
+          MRN = "24GB000246J8NY33L7",
+          declarationType = "T1",
+          additionalDeclarationType = "A",
+          declarationAcceptanceDate = XMLCalendar("2024-12-04"),
+          releaseDate = XMLCalendar("2024-12-04"),
+          security = "2",
+          reducedDatasetIndicator = Number0,
+          bindingItinerary = Number1
+        ),
+        CustomsOfficeOfDeparture = CustomsOfficeOfDepartureType03(
+          referenceNumber = "GB000246"
+        ),
+        CustomsOfficeOfDestinationDeclared = CustomsOfficeOfDestinationDeclaredType01(
+          referenceNumber = "XI000142"
+        ),
+        HolderOfTheTransitProcedure = HolderOfTheTransitProcedureType05(
+          identificationNumber = Some("GB201909015000")
+        ),
+        Guarantee = Seq(
+          GuaranteeType03(
+            sequenceNumber = 1,
+            guaranteeType = "1"
+          )
+        ),
+        Consignment = CUSTOM_ConsignmentType04(
+          countryOfDispatch = Some("XI"),
+          countryOfDestination = Some("US"),
+          containerIndicator = Number1,
+          grossMass = 5500,
+          referenceNumberUCR = Some("AB1234"),
+          HouseConsignment = Seq(
+            CUSTOM_HouseConsignmentType03(
+              sequenceNumber = 1,
+              grossMass = 5500,
+              ConsignmentItem = Seq(
+                CUSTOM_ConsignmentItemType03(
+                  goodsItemNumber = 1,
+                  declarationGoodsItemNumber = 1,
+                  countryOfDispatch = Some("XI"),
+                  countryOfDestination = Some("US"),
+                  referenceNumberUCR = Some("AB1234"),
+                  Commodity = CUSTOM_CommodityType08(
+                    descriptionOfGoods = "Toddlers Wooden Toy"
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
     }
   }
 }

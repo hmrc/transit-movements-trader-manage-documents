@@ -16,8 +16,8 @@
 
 package viewmodels.tad
 
-import generated._
-import viewmodels._
+import generated.*
+import viewmodels.*
 
 case class Table3ViewModel(
   containerIdentification: String
