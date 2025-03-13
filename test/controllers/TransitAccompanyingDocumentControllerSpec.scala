@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.actions.{AuthenticateActionProvider, FakeAuthenticateActionProvider}
 import generated.CC029CType
 import generators.ScalaxbModelGenerators
-import models.{IE015, Phase}
+import models.IE015
 import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.{any, eq as eqTo}
 import org.mockito.Mockito.*
@@ -65,82 +65,39 @@ class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbMod
 
   "get" - {
 
-    "must return OK and PDF" - {
-      "when transition" in {
-        val application = applicationBuilder().build()
-        running(application) {
-          forAll(nonEmptyString, arbitrary[IE015], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
-            (ie015MessageId, ie015, ie029, byteArray) =>
-              beforeEach()
+    "must return OK and PDF" in {
+      val application = applicationBuilder().build()
+      running(application) {
+        forAll(nonEmptyString, arbitrary[IE015], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
+          (ie015MessageId, ie015, ie029, byteArray) =>
+            beforeEach()
 
-              when(mockMessageService.getIE015MessageId(any(), any())(any(), any()))
-                .thenReturn(Future.successful(Some(ie015MessageId)))
+            when(mockMessageService.getIE015MessageId(any())(any(), any()))
+              .thenReturn(Future.successful(Some(ie015MessageId)))
 
-              when(mockMessageService.getDeclarationData(any(), any(), any())(any(), any()))
-                .thenReturn(Future.successful(ie015))
+            when(mockMessageService.getDeclarationData(any(), any())(any(), any()))
+              .thenReturn(Future.successful(ie015))
 
-              when(mockMessageService.getReleaseForTransitNotification(any(), any(), any())(any(), any()))
-                .thenReturn(Future.successful(ie029))
+            when(mockMessageService.getReleaseForTransitNotification(any(), any())(any(), any()))
+              .thenReturn(Future.successful(ie029))
 
-              when(mockPdfGenerator.generateP5TADTransition(any(), any()))
-                .thenReturn(byteArray)
+            when(mockPdfGenerator.generate(any(), any()))
+              .thenReturn(byteArray)
 
-              val request = FakeRequest(GET, controllerRoute)
-                .withHeaders("APIVersion" -> "2.0")
+            val request = FakeRequest(GET, controllerRoute)
 
-              val result = route(application, request).value
+            val result = route(application, request).value
 
-              status(result) mustEqual OK
-              contentAsBytes(result) mustEqual ByteString(byteArray)
-              contentType(result).value mustEqual "application/octet-stream"
-              val mrn = ie029.TransitOperation.MRN
-              headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="TAD_$mrn.pdf""""
+            status(result) mustEqual OK
+            contentAsBytes(result) mustEqual ByteString(byteArray)
+            contentType(result).value mustEqual "application/octet-stream"
+            val mrn = ie029.TransitOperation.MRN
+            headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="TAD_$mrn.pdf""""
 
-              verify(mockMessageService).getIE015MessageId(eqTo(departureId), eqTo(Phase.Transition))(any(), any())
-              verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId), eqTo(Phase.Transition))(any(), any())
-              verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId), eqTo(Phase.Transition))(any(), any())
-              verify(mockPdfGenerator).generateP5TADTransition(eqTo(ie015), eqTo(ie029))
-              verify(mockPdfGenerator, never()).generateP5TADPostTransition(any(), any())
-          }
-        }
-      }
-
-      "when post-transition" in {
-        val application = applicationBuilder().build()
-        running(application) {
-          forAll(nonEmptyString, arbitrary[IE015], arbitrary[CC029CType], arbitrary[Array[Byte]]) {
-            (ie015MessageId, ie015, ie029, byteArray) =>
-              beforeEach()
-
-              when(mockMessageService.getIE015MessageId(any(), any())(any(), any()))
-                .thenReturn(Future.successful(Some(ie015MessageId)))
-
-              when(mockMessageService.getDeclarationData(any(), any(), any())(any(), any()))
-                .thenReturn(Future.successful(ie015))
-
-              when(mockMessageService.getReleaseForTransitNotification(any(), any(), any())(any(), any()))
-                .thenReturn(Future.successful(ie029))
-
-              when(mockPdfGenerator.generateP5TADPostTransition(any(), any()))
-                .thenReturn(byteArray)
-
-              val request = FakeRequest(GET, controllerRoute)
-                .withHeaders("APIVersion" -> "2.1")
-
-              val result = route(application, request).value
-
-              status(result) mustEqual OK
-              contentAsBytes(result) mustEqual ByteString(byteArray)
-              contentType(result).value mustEqual "application/octet-stream"
-              val mrn = ie029.TransitOperation.MRN
-              headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="TAD_$mrn.pdf""""
-
-              verify(mockMessageService).getIE015MessageId(eqTo(departureId), eqTo(Phase.PostTransition))(any(), any())
-              verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId), eqTo(Phase.PostTransition))(any(), any())
-              verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId), eqTo(Phase.PostTransition))(any(), any())
-              verify(mockPdfGenerator, never()).generateP5TADTransition(any(), any())
-              verify(mockPdfGenerator).generateP5TADPostTransition(eqTo(ie015), eqTo(ie029))
-          }
+            verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
+            verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId))(any(), any())
+            verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId))(any(), any())
+            verify(mockPdfGenerator).generate(eqTo(ie015), eqTo(ie029))
         }
       }
     }
@@ -149,19 +106,18 @@ class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbMod
       "when IE015 message ID not found" in {
         val application = applicationBuilder().build()
         running(application) {
-          when(mockMessageService.getIE015MessageId(any(), any())(any(), any()))
+          when(mockMessageService.getIE015MessageId(any())(any(), any()))
             .thenReturn(Future.successful(None))
 
           val request = FakeRequest(GET, controllerRoute)
-            .withHeaders("APIVersion" -> "2.0")
 
           val result = route(application, request).value
 
           status(result) mustEqual INTERNAL_SERVER_ERROR
 
-          verify(mockMessageService).getIE015MessageId(eqTo(departureId), eqTo(Phase.Transition))(any(), any())
-          verify(mockMessageService, never()).getDeclarationData(any(), any(), any())(any(), any())
-          verify(mockMessageService, never()).getReleaseForTransitNotification(any(), any(), any())(any(), any())
+          verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
+          verify(mockMessageService, never()).getDeclarationData(any(), any())(any(), any())
+          verify(mockMessageService, never()).getReleaseForTransitNotification(any(), any())(any(), any())
           verifyNoInteractions(mockPdfGenerator)
         }
       }

@@ -1,16 +1,16 @@
+@import viewmodels.tad.TadPdfViewModel
 @import views.xml.tad.components.items._
-@import viewmodels.tad.ConsignmentItemViewModel
 
 @this()
 
-@(items: Seq[ConsignmentItemViewModel], mrn: String)
+@(vm: TadPdfViewModel)
 <fo:page-sequence master-reference="pages" initial-page-number="2" force-page-count="no-force">
     <fo:static-content flow-name="xsl-region-before">
-        @header(mrn)
+        @header(vm.mrn)
     </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
         <fo:block>
-            @items.map(table(_))
+          @vm.consignmentItemViewModels.map(table(_))
         </fo:block>
         <fo:block id="tloi-pages"/>
     </fo:flow>
