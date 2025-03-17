@@ -31,8 +31,9 @@ case class TadPdfViewModel(
   securityViewModel: Option[SecurityViewModel]
 ) {
 
-  val itemPageNumber: Int = if (securityViewModel.isDefined) 3 else 2
+  val title: String = s"Transit accompanying document for MRN $mrn"
 
+  val itemPageNumber: Int = if (securityViewModel.isDefined) 3 else 2
 }
 
 object TadPdfViewModel {

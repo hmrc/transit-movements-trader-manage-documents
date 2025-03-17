@@ -10,7 +10,8 @@
     intermediaryPage: Option[Xml] = None,
     pageTwo: Option[Xml] = None,
     pagesMarginTop: String,
-    fontSize: String = "7pt"
+    fontSize: String = "7pt",
+    title: String
 )
 <?xml version='1.0' encoding='utf-8'?>
 
@@ -18,7 +19,7 @@
 
   @layoutMasterSet(pagesMarginTop)
 
-  @metaData()
+  @metaData(title)
 
   @pageOne
 

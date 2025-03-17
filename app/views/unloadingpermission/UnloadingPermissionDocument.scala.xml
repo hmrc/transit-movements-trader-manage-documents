@@ -14,7 +14,8 @@
 @template(
     pageOne = pageOne(pageOneBody),
     pageTwo = Some(pageTwo(vm.consignmentItemViewModels, vm.mrn)),
-    pagesMarginTop = "31mm"
+    pagesMarginTop = "31mm",
+    title = vm.title
 )
 
 @pageOneBody = {
