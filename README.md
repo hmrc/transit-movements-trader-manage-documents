@@ -103,6 +103,14 @@ Here is a list of logs that have been encountered during development and the lik
 
 It can be tricky to interpret where in the code the location/line number/column number refers to but generally speaking if you `println` the XML that gets generated in the PDF generator class and copy it to a text interpreter the line numbers should roughly align (expect an offset of one or two lines in some cases).
 
+## Testing
+When unit testing, we have some [sample PDFs](/test/resources/documents) to compare against the generated PDFs. This is useful for making sure we do not introduce any unwanted changes to the PDFs. If, however, we do want to introduce changes, we may need to uncomment the `pdfDocument.save(pdfPath)` line(s), re-run the test(s), then comment again in order for the test(s) to pass.
+
+## Accessibility
+In order to meet accessibility needs, we have done the following:
+* [Metadata](/app/views/MetaData.scala.xml) has been added to the PDFs, including an author and title.
+* `<accessibility>true</accessibility>` has been [configured](/conf/fop.xconf) to add additional information relating to the logical structure of the document to the PDF. That information allows the PDF viewer (or a text-to-speech application) to retrieve the natural reading order of the document.
+
 ### License
 
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").

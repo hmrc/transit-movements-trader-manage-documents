@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <fop>
+  <accessibility>true</accessibility>
   <renderers>
     <renderer mime="application/pdf">
       <fonts>
