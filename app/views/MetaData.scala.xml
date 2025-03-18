@@ -10,4 +10,9 @@
             </rdf:Description>
         </rdf:RDF>
     </x:xmpmeta>
+    <pdf:catalog xmlns:pdf="http://xmlgraphics.apache.org/fop/extensions/pdf">
+        <pdf:dictionary type="normal" key="ViewerPreferences">
+            <pdf:boolean key="DisplayDocTitle">true</pdf:boolean>
+        </pdf:dictionary>
+    </pdf:catalog>
 </fo:declarations>
