@@ -92,7 +92,11 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
           val pdfData         = new PDFTextStripper().getText(pdfDocument)
           val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
 
-          pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
+          val mrn                 = cc029c.TransitOperation.MRN
+          val documentInformation = pdfDocument.getDocumentInformation
+          documentInformation.getAuthor mustBe "HMRC"
+          documentInformation.getTitle mustBe s"Transit accompanying document for MRN $mrn"
+
           pdfData mustBe expectedPdfData
         } finally {
           pdfDocument.close()
@@ -116,7 +120,11 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
           val pdfData         = new PDFTextStripper().getText(pdfDocument)
           val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
 
-          pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
+          val mrn                 = cc029c.TransitOperation.MRN
+          val documentInformation = pdfDocument.getDocumentInformation
+          documentInformation.getAuthor mustBe "HMRC"
+          documentInformation.getTitle mustBe s"Transit accompanying document for MRN $mrn"
+
           pdfData mustBe expectedPdfData
         } finally {
           pdfDocument.close()
@@ -138,7 +146,11 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
         val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
 
-        pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
+        val mrn                 = cc029c.TransitOperation.MRN
+        val documentInformation = pdfDocument.getDocumentInformation
+        documentInformation.getAuthor mustBe "HMRC"
+        documentInformation.getTitle mustBe s"Transit accompanying document for MRN $mrn"
+
         pdfData mustBe expectedPdfData
       } finally {
         pdfDocument.close()

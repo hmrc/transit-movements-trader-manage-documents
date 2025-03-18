@@ -22,7 +22,10 @@ case class UnloadingPermissionPdfViewModel(
   mrn: String,
   consignmentItemViewModels: Seq[ConsignmentItemViewModel],
   table1ViewModel: Table1ViewModel
-)
+) {
+
+  val title: String = s"Unloading permission document for MRN $mrn"
+}
 
 object UnloadingPermissionPdfViewModel {
 
