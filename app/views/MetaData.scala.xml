@@ -1,11 +1,18 @@
 @this()
+@(title: String)
 <!-- https://xmlgraphics.apache.org/fop/1.1/metadata.html -->
 <fo:declarations>
     <x:xmpmeta xmlns:x="adobe:ns:meta/">
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
             <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">
+                <dc:title>@title</dc:title>
                 <dc:creator>HMRC</dc:creator>
             </rdf:Description>
         </rdf:RDF>
     </x:xmpmeta>
+    <pdf:catalog xmlns:pdf="http://xmlgraphics.apache.org/fop/extensions/pdf">
+        <pdf:dictionary type="normal" key="ViewerPreferences">
+            <pdf:boolean key="DisplayDocTitle">true</pdf:boolean>
+        </pdf:dictionary>
+    </pdf:catalog>
 </fo:declarations>

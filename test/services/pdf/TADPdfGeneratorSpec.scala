@@ -23,8 +23,8 @@ import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.{Application, Environment}
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.{Application, Environment}
 import viewmodels.DummyData
 
 import java.nio.file.{Files, Paths}
@@ -52,7 +52,11 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
         val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
 
-        pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
+        val mrn                 = cc029c.TransitOperation.MRN
+        val documentInformation = pdfDocument.getDocumentInformation
+        documentInformation.getAuthor mustBe "HMRC"
+        documentInformation.getTitle mustBe s"Transit accompanying document for MRN $mrn"
+
         pdfData mustBe expectedPdfData
       } finally {
         pdfDocument.close()

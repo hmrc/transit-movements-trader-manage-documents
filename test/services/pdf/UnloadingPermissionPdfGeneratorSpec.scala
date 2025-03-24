@@ -50,7 +50,11 @@ class UnloadingPermissionPdfGeneratorSpec extends SpecBase with Matchers with Gu
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
         val expectedPdfData = new PDFTextStripper().getText(expectedPdfDocument)
 
-        pdfDocument.getDocumentInformation.getAuthor mustBe "HMRC"
+        val mrn                 = cc043c.TransitOperation.MRN
+        val documentInformation = pdfDocument.getDocumentInformation
+        documentInformation.getAuthor mustBe "HMRC"
+        documentInformation.getTitle mustBe s"Unloading permission document for MRN $mrn"
+
         pdfData mustBe expectedPdfData
       } finally {
         pdfDocument.close()

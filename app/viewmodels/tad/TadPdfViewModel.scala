@@ -27,7 +27,10 @@ case class TadPdfViewModel(
   table2ViewModel: Table2ViewModel,
   table3ViewModel: Table3ViewModel,
   table4ViewModel: Table4ViewModel
-)
+) {
+
+  val title: String = s"Transit accompanying document for MRN $mrn"
+}
 
 object TadPdfViewModel {
 
