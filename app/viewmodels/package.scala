@@ -200,7 +200,6 @@ package object viewmodels {
   implicit class RichCC029CType(value: CC029CType) {
 
     /** In the IE015 submission we roll up the following to the consignment level if they are the same across all items:
-      *   - transport charges
       *   - UCR
       *   - country of dispatch
       *   - country of destination
@@ -212,9 +211,6 @@ package object viewmodels {
         .map {
           houseConsignment =>
             val consignmentItems = houseConsignment.ConsignmentItem
-              .rollDown(value.Consignment.TransportCharges)(
-                TransportCharges => _.copy(TransportCharges = Some(TransportCharges))
-              )
               .rollDown(value.Consignment.referenceNumberUCR)(
                 referenceNumberUCR => _.copy(referenceNumberUCR = Some(referenceNumberUCR))
               )

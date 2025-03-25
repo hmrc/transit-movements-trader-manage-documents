@@ -26,16 +26,6 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
 
   "RichCC029CType" - {
     "must roll down" - {
-      "when transport charges defined at consignment level" in {
-        forAll(arbitrary[TransportChargesType]) {
-          transportCharges =>
-            val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(TransportCharges = Some(transportCharges)))
-            val result = data.rollDown
-            result.consignmentItems.foreach {
-              _.TransportCharges.value mustBe transportCharges
-            }
-        }
-      }
 
       "when UCR defined at consignment level" in {
         forAll(nonEmptyString) {
@@ -72,15 +62,6 @@ class RichSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks wit
     }
 
     "must not roll down" - {
-      "when transport charges undefined at consignment level" in {
-        val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(TransportCharges = None))
-        val result = data.rollDown
-        result.consignmentItems.zipWithIndex.foreach {
-          case (ci, i) =>
-            ci.TransportCharges mustBe
-              cc029c.Consignment.HouseConsignment.flatMap(_.ConsignmentItem).apply(i).TransportCharges
-        }
-      }
 
       "when UCR undefined at consignment level" in {
         val data   = cc029c.copy(Consignment = cc029c.Consignment.copy(referenceNumberUCR = None))
