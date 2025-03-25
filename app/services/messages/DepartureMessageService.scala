@@ -36,7 +36,6 @@ class DepartureMessageService @Inject() (connector: DepartureMovementConnector) 
     connector
       .getMessage(departureId, messageId)
       .map(fromXML(_))
-      .map(_.rollDown)
 
   def getDeclarationData(
     departureId: String,

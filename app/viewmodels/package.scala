@@ -199,33 +199,6 @@ package object viewmodels {
 
   implicit class RichCC029CType(value: CC029CType) {
 
-    /** In the IE015 submission we roll up the following to the consignment level if they are the same across all items:
-      *   - UCR
-      *   - country of dispatch
-      *   - country of destination
-      *
-      * Therefore we need to roll these back down here.
-      */
-    def rollDown: CC029CType = {
-      val houseConsignments = value.Consignment.HouseConsignment
-        .map {
-          houseConsignment =>
-            val consignmentItems = houseConsignment.ConsignmentItem
-              .rollDown(value.Consignment.referenceNumberUCR)(
-                referenceNumberUCR => _.copy(referenceNumberUCR = Some(referenceNumberUCR))
-              )
-              .rollDown(value.Consignment.countryOfDispatch)(
-                countryOfDispatch => _.copy(countryOfDispatch = Some(countryOfDispatch))
-              )
-              .rollDown(value.Consignment.countryOfDestination)(
-                countryOfDestination => _.copy(countryOfDestination = Some(countryOfDestination))
-              )
-            houseConsignment.copy(ConsignmentItem = consignmentItems)
-        }
-      val consignment = value.Consignment.copy(HouseConsignment = houseConsignments)
-      value.copy(Consignment = consignment)
-    }
-
     val consignmentItems: Seq[CUSTOM_ConsignmentItemType03] =
       value.Consignment.HouseConsignment
         .flatMap(_.ConsignmentItem)
@@ -233,15 +206,6 @@ package object viewmodels {
     val numberOfItems: Int = consignmentItems.size
 
     val numberOfPackages: BigInt = consignmentItems.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
-  }
-
-  implicit class RichConsignmentItems(consignmentItems: Seq[CUSTOM_ConsignmentItemType03]) {
-
-    def rollDown[T](value: Option[T])(rollDown: T => CUSTOM_ConsignmentItemType03 => CUSTOM_ConsignmentItemType03): Seq[CUSTOM_ConsignmentItemType03] =
-      value match {
-        case Some(t) => consignmentItems.map(rollDown(t))
-        case None    => consignmentItems
-      }
   }
 
   implicit class RichCC043CType(value: CC043CType) {

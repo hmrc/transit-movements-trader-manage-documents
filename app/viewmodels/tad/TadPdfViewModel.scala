@@ -44,7 +44,7 @@ object TadPdfViewModel {
   def apply(ie015: IE015, ie029: CC029CType): TadPdfViewModel =
     new TadPdfViewModel(
       mrn = ie029.TransitOperation.MRN,
-      consignmentItemViewModels = ie029.rollDown.Consignment.HouseConsignment.flatMap {
+      consignmentItemViewModels = ie029.Consignment.HouseConsignment.flatMap {
         houseConsignment => houseConsignment.ConsignmentItem.map(ConsignmentItemViewModel(ie015, houseConsignment, _))
       },
       table1ViewModel = Table1ViewModel(ie029),

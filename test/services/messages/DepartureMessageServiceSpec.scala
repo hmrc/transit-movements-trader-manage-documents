@@ -181,9 +181,6 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
                 CUSTOM_ConsignmentItemType03(
                   goodsItemNumber = 1,
                   declarationGoodsItemNumber = 1,
-                  countryOfDispatch = Some("XI"),
-                  countryOfDestination = Some("US"),
-                  referenceNumberUCR = Some("AB1234"),
                   Commodity = CUSTOM_CommodityType08(
                     descriptionOfGoods = "Toddlers Wooden Toy"
                   )
