@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package services.pdf
+package viewmodels.tad
 
-import generated.CC029CType
-import models.IE015
-import viewmodels.tad.TadPdfViewModel
-import views.xml.tad.TransitAccompanyingDocument
+import generated.*
+import viewmodels.*
 
-import javax.inject.Inject
+case class Table3ViewModel(
+  containerIdentification: String
+)
 
-class TADPdfGenerator @Inject() (
-  fopService: FopService,
-  document: TransitAccompanyingDocument
-) {
+object Table3ViewModel {
 
-  def generate(ie015: IE015, ie029: CC029CType): Array[Byte] =
-    fopService.processTwirlXml(document.render(TadPdfViewModel(ie015, ie029)))
+  def apply(ie029: CC029CType): Table3ViewModel =
+    new Table3ViewModel(
+      containerIdentification = ie029.Consignment.TransportEquipment.flatMap(_.containerIdentificationNumber).take3(_.semiColonSeparate)
+    )
 }

@@ -1,0 +1,104 @@
+@import views.xml.components.empty_cell
+@import viewmodels.tad.Table4ViewModel
+
+@(vm: Table4ViewModel)
+
+<fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
+
+    <fo:table-cell number-columns-spanned="2">
+        <fo:block>
+            <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-number="1" column-width="44.8%"/>
+                <fo:table-column column-number="2" column-width="27.6%"/>
+                <fo:table-column column-number="3" column-width="13.8%"/>
+                <fo:table-column column-number="4" column-width="13.8%"/>
+                <fo:table-column column-number="5" column-width="0%"/>
+                <fo:table-body>
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">CONTROL BY OFFICE OF DEPARTURE</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="3">
+                            <fo:block font-size="5pt">CONTROL BY OFFICE OF DESTINATION</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Result:</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Date of arrival:</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2">
+                            <fo:block font-size="5pt">Return copy sent on</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Seals affixed: Number:</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Examination of seals:</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Identity:</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2">
+                            <fo:block font-size="5pt">after registration under ID</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block><fo:inline font-size="5pt">Limit date [15 11]:</fo:inline> @(vm.limitDate)</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
+                                       border-right-color="black" border-right-style="solid" border-right-width="1pt">
+                            <fo:block font-size="5pt">Remarks:</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+
+                    <fo:table-row>
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Signature:</fo:block>
+                        </fo:table-cell>
+
+                        <fo:table-cell margin-left="0.5%">
+                            <fo:block font-size="5pt">Stamp:</fo:block>
+                        </fo:table-cell>
+
+                        @empty_cell()
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </fo:table-cell>
+</fo:table-row>

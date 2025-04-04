@@ -17,12 +17,12 @@
 package connectors
 
 import config.AppConfig
-import models.{DepartureMessages, IE015, Phase}
+import models.DepartureMessages
 import org.apache.pekko.stream.Materializer
 import play.api.http.HeaderNames.*
 import uk.gov.hmrc.http.HttpReads.Implicits.*
-import uk.gov.hmrc.http.{HeaderCarrier, StringContextOps}
 import uk.gov.hmrc.http.client.HttpClientV2
+import uk.gov.hmrc.http.{HeaderCarrier, StringContextOps}
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -35,19 +35,18 @@ class DepartureMovementConnector @Inject() (
   implicit override val ec: ExecutionContext
 ) extends MovementConnector {
 
-  def getMessages(departureId: String, phase: Phase)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
+  def getMessages(departureId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[DepartureMessages] = {
     val url = url"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages"
     http
       .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+json")
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.2.1+json")
       .execute[DepartureMessages]
   }
 
   def getMessage(
     departureId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("departures", departureId, messageId, phase)
+    getMessage("departures", departureId, messageId)
 
 }

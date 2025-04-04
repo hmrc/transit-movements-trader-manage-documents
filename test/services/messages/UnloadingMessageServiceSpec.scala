@@ -19,8 +19,6 @@ package services.messages
 import base.SpecBase
 import connectors.UnloadingPermissionConnector
 import generated.CC043CType
-import generators.ModelGenerators
-import models.Phase
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalacheck.Arbitrary.arbitrary
@@ -29,12 +27,11 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Await
-import scala.concurrent.Future
 import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.xml.Node
 
-class UnloadingMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {
+class UnloadingMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks {
 
   private val mockConnector = mock[UnloadingPermissionConnector]
 
@@ -392,15 +389,11 @@ class UnloadingMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           </Consignment>
         </ncts:CC043C>
 
-      forAll(arbitrary[Phase]) {
-        phase =>
-          when(mockConnector.getMessage(any(), any(), any())(any(), any()))
-            .thenReturn(Future.successful(message))
+      when(mockConnector.getMessage(any(), any())(any(), any())).thenReturn(Future.successful(message))
 
-          val result = Await.result(service.getUnloadingPermissionNotification(arrivalId, messageId, phase), Duration.Inf)
+      val result = Await.result(service.getUnloadingPermissionNotification(arrivalId, messageId), Duration.Inf)
 
-          result mustBe a[CC043CType]
-      }
+      result mustBe a[CC043CType]
     }
   }
 }

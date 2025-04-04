@@ -17,9 +17,6 @@
 package controllers
 
 import controllers.actions.AuthenticateActionProvider
-import controllers.actions.VersionedAction
-import models.Phase.PostTransition
-import models.Phase.Transition
 import play.api.Logging
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -37,25 +34,21 @@ class TransitAccompanyingDocumentController @Inject() (
   pdf: TADPdfGenerator,
   service: DepartureMessageService,
   authenticate: AuthenticateActionProvider,
-  getVersion: VersionedAction,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
   def get(departureId: String, messageId: String): Action[AnyContent] =
-    (authenticate() andThen getVersion).async {
+    authenticate() async {
       implicit request =>
-        service.getIE015MessageId(departureId, request.phase).flatMap {
+        service.getIE015MessageId(departureId).flatMap {
           case Some(ie015MessageId) =>
             for {
-              ie015 <- service.getDeclarationData(departureId, ie015MessageId, request.phase)
-              ie029 <- service.getReleaseForTransitNotification(departureId, messageId, request.phase)
+              ie015 <- service.getDeclarationData(departureId, ie015MessageId)
+              ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
               bytes <- Future.successful {
-                request.phase match {
-                  case PostTransition => pdf.generateP5TADPostTransition(ie015, ie029)
-                  case Transition     => pdf.generateP5TADTransition(ie015, ie029)
-                }
+                pdf.generate(ie015, ie029)
               }
             } yield {
               val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"

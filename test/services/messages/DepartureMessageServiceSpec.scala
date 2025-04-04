@@ -19,28 +19,22 @@ package services.messages
 import base.SpecBase
 import connectors.DepartureMovementConnector
 import generated.*
-import generators.ModelGenerators
 import models.DepartureMessageType.DepartureNotification
-import models.DepartureMessageMetaData
-import models.DepartureMessages
-import models.Phase
+import models.{DepartureMessageMetaData, DepartureMessages}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import scalaxb.{DataRecord, XMLCalendar}
+import scalaxb.XMLCalendar
 import uk.gov.hmrc.http.HeaderCarrier
 
 import java.time.LocalDateTime
-import scala.collection.immutable.ListMap
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Await
-import scala.concurrent.Future
 import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.xml.Node
 
-class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks with ModelGenerators {
+class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaCheckPropertyChecks {
 
   private val mockConnector = mock[DepartureMovementConnector]
 
@@ -54,35 +48,29 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
   "getIE015MessageId" - {
     "must return None" - {
       "when IE015 message not found" in {
-        forAll(arbitrary[Phase]) {
-          phase =>
-            val messages = DepartureMessages(List.empty)
+        val messages = DepartureMessages(List.empty)
 
-            when(mockConnector.getMessages(any(), any())(any(), any()))
-              .thenReturn(Future.successful(messages))
+        when(mockConnector.getMessages(any())(any(), any()))
+          .thenReturn(Future.successful(messages))
 
-            val result = service.getIE015MessageId(departureId, phase).futureValue
+        val result = service.getIE015MessageId(departureId).futureValue
 
-            result mustBe None
-        }
+        result mustBe None
       }
     }
 
     "must return IE015 message ID" - {
       "when IE015 message found" in {
-        forAll(arbitrary[Phase]) {
-          phase =>
-            val messageId = "ie015 id"
-            val ie015     = DepartureMessageMetaData(messageId, LocalDateTime.now(), DepartureNotification, "")
-            val messages  = DepartureMessages(List(ie015))
+        val messageId = "ie015 id"
+        val ie015     = DepartureMessageMetaData(messageId, LocalDateTime.now(), DepartureNotification, "")
+        val messages  = DepartureMessages(List(ie015))
 
-            when(mockConnector.getMessages(any(), any())(any(), any()))
-              .thenReturn(Future.successful(messages))
+        when(mockConnector.getMessages(any())(any(), any()))
+          .thenReturn(Future.successful(messages))
 
-            val result = service.getIE015MessageId(departureId, phase).futureValue
+        val result = service.getIE015MessageId(departureId).futureValue
 
-            result mustBe Some(messageId)
-        }
+        result mustBe Some(messageId)
       }
     }
   }
@@ -140,74 +128,68 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           </Consignment>
         </ncts:CC029C>
 
-      forAll(arbitrary[Phase]) {
-        phase =>
-          when(mockConnector.getMessage(any(), any(), any())(any(), any()))
-            .thenReturn(Future.successful(message))
+      when(mockConnector.getMessage(any(), any())(any(), any()))
+        .thenReturn(Future.successful(message))
 
-          val result = Await.result(service.getReleaseForTransitNotification(departureId, messageId, phase), Duration.Inf)
+      val result = Await.result(service.getReleaseForTransitNotification(departureId, messageId), Duration.Inf)
 
-          result mustEqual CC029CType(
-            messageSequence1 = MESSAGESequence(
-              messageSender = "NTA.GB",
-              messageRecipient = "1234567",
-              preparationDateAndTime = XMLCalendar("2024-12-04T15:31:57"),
-              messageIdentification = "83ONFTMIOXMT11",
-              messageType = CC029C
-            ),
-            TransitOperation = TransitOperationType12(
-              LRN = "GB8d53f132d00045f3c154",
-              MRN = "24GB000246J8NY33L7",
-              declarationType = "T1",
-              additionalDeclarationType = "A",
-              declarationAcceptanceDate = XMLCalendar("2024-12-04"),
-              releaseDate = XMLCalendar("2024-12-04"),
-              security = "2",
-              reducedDatasetIndicator = Number0,
-              bindingItinerary = Number1
-            ),
-            CustomsOfficeOfDeparture = CustomsOfficeOfDepartureType03(
-              referenceNumber = "GB000246"
-            ),
-            CustomsOfficeOfDestinationDeclared = CustomsOfficeOfDestinationDeclaredType01(
-              referenceNumber = "XI000142"
-            ),
-            HolderOfTheTransitProcedure = HolderOfTheTransitProcedureType05(
-              identificationNumber = Some("GB201909015000")
-            ),
-            Guarantee = Seq(
-              GuaranteeType03(
-                sequenceNumber = 1,
-                guaranteeType = "1"
-              )
-            ),
-            Consignment = CUSTOM_ConsignmentType04(
-              countryOfDispatch = Some("XI"),
-              countryOfDestination = Some("US"),
-              containerIndicator = Number1,
+      result mustEqual CC029CType(
+        messageSequence1 = MESSAGESequence(
+          messageSender = "NTA.GB",
+          messageRecipient = "1234567",
+          preparationDateAndTime = XMLCalendar("2024-12-04T15:31:57"),
+          messageIdentification = "83ONFTMIOXMT11",
+          messageType = CC029C
+        ),
+        TransitOperation = TransitOperationType12(
+          LRN = "GB8d53f132d00045f3c154",
+          MRN = "24GB000246J8NY33L7",
+          declarationType = "T1",
+          additionalDeclarationType = "A",
+          declarationAcceptanceDate = XMLCalendar("2024-12-04"),
+          releaseDate = XMLCalendar("2024-12-04"),
+          security = "2",
+          reducedDatasetIndicator = Number0,
+          bindingItinerary = Number1
+        ),
+        CustomsOfficeOfDeparture = CustomsOfficeOfDepartureType03(
+          referenceNumber = "GB000246"
+        ),
+        CustomsOfficeOfDestinationDeclared = CustomsOfficeOfDestinationDeclaredType01(
+          referenceNumber = "XI000142"
+        ),
+        HolderOfTheTransitProcedure = HolderOfTheTransitProcedureType05(
+          identificationNumber = Some("GB201909015000")
+        ),
+        Guarantee = Seq(
+          GuaranteeType03(
+            sequenceNumber = 1,
+            guaranteeType = "1"
+          )
+        ),
+        Consignment = CUSTOM_ConsignmentType04(
+          countryOfDispatch = Some("XI"),
+          countryOfDestination = Some("US"),
+          containerIndicator = Number1,
+          grossMass = 5500,
+          referenceNumberUCR = Some("AB1234"),
+          HouseConsignment = Seq(
+            CUSTOM_HouseConsignmentType03(
+              sequenceNumber = 1,
               grossMass = 5500,
-              referenceNumberUCR = Some("AB1234"),
-              HouseConsignment = Seq(
-                CUSTOM_HouseConsignmentType03(
-                  sequenceNumber = 1,
-                  grossMass = 5500,
-                  ConsignmentItem = Seq(
-                    CUSTOM_ConsignmentItemType03(
-                      goodsItemNumber = 1,
-                      declarationGoodsItemNumber = 1,
-                      countryOfDispatch = Some("XI"),
-                      countryOfDestination = Some("US"),
-                      referenceNumberUCR = Some("AB1234"),
-                      Commodity = CUSTOM_CommodityType08(
-                        descriptionOfGoods = "Toddlers Wooden Toy"
-                      )
-                    )
+              ConsignmentItem = Seq(
+                CUSTOM_ConsignmentItemType03(
+                  goodsItemNumber = 1,
+                  declarationGoodsItemNumber = 1,
+                  Commodity = CUSTOM_CommodityType08(
+                    descriptionOfGoods = "Toddlers Wooden Toy"
                   )
                 )
               )
             )
           )
-      }
+        )
+      )
     }
   }
 }

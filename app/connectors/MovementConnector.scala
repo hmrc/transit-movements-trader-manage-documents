@@ -17,7 +17,6 @@
 package connectors
 
 import config.AppConfig
-import models.Phase
 import org.apache.pekko.stream.Materializer
 import org.apache.pekko.stream.scaladsl.{Source, StreamConverters}
 import org.apache.pekko.util.ByteString
@@ -45,13 +44,12 @@ trait MovementConnector extends HttpReadsTry with Logging {
   def getMessage(
     movements: String,
     movementId: String,
-    messageId: String,
-    phase: Phase
+    messageId: String
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] = {
     val url = url"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
     http
       .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.${phase.version}+xml")
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.2.1+xml")
       .stream[Source[ByteString, ?]]
       .map(_.runWith(StreamConverters.asInputStream()))
       .map(XML.withSAXParser(saxParser).load(_))
