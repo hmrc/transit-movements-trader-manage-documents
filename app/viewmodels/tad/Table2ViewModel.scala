@@ -39,16 +39,14 @@ object Table2ViewModel {
 
   def apply(ie029: CC029CType): Table2ViewModel = {
 
-    def combine(consignmentLevel: CUSTOM_ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[CUSTOM_HouseConsignmentType03] => Seq[String]): String =
+    def combine(consignmentLevel: ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[HouseConsignmentType03] => Seq[String]): String =
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.take3(_.semiColonSeparate)
 
-    def combineWithSampling(consignmentLevel: CUSTOM_ConsignmentType04 => Seq[String],
-                            houseConsignmentLevel: Seq[CUSTOM_HouseConsignmentType03] => Seq[String]
-    ): String =
+    def combineWithSampling(consignmentLevel: ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[HouseConsignmentType03] => Seq[String]): String =
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.takeSample
 
     new Table2ViewModel(
-      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asTadString).takeSample.adjustFor2WideLines,
+      transportEquipment = ie029.Consignment.TransportEquipment.map(_.asString).takeSample.adjustFor2WideLines,
       seals = ie029.Consignment.TransportEquipment
         .filter(
           _.Seal.nonEmpty
@@ -67,23 +65,23 @@ object Table2ViewModel {
         )
         .take3(_.semiColonSeparate),
       previousDocuments = combineWithSampling(
-        _.PreviousDocument.map(_.asTadString),
+        _.PreviousDocument.map(_.asString),
         _.flatMap(_.PreviousDocument).map(_.asString)
       ).adjustFor2WideLines,
       transportDocuments = combineWithSampling(
-        _.TransportDocument.map(_.asTadString),
-        _.flatMap(_.TransportDocument).map(_.asTadString)
+        _.TransportDocument.map(_.asString),
+        _.flatMap(_.TransportDocument).map(_.asString)
       ).adjustFor2WideLines,
       supportingDocuments = combineWithSampling(
         _.SupportingDocument.map(_.asString),
         _.flatMap(_.SupportingDocument).map(_.asString)
       ).adjustFor2WideLines,
-      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asTadString).takeSample.take90,
+      additionalReferences = ie029.Consignment.AdditionalReference.map(_.asString).takeSample.take90,
       transportCharges = combine(
         _.TransportCharges.map(_.asString).toSeq,
         _.flatMap(_.TransportCharges).map(_.asString)
       ).take20,
-      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asTadString).takeSample.take90,
+      additionalInformation = ie029.Consignment.AdditionalInformation.map(_.asString).takeSample.take90,
       guarantees = ie029.Guarantee.map(_.asString).takeSample.adjustFor2WideLines,
       authorisations = ie029.Authorisation.map(_.asString).takeSample,
       containerIndicator = ie029.Consignment.containerIndicator.asString,

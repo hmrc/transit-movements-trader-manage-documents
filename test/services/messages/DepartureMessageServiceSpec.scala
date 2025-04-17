@@ -167,14 +167,14 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
             guaranteeType = "1"
           )
         ),
-        Consignment = CUSTOM_ConsignmentType04(
+        Consignment = ConsignmentType04(
           countryOfDispatch = Some("XI"),
           countryOfDestination = Some("US"),
           containerIndicator = Number1,
           grossMass = 5500,
           referenceNumberUCR = Some("AB1234"),
           HouseConsignment = Seq(
-            CUSTOM_HouseConsignmentType03(
+            HouseConsignmentType03(
               sequenceNumber = 1,
               grossMass = 5500,
               ConsignmentItem = Seq(

@@ -4,7 +4,7 @@
 @import viewmodels.RichStringOption
 
 @(
-    departureTransportMeans: Seq[CUSTOM_DepartureTransportMeansType02],
+    departureTransportMeans: Seq[CUSTOM_DepartureTransportMeansType01],
     container: String,
     transportEquipment: String,
     seals: String,

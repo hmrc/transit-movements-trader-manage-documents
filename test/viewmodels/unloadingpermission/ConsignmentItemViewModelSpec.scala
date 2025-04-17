@@ -21,7 +21,7 @@ import generated._
 
 class ConsignmentItemViewModelSpec extends SpecBase {
 
-  private val data: CUSTOM_ConsignmentItemType04 = CUSTOM_ConsignmentItemType04(
+  private val data: ConsignmentItemType04 = ConsignmentItemType04(
     goodsItemNumber = 1,
     declarationGoodsItemNumber = BigInt(1),
     declarationType = Some("T"),

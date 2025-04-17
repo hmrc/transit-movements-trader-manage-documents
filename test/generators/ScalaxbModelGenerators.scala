@@ -47,7 +47,7 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
         customsOfficeOfDeparture                 <- arbitrary[CustomsOfficeOfDepartureType03]
         customsOfficeOfDestinationDeclaredType01 <- arbitrary[CustomsOfficeOfDestinationDeclaredType01]
         holderOfTheTransitProcedure              <- arbitrary[HolderOfTheTransitProcedureType05]
-        consignment                              <- arbitrary[CUSTOM_ConsignmentType04]
+        consignment                              <- arbitrary[ConsignmentType04]
       } yield CC029CType(
         messageSequence1 = messageSequence1,
         TransitOperation = transitOperation,
@@ -110,13 +110,13 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
-  implicit lazy val arbitraryConsignmentItemType04: Arbitrary[CUSTOM_ConsignmentItemType04] =
+  implicit lazy val arbitraryConsignmentItemType04: Arbitrary[ConsignmentItemType04] =
     Arbitrary {
       for {
         goodsItemNumber            <- arbitrary[BigInt]
         declarationGoodsItemNumber <- arbitrary[BigInt]
         commodity                  <- arbitrary[CUSTOM_CommodityType08]
-      } yield CUSTOM_ConsignmentItemType04(
+      } yield ConsignmentItemType04(
         goodsItemNumber = goodsItemNumber,
         declarationGoodsItemNumber = declarationGoodsItemNumber,
         declarationType = None,
@@ -175,12 +175,12 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
-  implicit lazy val arbitraryConsignmentType04: Arbitrary[CUSTOM_ConsignmentType04] =
+  implicit lazy val arbitraryConsignmentType04: Arbitrary[ConsignmentType04] =
     Arbitrary {
       for {
         containerIndicator <- arbitrary[Flag]
         grossMass          <- arbitrary[BigDecimal]
-      } yield CUSTOM_ConsignmentType04(
+      } yield ConsignmentType04(
         countryOfDispatch = None,
         countryOfDestination = None,
         containerIndicator = containerIndicator,
@@ -209,12 +209,12 @@ trait ScalaxbModelGenerators extends GeneratorHelpers {
       )
     }
 
-  implicit lazy val arbitraryHouseConsignmentType03: Arbitrary[CUSTOM_HouseConsignmentType03] =
+  implicit lazy val arbitraryHouseConsignmentType03: Arbitrary[HouseConsignmentType03] =
     Arbitrary {
       for {
         sequenceNumber <- arbitrary[BigInt]
         grossMass      <- arbitrary[BigDecimal]
-      } yield CUSTOM_HouseConsignmentType03(
+      } yield HouseConsignmentType03(
         sequenceNumber = sequenceNumber,
         countryOfDispatch = None,
         grossMass = grossMass,

@@ -66,7 +66,7 @@ object Table1ViewModel {
 
     new Table1ViewModel(
       additionalDeclarationType = ie029.TransitOperation.additionalDeclarationType.take10,
-      consignees = consignees.map(_.asTadString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
+      consignees = consignees.map(_.asString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
       consigneeIdentificationNumbers = consignees.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
       consignors = consignors.map(_.asString).semiColonSeparate.appendPeriod.adjustFor3NarrowLines,
       consignorIdentificationNumbers = consignors.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
