@@ -29,7 +29,9 @@ package object unloadingpermission {
   type Consignment                        = ConsignmentType05 // CUSTOM_ConsignmentType05
 
   type ConsignmentConsignor        = ConsignorType04 // ConsignorType05
+  type ConsignmentConsignorAddress = AddressType14 // ConsignorType05
   type Consignee                   = ConsigneeType05 // ConsigneeType04
+  type ConsigneeAddress            = AddressType14 // ConsigneeType04
   type TransportEquipment          = TransportEquipmentType03 // TransportEquipmentType05
   type Seal                        = SealType01
   type GoodsReference              = GoodsReferenceType01 // GoodsReferenceType02

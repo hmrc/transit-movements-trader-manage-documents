@@ -91,7 +91,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "transportDocuments" in {
-      result.transportDocuments mustBe "1/ttv1/trn1; 2/ttv2/trn2."
+      result.transportDocuments mustBe ""
     }
 
     "referenceNumberUCR" in {
@@ -123,7 +123,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
     }
 
     "transportCharges" in {
-      result.transportCharges mustBe "mop"
+      result.transportCharges mustBe ""
     }
 
     "declarationType" in {

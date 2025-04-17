@@ -20,29 +20,37 @@ import generated.*
 
 package object tad {
 
-  type TransitOperation                      = TransitOperationType08 // TransitOperationType12
-  type Authorisation                         = AuthorisationType02
-  type CustomsOfficeOfDeparture              = CustomsOfficeOfDepartureType05 // CustomsOfficeOfDepartureType03
-  type CustomsOfficeOfDestinationDeclared    = CustomsOfficeOfDestinationDeclaredType01
-  type CustomsOfficeOfTransitDeclared        = CustomsOfficeOfTransitDeclaredType06 // CustomsOfficeOfTransitDeclaredType04
-  type CustomsOfficeOfExitForTransitDeclared = CustomsOfficeOfExitForTransitDeclaredType02
-  type HolderOfTheTransitProcedure           = HolderOfTheTransitProcedureType23 // HolderOfTheTransitProcedureType05
-  type HolderOfTheTransitProcedureAddress    = AddressType14 // AddressType07
-  type Representative                        = RepresentativeType06 // RepresentativeType02
-  type ControlResult                         = ControlResultType04 // ControlResultType02
-  type Guarantee                             = GuaranteeType05 // GuaranteeType03
-  type GuaranteeReference                    = CUSTOM_GuaranteeReferenceType03 // CUSTOM_GuaranteeReferenceType01
-  type Consignment                           = ConsignmentType04 // CUSTOM_ConsignmentType04
+  type TransitOperation                         = TransitOperationType08 // TransitOperationType12
+  type Authorisation                            = AuthorisationType02
+  type CustomsOfficeOfDeparture                 = CustomsOfficeOfDepartureType05 // CustomsOfficeOfDepartureType03
+  type CustomsOfficeOfDestinationDeclared       = CustomsOfficeOfDestinationDeclaredType01
+  type CustomsOfficeOfTransitDeclared           = CustomsOfficeOfTransitDeclaredType06 // CustomsOfficeOfTransitDeclaredType04
+  type CustomsOfficeOfExitForTransitDeclared    = CustomsOfficeOfExitForTransitDeclaredType02
+  type HolderOfTheTransitProcedure              = HolderOfTheTransitProcedureType23 // HolderOfTheTransitProcedureType05
+  type HolderOfTheTransitProcedureAddress       = AddressType14 // AddressType07
+  type HolderOfTheTransitProcedureContactPerson = ContactPersonType03 // AddressType07
+  type Representative                           = RepresentativeType06 // RepresentativeType02
+  type RepresentativeContactPerson              = ContactPersonType03
+  type ControlResult                            = ControlResultType04 // ControlResultType02
+  type Guarantee                                = GuaranteeType05 // GuaranteeType03
+  type GuaranteeReference                       = CUSTOM_GuaranteeReferenceType03 // CUSTOM_GuaranteeReferenceType01
+  type Consignment                              = ConsignmentType04 // CUSTOM_ConsignmentType04
 
   type Carrier                               = CarrierType06 // CarrierType03
+  type CarrierContactPerson                  = ContactPersonType03
   type ConsignmentConsignor                  = ConsignorType03
+  type ConsignmentConsignorAddress           = AddressType14
   type ConsignmentConsignorContactPerson     = ContactPersonType03 // ContactPersonType01
   type Consignee                             = ConsigneeType05 // ConsigneeType04
+  type ConsigneeAddress                      = AddressType14
   type AdditionalSupplyChainActor            = AdditionalSupplyChainActorType01 // AdditionalSupplyChainActorType
   type TransportEquipment                    = TransportEquipmentType03 // TransportEquipmentType05
   type Seal                                  = SealType01 // SealType04
+  type GoodsReference                        = GoodsReferenceType01
   type LocationOfGoods                       = LocationOfGoodsType04 // LocationOfGoodsType02
+  type LocationOfGoodsCustomsOffice          = CustomsOfficeType02
   type LocationOfGoodsContactPerson          = ContactPersonType01 // ContactPersonType02
+  type EconomicOperator                      = EconomicOperatorType02
   type LocationOfGoodsAddress                = AddressType06 // AddressType02
   type LocationOfGoodsPostcodeAddress        = PostcodeAddressType // PostcodeAddressType01
   type GNSS                                  = GNSSType
@@ -60,6 +68,8 @@ package object tad {
   type HouseConsignment                      = HouseConsignmentType03 // CUSTOM_HouseConsignmentType03
 
   type HouseConsignmentConsignor               = ConsignorType10 // ConsignorType04
+  type HouseConsignmentConsignorAddress        = AddressType14
+  type HouseConsignmentConsignorContactPerson  = ContactPersonType03
   type HouseConsignmentDepartureTransportMeans = DepartureTransportMeansType01 // DepartureTransportMeansType02
   type HouseConsignmentPreviousDocument        = PreviousDocumentType06 // PreviousDocumentType07
   type HouseConsignmentAdditionalReference     = AdditionalReferenceType02 // AdditionalReferenceType03
@@ -446,16 +456,6 @@ package object tad {
     ).flatten
 
     def asString: String = values.slashSeparate
-  }
-
-  implicit class RichHolderOfTheTransitProcedureAddress(value: HolderOfTheTransitProcedureAddress) {
-
-    def asString: String = Seq(
-      Some(value.streetAndNumber),
-      value.postcode,
-      Some(value.city),
-      Some(value.country)
-    ).flatten.commaSeparate
   }
 
   implicit class RichPostcodeAddress(value: LocationOfGoodsPostcodeAddress) {

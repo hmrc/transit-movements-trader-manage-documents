@@ -15,6 +15,7 @@
  */
 
 import generated.*
+import viewmodels.tad.HolderOfTheTransitProcedureAddress
 
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -197,13 +198,7 @@ package object viewmodels {
     def asString: String = value.toDouble.toString
   }
 
-  /*
-
-
-
-
-
-  implicit class RichAddressType02(value: AddressType02) {
+  implicit class RichHolderOfTheTransitProcedureAddress(value: HolderOfTheTransitProcedureAddress) {
 
     def asString: String = Seq(
       Some(value.streetAndNumber),
@@ -212,95 +207,4 @@ package object viewmodels {
       Some(value.country)
     ).flatten.commaSeparate
   }
-
-  implicit class RichAddressType14(value: AddressType14) {
-
-    def asString: String = Seq(
-      Some(value.streetAndNumber),
-      value.postcode,
-      Some(value.city),
-      Some(value.country)
-    ).flatten.commaSeparate
-  }
-
-  implicit class RichAddressType09(value: AddressType09) {
-
-    def asString: String = Seq(
-      Some(value.streetAndNumber),
-      value.postcode,
-      Some(value.city),
-      Some(value.country)
-    ).flatten.commaSeparate
-  }
-
-  implicit class RichAddressType10(value: AddressType10) {
-
-    def asString: String = Seq(
-      Some(value.streetAndNumber),
-      value.postcode,
-      Some(value.city),
-      Some(value.country)
-    ).flatten.commaSeparate
-  }
-
-  implicit class RichPostcodeAddressType(value: PostcodeAddressType) {
-
-    def asString: String = Seq(
-      value.houseNumber,
-      Some(value.postcode),
-      Some(value.country)
-    ).flatten.commaSeparate
-  }
-
-  implicit class RichConsigneeType01(value: ConsigneeType01) {
-
-    def asString: String = Seq(
-      value.name,
-      value.Address.map(_.asString)
-    ).flatten.commaSeparate
-  }
-
-  implicit class RichConsignorType10(value: ConsignorType10) {
-
-    def asString: String = Seq(
-      value.name,
-      value.Address.map(_.asString),
-      value.ContactPerson.map(_.asString)
-    ).flatten.slashSeparate
-
-    def asConsignorType03: ConsignorType03 = ConsignorType03(
-      value.identificationNumber,
-      value.name,
-      value.Address,
-      value.ContactPerson
-    )
-  }
-
-
-
-  implicit class RichContactPersonType01(value: ContactPersonType01) {
-
-    def asString: String = Seq(
-      Some(value.name),
-      Some(value.phoneNumber)
-    ).flatten.slashSeparate
-  }
-
-  implicit class RichContactPersonType03(value: ContactPersonType03) {
-
-    def asString: String = Seq(
-      Some(value.name),
-      Some(value.phoneNumber)
-    ).flatten.commaSeparate
-  }
-
-
-
-
-
-
-
-
-
-   */
 }

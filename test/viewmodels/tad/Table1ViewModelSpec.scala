@@ -17,13 +17,13 @@
 package viewmodels.tad
 
 import base.SpecBase
-import generated._
-import generators.ScalaxbModelGenerators
+import generated.*
+import generators.IE029ScalaxbModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import viewmodels.DummyData
 
-class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks with ScalaxbModelGenerators {
+class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropertyChecks with IE029ScalaxbModelGenerators {
 
   private val lineWithSpaces = " " * 80
 
@@ -36,12 +36,12 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "consignees" - {
-      def consignee(i: Int): ConsigneeType04 =
-        ConsigneeType04(
+      def consignee(i: Int): Consignee =
+        new Consignee(
           identificationNumber = Some(s"in$i"),
           name = Some(s"name$i"),
           Address = Some(
-            AddressType07(
+            new ConsigneeAddress(
               streetAndNumber = s"san$i",
               postcode = Some(s"pc$i"),
               city = s"city$i",
@@ -63,7 +63,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 2 consignees (spanning 2 narrow lines out of available 2)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignment]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -88,7 +88,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 3 consignees (spanning more than the available 2 narrow lines)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignment]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -123,12 +123,12 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "consignors" - {
-      def consignorType03(i: Int): ConsignorType03 =
-        ConsignorType03(
+      def consignorType03(i: Int): ConsignmentConsignor =
+        new ConsignmentConsignor(
           identificationNumber = Some(s"in$i"),
           name = Some(s"name$i"),
           Address = Some(
-            AddressType07(
+            new ConsignmentConsignorAddress(
               streetAndNumber = s"san$i",
               postcode = Some(s"pc$i"),
               city = s"city$i",
@@ -136,7 +136,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             )
           ),
           ContactPerson = Some(
-            ContactPersonType01(
+            new ConsignmentConsignorContactPerson(
               name = s"ccp$i",
               phoneNumber = s"ccptel$i",
               eMailAddress = Some(s"ccpemail$i")
@@ -144,12 +144,12 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
 
-      def consignorType04(i: Int): ConsignorType04 =
-        ConsignorType04(
+      def consignorType04(i: Int): HouseConsignmentConsignor =
+        new HouseConsignmentConsignor(
           identificationNumber = Some(s"in$i"),
           name = Some(s"name$i"),
           Address = Some(
-            AddressType07(
+            new HouseConsignmentConsignorAddress(
               streetAndNumber = s"san$i",
               postcode = Some(s"pc$i"),
               city = s"city$i",
@@ -157,7 +157,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             )
           ),
           ContactPerson = Some(
-            ContactPersonType01(
+            new HouseConsignmentConsignorContactPerson(
               name = s"ccp$i",
               phoneNumber = s"ccptel$i",
               eMailAddress = Some(s"ccpemail$i")
@@ -178,7 +178,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 2 consignors (spanning 2 narrow lines out of available 3)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignment]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -203,7 +203,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 3 consignors (spanning 3 narrow lines out of available 3)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignment]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
@@ -233,7 +233,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when 4 consignors (spanning more than the available 3 narrow lines)" in {
-        forAll(arbitrary[CC029CType], arbitrary[HouseConsignmentType03]) {
+        forAll(arbitrary[CC029CType], arbitrary[HouseConsignment]) {
           (ie029, houseConsignment) =>
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
