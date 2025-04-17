@@ -422,7 +422,7 @@ package object tad {
       value.ContactPerson.map(_.asString)
     ).flatten.slashSeparate
 
-    def asConsignorType03: ConsignorType03 = ConsignorType03(
+    def asConsignmentConsignor: ConsignmentConsignor = new ConsignmentConsignor(
       value.identificationNumber,
       value.name,
       value.Address,

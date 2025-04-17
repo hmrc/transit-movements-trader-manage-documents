@@ -41,7 +41,7 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(consignmentItem: ConsignmentItemType04): ConsignmentItemViewModel =
+  def apply(consignmentItem: ConsignmentItem): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber.toString,

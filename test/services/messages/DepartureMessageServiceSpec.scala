@@ -178,7 +178,7 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           grossMass = 5500,
           referenceNumberUCR = Some("AB1234"),
           HouseConsignment = Seq(
-            HouseConsignmentType03(
+            new HouseConsignment(
               sequenceNumber = 1,
               grossMass = 5500,
               ConsignmentItem = Seq(

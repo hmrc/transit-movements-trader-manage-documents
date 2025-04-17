@@ -26,7 +26,7 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val result = ConsignmentItemViewModel(cc015c, houseConsignmentType03, consignmentItemType03)
+    val result = ConsignmentItemViewModel(cc015c, ie029HouseConsignment, ie029ConsignmentItem)
 
     "declarationGoodsItemNumber" in {
       result.declarationGoodsItemNumber mustBe "1"
@@ -42,11 +42,11 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
     "descriptionOfGoods" - {
       "must be house consignment gross mass and description for the first item in HC" in {
-        result.descriptionOfGoods mustBe s"${houseConsignmentType03.grossMass.toDouble.toString} / ${consignmentItemType03.Commodity.descriptionOfGoods}"
+        result.descriptionOfGoods mustBe s"${ie029HouseConsignment.grossMass.toDouble.toString} / ${ie029ConsignmentItem.Commodity.descriptionOfGoods}"
       }
 
       "must be description of goods for the rest of the other consignment items in HC" in {
-        ConsignmentItemViewModel(cc015c, houseConsignmentType03, consignmentItemType03.copy(goodsItemNumber = 2)).descriptionOfGoods mustBe "dog"
+        ConsignmentItemViewModel(cc015c, ie029HouseConsignment, ie029ConsignmentItem.copy(goodsItemNumber = 2)).descriptionOfGoods mustBe "dog"
       }
     }
 
@@ -160,8 +160,8 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
 
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC_1, ie15HC_2))),
-          houseConsignmentType03.copy(sequenceNumber = 1),
-          consignmentItemType03.copy(declarationGoodsItemNumber = searchedDeclarationGoodsItemNo)
+          ie029HouseConsignment.copy(sequenceNumber = 1),
+          ie029ConsignmentItem.copy(declarationGoodsItemNumber = searchedDeclarationGoodsItemNo)
         )
 
         viewModel.supplementaryUnits mustBe "4.8"
@@ -176,8 +176,8 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
         val ie15HC = HouseConsignment(ConsignmentItem = Seq(ie15CI))
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
-          houseConsignmentType03.copy(sequenceNumber = hcSeqNo),
-          consignmentItemType03.copy(declarationGoodsItemNumber = 6)
+          ie029HouseConsignment.copy(sequenceNumber = hcSeqNo),
+          ie029ConsignmentItem.copy(declarationGoodsItemNumber = 6)
         )
         viewModel.supplementaryUnits mustBe ""
       }
@@ -191,8 +191,8 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
         val ie15HC = HouseConsignment(ConsignmentItem = Seq(ie15CI))
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
-          houseConsignmentType03.copy(sequenceNumber = 2),
-          consignmentItemType03.copy(declarationGoodsItemNumber = declarationGoodsItemNo)
+          ie029HouseConsignment.copy(sequenceNumber = 2),
+          ie029ConsignmentItem.copy(declarationGoodsItemNumber = declarationGoodsItemNo)
         )
         viewModel.supplementaryUnits mustBe ""
       }
@@ -206,8 +206,8 @@ class ConsignmentItemViewModelSpec extends SpecBase with DummyData {
         val ie15HC = HouseConsignment(ConsignmentItem = Seq(ie15CI))
         val viewModel = ConsignmentItemViewModel(
           cc015c.copy(Consignment = cc015c.Consignment.copy(HouseConsignment = Seq(ie15HC))),
-          houseConsignmentType03.copy(sequenceNumber = 2),
-          consignmentItemType03.copy(declarationGoodsItemNumber = declarationGoodsItemNo)
+          ie029HouseConsignment.copy(sequenceNumber = 2),
+          ie029ConsignmentItem.copy(declarationGoodsItemNumber = declarationGoodsItemNo)
         )
         viewModel.supplementaryUnits mustBe ""
       }

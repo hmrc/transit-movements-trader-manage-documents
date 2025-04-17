@@ -123,7 +123,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     }
 
     "consignors" - {
-      def consignorType03(i: Int): ConsignmentConsignor =
+      def consignmentConsignor(i: Int): ConsignmentConsignor =
         new ConsignmentConsignor(
           identificationNumber = Some(s"in$i"),
           name = Some(s"name$i"),
@@ -144,7 +144,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
 
-      def consignorType04(i: Int): HouseConsignmentConsignor =
+      def houseConsignmentConsignor(i: Int): HouseConsignmentConsignor =
         new HouseConsignmentConsignor(
           identificationNumber = Some(s"in$i"),
           name = Some(s"name$i"),
@@ -169,7 +169,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
         val data = cc029c.copy(
           Consignment = cc029c.Consignment.copy(
             Consignor = Some(
-              consignorType03(1)
+              consignmentConsignor(1)
             )
           )
         )
@@ -186,12 +186,12 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 HouseConsignment = Seq(
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(1)
+                      houseConsignmentConsignor(1)
                     )
                   ),
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(2)
+                      houseConsignmentConsignor(2)
                     )
                   )
                 )
@@ -211,17 +211,17 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 HouseConsignment = Seq(
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(1)
+                      houseConsignmentConsignor(1)
                     )
                   ),
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(2)
+                      houseConsignmentConsignor(2)
                     )
                   ),
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(3)
+                      houseConsignmentConsignor(3)
                     )
                   )
                 )
@@ -241,22 +241,22 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
                 HouseConsignment = Seq(
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(1)
+                      houseConsignmentConsignor(1)
                     )
                   ),
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(2)
+                      houseConsignmentConsignor(2)
                     )
                   ),
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(3)
+                      houseConsignmentConsignor(3)
                     )
                   ),
                   houseConsignment.copy(
                     Consignor = Some(
-                      consignorType04(4)
+                      houseConsignmentConsignor(4)
                     )
                   )
                 )

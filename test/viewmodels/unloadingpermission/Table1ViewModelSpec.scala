@@ -17,7 +17,6 @@
 package viewmodels.unloadingpermission
 
 import base.SpecBase
-import generated.{CUSTOM_DepartureTransportMeansType01, DepartureTransportMeansType02}
 import viewmodels.DummyData
 
 class Table1ViewModelSpec extends SpecBase with DummyData {
@@ -79,8 +78,8 @@ class Table1ViewModelSpec extends SpecBase with DummyData {
     }
 
     "departureTransportMeans" in {
-      result.departureTransportMeans.head mustBe CUSTOM_DepartureTransportMeansType01(1, Some("toi1"), Some("in1"), Some("nat1"))
-      result.departureTransportMeans(1) mustBe CUSTOM_DepartureTransportMeansType01(2, Some("toi2"), Some("in2"), Some("nat2"))
+      result.departureTransportMeans.head mustEqual new DepartureTransportMeans(1, Some("toi1"), Some("in1"), Some("nat1"))
+      result.departureTransportMeans(1) mustEqual new DepartureTransportMeans(2, Some("toi2"), Some("in2"), Some("nat2"))
     }
 
     "container" in {

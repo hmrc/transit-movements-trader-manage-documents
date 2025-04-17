@@ -44,7 +44,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
         * @param k
         *   number of goods references in this transport equipment
         * @return
-        *   a GoodsReferenceType02
+        *   a GoodsReference
         */
       def goodsReference(i: Int)(j: Int)(k: Int): GoodsReference =
         new GoodsReference(
@@ -587,7 +587,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
       }
 
       "when previous documents goes over 2 wide lines" in {
-        def previousDocumentType06(i: Int): ConsignmentPreviousDocument =
+        def consignmentPreviousDocument(i: Int): ConsignmentPreviousDocument =
           new ConsignmentPreviousDocument(
             sequenceNumber = i,
             typeValue = s"previous document $i type value",
@@ -595,7 +595,7 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             complementOfInformation = Some(s"previous document $i complement of information")
           )
 
-        def previousDocumentType07(i: Int): HouseConsignmentPreviousDocument =
+        def houseConsignmentPreviousDocument(i: Int): HouseConsignmentPreviousDocument =
           new HouseConsignmentPreviousDocument(
             sequenceNumber = i,
             typeValue = s"previous document $i type value",
@@ -608,22 +608,22 @@ class Table2ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
             val data = ie029.copy(
               Consignment = ie029.Consignment.copy(
                 PreviousDocument = Seq(
-                  previousDocumentType06(1)
+                  consignmentPreviousDocument(1)
                 ),
                 HouseConsignment = Seq(
                   houseConsignment.copy(
                     PreviousDocument = Seq(
-                      previousDocumentType07(2)
+                      houseConsignmentPreviousDocument(2)
                     )
                   ),
                   houseConsignment.copy(
                     PreviousDocument = Seq(
-                      previousDocumentType07(3)
+                      houseConsignmentPreviousDocument(3)
                     )
                   ),
                   houseConsignment.copy(
                     PreviousDocument = Seq(
-                      previousDocumentType07(4)
+                      houseConsignmentPreviousDocument(4)
                     )
                   )
                 )

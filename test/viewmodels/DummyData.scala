@@ -856,7 +856,7 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
                     )
                   )
                 ),
-                ConsignmentItemType04(
+                new ConsignmentItem(
                   goodsItemNumber = 2,
                   declarationGoodsItemNumber = 2,
                   Commodity = new Commodity(
@@ -875,7 +875,7 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
     )
   }
 
-  lazy val houseConsignmentType03 = {
+  lazy val ie029HouseConsignment = {
     import viewmodels.tad.*
     new HouseConsignment(
       sequenceNumber = 1,
@@ -943,7 +943,7 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
     )
   }
 
-  lazy val consignmentItemType03 = {
+  lazy val ie029ConsignmentItem = {
     import viewmodels.tad.*
     new ConsignmentItem(
       goodsItemNumber = 1,

@@ -39,10 +39,10 @@ object Table2ViewModel {
 
   def apply(ie029: CC029CType): Table2ViewModel = {
 
-    def combine(consignmentLevel: ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[HouseConsignmentType03] => Seq[String]): String =
+    def combine(consignmentLevel: Consignment => Seq[String], houseConsignmentLevel: Seq[HouseConsignment] => Seq[String]): String =
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.take3(_.semiColonSeparate)
 
-    def combineWithSampling(consignmentLevel: ConsignmentType04 => Seq[String], houseConsignmentLevel: Seq[HouseConsignmentType03] => Seq[String]): String =
+    def combineWithSampling(consignmentLevel: Consignment => Seq[String], houseConsignmentLevel: Seq[HouseConsignment] => Seq[String]): String =
       Seq(consignmentLevel(ie029.Consignment), houseConsignmentLevel(ie029.Consignment.HouseConsignment)).flatten.takeSample
 
     new Table2ViewModel(
