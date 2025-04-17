@@ -58,9 +58,11 @@ class ConsignmentItemViewModelSpec extends SpecBase {
           UNNumber = "unn2"
         )
       ),
-      GoodsMeasure = new GoodsMeasure(
-        grossMass = Some(BigDecimal(200)),
-        netMass = Some(BigDecimal(100))
+      GoodsMeasure = Some(
+        new GoodsMeasure(
+          grossMass = Some(BigDecimal(200)),
+          netMass = Some(BigDecimal(100))
+        )
       )
     ),
     Packaging = Seq(

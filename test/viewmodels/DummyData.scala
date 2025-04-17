@@ -607,9 +607,11 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
                       UNNumber = "unn2"
                     )
                   ),
-                  GoodsMeasure = new GoodsMeasure(
-                    grossMass = Some(BigDecimal(200)),
-                    netMass = Some(BigDecimal(100))
+                  GoodsMeasure = Some(
+                    new GoodsMeasure(
+                      grossMass = Some(BigDecimal(200)),
+                      netMass = Some(BigDecimal(100))
+                    )
                   )
                 )
               ),
@@ -651,10 +653,6 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
                       sequenceNumber = 2,
                       UNNumber = "unn2"
                     )
-                  ),
-                  GoodsMeasure = new GoodsMeasure(
-                    grossMass = Some(BigDecimal(200)),
-                    netMass = Some(BigDecimal(100))
                   )
                 )
               )
@@ -849,22 +847,14 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
                   goodsItemNumber = 1,
                   declarationGoodsItemNumber = 1,
                   Commodity = new Commodity(
-                    descriptionOfGoods = "dog1",
-                    GoodsMeasure = new GoodsMeasure(
-                      grossMass = None,
-                      netMass = None
-                    )
+                    descriptionOfGoods = "dog1"
                   )
                 ),
                 new ConsignmentItem(
                   goodsItemNumber = 2,
                   declarationGoodsItemNumber = 2,
                   Commodity = new Commodity(
-                    descriptionOfGoods = "dog2",
-                    GoodsMeasure = new GoodsMeasure(
-                      grossMass = None,
-                      netMass = None
-                    )
+                    descriptionOfGoods = "dog2"
                   )
                 )
               )
@@ -993,9 +983,11 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
             UNNumber = "unn2"
           )
         ),
-        GoodsMeasure = new GoodsMeasure(
-          grossMass = Some(BigDecimal(200)),
-          netMass = Some(BigDecimal(100))
+        GoodsMeasure = Some(
+          new GoodsMeasure(
+            grossMass = Some(BigDecimal(200)),
+            netMass = Some(BigDecimal(100))
+          )
         )
       ),
       Packaging = Seq(

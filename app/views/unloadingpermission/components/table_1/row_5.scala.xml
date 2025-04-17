@@ -160,7 +160,7 @@
                                         <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                             <fo:block font-size="7">
                                                 Net weight
-                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.GoodsMeasure.netMass.getOrElse("N/A"))</fo:block>
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.GoodsMeasure.map(_.netMass).getOrElse("N/A"))</fo:block>
                                             </fo:block>
                                         </fo:block-container>
                                     </fo:table-cell>
@@ -169,7 +169,7 @@
                                         <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
                                             <fo:block font-size="7">
                                                 Gross weight
-                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.GoodsMeasure.grossMass.getOrElse("N/A"))</fo:block>
+                                                <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(ci.Commodity.GoodsMeasure.map(_.grossMass).getOrElse("N/A"))</fo:block>
                                             </fo:block>
                                         </fo:block-container>
                                     </fo:table-cell>

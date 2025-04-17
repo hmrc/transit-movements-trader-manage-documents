@@ -123,9 +123,6 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
                 <declarationGoodsItemNumber>1</declarationGoodsItemNumber>
                 <Commodity>
                   <descriptionOfGoods>Toddlers Wooden Toy</descriptionOfGoods>
-                  <GoodsMeasure>
-                    <grossMass>123</grossMass>
-                  </GoodsMeasure>
                 </Commodity>
               </ConsignmentItem>
             </HouseConsignment>
@@ -186,11 +183,7 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
                   goodsItemNumber = 1,
                   declarationGoodsItemNumber = 1,
                   Commodity = new Commodity(
-                    descriptionOfGoods = "Toddlers Wooden Toy",
-                    GoodsMeasure = new GoodsMeasure(
-                      grossMass = Some(BigDecimal(123)),
-                      netMass = None
-                    )
+                    descriptionOfGoods = "Toddlers Wooden Toy"
                   )
                 )
               )

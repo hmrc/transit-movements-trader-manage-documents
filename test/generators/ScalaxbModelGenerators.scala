@@ -208,13 +208,12 @@ trait IE029ScalaxbModelGenerators extends ScalaxbModelGenerators {
     Arbitrary {
       for {
         descriptionOfGoods <- nonEmptyString
-        goodsMeasure       <- arbitrary[GoodsMeasure]
       } yield new Commodity(
         descriptionOfGoods = descriptionOfGoods,
         cusCode = None,
         CommodityCode = None,
         DangerousGoods = Nil,
-        GoodsMeasure = goodsMeasure
+        GoodsMeasure = None
       )
     }
 
@@ -334,13 +333,12 @@ trait IE043ScalaxbModelGenerators extends ScalaxbModelGenerators {
     Arbitrary {
       for {
         descriptionOfGoods <- nonEmptyString
-        goodsMeasure       <- arbitrary[GoodsMeasure]
       } yield new Commodity(
         descriptionOfGoods = descriptionOfGoods,
         cusCode = None,
         CommodityCode = None,
         DangerousGoods = Nil,
-        GoodsMeasure = goodsMeasure
+        GoodsMeasure = None
       )
     }
 
