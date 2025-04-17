@@ -27,6 +27,7 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import scalaxb.XMLCalendar
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.tad.*
 
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -55,7 +56,7 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
 
         val result = service.getIE015MessageId(departureId).futureValue
 
-        result mustBe None
+        result must not be defined
       }
     }
 
@@ -70,7 +71,7 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
 
         val result = service.getIE015MessageId(departureId).futureValue
 
-        result mustBe Some(messageId)
+        result.value mustEqual messageId
       }
     }
   }
@@ -141,7 +142,7 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           messageIdentification = "83ONFTMIOXMT11",
           messageType = CC029C
         ),
-        TransitOperation = TransitOperationType12(
+        TransitOperation = new TransitOperation(
           LRN = "GB8d53f132d00045f3c154",
           MRN = "24GB000246J8NY33L7",
           declarationType = "T1",
@@ -152,36 +153,36 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           reducedDatasetIndicator = Number0,
           bindingItinerary = Number1
         ),
-        CustomsOfficeOfDeparture = CustomsOfficeOfDepartureType03(
+        CustomsOfficeOfDeparture = new CustomsOfficeOfDeparture(
           referenceNumber = "GB000246"
         ),
-        CustomsOfficeOfDestinationDeclared = CustomsOfficeOfDestinationDeclaredType01(
+        CustomsOfficeOfDestinationDeclared = new CustomsOfficeOfDestinationDeclared(
           referenceNumber = "XI000142"
         ),
-        HolderOfTheTransitProcedure = HolderOfTheTransitProcedureType05(
+        HolderOfTheTransitProcedure = new HolderOfTheTransitProcedure(
           identificationNumber = Some("GB201909015000")
         ),
         Guarantee = Seq(
-          GuaranteeType03(
+          new Guarantee(
             sequenceNumber = 1,
             guaranteeType = "1"
           )
         ),
-        Consignment = CUSTOM_ConsignmentType04(
+        Consignment = new Consignment(
           countryOfDispatch = Some("XI"),
           countryOfDestination = Some("US"),
           containerIndicator = Number1,
           grossMass = 5500,
           referenceNumberUCR = Some("AB1234"),
           HouseConsignment = Seq(
-            CUSTOM_HouseConsignmentType03(
+            new HouseConsignment(
               sequenceNumber = 1,
               grossMass = 5500,
               ConsignmentItem = Seq(
-                CUSTOM_ConsignmentItemType03(
+                new ConsignmentItem(
                   goodsItemNumber = 1,
                   declarationGoodsItemNumber = 1,
-                  Commodity = CUSTOM_CommodityType08(
+                  Commodity = new Commodity(
                     descriptionOfGoods = "Toddlers Wooden Toy"
                   )
                 )

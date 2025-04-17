@@ -62,11 +62,11 @@ object Table1ViewModel {
 
     val consignees = ie029.Consignment.Consignee.map(Seq(_)).getOrElse(ie029.Consignment.HouseConsignment.flatMap(_.Consignee))
 
-    val consignors = ie029.Consignment.Consignor.map(Seq(_)).getOrElse(ie029.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.asConsignorType03)))
+    val consignors = ie029.Consignment.Consignor.map(Seq(_)).getOrElse(ie029.Consignment.HouseConsignment.flatMap(_.Consignor.map(_.asConsignmentConsignor)))
 
     new Table1ViewModel(
       additionalDeclarationType = ie029.TransitOperation.additionalDeclarationType.take10,
-      consignees = consignees.map(_.asTadString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
+      consignees = consignees.map(_.asString).semiColonSeparate.appendPeriod.adjustFor2NarrowLines,
       consigneeIdentificationNumbers = consignees.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
       consignors = consignors.map(_.asString).semiColonSeparate.appendPeriod.adjustFor3NarrowLines,
       consignorIdentificationNumbers = consignors.flatMap(_.identificationNumber).semiColonSeparate.appendPeriod,
