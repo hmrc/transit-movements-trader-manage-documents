@@ -16,8 +16,8 @@
 
 package viewmodels.unloadingpermission
 
-import generated._
-import viewmodels._
+import generated.*
+import viewmodels.*
 
 case class Table1ViewModel(
   consignorIdentificationNumber: String,
@@ -33,8 +33,8 @@ case class Table1ViewModel(
   tir: String,
   security: String,
   inlandModeOfTransport: String,
-  departureTransportMeans: Seq[CUSTOM_DepartureTransportMeansType02],
-  houseConsignmentDepartureTransportMeans: Seq[CUSTOM_HouseConsignmentType04],
+  departureTransportMeans: Seq[DepartureTransportMeans],
+  houseConsignments: Seq[HouseConsignment],
   container: String,
   transportEquipment: String,
   seals: String,
@@ -54,7 +54,7 @@ object Table1ViewModel {
       consignorIdentificationNumber = ie043.Consignment.flatMap(_.Consignor.flatMap(_.identificationNumber)).orElseBlank,
       consignor = ie043.Consignment.flatMap(_.Consignor.map(_.asString)).orElseBlank,
       consigneeIdentificationNumber = ie043.Consignment.flatMap(_.Consignee.flatMap(_.identificationNumber)).orElseBlank,
-      consignee = ie043.Consignment.flatMap(_.Consignee.map(_.asUnloadingPermissionString)).orElseBlank,
+      consignee = ie043.Consignment.flatMap(_.Consignee.map(_.asString)).orElseBlank,
       holderOfTransitID = ie043.HolderOfTheTransitProcedure.flatMap(_.identificationNumber).orElseBlank,
       holderOfTransit = ie043.HolderOfTheTransitProcedure.map(_.asString).orElseBlank,
       declarationType = ie043.TransitOperation.declarationType.orElseBlank,
@@ -64,17 +64,17 @@ object Table1ViewModel {
       tir = ie043.HolderOfTheTransitProcedure.flatMap(_.TIRHolderIdentificationNumber).orElseBlank,
       security = ie043.TransitOperation.security,
       inlandModeOfTransport = ie043.Consignment.flatMap(_.inlandModeOfTransport).orElseBlank,
-      departureTransportMeans = ie043.Consignment.fold[Seq[CUSTOM_DepartureTransportMeansType02]](Nil)(_.DepartureTransportMeans),
-      houseConsignmentDepartureTransportMeans = ie043.Consignment
-        .fold[Seq[CUSTOM_HouseConsignmentType04]](Seq.empty)(_.HouseConsignment),
+      departureTransportMeans = ie043.Consignment.fold[Seq[DepartureTransportMeans]](Nil)(_.DepartureTransportMeans),
+      houseConsignments = ie043.Consignment
+        .fold[Seq[HouseConsignment]](Seq.empty)(_.HouseConsignment),
       container = ie043.Consignment.map(_.containerIndicator.toString).orElseBlank,
-      transportEquipment = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.map(_.asUnloadingPermissionString)).semiColonSeparate,
+      transportEquipment = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.map(_.asString)).semiColonSeparate,
       seals = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportEquipment.flatMap(_.Seal).map(_.asString)).semiColonSeparate,
-      previousDocument = ie043.Consignment.fold[Seq[String]](Nil)(_.PreviousDocument.map(_.asUnloadingPermissionString)).semiColonSeparate,
-      transportDocument = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportDocument.map(_.asUnloadingPermissionString)).semiColonSeparate,
+      previousDocument = ie043.Consignment.fold[Seq[String]](Nil)(_.PreviousDocument.map(_.asString)).semiColonSeparate,
+      transportDocument = ie043.Consignment.fold[Seq[String]](Nil)(_.TransportDocument.map(_.asString)).semiColonSeparate,
       supportingDocument = ie043.Consignment.fold[Seq[String]](Nil)(_.SupportingDocument.map(_.asString)).semiColonSeparate,
-      additionalReference = ie043.Consignment.fold[Seq[String]](Nil)(_.AdditionalReference.map(_.asUnloadingPermissionString)).semiColonSeparate,
-      additionalInformation = ie043.Consignment.fold[Seq[String]](Nil)(_.AdditionalInformation.map(_.asUnloadingPermissionString)).semiColonSeparate,
+      additionalReference = ie043.Consignment.fold[Seq[String]](Nil)(_.AdditionalReference.map(_.asString)).semiColonSeparate,
+      additionalInformation = ie043.Consignment.fold[Seq[String]](Nil)(_.AdditionalInformation.map(_.asString)).semiColonSeparate,
       customsOfficeOfDestination = ie043.CustomsOfficeOfDestinationActual.referenceNumber,
       countryOfDestination = ie043.Consignment.flatMap(_.countryOfDestination).orElseBlank
     )
