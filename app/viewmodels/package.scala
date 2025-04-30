@@ -15,7 +15,6 @@
  */
 
 import generated.*
-import viewmodels.tad.HolderOfTheTransitProcedureAddress
 
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -198,7 +197,170 @@ package object viewmodels {
     def asString: String = value.toDouble.toString
   }
 
-  implicit class RichHolderOfTheTransitProcedureAddress(value: HolderOfTheTransitProcedureAddress) {
+  implicit class RichCC029CType(value: CC029CType) {
+
+    val consignmentItems: Seq[CUSTOM_ConsignmentItemType03] =
+      value.Consignment.HouseConsignment
+        .flatMap(_.ConsignmentItem)
+
+    val numberOfItems: Int = consignmentItems.size
+
+    val numberOfPackages: BigInt = consignmentItems.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
+  }
+
+  implicit class RichCC043CType(value: CC043CType) {
+
+    private val consignmentItems: Seq[CUSTOM_ConsignmentItemType04] =
+      value.Consignment.fold[Seq[CUSTOM_ConsignmentItemType04]](Nil)(_.HouseConsignment.flatMap(_.ConsignmentItem))
+
+    val numberOfItems: Int = consignmentItems.size
+
+    val numberOfPackages: BigInt = consignmentItems.flatMap(_.Packaging.flatMap(_.numberOfPackages)).sum
+  }
+
+  implicit class RichPackagingType02(value: PackagingType02) {
+
+    private val values = Seq(
+      Some(value.typeOfPackages),
+      value.numberOfPackages.map(_.toString()),
+      value.shippingMarks
+    ).flatten
+
+    def asUnloadingPermissionString: String = values.commaSeparate
+
+    def asTadString: String = values.slashSeparate
+  }
+
+  implicit class RichPreviousDocumentType03(value: PreviousDocumentType03) {
+
+    private val values = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.goodsItemNumber.map(_.toString),
+      value.typeOfPackages,
+      value.numberOfPackages.map(_.toString),
+      value.measurementUnitAndQualifier,
+      value.quantity.map(_.toString),
+      value.complementOfInformation
+    ).flatten
+
+    def asString: String = values.slashSeparate
+  }
+
+  implicit class RichPreviousDocumentType04(value: PreviousDocumentType04) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.goodsItemNumber.map(_.toString),
+      value.complementOfInformation
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichPreviousDocumentType06(value: PreviousDocumentType06) {
+
+    private val values = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.complementOfInformation
+    ).flatten
+
+    def asUnloadingPermissionString: String = values.commaSeparate
+
+    def asTadString: String = values.slashSeparate
+  }
+
+  implicit class RichPreviousDocumentType07(value: PreviousDocumentType07) {
+
+    private val values = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.complementOfInformation
+    ).flatten
+
+    def asString: String = values.slashSeparate
+  }
+
+  implicit class RichSupportingDocumentType02(value: SupportingDocumentType02) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.complementOfInformation
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichSupportingDocumentType06(value: SupportingDocumentType06) {
+
+    private val values = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      Some(value.referenceNumber),
+      value.documentLineItemNumber.map(_.toString),
+      value.complementOfInformation
+    ).flatten
+
+    def asString: String = values.slashSeparate
+  }
+
+  implicit class RichTransportDocumentType02(value: TransportDocumentType02) {
+
+    private val values = Seq(
+      value.sequenceNumber.toString,
+      value.typeValue,
+      value.referenceNumber
+    )
+
+    def asUnloadingPermissionString: String = values.commaSeparate
+
+    def asTadString: String = values.slashSeparate
+  }
+
+  implicit class RichAdditionalSupplyChainActorType(value: AdditionalSupplyChainActorType) {
+
+    def asString: String = Seq(value.sequenceNumber.toString, value.role).slashSeparate
+  }
+
+  implicit class RichAdditionalInformationType02(value: AdditionalInformationType02) {
+
+    private val values = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.code),
+      value.text
+    ).flatten
+
+    def asUnloadingPermissionString: String = values.commaSeparate
+
+    def asTadString: String = values.slashSeparate
+  }
+
+  implicit class RichCommodityCodeType05(value: CommodityCodeType05) {
+
+    def asString: String = Seq(
+      Some(value.harmonizedSystemSubHeadingCode),
+      value.combinedNomenclatureCode
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichDangerousGoodsType01(value: DangerousGoodsType01) {
+
+    def asString: String = Seq(
+      value.sequenceNumber.toString,
+      value.UNNumber
+    ).commaSeparate
+  }
+
+  implicit class RichTransportChargesType(value: TransportChargesType) {
+
+    def asString: String = value.methodOfPayment
+  }
+
+  implicit class RichAddressType02(value: AddressType02) {
 
     def asString: String = Seq(
       Some(value.streetAndNumber),
@@ -206,5 +368,346 @@ package object viewmodels {
       Some(value.city),
       Some(value.country)
     ).flatten.commaSeparate
+  }
+
+  implicit class RichAddressType07(value: AddressType07) {
+
+    def asString: String = Seq(
+      Some(value.streetAndNumber),
+      value.postcode,
+      Some(value.city),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichAddressType09(value: AddressType09) {
+
+    def asString: String = Seq(
+      Some(value.streetAndNumber),
+      value.postcode,
+      Some(value.city),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichAddressType10(value: AddressType10) {
+
+    def asString: String = Seq(
+      Some(value.streetAndNumber),
+      value.postcode,
+      Some(value.city),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichPostcodeAddressType01(value: PostcodeAddressType01) {
+
+    def asString: String = Seq(
+      value.houseNumber,
+      Some(value.postcode),
+      Some(value.country)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichConsigneeType03(value: ConsigneeType03) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichConsigneeType04(value: ConsigneeType04) {
+
+    private val values = Seq(
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten
+
+    def asUnloadingPermissionString: String = values.commaSeparate
+
+    def asTadString: String = values.slashSeparate
+  }
+
+  implicit class RichConsignorType03(value: ConsignorType03) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten.slashSeparate
+  }
+
+  implicit class RichConsignorType04(value: ConsignorType04) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString),
+      value.ContactPerson.map(_.asString)
+    ).flatten.slashSeparate
+
+    def asConsignorType03: ConsignorType03 = ConsignorType03(
+      value.identificationNumber,
+      value.name,
+      value.Address,
+      value.ContactPerson
+    )
+  }
+
+  implicit class RichConsignorType05(value: ConsignorType05) {
+
+    def asString: String = Seq(
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichContactPersonType01(value: ContactPersonType01) {
+
+    def asString: String = Seq(
+      Some(value.name),
+      Some(value.phoneNumber)
+    ).flatten.slashSeparate
+  }
+
+  implicit class RichContactPersonType02(value: ContactPersonType02) {
+
+    def asString: String = Seq(
+      Some(value.name),
+      Some(value.phoneNumber)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichAdditionalReferenceType02(value: AdditionalReferenceType02) {
+
+    private val values = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      value.referenceNumber
+    ).flatten
+
+    def asUnloadingPermissionString: String = values.commaSeparate
+
+    def asTadString: String = values.slashSeparate
+  }
+
+  implicit class RichAdditionalReferenceType03(value: AdditionalReferenceType03) {
+
+    private val values = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.typeValue),
+      value.referenceNumber
+    ).flatten
+
+    def asUnloadingPermissionString: String = values.commaSeparate
+
+    def asTadString: String = values.slashSeparate
+  }
+
+  implicit class RichHolderOfTheTransitProcedureType05(value: HolderOfTheTransitProcedureType05) {
+
+    def asString: String = Seq(
+      value.TIRHolderIdentificationNumber,
+      value.name,
+      value.Address.map(_.asString)
+    ).flatten.slashSeparate
+  }
+
+  implicit class RichHolderOfTheTransitProcedureType06(value: HolderOfTheTransitProcedureType06) {
+
+    def asString: String = Seq(
+      Some(value.name),
+      Some(value.Address.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichRepresentativeType02(value: RepresentativeType02) {
+
+    def asString: String = value.status
+  }
+
+  implicit class RichDepartureTransportMeansType02(value: DepartureTransportMeansType02) {
+
+    private val values = Seq(
+      value.typeOfIdentification,
+      value.identificationNumber,
+      value.nationality
+    )
+
+    def asString: String = values.slashSeparate
+  }
+
+  implicit class RichCustomDepartureTransportMeansType02(value: CUSTOM_DepartureTransportMeansType02) {
+
+    def asString: String = Seq(
+      value.typeOfIdentification,
+      value.identificationNumber,
+      value.nationality
+    ).flatten.slashSeparate
+  }
+
+  implicit class RichConsignmentItemType04(value: CUSTOM_ConsignmentItemType04) {
+
+    def asString: String = Seq(
+      Some(value.goodsItemNumber.toString),
+      Some(value.declarationGoodsItemNumber.toString),
+      value.Commodity.CommodityCode.flatMap(_.combinedNomenclatureCode),
+      value.Commodity.CommodityCode.map(_.harmonizedSystemSubHeadingCode),
+      value.Commodity.GoodsMeasure.flatMap(
+        gm => gm.netMass.map(_.toString)
+      ),
+      value.Commodity.GoodsMeasure.map(_.grossMass.toString),
+      Some(value.Commodity.descriptionOfGoods)
+    ).flatten.commaSeparate
+
+  }
+
+  implicit class RichActiveBorderTransportMeansType01(value: CUSTOM_ActiveBorderTransportMeansType01) {
+
+    private val values = Seq(
+      value.customsOfficeAtBorderReferenceNumber,
+      value.typeOfIdentification,
+      value.identificationNumber,
+      value.nationality
+    ).flatten
+
+    def asString: String = values.slashSeparate
+  }
+
+  implicit class RichPlaceOfLoadingType02(value: PlaceOfLoadingType02) {
+
+    def asString: String = Seq(
+      value.UNLocode,
+      value.country,
+      value.location
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichPlaceOfUnloadingType02(value: PlaceOfUnloadingType02) {
+
+    def asString: String = Seq(
+      value.UNLocode,
+      value.country,
+      value.location
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichLocationOfGoodsType02(value: LocationOfGoodsType02) {
+
+    def asString: String = Seq(
+      Some(value.typeOfLocation),
+      Some(value.qualifierOfIdentification),
+      value.authorisationNumber,
+      value.UNLocode,
+      value.CustomsOffice.map(_.referenceNumber),
+      value.GNSS.map(_.asString),
+      value.EconomicOperator.map(_.identificationNumber),
+      value.Address.map(_.asString),
+      value.PostcodeAddress.map(_.asString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichGNSSType(value: GNSSType) {
+
+    def asString: String = Seq(
+      value.latitude,
+      value.longitude
+    ).commaSeparate
+  }
+
+  implicit class RichTransportEquipmentType05(value: TransportEquipmentType05) {
+
+    def asUnloadingPermissionString: String = Seq(
+      Some(value.sequenceNumber.toString),
+      value.containerIdentificationNumber,
+      Some(value.numberOfSeals.toString),
+      Some(value.GoodsReference.map(_.asString).firstAndLast())
+    ).flatten.commaSeparate
+
+    def asTadString: String = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.containerIdentificationNumber.getOrElse("-")),
+      if (value.numberOfSeals == 0) None else Some(value.numberOfSeals.toString),
+      Some(value.GoodsReference.map(_.declarationGoodsItemNumber.toString).firstAndLast("-"))
+    ).flatten.slashSeparate
+  }
+
+  implicit class RichGoodsReferenceType02(value: GoodsReferenceType02) {
+
+    def asString: String = value match {
+      case GoodsReferenceType02(sequenceNumber, declarationGoodsItemNumber) =>
+        s"$sequenceNumber:${declarationGoodsItemNumber.toString()}"
+    }
+  }
+
+  implicit class RichSealType04(value: SealType04) {
+
+    def asString: String = value match {
+      case SealType04(sequenceNumber, identifier) =>
+        s"$sequenceNumber,[$identifier]"
+    }
+  }
+
+  implicit class RichGuaranteeType03(value: GuaranteeType03) {
+
+    def asString: String =
+      Seq(
+        Some(value.sequenceNumber.toString),
+        Some(value.guaranteeType),
+        Option.when(value.GuaranteeReference.nonEmpty)(value.GuaranteeReference.flatMap(_.asString).takeSampleWithoutPeriod),
+        value.otherGuaranteeReference
+      ).flatten.slashSeparate
+  }
+
+  implicit class RichGuaranteeReferenceType01(value: CUSTOM_GuaranteeReferenceType01) {
+
+    def asString: Option[String] = value.GRN
+  }
+
+  implicit class RichAuthorisationType02(value: AuthorisationType02) {
+
+    private val values = Seq(
+      value.sequenceNumber.toString,
+      value.typeValue,
+      value.referenceNumber
+    )
+
+    def asString: String = values.slashSeparate
+  }
+
+  implicit class RichCountryOfRoutingOfConsignmentType01(value: CountryOfRoutingOfConsignmentType01) {
+
+    private val values = Seq(
+      value.sequenceNumber.toString,
+      value.country
+    )
+
+    def asString: String = values.slashSeparate
+  }
+
+  implicit class RichCustomsOfficeOfTransitDeclaredType04(value: CustomsOfficeOfTransitDeclaredType04) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.referenceNumber),
+      value.arrivalDateAndTimeEstimated.map(_.dateAndTimeString)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichCustomsOfficeOfExitForTransitDeclaredType02(value: CustomsOfficeOfExitForTransitDeclaredType02) {
+
+    def asString: String = Seq(
+      Some(value.sequenceNumber.toString),
+      Some(value.referenceNumber)
+    ).flatten.commaSeparate
+  }
+
+  implicit class RichCustomsOfficeOfDepartureType03(value: CustomsOfficeOfDepartureType03) {
+
+    def asString: String = value.referenceNumber
+  }
+
+  implicit class RichCustomsOfficeOfDestinationDeclaredType01(value: CustomsOfficeOfDestinationDeclaredType01) {
+
+    def asString: String = value.referenceNumber
   }
 }

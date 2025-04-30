@@ -17,20 +17,21 @@
 package viewmodels.unloadingpermission
 
 import base.SpecBase
+import generated._
 
 class ConsignmentItemViewModelSpec extends SpecBase {
 
-  private val data: ConsignmentItem = new ConsignmentItem(
+  private val data: CUSTOM_ConsignmentItemType04 = CUSTOM_ConsignmentItemType04(
     goodsItemNumber = 1,
     declarationGoodsItemNumber = BigInt(1),
     declarationType = Some("T"),
     countryOfDestination = Some("cod"),
     Consignee = Some(
-      new ConsignmentItemConsignee(
+      ConsigneeType03(
         identificationNumber = Some("in"),
         name = Some("name"),
         Address = Some(
-          new ConsignmentItemConsigneeAddress(
+          AddressType09(
             streetAndNumber = "san",
             postcode = Some("pc"),
             city = "city",
@@ -39,40 +40,40 @@ class ConsignmentItemViewModelSpec extends SpecBase {
         )
       )
     ),
-    Commodity = new Commodity(
+    Commodity = CUSTOM_CommodityType08(
       descriptionOfGoods = "dog",
       cusCode = Some("cus"),
       CommodityCode = Some(
-        new CommodityCode(
+        CommodityCodeType05(
           harmonizedSystemSubHeadingCode = "hsshc",
           combinedNomenclatureCode = Some("cnc")
         )
       ),
       DangerousGoods = Seq(
-        new DangerousGoods(
+        DangerousGoodsType01(
           sequenceNumber = 1,
           UNNumber = "unn1"
         ),
-        new DangerousGoods(
+        DangerousGoodsType01(
           sequenceNumber = 2,
           UNNumber = "unn2"
         )
       ),
       GoodsMeasure = Some(
-        new GoodsMeasure(
+        CUSTOM_GoodsMeasureType03(
           grossMass = Some(BigDecimal(200)),
           netMass = Some(BigDecimal(100))
         )
       )
     ),
     Packaging = Seq(
-      new Packaging(
+      PackagingType02(
         sequenceNumber = 1,
         typeOfPackages = "top1",
         numberOfPackages = Some(BigInt(100)),
         shippingMarks = Some("sm1")
       ),
-      new Packaging(
+      PackagingType02(
         sequenceNumber = 2,
         typeOfPackages = "top2",
         numberOfPackages = Some(BigInt(200)),
@@ -80,14 +81,14 @@ class ConsignmentItemViewModelSpec extends SpecBase {
       )
     ),
     PreviousDocument = Seq(
-      new ConsignmentItemPreviousDocument(
+      PreviousDocumentType04(
         sequenceNumber = 1,
         typeValue = "ptv1",
         referenceNumber = "prn1",
         goodsItemNumber = Some(1),
         complementOfInformation = Some("pcoi1")
       ),
-      new ConsignmentItemPreviousDocument(
+      PreviousDocumentType04(
         sequenceNumber = 2,
         typeValue = "ptv2",
         referenceNumber = "prn2",
@@ -96,13 +97,13 @@ class ConsignmentItemViewModelSpec extends SpecBase {
       )
     ),
     SupportingDocument = Seq(
-      new SupportingDocument(
+      SupportingDocumentType02(
         sequenceNumber = 1,
         typeValue = "stv1",
         referenceNumber = "srn1",
         complementOfInformation = Some("scoi1")
       ),
-      new SupportingDocument(
+      SupportingDocumentType02(
         sequenceNumber = 2,
         typeValue = "stv2",
         referenceNumber = "srn2",
@@ -110,36 +111,36 @@ class ConsignmentItemViewModelSpec extends SpecBase {
       )
     ),
     TransportDocument = Seq(
-      new TransportDocument(
+      TransportDocumentType02(
         sequenceNumber = 1,
         typeValue = "ttv1",
         referenceNumber = "trn1"
       ),
-      new TransportDocument(
+      TransportDocumentType02(
         sequenceNumber = 2,
         typeValue = "ttv2",
         referenceNumber = "trn2"
       )
     ),
     AdditionalReference = Seq(
-      new ConsignmentItemAdditionalReference(
+      AdditionalReferenceType02(
         sequenceNumber = 1,
         typeValue = "artv1",
         referenceNumber = Some("arrn1")
       ),
-      new ConsignmentItemAdditionalReference(
+      AdditionalReferenceType02(
         sequenceNumber = 2,
         typeValue = "artv2",
         referenceNumber = Some("arrn2")
       )
     ),
     AdditionalInformation = Seq(
-      new AdditionalInformation(
+      AdditionalInformationType02(
         sequenceNumber = 1,
         code = "aic1",
         text = Some("ait1")
       ),
-      new AdditionalInformation(
+      AdditionalInformationType02(
         sequenceNumber = 2,
         code = "aic2",
         text = Some("ait2")

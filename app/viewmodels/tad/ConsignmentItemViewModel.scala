@@ -16,7 +16,7 @@
 
 package viewmodels.tad
 
-import generated.*
+import generated.{CUSTOM_ConsignmentItemType03, CUSTOM_HouseConsignmentType03}
 import models.IE015
 import viewmodels.*
 
@@ -52,27 +52,25 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(ie015: IE015, houseConsignment: HouseConsignment, consignmentItem: ConsignmentItem): ConsignmentItemViewModel =
+  def apply(ie015: IE015, houseConsignment: CUSTOM_HouseConsignmentType03, consignmentItem: CUSTOM_ConsignmentItemType03): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber.toString(),
-      packagesType = consignmentItem.Packaging.map(_.asString).semiColonSeparate.appendPeriod,
-      descriptionOfGoods = if (consignmentItem.goodsItemNumber == 1) {
-        s"${houseConsignment.grossMass.asString} / ${consignmentItem.Commodity.descriptionOfGoods}"
-      } else {
-        consignmentItem.Commodity.descriptionOfGoods
-      },
+      packagesType = consignmentItem.Packaging.map(_.asTadString).semiColonSeparate.appendPeriod,
+      descriptionOfGoods =
+        if (consignmentItem.goodsItemNumber == 1) s"${houseConsignment.grossMass.asString} / ${consignmentItem.Commodity.descriptionOfGoods}"
+        else consignmentItem.Commodity.descriptionOfGoods,
       previousDocuments = consignmentItem.PreviousDocument.map(_.asString).semiColonSeparate.appendPeriod,
       supportingDocuments = consignmentItem.SupportingDocument.map(_.asString).semiColonSeparate.appendPeriod,
-      consignee = houseConsignment.Consignee.map(_.asString).orElseBlank.appendPeriod,
+      consignee = houseConsignment.Consignee.map(_.asTadString).orElseBlank.appendPeriod,
       consigneeId = houseConsignment.Consignee.flatMap(_.identificationNumber).orElseBlank.appendPeriod,
       consignor = houseConsignment.Consignor.map(_.asString).orElseBlank.appendPeriod,
       consignorId = houseConsignment.Consignor.flatMap(_.identificationNumber).orElseBlank.appendPeriod,
-      additionalReferences = consignmentItem.AdditionalReference.map(_.asString).semiColonSeparate.appendPeriod,
-      additionalInformation = consignmentItem.AdditionalInformation.map(_.asString).semiColonSeparate.appendPeriod,
+      additionalReferences = consignmentItem.AdditionalReference.map(_.asTadString).semiColonSeparate.appendPeriod,
+      additionalInformation = consignmentItem.AdditionalInformation.map(_.asTadString).semiColonSeparate.appendPeriod,
       additionalSupplyChainActors = consignmentItem.AdditionalSupplyChainActor.map(_.asString).semiColonSeparate.appendPeriod,
       supplyChainActorId = consignmentItem.AdditionalSupplyChainActor.map(_.identificationNumber).semiColonSeparate.appendPeriod,
-      transportDocuments = "",
+      transportDocuments = consignmentItem.TransportDocument.map(_.asTadString).semiColonSeparate.appendPeriod,
       referenceNumberUCR = consignmentItem.referenceNumberUCR.orElseBlank,
       grossMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.grossMass.map(_.asString)).orElseBlank,
       departureTransportMeans = houseConsignment.DepartureTransportMeans.map(_.asString).semiColonSeparate.appendPeriod,
@@ -80,7 +78,7 @@ object ConsignmentItemViewModel {
       netMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.netMass.map(_.asString)).orElseBlank,
       dangerousGoods = consignmentItem.Commodity.DangerousGoods.map(_.asString).semiColonSeparate,
       cusCode = consignmentItem.Commodity.cusCode.orElseBlank,
-      transportCharges = "",
+      transportCharges = consignmentItem.TransportCharges.map(_.asString).orElseBlank,
       declarationType = consignmentItem.declarationType.orElseBlank,
       countryOfDispatch = consignmentItem.countryOfDispatch.orElseBlank,
       countryOfDestination = consignmentItem.countryOfDestination.orElseBlank,

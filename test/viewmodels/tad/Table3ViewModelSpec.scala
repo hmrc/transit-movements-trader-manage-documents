@@ -17,118 +17,121 @@
 package viewmodels.tad
 
 import base.SpecBase
+import generated.GoodsReferenceType02
+import generated.SealType04
+import generated.TransportEquipmentType05
 import viewmodels.DummyData
 
 class Table3ViewModelSpec extends SpecBase with DummyData {
 
   "must map data to view model" - {
 
-    val ie029 = cc029c.copy(Consignment =
+    val cc029cP5 = cc029c.copy(Consignment =
       cc029c.Consignment.copy(TransportEquipment =
         Seq(
-          new TransportEquipment(
+          TransportEquipmentType05(
             sequenceNumber = 1,
             containerIdentificationNumber = Some("cin1"),
             numberOfSeals = BigInt(2),
             Seal = Seq(
-              new Seal(
+              SealType04(
                 sequenceNumber = 1,
                 identifier = "sid1"
               ),
-              new Seal(
+              SealType04(
                 sequenceNumber = 2,
                 identifier = "sid2"
               )
             ),
             GoodsReference = Seq(
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 1,
                 declarationGoodsItemNumber = BigInt(1)
               ),
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 2,
                 declarationGoodsItemNumber = BigInt(3)
               )
             )
           ),
-          new TransportEquipment(
+          TransportEquipmentType05(
             sequenceNumber = 2,
             containerIdentificationNumber = Some("cin2"),
             numberOfSeals = BigInt(3),
             Seal = Seq(
-              new Seal(
+              SealType04(
                 sequenceNumber = 3,
                 identifier = "sid3"
               ),
-              new Seal(
+              SealType04(
                 sequenceNumber = 4,
                 identifier = "sid4"
               ),
-              new Seal(
+              SealType04(
                 sequenceNumber = 5,
                 identifier = "sid5"
               )
             ),
             GoodsReference = Seq(
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 1,
                 declarationGoodsItemNumber = BigInt(1)
               ),
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 2,
                 declarationGoodsItemNumber = BigInt(3)
               )
             )
           ),
-          new TransportEquipment(
+          TransportEquipmentType05(
             sequenceNumber = 3,
             containerIdentificationNumber = Some("cin3"),
             numberOfSeals = BigInt(3),
             Seal = Seq(
-              new Seal(
+              SealType04(
                 sequenceNumber = 6,
                 identifier = "sid6"
               ),
-              new Seal(
+              SealType04(
                 sequenceNumber = 7,
                 identifier = "sid7"
               ),
-              new Seal(
+              SealType04(
                 sequenceNumber = 8,
                 identifier = "sid8"
               )
             ),
             GoodsReference = Seq(
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 1,
                 declarationGoodsItemNumber = BigInt(1)
               ),
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 2,
                 declarationGoodsItemNumber = BigInt(3)
               )
             )
           ),
-          new TransportEquipment(
+          TransportEquipmentType05(
             sequenceNumber = 4,
             containerIdentificationNumber = Some("cin4"),
             numberOfSeals = BigInt(2),
             Seal = Seq(
-              new Seal(
+              SealType04(
                 sequenceNumber = 9,
                 identifier = "sid9"
               ),
-              new Seal(
+              SealType04(
                 sequenceNumber = 10,
                 identifier = "sid10"
               )
             ),
             GoodsReference = Seq(
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 1,
                 declarationGoodsItemNumber = BigInt(1)
               ),
-              new GoodsReference(
+              GoodsReferenceType02(
                 sequenceNumber = 2,
                 declarationGoodsItemNumber = BigInt(3)
               )
@@ -138,7 +141,7 @@ class Table3ViewModelSpec extends SpecBase with DummyData {
       )
     )
 
-    val result = Table3ViewModel(ie029)
+    val result = Table3ViewModel(cc029cP5)
 
     "containerIdentification" in {
       result.containerIdentification mustBe "cin1; cin2; cin3..."

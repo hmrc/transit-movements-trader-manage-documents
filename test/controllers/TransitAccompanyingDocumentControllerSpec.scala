@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import controllers.actions.{AuthenticateActionProvider, FakeAuthenticateActionProvider}
 import generated.CC029CType
-import generators.{IE015ScalaxbModelGenerators, IE029ScalaxbModelGenerators}
+import generators.ScalaxbModelGenerators
 import models.IE015
 import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.{any, eq as eqTo}
@@ -37,12 +37,7 @@ import services.pdf.TADPdfGenerator
 
 import scala.concurrent.Future
 
-class TransitAccompanyingDocumentControllerSpec
-    extends SpecBase
-    with IE015ScalaxbModelGenerators
-    with IE029ScalaxbModelGenerators
-    with ScalaCheckPropertyChecks
-    with BeforeAndAfterEach {
+class TransitAccompanyingDocumentControllerSpec extends SpecBase with ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
 
   def onwardRoute: Call = Call("GET", "/foo")
 

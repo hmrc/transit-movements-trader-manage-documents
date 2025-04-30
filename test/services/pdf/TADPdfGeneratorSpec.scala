@@ -37,7 +37,7 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
   private lazy val service: TADPdfGenerator = app.injector.instanceOf[TADPdfGenerator]
   val env: Environment                      = app.injector.instanceOf[Environment]
 
-  "TADPdfGenerator" - {
+  "TransitAccompanyingDocumentPDFGenerator" - {
 
     "must match with the final 'Transit Accompanying Document' template" in {
       val pdfPath          = "test/resources/documents/tad/sample.pdf"

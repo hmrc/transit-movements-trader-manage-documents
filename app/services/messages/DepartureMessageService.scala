@@ -22,6 +22,7 @@ import models.DepartureMessageType.DepartureNotification
 import models.IE015
 import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.RichCC029CType
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}

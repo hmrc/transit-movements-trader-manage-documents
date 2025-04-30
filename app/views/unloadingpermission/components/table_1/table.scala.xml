@@ -43,7 +43,7 @@
     )
 
     @row_5(
-      vm.houseConsignments
+      vm.houseConsignmentDepartureTransportMeans
     )
 
   </fo:table-body>

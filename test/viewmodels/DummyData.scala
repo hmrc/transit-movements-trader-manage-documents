@@ -18,7 +18,7 @@ package viewmodels
 
 import base.SpecBase
 import generated.*
-import generators.{IE015ScalaxbModelGenerators, ScalaxbModelGenerators}
+import generators.ScalaxbModelGenerators
 import models.IE015
 import org.scalacheck.Arbitrary.arbitrary
 import scalaxb.XMLCalendar
@@ -26,7 +26,7 @@ import scalaxb.XMLCalendar
 import java.time.LocalDate
 import javax.xml.datatype.XMLGregorianCalendar
 
-trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators {
+trait DummyData extends ScalaxbModelGenerators {
   self: SpecBase =>
 
   private def calendar(date: String): XMLGregorianCalendar = XMLCalendar(date)
@@ -43,80 +43,850 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
     )
   }
 
-  lazy val cc029c: CC029CType = {
-    import viewmodels.tad.*
-    CC029CType(
-      messageSequence1 = arbitrary[MESSAGESequence].sample.value,
-      TransitOperation = new TransitOperation(
-        LRN = "lrn",
-        MRN = "mrn",
-        declarationType = "T",
-        additionalDeclarationType = "adt",
-        TIRCarnetNumber = Some("tir"),
-        declarationAcceptanceDate = calendar("1996-02-03T08:45:00.000000"),
-        releaseDate = calendar("2023-02-03T08:45:00.000000"),
-        security = "security",
-        reducedDatasetIndicator = Number0,
-        specificCircumstanceIndicator = Some("sci"),
-        communicationLanguageAtDeparture = None,
-        bindingItinerary = Number1
+  lazy val cc029c: CC029CType = CC029CType(
+    messageSequence1 = arbitrary[MESSAGESequence].sample.value,
+    TransitOperation = TransitOperationType12(
+      LRN = "lrn",
+      MRN = "mrn",
+      declarationType = "T",
+      additionalDeclarationType = "adt",
+      TIRCarnetNumber = Some("tir"),
+      declarationAcceptanceDate = calendar("1996-02-03T08:45:00.000000"),
+      releaseDate = calendar("2023-02-03T08:45:00.000000"),
+      security = "security",
+      reducedDatasetIndicator = Number0,
+      specificCircumstanceIndicator = Some("sci"),
+      communicationLanguageAtDeparture = None,
+      bindingItinerary = Number1
+    ),
+    Authorisation = Seq(
+      AuthorisationType02(
+        sequenceNumber = 1,
+        typeValue = "C521",
+        referenceNumber = "rn1"
       ),
-      Authorisation = Seq(
-        new Authorisation(
+      AuthorisationType02(
+        sequenceNumber = 2,
+        typeValue = "tv2",
+        referenceNumber = "rn2"
+      ),
+      AuthorisationType02(
+        sequenceNumber = 3,
+        typeValue = "tv3",
+        referenceNumber = "rn3"
+      ),
+      AuthorisationType02(
+        sequenceNumber = 4,
+        typeValue = "tv4",
+        referenceNumber = "rn4"
+      )
+    ),
+    CustomsOfficeOfDeparture = CustomsOfficeOfDepartureType03(
+      referenceNumber = "cood"
+    ),
+    CustomsOfficeOfDestinationDeclared = CustomsOfficeOfDestinationDeclaredType01(
+      referenceNumber = "coodd"
+    ),
+    CustomsOfficeOfTransitDeclared = Seq(
+      CustomsOfficeOfTransitDeclaredType04(
+        sequenceNumber = 1,
+        referenceNumber = "cootd1",
+        arrivalDateAndTimeEstimated = Some(calendar("2010-02-03T08:45:00.000000"))
+      ),
+      CustomsOfficeOfTransitDeclaredType04(
+        sequenceNumber = 2,
+        referenceNumber = "cootd2",
+        arrivalDateAndTimeEstimated = Some(calendar("2015-02-03T08:45:00.000000"))
+      )
+    ),
+    CustomsOfficeOfExitForTransitDeclared = Seq(
+      CustomsOfficeOfExitForTransitDeclaredType02(
+        sequenceNumber = 1,
+        referenceNumber = "cooeftd1"
+      ),
+      CustomsOfficeOfExitForTransitDeclaredType02(
+        sequenceNumber = 2,
+        referenceNumber = "cooeftd2"
+      )
+    ),
+    HolderOfTheTransitProcedure = HolderOfTheTransitProcedureType05(
+      identificationNumber = Some("hin"),
+      TIRHolderIdentificationNumber = Some("thin"),
+      name = Some("hn"),
+      Address = Some(
+        AddressType07(
+          streetAndNumber = "san",
+          postcode = Some("pc"),
+          city = "city",
+          country = "country"
+        )
+      ),
+      ContactPerson = Some(
+        ContactPersonType01(
+          name = "cp",
+          phoneNumber = "cptel",
+          eMailAddress = Some("cpemail")
+        )
+      )
+    ),
+    Representative = Some(
+      RepresentativeType02(
+        identificationNumber = "rid",
+        status = "rstatus",
+        ContactPerson = Some(
+          ContactPersonType01(
+            name = "cp",
+            phoneNumber = "cptel",
+            eMailAddress = Some("cpemail")
+          )
+        )
+      )
+    ),
+    ControlResult = Some(
+      ControlResultType02(
+        code = "crcode",
+        date = calendar("2017-02-03T08:45:00.000000"),
+        controlledBy = "crctrl",
+        text = Some("crtext")
+      )
+    ),
+    Guarantee = Seq(
+      GuaranteeType03(
+        sequenceNumber = 1,
+        guaranteeType = "5",
+        otherGuaranteeReference = Some("ogr1"),
+        GuaranteeReference = Seq(
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 1,
+            GRN = Some("1grn1"),
+            accessCode = Some("1ac1"),
+            amountToBeCovered = Some(BigDecimal(11)),
+            currency = Some("1c1")
+          ),
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 2,
+            GRN = Some("1grn2"),
+            accessCode = Some("1ac2"),
+            amountToBeCovered = Some(BigDecimal(12)),
+            currency = Some("1c2")
+          ),
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 3,
+            GRN = Some("1grn3"),
+            accessCode = Some("1ac3"),
+            amountToBeCovered = Some(BigDecimal(13)),
+            currency = Some("1c3")
+          )
+        )
+      ),
+      GuaranteeType03(
+        sequenceNumber = 2,
+        guaranteeType = "1",
+        otherGuaranteeReference = Some("ogr2"),
+        GuaranteeReference = Seq(
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 1,
+            GRN = Some("2grn1"),
+            accessCode = Some("2ac1"),
+            amountToBeCovered = Some(BigDecimal(21)),
+            currency = Some("2c1")
+          ),
+          CUSTOM_GuaranteeReferenceType01(
+            sequenceNumber = 2,
+            GRN = Some("2grn2"),
+            accessCode = Some("2ac2"),
+            amountToBeCovered = Some(BigDecimal(22)),
+            currency = Some("2c2")
+          )
+        )
+      )
+    ),
+    Consignment = CUSTOM_ConsignmentType04(
+      countryOfDispatch = Some("c of dispatch"),
+      countryOfDestination = Some("c of destination"),
+      containerIndicator = Number1,
+      inlandModeOfTransport = Some("imot"),
+      modeOfTransportAtTheBorder = Some("motatb"),
+      grossMass = BigDecimal(200),
+      referenceNumberUCR = Some("ucr"),
+      Carrier = Some(
+        CarrierType03(
+          identificationNumber = "cin",
+          ContactPerson = Some(
+            ContactPersonType01(
+              name = "ccp",
+              phoneNumber = "ccptel",
+              eMailAddress = Some("ccpemail")
+            )
+          )
+        )
+      ),
+      Consignor = Some(
+        ConsignorType03(
+          identificationNumber = Some("in"),
+          name = Some("name"),
+          Address = Some(
+            AddressType07(
+              streetAndNumber = "san",
+              postcode = Some("pc"),
+              city = "city",
+              country = "country"
+            )
+          ),
+          ContactPerson = Some(
+            ContactPersonType01(
+              name = "ccp",
+              phoneNumber = "ccptel",
+              eMailAddress = Some("ccpemail")
+            )
+          )
+        )
+      ),
+      Consignee = Some(
+        ConsigneeType04(
+          identificationNumber = Some("in"),
+          name = Some("name"),
+          Address = Some(
+            AddressType07(
+              streetAndNumber = "san",
+              postcode = Some("pc"),
+              city = "city",
+              country = "country"
+            )
+          )
+        )
+      ),
+      AdditionalSupplyChainActor = Seq(
+        AdditionalSupplyChainActorType(
           sequenceNumber = 1,
-          typeValue = "C521",
-          referenceNumber = "rn1"
+          role = "role1",
+          identificationNumber = "id1"
         ),
-        new Authorisation(
+        AdditionalSupplyChainActorType(
           sequenceNumber = 2,
-          typeValue = "tv2",
-          referenceNumber = "rn2"
+          role = "role2",
+          identificationNumber = "id2"
+        )
+      ),
+      TransportEquipment = Seq(
+        TransportEquipmentType05(
+          sequenceNumber = 1,
+          containerIdentificationNumber = Some("cin1"),
+          numberOfSeals = BigInt(2),
+          Seal = Seq(
+            SealType04(
+              sequenceNumber = 1,
+              identifier = "sid1"
+            ),
+            SealType04(
+              sequenceNumber = 2,
+              identifier = "sid2"
+            )
+          ),
+          GoodsReference = Seq(
+            GoodsReferenceType02(
+              sequenceNumber = 1,
+              declarationGoodsItemNumber = BigInt(1)
+            ),
+            GoodsReferenceType02(
+              sequenceNumber = 2,
+              declarationGoodsItemNumber = BigInt(3)
+            )
+          )
+        )
+      ),
+      LocationOfGoods = Some(
+        LocationOfGoodsType02(
+          typeOfLocation = "tol",
+          qualifierOfIdentification = "qoi",
+          authorisationNumber = Some("an"),
+          additionalIdentifier = Some("ai"),
+          UNLocode = Some("unl"),
+          CustomsOffice = Some(
+            CustomsOfficeType02(
+              referenceNumber = "corn"
+            )
+          ),
+          GNSS = Some(
+            GNSSType(
+              latitude = "lat",
+              longitude = "lon"
+            )
+          ),
+          EconomicOperator = Some(
+            EconomicOperatorType01(
+              identificationNumber = "eoin"
+            )
+          ),
+          Address = Some(
+            AddressType02(
+              streetAndNumber = "san",
+              postcode = Some("pc"),
+              city = "city",
+              country = "country"
+            )
+          ),
+          PostcodeAddress = Some(
+            PostcodeAddressType01(
+              houseNumber = Some("hn"),
+              postcode = "pc",
+              country = "country"
+            )
+          ),
+          ContactPerson = Some(
+            ContactPersonType02(
+              name = "logcp",
+              phoneNumber = "logcptel",
+              eMailAddress = Some("logcpemail")
+            )
+          )
+        )
+      ),
+      DepartureTransportMeans = Seq(
+        CUSTOM_DepartureTransportMeansType02(
+          sequenceNumber = 1,
+          typeOfIdentification = Some("toi1"),
+          identificationNumber = Some("in1"),
+          nationality = Some("nat1")
         ),
-        new Authorisation(
+        CUSTOM_DepartureTransportMeansType02(
+          sequenceNumber = 2,
+          typeOfIdentification = Some("toi2"),
+          identificationNumber = Some("in2"),
+          nationality = Some("nat2")
+        ),
+        CUSTOM_DepartureTransportMeansType02(
           sequenceNumber = 3,
-          typeValue = "tv3",
-          referenceNumber = "rn3"
+          typeOfIdentification = Some("toi3"),
+          identificationNumber = Some("in3"),
+          nationality = Some("nat3")
         ),
-        new Authorisation(
+        CUSTOM_DepartureTransportMeansType02(
           sequenceNumber = 4,
-          typeValue = "tv4",
-          referenceNumber = "rn4"
+          typeOfIdentification = Some("toi4"),
+          identificationNumber = Some("in4"),
+          nationality = Some("nat4")
         )
       ),
-      CustomsOfficeOfDeparture = new CustomsOfficeOfDeparture(
-        referenceNumber = "cood"
-      ),
-      CustomsOfficeOfDestinationDeclared = new CustomsOfficeOfDestinationDeclared(
-        referenceNumber = "coodd"
-      ),
-      CustomsOfficeOfTransitDeclared = Seq(
-        new CustomsOfficeOfTransitDeclared(
+      CountryOfRoutingOfConsignment = Seq(
+        CountryOfRoutingOfConsignmentType01(
           sequenceNumber = 1,
-          referenceNumber = "cootd1",
-          arrivalDateAndTimeEstimated = Some(calendar("2010-02-03T08:45:00.000000"))
+          country = "corocc1"
         ),
-        new CustomsOfficeOfTransitDeclared(
+        CountryOfRoutingOfConsignmentType01(
           sequenceNumber = 2,
-          referenceNumber = "cootd2",
-          arrivalDateAndTimeEstimated = Some(calendar("2015-02-03T08:45:00.000000"))
+          country = "corocc2"
+        ),
+        CountryOfRoutingOfConsignmentType01(
+          sequenceNumber = 3,
+          country = "corocc3"
+        ),
+        CountryOfRoutingOfConsignmentType01(
+          sequenceNumber = 4,
+          country = "corocc4"
         )
       ),
-      CustomsOfficeOfExitForTransitDeclared = Seq(
-        new CustomsOfficeOfExitForTransitDeclared(
+      ActiveBorderTransportMeans = Seq(
+        CUSTOM_ActiveBorderTransportMeansType01(
           sequenceNumber = 1,
-          referenceNumber = "cooeftd1"
+          customsOfficeAtBorderReferenceNumber = Some("coabrn1"),
+          typeOfIdentification = Some("toi1"),
+          identificationNumber = Some("in1"),
+          nationality = Some("nat1"),
+          conveyanceReferenceNumber = Some("crn1")
         ),
-        new CustomsOfficeOfExitForTransitDeclared(
+        CUSTOM_ActiveBorderTransportMeansType01(
           sequenceNumber = 2,
-          referenceNumber = "cooeftd2"
+          customsOfficeAtBorderReferenceNumber = Some("coabrn2"),
+          typeOfIdentification = Some("toi2"),
+          identificationNumber = Some("in2"),
+          nationality = Some("nat2"),
+          conveyanceReferenceNumber = Some("crn2")
+        ),
+        CUSTOM_ActiveBorderTransportMeansType01(
+          sequenceNumber = 3,
+          customsOfficeAtBorderReferenceNumber = Some("coabrn3"),
+          typeOfIdentification = Some("toi3"),
+          identificationNumber = Some("in3"),
+          nationality = Some("nat3"),
+          conveyanceReferenceNumber = Some("crn3")
+        ),
+        CUSTOM_ActiveBorderTransportMeansType01(
+          sequenceNumber = 4,
+          customsOfficeAtBorderReferenceNumber = Some("coabrn4"),
+          typeOfIdentification = Some("toi4"),
+          identificationNumber = Some("in4"),
+          nationality = Some("nat4"),
+          conveyanceReferenceNumber = Some("crn4")
         )
       ),
-      HolderOfTheTransitProcedure = new HolderOfTheTransitProcedure(
+      PlaceOfLoading = Some(
+        PlaceOfLoadingType02(
+          UNLocode = Some("polunl"),
+          country = Some("polc"),
+          location = Some("poll")
+        )
+      ),
+      PlaceOfUnloading = Some(
+        PlaceOfUnloadingType02(
+          UNLocode = Some("pouunl"),
+          country = Some("pouc"),
+          location = Some("poul")
+        )
+      ),
+      PreviousDocument = Seq(
+        PreviousDocumentType06(
+          sequenceNumber = 1,
+          typeValue = "ptv1",
+          referenceNumber = "prn1",
+          complementOfInformation = Some("pcoi1")
+        ),
+        PreviousDocumentType06(
+          sequenceNumber = 2,
+          typeValue = "ptv2",
+          referenceNumber = "prn2",
+          complementOfInformation = Some("pcoi1")
+        ),
+        PreviousDocumentType06(
+          sequenceNumber = 3,
+          typeValue = "ptv3",
+          referenceNumber = "prn3",
+          complementOfInformation = Some("pcoi1")
+        ),
+        PreviousDocumentType06(
+          sequenceNumber = 4,
+          typeValue = "ptv4",
+          referenceNumber = "prn4",
+          complementOfInformation = Some("pcoi1")
+        )
+      ),
+      SupportingDocument = Seq(
+        SupportingDocumentType06(
+          sequenceNumber = 1,
+          typeValue = "stv1",
+          referenceNumber = "srn1",
+          documentLineItemNumber = Some(BigInt(1)),
+          complementOfInformation = Some("scoi1")
+        ),
+        SupportingDocumentType06(
+          sequenceNumber = 2,
+          typeValue = "stv2",
+          referenceNumber = "srn2",
+          documentLineItemNumber = Some(BigInt(1)),
+          complementOfInformation = Some("scoi1")
+        ),
+        SupportingDocumentType06(
+          sequenceNumber = 3,
+          typeValue = "stv3",
+          referenceNumber = "srn3",
+          documentLineItemNumber = Some(BigInt(1)),
+          complementOfInformation = Some("scoi3")
+        ),
+        SupportingDocumentType06(
+          sequenceNumber = 4,
+          typeValue = "stv4",
+          referenceNumber = "srn4",
+          documentLineItemNumber = Some(BigInt(1)),
+          complementOfInformation = Some("scoi4")
+        )
+      ),
+      TransportDocument = Seq(
+        TransportDocumentType02(
+          sequenceNumber = 1,
+          typeValue = "ttv1",
+          referenceNumber = "trn1"
+        ),
+        TransportDocumentType02(
+          sequenceNumber = 2,
+          typeValue = "ttv2",
+          referenceNumber = "trn2"
+        ),
+        TransportDocumentType02(
+          sequenceNumber = 3,
+          typeValue = "ttv3",
+          referenceNumber = "trn3"
+        ),
+        TransportDocumentType02(
+          sequenceNumber = 4,
+          typeValue = "ttv4",
+          referenceNumber = "trn4"
+        )
+      ),
+      AdditionalReference = Seq(
+        AdditionalReferenceType03(
+          sequenceNumber = 1,
+          typeValue = "artv1",
+          referenceNumber = Some("arrn1")
+        ),
+        AdditionalReferenceType03(
+          sequenceNumber = 2,
+          typeValue = "artv2",
+          referenceNumber = Some("arrn2")
+        ),
+        AdditionalReferenceType03(
+          sequenceNumber = 3,
+          typeValue = "artv3",
+          referenceNumber = Some("arrn3")
+        ),
+        AdditionalReferenceType03(
+          sequenceNumber = 4,
+          typeValue = "artv4",
+          referenceNumber = Some("arrn4")
+        )
+      ),
+      AdditionalInformation = Seq(
+        AdditionalInformationType02(
+          sequenceNumber = 1,
+          code = "aic1",
+          text = Some("ait1")
+        ),
+        AdditionalInformationType02(
+          sequenceNumber = 2,
+          code = "aic2",
+          text = Some("ait2")
+        ),
+        AdditionalInformationType02(
+          sequenceNumber = 3,
+          code = "aic3",
+          text = Some("ait3")
+        ),
+        AdditionalInformationType02(
+          sequenceNumber = 4,
+          code = "aic4",
+          text = Some("ait4")
+        )
+      ),
+      TransportCharges = Some(
+        TransportChargesType(
+          methodOfPayment = "mop"
+        )
+      ),
+      HouseConsignment = Seq(
+        CUSTOM_HouseConsignmentType03(
+          sequenceNumber = 1,
+          grossMass = BigDecimal(100),
+          ConsignmentItem = Seq(
+            CUSTOM_ConsignmentItemType03(
+              goodsItemNumber = 1,
+              declarationGoodsItemNumber = BigInt(1),
+              countryOfDispatch = Some("c of dispatch"),
+              countryOfDestination = Some("c of destination"),
+              referenceNumberUCR = Some("ucr"),
+              Packaging = Seq(
+                PackagingType02(
+                  sequenceNumber = 1,
+                  typeOfPackages = "1top1",
+                  numberOfPackages = Some(BigInt(11)),
+                  shippingMarks = Some("1sm1")
+                ),
+                PackagingType02(
+                  sequenceNumber = 2,
+                  typeOfPackages = "1top2",
+                  numberOfPackages = Some(BigInt(12)),
+                  shippingMarks = Some("1sm2")
+                )
+              ),
+              Commodity = CUSTOM_CommodityType08(
+                descriptionOfGoods = "dog",
+                cusCode = Some("cus"),
+                CommodityCode = Some(
+                  CommodityCodeType05(
+                    harmonizedSystemSubHeadingCode = "hsshc",
+                    combinedNomenclatureCode = Some("cnc")
+                  )
+                ),
+                DangerousGoods = Seq(
+                  DangerousGoodsType01(
+                    sequenceNumber = 1,
+                    UNNumber = "unn1"
+                  ),
+                  DangerousGoodsType01(
+                    sequenceNumber = 2,
+                    UNNumber = "unn2"
+                  )
+                ),
+                GoodsMeasure = Some(
+                  CUSTOM_GoodsMeasureType03(
+                    grossMass = Some(BigDecimal(200)),
+                    netMass = Some(BigDecimal(100))
+                  )
+                )
+              ),
+              TransportCharges = Some(
+                TransportChargesType(
+                  methodOfPayment = "mop"
+                )
+              )
+            ),
+            CUSTOM_ConsignmentItemType03(
+              goodsItemNumber = 2,
+              declarationGoodsItemNumber = BigInt(2),
+              countryOfDispatch = Some("c of dispatch"),
+              countryOfDestination = Some("c of destination"),
+              referenceNumberUCR = Some("ucr"),
+              Packaging = Seq(
+                PackagingType02(
+                  sequenceNumber = 1,
+                  typeOfPackages = "2top1",
+                  numberOfPackages = Some(BigInt(21)),
+                  shippingMarks = Some("2sm1")
+                ),
+                PackagingType02(
+                  sequenceNumber = 2,
+                  typeOfPackages = "2top2",
+                  numberOfPackages = Some(BigInt(22)),
+                  shippingMarks = Some("2sm2")
+                )
+              ),
+              Commodity = CUSTOM_CommodityType08(
+                descriptionOfGoods = "dog",
+                cusCode = Some("cus"),
+                CommodityCode = Some(
+                  CommodityCodeType05(
+                    harmonizedSystemSubHeadingCode = "hsshc",
+                    combinedNomenclatureCode = Some("cnc")
+                  )
+                ),
+                DangerousGoods = Seq(
+                  DangerousGoodsType01(
+                    sequenceNumber = 1,
+                    UNNumber = "unn1"
+                  ),
+                  DangerousGoodsType01(
+                    sequenceNumber = 2,
+                    UNNumber = "unn2"
+                  )
+                ),
+                GoodsMeasure = Some(
+                  CUSTOM_GoodsMeasureType03(
+                    grossMass = Some(BigDecimal(200)),
+                    netMass = Some(BigDecimal(100))
+                  )
+                )
+              ),
+              TransportCharges = Some(
+                TransportChargesType(
+                  methodOfPayment = "mop"
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+
+  lazy val cc043c: CC043CType = CC043CType(
+    messageSequence1 = arbitrary[MESSAGESequence].sample.value,
+    TransitOperation = TransitOperationType14(
+      MRN = "mrn",
+      declarationType = Some("T"),
+      declarationAcceptanceDate = None,
+      security = "0",
+      reducedDatasetIndicator = Number1
+    ),
+    CustomsOfficeOfDestinationActual = CustomsOfficeOfDestinationActualType03(
+      referenceNumber = "cooda"
+    ),
+    HolderOfTheTransitProcedure = Some(
+      HolderOfTheTransitProcedureType06(
         identificationNumber = Some("hin"),
         TIRHolderIdentificationNumber = Some("thin"),
-        name = Some("hn"),
+        name = "hn",
+        Address = AddressType10(
+          streetAndNumber = "san",
+          postcode = Some("pc"),
+          city = "city",
+          country = "country"
+        )
+      )
+    ),
+    TraderAtDestination = TraderAtDestinationType03(
+      identificationNumber = "tad"
+    ),
+    CTLControl = Some(
+      CTLControlType(
+        continueUnloading = BigInt(5)
+      )
+    ),
+    Consignment = Some(
+      CUSTOM_ConsignmentType05(
+        countryOfDestination = Some("cod"),
+        containerIndicator = Number1,
+        inlandModeOfTransport = Some("imot"),
+        grossMass = Some(BigDecimal(200)),
+        Consignor = Some(
+          ConsignorType05(
+            identificationNumber = Some("in"),
+            name = Some("name"),
+            Address = Some(
+              AddressType07(
+                streetAndNumber = "san",
+                postcode = Some("pc"),
+                city = "city",
+                country = "country"
+              )
+            )
+          )
+        ),
+        Consignee = Some(
+          ConsigneeType04(
+            identificationNumber = Some("in"),
+            name = Some("name"),
+            Address = Some(
+              AddressType07(
+                streetAndNumber = "san",
+                postcode = Some("pc"),
+                city = "city",
+                country = "country"
+              )
+            )
+          )
+        ),
+        TransportEquipment = Seq(
+          TransportEquipmentType05(
+            sequenceNumber = 1,
+            containerIdentificationNumber = Some("cin1"),
+            numberOfSeals = BigInt(2),
+            Seal = Seq(
+              SealType04(
+                sequenceNumber = 1,
+                identifier = "sid1"
+              ),
+              SealType04(
+                sequenceNumber = 2,
+                identifier = "sid2"
+              )
+            ),
+            GoodsReference = Seq(
+              GoodsReferenceType02(
+                sequenceNumber = 1,
+                declarationGoodsItemNumber = BigInt(1)
+              ),
+              GoodsReferenceType02(
+                sequenceNumber = 2,
+                declarationGoodsItemNumber = BigInt(3)
+              )
+            )
+          )
+        ),
+        DepartureTransportMeans = Seq(
+          CUSTOM_DepartureTransportMeansType02(
+            sequenceNumber = 1,
+            typeOfIdentification = Some("toi1"),
+            identificationNumber = Some("in1"),
+            nationality = Some("nat1")
+          ),
+          CUSTOM_DepartureTransportMeansType02(
+            sequenceNumber = 2,
+            typeOfIdentification = Some("toi2"),
+            identificationNumber = Some("in2"),
+            nationality = Some("nat2")
+          )
+        ),
+        PreviousDocument = Seq(
+          PreviousDocumentType06(
+            sequenceNumber = 1,
+            typeValue = "ptv1",
+            referenceNumber = "prn1",
+            complementOfInformation = Some("pcoi1")
+          ),
+          PreviousDocumentType06(
+            sequenceNumber = 2,
+            typeValue = "ptv2",
+            referenceNumber = "prn2",
+            complementOfInformation = Some("pcoi1")
+          )
+        ),
+        SupportingDocument = Seq(
+          SupportingDocumentType02(
+            sequenceNumber = 1,
+            typeValue = "stv1",
+            referenceNumber = "srn1",
+            complementOfInformation = Some("scoi1")
+          ),
+          SupportingDocumentType02(
+            sequenceNumber = 2,
+            typeValue = "stv2",
+            referenceNumber = "srn2",
+            complementOfInformation = Some("scoi1")
+          )
+        ),
+        TransportDocument = Seq(
+          TransportDocumentType02(
+            sequenceNumber = 1,
+            typeValue = "ttv1",
+            referenceNumber = "trn1"
+          ),
+          TransportDocumentType02(
+            sequenceNumber = 2,
+            typeValue = "ttv2",
+            referenceNumber = "trn2"
+          )
+        ),
+        AdditionalReference = Seq(
+          AdditionalReferenceType03(
+            sequenceNumber = 1,
+            typeValue = "artv1",
+            referenceNumber = Some("arrn1")
+          ),
+          AdditionalReferenceType03(
+            sequenceNumber = 2,
+            typeValue = "artv2",
+            referenceNumber = Some("arrn2")
+          )
+        ),
+        AdditionalInformation = Seq(
+          AdditionalInformationType02(
+            sequenceNumber = 1,
+            code = "aic1",
+            text = Some("ait1")
+          ),
+          AdditionalInformationType02(
+            sequenceNumber = 2,
+            code = "aic2",
+            text = Some("ait2")
+          )
+        ),
+        Incident = Nil,
+        HouseConsignment = Seq(
+          CUSTOM_HouseConsignmentType04(
+            sequenceNumber = 1,
+            grossMass = BigDecimal(100),
+            ConsignmentItem = Seq(
+              CUSTOM_ConsignmentItemType04(
+                goodsItemNumber = 1,
+                declarationGoodsItemNumber = 1,
+                Commodity = CUSTOM_CommodityType08(
+                  descriptionOfGoods = "dog1"
+                )
+              ),
+              CUSTOM_ConsignmentItemType04(
+                goodsItemNumber = 2,
+                declarationGoodsItemNumber = 2,
+                Commodity = CUSTOM_CommodityType08(
+                  descriptionOfGoods = "dog2"
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+
+  lazy val houseConsignmentType03: CUSTOM_HouseConsignmentType03 = CUSTOM_HouseConsignmentType03(
+    sequenceNumber = 1,
+    countryOfDispatch = None,
+    grossMass = BigDecimal(1),
+    referenceNumberUCR = None,
+    securityIndicatorFromExportDeclaration = None,
+    Consignor = Some(
+      ConsignorType04(
+        identificationNumber = Some("hc consignor in"),
+        name = Some("hc consignor name"),
         Address = Some(
-          new HolderOfTheTransitProcedureAddress(
+          AddressType07(
             streetAndNumber = "san",
             postcode = Some("pc"),
             city = "city",
@@ -124,950 +894,216 @@ trait DummyData extends IE015ScalaxbModelGenerators with ScalaxbModelGenerators 
           )
         ),
         ContactPerson = Some(
-          new HolderOfTheTransitProcedureContactPerson(
+          ContactPersonType01(
             name = "cp",
             phoneNumber = "cptel",
             eMailAddress = Some("cpemail")
           )
         )
-      ),
-      Representative = Some(
-        new Representative(
-          identificationNumber = "rid",
-          status = "rstatus",
-          ContactPerson = Some(
-            new RepresentativeContactPerson(
-              name = "cp",
-              phoneNumber = "cptel",
-              eMailAddress = Some("cpemail")
-            )
-          )
-        )
-      ),
-      ControlResult = Some(
-        new ControlResult(
-          code = "crcode",
-          date = calendar("2017-02-03T08:45:00.000000"),
-          controlledBy = "crctrl",
-          text = Some("crtext")
-        )
-      ),
-      Guarantee = Seq(
-        new Guarantee(
-          sequenceNumber = 1,
-          guaranteeType = "5",
-          otherGuaranteeReference = Some("ogr1"),
-          GuaranteeReference = Seq(
-            new GuaranteeReference(
-              sequenceNumber = 1,
-              GRN = Some("1grn1"),
-              accessCode = Some("1ac1"),
-              amountToBeCovered = Some(BigDecimal(11)),
-              currency = Some("1c1")
-            ),
-            new GuaranteeReference(
-              sequenceNumber = 2,
-              GRN = Some("1grn2"),
-              accessCode = Some("1ac2"),
-              amountToBeCovered = Some(BigDecimal(12)),
-              currency = Some("1c2")
-            ),
-            new GuaranteeReference(
-              sequenceNumber = 3,
-              GRN = Some("1grn3"),
-              accessCode = Some("1ac3"),
-              amountToBeCovered = Some(BigDecimal(13)),
-              currency = Some("1c3")
-            )
-          )
-        ),
-        new Guarantee(
-          sequenceNumber = 2,
-          guaranteeType = "1",
-          otherGuaranteeReference = Some("ogr2"),
-          GuaranteeReference = Seq(
-            new GuaranteeReference(
-              sequenceNumber = 1,
-              GRN = Some("2grn1"),
-              accessCode = Some("2ac1"),
-              amountToBeCovered = Some(BigDecimal(21)),
-              currency = Some("2c1")
-            ),
-            new GuaranteeReference(
-              sequenceNumber = 2,
-              GRN = Some("2grn2"),
-              accessCode = Some("2ac2"),
-              amountToBeCovered = Some(BigDecimal(22)),
-              currency = Some("2c2")
-            )
-          )
-        )
-      ),
-      Consignment = new Consignment(
-        countryOfDispatch = Some("c of dispatch"),
-        countryOfDestination = Some("c of destination"),
-        containerIndicator = Number1,
-        inlandModeOfTransport = Some("imot"),
-        modeOfTransportAtTheBorder = Some("motatb"),
-        grossMass = BigDecimal(200),
-        referenceNumberUCR = Some("ucr"),
-        Carrier = Some(
-          new Carrier(
-            identificationNumber = "cin",
-            ContactPerson = Some(
-              new CarrierContactPerson(
-                name = "ccp",
-                phoneNumber = "ccptel",
-                eMailAddress = Some("ccpemail")
-              )
-            )
-          )
-        ),
-        Consignor = Some(
-          new ConsignmentConsignor(
-            identificationNumber = Some("in"),
-            name = Some("name"),
-            Address = Some(
-              new ConsignmentConsignorAddress(
-                streetAndNumber = "san",
-                postcode = Some("pc"),
-                city = "city",
-                country = "country"
-              )
-            ),
-            ContactPerson = Some(
-              new ConsignmentConsignorContactPerson(
-                name = "ccp",
-                phoneNumber = "ccptel",
-                eMailAddress = Some("ccpemail")
-              )
-            )
-          )
-        ),
-        Consignee = Some(
-          new Consignee(
-            identificationNumber = Some("in"),
-            name = Some("name"),
-            Address = Some(
-              new ConsigneeAddress(
-                streetAndNumber = "san",
-                postcode = Some("pc"),
-                city = "city",
-                country = "country"
-              )
-            )
-          )
-        ),
-        AdditionalSupplyChainActor = Seq(
-          new AdditionalSupplyChainActor(
-            sequenceNumber = 1,
-            role = "role1",
-            identificationNumber = "id1"
-          ),
-          new AdditionalSupplyChainActor(
-            sequenceNumber = 2,
-            role = "role2",
-            identificationNumber = "id2"
-          )
-        ),
-        TransportEquipment = Seq(
-          new TransportEquipment(
-            sequenceNumber = 1,
-            containerIdentificationNumber = Some("cin1"),
-            numberOfSeals = BigInt(2),
-            Seal = Seq(
-              new Seal(
-                sequenceNumber = 1,
-                identifier = "sid1"
-              ),
-              new Seal(
-                sequenceNumber = 2,
-                identifier = "sid2"
-              )
-            ),
-            GoodsReference = Seq(
-              new GoodsReference(
-                sequenceNumber = 1,
-                declarationGoodsItemNumber = BigInt(1)
-              ),
-              new GoodsReference(
-                sequenceNumber = 2,
-                declarationGoodsItemNumber = BigInt(3)
-              )
-            )
-          )
-        ),
-        LocationOfGoods = Some(
-          new LocationOfGoods(
-            typeOfLocation = "tol",
-            qualifierOfIdentification = "qoi",
-            authorisationNumber = Some("an"),
-            additionalIdentifier = Some("ai"),
-            UNLocode = Some("unl"),
-            CustomsOffice = Some(
-              new LocationOfGoodsCustomsOffice(
-                referenceNumber = "corn"
-              )
-            ),
-            GNSS = Some(
-              new GNSS(
-                latitude = "lat",
-                longitude = "lon"
-              )
-            ),
-            EconomicOperator = Some(
-              new EconomicOperator(
-                identificationNumber = "eoin"
-              )
-            ),
-            Address = Some(
-              new LocationOfGoodsAddress(
-                streetAndNumber = "san",
-                postcode = Some("pc"),
-                city = "city",
-                country = "country"
-              )
-            ),
-            PostcodeAddress = Some(
-              new LocationOfGoodsPostcodeAddress(
-                houseNumber = Some("hn"),
-                postcode = "pc",
-                country = "country"
-              )
-            ),
-            ContactPerson = Some(
-              new LocationOfGoodsContactPerson(
-                name = "logcp",
-                phoneNumber = "logcptel",
-                eMailAddress = Some("logcpemail")
-              )
-            )
-          )
-        ),
-        DepartureTransportMeans = Seq(
-          new ConsignmentDepartureTransportMeans(
-            sequenceNumber = 1,
-            typeOfIdentification = Some("toi1"),
-            identificationNumber = Some("in1"),
-            nationality = Some("nat1")
-          ),
-          new ConsignmentDepartureTransportMeans(
-            sequenceNumber = 2,
-            typeOfIdentification = Some("toi2"),
-            identificationNumber = Some("in2"),
-            nationality = Some("nat2")
-          ),
-          new ConsignmentDepartureTransportMeans(
-            sequenceNumber = 3,
-            typeOfIdentification = Some("toi3"),
-            identificationNumber = Some("in3"),
-            nationality = Some("nat3")
-          ),
-          new ConsignmentDepartureTransportMeans(
-            sequenceNumber = 4,
-            typeOfIdentification = Some("toi4"),
-            identificationNumber = Some("in4"),
-            nationality = Some("nat4")
-          )
-        ),
-        CountryOfRoutingOfConsignment = Seq(
-          new CountryOfRoutingOfConsignment(
-            sequenceNumber = 1,
-            country = "corocc1"
-          ),
-          new CountryOfRoutingOfConsignment(
-            sequenceNumber = 2,
-            country = "corocc2"
-          ),
-          new CountryOfRoutingOfConsignment(
-            sequenceNumber = 3,
-            country = "corocc3"
-          ),
-          new CountryOfRoutingOfConsignment(
-            sequenceNumber = 4,
-            country = "corocc4"
-          )
-        ),
-        ActiveBorderTransportMeans = Seq(
-          new ConsignmentActiveBorderTransportMeans(
-            sequenceNumber = 1,
-            customsOfficeAtBorderReferenceNumber = Some("coabrn1"),
-            typeOfIdentification = Some("toi1"),
-            identificationNumber = Some("in1"),
-            nationality = Some("nat1"),
-            conveyanceReferenceNumber = Some("crn1")
-          ),
-          new ConsignmentActiveBorderTransportMeans(
-            sequenceNumber = 2,
-            customsOfficeAtBorderReferenceNumber = Some("coabrn2"),
-            typeOfIdentification = Some("toi2"),
-            identificationNumber = Some("in2"),
-            nationality = Some("nat2"),
-            conveyanceReferenceNumber = Some("crn2")
-          ),
-          new ConsignmentActiveBorderTransportMeans(
-            sequenceNumber = 3,
-            customsOfficeAtBorderReferenceNumber = Some("coabrn3"),
-            typeOfIdentification = Some("toi3"),
-            identificationNumber = Some("in3"),
-            nationality = Some("nat3"),
-            conveyanceReferenceNumber = Some("crn3")
-          ),
-          new ConsignmentActiveBorderTransportMeans(
-            sequenceNumber = 4,
-            customsOfficeAtBorderReferenceNumber = Some("coabrn4"),
-            typeOfIdentification = Some("toi4"),
-            identificationNumber = Some("in4"),
-            nationality = Some("nat4"),
-            conveyanceReferenceNumber = Some("crn4")
-          )
-        ),
-        PlaceOfLoading = Some(
-          new PlaceOfLoading(
-            UNLocode = Some("polunl"),
-            country = Some("polc"),
-            location = Some("poll")
-          )
-        ),
-        PlaceOfUnloading = Some(
-          new PlaceOfUnloading(
-            UNLocode = Some("pouunl"),
-            country = Some("pouc"),
-            location = Some("poul")
-          )
-        ),
-        PreviousDocument = Seq(
-          new ConsignmentPreviousDocument(
-            sequenceNumber = 1,
-            typeValue = "ptv1",
-            referenceNumber = "prn1",
-            complementOfInformation = Some("pcoi1")
-          ),
-          new ConsignmentPreviousDocument(
-            sequenceNumber = 2,
-            typeValue = "ptv2",
-            referenceNumber = "prn2",
-            complementOfInformation = Some("pcoi1")
-          ),
-          new ConsignmentPreviousDocument(
-            sequenceNumber = 3,
-            typeValue = "ptv3",
-            referenceNumber = "prn3",
-            complementOfInformation = Some("pcoi1")
-          ),
-          new ConsignmentPreviousDocument(
-            sequenceNumber = 4,
-            typeValue = "ptv4",
-            referenceNumber = "prn4",
-            complementOfInformation = Some("pcoi1")
-          )
-        ),
-        SupportingDocument = Seq(
-          new SupportingDocument(
-            sequenceNumber = 1,
-            typeValue = "stv1",
-            referenceNumber = "srn1",
-            documentLineItemNumber = Some(BigInt(1)),
-            complementOfInformation = Some("scoi1")
-          ),
-          new SupportingDocument(
-            sequenceNumber = 2,
-            typeValue = "stv2",
-            referenceNumber = "srn2",
-            documentLineItemNumber = Some(BigInt(1)),
-            complementOfInformation = Some("scoi1")
-          ),
-          new SupportingDocument(
-            sequenceNumber = 3,
-            typeValue = "stv3",
-            referenceNumber = "srn3",
-            documentLineItemNumber = Some(BigInt(1)),
-            complementOfInformation = Some("scoi3")
-          ),
-          new SupportingDocument(
-            sequenceNumber = 4,
-            typeValue = "stv4",
-            referenceNumber = "srn4",
-            documentLineItemNumber = Some(BigInt(1)),
-            complementOfInformation = Some("scoi4")
-          )
-        ),
-        TransportDocument = Seq(
-          new TransportDocument(
-            sequenceNumber = 1,
-            typeValue = "ttv1",
-            referenceNumber = "trn1"
-          ),
-          new TransportDocument(
-            sequenceNumber = 2,
-            typeValue = "ttv2",
-            referenceNumber = "trn2"
-          ),
-          new TransportDocument(
-            sequenceNumber = 3,
-            typeValue = "ttv3",
-            referenceNumber = "trn3"
-          ),
-          new TransportDocument(
-            sequenceNumber = 4,
-            typeValue = "ttv4",
-            referenceNumber = "trn4"
-          )
-        ),
-        AdditionalReference = Seq(
-          new ConsignmentAdditionalReference(
-            sequenceNumber = 1,
-            typeValue = "artv1",
-            referenceNumber = Some("arrn1")
-          ),
-          new ConsignmentAdditionalReference(
-            sequenceNumber = 2,
-            typeValue = "artv2",
-            referenceNumber = Some("arrn2")
-          ),
-          new ConsignmentAdditionalReference(
-            sequenceNumber = 3,
-            typeValue = "artv3",
-            referenceNumber = Some("arrn3")
-          ),
-          new ConsignmentAdditionalReference(
-            sequenceNumber = 4,
-            typeValue = "artv4",
-            referenceNumber = Some("arrn4")
-          )
-        ),
-        AdditionalInformation = Seq(
-          new AdditionalInformation(
-            sequenceNumber = 1,
-            code = "aic1",
-            text = Some("ait1")
-          ),
-          new AdditionalInformation(
-            sequenceNumber = 2,
-            code = "aic2",
-            text = Some("ait2")
-          ),
-          new AdditionalInformation(
-            sequenceNumber = 3,
-            code = "aic3",
-            text = Some("ait3")
-          ),
-          new AdditionalInformation(
-            sequenceNumber = 4,
-            code = "aic4",
-            text = Some("ait4")
-          )
-        ),
-        TransportCharges = Some(
-          new TransportCharges(
-            methodOfPayment = "mop"
-          )
-        ),
-        HouseConsignment = Seq(
-          new HouseConsignment(
-            sequenceNumber = 1,
-            grossMass = BigDecimal(100),
-            ConsignmentItem = Seq(
-              new ConsignmentItem(
-                goodsItemNumber = 1,
-                declarationGoodsItemNumber = BigInt(1),
-                countryOfDispatch = Some("c of dispatch"),
-                countryOfDestination = Some("c of destination"),
-                referenceNumberUCR = Some("ucr"),
-                Packaging = Seq(
-                  new Packaging(
-                    sequenceNumber = 1,
-                    typeOfPackages = "1top1",
-                    numberOfPackages = Some(BigInt(11)),
-                    shippingMarks = Some("1sm1")
-                  ),
-                  new Packaging(
-                    sequenceNumber = 2,
-                    typeOfPackages = "1top2",
-                    numberOfPackages = Some(BigInt(12)),
-                    shippingMarks = Some("1sm2")
-                  )
-                ),
-                Commodity = new Commodity(
-                  descriptionOfGoods = "dog",
-                  cusCode = Some("cus"),
-                  CommodityCode = Some(
-                    new CommodityCode(
-                      harmonizedSystemSubHeadingCode = "hsshc",
-                      combinedNomenclatureCode = Some("cnc")
-                    )
-                  ),
-                  DangerousGoods = Seq(
-                    new DangerousGoods(
-                      sequenceNumber = 1,
-                      UNNumber = "unn1"
-                    ),
-                    new DangerousGoods(
-                      sequenceNumber = 2,
-                      UNNumber = "unn2"
-                    )
-                  ),
-                  GoodsMeasure = Some(
-                    new GoodsMeasure(
-                      grossMass = Some(BigDecimal(200)),
-                      netMass = Some(BigDecimal(100))
-                    )
-                  )
-                )
-              ),
-              new ConsignmentItem(
-                goodsItemNumber = 2,
-                declarationGoodsItemNumber = BigInt(2),
-                countryOfDispatch = Some("c of dispatch"),
-                countryOfDestination = Some("c of destination"),
-                referenceNumberUCR = Some("ucr"),
-                Packaging = Seq(
-                  new Packaging(
-                    sequenceNumber = 1,
-                    typeOfPackages = "2top1",
-                    numberOfPackages = Some(BigInt(21)),
-                    shippingMarks = Some("2sm1")
-                  ),
-                  new Packaging(
-                    sequenceNumber = 2,
-                    typeOfPackages = "2top2",
-                    numberOfPackages = Some(BigInt(22)),
-                    shippingMarks = Some("2sm2")
-                  )
-                ),
-                Commodity = new Commodity(
-                  descriptionOfGoods = "dog",
-                  cusCode = Some("cus"),
-                  CommodityCode = Some(
-                    new CommodityCode(
-                      harmonizedSystemSubHeadingCode = "hsshc",
-                      combinedNomenclatureCode = Some("cnc")
-                    )
-                  ),
-                  DangerousGoods = Seq(
-                    new DangerousGoods(
-                      sequenceNumber = 1,
-                      UNNumber = "unn1"
-                    ),
-                    new DangerousGoods(
-                      sequenceNumber = 2,
-                      UNNumber = "unn2"
-                    )
-                  )
-                )
-              )
-            )
-          )
-        )
       )
-    )
-  }
-
-  lazy val cc043c: CC043CType = {
-    import viewmodels.unloadingpermission.*
-    CC043CType(
-      messageSequence1 = arbitrary[MESSAGESequence].sample.value,
-      TransitOperation = new TransitOperation(
-        MRN = "mrn",
-        declarationType = Some("T"),
-        declarationAcceptanceDate = None,
-        security = "0",
-        reducedDatasetIndicator = Number1
-      ),
-      CustomsOfficeOfDestinationActual = new CustomsOfficeOfDestinationActual(
-        referenceNumber = "cooda"
-      ),
-      HolderOfTheTransitProcedure = Some(
-        new HolderOfTheTransitProcedure(
-          identificationNumber = Some("hin"),
-          TIRHolderIdentificationNumber = Some("thin"),
-          name = "hn",
-          Address = new HolderOfTheTransitProcedureAddress(
+    ),
+    Consignee = Some(
+      ConsigneeType04(
+        identificationNumber = Some("hc consignee in"),
+        name = Some("hc consignee name"),
+        Address = Some(
+          AddressType07(
             streetAndNumber = "san",
             postcode = Some("pc"),
             city = "city",
             country = "country"
           )
         )
+      )
+    ),
+    AdditionalSupplyChainActor = Nil,
+    DepartureTransportMeans = Seq(
+      DepartureTransportMeansType02(
+        sequenceNumber = 1,
+        typeOfIdentification = "toi1",
+        identificationNumber = "in1",
+        nationality = "nat1"
       ),
-      TraderAtDestination = new TraderAtDestination(
-        identificationNumber = "tad"
+      DepartureTransportMeansType02(
+        sequenceNumber = 2,
+        typeOfIdentification = "toi2",
+        identificationNumber = "in2",
+        nationality = "nat2"
+      )
+    ),
+    PreviousDocument = Nil,
+    SupportingDocument = Nil,
+    TransportDocument = Nil,
+    AdditionalReference = Nil,
+    AdditionalInformation = Nil,
+    TransportCharges = None,
+    ConsignmentItem = Nil
+  )
+
+  lazy val consignmentItemType03: CUSTOM_ConsignmentItemType03 = CUSTOM_ConsignmentItemType03(
+    goodsItemNumber = 1,
+    declarationGoodsItemNumber = BigInt(1),
+    declarationType = Some("T"),
+    countryOfDispatch = Some("c of dispatch"),
+    countryOfDestination = Some("c of destination"),
+    referenceNumberUCR = Some("ucr"),
+    Consignee = Some(
+      ConsigneeType03(
+        identificationNumber = Some("in"),
+        name = Some("name"),
+        Address = Some(
+          AddressType09(
+            streetAndNumber = "san",
+            postcode = Some("pc"),
+            city = "city",
+            country = "country"
+          )
+        )
+      )
+    ),
+    AdditionalSupplyChainActor = Seq(
+      AdditionalSupplyChainActorType(
+        sequenceNumber = 1,
+        role = "role1",
+        identificationNumber = "id1"
       ),
-      CTLControl = Some(
-        new CTLControl(
-          continueUnloading = BigInt(5)
+      AdditionalSupplyChainActorType(
+        sequenceNumber = 2,
+        role = "role2",
+        identificationNumber = "id2"
+      ),
+      AdditionalSupplyChainActorType(
+        sequenceNumber = 3,
+        role = "role3",
+        identificationNumber = "id3"
+      ),
+      AdditionalSupplyChainActorType(
+        sequenceNumber = 4,
+        role = "role4",
+        identificationNumber = "id4"
+      )
+    ),
+    Commodity = CUSTOM_CommodityType08(
+      descriptionOfGoods = "dog",
+      cusCode = Some("cus"),
+      CommodityCode = Some(
+        CommodityCodeType05(
+          harmonizedSystemSubHeadingCode = "hsshc",
+          combinedNomenclatureCode = Some("cnc")
         )
       ),
-      Consignment = Some(
-        new Consignment(
-          countryOfDestination = Some("cod"),
-          containerIndicator = Number1,
-          inlandModeOfTransport = Some("imot"),
+      DangerousGoods = Seq(
+        DangerousGoodsType01(
+          sequenceNumber = 1,
+          UNNumber = "unn1"
+        ),
+        DangerousGoodsType01(
+          sequenceNumber = 2,
+          UNNumber = "unn2"
+        )
+      ),
+      GoodsMeasure = Some(
+        CUSTOM_GoodsMeasureType03(
           grossMass = Some(BigDecimal(200)),
-          Consignor = Some(
-            new ConsignmentConsignor(
-              identificationNumber = Some("in"),
-              name = Some("name"),
-              Address = Some(
-                new ConsignmentConsignorAddress(
-                  streetAndNumber = "san",
-                  postcode = Some("pc"),
-                  city = "city",
-                  country = "country"
-                )
-              )
-            )
-          ),
-          Consignee = Some(
-            new Consignee(
-              identificationNumber = Some("in"),
-              name = Some("name"),
-              Address = Some(
-                new ConsigneeAddress(
-                  streetAndNumber = "san",
-                  postcode = Some("pc"),
-                  city = "city",
-                  country = "country"
-                )
-              )
-            )
-          ),
-          TransportEquipment = Seq(
-            new TransportEquipment(
-              sequenceNumber = 1,
-              containerIdentificationNumber = Some("cin1"),
-              numberOfSeals = BigInt(2),
-              Seal = Seq(
-                new Seal(
-                  sequenceNumber = 1,
-                  identifier = "sid1"
-                ),
-                new Seal(
-                  sequenceNumber = 2,
-                  identifier = "sid2"
-                )
-              ),
-              GoodsReference = Seq(
-                new GoodsReference(
-                  sequenceNumber = 1,
-                  declarationGoodsItemNumber = BigInt(1)
-                ),
-                new GoodsReference(
-                  sequenceNumber = 2,
-                  declarationGoodsItemNumber = BigInt(3)
-                )
-              )
-            )
-          ),
-          DepartureTransportMeans = Seq(
-            new DepartureTransportMeans(
-              sequenceNumber = 1,
-              typeOfIdentification = Some("toi1"),
-              identificationNumber = Some("in1"),
-              nationality = Some("nat1")
-            ),
-            new DepartureTransportMeans(
-              sequenceNumber = 2,
-              typeOfIdentification = Some("toi2"),
-              identificationNumber = Some("in2"),
-              nationality = Some("nat2")
-            )
-          ),
-          PreviousDocument = Seq(
-            new ConsignmentPreviousDocument(
-              sequenceNumber = 1,
-              typeValue = "ptv1",
-              referenceNumber = "prn1",
-              complementOfInformation = Some("pcoi1")
-            ),
-            new ConsignmentPreviousDocument(
-              sequenceNumber = 2,
-              typeValue = "ptv2",
-              referenceNumber = "prn2",
-              complementOfInformation = Some("pcoi1")
-            )
-          ),
-          SupportingDocument = Seq(
-            new SupportingDocument(
-              sequenceNumber = 1,
-              typeValue = "stv1",
-              referenceNumber = "srn1",
-              complementOfInformation = Some("scoi1")
-            ),
-            new SupportingDocument(
-              sequenceNumber = 2,
-              typeValue = "stv2",
-              referenceNumber = "srn2",
-              complementOfInformation = Some("scoi1")
-            )
-          ),
-          TransportDocument = Seq(
-            new TransportDocument(
-              sequenceNumber = 1,
-              typeValue = "ttv1",
-              referenceNumber = "trn1"
-            ),
-            new TransportDocument(
-              sequenceNumber = 2,
-              typeValue = "ttv2",
-              referenceNumber = "trn2"
-            )
-          ),
-          AdditionalReference = Seq(
-            new AdditionalReference(
-              sequenceNumber = 1,
-              typeValue = "artv1",
-              referenceNumber = Some("arrn1")
-            ),
-            new AdditionalReference(
-              sequenceNumber = 2,
-              typeValue = "artv2",
-              referenceNumber = Some("arrn2")
-            )
-          ),
-          AdditionalInformation = Seq(
-            new AdditionalInformation(
-              sequenceNumber = 1,
-              code = "aic1",
-              text = Some("ait1")
-            ),
-            new AdditionalInformation(
-              sequenceNumber = 2,
-              code = "aic2",
-              text = Some("ait2")
-            )
-          ),
-          Incident = Nil,
-          HouseConsignment = Seq(
-            new HouseConsignment(
-              sequenceNumber = 1,
-              grossMass = BigDecimal(100),
-              ConsignmentItem = Seq(
-                new ConsignmentItem(
-                  goodsItemNumber = 1,
-                  declarationGoodsItemNumber = 1,
-                  Commodity = new Commodity(
-                    descriptionOfGoods = "dog1"
-                  )
-                ),
-                new ConsignmentItem(
-                  goodsItemNumber = 2,
-                  declarationGoodsItemNumber = 2,
-                  Commodity = new Commodity(
-                    descriptionOfGoods = "dog2"
-                  )
-                )
-              )
-            )
-          )
+          netMass = Some(BigDecimal(100))
         )
       )
-    )
-  }
-
-  lazy val ie029HouseConsignment = {
-    import viewmodels.tad.*
-    new HouseConsignment(
-      sequenceNumber = 1,
-      countryOfDispatch = None,
-      grossMass = BigDecimal(1),
-      referenceNumberUCR = None,
-      securityIndicatorFromExportDeclaration = None,
-      Consignor = Some(
-        new HouseConsignmentConsignor(
-          identificationNumber = Some("hc consignor in"),
-          name = Some("hc consignor name"),
-          Address = Some(
-            new HouseConsignmentConsignorAddress(
-              streetAndNumber = "san",
-              postcode = Some("pc"),
-              city = "city",
-              country = "country"
-            )
-          ),
-          ContactPerson = Some(
-            new HouseConsignmentConsignorContactPerson(
-              name = "cp",
-              phoneNumber = "cptel",
-              eMailAddress = Some("cpemail")
-            )
-          )
-        )
+    ),
+    Packaging = Seq(
+      PackagingType02(
+        sequenceNumber = 1,
+        typeOfPackages = "top1",
+        numberOfPackages = Some(BigInt(100)),
+        shippingMarks = Some("sm1")
       ),
-      Consignee = Some(
-        new Consignee(
-          identificationNumber = Some("hc consignee in"),
-          name = Some("hc consignee name"),
-          Address = Some(
-            new ConsigneeAddress(
-              streetAndNumber = "san",
-              postcode = Some("pc"),
-              city = "city",
-              country = "country"
-            )
-          )
-        )
+      PackagingType02(
+        sequenceNumber = 2,
+        typeOfPackages = "top2",
+        numberOfPackages = Some(BigInt(200)),
+        shippingMarks = Some("sm2")
+      )
+    ),
+    PreviousDocument = Seq(
+      PreviousDocumentType03(
+        sequenceNumber = 1,
+        typeValue = "tv1",
+        referenceNumber = "rn1",
+        goodsItemNumber = Some(BigInt(1)),
+        typeOfPackages = Some("top1"),
+        numberOfPackages = Some(BigInt(11)),
+        measurementUnitAndQualifier = Some("muaq1"),
+        quantity = Some(BigDecimal(10)),
+        complementOfInformation = Some("pcoi1")
       ),
-      AdditionalSupplyChainActor = Nil,
-      DepartureTransportMeans = Seq(
-        new HouseConsignmentDepartureTransportMeans(
-          sequenceNumber = 1,
-          typeOfIdentification = "toi1",
-          identificationNumber = "in1",
-          nationality = "nat1"
-        ),
-        new HouseConsignmentDepartureTransportMeans(
-          sequenceNumber = 2,
-          typeOfIdentification = "toi2",
-          identificationNumber = "in2",
-          nationality = "nat2"
-        )
+      PreviousDocumentType03(
+        sequenceNumber = 2,
+        typeValue = "tv2",
+        referenceNumber = "rn2",
+        goodsItemNumber = Some(BigInt(2)),
+        typeOfPackages = Some("top2"),
+        numberOfPackages = Some(BigInt(22)),
+        measurementUnitAndQualifier = Some("muaq2"),
+        quantity = Some(BigDecimal(20)),
+        complementOfInformation = Some("pcoi2")
+      )
+    ),
+    SupportingDocument = Seq(
+      SupportingDocumentType06(
+        sequenceNumber = 1,
+        typeValue = "stv1",
+        referenceNumber = "srn1",
+        documentLineItemNumber = Some(BigInt(11)),
+        complementOfInformation = Some("scoi1")
       ),
-      PreviousDocument = Nil,
-      SupportingDocument = Nil,
-      TransportDocument = Nil,
-      AdditionalReference = Nil,
-      AdditionalInformation = Nil,
-      TransportCharges = None,
-      ConsignmentItem = Nil
-    )
-  }
-
-  lazy val ie029ConsignmentItem = {
-    import viewmodels.tad.*
-    new ConsignmentItem(
-      goodsItemNumber = 1,
-      declarationGoodsItemNumber = BigInt(1),
-      declarationType = Some("T"),
-      countryOfDispatch = Some("c of dispatch"),
-      countryOfDestination = Some("c of destination"),
-      referenceNumberUCR = Some("ucr"),
-      AdditionalSupplyChainActor = Seq(
-        new AdditionalSupplyChainActor(
-          sequenceNumber = 1,
-          role = "role1",
-          identificationNumber = "id1"
-        ),
-        new AdditionalSupplyChainActor(
-          sequenceNumber = 2,
-          role = "role2",
-          identificationNumber = "id2"
-        ),
-        new AdditionalSupplyChainActor(
-          sequenceNumber = 3,
-          role = "role3",
-          identificationNumber = "id3"
-        ),
-        new AdditionalSupplyChainActor(
-          sequenceNumber = 4,
-          role = "role4",
-          identificationNumber = "id4"
-        )
+      SupportingDocumentType06(
+        sequenceNumber = 2,
+        typeValue = "stv2",
+        referenceNumber = "srn2",
+        documentLineItemNumber = Some(BigInt(22)),
+        complementOfInformation = Some("scoi2")
+      )
+    ),
+    TransportDocument = Seq(
+      TransportDocumentType02(
+        sequenceNumber = 1,
+        typeValue = "ttv1",
+        referenceNumber = "trn1"
       ),
-      Commodity = new Commodity(
-        descriptionOfGoods = "dog",
-        cusCode = Some("cus"),
-        CommodityCode = Some(
-          new CommodityCode(
-            harmonizedSystemSubHeadingCode = "hsshc",
-            combinedNomenclatureCode = Some("cnc")
-          )
-        ),
-        DangerousGoods = Seq(
-          new DangerousGoods(
-            sequenceNumber = 1,
-            UNNumber = "unn1"
-          ),
-          new DangerousGoods(
-            sequenceNumber = 2,
-            UNNumber = "unn2"
-          )
-        ),
-        GoodsMeasure = Some(
-          new GoodsMeasure(
-            grossMass = Some(BigDecimal(200)),
-            netMass = Some(BigDecimal(100))
-          )
-        )
+      TransportDocumentType02(
+        sequenceNumber = 2,
+        typeValue = "ttv2",
+        referenceNumber = "trn2"
+      )
+    ),
+    AdditionalReference = Seq(
+      AdditionalReferenceType02(
+        sequenceNumber = 1,
+        typeValue = "artv1",
+        referenceNumber = Some("arrn1")
       ),
-      Packaging = Seq(
-        new Packaging(
-          sequenceNumber = 1,
-          typeOfPackages = "top1",
-          numberOfPackages = Some(BigInt(100)),
-          shippingMarks = Some("sm1")
-        ),
-        new Packaging(
-          sequenceNumber = 2,
-          typeOfPackages = "top2",
-          numberOfPackages = Some(BigInt(200)),
-          shippingMarks = Some("sm2")
-        )
+      AdditionalReferenceType02(
+        sequenceNumber = 2,
+        typeValue = "artv2",
+        referenceNumber = Some("arrn2")
+      )
+    ),
+    AdditionalInformation = Seq(
+      AdditionalInformationType02(
+        sequenceNumber = 1,
+        code = "aic1",
+        text = Some("ait1")
       ),
-      PreviousDocument = Seq(
-        new ConsignmentItemPreviousDocument(
-          sequenceNumber = 1,
-          typeValue = "tv1",
-          referenceNumber = "rn1",
-          goodsItemNumber = Some(BigInt(1)),
-          typeOfPackages = Some("top1"),
-          numberOfPackages = Some(BigInt(11)),
-          measurementUnitAndQualifier = Some("muaq1"),
-          quantity = Some(BigDecimal(10)),
-          complementOfInformation = Some("pcoi1")
-        ),
-        new ConsignmentItemPreviousDocument(
-          sequenceNumber = 2,
-          typeValue = "tv2",
-          referenceNumber = "rn2",
-          goodsItemNumber = Some(BigInt(2)),
-          typeOfPackages = Some("top2"),
-          numberOfPackages = Some(BigInt(22)),
-          measurementUnitAndQualifier = Some("muaq2"),
-          quantity = Some(BigDecimal(20)),
-          complementOfInformation = Some("pcoi2")
-        )
-      ),
-      SupportingDocument = Seq(
-        new SupportingDocument(
-          sequenceNumber = 1,
-          typeValue = "stv1",
-          referenceNumber = "srn1",
-          documentLineItemNumber = Some(BigInt(11)),
-          complementOfInformation = Some("scoi1")
-        ),
-        new SupportingDocument(
-          sequenceNumber = 2,
-          typeValue = "stv2",
-          referenceNumber = "srn2",
-          documentLineItemNumber = Some(BigInt(22)),
-          complementOfInformation = Some("scoi2")
-        )
-      ),
-      AdditionalReference = Seq(
-        new ConsignmentItemAdditionalReference(
-          sequenceNumber = 1,
-          typeValue = "artv1",
-          referenceNumber = Some("arrn1")
-        ),
-        new ConsignmentItemAdditionalReference(
-          sequenceNumber = 2,
-          typeValue = "artv2",
-          referenceNumber = Some("arrn2")
-        )
-      ),
-      AdditionalInformation = Seq(
-        new AdditionalInformation(
-          sequenceNumber = 1,
-          code = "aic1",
-          text = Some("ait1")
-        ),
-        new AdditionalInformation(
-          sequenceNumber = 2,
-          code = "aic2",
-          text = Some("ait2")
-        )
+      AdditionalInformationType02(
+        sequenceNumber = 2,
+        code = "aic2",
+        text = Some("ait2")
+      )
+    ),
+    TransportCharges = Some(
+      TransportChargesType(
+        methodOfPayment = "mop"
       )
     )
-  }
+  )
+
 }
