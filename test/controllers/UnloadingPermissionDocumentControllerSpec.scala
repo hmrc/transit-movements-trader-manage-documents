@@ -17,14 +17,12 @@
 package controllers
 
 import base.SpecBase
-import controllers.actions.AuthenticateActionProvider
-import controllers.actions.FakeAuthenticateActionProvider
+import controllers.actions.{AuthenticateActionProvider, FakeAuthenticateActionProvider}
 import generated.CC043CType
-import generators.ScalaxbModelGenerators
+import generators.IE043ScalaxbModelGenerators
 import org.apache.pekko.util.ByteString
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.{eq => eqTo}
-import org.mockito.Mockito._
+import org.mockito.ArgumentMatchers.{any, eq as eqTo}
+import org.mockito.Mockito.*
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -32,13 +30,13 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import services.messages.UnloadingMessageService
 import services.pdf.UnloadingPermissionPdfGenerator
 
 import scala.concurrent.Future
 
-class UnloadingPermissionDocumentControllerSpec extends SpecBase with ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
+class UnloadingPermissionDocumentControllerSpec extends SpecBase with IE043ScalaxbModelGenerators with ScalaCheckPropertyChecks with BeforeAndAfterEach {
 
   def onwardRoute: Call = Call("GET", "/foo")
 
