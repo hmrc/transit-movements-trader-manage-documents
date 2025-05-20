@@ -23,7 +23,6 @@ lazy val microservice = Project(appName, file("."))
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true
   )
-  .settings(resolvers += Resolver.jcenterRepo)
   .settings(inConfig(Test)(testSettings) *)
   .settings(PlayKeys.playDefaultPort := 9484)
   .settings(scalacOptions := Seq("-Wconf:src=routes/.*:s", "-Wconf:src=src_managed/.*:s"))
