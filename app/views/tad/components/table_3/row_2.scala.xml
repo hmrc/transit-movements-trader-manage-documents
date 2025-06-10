@@ -1,4 +1,5 @@
 @import views.xml.components.box
+        @import views.xml.tad.components.label
 @import views.xml.components.empty_cell
 
 @()
@@ -7,7 +8,7 @@
 
     <fo:table-cell border-right-color="black" border-right-style="solid" border-right-width="1pt"
                    border-top-color="black" border-top-style="solid" border-top-width="1pt">
-        <fo:block font-size="5pt">CERTIFICATION BY COMPETENT AUTHORITIES</fo:block>
+        @label("CERTIFICATION BY COMPETENT AUTHORITIES")
     </fo:table-cell>
 
     <fo:table-cell>
@@ -21,21 +22,21 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2">
-                            <fo:block font-size="5pt">New seals: Number:</fo:block>
+                            @label("New seals: Number:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2">
-                            <fo:block font-size="5pt">New seals: Number:</fo:block>
+                            @label("New seals: Number:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -47,21 +48,21 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3">
-                            <fo:block font-size="5pt">Signature:</fo:block>
+                            @label("Signature:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Stamp:</fo:block>
+                            @label("Stamp:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3">
-                            <fo:block font-size="5pt">Signature:</fo:block>
+                            @label("Signature:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Stamp:</fo:block>
+                            @label("Stamp:")
                         </fo:table-cell>
 
                         @empty_cell()

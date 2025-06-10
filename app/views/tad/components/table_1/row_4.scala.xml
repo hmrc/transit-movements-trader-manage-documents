@@ -1,4 +1,5 @@
 @import views.xml.components.box
+        @import views.xml.tad.components.label
 @import views.xml.components.empty_cell
 
 @(
@@ -27,26 +28,26 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Holder of transit procedure [13 07]</fo:block>
+                            @label("Holder of transit procedure [13 07]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">LRN [12 09]</fo:block>
+                            @label("LRN [12 09]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">UCR [12 08]</fo:block>
+                            @label("UCR [12 08]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">TIR [12 06]</fo:block>
+                            @label("TIR [12 06]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -97,7 +98,7 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Contact person [13 07 074]</fo:block>
+                            @label("Contact person [13 07 074]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="7"
@@ -121,11 +122,11 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Representative [13 06]</fo:block>
+                            @label("Representative [13 06]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -149,7 +150,7 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Contact person [13 06 074]</fo:block>
+                            @label("Contact person [13 06 074]")
                         </fo:table-cell>
                     </fo:table-row>
 

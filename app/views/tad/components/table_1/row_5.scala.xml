@@ -1,4 +1,5 @@
 @import views.xml.components.empty_cell
+        @import views.xml.tad.components.label
 
 @(
     carrierIdentificationNumber: String,
@@ -29,21 +30,21 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Carrier [13 12]</fo:block>
+                            @label("Carrier [13 12]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">Place of loading [16 13]</fo:block>
+                            @label("Place of loading [16 13]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">Location of goods [16 15]</fo:block>
+                            @label("Location of goods [16 15]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -78,7 +79,7 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Contact person [13 02 074]</fo:block>
+                            @label("Contact person [13 02 074]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -97,12 +98,12 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-top-color="black" border-top-style="solid" border-top-width="1pt">
-                            <fo:block font-size="5pt">Additional supply chain actor [13 14]</fo:block>
+                            @label("Additional supply chain actor [13 14]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-top-color="black" border-top-style="solid" border-top-width="1pt">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -123,7 +124,7 @@
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">Place of unloading [16 14]</fo:block>
+                            @label("Place of unloading [16 14]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -144,7 +145,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-top-color="black" border-top-style="solid" border-top-width="1pt">
-                            <fo:block font-size="5pt">Departure transport means [19 05]</fo:block>
+                            @label("Departure transport means [19 05]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -167,7 +168,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-top-color="black" border-top-style="solid" border-top-width="1pt">
-                            <fo:block font-size="5pt">Active border transport means [19 08]</fo:block>
+                            @label("Active border transport means [19 08]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
@@ -178,7 +179,7 @@
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">Contact person [16 05 074]</fo:block>
+                            @label("Contact person [16 05 074]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -207,7 +208,7 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block font-size="5pt">Conveyance reference numbers [19 02]</fo:block>
+                            @label("Conveyance reference numbers [19 02]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"

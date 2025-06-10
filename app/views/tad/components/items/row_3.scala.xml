@@ -1,4 +1,5 @@
 @import views.xml.components.empty_cell
+        @import views.xml.tad.components.label
 
 @(
         consignee: String,
@@ -20,17 +21,17 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block font-size="5pt">Consignee [13 03]</fo:block>
+                            @label("Consignee [13 03]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">Additional reference [12 04]</fo:block>
+                            @label("Additional reference [12 04]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -63,7 +64,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">Additional information [12 02]</fo:block>
+                            @label("Additional information [12 02]")
                         </fo:table-cell>
 
                         @empty_cell()

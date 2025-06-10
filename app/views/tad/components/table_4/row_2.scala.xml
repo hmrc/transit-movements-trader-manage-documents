@@ -1,4 +1,5 @@
 @import views.xml.components.empty_cell
+        @import views.xml.tad.components.label
 @import viewmodels.tad.Table4ViewModel
 
 @(vm: Table4ViewModel)
@@ -17,11 +18,11 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">CONTROL BY OFFICE OF DEPARTURE</fo:block>
+                            @label("CONTROL BY OFFICE OF DEPARTURE")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="3">
-                            <fo:block font-size="5pt">CONTROL BY OFFICE OF DESTINATION</fo:block>
+                            @label("CONTROL BY OFFICE OF DESTINATION")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -30,16 +31,16 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Result:</fo:block>
+                            @label("Result:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Date of arrival:</fo:block>
+                            @label("Date of arrival:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2">
-                            <fo:block font-size="5pt">Return copy sent on</fo:block>
+                            @label("Return copy sent on")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -48,12 +49,12 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Seals affixed: Number:</fo:block>
+                            @label("Seals affixed: Number:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Examination of seals:</fo:block>
+                            @label("Examination of seals:")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -62,11 +63,11 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Identity:</fo:block>
+                            @label("Identity:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2">
-                            <fo:block font-size="5pt">after registration under ID</fo:block>
+                            @label("after registration under ID")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -80,7 +81,7 @@
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Remarks:</fo:block>
+                            @label("Remarks:")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -88,11 +89,11 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Signature:</fo:block>
+                            @label("Signature:")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Stamp:</fo:block>
+                            @label("Stamp:")
                         </fo:table-cell>
 
                         @empty_cell()

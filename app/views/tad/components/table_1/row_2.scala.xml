@@ -36,17 +36,17 @@
 
                         <fo:table-cell margin-left="0.5%"
                                        border-top-color="black" border-top-style="solid" border-top-width="1pt">
-                            <fo:block font-size="5pt">ID</fo:block>
+                            @label("ID")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="2pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt">
-                            <fo:block font-size="5pt">Type [11 01]</fo:block>
+                            @label("Type [11 01]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Add.type [11 02]</fo:block>
+                            @label("Add.type [11 02]")
                         </fo:table-cell>
 
                         <fo:table-cell number-rows-spanned="4" text-align="center"
@@ -100,17 +100,17 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block font-size="5pt">Contact person [13 02 074]</fo:block>
+                            @label("Contact person [13 02 074]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Forms</fo:block>
+                            @label("Forms")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">SCI [11 04]</fo:block>
+                            @label("SCI [11 04]")
                         </fo:table-cell>
 
                         @empty_cell()

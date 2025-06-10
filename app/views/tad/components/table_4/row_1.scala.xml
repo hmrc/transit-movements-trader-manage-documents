@@ -1,3 +1,4 @@
+@import views.xml.tad.components.label
 @import views.xml.components.box
 @import views.xml.components.empty_cell
 @import viewmodels.tad.Table4ViewModel
@@ -22,7 +23,7 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="4">
-                            <fo:block font-size="5pt">Country of routing of consignment [16 12]</fo:block>
+                            @label("Country of routing of consignment [16 12]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
@@ -50,12 +51,12 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2"
                                        border-right-style="solid" border-right-width="1pt" border-right-color="black">
-                            <fo:block font-size="5pt">CUSTOMS OFFICE OF TRANSIT [17 04]</fo:block>
+                            @label("CUSTOMS OFFICE OF TRANSIT [17 04]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="3"
                                        border-right-style="solid" border-right-width="1pt" border-right-color="black">
-                            <fo:block font-size="5pt">CUSTOMS OFFICE OF EXIT FOR TRANSIT [17 06]</fo:block>
+                            @label("CUSTOMS OFFICE OF EXIT FOR TRANSIT [17 06]")
                         </fo:table-cell>
 
                         @empty_cell()
@@ -95,13 +96,13 @@
 
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
-                            <fo:block font-size="5pt">CUSTOMS OFFICE OF DEPARTURE [17 03]</fo:block>
+                            @label("CUSTOMS OFFICE OF DEPARTURE [17 03]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="3"
                                        border-right-style="solid" border-right-width="1pt" border-right-color="black"
                                        border-left-style="solid" border-left-width="1pt" border-left-color="black">
-                            <fo:block font-size="5pt">CUSTOMS OFFICE OF DESTINATION [17 05]</fo:block>
+                            @label("CUSTOMS OFFICE OF DESTINATION [17 05]")
                         </fo:table-cell>
 
                         @empty_cell()

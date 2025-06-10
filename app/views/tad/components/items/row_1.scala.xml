@@ -1,3 +1,4 @@
+@import views.xml.tad.components.label
 @(
         declarationGoodsItemNumber: String,
         goodsItemNumber: String,
@@ -18,21 +19,21 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt">
-                            <fo:block font-size="5pt">Decl.goods it. Nr. [11 11]</fo:block>
+                            @label("Decl.goods it. Nr. [11 11]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="2pt">
-                            <fo:block font-size="5pt">Goods it. Nr [11 03]</fo:block>
+                            @label("Goods it. Nr [11 03]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Type and number of packages, shipping marks [18 06]</fo:block>
+                            @label("Type and number of packages, shipping marks [18 06]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Description of goods [18 05]</fo:block>
+                            @label("Description of goods [18 05]")
                         </fo:table-cell>
                     </fo:table-row>
 
