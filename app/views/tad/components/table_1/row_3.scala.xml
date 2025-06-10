@@ -1,5 +1,5 @@
 @import views.xml.components.empty_cell
-        @import views.xml.tad.components.label
+@import views.xml.tad.components.label
 
 @(
     consignees: String,

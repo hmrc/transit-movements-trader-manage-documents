@@ -1,3 +1,4 @@
+@import views.xml.tad.components.inline_label
 @import views.xml.tad.components.label
 @import views.xml.components.box
 @import views.xml.components.empty_cell
@@ -30,7 +31,7 @@
                         <fo:table-cell margin-left="0.5%"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block><fo:inline font-size="5pt">Container [19 01]:</fo:inline> @box(containerIndicator)</fo:block>
+                            <fo:block>@inline_label("Container [19 01]:") @box(containerIndicator)</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"

@@ -1,5 +1,6 @@
 @import views.xml.components.box
-        @import views.xml.tad.components.label
+@import views.xml.tad.components.inline_label
+@import views.xml.tad.components.label
 @import views.xml.components.empty_cell
 
 @(
@@ -103,11 +104,11 @@
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="7"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block><fo:inline font-weight="bold" font-size="5pt">BCP:</fo:inline> @box()</fo:block>
+                            <fo:block>@inline_label("BCP:", "bold") @box()</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="7" number-columns-spanned="2">
-                            <fo:block font-weight="bold" font-size="5pt">Return copy has to be sent to the office:</fo:block>
+                            @label("Return copy has to be sent to the office:", "bold")
                         </fo:table-cell>
                     </fo:table-row>
 
@@ -131,7 +132,7 @@
                     </fo:table-row>
 
                     <fo:table-row>
-                        <fo:table-cell margin-left="0.5%" number-columns-spanned="2">
+                        <fo:table-cell margin-left="0.5%">
                             <fo:block-container overflow="hidden">
                                 <fo:block>@representative</fo:block>
                             </fo:block-container>

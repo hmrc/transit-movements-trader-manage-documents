@@ -1,5 +1,6 @@
 @import views.xml.components.empty_cell
-        @import views.xml.tad.components.label
+@import views.xml.tad.components.inline_label
+@import views.xml.tad.components.label
 @import viewmodels.tad.Table4ViewModel
 
 @(vm: Table4ViewModel)
@@ -76,7 +77,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block><fo:inline font-size="5pt">Limit date [15 11]:</fo:inline> @(vm.limitDate)</fo:block>
+                            <fo:block>@inline_label("Limit date [15 11]:") @(vm.limitDate)</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="2"

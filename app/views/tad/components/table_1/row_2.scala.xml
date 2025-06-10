@@ -127,7 +127,9 @@
                         <fo:table-cell text-align="center"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>1</fo:block>
+                            <fo:block>
+                                <fo:page-number/>
+                            </fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell text-align="center"

@@ -1,5 +1,6 @@
 @import views.xml.components.empty_cell
-        @import views.xml.tad.components.label
+@import views.xml.tad.components.inline_label
+@import views.xml.tad.components.label
 
 @(
     carrierIdentificationNumber: String,
@@ -174,7 +175,7 @@
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt"
                                        border-bottom-color="black" border-bottom-style="solid" border-bottom-width="1pt">
-                            <fo:block><fo:inline font-size="5pt">Mode of transport at the border [19 03]:</fo:inline> @modeOfTransportAtBorder</fo:block>
+                            <fo:block>@inline_label("Mode of transport at the border [19 03]:") @modeOfTransportAtBorder</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
@@ -213,7 +214,7 @@
 
                         <fo:table-cell margin-left="0.5%" number-rows-spanned="3"
                                        border-left-color="black" border-left-style="solid" border-left-width="1pt">
-                            <fo:block><fo:inline font-size="5pt">Inland mode of transport [19 04]:</fo:inline> @inlandModeOfTransport</fo:block>
+                            <fo:block>@inline_label("Inland mode of transport [19 04]:") @inlandModeOfTransport</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()

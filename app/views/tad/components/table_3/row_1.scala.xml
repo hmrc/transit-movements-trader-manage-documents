@@ -6,7 +6,7 @@
 <fo:table-row border-top-style="solid" border-top-width="2pt" border-top-color="black">
 
     <fo:table-cell>
-        <fo:block font-weight="bold" font-size="5pt">INCIDENTS DURING TRANSPORT (BCP)</fo:block>
+        @label("INCIDENTS DURING TRANSPORT (BCP)", "bold")
     </fo:table-cell>
 
     <fo:table-cell>

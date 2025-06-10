@@ -1,5 +1,6 @@
 @import views.xml.components.box
-        @import views.xml.tad.components.label
+@import views.xml.tad.components.inline_label
+@import views.xml.tad.components.label
 @import views.xml.components.empty_cell
 
 @()
@@ -79,12 +80,12 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>@box() <fo:inline font-size="5pt">Data already recorded into the system</fo:inline></fo:block>
+                            <fo:block>@box() @inline_label("Data already recorded into the system")</fo:block>
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%" number-columns-spanned="2" number-rows-spanned="2"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block>@box() <fo:inline font-size="5pt">Data already recorded into the system</fo:inline></fo:block>
+                            <fo:block>@box() @inline_label("Data already recorded into the system")</fo:block>
                         </fo:table-cell>
 
                         @empty_cell()
