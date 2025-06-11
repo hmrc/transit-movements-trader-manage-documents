@@ -35,12 +35,12 @@
                     <fo:table-row height="2mm" border-top-style="solid" border-top-width="1pt"
                                   border-top-color="black" margin-left="0.5mm">
                         <fo:table-cell>
-                            <fo:block-container margin-top = "0.8mm">
-                                <fo:block font-weight="bold" font-size="6"><fo:block font-size="8" font-weight = "normal">Declaration Type</fo:block>@(declarationType)</fo:block>
+                            <fo:block-container margin-top="0.8mm">
+                                <fo:block font-weight="bold" font-size="6"><fo:block role="H" font-size="8" font-weight="normal">Declaration Type</fo:block>@(declarationType)</fo:block>
                             </fo:block-container>
 
-                            <fo:block-container margin-top = "5mm">
-                                <fo:block font-weight="bold" font-size="6"><fo:block font-size="8" font-weight = "normal">Gross Weight</fo:block>@(totalGrossMass)</fo:block>
+                            <fo:block-container margin-top="5mm">
+                                <fo:block font-weight="bold" font-size="6"><fo:block role="H" font-size="8" font-weight="normal">Gross Weight</fo:block>@(totalGrossMass)</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
 

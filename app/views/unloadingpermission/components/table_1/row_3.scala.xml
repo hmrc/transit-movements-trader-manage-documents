@@ -31,7 +31,7 @@
                 inline-progression-dimension.maximum="auto"
                 inline-progression-dimension.optimum="94mm"
                 margin-bottom = "4mm">
-            <fo:block>Unloading permission - Accompanying document</fo:block>
+            <fo:block role="H1">Unloading permission - Accompanying document</fo:block>
         </fo:block-container >
         <fo:block-container>
             <fo:block font-size="8pt"
@@ -65,7 +65,7 @@
                                     <fo:table-cell >
                                         <fo:block-container overflow="hidden" margin-top = "0.8mm" >
                                             <fo:block>
-                                                <fo:inline font-size="8">Departure means of transport @(departureMeansIndex + 1)</fo:inline>
+                                                <fo:inline role="H" font-size="8">Departure means of transport @(departureMeansIndex + 1)</fo:inline>
                                             </fo:block>
 
                                         </fo:block-container>
@@ -76,7 +76,7 @@
                                 <fo:table-row height="8mm" border-bottom-style="dotted" border-bottom-width="1pt" border-bottom-color="black" margin-left="0.5mm" >
                                     <fo:table-cell  display-align="after"  number-columns-spanned="1">
                                         <fo:block-container overflow="hidden" margin-bottom = "0.8mm">
-                                            <fo:block font-size="7">
+                                            <fo:block role="H" font-size="7">
                                                 Identification type
                                                 <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.typeOfIdentification.orElseBlank)</fo:block>
                                             </fo:block>
@@ -85,7 +85,7 @@
 
                                     <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                                         <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                            <fo:block font-size="7">
+                                            <fo:block role="H" font-size="7">
                                                 Identification
                                                 <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.identificationNumber.orElseBlank)</fo:block>
                                             </fo:block>
@@ -94,7 +94,7 @@
 
                                     <fo:table-cell  display-align="after"  number-columns-spanned="1"   >
                                         <fo:block-container overflow="hidden" margin-bottom = "0.8mm" >
-                                            <fo:block font-size="7">
+                                            <fo:block role="H" font-size="7">
                                                 Registered country
                                                 <fo:block padding-top="3px" padding-bottom="3px" font-size="6" font-weight="bold">@(transportMeans.nationality.orElseBlank)</fo:block>
                                             </fo:block>
