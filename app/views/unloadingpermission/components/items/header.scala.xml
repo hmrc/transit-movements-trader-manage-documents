@@ -25,7 +25,7 @@
 
 @title = {
     <fo:table-cell text-align="center" display-align="after" padding-bottom="3mm">
-        <fo:block font-weight="bold" font-size="10pt">TRANSIT LIST OF ITEMS</fo:block>
+        <fo:block role="H" font-weight="bold" font-size="10pt">TRANSIT LIST OF ITEMS</fo:block>
     </fo:table-cell>
 }
 
@@ -36,7 +36,7 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="2" padding-left="2mm" display-align="before" font-size="7pt" border-style="solid" border-width="1pt" border-color="black" border-bottom-style="none" height="4mm">
-                            <fo:block>Forms</fo:block>
+                            <fo:block role="H">Forms</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row border-style="solid" border-width="1pt" border-color="black" border-top-style="none" border-bottom-style="none" height="8mm">
@@ -65,7 +65,7 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="2mm">
                             <fo:block font-size="12">
-                                <fo:inline font-weight="bold">MRN</fo:inline> @mrn
+                                <fo:inline role="H" font-weight="bold">MRN</fo:inline> @mrn
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>

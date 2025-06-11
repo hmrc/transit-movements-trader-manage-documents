@@ -1,3 +1,4 @@
+@import views.xml.tad.components.label
 @(
     departureTransportMeans: String,
     commodityCode: String,
@@ -16,16 +17,16 @@
                     <fo:table-row>
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Departure transport means [19 05]</fo:block>
+                            @label("Departure transport means [19 05]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%"
                                        border-right-color="black" border-right-style="solid" border-right-width="1pt">
-                            <fo:block font-size="5pt">Commodity Code [18 09]</fo:block>
+                            @label("Commodity Code [18 09]")
                         </fo:table-cell>
 
                         <fo:table-cell margin-left="0.5%">
-                            <fo:block font-size="5pt">Net mass (kg) [18 01]</fo:block>
+                            @label("Net mass (kg) [18 01]")
                         </fo:table-cell>
                     </fo:table-row>
 

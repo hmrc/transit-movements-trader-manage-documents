@@ -24,7 +24,6 @@
                    border-top-style="solid" border-top-width="1pt" border-top-color="black"
                    border-bottom-style="solid" border-bottom-width="1pt" border-bottom-color="black"
                    number-columns-spanned="6"
-
     >
         <fo:block>
             <fo:table width="100%" table-layout="fixed">
@@ -37,7 +36,7 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-size="7">Supporting document</fo:inline> [1203]</fo:block>
+                                <fo:block role="H" font-size="7">Supporting document [1203]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -54,7 +53,7 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-size="7">Additional reference</fo:inline> [1204]</fo:block>
+                                <fo:block role="H" font-size="7">Additional reference [1204]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -71,7 +70,7 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-size="7">Additional information </fo:inline> [1202]</fo:block>
+                                <fo:block role="H" font-size="7">Additional information [1202]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -88,7 +87,7 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-size="7">Customs office of destination</fo:inline> [1705]</fo:block>
+                                <fo:block role="H" font-size="7">Customs office of destination [1705]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>
@@ -105,7 +104,7 @@
                     <fo:table-row height="3mm">
                         <fo:table-cell  margin-left="0.5mm">
                             <fo:block-container overflow="hidden" margin-top = "0.8mm">
-                                <fo:block><fo:inline font-size="7">Country of destination</fo:inline> [1607]</fo:block>
+                                <fo:block role="H" font-size="7">Country of destination [1607]</fo:block>
                             </fo:block-container>
                         </fo:table-cell>
                     </fo:table-row>

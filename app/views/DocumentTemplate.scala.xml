@@ -15,7 +15,11 @@
 )
 <?xml version='1.0' encoding='utf-8'?>
 
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="Helvetica" font-size="@fontSize" text-align="left">
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
+         xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
+         font-family="Helvetica"
+         font-size="@fontSize"
+         text-align="left">
 
   @layoutMasterSet(pagesMarginTop)
 

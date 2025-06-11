@@ -2,7 +2,7 @@
   message: String,
   height: String
 )
-<fo:instream-foreign-object>
+<fo:instream-foreign-object fox:alt-text="Barcode">
   <barcode:barcode
       xmlns:barcode="http://barcode4j.krysalis.org/ns"
       message="@message">
