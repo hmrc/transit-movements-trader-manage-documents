@@ -10,7 +10,6 @@ object AppDependencies {
     "org.apache.xmlgraphics"  %  "fop"                        % "2.11",
     "net.sf.barcode4j"        %  "barcode4j"                  % "2.1",
     "net.sf.barcode4j"        %  "barcode4j-fop-ext"          % "2.1",
-    "xerces"                  %  "xercesImpl"                 % "2.12.2",
     "javax.xml.bind"          %  "jaxb-api"                   % "2.3.1",
     "org.typelevel"           %% "cats-core"                  % "2.13.0"
   )
@@ -19,8 +18,8 @@ object AppDependencies {
     "org.scalatest"           %% "scalatest"                % "3.2.19",
     "org.scalatestplus.play"  %% "scalatestplus-play"       % "7.0.2",
     "org.mockito"             %  "mockito-core"             % "5.18.0",
-    "org.scalatestplus"       %% "mockito-4-11"             % "3.2.18.0",
-    "org.scalatestplus"       %% "scalacheck-1-17"          % "3.2.18.0",
+    "org.scalatestplus"       %% "mockito-5-12"             % "3.2.19.0",
+    "org.scalatestplus"       %% "scalacheck-1-18"          % "3.2.19.0",
     "org.apache.pdfbox"       %  "pdfbox"                   % "3.0.5",
     "org.jsoup"               %  "jsoup"                    % "1.21.1",
     "uk.gov.hmrc"             %% "bootstrap-test-play-30"   % bootstrapVersion
