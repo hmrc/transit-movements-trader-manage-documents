@@ -20,6 +20,7 @@ import base.SpecBase
 import controllers.actions.{AuthenticateActionProvider, FakeAuthenticateActionProvider}
 import generated.CC043CType
 import generators.IE043ScalaxbModelGenerators
+import models.Version
 import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.{any, eq as eqTo}
 import org.mockito.Mockito.*
@@ -42,6 +43,7 @@ class UnloadingPermissionDocumentControllerSpec extends SpecBase with IE043Scala
 
   private val arrivalId = "arrivalId"
   private val messageId = "messageId"
+  private val version   = Version("2.1")
 
   lazy val controllerRoute: String = routes.UnloadingPermissionDocumentController.get(arrivalId, messageId).url
 
@@ -71,13 +73,14 @@ class UnloadingPermissionDocumentControllerSpec extends SpecBase with IE043Scala
           (ie043, byteArray) =>
             beforeEach()
 
-            when(mockMessageService.getUnloadingPermissionNotification(any(), any())(any(), any()))
+            when(mockMessageService.getUnloadingPermissionNotification(any(), any(), any())(any(), any()))
               .thenReturn(Future.successful(ie043))
 
             when(mockPdfGenerator.generate(any()))
               .thenReturn(byteArray)
 
             val request = FakeRequest(GET, controllerRoute)
+              .withHeaders("API-Version" -> "2.1")
 
             val result = route(application, request).value
 
@@ -87,7 +90,7 @@ class UnloadingPermissionDocumentControllerSpec extends SpecBase with IE043Scala
             val mrn = ie043.TransitOperation.MRN
             headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="UPD_$mrn.pdf""""
 
-            verify(mockMessageService).getUnloadingPermissionNotification(eqTo(arrivalId), eqTo(messageId))(any(), any())
+            verify(mockMessageService).getUnloadingPermissionNotification(eqTo(arrivalId), eqTo(messageId), eqTo(version))(any(), any())
             verify(mockPdfGenerator).generate(eqTo(ie043))
         }
       }

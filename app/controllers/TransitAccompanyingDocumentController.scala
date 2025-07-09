@@ -16,37 +16,34 @@
 
 package controllers
 
-import controllers.actions.AuthenticateActionProvider
+import controllers.actions.Actions
 import play.api.Logging
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.ControllerComponents
+import play.api.mvc.{Action, AnyContent, ControllerComponents}
 import services.messages.DepartureMessageService
 import services.pdf.TADPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import utils.FileNameSanitizer
 
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class TransitAccompanyingDocumentController @Inject() (
   pdf: TADPdfGenerator,
   service: DepartureMessageService,
-  authenticate: AuthenticateActionProvider,
+  actions: Actions,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
   def get(departureId: String, messageId: String): Action[AnyContent] =
-    authenticate() async {
+    actions.authenticateAndGetVersion() async {
       implicit request =>
         service.getIE015MessageId(departureId).flatMap {
           case Some(ie015MessageId) =>
             for {
-              ie015 <- service.getDeclarationData(departureId, ie015MessageId)
-              ie029 <- service.getReleaseForTransitNotification(departureId, messageId)
+              ie015 <- service.getDeclarationData(departureId, ie015MessageId, request.versionValue)
+              ie029 <- service.getReleaseForTransitNotification(departureId, messageId, request.versionValue)
             } yield {
               val bytes    = pdf.generate(ie015, ie029)
               val fileName = s"TAD_${FileNameSanitizer(ie029.TransitOperation.MRN)}.pdf"

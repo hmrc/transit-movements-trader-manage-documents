@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package base
+package models.requests
 
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.mockito.MockitoSugar
-import play.api.mvc.AnyContent
-import play.api.test.FakeRequest
+import models.Version
+import play.api.mvc.WrappedRequest
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
+case class VersionedRequest[A](request: AuthenticatedRequest[A], versionValue: Version) extends WrappedRequest[A](request) {
 
-  def fakeRequest: FakeRequest[AnyContent] = FakeRequest("", "")
+  val eoriNumber: String = request.eoriNumber
 }

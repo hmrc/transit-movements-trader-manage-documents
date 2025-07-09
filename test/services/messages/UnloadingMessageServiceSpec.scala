@@ -19,9 +19,9 @@ package services.messages
 import base.SpecBase
 import connectors.UnloadingPermissionConnector
 import generated.CC043CType
+import models.Version
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import uk.gov.hmrc.http.HeaderCarrier
@@ -39,6 +39,7 @@ class UnloadingMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
 
   private val arrivalId = "arrivalId"
   private val messageId = "messageId"
+  private val version   = Version("2.1")
 
   implicit private val hc: HeaderCarrier = new HeaderCarrier()
 
@@ -389,9 +390,9 @@ class UnloadingMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           </Consignment>
         </ncts:CC043C>
 
-      when(mockConnector.getMessage(any(), any())(any(), any())).thenReturn(Future.successful(message))
+      when(mockConnector.getMessage(any(), any(), any())(any(), any())).thenReturn(Future.successful(message))
 
-      val result = Await.result(service.getUnloadingPermissionNotification(arrivalId, messageId), Duration.Inf)
+      val result = Await.result(service.getUnloadingPermissionNotification(arrivalId, messageId, version), Duration.Inf)
 
       result mustBe a[CC043CType]
     }

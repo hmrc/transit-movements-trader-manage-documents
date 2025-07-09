@@ -17,7 +17,7 @@
 package connectors
 
 import config.AppConfig
-import models.DepartureMessages
+import models.{DepartureMessages, Version}
 import org.apache.pekko.stream.Materializer
 import play.api.http.HeaderNames.*
 import uk.gov.hmrc.http.HttpReads.Implicits.*
@@ -45,8 +45,9 @@ class DepartureMovementConnector @Inject() (
 
   def getMessage(
     departureId: String,
-    messageId: String
+    messageId: String,
+    version: Version
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("departures", departureId, messageId)
+    getMessage("departures", departureId, messageId, version)
 
 }

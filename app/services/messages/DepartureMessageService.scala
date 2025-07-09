@@ -19,7 +19,7 @@ package services.messages
 import connectors.DepartureMovementConnector
 import generated.{CC029CType, Generated_CC029CTypeFormat}
 import models.DepartureMessageType.DepartureNotification
-import models.IE015
+import models.{IE015, Version}
 import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -30,18 +30,20 @@ class DepartureMessageService @Inject() (connector: DepartureMovementConnector) 
 
   def getReleaseForTransitNotification(
     departureId: String,
-    messageId: String
+    messageId: String,
+    version: Version
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC029CType] =
     connector
-      .getMessage(departureId, messageId)
+      .getMessage(departureId, messageId, version)
       .map(fromXML(_))
 
   def getDeclarationData(
     departureId: String,
-    messageId: String
+    messageId: String,
+    version: Version
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[IE015] =
     connector
-      .getMessage(departureId, messageId)
+      .getMessage(departureId, messageId, version)
       .map(IE015.reads)
 
   def getIE015MessageId(

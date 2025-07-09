@@ -20,7 +20,7 @@ import base.SpecBase
 import connectors.DepartureMovementConnector
 import generated.*
 import models.DepartureMessageType.DepartureNotification
-import models.{DepartureMessageMetaData, DepartureMessages}
+import models.{DepartureMessageMetaData, DepartureMessages, Version}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
@@ -43,6 +43,7 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
 
   private val departureId = "departureId"
   private val messageId   = "messageId"
+  private val version     = Version("2.1")
 
   implicit private val hc: HeaderCarrier = new HeaderCarrier()
 
@@ -129,10 +130,10 @@ class DepartureMessageServiceSpec extends SpecBase with ScalaFutures with ScalaC
           </Consignment>
         </ncts:CC029C>
 
-      when(mockConnector.getMessage(any(), any())(any(), any()))
+      when(mockConnector.getMessage(any(), any(), any())(any(), any()))
         .thenReturn(Future.successful(message))
 
-      val result = Await.result(service.getReleaseForTransitNotification(departureId, messageId), Duration.Inf)
+      val result = Await.result(service.getReleaseForTransitNotification(departureId, messageId, version), Duration.Inf)
 
       result mustEqual CC029CType(
         messageSequence1 = MESSAGESequence(

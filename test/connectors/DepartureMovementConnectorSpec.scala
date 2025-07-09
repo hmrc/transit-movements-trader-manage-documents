@@ -18,10 +18,9 @@ package connectors
 
 import base.DepartureData
 import base.SpecBase
-import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.client.WireMock.*
 import models.DepartureMessageType.DepartureNotification
-import models.DepartureMessageMetaData
-import models.DepartureMessages
+import models.{DepartureMessageMetaData, DepartureMessages, Version}
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
@@ -38,7 +37,7 @@ import utils.WireMockHelper
 
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.xml._
+import scala.xml.*
 
 class DepartureMovementConnectorSpec
     extends SpecBase
@@ -64,6 +63,8 @@ class DepartureMovementConnectorSpec
   private lazy val service: DepartureMovementConnector = app.injector.instanceOf[DepartureMovementConnector]
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
+
+  private val version = Version("2.1")
 
   "getMessages" - {
 
@@ -140,9 +141,9 @@ class DepartureMovementConnectorSpec
           .willReturn(ok(xml.toString()))
       )
 
-      val result = service.getMessage(departureId, messageId).futureValue
+      val result = service.getMessage(departureId, messageId, version).futureValue
 
-      result mustBe xml
+      result mustEqual xml
     }
   }
 }

@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.actions.{AuthenticateActionProvider, FakeAuthenticateActionProvider}
 import generated.CC029CType
 import generators.{IE015ScalaxbModelGenerators, IE029ScalaxbModelGenerators}
-import models.IE015
+import models.{IE015, Version}
 import org.apache.pekko.util.ByteString
 import org.mockito.ArgumentMatchers.{any, eq as eqTo}
 import org.mockito.Mockito.*
@@ -48,6 +48,7 @@ class TransitAccompanyingDocumentControllerSpec
 
   private val departureId = "departureId"
   private val messageId   = "messageId"
+  private val version     = Version("2.1")
 
   lazy val controllerRoute: String = routes.TransitAccompanyingDocumentController.get(departureId, messageId).url
 
@@ -80,16 +81,17 @@ class TransitAccompanyingDocumentControllerSpec
             when(mockMessageService.getIE015MessageId(any())(any(), any()))
               .thenReturn(Future.successful(Some(ie015MessageId)))
 
-            when(mockMessageService.getDeclarationData(any(), any())(any(), any()))
+            when(mockMessageService.getDeclarationData(any(), any(), any())(any(), any()))
               .thenReturn(Future.successful(ie015))
 
-            when(mockMessageService.getReleaseForTransitNotification(any(), any())(any(), any()))
+            when(mockMessageService.getReleaseForTransitNotification(any(), any(), any())(any(), any()))
               .thenReturn(Future.successful(ie029))
 
             when(mockPdfGenerator.generate(any(), any()))
               .thenReturn(byteArray)
 
             val request = FakeRequest(GET, controllerRoute)
+              .withHeaders("API-Version" -> "2.1")
 
             val result = route(application, request).value
 
@@ -100,8 +102,8 @@ class TransitAccompanyingDocumentControllerSpec
             headers(result).get(CONTENT_DISPOSITION).value mustEqual s"""attachment; filename="TAD_$mrn.pdf""""
 
             verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
-            verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId))(any(), any())
-            verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId))(any(), any())
+            verify(mockMessageService).getDeclarationData(eqTo(departureId), eqTo(ie015MessageId), eqTo(version))(any(), any())
+            verify(mockMessageService).getReleaseForTransitNotification(eqTo(departureId), eqTo(messageId), eqTo(version))(any(), any())
             verify(mockPdfGenerator).generate(eqTo(ie015), eqTo(ie029))
         }
       }
@@ -115,14 +117,15 @@ class TransitAccompanyingDocumentControllerSpec
             .thenReturn(Future.successful(None))
 
           val request = FakeRequest(GET, controllerRoute)
+            .withHeaders("API-Version" -> "2.1")
 
           val result = route(application, request).value
 
           status(result) mustEqual INTERNAL_SERVER_ERROR
 
           verify(mockMessageService).getIE015MessageId(eqTo(departureId))(any(), any())
-          verify(mockMessageService, never()).getDeclarationData(any(), any())(any(), any())
-          verify(mockMessageService, never()).getReleaseForTransitNotification(any(), any())(any(), any())
+          verify(mockMessageService, never()).getDeclarationData(any(), any(), any())(any(), any())
+          verify(mockMessageService, never()).getReleaseForTransitNotification(any(), any(), any())(any(), any())
           verifyNoInteractions(mockPdfGenerator)
         }
       }

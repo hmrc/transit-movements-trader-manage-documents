@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package base
+package models
 
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
-import org.scalatestplus.mockito.MockitoSugar
-import play.api.mvc.AnyContent
-import play.api.test.FakeRequest
+import scala.util.{Failure, Success, Try}
 
-trait SpecBase extends AnyFreeSpec with Matchers with OptionValues with MockitoSugar {
+case class Version(value: String) {
 
-  def fakeRequest: FakeRequest[AnyContent] = FakeRequest("", "")
+  override def toString: String = value
+}
+
+object Version {
+
+  def apply(value: Option[String]): Try[Version] =
+    value match {
+      case Some(value) => Success(Version(value))
+      case None        => Failure(new Exception("Version is undefined"))
+    }
 }

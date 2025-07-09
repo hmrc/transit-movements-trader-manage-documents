@@ -22,6 +22,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import models.Version
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalatest.concurrent.IntegrationPatience
@@ -63,6 +64,8 @@ class UnloadingPermissionConnectorSpec
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
+  private val version = Version("2.1")
+
   "getMessage" - {
 
     val url: String = s"/movements/arrivals/$arrivalId/messages/$messageId/body"
@@ -80,9 +83,9 @@ class UnloadingPermissionConnectorSpec
           .willReturn(ok(xml.toString()))
       )
 
-      val result = service.getMessage(arrivalId, messageId).futureValue
+      val result = service.getMessage(arrivalId, messageId, version).futureValue
 
-      result mustBe xml
+      result mustEqual xml
     }
   }
 }
