@@ -17,6 +17,7 @@
 package services.pdf
 
 import base.SpecBase
+import org.apache.pdfbox.Loader
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.scalatest.OptionValues
@@ -43,10 +44,10 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
       val pdfPath          = "test/resources/documents/tad/sample.pdf"
       val pdf: Array[Byte] = Files.readAllBytes(Paths.get(pdfPath))
 
-      val pdfDocument: PDDocument = PDDocument.load(service.generate(cc015c, cc029c))
+      val pdfDocument: PDDocument = Loader.loadPDF(service.generate(cc015c, cc029c))
       // pdfDocument.save(pdfPath)
 
-      val expectedPdfDocument: PDDocument = PDDocument.load(pdf)
+      val expectedPdfDocument: PDDocument = Loader.loadPDF(pdf)
 
       try {
         val pdfData         = new PDFTextStripper().getText(pdfDocument)
