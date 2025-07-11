@@ -17,6 +17,7 @@
 package connectors
 
 import config.AppConfig
+import models.Version
 import org.apache.pekko.stream.Materializer
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.client.HttpClientV2
@@ -34,8 +35,9 @@ class UnloadingPermissionConnector @Inject() (
 
   def getMessage(
     arrivalId: String,
-    messageId: String
+    messageId: String,
+    version: Version
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] =
-    getMessage("arrivals", arrivalId, messageId)
+    getMessage("arrivals", arrivalId, messageId, version)
 
 }

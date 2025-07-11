@@ -16,11 +16,9 @@
 
 package controllers
 
-import controllers.actions.AuthenticateActionProvider
+import controllers.actions.Actions
 import play.api.Logging
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.ControllerComponents
+import play.api.mvc.{Action, AnyContent, ControllerComponents}
 import services.messages.UnloadingMessageService
 import services.pdf.UnloadingPermissionPdfGenerator
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
@@ -32,16 +30,16 @@ import scala.concurrent.ExecutionContext
 class UnloadingPermissionDocumentController @Inject() (
   pdf: UnloadingPermissionPdfGenerator,
   service: UnloadingMessageService,
-  authenticate: AuthenticateActionProvider,
+  actions: Actions,
   cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
 
   def get(arrivalId: String, messageId: String): Action[AnyContent] =
-    authenticate() async {
+    actions.authenticateAndGetVersion() async {
       implicit request =>
-        service.getUnloadingPermissionNotification(arrivalId, messageId).map {
+        service.getUnloadingPermissionNotification(arrivalId, messageId, request.versionValue).map {
           ie043 =>
             val bytes    = pdf.generate(ie043)
             val fileName = s"UPD_${FileNameSanitizer(ie043.TransitOperation.MRN)}.pdf"

@@ -16,8 +16,8 @@
 
 package viewmodels.unloadingpermission
 
-import generated.CUSTOM_ConsignmentItemType04
-import viewmodels._
+import generated.*
+import viewmodels.*
 
 case class ConsignmentItemViewModel(
   declarationGoodsItemNumber: String,
@@ -41,11 +41,11 @@ case class ConsignmentItemViewModel(
 
 object ConsignmentItemViewModel {
 
-  def apply(consignmentItem: CUSTOM_ConsignmentItemType04): ConsignmentItemViewModel =
+  def apply(consignmentItem: ConsignmentItem): ConsignmentItemViewModel =
     new ConsignmentItemViewModel(
       declarationGoodsItemNumber = consignmentItem.declarationGoodsItemNumber.toString(),
       goodsItemNumber = consignmentItem.goodsItemNumber.toString,
-      packaging = consignmentItem.Packaging.map(_.asUnloadingPermissionString).semiColonSeparate,
+      packaging = consignmentItem.Packaging.map(_.asString).semiColonSeparate,
       consignee = consignmentItem.Consignee.map(_.asString).orElseBlank,
       consigneeId = consignmentItem.Consignee.flatMap(_.identificationNumber).orElseBlank,
       udng = consignmentItem.Commodity.DangerousGoods.map(_.asString).semiColonSeparate,
@@ -53,9 +53,9 @@ object ConsignmentItemViewModel {
       descriptionOfGoods = consignmentItem.Commodity.descriptionOfGoods,
       previousDocuments = consignmentItem.PreviousDocument.map(_.asString).semiColonSeparate,
       supportingDocuments = consignmentItem.SupportingDocument.map(_.asString).semiColonSeparate,
-      additionalReferences = consignmentItem.AdditionalReference.map(_.asUnloadingPermissionString).semiColonSeparate,
-      additionalInformation = consignmentItem.AdditionalInformation.map(_.asUnloadingPermissionString).semiColonSeparate,
-      transportDocuments = consignmentItem.TransportDocument.map(_.asUnloadingPermissionString).semiColonSeparate,
+      additionalReferences = consignmentItem.AdditionalReference.map(_.asString).semiColonSeparate,
+      additionalInformation = consignmentItem.AdditionalInformation.map(_.asString).semiColonSeparate,
+      transportDocuments = consignmentItem.TransportDocument.map(_.asString).semiColonSeparate,
       commodityCode = consignmentItem.Commodity.CommodityCode.map(_.asString).orElseBlank,
       grossMass = consignmentItem.Commodity.GoodsMeasure.flatMap(_.grossMass.map(_.asString)).orElseBlank,
       cOfDest = consignmentItem.countryOfDestination.orElseBlank,
