@@ -18,6 +18,7 @@ package services.messages
 
 import connectors.UnloadingPermissionConnector
 import generated.{CC043CType, Generated_CC043CTypeFormat}
+import models.Version
 import scalaxb.`package`.fromXML
 import uk.gov.hmrc.http.HeaderCarrier
 
@@ -28,9 +29,10 @@ class UnloadingMessageService @Inject() (connector: UnloadingPermissionConnector
 
   def getUnloadingPermissionNotification(
     arrivalId: String,
-    messageId: String
+    messageId: String,
+    version: Version
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CC043CType] =
     connector
-      .getMessage(arrivalId, messageId)
+      .getMessage(arrivalId, messageId, version)
       .map(fromXML(_))
 }

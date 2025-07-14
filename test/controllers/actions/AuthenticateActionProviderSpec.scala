@@ -48,8 +48,6 @@ class AuthenticateActionProviderSpec extends SpecBase {
   private val state                  = "Activated"
   private val eoriNumber             = "eori"
 
-  private def fakeRequest: FakeRequest[AnyContent] = FakeRequest("", "")
-
   private val validEnrolment: Enrolment =
     Enrolment(
       key = enrolmentKey,
