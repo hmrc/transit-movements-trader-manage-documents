@@ -91,8 +91,8 @@ class AuthenticateActionProviderSpec extends SpecBase {
         val controller = new Harness(actionProvider)
         val result     = controller.action()(fakeRequest)
 
-        status(result) mustBe OK
-        contentAsString(result) mustBe eoriNumber
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual eoriNumber
       }
     }
 
@@ -112,7 +112,7 @@ class AuthenticateActionProviderSpec extends SpecBase {
         val controller = new Harness(actionProvider)
         val result     = controller.action()(fakeRequest)
 
-        status(result) mustBe FORBIDDEN
+        status(result) mustEqual FORBIDDEN
       }
     }
 
@@ -132,7 +132,7 @@ class AuthenticateActionProviderSpec extends SpecBase {
         val controller = new Harness(actionProvider)
         val result     = controller.action()(fakeRequest)
 
-        status(result) mustBe UNAUTHORIZED
+        status(result) mustEqual UNAUTHORIZED
       }
     }
   }

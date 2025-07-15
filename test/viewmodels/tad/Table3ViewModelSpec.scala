@@ -141,7 +141,7 @@ class Table3ViewModelSpec extends SpecBase with DummyData {
     val result = Table3ViewModel(ie029)
 
     "containerIdentification" in {
-      result.containerIdentification mustBe "cin1; cin2; cin3..."
+      result.containerIdentification mustEqual "cin1; cin2; cin3..."
     }
   }
 }

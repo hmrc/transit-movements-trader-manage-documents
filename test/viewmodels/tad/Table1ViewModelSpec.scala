@@ -32,7 +32,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
     val result = Table1ViewModel(cc029c)
 
     "additionalDeclarationType" in {
-      result.additionalDeclarationType mustBe "adt"
+      result.additionalDeclarationType mustEqual "adt"
     }
 
     "consignees" - {
@@ -59,7 +59,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table1ViewModel(data)
-        result.consignees mustBe "name1/san1, pc1, city1, country1." + lineWithSpaces
+        result.consignees mustEqual "name1/san1, pc1, city1, country1." + lineWithSpaces
       }
 
       "when 2 consignees (spanning 2 narrow lines out of available 2)" in {
@@ -83,7 +83,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignees mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2."
+            result.consignees mustEqual "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2."
         }
       }
 
@@ -113,13 +113,13 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignees mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, ci..."
+            result.consignees mustEqual "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, ci..."
         }
       }
     }
 
     "consigneeIdentificationNumbers" in {
-      result.consigneeIdentificationNumbers mustBe "in."
+      result.consigneeIdentificationNumbers mustEqual "in."
     }
 
     "consignors" - {
@@ -174,7 +174,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
           )
         )
         val result = Table1ViewModel(data)
-        result.consignors mustBe "name1/san1, pc1, city1, country1." + lineWithSpaces * 2
+        result.consignors mustEqual "name1/san1, pc1, city1, country1." + lineWithSpaces * 2
       }
 
       "when 2 consignors (spanning 2 narrow lines out of available 3)" in {
@@ -198,7 +198,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignors mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2." + lineWithSpaces
+            result.consignors mustEqual "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2." + lineWithSpaces
         }
       }
 
@@ -228,7 +228,7 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignors mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, city3, country3."
+            result.consignors mustEqual "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, city3, country3."
         }
       }
 
@@ -263,125 +263,125 @@ class Table1ViewModelSpec extends SpecBase with DummyData with ScalaCheckPropert
               )
             )
             val result = Table1ViewModel(data)
-            result.consignors mustBe "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, city3, country3; name4/san4, pc4, city4, countr..."
+            result.consignors mustEqual "name1/san1, pc1, city1, country1; name2/san2, pc2, city2, country2; name3/san3, pc3, city3, country3; name4/san4, pc4, city4, countr..."
         }
       }
     }
 
     "consignorIdentificationNumbers" in {
-      result.consignorIdentificationNumbers mustBe "in."
+      result.consignorIdentificationNumbers mustEqual "in."
     }
 
     "consignorContactPersons" in {
-      result.consignorContactPersons mustBe "ccp/ccptel." + lineWithSpaces
+      result.consignorContactPersons mustEqual "ccp/ccptel." + lineWithSpaces
     }
 
     "declarationType" in {
-      result.declarationType mustBe "T"
+      result.declarationType mustEqual "T"
     }
 
     "holderOfTransitProcedure" in {
-      result.holderOfTransitProcedure mustBe "thin/hn/san, pc, city, country." + lineWithSpaces * 2
+      result.holderOfTransitProcedure mustEqual "thin/hn/san, pc, city, country." + lineWithSpaces * 2
     }
 
     "holderOfTransitProcedureIdentificationNumber" in {
-      result.holderOfTransitProcedureIdentificationNumber mustBe "hin."
+      result.holderOfTransitProcedureIdentificationNumber mustEqual "hin."
     }
 
     "hotPContactPerson" in {
-      result.hotPContactPerson mustBe "cp/cptel." + lineWithSpaces
+      result.hotPContactPerson mustEqual "cp/cptel." + lineWithSpaces
     }
 
     "representative" in {
-      result.representative mustBe "rstatus."
+      result.representative mustEqual "rstatus."
     }
 
     "representativeContactPerson" in {
-      result.representativeContactPerson mustBe "cp/cptel."
+      result.representativeContactPerson mustEqual "cp/cptel."
     }
 
     "lrn" in {
-      result.lrn mustBe "lrn"
+      result.lrn mustEqual "lrn"
     }
 
     "carrierIdentificationNumber" in {
-      result.carrierIdentificationNumber mustBe "cin."
+      result.carrierIdentificationNumber mustEqual "cin."
     }
 
     "carrierContactPerson" in {
-      result.carrierContactPerson mustBe "ccp/ccptel."
+      result.carrierContactPerson mustEqual "ccp/ccptel."
     }
 
     "additionalSupplyChainActorRoles" in {
-      result.additionalSupplyChainActorRoles mustBe "1/role1; 2/role2."
+      result.additionalSupplyChainActorRoles mustEqual "1/role1; 2/role2."
     }
 
     "additionalSupplyChainActorIdentificationNumbers" in {
-      result.additionalSupplyChainActorIdentificationNumbers mustBe "id1; id2." + lineWithSpaces
+      result.additionalSupplyChainActorIdentificationNumbers mustEqual "id1; id2." + lineWithSpaces
     }
 
     "departureTransportMeans" in {
-      result.departureTransportMeans mustBe "toi1/in1/nat1;...;toi4/in4/nat4." + lineWithSpaces * 2
+      result.departureTransportMeans mustEqual "toi1/in1/nat1;...;toi4/in4/nat4." + lineWithSpaces * 2
     }
 
     "activeBorderTransportMeans" in {
-      result.activeBorderTransportMeans mustBe "coabrn1/toi1/in1/nat1;...;coabrn4/toi4/in4/nat4."
+      result.activeBorderTransportMeans mustEqual "coabrn1/toi1/in1/nat1;...;coabrn4/toi4/in4/nat4."
     }
 
     "activeBorderTransportMeansConveyanceNumbers" in {
-      result.activeBorderTransportMeansConveyanceNumbers mustBe "crn1;...;crn4." + lineWithSpaces
+      result.activeBorderTransportMeansConveyanceNumbers mustEqual "crn1;...;crn4." + lineWithSpaces
     }
 
     "placeOfLoading" in {
-      result.placeOfLoading mustBe "polunl, polc, poll" + lineWithSpaces
+      result.placeOfLoading mustEqual "polunl, polc, poll" + lineWithSpaces
     }
 
     "placeOfUnloading" in {
-      result.placeOfUnloading mustBe "pouunl, pouc, poul" + lineWithSpaces
+      result.placeOfUnloading mustEqual "pouunl, pouc, poul" + lineWithSpaces
     }
 
     "modeOfTransportAtBorder" in {
-      result.modeOfTransportAtBorder mustBe "motatb"
+      result.modeOfTransportAtBorder mustEqual "motatb"
     }
 
     "inlandModeOfTransport" in {
-      result.inlandModeOfTransport mustBe "imot"
+      result.inlandModeOfTransport mustEqual "imot"
     }
 
     "locationOfGoods" in {
-      result.locationOfGoods mustBe "tol, qoi, an, unl, corn, lat, lon, eoin, san, pc, city, country, hn, pc, country"
+      result.locationOfGoods mustEqual "tol, qoi, an, unl, corn, lat, lon, eoin, san, pc, city, country, hn, pc, country"
     }
 
     "locationOfGoodsContactPerson" in {
-      result.locationOfGoodsContactPerson mustBe "logcp, logcptel"
+      result.locationOfGoodsContactPerson mustEqual "logcp, logcptel"
     }
 
     "security" in {
-      result.security mustBe "security"
+      result.security mustEqual "security"
     }
 
     "tir" in {
-      result.tir mustBe "tir"
+      result.tir mustEqual "tir"
     }
 
     "totalGrossMass" in {
-      result.totalGrossMass mustBe "200.0"
+      result.totalGrossMass mustEqual "200.0"
     }
 
     "specificCircumstanceIndicator" in {
-      result.specificCircumstanceIndicator mustBe "sci"
+      result.specificCircumstanceIndicator mustEqual "sci"
     }
 
     "totalItems" in {
-      result.totalItems mustBe "2"
+      result.totalItems mustEqual "2"
     }
 
     "totalPackages" in {
-      result.totalPackages mustBe "66"
+      result.totalPackages mustEqual "66"
     }
 
     "ucr" in {
-      result.ucr mustBe "ucr"
+      result.ucr mustEqual "ucr"
     }
   }
 }
