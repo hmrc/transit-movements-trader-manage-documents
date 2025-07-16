@@ -55,10 +55,10 @@ class TADPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuit
 
         val mrn                 = cc029c.TransitOperation.MRN
         val documentInformation = pdfDocument.getDocumentInformation
-        documentInformation.getAuthor mustBe "HMRC"
-        documentInformation.getTitle mustBe s"Transit accompanying document for MRN $mrn"
+        documentInformation.getAuthor mustEqual "HMRC"
+        documentInformation.getTitle mustEqual s"Transit accompanying document for MRN $mrn"
 
-        pdfData mustBe expectedPdfData
+        pdfData mustEqual expectedPdfData
       } finally {
         pdfDocument.close()
         expectedPdfDocument.close()

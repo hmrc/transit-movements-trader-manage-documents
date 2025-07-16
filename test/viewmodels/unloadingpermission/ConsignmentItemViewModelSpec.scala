@@ -152,71 +152,71 @@ class ConsignmentItemViewModelSpec extends SpecBase {
     val result = ConsignmentItemViewModel(data)
 
     "declarationGoodsItemNumber" in {
-      result.declarationGoodsItemNumber mustBe "1"
+      result.declarationGoodsItemNumber mustEqual "1"
     }
 
     "goodsItemNumber" in {
-      result.goodsItemNumber mustBe "1"
+      result.goodsItemNumber mustEqual "1"
     }
 
     "packaging" in {
-      result.packaging mustBe "top1, 100, sm1; top2, 200, sm2"
+      result.packaging mustEqual "top1, 100, sm1; top2, 200, sm2"
     }
 
     "consignee" in {
-      result.consignee mustBe "name, san, pc, city, country"
+      result.consignee mustEqual "name, san, pc, city, country"
     }
 
     "consigneeId" in {
-      result.consigneeId mustBe "in"
+      result.consigneeId mustEqual "in"
     }
 
     "udng" in {
-      result.udng mustBe "1, unn1; 2, unn2"
+      result.udng mustEqual "1, unn1; 2, unn2"
     }
 
     "cusCode" in {
-      result.cusCode mustBe "cus"
+      result.cusCode mustEqual "cus"
     }
 
     "descriptionOfGoods" in {
-      result.descriptionOfGoods mustBe "dog"
+      result.descriptionOfGoods mustEqual "dog"
     }
 
     "previousDocuments" in {
-      result.previousDocuments mustBe "1, ptv1, prn1, 1, pcoi1; 2, ptv2, prn2, 2, pcoi2"
+      result.previousDocuments mustEqual "1, ptv1, prn1, 1, pcoi1; 2, ptv2, prn2, 2, pcoi2"
     }
 
     "supportingDocuments" in {
-      result.supportingDocuments mustBe "1, stv1, srn1, scoi1; 2, stv2, srn2, scoi2"
+      result.supportingDocuments mustEqual "1, stv1, srn1, scoi1; 2, stv2, srn2, scoi2"
     }
 
     "additionalReferences" in {
-      result.additionalReferences mustBe "1, artv1, arrn1; 2, artv2, arrn2"
+      result.additionalReferences mustEqual "1, artv1, arrn1; 2, artv2, arrn2"
     }
 
     "additionalInformation" in {
-      result.additionalInformation mustBe "1, aic1, ait1; 2, aic2, ait2"
+      result.additionalInformation mustEqual "1, aic1, ait1; 2, aic2, ait2"
     }
 
     "transportDocuments" in {
-      result.transportDocuments mustBe "1, ttv1, trn1; 2, ttv2, trn2"
+      result.transportDocuments mustEqual "1, ttv1, trn1; 2, ttv2, trn2"
     }
 
     "commodityCode" in {
-      result.commodityCode mustBe "hsshc, cnc"
+      result.commodityCode mustEqual "hsshc, cnc"
     }
 
     "grossMass" in {
-      result.grossMass mustBe "200.0"
+      result.grossMass mustEqual "200.0"
     }
 
     "cOfDest" in {
-      result.cOfDest mustBe "cod"
+      result.cOfDest mustEqual "cod"
     }
 
     "netMass" in {
-      result.netMass mustBe "100.0"
+      result.netMass mustEqual "100.0"
     }
   }
 }
