@@ -16,39 +16,18 @@
 
 package connectors
 
-import base.SpecBase
-import base.UnloadingData
-import com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import com.github.tomakehurst.wiremock.client.WireMock.get
-import com.github.tomakehurst.wiremock.client.WireMock.ok
-import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import com.github.tomakehurst.wiremock.client.WireMock.{equalTo, get, ok, urlEqualTo}
+import itbase.{ItSpecBase, WireMockHelper}
 import models.Version
-import org.scalacheck.Arbitrary
-import org.scalacheck.Gen
-import org.scalatest.concurrent.IntegrationPatience
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import org.scalacheck.{Arbitrary, Gen}
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.DefaultAwaitTimeout
-import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.WireMockHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.Node
 
-class UnloadingPermissionConnectorSpec
-    extends SpecBase
-    with UnloadingData
-    with GuiceOneAppPerSuite
-    with WireMockHelper
-    with ScalaFutures
-    with IntegrationPatience
-    with ScalaCheckPropertyChecks
-    with FutureAwaits
-    with DefaultAwaitTimeout {
+class UnloadingPermissionConnectorSpec extends ItSpecBase with WireMockHelper {
 
   implicit lazy val arbitraryHC: Arbitrary[HeaderCarrier] =
     Arbitrary(Gen.const(HeaderCarrier()))

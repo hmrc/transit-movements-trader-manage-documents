@@ -16,39 +16,21 @@
 
 package connectors
 
-import base.DepartureData
-import base.SpecBase
 import com.github.tomakehurst.wiremock.client.WireMock.*
+import itbase.{ItSpecBase, WireMockHelper}
 import models.DepartureMessageType.DepartureNotification
 import models.{DepartureMessageMetaData, DepartureMessages, Version}
-import org.scalacheck.Arbitrary
-import org.scalacheck.Gen
-import org.scalatest.concurrent.IntegrationPatience
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import org.scalacheck.{Arbitrary, Gen}
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
-import play.api.test.DefaultAwaitTimeout
-import play.api.test.FutureAwaits
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.WireMockHelper
 
 import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.*
 
-class DepartureMovementConnectorSpec
-    extends SpecBase
-    with DepartureData
-    with GuiceOneAppPerSuite
-    with WireMockHelper
-    with ScalaFutures
-    with IntegrationPatience
-    with ScalaCheckPropertyChecks
-    with FutureAwaits
-    with DefaultAwaitTimeout {
+class DepartureMovementConnectorSpec extends ItSpecBase with WireMockHelper {
 
   implicit lazy val arbitraryHC: Arbitrary[HeaderCarrier] =
     Arbitrary(Gen.const(HeaderCarrier()))
