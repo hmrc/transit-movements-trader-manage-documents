@@ -1,8 +1,8 @@
 import scoverage.ScoverageKeys
+import uk.gov.hmrc.DefaultBuildSettings
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
-val appName         = "transit-movements-trader-manage-documents"
-val silencerVersion = "1.7.14"
+val appName = "transit-movements-trader-manage-documents"
 
 ThisBuild / majorVersion := 0
 ThisBuild / scalaVersion := "3.5.0"
@@ -23,7 +23,6 @@ lazy val microservice = Project(appName, file("."))
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true
   )
-  .settings(inConfig(Test)(testSettings) *)
   .settings(PlayKeys.playDefaultPort := 9484)
   .settings(scalacOptions := Seq("-Wconf:src=routes/.*:s", "-Wconf:src=src_managed/.*:s"))
   .settings(
@@ -32,10 +31,12 @@ lazy val microservice = Project(appName, file("."))
     Compile / scalaxb / scalaxbPackageName := "generated"
   )
 
-lazy val testSettings: Seq[Def.Setting[?]] = Seq(
-  fork := true,
-  javaOptions ++= Seq(
-    "-Dconfig.resource=test.application.conf",
-    "-Dlogger.resource=logback-test.xml"
+lazy val it = project
+  .enablePlugins(PlayScala)
+  .dependsOn(microservice % "test->test") // the "test->test" allows reusing test code and test dependencies
+  .settings(
+    libraryDependencies ++= AppDependencies.test,
+    dependencyOverrides ++= AppDependencies.overrides,
+    excludeDependencies ++= AppDependencies.exclusions,
+    DefaultBuildSettings.itSettings()
   )
-)
