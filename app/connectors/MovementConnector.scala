@@ -26,7 +26,7 @@ import play.api.http.HeaderNames.*
 import uk.gov.hmrc.http.client.{HttpClientV2, given}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReadsTry, StringContextOps}
 
-import javax.xml.parsers.{SAXParser, SAXParserFactory}
+import javax.xml.parsers.SAXParserFactory
 import scala.concurrent.{ExecutionContext, Future}
 import scala.xml.{Node, XML}
 
@@ -37,24 +37,20 @@ trait MovementConnector extends HttpReadsTry with Logging {
   implicit val mat: Materializer
   implicit val ec: ExecutionContext
 
-  private val saxParser: SAXParser = {
-    val saxParserFactory = SAXParserFactory.newInstance()
-    saxParserFactory.newSAXParser()
-  }
-
   def getMessage(
     movements: String,
     movementId: String,
     messageId: String,
     version: Version
   )(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Node] = {
-    val url = url"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
+    val url    = url"${config.commonTransitConventionTradersUrl}movements/$movements/$movementId/messages/$messageId/body"
+    val parser = SAXParserFactory.newInstance().newSAXParser()
     http
       .get(url)
       .setHeader(ACCEPT -> s"application/vnd.hmrc.$version+xml")
       .stream[Source[ByteString, ?]]
       .map(_.runWith(StreamConverters.asInputStream()))
-      .map(XML.withSAXParser(saxParser).load(_))
+      .map(XML.withSAXParser(parser).load(_))
   }
 
 }
