@@ -17,11 +17,10 @@
 package controllers.actions
 
 import models.requests.AuthenticatedRequest
-import play.api.mvc._
+import play.api.mvc.*
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class FakeAuthenticateAction(eoriNumber: String) extends ActionRefiner[Request, AuthenticatedRequest] {
 

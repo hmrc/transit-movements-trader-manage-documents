@@ -17,16 +17,10 @@
 package generators
 
 import cats.data.NonEmptyList
-import org.scalacheck.Gen.choose
-import org.scalacheck.Gen.listOfN
-import org.scalacheck.Arbitrary
-import org.scalacheck.Gen
-import org.scalacheck.Shrink
+import org.scalacheck.Gen.{choose, listOfN}
+import org.scalacheck.{Arbitrary, Gen, Shrink}
 
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.{Instant, LocalDate, LocalDateTime, ZoneOffset}
 
 trait GeneratorHelpers {
 
