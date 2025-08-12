@@ -17,7 +17,7 @@
 package controllers.actions
 
 import models.requests.AuthenticatedRequest
-import play.api.mvc._
+import play.api.mvc.*
 import play.api.test.Helpers
 
 import scala.concurrent.ExecutionContext.Implicits.global

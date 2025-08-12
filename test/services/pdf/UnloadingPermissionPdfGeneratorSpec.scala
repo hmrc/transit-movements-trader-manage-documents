@@ -20,19 +20,14 @@ import base.SpecBase
 import org.apache.pdfbox.Loader
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
-import org.scalatest.OptionValues
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.Environment
 import viewmodels.DummyData
 
 import java.nio.file.{Files, Paths}
 
-class UnloadingPermissionPdfGeneratorSpec extends SpecBase with Matchers with GuiceOneAppPerSuite with OptionValues with ScalaFutures with DummyData {
+class UnloadingPermissionPdfGeneratorSpec extends SpecBase with GuiceOneAppPerSuite with DummyData {
 
   private lazy val service: UnloadingPermissionPdfGenerator = app.injector.instanceOf[UnloadingPermissionPdfGenerator]
-  val env: Environment                                      = app.injector.instanceOf[Environment]
 
   "UnloadingPermissionPdfGenerator" - {
 
