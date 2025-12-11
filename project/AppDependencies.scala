@@ -20,7 +20,7 @@ object AppDependencies {
     "org.mockito"             %  "mockito-core"             % "5.20.0",
     "org.scalatestplus"       %% "mockito-5-12"             % "3.2.19.0",
     "org.scalatestplus"       %% "scalacheck-1-18"          % "3.2.19.0",
-    "org.apache.pdfbox"       %  "pdfbox"                   % "3.0.6",
+    "org.apache.pdfbox"       %  "pdfbox"                   % "3.0.5",
     "org.jsoup"               %  "jsoup"                    % "1.21.2",
     "uk.gov.hmrc"             %% "bootstrap-test-play-30"   % bootstrapVersion
   ).map(_ % "test")
