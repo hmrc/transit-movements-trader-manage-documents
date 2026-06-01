@@ -46,7 +46,7 @@ class DepartureMovementConnectorSpec extends ItSpecBase with WireMockHelper {
 
   implicit private val hc: HeaderCarrier = HeaderCarrier()
 
-  private val version = Version("2.1")
+  private val version = Version("3.0")
 
   "getMessages" - {
 
@@ -87,7 +87,7 @@ class DepartureMovementConnectorSpec extends ItSpecBase with WireMockHelper {
 
       server.stubFor(
         get(urlEqualTo(url))
-          .withHeader("Accept", equalTo("application/vnd.hmrc.2.1+json"))
+          .withHeader("Accept", equalTo("application/vnd.hmrc.3.0+json"))
           .willReturn(ok(json.toString))
       )
 
@@ -119,7 +119,7 @@ class DepartureMovementConnectorSpec extends ItSpecBase with WireMockHelper {
 
       server.stubFor(
         get(urlEqualTo(url))
-          .withHeader("Accept", equalTo("application/vnd.hmrc.2.1+xml"))
+          .withHeader("Accept", equalTo("application/vnd.hmrc.3.0+xml"))
           .willReturn(ok(xml.toString()))
       )
 
