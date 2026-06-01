@@ -39,7 +39,7 @@ class DepartureMovementConnector @Inject() (
     val url = url"${config.commonTransitConventionTradersUrl}movements/departures/$departureId/messages"
     http
       .get(url)
-      .setHeader(ACCEPT -> s"application/vnd.hmrc.2.1+json")
+      .setHeader(ACCEPT -> s"application/vnd.hmrc.3.0+json")
       .execute[DepartureMessages]
   }
 
